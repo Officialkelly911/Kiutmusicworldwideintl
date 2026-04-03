@@ -2,7 +2,8 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 import { Music, Globe, Heart, Zap, ArrowRight, ExternalLink, Film, Headphones, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { cn } from "../lib/utils";
 
 const artistPhoto    = "/assets/images/IMG_2452_1772753968062.jpg";
 const aboutHeroVideo = "/assets/videos/about-hero.mp4";
@@ -175,24 +176,40 @@ const uploadedJourneyImages = [
   "/assets/about-journey/upload-059.jpeg",
 ];
 
-const journeyCardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-    scale: 0.96,
-    filter: "blur(10px)",
-  },
-  visible: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.7,
-      delay: Math.min(index * 0.025, 0.45),
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
+// ─── Journey gallery: editorial layout pattern (3-col desktop grid) ───────────
+// Pattern length = 12. Index 0 is always the FEATURED hero card.
+const JOURNEY_LAYOUT: Array<{ col: string; row: string }> = [
+  { col: "md:col-span-2", row: "md:row-span-2" }, // 0  FEATURED — 2×2
+  { col: "md:col-span-1", row: "" },               // 1  standard
+  { col: "md:col-span-1", row: "" },               // 2  standard
+  { col: "md:col-span-1", row: "md:row-span-2" },  // 3  tall
+  { col: "md:col-span-1", row: "" },               // 4  standard
+  { col: "md:col-span-2", row: "" },               // 5  wide
+  { col: "md:col-span-1", row: "" },               // 6  standard
+  { col: "md:col-span-1", row: "" },               // 7  standard
+  { col: "md:col-span-2", row: "" },               // 8  wide
+  { col: "md:col-span-1", row: "md:row-span-2" },  // 9  tall
+  { col: "md:col-span-1", row: "" },               // 10 standard
+  { col: "md:col-span-1", row: "" },               // 11 standard
+];
+
+function getJourneyLayout(i: number) {
+  if (i === 0) return JOURNEY_LAYOUT[0];
+  return JOURNEY_LAYOUT[((i - 1) % 11) + 1];
+}
+
+// Sparse editorial labels — only a handful of images get one
+const JOURNEY_LABELS: Record<number, string> = {
+  0:  "The Journey",
+  5:  "Studio Session",
+  11: "On Set",
+  17: "Behind the Music",
+  23: "Los Angeles",
+  29: "Late Night Session",
+  35: "Release Era",
+  41: "Family & Roots",
+  47: "Journey Moment",
+  53: "The Archive",
 };
 
 function SpotifyIcon() {
@@ -221,6 +238,7 @@ function AudiomackIcon() {
 
 export default function About() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
   const { scrollYProgress } = useScroll({
@@ -232,15 +250,40 @@ export default function About() {
   const selectedJourneyImage =
     selectedJourneyIndex === null ? null : uploadedJourneyImages[selectedJourneyIndex];
 
-  const closeJourneyLightbox = () => setSelectedJourneyIndex(null);
-  const showPreviousJourneyImage = () => {
+  const closeJourneyLightbox = useCallback(() => setSelectedJourneyIndex(null), []);
+  const showPreviousJourneyImage = useCallback(() => {
+    setSelectedJourneyIndex((prev) =>
+      prev === null ? null : (prev - 1 + uploadedJourneyImages.length) % uploadedJourneyImages.length
+    );
+  }, []);
+  const showNextJourneyImage = useCallback(() => {
+    setSelectedJourneyIndex((prev) =>
+      prev === null ? null : (prev + 1) % uploadedJourneyImages.length
+    );
+  }, []);
+
+  const handleLightboxTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+  const handleLightboxTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 50) {
+      delta < 0 ? showNextJourneyImage() : showPreviousJourneyImage();
+    }
+    touchStartX.current = null;
+  }, [showNextJourneyImage, showPreviousJourneyImage]);
+
+  useEffect(() => {
     if (selectedJourneyIndex === null) return;
-    setSelectedJourneyIndex((selectedJourneyIndex - 1 + uploadedJourneyImages.length) % uploadedJourneyImages.length);
-  };
-  const showNextJourneyImage = () => {
-    if (selectedJourneyIndex === null) return;
-    setSelectedJourneyIndex((selectedJourneyIndex + 1) % uploadedJourneyImages.length);
-  };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") showNextJourneyImage();
+      else if (e.key === "ArrowLeft") showPreviousJourneyImage();
+      else if (e.key === "Escape") closeJourneyLightbox();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedJourneyIndex, showNextJourneyImage, showPreviousJourneyImage, closeJourneyLightbox]);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
@@ -580,153 +623,274 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── 5. MOMENTS FROM THE JOURNEY — Motion Collage ───────────────── */}
+      {/* ─── 5. MOMENTS FROM THE JOURNEY — Hybrid Editorial Gallery ────── */}
       <section id="moments" className="relative py-28 md:py-36 bg-black border-t border-white/5 overflow-hidden">
-        <div className="pointer-events-none absolute inset-x-0 top-12 h-64 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.12),transparent_60%)]" />
+        {/* Ambient glow — subtle, not overpowering */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.07),transparent_65%)]" />
+
         <div className="max-w-[1400px] mx-auto px-6">
 
-          {/* Heading */}
+          {/* ── Section Heading ─────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-16 md:mb-20 max-w-2xl"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-20 md:mb-28 max-w-2xl"
           >
-            <p className="text-[#D4AF37] text-xs font-bold tracking-[0.35em] uppercase mb-5">Behind the Music</p>
-            <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-5">
+            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Visual Archive</p>
+            <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-6">
               Moments From{" "}
               <span className="text-[#D4AF37]">the Journey</span>
             </h2>
-            <p className="text-white/45 text-base font-light leading-relaxed">
-              A full visual story of the milestones, releases, and moments shaping Kiut's evolution. This gallery now includes all 59 unique uploads from your folder and displays them at their natural proportions.
+            <p className="text-white/45 text-[15px] font-light leading-relaxed max-w-lg">
+              A visual archive of milestones, studio sessions, release moments, and the life behind the music.
             </p>
+            {/* Decorative rule */}
+            <div className="mt-8 flex items-center gap-4">
+              <div className="h-px w-10 bg-[#D4AF37]/60" />
+              <div className="h-px flex-1 bg-white/8" />
+            </div>
           </motion.div>
 
-          <div className="relative columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 [column-fill:_balance]">
-            {uploadedJourneyImages.map((src, i) => (
-              <motion.figure
-                key={src}
-                custom={i}
-                variants={journeyCardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-40px" }}
-                whileHover={
-                  prefersReducedMotion
-                    ? undefined
-                    : {
-                        y: -8,
-                        scale: 1.015,
-                        rotate: i % 2 === 0 ? -0.45 : 0.45,
-                      }
-                }
-                className="group relative mb-4 break-inside-avoid overflow-hidden rounded-[1.4rem] border border-white/8 bg-[#070707] shadow-[0_10px_30px_rgba(0,0,0,0.45)] hover:border-[#D4AF37]/30 hover:shadow-[0_20px_60px_rgba(0,0,0,0.62)] transition-all duration-500 cursor-zoom-in"
-                onClick={() => setSelectedJourneyIndex(i)}
-              >
-                <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.18),transparent_42%),linear-gradient(to_top,rgba(0,0,0,0.55),transparent_45%)] opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
-                <motion.div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 -left-1/3 z-[2] w-1/2 bg-gradient-to-r from-transparent via-white/18 to-transparent opacity-0 blur-xl"
-                  whileHover={
-                    prefersReducedMotion
-                      ? undefined
-                      : {
-                          x: ["0%", "220%"],
-                          opacity: [0, 0.65, 0],
-                          transition: { duration: 0.9, ease: "easeInOut" },
-                        }
-                  }
-                />
-                <img
-                  src={src}
-                  alt={`Journey photo ${i + 1}`}
-                  loading="lazy"
-                  className="relative z-0 w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-                <figcaption className="relative z-[3] flex items-center justify-between gap-3 border-t border-white/6 bg-black/70 px-4 py-3">
-                  <motion.span
-                    initial={false}
-                    animate={prefersReducedMotion ? undefined : { x: [0, 1.5, 0] }}
-                    transition={{ duration: 2.8, delay: i * 0.02, repeat: Number.POSITIVE_INFINITY, repeatDelay: 2.2 }}
-                    className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4AF37]"
-                  >
-                    {`Moment ${String(i + 1).padStart(2, "0")}`}
-                  </motion.span>
-                  <span className="text-[11px] text-white/40 transition-colors duration-300 group-hover:text-white/70">
-                    {i < 57 ? "Upload" : "Special"}
-                  </span>
-                </figcaption>
-              </motion.figure>
-            ))}
+          {/* ── Hybrid Editorial Grid ───────────────────────────────────── */}
+          {/*
+            Desktop: 3-col CSS grid with auto-rows at 260px + dense packing.
+            Cards receive varying col-span / row-span to create editorial rhythm.
+            Mobile: single-column stack, featured card taller.
+          */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 md:[grid-auto-rows:260px] md:grid-flow-row-dense">
+            {uploadedJourneyImages.map((src, i) => {
+              const layout = getJourneyLayout(i);
+              const label = JOURNEY_LABELS[i];
+              const isFeatured = i === 0;
+
+              return (
+                <motion.figure
+                  key={src}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: Math.min((i % 6) * 0.06, 0.3),
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={cn(
+                    "group relative overflow-hidden rounded-2xl bg-[#0a0a0a] cursor-zoom-in",
+                    "border border-white/[0.07]",
+                    "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+                    "hover:border-[#D4AF37]/25 hover:shadow-[0_16px_56px_rgba(0,0,0,0.7)]",
+                    "transition-[border-color,box-shadow] duration-500",
+                    // Mobile heights
+                    isFeatured ? "h-[380px] md:h-auto" : "h-[260px] md:h-auto",
+                    // Desktop grid spans
+                    layout.col,
+                    layout.row,
+                  )}
+                  onClick={() => setSelectedJourneyIndex(i)}
+                >
+                  {/* Photography — full-bleed, no gold wash */}
+                  <img
+                    src={src}
+                    alt={label ? `${label} — Kiut` : `Journey moment ${i + 1}`}
+                    loading={i < 9 ? "eager" : "lazy"}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.055]"
+                  />
+
+                  {/* Bottom gradient — readability only, not a tint */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                  {/* Gold ring glow on hover — premium accent only */}
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-transparent group-hover:ring-[#D4AF37]/18 transition-all duration-500 pointer-events-none" />
+
+                  {/* Editorial label — only for labeled images, reveals on hover */}
+                  {label && (
+                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 pt-10 translate-y-1 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400">
+                      <span className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.32em] text-[#D4AF37] bg-black/55 backdrop-blur-sm px-2.5 py-1.5 rounded-sm border border-[#D4AF37]/20">
+                        <span className="w-[5px] h-[5px] rounded-full bg-[#D4AF37]/70 flex-shrink-0" />
+                        {label}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Frame index — appears on hover, film-contact-sheet feel */}
+                  <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none">
+                    <span className="text-[9px] font-mono text-white/35 tabular-nums tracking-wider">
+                      {String(i + 1).padStart(3, "0")}
+                    </span>
+                  </div>
+
+                  {/* Featured badge on first card */}
+                  {isFeatured && (
+                    <div className="absolute top-4 left-4 pointer-events-none">
+                      <span className="text-[8px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 bg-black/60 backdrop-blur-sm px-2.5 py-1.5 rounded-sm border border-[#D4AF37]/20">
+                        Featured
+                      </span>
+                    </div>
+                  )}
+                </motion.figure>
+              );
+            })}
           </div>
+
+          {/* ── Gallery CTA ─────────────────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-20 md:mt-28 text-center"
+          >
+            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-16" />
+            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">The Sound Continues</p>
+            <h3 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-9">
+              Experience the Sound
+            </h3>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/music">
+                <motion.button
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="px-9 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-sm shadow-[0_0_24px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.55)] transition-shadow duration-300 w-full sm:w-auto"
+                >
+                  Listen Now
+                </motion.button>
+              </Link>
+              <Link href="/videos">
+                <motion.button
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="px-9 py-4 rounded-full border border-white/20 text-white font-bold uppercase tracking-widest text-sm hover:border-white/45 hover:bg-white/5 transition-all duration-300 w-full sm:w-auto"
+                >
+                  Watch Videos
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
 
         </div>
       </section>
 
+      {/* ─── LIGHTBOX / FULLSCREEN VIEWER ───────────────────────────────── */}
       <AnimatePresence>
         {selectedJourneyImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[80] bg-black/92 backdrop-blur-md px-4 py-6"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-lg"
             onClick={closeJourneyLightbox}
+            onTouchStart={handleLightboxTouchStart}
+            onTouchEnd={handleLightboxTouchEnd}
           >
-            <div className="mx-auto flex h-full max-w-7xl flex-col">
-              <div className="mb-4 flex items-center justify-between gap-4">
+            {/* Cinematic vignette */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]" />
+
+            {/* Header bar */}
+            <div
+              className="absolute top-0 left-0 right-0 flex items-center justify-between px-5 py-4 z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-4">
+                <div className="h-5 w-px bg-[#D4AF37]/40" />
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#D4AF37]">
-                    Moments From the Journey
+                  <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D4AF37]">
+                    Visual Archive
                   </p>
-                  <p className="mt-2 text-sm text-white/45">
-                    {`Image ${String((selectedJourneyIndex ?? 0) + 1).padStart(2, "0")} of ${uploadedJourneyImages.length}`}
-                  </p>
+                  {JOURNEY_LABELS[selectedJourneyIndex ?? 0] && (
+                    <p className="text-[11px] text-white/50 mt-0.5 font-light tracking-wide">
+                      {JOURNEY_LABELS[selectedJourneyIndex ?? 0]}
+                    </p>
+                  )}
                 </div>
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    closeJourneyLightbox();
-                  }}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition-colors hover:border-[#D4AF37]/40 hover:text-white"
-                >
-                  <X className="h-5 w-5" />
-                </button>
               </div>
 
-              <div className="relative flex flex-1 items-center justify-center" onClick={(event) => event.stopPropagation()}>
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] font-mono text-white/30 tabular-nums tracking-widest hidden sm:block">
+                  {String((selectedJourneyIndex ?? 0) + 1).padStart(3, "0")} / {String(uploadedJourneyImages.length).padStart(3, "0")}
+                </span>
                 <button
                   type="button"
-                  onClick={showPreviousJourneyImage}
-                  className="absolute left-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white/80 transition-colors hover:border-[#D4AF37]/40 hover:text-white"
+                  onClick={(e) => { e.stopPropagation(); closeJourneyLightbox(); }}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-[#D4AF37]/40 hover:text-white hover:bg-white/10 transition-all duration-200"
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <X className="h-4 w-4" />
                 </button>
+              </div>
+            </div>
 
-                <div className="mx-16 max-h-full overflow-hidden rounded-3xl border border-white/10 bg-[#050505] shadow-[0_24px_80px_rgba(0,0,0,0.65)]">
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={selectedJourneyImage}
+            {/* Main image area */}
+            <div
+              className="absolute inset-0 flex items-center justify-center px-14 sm:px-20"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Previous */}
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); showPreviousJourneyImage(); }}
+                className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-[#D4AF37]/40 hover:text-white hover:bg-black/80 transition-all duration-200"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              {/* Image */}
+              <div className="w-full h-full flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedJourneyImage}
+                    initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.97, y: 16 }}
+                    animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 1.01, y: -10 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.8)] max-w-[90vw] max-h-[80vh]"
+                  >
+                    <img
                       src={selectedJourneyImage}
-                      alt={`Journey photo ${(selectedJourneyIndex ?? 0) + 1}`}
-                      initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.96, y: 20 }}
-                      animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
-                      exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 1.02, y: -12 }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                      className="max-h-[78vh] w-auto max-w-full object-contain"
+                      alt={JOURNEY_LABELS[selectedJourneyIndex ?? 0] ?? `Journey moment ${(selectedJourneyIndex ?? 0) + 1}`}
+                      className="block max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
+                      style={{ display: "block" }}
                     />
-                  </AnimatePresence>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={showNextJourneyImage}
-                  className="absolute right-0 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white/80 transition-colors hover:border-[#D4AF37]/40 hover:text-white"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
+                  </motion.div>
+                </AnimatePresence>
               </div>
+
+              {/* Next */}
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); showNextJourneyImage(); }}
+                className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-[#D4AF37]/40 hover:text-white hover:bg-black/80 transition-all duration-200"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Footer strip — progress dots */}
+            <div
+              className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-5 pt-3 z-10 gap-1.5"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {uploadedJourneyImages.slice(
+                Math.max(0, (selectedJourneyIndex ?? 0) - 4),
+                Math.min(uploadedJourneyImages.length, (selectedJourneyIndex ?? 0) + 5)
+              ).map((_, relIdx) => {
+                const absIdx = Math.max(0, (selectedJourneyIndex ?? 0) - 4) + relIdx;
+                const isActive = absIdx === selectedJourneyIndex;
+                return (
+                  <button
+                    key={absIdx}
+                    type="button"
+                    onClick={() => setSelectedJourneyIndex(absIdx)}
+                    className={cn(
+                      "rounded-full transition-all duration-300",
+                      isActive
+                        ? "w-5 h-1.5 bg-[#D4AF37]"
+                        : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"
+                    )}
+                  />
+                );
+              })}
             </div>
           </motion.div>
         )}

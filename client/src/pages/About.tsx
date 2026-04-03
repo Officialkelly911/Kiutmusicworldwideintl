@@ -636,7 +636,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-20 md:mb-28 max-w-2xl"
+            className="mb-16 md:mb-24 max-w-2xl"
           >
             <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Visual Archive</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-6">
@@ -659,73 +659,79 @@ export default function About() {
             Cards receive varying col-span / row-span to create editorial rhythm.
             Mobile: single-column stack, featured card taller.
           */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 md:[grid-auto-rows:260px] md:grid-flow-row-dense">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 md:[grid-auto-rows:260px] md:grid-flow-row-dense">
             {uploadedJourneyImages.map((src, i) => {
               const layout = getJourneyLayout(i);
               const label = JOURNEY_LABELS[i];
               const isFeatured = i === 0;
+              // Mobile height variation — avoid a monotonous stack
+              // featured: tall, every 4th supporting card slightly taller, rest standard
+              const mobileH = isFeatured
+                ? "h-[360px] md:h-auto"
+                : (i - 1) % 4 === 0
+                ? "h-[290px] md:h-auto"
+                : "h-[250px] md:h-auto";
 
               return (
                 <motion.figure
                   key={src}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
+                  viewport={{ once: true, margin: "-40px" }}
                   transition={{
-                    duration: 0.6,
-                    delay: Math.min((i % 6) * 0.06, 0.3),
+                    duration: 0.55,
+                    // Stagger by column position (0–2), not absolute index — avoids
+                    // unnatural delay resets every 6 cards
+                    delay: (i % 3) * 0.08,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className={cn(
                     "group relative overflow-hidden rounded-2xl bg-[#0a0a0a] cursor-zoom-in",
-                    "border border-white/[0.07]",
-                    "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
-                    "hover:border-[#D4AF37]/25 hover:shadow-[0_16px_56px_rgba(0,0,0,0.7)]",
+                    "border border-white/[0.06]",
+                    "shadow-[0_6px_24px_rgba(0,0,0,0.45)]",
+                    "hover:border-[#D4AF37]/20 hover:shadow-[0_12px_48px_rgba(0,0,0,0.65)]",
                     "transition-[border-color,box-shadow] duration-500",
-                    // Mobile heights
-                    isFeatured ? "h-[380px] md:h-auto" : "h-[260px] md:h-auto",
-                    // Desktop grid spans
+                    mobileH,
                     layout.col,
                     layout.row,
                   )}
                   onClick={() => setSelectedJourneyIndex(i)}
                 >
-                  {/* Photography — full-bleed, no gold wash */}
+                  {/* Photography — full-bleed, no tint */}
                   <img
                     src={src}
                     alt={label ? `${label} — Kiut` : `Journey moment ${i + 1}`}
                     loading={i < 9 ? "eager" : "lazy"}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.055]"
+                    className="absolute inset-0 w-full h-full object-cover [transition:transform_700ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                   />
 
-                  {/* Bottom gradient — readability only, not a tint */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  {/* Bottom gradient — very subtle, readability only */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/[0.06] to-transparent pointer-events-none" />
 
-                  {/* Gold ring glow on hover — premium accent only */}
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-transparent group-hover:ring-[#D4AF37]/18 transition-all duration-500 pointer-events-none" />
+                  {/* Inset gold accent on hover — barely-there, premium */}
+                  <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_transparent] group-hover:shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] [transition:box-shadow_500ms_ease] pointer-events-none" />
 
-                  {/* Editorial label — only for labeled images, reveals on hover */}
+                  {/* Editorial label — hover reveal, clean and minimal */}
                   {label && (
-                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 pt-10 translate-y-1 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400">
-                      <span className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.32em] text-[#D4AF37] bg-black/55 backdrop-blur-sm px-2.5 py-1.5 rounded-sm border border-[#D4AF37]/20">
-                        <span className="w-[5px] h-[5px] rounded-full bg-[#D4AF37]/70 flex-shrink-0" />
+                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-3.5 opacity-0 translate-y-[3px] group-hover:opacity-100 group-hover:translate-y-0 [transition:opacity_300ms_ease,transform_300ms_cubic-bezier(0.22,1,0.36,1)]">
+                      <span className="inline-block text-[9px] font-semibold uppercase tracking-[0.3em] text-[#D4AF37]/85 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[3px]">
                         {label}
                       </span>
                     </div>
                   )}
 
-                  {/* Frame index — appears on hover, film-contact-sheet feel */}
-                  <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none">
-                    <span className="text-[9px] font-mono text-white/35 tabular-nums tracking-wider">
+                  {/* Frame counter — film archive feel, hover only */}
+                  <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 [transition:opacity_350ms_ease] pointer-events-none">
+                    <span className="text-[8px] font-mono text-white/30 tabular-nums tracking-widest">
                       {String(i + 1).padStart(3, "0")}
                     </span>
                   </div>
 
-                  {/* Featured badge on first card */}
+                  {/* Featured card identifier — understated, editorial */}
                   {isFeatured && (
                     <div className="absolute top-4 left-4 pointer-events-none">
-                      <span className="text-[8px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 bg-black/60 backdrop-blur-sm px-2.5 py-1.5 rounded-sm border border-[#D4AF37]/20">
-                        Featured
+                      <span className="text-[8px] font-mono uppercase tracking-[0.38em] text-[#D4AF37]/55 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-[3px]">
+                        No. 001
                       </span>
                     </div>
                   )}
@@ -740,11 +746,11 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-20 md:mt-28 text-center"
+            className="mt-16 md:mt-24 text-center"
           >
-            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-16" />
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">The Sound Continues</p>
-            <h3 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-9">
+            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-12" />
+            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">The Sound Continues</p>
+            <h3 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-8">
               Experience the Sound
             </h3>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

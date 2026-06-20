@@ -1,0 +1,274 @@
+OFFICIAL MERCHANDISE SECTION
+
+Create a new section on the About page immediately above the footer.
+
+The purpose of this section is to showcase official Kiut merchandise and encourage visitors to visit the external store.
+
+Do NOT embed the external store directly.
+
+Instead, create a premium merchandise showcase section.
+
+⸻
+
+SECTION TITLE
+
+Heading:
+
+OFFICIAL MERCHANDISE
+
+Subtitle:
+
+“Take a piece of the journey with you.”
+
+Center align everything.
+
+Use generous spacing.
+
+Maintain the cinematic and premium aesthetic used throughout the About page.
+
+⸻
+
+SECTION BACKGROUND
+
+Since the About page already uses the full-page video background:
+
+Do NOT create a solid background.
+
+Instead create a floating glass container.
+
+Use:
+
+background: rgba(15,15,18,0.45)
+
+backdrop-filter: blur(16px)
+
+border:
+
+1px solid rgba(255,255,255,0.06)
+
+soft shadows
+
+rounded corners
+
+Maintain consistency with the rest of the page.
+
+⸻
+
+MERCH GRID
+
+Create a responsive merchandise grid.
+
+Desktop:
+
+4 cards
+
+Tablet:
+
+2 cards
+
+Mobile:
+
+1 card
+
+Spacing should be generous.
+
+Cards should feel luxurious and modern.
+
+⸻
+
+CARD CONTENT
+
+Each merchandise card should contain:
+
+* product image
+* item name
+* subtle category label
+
+Examples:
+
+T-Shirt
+
+Hoodie
+
+Poster
+
+Cap
+
+Limited Edition
+
+Accessory
+
+Do NOT show prices.
+
+Keep the presentation editorial and elegant.
+
+⸻
+
+CARD DESIGN
+
+Use:
+
+* rounded corners
+* overflow hidden
+* soft shadows
+* glassmorphism styling
+* subtle gold accent details
+
+Cards should feel premium.
+
+⸻
+
+HOVER EFFECTS
+
+Desktop hover:
+
+* image scale 1.05
+* slightly stronger shadow
+* subtle gold glow
+* smooth transition
+
+Animation duration:
+
+300–500ms
+
+Avoid flashy animations.
+
+⸻
+
+SCROLL REVEALS
+
+Animate cards into view.
+
+Use:
+
+* fade up
+* staggered timing
+* slight translateY
+
+Animations should feel cinematic and smooth.
+
+⸻
+
+FEATURED ITEM
+
+Make one merchandise card slightly larger than the others.
+
+This becomes the hero product.
+
+Maintain visual balance.
+
+⸻
+
+CTA AREA
+
+Below the merchandise cards create a premium CTA block.
+
+Heading:
+
+Wear The Story
+
+Paragraph:
+
+“Explore the official collection and bring the journey beyond the music.”
+
+Primary button:
+
+SHOP THE COLLECTION
+
+The button should open the external store URL in a new tab.
+
+Use:
+
+target=”_blank”
+
+Include:
+
+hover glow
+
+slight lift effect
+
+smooth transitions
+
+⸻
+
+OPTIONAL MICRODETAILS
+
+Add:
+
+small sparkle effects
+
+subtle floating motion
+
+gentle parallax
+
+very soft gold highlights
+
+Keep everything understated.
+
+⸻
+
+RESPONSIVENESS
+
+Desktop:
+
+4-card layout
+
+Tablet:
+
+2-card layout
+
+Mobile:
+
+single-column layout
+
+Prevent overflow.
+
+Maintain spacing.
+
+⸻
+
+PERFORMANCE
+
+Use lazy loading.
+
+Optimize images.
+
+Avoid layout shift.
+
+Keep animations smooth.
+
+⸻
+
+DESIGN RESTRICTIONS
+
+Do NOT:
+
+* embed the external store in an iframe
+* show product prices
+* overcrowd the section
+* use loud animations
+* break the dark cinematic aesthetic
+
+Prioritize:
+
+* elegance
+* storytelling
+* premium presentation
+* brand consistency
+* emotional connection
+
+⸻
+
+FINAL EXPERIENCE
+
+The merchandise section should feel like an extension of Kiut’s world rather than a separate store.
+
+Visitors should feel invited into the collection, not redirected to a random shopping page.
+
+After implementation summarize:
+
+1. Files modified.
+2. Components changed.
+3. Animation system used.
+4. Mobile behavior.
+5. External store link integration.

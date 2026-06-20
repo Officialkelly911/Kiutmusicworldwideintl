@@ -1051,6 +1051,235 @@ export default function About() {
         </div>
       </section>
 
+      {/* ─── 7. OFFICIAL MERCHANDISE ────────────────────────────────────── */}
+      <section className="relative z-10 py-28 md:py-36 border-t border-white/[0.04] overflow-hidden">
+
+        {/* ── Rotating vinyl record — right-side ambient decoration ── */}
+        <div className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 opacity-[0.055] hidden md:block">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="w-[560px] h-[560px]"
+          >
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+              <circle cx="100" cy="100" r="98" stroke="#D4AF37" strokeWidth="0.6"/>
+              <circle cx="100" cy="100" r="92" stroke="#D4AF37" strokeWidth="0.3"/>
+              {[86,80,74,68,62,56,50,44,38,32].map((r) => (
+                <circle key={r} cx="100" cy="100" r={r} stroke="#D4AF37" strokeWidth="0.25"/>
+              ))}
+              <circle cx="100" cy="100" r="26" fill="rgba(212,175,55,0.12)" stroke="#D4AF37" strokeWidth="0.5"/>
+              <circle cx="100" cy="100" r="18" fill="rgba(212,175,55,0.08)" stroke="#D4AF37" strokeWidth="0.4"/>
+              <circle cx="100" cy="100" r="3.5" fill="#D4AF37"/>
+            </svg>
+          </motion.div>
+        </div>
+
+        {/* ── Orbit rings — ambient cosmological decoration ── */}
+        <div className="pointer-events-none absolute -left-16 top-24 opacity-[0.06] hidden lg:block">
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+            className="relative w-[320px] h-[320px]"
+          >
+            <div className="absolute inset-0 rounded-full border border-[#D4AF37]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-2.5 h-2.5 rounded-full bg-[#D4AF37]" />
+          </motion.div>
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[40px] rounded-full border border-[#D4AF37]/60"
+          >
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60" />
+          </motion.div>
+          <div className="absolute inset-[80px] rounded-full border border-[#D4AF37]/30" />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6">
+
+          {/* ── Glass container ── */}
+          <div
+            className="relative rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.5)]"
+            style={{
+              background: "rgba(15,15,18,0.50)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            {/* Subtle inner radial glow */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.05),transparent_60%)]" />
+
+            <div className="relative p-8 md:p-14">
+
+              {/* ── Section Heading ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="text-center mb-14"
+              >
+                <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-4">Kiut × Raba Bag</p>
+                <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-5">
+                  Official <span className="text-[#D4AF37]">Merchandise</span>
+                </h2>
+                <p className="text-white/40 text-[15px] font-light italic">
+                  "Take a piece of the journey with you."
+                </p>
+                <div className="mt-7 flex items-center justify-center gap-4">
+                  <div className="h-px w-10 bg-white/10" />
+                  <div className="h-px w-10 bg-[#D4AF37]/50" />
+                  <div className="h-px w-10 bg-white/10" />
+                </div>
+              </motion.div>
+
+              {/* ── Merch Grid ── */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
+
+                {/* Card 1 — FEATURED HERO: Hoodie (col-span-2) */}
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  className="md:col-span-2 group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_56px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.08)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
+                >
+                  {/* Limited Drops badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.55)]">
+                      <span className="text-[7px]">✦</span> Limited Drops
+                    </span>
+                  </div>
+                  <div className="h-[400px] md:h-[500px] relative overflow-hidden">
+                    <img
+                      src="/assets/images/merch-hoodie.jpg"
+                      alt="Raba Bag Hoodie — Kiut Official"
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                    {/* Inset gold glow on hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.2)] rounded-2xl [transition:opacity_450ms_ease]" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 mb-2 block">Limited Edition</span>
+                      <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight">Raba Bag Hoodie</h3>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Card 2 — Studio Shirt */}
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.13, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
+                >
+                  <div className="h-[340px] md:h-[500px] relative overflow-hidden">
+                    <img
+                      src="/assets/images/merch-shirt.jpg"
+                      alt="Raba Bag Studio Shirt — Kiut Official"
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] rounded-2xl [transition:opacity_450ms_ease]" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/70 mb-1.5 block">Apparel</span>
+                      <h3 className="font-display text-xl font-bold text-white uppercase tracking-tight">Studio Shirt</h3>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Card 3 — Signature Set (red outfit) */}
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.21, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
+                >
+                  <div className="h-[340px] md:h-[500px] relative overflow-hidden">
+                    <img
+                      src="/assets/images/merch-outfit-red.jpg"
+                      alt="Kiut Signature Set — Raba Bag Official"
+                      loading="lazy"
+                      className="w-full h-full object-cover object-center [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] rounded-2xl [transition:opacity_450ms_ease]" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/70 mb-1.5 block">Collection</span>
+                      <h3 className="font-display text-xl font-bold text-white uppercase tracking-tight">Signature Set</h3>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Card 4 — Good Life Drop full collection (full-width banner) */}
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.29, ease: [0.22, 1, 0.36, 1] }}
+                  className="md:col-span-4 group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
+                >
+                  <div className="h-[280px] md:h-[360px] relative overflow-hidden">
+                    <img
+                      src="/assets/images/merch-collection.png"
+                      alt="Good Life Drop — Full Collection"
+                      loading="lazy"
+                      className="w-full h-full object-cover object-top [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] rounded-2xl [transition:opacity_450ms_ease]" />
+                    <div className="absolute bottom-0 left-0 p-6 md:p-8">
+                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 mb-2 block">Full Drop</span>
+                      <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight">Good Life Collection</h3>
+                      <p className="text-white/45 text-sm font-light mt-1.5">Sounds of Time · All Pieces</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+              </div>
+
+              {/* ── CTA Block ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-14 text-center"
+              >
+                <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent mb-12" />
+                <h3 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-4">
+                  Wear The Story
+                </h3>
+                <p className="text-white/40 text-[15px] font-light mb-10 max-w-md mx-auto leading-relaxed">
+                  Explore the official collection and bring the journey beyond the music.
+                </p>
+                <a
+                  href="https://kiutrababag.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <motion.button
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-sm shadow-[0_0_28px_rgba(212,175,55,0.35)] hover:shadow-[0_0_50px_rgba(212,175,55,0.60)] transition-shadow duration-300"
+                  >
+                    <span className="text-[10px]">✦</span>
+                    Shop the Collection
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </motion.button>
+                </a>
+              </motion.div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );

@@ -1,0 +1,285 @@
+Below is a detailed master prompt you can paste directly into Replit Agent. This will upgrade the merchandise section into a more premium storefront while changing the branding from Official Merchandise to KiutRaba’s Store.
+
+KIUTRABA’S STORE SECTION REDESIGN
+
+Update the current merchandise section and transform it into a premium storefront experience.
+
+SECTION TITLE
+
+Replace:
+
+“Official Merchandise”
+
+With:
+
+“KiutRaba’s Store”
+
+Add a subtitle below:
+
+“Exclusive apparel and collectibles inspired by the music, culture, and journey.”
+
+Center-align the heading and subtitle.
+
+Maintain the dark luxury aesthetic of the website.
+
+⸻
+
+ADD NEW PRODUCTS
+
+Use all newly uploaded merchandise graphics and integrate them into the store.
+
+Every product should:
+
+* display correctly
+* maintain aspect ratio
+* be responsive
+* have consistent spacing
+* use identical card styling
+* preserve image quality
+
+Do not crop important artwork.
+
+⸻
+
+PRODUCT CARD DESIGN
+
+Create modern premium cards.
+
+Card properties:
+
+* border radius matching the site design
+* overflow hidden
+* subtle shadow
+* dark background
+* thin gold accent border
+* hover animation
+
+Hover effect:
+
+* image scales slightly
+* card lifts upward
+* shadow becomes stronger
+* transition duration 300ms–500ms
+
+Avoid excessive animations.
+
+⸻
+
+PRODUCT INFORMATION
+
+Every merchandise item should have:
+
+Product Image
+
+Large and clear.
+
+Product Name
+
+Examples:
+
+* KiutRaba Signature Tee
+* KiutRaba Hoodie
+* Dream Planet Collection Tee
+* Limited Edition Artwork Tee
+* Premium Streetwear Collection
+* Exclusive Tour Collection
+
+Product Category Badge
+
+Examples:
+
+* Apparel
+* Limited Edition
+* New Arrival
+* Featured
+* Collection
+
+Badges should use subtle gold styling.
+
+Price Placeholder
+
+Display:
+
+“$ –”
+
+until actual prices are added.
+
+CTA Button
+
+Button text:
+
+“View Product”
+
+Button styling:
+
+* rounded corners
+* gold outline
+* smooth hover effect
+
+⸻
+
+LAYOUT
+
+Desktop:
+
+Display products in a responsive grid:
+
+4 columns when space allows.
+
+Tablet:
+
+2 columns.
+
+Mobile:
+
+Single-column stacked cards.
+
+Maintain generous spacing.
+
+Avoid overflow issues.
+
+⸻
+
+FEATURED PRODUCT
+
+Make one product larger than the others.
+
+Label:
+
+“Featured”
+
+This card should:
+
+* occupy more space
+* draw attention
+* feel premium
+
+⸻
+
+FILTER SYSTEM
+
+Add category filters above the products.
+
+Examples:
+
+* All
+* Apparel
+* New Arrivals
+* Featured
+* Limited Edition
+
+Filtering should happen without page reload.
+
+Transitions should be smooth.
+
+⸻
+
+IMAGE LOADING
+
+Implement:
+
+* lazy loading
+* fade-in effect after loading
+* preserve performance
+
+Prevent layout shifts.
+
+⸻
+
+ANIMATIONS
+
+Cards should animate into view using:
+
+* fade-in
+* slight upward movement
+* staggered timing
+
+Animation duration:
+
+0.6–0.8 seconds.
+
+Animations should feel elegant and cinematic.
+
+⸻
+
+BUTTONS
+
+Change any existing store button to:
+
+“Explore Store”
+
+Add hover effects:
+
+* slight glow
+* subtle scale effect
+* smooth transitions
+
+⸻
+
+STORE SECTION BACKGROUND
+
+Use:
+
+rgba(15,15,18,0.45)
+
+Add:
+
+backdrop-filter: blur(12px)
+
+The section should feel like a floating premium storefront.
+
+⸻
+
+RESPONSIVENESS
+
+Ensure:
+
+* no card overlaps
+* no image distortion
+* equal spacing
+* mobile-first layout
+* excellent tablet experience
+* proper alignment on large screens
+
+⸻
+
+DESIGN RESTRICTIONS
+
+Do NOT:
+
+* crop merchandise images incorrectly
+* create uneven card heights
+* stretch images
+* use bright colors
+* add flashy effects
+* break responsiveness
+
+Prioritize:
+
+* elegance
+* consistency
+* premium presentation
+* cinematic styling
+* smooth interactions
+
+⸻
+
+FINAL GOAL
+
+Transform the current merchandise area into a premium shopping experience branded as:
+
+“K I U T R A B A ’ S   S T O R E”
+
+that feels consistent with the rest of the Kiut Music website.
+
+After implementation, summarize:
+
+1. Files modified.
+2. Components updated.
+3. New product cards added.
+4. Responsiveness improvements implemented.
+5. Animation system used.
+
+Additional upgrade recommendation
+
+Instead of making the store section feel like a normal e-commerce grid, make it resemble a limited-edition artist collection showroom. Think less “online clothing catalog” and more “exclusive drops from the Kiut universe.” That direction will feel much more unique and aligned with the cinematic identity you’ve been building throughout the site.

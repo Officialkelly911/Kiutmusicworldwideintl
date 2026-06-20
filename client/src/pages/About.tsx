@@ -176,21 +176,21 @@ const uploadedJourneyImages = [
   "/assets/about-journey/upload-059.jpeg",
 ];
 
-// ─── Journey gallery: editorial layout pattern (3-col desktop grid) ───────────
-// Pattern length = 12. Index 0 is always the FEATURED hero card.
+// ─── Journey gallery: editorial layout (3-col desktop grid) ──────────────────
+// Index 0 = full-width FEATURED hero. Rest follow an 11-card repeating pattern.
 const JOURNEY_LAYOUT: Array<{ col: string; row: string }> = [
-  { col: "md:col-span-2", row: "md:row-span-2" }, // 0  FEATURED — 2×2
-  { col: "md:col-span-1", row: "" },               // 1  standard
-  { col: "md:col-span-1", row: "" },               // 2  standard
-  { col: "md:col-span-1", row: "md:row-span-2" },  // 3  tall
-  { col: "md:col-span-1", row: "" },               // 4  standard
-  { col: "md:col-span-2", row: "" },               // 5  wide
-  { col: "md:col-span-1", row: "" },               // 6  standard
-  { col: "md:col-span-1", row: "" },               // 7  standard
-  { col: "md:col-span-2", row: "" },               // 8  wide
-  { col: "md:col-span-1", row: "md:row-span-2" },  // 9  tall
-  { col: "md:col-span-1", row: "" },               // 10 standard
-  { col: "md:col-span-1", row: "" },               // 11 standard
+  { col: "md:col-span-3", row: "md:row-span-2" }, // 0  HERO — full width, tall
+  { col: "md:col-span-1", row: "md:row-span-2" }, // 1  portrait tall
+  { col: "md:col-span-2", row: "md:row-span-1" }, // 2  landscape wide
+  { col: "md:col-span-1", row: "md:row-span-1" }, // 3  square
+  { col: "md:col-span-1", row: "md:row-span-1" }, // 4  square
+  { col: "md:col-span-2", row: "md:row-span-1" }, // 5  landscape wide
+  { col: "md:col-span-1", row: "md:row-span-2" }, // 6  portrait tall
+  { col: "md:col-span-1", row: "md:row-span-1" }, // 7  square
+  { col: "md:col-span-1", row: "md:row-span-1" }, // 8  square
+  { col: "md:col-span-2", row: "md:row-span-2" }, // 9  feature
+  { col: "md:col-span-1", row: "md:row-span-1" }, // 10 square
+  { col: "md:col-span-1", row: "md:row-span-1" }, // 11 square
 ];
 
 function getJourneyLayout(i: number) {
@@ -198,17 +198,32 @@ function getJourneyLayout(i: number) {
   return JOURNEY_LAYOUT[((i - 1) % 11) + 1];
 }
 
-// Sparse editorial labels — only a handful of images get one
+// Depth offsets — subtle vertical shift on select cards, desktop only
+// Creates the layered "exhibition wall" feel without breaking grid flow
+const JOURNEY_DEPTH: Record<number, string> = {
+  3:  "md:translate-y-4",
+  6:  "md:-translate-y-3",
+  10: "md:translate-y-5",
+  15: "md:-translate-y-4",
+  20: "md:translate-y-3",
+  25: "md:-translate-y-5",
+  31: "md:translate-y-4",
+  37: "md:-translate-y-3",
+  43: "md:translate-y-5",
+  49: "md:-translate-y-4",
+};
+
+// Sparse editorial labels — pill badges on selected images only
 const JOURNEY_LABELS: Record<number, string> = {
   0:  "The Journey",
   5:  "Studio Session",
-  11: "On Set",
-  17: "Behind the Music",
-  23: "Los Angeles",
-  29: "Late Night Session",
-  35: "Release Era",
-  41: "Family & Roots",
-  47: "Journey Moment",
+  11: "On Stage",
+  17: "Behind The Scenes",
+  23: "Release Era",
+  29: "Performance Night",
+  35: "Family & Roots",
+  41: "Journey Moment",
+  47: "On Stage",
   53: "The Archive",
 };
 
@@ -636,64 +651,66 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-16 md:mb-24 max-w-2xl"
+            className="mb-16 md:mb-24 text-center mx-auto max-w-3xl"
           >
             <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Visual Archive</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-6">
               Moments From{" "}
               <span className="text-[#D4AF37]">the Journey</span>
             </h2>
-            <p className="text-white/45 text-[15px] font-light leading-relaxed max-w-lg">
-              A visual archive of milestones, studio sessions, release moments, and the life behind the music.
+            <p className="text-white/45 text-[15px] font-light leading-relaxed max-w-xl mx-auto">
+              A visual archive of milestones, studio sessions, performances, and memories behind the music.
             </p>
-            {/* Decorative rule */}
-            <div className="mt-8 flex items-center gap-4">
+            {/* Decorative centered rule */}
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <div className="h-px w-10 bg-white/10" />
               <div className="h-px w-10 bg-[#D4AF37]/60" />
-              <div className="h-px flex-1 bg-white/8" />
+              <div className="h-px w-10 bg-white/10" />
             </div>
           </motion.div>
 
-          {/* ── Hybrid Editorial Grid ───────────────────────────────────── */}
+          {/* ── Cinematic Editorial Grid ─────────────────────────────────── */}
           {/*
-            Desktop: 3-col CSS grid with auto-rows at 260px + dense packing.
-            Cards receive varying col-span / row-span to create editorial rhythm.
-            Mobile: single-column stack, featured card taller.
+            Desktop: 3-col CSS grid with auto-rows at 280px + dense packing.
+            Featured hero spans full width (col-span-3). Rest follow an
+            editorial pattern of portrait / landscape / square / feature cards.
+            Select cards receive a subtle translateY depth offset.
+            Mobile: single-column stack, featured image first.
           */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 md:[grid-auto-rows:260px] md:grid-flow-row-dense">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 md:[grid-auto-rows:280px] md:grid-flow-row-dense">
             {uploadedJourneyImages.map((src, i) => {
               const layout = getJourneyLayout(i);
               const label = JOURNEY_LABELS[i];
               const isFeatured = i === 0;
-              // Mobile height variation — avoid a monotonous stack
-              // featured: tall, every 4th supporting card slightly taller, rest standard
+              const depthClass = JOURNEY_DEPTH[i] ?? "";
+
               const mobileH = isFeatured
-                ? "h-[360px] md:h-auto"
+                ? "h-[420px] md:h-auto"
                 : (i - 1) % 4 === 0
-                ? "h-[290px] md:h-auto"
-                : "h-[250px] md:h-auto";
+                ? "h-[300px] md:h-auto"
+                : "h-[260px] md:h-auto";
 
               return (
                 <motion.figure
                   key={src}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{
-                    duration: 0.55,
-                    // Stagger by column position (0–2), not absolute index — avoids
-                    // unnatural delay resets every 6 cards
-                    delay: (i % 3) * 0.08,
+                    duration: 0.65,
+                    delay: (i % 3) * 0.09,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   className={cn(
                     "group relative overflow-hidden rounded-2xl bg-[#0a0a0a] cursor-zoom-in",
                     "border border-white/[0.06]",
-                    "shadow-[0_6px_24px_rgba(0,0,0,0.45)]",
-                    "hover:border-[#D4AF37]/20 hover:shadow-[0_12px_48px_rgba(0,0,0,0.65)]",
-                    "transition-[border-color,box-shadow] duration-500",
+                    "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+                    "hover:border-[#D4AF37]/25 hover:shadow-[0_16px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(212,175,55,0.08)]",
+                    "transition-[border-color,box-shadow,transform] duration-500 ease-out",
                     mobileH,
                     layout.col,
                     layout.row,
+                    depthClass,
                   )}
                   onClick={() => setSelectedJourneyIndex(i)}
                 >
@@ -702,35 +719,37 @@ export default function About() {
                     src={src}
                     alt={label ? `${label} — Kiut` : `Journey moment ${i + 1}`}
                     loading={i < 9 ? "eager" : "lazy"}
-                    className="absolute inset-0 w-full h-full object-cover [transition:transform_700ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    className="absolute inset-0 w-full h-full object-cover [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
                   />
 
                   {/* Bottom gradient — very subtle, readability only */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/[0.06] to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
 
-                  {/* Inset gold accent on hover — barely-there, premium */}
-                  <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_0_1px_transparent] group-hover:shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] [transition:box-shadow_500ms_ease] pointer-events-none" />
+                  {/* Soft gold edge glow on hover — inset ring technique */}
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18),inset_0_-60px_40px_-20px_rgba(212,175,55,0.04)] [transition:opacity_450ms_ease] pointer-events-none" />
 
-                  {/* Editorial label — hover reveal, clean and minimal */}
+                  {/* Editorial label pill badge — hover reveal */}
                   {label && (
-                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-3.5 opacity-0 translate-y-[3px] group-hover:opacity-100 group-hover:translate-y-0 [transition:opacity_300ms_ease,transform_300ms_cubic-bezier(0.22,1,0.36,1)]">
-                      <span className="inline-block text-[9px] font-semibold uppercase tracking-[0.3em] text-[#D4AF37]/85 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-[3px]">
+                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 opacity-0 translate-y-[4px] group-hover:opacity-100 group-hover:translate-y-0 [transition:opacity_300ms_ease,transform_350ms_cubic-bezier(0.22,1,0.36,1)]">
+                      <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#D4AF37] bg-black/55 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/20">
+                        <span className="w-1 h-1 rounded-full bg-[#D4AF37]/70 inline-block" />
                         {label}
                       </span>
                     </div>
                   )}
 
-                  {/* Frame counter — film archive feel, hover only */}
+                  {/* Frame counter — film archive feel, top right, hover only */}
                   <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 [transition:opacity_350ms_ease] pointer-events-none">
-                    <span className="text-[8px] font-mono text-white/30 tabular-nums tracking-widest">
+                    <span className="text-[8px] font-mono text-white/25 tabular-nums tracking-widest">
                       {String(i + 1).padStart(3, "0")}
                     </span>
                   </div>
 
-                  {/* Featured card identifier — understated, editorial */}
+                  {/* Featured hero marker */}
                   {isFeatured && (
-                    <div className="absolute top-4 left-4 pointer-events-none">
-                      <span className="text-[8px] font-mono uppercase tracking-[0.38em] text-[#D4AF37]/55 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-[3px]">
+                    <div className="absolute top-5 left-5 pointer-events-none">
+                      <span className="inline-flex items-center gap-1.5 text-[8px] font-semibold uppercase tracking-[0.35em] text-[#D4AF37]/70 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#D4AF37]/15">
+                        <span className="w-1 h-1 rounded-full bg-[#D4AF37]/60 inline-block" />
                         No. 001
                       </span>
                     </div>

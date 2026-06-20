@@ -1,0 +1,279 @@
+ABOUT PAGE CINEMATIC VIDEO BACKGROUND REDESIGN
+
+Transform the About page into a fully immersive cinematic experience by extending the existing hero background video to become the background of the entire About page.
+
+The page should feel:
+
+* cinematic
+* luxurious
+* immersive
+* modern
+* subtle
+* atmospheric
+* premium
+* emotionally warm
+
+The effect should resemble a living documentary rather than a normal website.
+
+⸻
+
+OVERALL CONCEPT
+
+Use the existing hero background video as a persistent full-page background.
+
+The video should remain fixed while the content scrolls above it.
+
+The user should feel like they are traveling through one continuous visual world.
+
+Do NOT use separate background colors for each section.
+
+Avoid making sections look disconnected.
+
+⸻
+
+VIDEO IMPLEMENTATION
+
+Use the same video already used in the hero section.
+
+Requirements:
+
+* autoplay
+* muted
+* loop
+* playsInline
+* object-fit: cover
+* fixed position
+* cover entire viewport
+* maintain aspect ratio
+
+The video should sit behind every section of the About page.
+
+⸻
+
+DARK CINEMATIC OVERLAY
+
+Add a semi-transparent overlay above the video and below the content.
+
+Overlay color:
+
+rgba(10,10,12,0.72)
+
+The purpose is to:
+
+* improve text readability
+* preserve the premium atmosphere
+* avoid visual distractions
+
+The overlay should remain consistent throughout the page.
+
+⸻
+
+GLASS SECTION CONTAINERS
+
+Instead of solid backgrounds, sections should use subtle glass panels.
+
+Properties:
+
+* background: rgba(15,15,18,0.45)
+* backdrop-filter: blur(12px)
+* border: 1px solid rgba(255,255,255,0.06)
+* border-radius matching the site’s design system
+* soft shadows
+
+The sections should feel like floating cards above the video.
+
+⸻
+
+SCROLL EXPERIENCE
+
+As users scroll:
+
+* the video remains fixed
+* content moves naturally above it
+* transitions feel smooth
+* maintain strong spacing between sections
+
+Avoid sudden visual jumps.
+
+⸻
+
+SECTION SPACING
+
+Increase vertical spacing between sections.
+
+Use generous breathing room.
+
+The page should feel elegant and editorial.
+
+Avoid cramped layouts.
+
+⸻
+
+TEXT READABILITY
+
+Ensure all text remains highly readable.
+
+Increase contrast when necessary.
+
+Never allow the video to overpower the content.
+
+Preserve accessibility.
+
+⸻
+
+ANIMATIONS
+
+Add subtle scroll reveal animations.
+
+Use:
+
+* fade in
+* slight upward motion
+* staggered timing
+
+Animation duration:
+
+0.6s to 1s
+
+Use easing functions.
+
+Avoid flashy effects.
+
+⸻
+
+MOMENTS FROM THE JOURNEY SECTION
+
+Maintain the image gallery.
+
+Allow the gallery cards to float above the video background.
+
+Cards should use:
+
+* subtle shadows
+* soft glass effects
+* hover scaling
+* elegant spacing
+
+The gallery should feel like memories suspended within the cinematic environment.
+
+⸻
+
+STREAM NOW SECTION
+
+Preserve the current functionality.
+
+Apply:
+
+* glassmorphism styling
+* subtle backdrop blur
+* premium spacing
+
+⸻
+
+CTA SECTION
+
+Before the footer, create a stronger ending section.
+
+Heading:
+
+“Continue The Journey”
+
+Buttons:
+
+* Listen Now
+* Watch Visuals
+
+Background:
+
+* transparent
+* floating over the cinematic video
+
+Include subtle hover effects.
+
+⸻
+
+FOOTER
+
+Do not use a hard solid background.
+
+Use:
+
+background: rgba(10,10,12,0.75)
+
+backdrop-filter: blur(16px)
+
+Maintain visual continuity with the rest of the page.
+
+⸻
+
+MOBILE OPTIMIZATION
+
+On desktop:
+
+Keep the full video background.
+
+On tablets:
+
+Maintain video background.
+
+On smaller mobile devices:
+
+Allow the video to remain active if performance is smooth.
+
+If performance becomes poor:
+
+Replace with a high-quality poster image from the video.
+
+Maintain visual consistency.
+
+⸻
+
+PERFORMANCE
+
+Optimize video loading.
+
+Use:
+
+* preload metadata
+* lazy loading where possible
+* hardware acceleration
+* smooth scrolling
+
+Prevent frame drops.
+
+⸻
+
+DESIGN RESTRICTIONS
+
+Do NOT:
+
+* use separate solid backgrounds for sections
+* make sections opaque
+* overpower text readability
+* add excessive blur
+* create flashy animations
+* break responsiveness
+
+Prioritize:
+
+* elegance
+* atmosphere
+* storytelling
+* cinematic immersion
+* premium presentation
+
+⸻
+
+FINAL GOAL
+
+The About page should no longer feel like separate sections.
+
+It should feel like one seamless cinematic journey through Kiut’s story.
+
+After implementation, summarize:
+
+1. Files modified.
+2. Components changed.
+3. CSS classes added.
+4. Mobile fallback behavior.
+5. Performance optimizations implemented.

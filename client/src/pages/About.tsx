@@ -1169,18 +1169,20 @@ export default function About() {
 
               {/* ── Product Grid ── */}
               {(() => {
+                // fit:"cover" = edge-to-edge fill (model/person shots with subject filling frame)
+                // fit:"contain" = full artwork preserved, floats inside dark container
                 const allProducts = [
-                  { id: 1,  name: "KiutRaba Signature Hoodie", category: "featured", badge: "Limited Drops",      img: "/assets/images/merch-hoodie.jpg",       featured: true,  objectPos: "object-center" },
-                  { id: 2,  name: "Raba Bag Studio Shirt",     category: "apparel",  badge: "Apparel",            img: "/assets/images/merch-shirt.jpg",        featured: false, objectPos: "object-center" },
-                  { id: 3,  name: "Signature Red Set",         category: "apparel",  badge: "Collection",         img: "/assets/images/merch-outfit-red.jpg",   featured: false, objectPos: "object-top"    },
-                  { id: 4,  name: "KR Crown Cap",              category: "apparel",  badge: "Apparel",            img: "/assets/images/merch-cap-black.png",    featured: false, objectPos: "object-center" },
-                  { id: 5,  name: "KiutRaba Waffle Beanie",    category: "apparel",  badge: "Apparel",            img: "/assets/images/merch-beanie.png",       featured: false, objectPos: "object-center" },
-                  { id: 6,  name: "Good Life EP Trucker Cap",  category: "new",      badge: "New Arrival",        img: "/assets/images/merch-cap-vintage.png",  featured: false, objectPos: "object-center" },
-                  { id: 7,  name: "Rababag Classic Cap",       category: "new",      badge: "New Arrival",        img: "/assets/images/merch-cap-rababag.png",  featured: false, objectPos: "object-center" },
-                  { id: 8,  name: "Good Life Full Drop",       category: "apparel",  badge: "Full Collection",    img: "/assets/images/merch-collection.png",   featured: false, objectPos: "object-top"    },
-                  { id: 9,  name: "Confam Boy Art Print",      category: "limited",  badge: "Limited Edition",    img: "/assets/images/merch-confamboy.png",    featured: false, objectPos: "object-top"    },
-                  { id: 10, name: "Good Life EP — Physical",   category: "limited",  badge: "Collectible",        img: "/assets/images/merch-cd.png",           featured: false, objectPos: "object-center" },
-                  { id: 11, name: "Good Life Digital EP",      category: "limited",  badge: "Digital Drop",       img: "/assets/images/merch-ep-digital.png",   featured: false, objectPos: "object-top"    },
+                  { id: 1,  name: "KiutRaba Signature Hoodie", category: "featured", badge: "Limited Drops",   img: "/assets/images/merch-hoodie.jpg",       featured: true,  fit: "cover"   },
+                  { id: 2,  name: "Raba Bag Studio Shirt",     category: "apparel",  badge: "Apparel",         img: "/assets/images/merch-shirt.jpg",        featured: false, fit: "contain" },
+                  { id: 3,  name: "Signature Red Set",         category: "apparel",  badge: "Collection",      img: "/assets/images/merch-outfit-red.jpg",   featured: false, fit: "contain" },
+                  { id: 4,  name: "KR Crown Cap",              category: "apparel",  badge: "Apparel",         img: "/assets/images/merch-cap-black.png",    featured: false, fit: "contain" },
+                  { id: 5,  name: "KiutRaba Waffle Beanie",    category: "apparel",  badge: "Apparel",         img: "/assets/images/merch-beanie.png",       featured: false, fit: "contain" },
+                  { id: 6,  name: "Good Life EP Trucker Cap",  category: "new",      badge: "New Arrival",     img: "/assets/images/merch-cap-vintage.png",  featured: false, fit: "contain" },
+                  { id: 7,  name: "Rababag Classic Cap",       category: "new",      badge: "New Arrival",     img: "/assets/images/merch-cap-rababag.png",  featured: false, fit: "contain" },
+                  { id: 8,  name: "Good Life Full Drop",       category: "apparel",  badge: "Full Collection", img: "/assets/images/merch-collection.png",   featured: false, fit: "contain" },
+                  { id: 9,  name: "Confam Boy Art Print",      category: "limited",  badge: "Limited Edition", img: "/assets/images/merch-confamboy.png",    featured: false, fit: "contain" },
+                  { id: 10, name: "Good Life EP — Physical",   category: "limited",  badge: "Collectible",     img: "/assets/images/merch-cd.png",           featured: false, fit: "contain" },
+                  { id: 11, name: "Good Life Digital EP",      category: "limited",  badge: "Digital Drop",    img: "/assets/images/merch-ep-digital.png",   featured: false, fit: "contain" },
                 ];
                 const visible = allProducts.filter(
                   (p) => merchFilter === "all" || p.category === merchFilter
@@ -1191,6 +1193,7 @@ export default function About() {
                     <AnimatePresence mode="popLayout">
                       {visible.map((product, idx) => {
                         const isHero = product.featured && isFeaturedVisible;
+                        const isContain = product.fit === "contain";
                         return (
                           <motion.div
                             key={product.id}
@@ -1200,61 +1203,85 @@ export default function About() {
                             exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.22 } }}
                             transition={{ duration: 0.55, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
                             className={cn(
-                              "group relative rounded-2xl overflow-hidden flex flex-col",
-                              "bg-white/[0.03] border border-white/[0.07]",
-                              "hover:border-[#D4AF37]/28 shadow-[0_6px_28px_rgba(0,0,0,0.38)]",
-                              "hover:shadow-[0_14px_50px_rgba(0,0,0,0.55)] transition-[border-color,box-shadow] duration-400",
+                              "group flex flex-col rounded-2xl overflow-hidden",
+                              "border border-white/[0.07] hover:border-[#D4AF37]/28",
+                              "shadow-[0_6px_28px_rgba(0,0,0,0.38)] hover:shadow-[0_14px_50px_rgba(0,0,0,0.55)]",
+                              "transition-[border-color,box-shadow] duration-400",
                               isHero ? "md:col-span-2" : ""
                             )}
                           >
-                            {/* Badge */}
-                            <div className="absolute top-3.5 left-3.5 z-10">
-                              {product.featured ? (
-                                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[8.5px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.5)]">
-                                  <span>✦</span> Limited Drops
-                                </span>
-                              ) : (
-                                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[8px] font-bold uppercase tracking-[0.22em] text-[#D4AF37] border border-[#D4AF37]/35 bg-black/40">
-                                  {product.badge}
-                                </span>
+                            {/* ── Image area ── */}
+                            <div
+                              className={cn(
+                                "relative overflow-hidden flex-shrink-0",
+                                // Uniform heights: hero taller, all regular cards identical
+                                isHero
+                                  ? "h-[340px] md:h-[400px]"
+                                  : "h-[240px] md:h-[260px]",
+                                // Dark neutral bg so contain images float elegantly
+                                isContain ? "bg-[#0c0c0e]" : "bg-black"
                               )}
-                            </div>
-
-                            {/* Image */}
-                            <div className={cn(
-                              "relative overflow-hidden",
-                              isHero ? "h-[400px] md:h-[480px]" : "h-[300px] md:h-[340px]"
-                            )}>
-                              <img
-                                src={product.img}
-                                alt={`${product.name} — KiutRaba Official`}
-                                loading="lazy"
-                                className={cn(
-                                  "w-full h-full object-cover",
-                                  product.objectPos,
-                                  "[transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                            >
+                              {/* Badge */}
+                              <div className="absolute top-3 left-3 z-10">
+                                {product.featured ? (
+                                  <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[8.5px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.5)]">
+                                    <span>✦</span> Limited Drops
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[8px] font-bold uppercase tracking-[0.22em] text-[#D4AF37] border border-[#D4AF37]/35 bg-black/50 backdrop-blur-sm">
+                                    {product.badge}
+                                  </span>
                                 )}
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-2xl [transition:opacity_400ms_ease]" />
+                              </div>
+
+                              {/* Product image */}
+                              <div className={cn(
+                                "w-full h-full",
+                                // contain images get padding so product breathes inside the container
+                                isContain ? "p-5 md:p-6" : ""
+                              )}>
+                                <img
+                                  src={product.img}
+                                  alt={`${product.name} — KiutRaba Official`}
+                                  loading="lazy"
+                                  className={cn(
+                                    "w-full h-full",
+                                    isContain
+                                      ? "object-contain [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                                      : "object-cover object-top [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                                  )}
+                                />
+                              </div>
+
+                              {/* Bottom gradient for cover images only */}
+                              {!isContain && (
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                              )}
+                              {/* Subtle bottom vignette for contain images */}
+                              {isContain && (
+                                <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#0c0c0e] to-transparent pointer-events-none" />
+                              )}
+                              {/* Hover gold inset ring */}
+                              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.16)] [transition:opacity_400ms_ease] pointer-events-none" />
                             </div>
 
-                            {/* Card footer */}
-                            <div className="flex items-end justify-between gap-3 p-4 pt-3">
-                              <div className="min-w-0">
-                                <p className="text-[8.5px] font-bold uppercase tracking-[0.3em] text-[#D4AF37]/65 mb-0.5">{product.badge}</p>
-                                <h3 className="font-display text-[15px] font-bold text-white uppercase tracking-tight leading-tight truncate">{product.name}</h3>
-                                <p className="text-white/30 text-[12px] font-light mt-0.5 tracking-widest">$ –</p>
+                            {/* ── Card footer ── */}
+                            <div className="flex items-center justify-between gap-3 p-4 bg-[#0a0a0c] border-t border-white/[0.05]">
+                              <div className="min-w-0 flex-1">
+                                <p className="text-[8px] font-bold uppercase tracking-[0.32em] text-[#D4AF37]/60 mb-0.5 truncate">{product.badge}</p>
+                                <h3 className="font-display text-[14px] font-bold text-white uppercase tracking-tight leading-tight truncate">{product.name}</h3>
+                                <p className="text-white/25 text-[11px] font-light mt-0.5 tracking-widest">$ –</p>
                               </div>
                               <a
                                 href="https://kiutrababag.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#D4AF37]/40 text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/70 transition-all duration-300 whitespace-nowrap"
+                                className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#D4AF37]/35 text-[#D4AF37] text-[9.5px] font-bold uppercase tracking-[0.18em] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/65 transition-all duration-300 whitespace-nowrap"
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 View
-                                <ExternalLink className="w-2.5 h-2.5" />
+                                <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
                               </a>
                             </div>
                           </motion.div>

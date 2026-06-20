@@ -262,6 +262,16 @@ export default function About() {
   });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  // Page-level scroll for the documentary darkness effect:
+  // 0 (hero) → barely visible overlay; 1 (footer) → deep cinematic black.
+  // Users feel like they are descending into chapters of the story.
+  const { scrollYProgress: pageProgress } = useScroll();
+  const bgDarkness = useTransform(
+    pageProgress,
+    [0, 0.07, 0.45, 1],
+    [0, 0.62, 0.76, 0.91]
+  );
   const selectedJourneyImage =
     selectedJourneyIndex === null ? null : uploadedJourneyImages[selectedJourneyIndex];
 
@@ -301,7 +311,32 @@ export default function About() {
   }, [selectedJourneyIndex, showNextJourneyImage, showPreviousJourneyImage, closeJourneyLightbox]);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+
+      {/* ─── FIXED CINEMATIC VIDEO BACKGROUND ──────────────────────────── */}
+      {/* Same source as hero — browser caches it, no double download.     */}
+      <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={aboutHeroPoster}
+          className="w-full h-full object-cover object-center"
+        >
+          <source src={aboutHeroVideo} type="video/mp4" />
+        </video>
+      </div>
+
+      {/* ─── SCROLL-DEEPENING DARKNESS OVERLAY ──────────────────────────── */}
+      {/*   opacity 0 at hero → 0.91 near footer                           */}
+      {/*   Creates the documentary "chapter descent" feeling               */}
+      <motion.div
+        style={{ opacity: bgDarkness }}
+        className="fixed inset-0 -z-[9] pointer-events-none bg-[#0a0a0c]"
+        aria-hidden="true"
+      />
 
       {/* ─── 1. CINEMATIC HERO ──────────────────────────────────────────── */}
       <section ref={heroRef} className="relative h-screen min-h-[600px] flex items-end pb-20 overflow-hidden">
@@ -387,12 +422,12 @@ export default function About() {
           </motion.div>
         </motion.div>
 
-        {/* Bottom fade to next section */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#050505] to-transparent" />
+        {/* Bottom fade — blends hero into the fixed video layer */}
+        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/80 to-transparent" />
       </section>
 
       {/* ─── 2. THE STORY ───────────────────────────────────────────────── */}
-      <section className="py-28 md:py-36 bg-[#050505]">
+      <section className="py-28 md:py-36 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -465,7 +500,7 @@ export default function About() {
       </section>
 
       {/* ─── 2.5 ICON STATEMENT ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-black border-t border-white/5">
+      <section className="relative overflow-hidden z-10 border-t border-white/[0.04]">
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -510,7 +545,7 @@ export default function About() {
       </section>
 
       {/* ─── 3. CAREER JOURNEY TIMELINE ─────────────────────────────────── */}
-      <section className="py-28 md:py-36 bg-black border-t border-white/5 overflow-hidden">
+      <section className="py-28 md:py-36 relative z-10 border-t border-white/[0.04] overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -590,7 +625,7 @@ export default function About() {
       </section>
 
       {/* ─── 4. THE KIUT SOUND ──────────────────────────────────────────── */}
-      <section className="py-28 md:py-36 bg-[#050505] border-t border-white/5">
+      <section className="py-28 md:py-36 relative z-10 border-t border-white/[0.04]">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -638,8 +673,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── 5. MOMENTS FROM THE JOURNEY — Hybrid Editorial Gallery ────── */}
-      <section id="moments" className="relative py-28 md:py-36 bg-black border-t border-white/5 overflow-hidden">
+      {/* ─── 5. MOMENTS FROM THE JOURNEY — Cinematic Editorial Gallery ──── */}
+      <section id="moments" className="relative py-28 md:py-36 z-10 border-t border-white/[0.04] overflow-hidden">
         {/* Ambient glow — subtle, not overpowering */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.07),transparent_65%)]" />
 
@@ -922,7 +957,7 @@ export default function About() {
       </AnimatePresence>
 
       {/* ─── 6. STREAMING CTA ───────────────────────────────────────────── */}
-      <section className="py-28 md:py-36 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+      <section className="py-28 md:py-36 relative z-10 border-t border-white/[0.04] overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.06),transparent_65%)]" />
 

@@ -924,6 +924,137 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── KIUTRABA'S STORE FEATURE ─────────────────────────────────── */}
+      <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5 overflow-hidden">
+        {/* Ambient gold glow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.04),transparent_65%)]" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+
+          {/* ── Heading ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center mb-14"
+          >
+            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-4">Kiut × Raba Bag</p>
+            <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-4">
+              KiutRaba<span className="text-[#D4AF37]">'s</span> Store
+            </h2>
+            <p className="text-white/40 text-[14px] font-light max-w-xl mx-auto leading-relaxed">
+              Exclusive apparel and collectibles inspired by the music, culture, and journey.
+            </p>
+          </motion.div>
+
+          {/* ── Editorial two-column layout ── */}
+          <div
+            className="rounded-3xl overflow-hidden"
+            style={{
+              background: "rgba(15,15,18,0.45)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              boxShadow: "0 24px 72px rgba(0,0,0,0.5)",
+            }}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[560px]">
+
+              {/* Left — Large featured image */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="relative overflow-hidden group min-h-[380px] lg:min-h-full"
+              >
+                <img
+                  src="/assets/images/merch-hoodie.jpg"
+                  alt="KiutRaba Signature Hoodie"
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center [transition:transform_700ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/40 lg:block hidden" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                {/* "New Drop" badge */}
+                <div className="absolute top-5 left-5">
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.3em] text-black bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.5)]">
+                    <span>✦</span> New Drop
+                  </span>
+                </div>
+                {/* Bottom label */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 mb-1">Limited Edition</p>
+                  <p className="font-display text-xl font-bold text-white uppercase tracking-tight">Signature Hoodie</p>
+                </div>
+              </motion.div>
+
+              {/* Right — Second image + content stack */}
+              <div className="flex flex-col">
+
+                {/* Right top — second image */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative overflow-hidden group flex-1 min-h-[240px]"
+                >
+                  <img
+                    src="/assets/images/merch-cap-black.png"
+                    alt="KR Crown Cap — Raba Bag"
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center [transition:transform_700ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] [transition:opacity_400ms_ease]" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/75 mb-0.5">Apparel</p>
+                    <p className="font-display text-lg font-bold text-white uppercase tracking-tight">KR Crown Cap</p>
+                  </div>
+                </motion.div>
+
+                {/* Right bottom — editorial text + CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="p-8 md:p-10 flex flex-col justify-center border-t border-white/[0.06]"
+                >
+                  <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.4em] mb-3">New Drop</p>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
+                    Discover KiutRaba's<br />Exclusive Collection
+                  </h3>
+                  <p className="text-white/40 text-[13px] font-light leading-relaxed mb-7 max-w-sm">
+                    Explore premium apparel and limited-edition merchandise inspired by the sound, story, and creative journey.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <Link href="/about#kiutraba-store">
+                      <motion.button
+                        whileHover={{ y: -3, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[11px] shadow-[0_0_24px_rgba(212,175,55,0.30)] hover:shadow-[0_0_44px_rgba(212,175,55,0.55)] transition-shadow duration-300"
+                      >
+                        <span className="text-[9px]">✦</span>
+                        Explore The Store
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </motion.button>
+                    </Link>
+                  </div>
+                  {/* subtle product count hint */}
+                  <p className="text-white/20 text-[11px] font-light uppercase tracking-[0.3em] mt-5">
+                    11 pieces available
+                  </p>
+                </motion.div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* PORTFOLIO SECTION */}
       <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5">
         <div className="max-w-6xl mx-auto px-6 text-center">

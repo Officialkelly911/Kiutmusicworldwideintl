@@ -1,0 +1,241 @@
+This is actually a smart addition. Putting a merchandise teaser section above the Creative Portfolio section creates another conversion point on the homepage without feeling like an advertisement. It should feel more like a premium artist drop announcement than a store banner. Humans do enjoy pretending they accidentally discovered something that was carefully placed in front of them.
+
+Paste the following into Replit Agent:
+
+ADD “KIUTRABA’S STORE” FEATURE SECTION TO HOME PAGE
+
+Create a new premium merchandise preview section on the Home page.
+
+Position this section immediately ABOVE the existing “Creative Portfolio” section.
+
+The purpose of this section is to introduce visitors to KiutRaba’s Store and encourage them to explore the full merchandise collection located on the About page.
+
+The section should feel:
+
+* premium
+* cinematic
+* editorial
+* elegant
+* subtle
+* modern
+* luxurious
+* consistent with the rest of the Kiut Music website
+
+⸻
+
+SECTION HEADING
+
+Title:
+
+“KIUTRABA’S STORE”
+
+Subtitle:
+
+“Exclusive apparel and collectibles inspired by the music, culture, and journey.”
+
+Center-align the content.
+
+Maintain generous spacing.
+
+Use typography consistent with the rest of the site.
+
+⸻
+
+LAYOUT
+
+Desktop:
+
+Create a two-column layout.
+
+Left side:
+
+* large featured merchandise image
+
+Right side:
+
+* second merchandise image
+* text content
+* CTA button
+
+The composition should feel editorial rather than symmetrical.
+
+⸻
+
+Tablet:
+
+Stack content with balanced spacing.
+
+⸻
+
+Mobile:
+
+Single-column layout.
+
+Images should appear first.
+
+Content should follow underneath.
+
+Prevent overflow and preserve image quality.
+
+⸻
+
+IMAGE PRESENTATION
+
+Use the two uploaded merchandise graphics.
+
+Maintain aspect ratio.
+
+Do not crop important artwork.
+
+Apply:
+
+* rounded corners
+* subtle shadows
+* overflow hidden
+* soft border
+
+Add hover interactions:
+
+* image scale to 1.03
+* stronger shadow
+* smooth transition
+
+Animation duration:
+
+300ms–500ms
+
+⸻
+
+SECTION CONTENT
+
+Small label:
+
+“NEW DROP”
+
+Heading:
+
+“Discover KiutRaba’s Exclusive Collection”
+
+Description:
+
+“Explore premium apparel and limited-edition merchandise inspired by the sound, story, and creative journey.”
+
+Keep copy concise and elegant.
+
+⸻
+
+PRIMARY BUTTON
+
+Button text:
+
+“Explore The Store”
+
+The button should redirect users directly to the merchandise section on the About page.
+
+Use a section anchor.
+
+Example:
+
+/about#kiutraba-store
+
+Create the anchor if it does not already exist.
+
+⸻
+
+BUTTON STYLING
+
+Use:
+
+* rounded corners
+* gold accent border
+* subtle glow
+* smooth hover effect
+
+Hover:
+
+* slight upward movement
+* gentle scale effect
+* soft shadow
+
+Avoid flashy animations.
+
+⸻
+
+BACKGROUND
+
+Use:
+
+rgba(15,15,18,0.45)
+
+Apply:
+
+backdrop-filter: blur(12px)
+
+The section should feel like a floating premium showcase.
+
+⸻
+
+SCROLL ANIMATIONS
+
+Animate the section into view.
+
+Use:
+
+* fade in
+* slight upward motion
+* staggered image timing
+
+Duration:
+
+0.7–1 second
+
+Maintain cinematic elegance.
+
+⸻
+
+RESPONSIVENESS
+
+Ensure:
+
+* no overlapping elements
+* images remain sharp
+* spacing remains consistent
+* mobile experience feels polished
+* tablet layout remains balanced
+
+⸻
+
+DESIGN RESTRICTIONS
+
+Do NOT:
+
+* make it look like a traditional e-commerce section
+* overcrowd the layout
+* use loud colors
+* add excessive animations
+* distort images
+
+Prioritize:
+
+* storytelling
+* luxury
+* editorial composition
+* cinematic presentation
+
+⸻
+
+FINAL GOAL
+
+Create a premium merchandise teaser section that feels like an exclusive artist collection reveal and naturally guides visitors toward the full “KiutRaba’s Store” section located on the About page.
+
+After implementation, summarize:
+
+1. Files modified.
+2. Components updated.
+3. Anchor link created.
+4. Mobile responsiveness improvements.
+5. Animation system used.
+
+One upgrade I’d personally add
+
+Instead of placing the two merchandise images side-by-side in identical cards, make one image larger and slightly offset vertically. This creates the feeling of a fashion campaign or magazine spread rather than a product grid. Those tiny compositional decisions are where “nice website” quietly evolves into “who designed this?” territory.

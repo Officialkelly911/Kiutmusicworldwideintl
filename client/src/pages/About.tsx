@@ -1053,7 +1053,7 @@ export default function About() {
       </section>
 
       {/* ─── 7. KIUTRABA'S STORE ─────────────────────────────────────────── */}
-      <section className="relative z-10 py-28 md:py-36 border-t border-white/[0.04] overflow-hidden">
+      <section id="kiutraba-store" className="relative z-10 py-28 md:py-36 border-t border-white/[0.04] overflow-hidden">
 
         {/* ── Rotating vinyl record — right ambient decoration ── */}
         <div className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 opacity-[0.05] hidden md:block">

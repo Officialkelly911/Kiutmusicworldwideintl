@@ -527,6 +527,11 @@ export default function Home() {
   }, [showIntro]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeStoreIdx, setActiveStoreIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setActiveStoreIdx(p => (p + 1) % 3), 4500);
+    return () => clearInterval(t);
+  }, []);
 
   const slides = [
     {
@@ -926,8 +931,18 @@ export default function Home() {
 
       {/* ─── KIUTRABA'S STORE FEATURE ─────────────────────────────────── */}
       <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5 overflow-hidden">
-        {/* Ambient gold glow */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.04),transparent_65%)]" />
+        <style>{`
+          @keyframes store-tape {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+          }
+          .store-tape-track { animation: store-tape 30s linear infinite; }
+          .store-tape-track:hover { animation-play-state: paused; }
+        `}</style>
+
+        {/* Ambient radial glow — shifts with active product */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_35%_55%,rgba(212,175,55,0.07),transparent_60%)]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#030303] to-transparent" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -937,7 +952,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="text-center mb-14"
+            className="text-center mb-12"
           >
             <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-4">Kiut × Raba Bag</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-4">
@@ -948,110 +963,220 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* ── Editorial two-column layout ── */}
-          <div
-            className="rounded-3xl overflow-hidden"
-            style={{
-              background: "rgba(15,15,18,0.45)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              boxShadow: "0 24px 72px rgba(0,0,0,0.5)",
-            }}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[560px]">
-
-              {/* Left — Large featured image */}
+          {/* ── Cycling Spotlight ── */}
+          {(() => {
+            const spotlightItems = [
+              {
+                img: "/assets/images/merch-hoodie.jpg",
+                fit: "object-cover object-top",
+                badge: "Limited Edition",
+                category: "Featured Drop",
+                name: "KiutRaba Signature Hoodie",
+                desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered crown logo — wear the sound.",
+              },
+              {
+                img: "/assets/images/merch-cap-black.png",
+                fit: "object-contain p-10",
+                badge: "Apparel",
+                category: "New Arrival",
+                name: "KR Crown Cap",
+                desc: "Structured silhouette, gold 3D embroidered Raba Bag monogram. Street meets luxury.",
+              },
+              {
+                img: "/assets/images/merch-outfit-red.jpg",
+                fit: "object-contain p-6",
+                badge: "Collection",
+                category: "Signature Series",
+                name: "Signature Red Set",
+                desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy.",
+              },
+            ];
+            const active = spotlightItems[activeStoreIdx];
+            return (
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="relative overflow-hidden group min-h-[380px] lg:min-h-full"
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                className="rounded-3xl overflow-hidden border border-white/[0.07] shadow-[0_30px_90px_rgba(0,0,0,0.65)]"
+                style={{ background: "rgba(10,10,12,0.7)", backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)" }}
               >
-                <img
-                  src="/assets/images/merch-hoodie.jpg"
-                  alt="KiutRaba Signature Hoodie"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center [transition:transform_700ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/40 lg:block hidden" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                {/* "New Drop" badge */}
-                <div className="absolute top-5 left-5">
-                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.3em] text-black bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.5)]">
-                    <span>✦</span> New Drop
-                  </span>
-                </div>
-                {/* Bottom label */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 mb-1">Limited Edition</p>
-                  <p className="font-display text-xl font-bold text-white uppercase tracking-tight">Signature Hoodie</p>
+                <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
+
+                  {/* Left — cycling image */}
+                  <div className="relative overflow-hidden bg-[#0c0c0e] min-h-[420px] lg:min-h-[560px]">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeStoreIdx}
+                        initial={{ opacity: 0, scale: 1.06 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.97 }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-0"
+                      >
+                        <img
+                          src={active.img}
+                          alt={active.name}
+                          className={`w-full h-full ${active.fit}`}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/30 lg:block hidden" />
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* Badge */}
+                    <div className="absolute top-5 left-5 z-10">
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.3em] text-black bg-[#D4AF37] shadow-[0_0_22px_rgba(212,175,55,0.55)]">
+                        <span>✦</span> {active.badge}
+                      </span>
+                    </div>
+
+                    {/* Counter */}
+                    <div className="absolute top-5 right-5 z-10">
+                      <span className="text-[11px] font-mono text-white/30 tabular-nums tracking-widest">
+                        {String(activeStoreIdx + 1).padStart(2, "0")} / 03
+                      </span>
+                    </div>
+
+                    {/* Prev / Next arrows */}
+                    <button
+                      onClick={() => setActiveStoreIdx(p => (p - 1 + 3) % 3)}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/40 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/30 transition-all duration-300"
+                    >
+                      <ChevronLeft className="w-4 h-4 text-white/60" />
+                    </button>
+                    <button
+                      onClick={() => setActiveStoreIdx(p => (p + 1) % 3)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/40 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/30 transition-all duration-300"
+                    >
+                      <ChevronRight className="w-4 h-4 text-white/60" />
+                    </button>
+
+                    {/* Bottom label */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeStoreIdx + "-label"}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.4 }}
+                        className="absolute bottom-0 left-0 right-0 p-6 z-10"
+                      >
+                        <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D4AF37]/80 mb-1">{active.category}</p>
+                        <p className="font-display text-2xl font-bold text-white uppercase tracking-tight">{active.name}</p>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Right — animated editorial content */}
+                  <div className="flex flex-col justify-between p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/[0.06]">
+
+                    {/* Animated text content */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeStoreIdx + "-text"}
+                        initial={{ opacity: 0, x: 18 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -12 }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="mb-8"
+                      >
+                        <p className="text-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.45em] mb-4">New Drop</p>
+                        <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
+                          Discover KiutRaba's<br />Exclusive Collection
+                        </h3>
+                        <p className="text-white/45 text-[13px] font-light leading-relaxed">
+                          {active.desc}
+                        </p>
+                      </motion.div>
+                    </AnimatePresence>
+
+                    {/* Dot indicators */}
+                    <div className="flex items-center gap-2.5 mb-8">
+                      {[0, 1, 2].map(i => (
+                        <button
+                          key={i}
+                          onClick={() => setActiveStoreIdx(i)}
+                          className={`rounded-full transition-all duration-400 ${
+                            i === activeStoreIdx
+                              ? "w-8 h-2 bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.6)]"
+                              : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* CTA */}
+                    <div className="space-y-4">
+                      <Link href="/about#kiutraba-store">
+                        <motion.button
+                          whileHover={{ y: -3, scale: 1.02 }}
+                          whileTap={{ scale: 0.97 }}
+                          className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[11px] shadow-[0_0_24px_rgba(212,175,55,0.30)] hover:shadow-[0_0_48px_rgba(212,175,55,0.60)] transition-shadow duration-300"
+                        >
+                          <span className="text-[9px]">✦</span>
+                          Explore The Store
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </motion.button>
+                      </Link>
+                      <p className="text-center text-white/20 text-[10px] font-light uppercase tracking-[0.32em]">
+                        11 pieces available
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
+            );
+          })()}
 
-              {/* Right — Second image + content stack */}
-              <div className="flex flex-col">
-
-                {/* Right top — second image */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative overflow-hidden group flex-1 min-h-[240px]"
-                >
-                  <img
-                    src="/assets/images/merch-cap-black.png"
-                    alt="KR Crown Cap — Raba Bag"
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center [transition:transform_700ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] [transition:opacity_400ms_ease]" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <p className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/75 mb-0.5">Apparel</p>
-                    <p className="font-display text-lg font-bold text-white uppercase tracking-tight">KR Crown Cap</p>
+          {/* ── Infinite Product Tape ── */}
+          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.05]" style={{ mask: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
+            <div className="store-tape-track flex gap-3 py-3 w-max">
+              {[
+                { name: "Signature Hoodie",     img: "/assets/images/merch-hoodie.jpg",       fit: "object-cover" },
+                { name: "Studio Shirt",          img: "/assets/images/merch-shirt.jpg",        fit: "object-contain" },
+                { name: "Red Set",               img: "/assets/images/merch-outfit-red.jpg",   fit: "object-contain" },
+                { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.png",    fit: "object-contain" },
+                { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.png",       fit: "object-contain" },
+                { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.png",  fit: "object-contain" },
+                { name: "Rababag Cap",           img: "/assets/images/merch-cap-rababag.png",  fit: "object-contain" },
+                { name: "Full Drop",             img: "/assets/images/merch-collection.png",   fit: "object-contain" },
+                { name: "Confam Boy Print",      img: "/assets/images/merch-confamboy.png",    fit: "object-contain" },
+                { name: "Physical EP",           img: "/assets/images/merch-cd.png",           fit: "object-contain" },
+                { name: "Digital EP",            img: "/assets/images/merch-ep-digital.png",   fit: "object-contain" },
+                { name: "Signature Hoodie",     img: "/assets/images/merch-hoodie.jpg",       fit: "object-cover" },
+                { name: "Studio Shirt",          img: "/assets/images/merch-shirt.jpg",        fit: "object-contain" },
+                { name: "Red Set",               img: "/assets/images/merch-outfit-red.jpg",   fit: "object-contain" },
+                { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.png",    fit: "object-contain" },
+                { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.png",       fit: "object-contain" },
+                { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.png",  fit: "object-contain" },
+                { name: "Rababag Cap",           img: "/assets/images/merch-cap-rababag.png",  fit: "object-contain" },
+                { name: "Full Drop",             img: "/assets/images/merch-collection.png",   fit: "object-contain" },
+                { name: "Confam Boy Print",      img: "/assets/images/merch-confamboy.png",    fit: "object-contain" },
+                { name: "Physical EP",           img: "/assets/images/merch-cd.png",           fit: "object-contain" },
+                { name: "Digital EP",            img: "/assets/images/merch-ep-digital.png",   fit: "object-contain" },
+              ].map((p, i) => (
+                <Link key={i} href="/about#kiutraba-store">
+                  <div className="group relative flex-shrink-0 w-[150px] h-[150px] rounded-xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-[#D4AF37]/30 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] cursor-pointer">
+                    <div className="w-full h-full p-3">
+                      <img
+                        src={p.img}
+                        alt={p.name}
+                        loading="lazy"
+                        className={`w-full h-full ${p.fit} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07]`}
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2.5">
+                      <p className="text-[9px] font-bold text-white uppercase tracking-tight truncate leading-tight">{p.name}</p>
+                    </div>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.2)] rounded-xl [transition:opacity_350ms_ease]" />
                   </div>
-                </motion.div>
-
-                {/* Right bottom — editorial text + CTA */}
-                <motion.div
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="p-8 md:p-10 flex flex-col justify-center border-t border-white/[0.06]"
-                >
-                  <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.4em] mb-3">New Drop</p>
-                  <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
-                    Discover KiutRaba's<br />Exclusive Collection
-                  </h3>
-                  <p className="text-white/40 text-[13px] font-light leading-relaxed mb-7 max-w-sm">
-                    Explore premium apparel and limited-edition merchandise inspired by the sound, story, and creative journey.
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <Link href="/about#kiutraba-store">
-                      <motion.button
-                        whileHover={{ y: -3, scale: 1.02 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[11px] shadow-[0_0_24px_rgba(212,175,55,0.30)] hover:shadow-[0_0_44px_rgba(212,175,55,0.55)] transition-shadow duration-300"
-                      >
-                        <span className="text-[9px]">✦</span>
-                        Explore The Store
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </motion.button>
-                    </Link>
-                  </div>
-                  {/* subtle product count hint */}
-                  <p className="text-white/20 text-[11px] font-light uppercase tracking-[0.3em] mt-5">
-                    11 pieces available
-                  </p>
-                </motion.div>
-              </div>
-
+                </Link>
+              ))}
             </div>
           </div>
+
         </div>
       </section>
 

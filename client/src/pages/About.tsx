@@ -764,10 +764,10 @@ export default function About() {
                   {/* Soft gold edge glow on hover — inset ring technique */}
                   <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18),inset_0_-60px_40px_-20px_rgba(212,175,55,0.04)] [transition:opacity_450ms_ease] pointer-events-none" />
 
-                  {/* Editorial label pill badge — hover reveal */}
+                  {/* Editorial label pill badge — always visible on labeled cards */}
                   {label && (
-                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 opacity-0 translate-y-[4px] group-hover:opacity-100 group-hover:translate-y-0 [transition:opacity_300ms_ease,transform_350ms_cubic-bezier(0.22,1,0.36,1)]">
-                      <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#D4AF37] bg-black/55 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/20">
+                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
+                      <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#D4AF37] bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/22">
                         <span className="w-1 h-1 rounded-full bg-[#D4AF37]/70 inline-block" />
                         {label}
                       </span>

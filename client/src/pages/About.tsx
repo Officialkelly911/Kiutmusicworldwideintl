@@ -256,6 +256,7 @@ export default function About() {
   const touchStartX = useRef<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
+  const [merchFilter, setMerchFilter] = useState<string>("all");
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -1051,225 +1052,247 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── 7. OFFICIAL MERCHANDISE ────────────────────────────────────── */}
+      {/* ─── 7. KIUTRABA'S STORE ─────────────────────────────────────────── */}
       <section className="relative z-10 py-28 md:py-36 border-t border-white/[0.04] overflow-hidden">
 
-        {/* ── Rotating vinyl record — right-side ambient decoration ── */}
-        <div className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 opacity-[0.055] hidden md:block">
+        {/* ── Rotating vinyl record — right ambient decoration ── */}
+        <div className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 opacity-[0.05] hidden md:block">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="w-[560px] h-[560px]"
+            className="w-[580px] h-[580px]"
           >
             <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
               <circle cx="100" cy="100" r="98" stroke="#D4AF37" strokeWidth="0.6"/>
               <circle cx="100" cy="100" r="92" stroke="#D4AF37" strokeWidth="0.3"/>
               {[86,80,74,68,62,56,50,44,38,32].map((r) => (
-                <circle key={r} cx="100" cy="100" r={r} stroke="#D4AF37" strokeWidth="0.25"/>
+                <circle key={r} cx="100" cy="100" r={r} stroke="#D4AF37" strokeWidth="0.22"/>
               ))}
-              <circle cx="100" cy="100" r="26" fill="rgba(212,175,55,0.12)" stroke="#D4AF37" strokeWidth="0.5"/>
-              <circle cx="100" cy="100" r="18" fill="rgba(212,175,55,0.08)" stroke="#D4AF37" strokeWidth="0.4"/>
+              <circle cx="100" cy="100" r="26" fill="rgba(212,175,55,0.10)" stroke="#D4AF37" strokeWidth="0.5"/>
+              <circle cx="100" cy="100" r="18" fill="rgba(212,175,55,0.07)" stroke="#D4AF37" strokeWidth="0.4"/>
               <circle cx="100" cy="100" r="3.5" fill="#D4AF37"/>
             </svg>
           </motion.div>
         </div>
 
-        {/* ── Orbit rings — ambient cosmological decoration ── */}
-        <div className="pointer-events-none absolute -left-16 top-24 opacity-[0.06] hidden lg:block">
+        {/* ── Orbit rings — left ambient decoration ── */}
+        <div className="pointer-events-none absolute -left-20 top-16 opacity-[0.055] hidden lg:block">
           <motion.div
             animate={{ rotate: -360 }}
-            transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-            className="relative w-[320px] h-[320px]"
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="relative w-[340px] h-[340px]"
           >
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-2.5 h-2.5 rounded-full bg-[#D4AF37]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-3 h-3 rounded-full bg-[#D4AF37]" />
           </motion.div>
           <motion.div
             animate={{ rotate: 360 }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[40px] rounded-full border border-[#D4AF37]/60"
+            transition={{ duration: 19, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[44px] rounded-full border border-[#D4AF37]/55"
           >
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1 w-1.5 h-1.5 rounded-full bg-[#D4AF37]/60" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1.5 w-2 h-2 rounded-full bg-[#D4AF37]/55" />
           </motion.div>
-          <div className="absolute inset-[80px] rounded-full border border-[#D4AF37]/30" />
+          <div className="absolute inset-[88px] rounded-full border border-[#D4AF37]/25" />
         </div>
 
         <div className="max-w-7xl mx-auto px-6">
-
-          {/* ── Glass container ── */}
           <div
-            className="relative rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.5)]"
+            className="relative rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.55)]"
             style={{
-              background: "rgba(15,15,18,0.50)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
+              background: "rgba(15,15,18,0.48)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
               border: "1px solid rgba(255,255,255,0.06)",
             }}
           >
-            {/* Subtle inner radial glow */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.05),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.05),transparent_55%)]" />
 
             <div className="relative p-8 md:p-14">
 
-              {/* ── Section Heading ── */}
+              {/* ── Heading ── */}
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="text-center mb-14"
+                className="text-center mb-10"
               >
                 <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-4">Kiut × Raba Bag</p>
-                <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-5">
-                  Official <span className="text-[#D4AF37]">Merchandise</span>
+                <h2 className="font-display text-5xl md:text-7xl font-bold tracking-tight leading-none mb-4">
+                  KiutRaba<span className="text-[#D4AF37]">'s</span> Store
                 </h2>
-                <p className="text-white/40 text-[15px] font-light italic">
-                  "Take a piece of the journey with you."
+                <p className="text-white/38 text-[14px] font-light max-w-lg mx-auto leading-relaxed">
+                  Exclusive apparel and collectibles inspired by the music, culture, and journey.
                 </p>
-                <div className="mt-7 flex items-center justify-center gap-4">
-                  <div className="h-px w-10 bg-white/10" />
-                  <div className="h-px w-10 bg-[#D4AF37]/50" />
-                  <div className="h-px w-10 bg-white/10" />
+                <div className="mt-8 flex items-center justify-center gap-3">
+                  <div className="h-px w-12 bg-white/8" />
+                  <div className="w-1 h-1 rounded-full bg-[#D4AF37]/60" />
+                  <div className="h-px w-20 bg-[#D4AF37]/40" />
+                  <div className="w-1 h-1 rounded-full bg-[#D4AF37]/60" />
+                  <div className="h-px w-12 bg-white/8" />
                 </div>
               </motion.div>
 
-              {/* ── Merch Grid ── */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
-
-                {/* Card 1 — FEATURED HERO: Hoodie (col-span-2) */}
-                <motion.div
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-                  className="md:col-span-2 group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/30 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_56px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.08)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
-                >
-                  {/* Limited Drops badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.55)]">
-                      <span className="text-[7px]">✦</span> Limited Drops
-                    </span>
-                  </div>
-                  <div className="h-[400px] md:h-[500px] relative overflow-hidden">
-                    <img
-                      src="/assets/images/merch-hoodie.jpg"
-                      alt="Raba Bag Hoodie — Kiut Official"
-                      loading="lazy"
-                      className="w-full h-full object-cover object-center [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                    {/* Inset gold glow on hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.2)] rounded-2xl [transition:opacity_450ms_ease]" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 mb-2 block">Limited Edition</span>
-                      <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight">Raba Bag Hoodie</h3>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Card 2 — Studio Shirt */}
-                <motion.div
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.13, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
-                >
-                  <div className="h-[340px] md:h-[500px] relative overflow-hidden">
-                    <img
-                      src="/assets/images/merch-shirt.jpg"
-                      alt="Raba Bag Studio Shirt — Kiut Official"
-                      loading="lazy"
-                      className="w-full h-full object-cover object-center [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] rounded-2xl [transition:opacity_450ms_ease]" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/70 mb-1.5 block">Apparel</span>
-                      <h3 className="font-display text-xl font-bold text-white uppercase tracking-tight">Studio Shirt</h3>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Card 3 — Signature Set (red outfit) */}
-                <motion.div
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.21, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
-                >
-                  <div className="h-[340px] md:h-[500px] relative overflow-hidden">
-                    <img
-                      src="/assets/images/merch-outfit-red.jpg"
-                      alt="Kiut Signature Set — Raba Bag Official"
-                      loading="lazy"
-                      className="w-full h-full object-cover object-center [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] rounded-2xl [transition:opacity_450ms_ease]" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/70 mb-1.5 block">Collection</span>
-                      <h3 className="font-display text-xl font-bold text-white uppercase tracking-tight">Signature Set</h3>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Card 4 — Good Life Drop full collection (full-width banner) */}
-                <motion.div
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.29, ease: [0.22, 1, 0.36, 1] }}
-                  className="md:col-span-4 group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.07] hover:border-[#D4AF37]/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-[border-color,box-shadow] duration-500 cursor-pointer"
-                >
-                  <div className="h-[280px] md:h-[360px] relative overflow-hidden">
-                    <img
-                      src="/assets/images/merch-collection.png"
-                      alt="Good Life Drop — Full Collection"
-                      loading="lazy"
-                      className="w-full h-full object-cover object-top [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.15)] rounded-2xl [transition:opacity_450ms_ease]" />
-                    <div className="absolute bottom-0 left-0 p-6 md:p-8">
-                      <span className="text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF37]/80 mb-2 block">Full Drop</span>
-                      <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight">Good Life Collection</h3>
-                      <p className="text-white/45 text-sm font-light mt-1.5">Sounds of Time · All Pieces</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-              </div>
-
-              {/* ── CTA Block ── */}
+              {/* ── Filter Bar ── */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-wrap items-center justify-center gap-2 mb-10"
+              >
+                {(["all","apparel","new","featured","limited"] as const).map((f) => {
+                  const labels: Record<string, string> = {
+                    all: "All",
+                    apparel: "Apparel",
+                    new: "New Arrivals",
+                    featured: "Featured",
+                    limited: "Limited Edition",
+                  };
+                  const active = merchFilter === f;
+                  return (
+                    <button
+                      key={f}
+                      onClick={() => setMerchFilter(f)}
+                      className={cn(
+                        "px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.25em] border transition-all duration-300",
+                        active
+                          ? "bg-[#D4AF37] text-black border-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.40)]"
+                          : "bg-transparent text-white/45 border-white/12 hover:border-[#D4AF37]/40 hover:text-white/75"
+                      )}
+                    >
+                      {labels[f]}
+                    </button>
+                  );
+                })}
+              </motion.div>
+
+              {/* ── Product Grid ── */}
+              {(() => {
+                const allProducts = [
+                  { id: 1,  name: "KiutRaba Signature Hoodie", category: "featured", badge: "Limited Drops",      img: "/assets/images/merch-hoodie.jpg",       featured: true,  objectPos: "object-center" },
+                  { id: 2,  name: "Raba Bag Studio Shirt",     category: "apparel",  badge: "Apparel",            img: "/assets/images/merch-shirt.jpg",        featured: false, objectPos: "object-center" },
+                  { id: 3,  name: "Signature Red Set",         category: "apparel",  badge: "Collection",         img: "/assets/images/merch-outfit-red.jpg",   featured: false, objectPos: "object-top"    },
+                  { id: 4,  name: "KR Crown Cap",              category: "apparel",  badge: "Apparel",            img: "/assets/images/merch-cap-black.png",    featured: false, objectPos: "object-center" },
+                  { id: 5,  name: "KiutRaba Waffle Beanie",    category: "apparel",  badge: "Apparel",            img: "/assets/images/merch-beanie.png",       featured: false, objectPos: "object-center" },
+                  { id: 6,  name: "Good Life EP Trucker Cap",  category: "new",      badge: "New Arrival",        img: "/assets/images/merch-cap-vintage.png",  featured: false, objectPos: "object-center" },
+                  { id: 7,  name: "Rababag Classic Cap",       category: "new",      badge: "New Arrival",        img: "/assets/images/merch-cap-rababag.png",  featured: false, objectPos: "object-center" },
+                  { id: 8,  name: "Good Life Full Drop",       category: "apparel",  badge: "Full Collection",    img: "/assets/images/merch-collection.png",   featured: false, objectPos: "object-top"    },
+                  { id: 9,  name: "Confam Boy Art Print",      category: "limited",  badge: "Limited Edition",    img: "/assets/images/merch-confamboy.png",    featured: false, objectPos: "object-top"    },
+                  { id: 10, name: "Good Life EP — Physical",   category: "limited",  badge: "Collectible",        img: "/assets/images/merch-cd.png",           featured: false, objectPos: "object-center" },
+                  { id: 11, name: "Good Life Digital EP",      category: "limited",  badge: "Digital Drop",       img: "/assets/images/merch-ep-digital.png",   featured: false, objectPos: "object-top"    },
+                ];
+                const visible = allProducts.filter(
+                  (p) => merchFilter === "all" || p.category === merchFilter
+                );
+                const isFeaturedVisible = visible.some((p) => p.featured);
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <AnimatePresence mode="popLayout">
+                      {visible.map((product, idx) => {
+                        const isHero = product.featured && isFeaturedVisible;
+                        return (
+                          <motion.div
+                            key={product.id}
+                            layout
+                            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.22 } }}
+                            transition={{ duration: 0.55, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                            className={cn(
+                              "group relative rounded-2xl overflow-hidden flex flex-col",
+                              "bg-white/[0.03] border border-white/[0.07]",
+                              "hover:border-[#D4AF37]/28 shadow-[0_6px_28px_rgba(0,0,0,0.38)]",
+                              "hover:shadow-[0_14px_50px_rgba(0,0,0,0.55)] transition-[border-color,box-shadow] duration-400",
+                              isHero ? "md:col-span-2" : ""
+                            )}
+                          >
+                            {/* Badge */}
+                            <div className="absolute top-3.5 left-3.5 z-10">
+                              {product.featured ? (
+                                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[8.5px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.5)]">
+                                  <span>✦</span> Limited Drops
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[8px] font-bold uppercase tracking-[0.22em] text-[#D4AF37] border border-[#D4AF37]/35 bg-black/40">
+                                  {product.badge}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Image */}
+                            <div className={cn(
+                              "relative overflow-hidden",
+                              isHero ? "h-[400px] md:h-[480px]" : "h-[300px] md:h-[340px]"
+                            )}>
+                              <img
+                                src={product.img}
+                                alt={`${product.name} — KiutRaba Official`}
+                                loading="lazy"
+                                className={cn(
+                                  "w-full h-full object-cover",
+                                  product.objectPos,
+                                  "[transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                                )}
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-2xl [transition:opacity_400ms_ease]" />
+                            </div>
+
+                            {/* Card footer */}
+                            <div className="flex items-end justify-between gap-3 p-4 pt-3">
+                              <div className="min-w-0">
+                                <p className="text-[8.5px] font-bold uppercase tracking-[0.3em] text-[#D4AF37]/65 mb-0.5">{product.badge}</p>
+                                <h3 className="font-display text-[15px] font-bold text-white uppercase tracking-tight leading-tight truncate">{product.name}</h3>
+                                <p className="text-white/30 text-[12px] font-light mt-0.5 tracking-widest">$ –</p>
+                              </div>
+                              <a
+                                href="https://kiutrababag.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#D4AF37]/40 text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/70 transition-all duration-300 whitespace-nowrap"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                View
+                                <ExternalLink className="w-2.5 h-2.5" />
+                              </a>
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </AnimatePresence>
+                    {visible.length === 0 && (
+                      <div className="md:col-span-4 text-center py-20 text-white/25 text-sm tracking-widest uppercase">
+                        No items in this category yet.
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {/* ── CTA ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-14 text-center"
               >
-                <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent mb-12" />
+                <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/18 to-transparent mb-12" />
                 <h3 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-4">
                   Wear The Story
                 </h3>
-                <p className="text-white/40 text-[15px] font-light mb-10 max-w-md mx-auto leading-relaxed">
-                  Explore the official collection and bring the journey beyond the music.
+                <p className="text-white/38 text-[14px] font-light mb-9 max-w-md mx-auto leading-relaxed">
+                  Explore the full collection and carry the journey beyond the music.
                 </p>
-                <a
-                  href="https://kiutrababag.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://kiutrababag.com" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     whileHover={{ y: -4, scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-sm shadow-[0_0_28px_rgba(212,175,55,0.35)] hover:shadow-[0_0_50px_rgba(212,175,55,0.60)] transition-shadow duration-300"
+                    className="inline-flex items-center gap-3 px-11 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[12px] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:shadow-[0_0_55px_rgba(212,175,55,0.62)] transition-shadow duration-300"
                   >
                     <span className="text-[10px]">✦</span>
-                    Shop the Collection
+                    Explore Store
                     <ExternalLink className="w-3.5 h-3.5" />
                   </motion.button>
                 </a>

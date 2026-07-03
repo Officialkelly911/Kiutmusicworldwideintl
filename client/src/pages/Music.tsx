@@ -8,7 +8,7 @@ import { ALL_TRACKS, TRACK_GROUPS, type Track } from "@/data/tracks";
 // ─── Image + audio constants ──────────────────────────────────────────────────
 const goodLifeEP  = "/assets/images/Good_Life_EP_1767961904057.jpeg";
 const sofaEP      = "/assets/images/SOFA_EP_1767961904056.png";
-const announceImg = "/assets/images/KIUT_ANNOUNCE_1767961904055.png";
+const announceImg = "/assets/images/announce-cover.jpg";
 const eligibleEP  = "/assets/images/KIUT_ELIGIBLE_EP_1767961904056.png";
 
 // ─── Album discography cards data ────────────────────────────────────────────

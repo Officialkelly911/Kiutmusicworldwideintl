@@ -17,17 +17,17 @@ const img_studio3     = "/assets/images/anonyig.io_Instagram_kiut_rababag_370934
 const img_milestoneLA = "/assets/images/anonyig.io_Instagram_kiut_rababag_3786107874124605259_1095425_1774430915892.jpeg";
 const img_nigeria1    = "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.jpeg";
 const img_nigeria2    = "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.jpeg";
-const img_tunnel      = "/assets/images/IMG_0146_1774430840570.jpeg";
+const img_tunnel      = "/assets/images/Hero1.jpeg";
 const img_palms       = "/assets/images/IMG_2027_1774430840570.jpeg";
-const img_desert      = "/assets/images/IMG_0161_1774430840570.jpeg";
+const img_desert      = "/assets/images/about-moments-stone-seat.jpg";
 const img_gallery     = "/assets/images/IMG_0162_1774430840570.jpeg";
-const img_museum      = "/assets/images/IMG_2003_1774430840570.jpeg";
-const img_courtyard   = "/assets/images/IMG_0156_1774430840570.jpeg";
-const img_sneakers    = "/assets/images/IMG_0144_1774430840570.jpeg";
+const img_museum      = "/assets/images/about-moments-garden-seat.jpg";
+const img_courtyard   = "/assets/images/about-moments-coast.jpg";
+const img_sneakers    = "/assets/images/IMG_1254_1774433277988.jpeg";
 const img_mixing      = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg";
 const img_synth       = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg";
 const img_icon        = "/assets/images/about-icon-statement.png";
-const img_momentLawnWide = "/assets/images/about-moments-lawn-wide.jpg";
+const img_momentLawnWide = "/assets/images/times_square_1774440627098.jpeg";
 const img_momentGardenSeat = "/assets/images/about-moments-garden-seat.jpg";
 const img_momentLounge = "/assets/images/about-moments-lounge.jpg";
 const img_momentCoast = "/assets/images/about-moments-coast.jpg";
@@ -176,56 +176,102 @@ const uploadedJourneyImages = [
   "/assets/about-journey/upload-059.jpeg",
 ];
 
-// ─── Journey gallery: editorial layout (3-col desktop grid) ──────────────────
-// Index 0 = full-width FEATURED hero. Rest follow an 11-card repeating pattern.
-const JOURNEY_LAYOUT: Array<{ col: string; row: string }> = [
-  { col: "md:col-span-3", row: "md:row-span-2" }, // 0  HERO — full width, tall
-  { col: "md:col-span-1", row: "md:row-span-2" }, // 1  portrait tall
-  { col: "md:col-span-2", row: "md:row-span-1" }, // 2  landscape wide
-  { col: "md:col-span-1", row: "md:row-span-1" }, // 3  square
-  { col: "md:col-span-1", row: "md:row-span-1" }, // 4  square
-  { col: "md:col-span-2", row: "md:row-span-1" }, // 5  landscape wide
-  { col: "md:col-span-1", row: "md:row-span-2" }, // 6  portrait tall
-  { col: "md:col-span-1", row: "md:row-span-1" }, // 7  square
-  { col: "md:col-span-1", row: "md:row-span-1" }, // 8  square
-  { col: "md:col-span-2", row: "md:row-span-2" }, // 9  feature
-  { col: "md:col-span-1", row: "md:row-span-1" }, // 10 square
-  { col: "md:col-span-1", row: "md:row-span-1" }, // 11 square
+// ─── Journey gallery: cinematic editorial chapter-based gallery ───────────────
+
+const FEATURED_HERO_SRC = "/assets/images/IMG_4994_1774430840570.jpeg";
+
+type GalleryImage = { src: string; alt: string; badge?: string };
+type GalleryChapter = { id: string; chapter: string; title: string; badge: string; images: GalleryImage[] };
+
+const GALLERY_CHAPTERS: GalleryChapter[] = [
+  {
+    id: "lifestyle",
+    chapter: "01",
+    title: "Lifestyle",
+    badge: "Culture",
+    images: [
+      { src: "/assets/images/IMG_0682_1774430840570.jpeg",     alt: "Kiut — white suit editorial",        badge: "Editorial"  },
+      { src: "/assets/images/IMG_0850_1774430840570.jpeg",     alt: "Kiut — close up portrait",           badge: "Portrait"   },
+      { src: "/assets/images/IMG_0162_1774430840570.jpeg",     alt: "Kiut — gallery moment",              badge: "Gallery"    },
+      { src: "/assets/images/about-moments-coast.jpg",         alt: "Kiut — coastal frame",               badge: "Coastal"    },
+      { src: "/assets/images/about-moments-lounge.jpg",        alt: "Kiut — quiet luxury lounge",         badge: "Lifestyle"  },
+      { src: "/assets/images/about-moments-leather-pose.jpg",  alt: "Kiut — street armor leather jacket", badge: "Street"     },
+    ],
+  },
+  {
+    id: "studio",
+    chapter: "02",
+    title: "Behind The Scenes",
+    badge: "Studio Life",
+    images: [
+      { src: "/assets/images/studio_kiut_1774440627098.jpeg",  alt: "Kiut — studio session",              badge: "Studio"     },
+      { src: "/assets/images/studio_session_1774440627098.jpeg", alt: "Kiut — recording session",         badge: "Recording"  },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg", alt: "Mixing session", badge: "In The Mix" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg", alt: "Studio synthesizers", badge: "The Gear" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701227223296_1095425_1774430915892.jpeg", alt: "Studio standing", badge: "Studio"   },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985993282385_1095425_1774430915892.jpeg", alt: "Studio red",   badge: "In The Studio" },
+    ],
+  },
+  {
+    id: "road",
+    chapter: "03",
+    title: "On The Road",
+    badge: "Tour",
+    images: [
+      { src: "/assets/images/times_square_1774440627098.jpeg",  alt: "Kiut — Times Square NYC",           badge: "New York"   },
+      { src: "/assets/images/IMG_2027_1774430840570.jpeg",      alt: "Kiut — California palms",           badge: "West Coast" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3786107874124605259_1095425_1774430915892.jpeg", alt: "LA milestone", badge: "Milestone" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.jpeg", alt: "Nigeria — back to roots", badge: "Back To Roots" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.jpeg", alt: "Nigeria celebration", badge: "Celebration" },
+      { src: "/assets/images/about-moments-stone-seat.jpg",     alt: "Kiut — still moment on stone steps", badge: "Still Moment" },
+    ],
+  },
+  {
+    id: "archive",
+    chapter: "04",
+    title: "The Archive",
+    badge: "Visual Archive",
+    images: [
+      { src: "/assets/images/Hero1.jpeg",                       alt: "Kiut — hero portrait",              badge: "Portrait"   },
+      { src: "/assets/images/Hero1_1767873472478.jpeg",         alt: "Kiut — cinematic still",            badge: "Cinematic"  },
+      { src: "/assets/images/about-moments-garden-seat.jpg",    alt: "Kiut — golden hour garden",         badge: "Golden Hour"},
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985976478358_1095425_1774430915892.jpeg", alt: "Kiut — studio mood", badge: "Studio" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024700849651951_1095425_1774430915892.jpeg", alt: "Kiut — Instagram moment", badge: "Moment" },
+      { src: "/assets/images/IMG_1254_1774433277988.jpeg",      alt: "Kiut — portrait session",           badge: "Portrait"   },
+    ],
+  },
 ];
 
-function getJourneyLayout(i: number) {
-  if (i === 0) return JOURNEY_LAYOUT[0];
-  return JOURNEY_LAYOUT[((i - 1) % 11) + 1];
-}
+// Extended gallery — revealed by "View Complete Journey"
+const EXTENDED_GALLERY: GalleryImage[] = [
+  { src: "/assets/images/Hero1_1767874042707.jpeg",     alt: "Kiut — performance",       badge: "Performance" },
+  { src: "/assets/images/IMG_0682_1774440591738.jpeg",  alt: "Kiut — editorial II",      badge: "Editorial"   },
+  { src: "/assets/images/IMG_1257_1774433050958.jpeg",  alt: "Kiut — portrait II",       badge: "Portrait"    },
+  { src: "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.jpg", alt: "Kiut — live clip", badge: "Live" },
+  { src: "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.jpg", alt: "Kiut — performance clip", badge: "Performance" },
+  { src: "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.jpg", alt: "Kiut — social moment", badge: "Moment" },
+  { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874201323.jpeg", alt: "Kiut — candid", badge: "Candid" },
+  { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.jpeg", alt: "Kiut — exclusive", badge: "Exclusive" },
+  { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701990647365_1095425_1774430915892.jpeg", alt: "Instagram session", badge: "Session" },
+  { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986907667189_1095425_1774430915892.jpeg", alt: "Kiut — behind the lens", badge: "Behind The Lens" },
+];
 
-// Depth offsets — subtle vertical shift on select cards, desktop only
-// Creates the layered "exhibition wall" feel without breaking grid flow
-const JOURNEY_DEPTH: Record<number, string> = {
-  3:  "md:translate-y-4",
-  6:  "md:-translate-y-3",
-  10: "md:translate-y-5",
-  15: "md:-translate-y-4",
-  20: "md:translate-y-3",
-  25: "md:-translate-y-5",
-  31: "md:translate-y-4",
-  37: "md:-translate-y-3",
-  43: "md:translate-y-5",
-  49: "md:-translate-y-4",
-};
+// Flat image array for lightbox navigation (hero + all chapters + extended + uploaded journey images)
+const allGalleryImages: GalleryImage[] = [
+  { src: FEATURED_HERO_SRC, alt: "The Good Life Era — Kiut", badge: "The Journey" },
+  ...GALLERY_CHAPTERS.flatMap(ch => ch.images),
+  ...EXTENDED_GALLERY,
+  ...Array.from({ length: 59 }, (_, i) => ({
+    src: `/assets/about-journey/upload-${String(i + 1).padStart(3, "0")}${i >= 57 ? ".jpeg" : ".jpg"}`,
+    alt: `Journey moment ${i + 1}`,
+    badge: undefined,
+  })),
+];
 
-// Sparse editorial labels — pill badges on selected images only
-const JOURNEY_LABELS: Record<number, string> = {
-  0:  "The Journey",
-  5:  "Studio Session",
-  11: "On Stage",
-  17: "Behind The Scenes",
-  23: "Release Era",
-  29: "Performance Night",
-  35: "Family & Roots",
-  41: "Journey Moment",
-  47: "On Stage",
-  53: "The Archive",
-};
+const CHAPTER_START_IDX = (chIdx: number) =>
+  1 + GALLERY_CHAPTERS.slice(0, chIdx).reduce((acc, c) => acc + c.images.length, 0);
+const EXTENDED_START_IDX = 1 + GALLERY_CHAPTERS.reduce((acc, c) => acc + c.images.length, 0);
+const JOURNEY_UPLOADS_START_IDX = EXTENDED_START_IDX + EXTENDED_GALLERY.length;
 
 function SpotifyIcon() {
   return (
@@ -256,6 +302,7 @@ export default function About() {
   const touchStartX = useRef<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
+  const [showExtended, setShowExtended] = useState(false);
   const [merchFilter, setMerchFilter] = useState<string>("all");
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -274,17 +321,17 @@ export default function About() {
     [0, 0.62, 0.76, 0.91]
   );
   const selectedJourneyImage =
-    selectedJourneyIndex === null ? null : uploadedJourneyImages[selectedJourneyIndex];
+    selectedJourneyIndex === null ? null : allGalleryImages[selectedJourneyIndex]?.src ?? null;
 
   const closeJourneyLightbox = useCallback(() => setSelectedJourneyIndex(null), []);
   const showPreviousJourneyImage = useCallback(() => {
     setSelectedJourneyIndex((prev) =>
-      prev === null ? null : (prev - 1 + uploadedJourneyImages.length) % uploadedJourneyImages.length
+      prev === null ? null : (prev - 1 + allGalleryImages.length) % allGalleryImages.length
     );
   }, []);
   const showNextJourneyImage = useCallback(() => {
     setSelectedJourneyIndex((prev) =>
-      prev === null ? null : (prev + 1) % uploadedJourneyImages.length
+      prev === null ? null : (prev + 1) % allGalleryImages.length
     );
   }, []);
 
@@ -674,12 +721,13 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── 5. MOMENTS FROM THE JOURNEY — Cinematic Editorial Gallery ──── */}
+      {/* ─── 5. MOMENTS FROM THE JOURNEY — Premium Editorial Gallery ───── */}
       <section id="moments" className="relative py-28 md:py-36 z-10 border-t border-white/[0.04] overflow-hidden">
-        {/* Ambient glow — subtle, not overpowering */}
+
+        {/* Ambient gold glow at top */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.07),transparent_65%)]" />
 
-        <div className="max-w-[1400px] mx-auto px-6">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
 
           {/* ── Section Heading ─────────────────────────────────────────── */}
           <motion.div
@@ -687,17 +735,16 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-16 md:mb-24 text-center mx-auto max-w-3xl"
+            className="mb-14 md:mb-20 text-center mx-auto max-w-3xl"
           >
             <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Visual Archive</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-6">
               Moments From{" "}
-              <span className="text-[#D4AF37]">the Journey</span>
+              <span className="text-[#D4AF37]">The Journey</span>
             </h2>
             <p className="text-white/45 text-[15px] font-light leading-relaxed max-w-xl mx-auto">
-              A visual archive of milestones, studio sessions, performances, and memories behind the music.
+              A visual documentary of milestones, studio sessions, performances, and memories behind the music.
             </p>
-            {/* Decorative centered rule */}
             <div className="mt-8 flex items-center justify-center gap-4">
               <div className="h-px w-10 bg-white/10" />
               <div className="h-px w-10 bg-[#D4AF37]/60" />
@@ -705,126 +752,338 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* ── Cinematic Editorial Grid ─────────────────────────────────── */}
-          {/*
-            Desktop: 3-col CSS grid with auto-rows at 280px + dense packing.
-            Featured hero spans full width (col-span-3). Rest follow an
-            editorial pattern of portrait / landscape / square / feature cards.
-            Select cards receive a subtle translateY depth offset.
-            Mobile: single-column stack, featured image first.
-          */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 md:[grid-auto-rows:280px] md:grid-flow-row-dense">
-            {uploadedJourneyImages.map((src, i) => {
-              const layout = getJourneyLayout(i);
-              const label = JOURNEY_LABELS[i];
-              const isFeatured = i === 0;
-              const depthClass = JOURNEY_DEPTH[i] ?? "";
-
-              const mobileH = isFeatured
-                ? "h-[420px] md:h-auto"
-                : (i - 1) % 4 === 0
-                ? "h-[300px] md:h-auto"
-                : "h-[260px] md:h-auto";
-
-              return (
-                <motion.figure
-                  key={src}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{
-                    duration: 0.65,
-                    delay: (i % 3) * 0.09,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className={cn(
-                    "group relative overflow-hidden rounded-2xl bg-[#0a0a0a] cursor-zoom-in",
-                    "border border-white/[0.06]",
-                    "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
-                    "hover:border-[#D4AF37]/25 hover:shadow-[0_16px_56px_rgba(0,0,0,0.7),0_0_0_1px_rgba(212,175,55,0.08)]",
-                    "transition-[border-color,box-shadow,transform] duration-500 ease-out",
-                    mobileH,
-                    layout.col,
-                    layout.row,
-                    depthClass,
-                  )}
-                  onClick={() => setSelectedJourneyIndex(i)}
-                >
-                  {/* Photography — full-bleed, no tint */}
-                  <img
-                    src={src}
-                    alt={label ? `${label} — Kiut` : `Journey moment ${i + 1}`}
-                    loading={i < 9 ? "eager" : "lazy"}
-                    className="absolute inset-0 w-full h-full object-cover [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                  />
-
-                  {/* Bottom gradient — very subtle, readability only */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Soft gold edge glow on hover — inset ring technique */}
-                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18),inset_0_-60px_40px_-20px_rgba(212,175,55,0.04)] [transition:opacity_450ms_ease] pointer-events-none" />
-
-                  {/* Editorial label pill badge — always visible on labeled cards */}
-                  {label && (
-                    <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
-                      <span className="inline-flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#D4AF37] bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/22">
-                        <span className="w-1 h-1 rounded-full bg-[#D4AF37]/70 inline-block" />
-                        {label}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Frame counter — film archive feel, top right, hover only */}
-                  <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 [transition:opacity_350ms_ease] pointer-events-none">
-                    <span className="text-[8px] font-mono text-white/25 tabular-nums tracking-widest">
-                      {String(i + 1).padStart(3, "0")}
-                    </span>
-                  </div>
-
-                  {/* Featured hero marker */}
-                  {isFeatured && (
-                    <div className="absolute top-5 left-5 pointer-events-none">
-                      <span className="inline-flex items-center gap-1.5 text-[8px] font-semibold uppercase tracking-[0.35em] text-[#D4AF37]/70 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#D4AF37]/15">
-                        <span className="w-1 h-1 rounded-full bg-[#D4AF37]/60 inline-block" />
-                        No. 001
-                      </span>
-                    </div>
-                  )}
-                </motion.figure>
-              );
-            })}
+          {/* ── Journey Statistics ──────────────────────────────────────── */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-16 md:mb-24">
+            {([
+              { value: "4+",   label: "Countries",       sub: "Worldwide"        },
+              { value: "50+",  label: "Live Shows",      sub: "And Growing"      },
+              { value: "500K+",label: "Fans Reached",    sub: "Across Platforms" },
+              { value: "7",    label: "Years Performing",sub: "Since 2019"       },
+            ] as const).map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative px-5 py-7 rounded-2xl border border-white/[0.08] bg-white/[0.02] hover:border-[#D4AF37]/25 hover:bg-white/[0.03] transition-all duration-500 text-center overflow-hidden"
+              >
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05),transparent_70%)] transition-opacity duration-500" />
+                <p className="font-display text-3xl md:text-4xl font-bold text-[#D4AF37] tracking-tight mb-1 relative">{stat.value}</p>
+                <p className="text-white text-[11px] font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
+                <p className="text-white/30 text-[9.5px] font-light tracking-wide uppercase relative">{stat.sub}</p>
+              </motion.div>
+            ))}
           </div>
 
-          {/* ── Gallery CTA ─────────────────────────────────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+          {/* ── Featured Hero Image ─────────────────────────────────────── */}
+          <motion.figure
+            initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-16 md:mt-24 text-center"
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative h-[460px] md:h-[600px] lg:h-[700px] rounded-3xl overflow-hidden cursor-zoom-in mb-5 border border-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.7)] hover:shadow-[0_32px_100px_rgba(0,0,0,0.85)] transition-shadow duration-700"
+            onClick={() => setSelectedJourneyIndex(0)}
+            role="button"
+            aria-label="Open featured image — The Good Life Era"
           >
-            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-12" />
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">The Sound Continues</p>
-            <h3 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-8">
-              Experience the Sound
-            </h3>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/music">
+            <img
+              src={FEATURED_HERO_SRC}
+              alt="The Good Life Era — Kiut"
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover object-top [transition:transform_1200ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-transparent" />
+
+            {/* Hero overlay content */}
+            <div className="absolute bottom-0 left-0 right-0 p-7 md:p-12">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] text-black bg-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.55)]">
+                  ✦ Featured
+                </span>
+                <span className="text-[#D4AF37]/55 text-[9px] font-mono uppercase tracking-[0.25em]">2024 – 2025</span>
+              </div>
+              <h3 className="font-display text-3xl md:text-5xl font-bold text-white uppercase tracking-tight leading-tight mb-2">
+                The Good Life Era
+              </h3>
+              <p className="text-white/50 text-[13px] font-light mb-2 tracking-wide">Worldwide — Lagos · New York · Caribbean</p>
+              <p className="text-white/35 text-[12px] font-light max-w-md leading-relaxed mb-6 hidden md:block">
+                From Lagos to LA — documenting the journey through music, culture, and life. A chapter that changed everything.
+              </p>
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/22 text-white text-[9.5px] font-bold uppercase tracking-[0.22em] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] transition-all duration-300 backdrop-blur-sm"
+                onClick={(e) => { e.stopPropagation(); setSelectedJourneyIndex(0); }}
+              >
+                Explore Story <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+
+            {/* Hover gold ring */}
+            <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.2)] transition-opacity duration-500 pointer-events-none" />
+          </motion.figure>
+
+          {/* ── Story Chapters — Memory Mode ────────────────────────────── */}
+          {/*
+            Each chapter fades in as the user scrolls — like turning pages of
+            a coffee-table book. The staggered whileInView + chapter separator
+            creates the "memory mode" sequential reveal experience.
+          */}
+          {GALLERY_CHAPTERS.map((chapter, chIdx) => {
+            const chapterBaseIdx = CHAPTER_START_IDX(chIdx);
+            return (
+              <div key={chapter.id} className="mt-18 md:mt-24 lg:mt-28">
+
+                {/* Chapter header — memory mode page-turn feel */}
+                <motion.div
+                  initial={{ opacity: 0, x: -24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center gap-5 mb-8 md:mb-10"
+                >
+                  <div className="flex-shrink-0">
+                    <p className="text-[#D4AF37]/45 text-[8.5px] font-mono uppercase tracking-[0.42em] mb-0.5">
+                      Chapter {chapter.chapter}
+                    </p>
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-white uppercase tracking-tight">
+                      {chapter.title}
+                    </h3>
+                  </div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#D4AF37]/20 via-white/6 to-transparent" />
+                  <span className="flex-shrink-0 text-[8.5px] font-bold text-white/18 uppercase tracking-[0.3em] hidden sm:block">
+                    {chapter.badge}
+                  </span>
+                </motion.div>
+
+                {/* Editorial image grid for this chapter */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                  {chapter.images.map((img, imgIdx) => {
+                    const globalIdx = chapterBaseIdx + imgIdx;
+                    const isHero = imgIdx === 0;
+                    return (
+                      <motion.figure
+                        key={img.src}
+                        initial={{ opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-40px" }}
+                        transition={{
+                          duration: 0.68,
+                          delay: (imgIdx % 3) * 0.09,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        className={cn(
+                          "group relative overflow-hidden rounded-2xl cursor-zoom-in",
+                          "border border-white/[0.07] bg-[#0a0a0a]",
+                          "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+                          "hover:border-[#D4AF37]/28 hover:shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(212,175,55,0.07)]",
+                          "transition-[border-color,box-shadow] duration-500",
+                          isHero
+                            ? "sm:col-span-2 lg:col-span-2 h-[290px] sm:h-[340px]"
+                            : "h-[240px] sm:h-[280px]"
+                        )}
+                        onClick={() => setSelectedJourneyIndex(globalIdx)}
+                        role="button"
+                        aria-label={`Open ${img.alt} in fullscreen viewer`}
+                      >
+                        <img
+                          src={img.src}
+                          alt={`${img.alt} — Kiut`}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_650ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+
+                        {/* Badge pill */}
+                        {img.badge && (
+                          <div className="absolute bottom-0 left-0 right-0 px-3.5 pb-3.5">
+                            <span className="inline-flex items-center gap-1.5 text-[8.5px] font-semibold uppercase tracking-[0.25em] text-[#D4AF37] bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/20">
+                              <span className="w-1 h-1 rounded-full bg-[#D4AF37]/70 inline-block" />
+                              {img.badge}
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Frame counter (hover) */}
+                        <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-350 pointer-events-none">
+                          <span className="text-[7.5px] font-mono text-white/22 tabular-nums tracking-widest">
+                            {String(globalIdx + 1).padStart(3, "0")}
+                          </span>
+                        </div>
+
+                        {/* Gold hover ring */}
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.16),inset_0_-60px_40px_-20px_rgba(212,175,55,0.04)] transition-opacity duration-450 pointer-events-none" />
+                      </motion.figure>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* ── "View Complete Journey" / Extended Gallery ─────────────── */}
+          <AnimatePresence mode="wait">
+            {!showExtended ? (
+              <motion.div
+                key="view-btn"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8, transition: { duration: 0.25 } }}
+                transition={{ duration: 0.55, delay: 0.1 }}
+                className="mt-16 md:mt-20 text-center"
+              >
+                <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10" />
+                <p className="text-white/25 text-[10px] font-light uppercase tracking-[0.32em] mb-6">
+                  {EXTENDED_GALLERY.length + uploadedJourneyImages.length} more moments waiting
+                </p>
                 <motion.button
+                  type="button"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-9 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-sm shadow-[0_0_24px_rgba(212,175,55,0.3)] hover:shadow-[0_0_40px_rgba(212,175,55,0.55)] transition-shadow duration-300 w-full sm:w-auto"
+                  onClick={() => setShowExtended(true)}
+                  className="inline-flex items-center gap-3 px-9 py-4 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] font-bold uppercase tracking-widest text-[10.5px] hover:bg-[#D4AF37]/[0.07] hover:border-[#D4AF37]/55 hover:shadow-[0_0_32px_rgba(212,175,55,0.18)] transition-all duration-350"
                 >
-                  Listen Now
+                  ✦ View Complete Journey
                 </motion.button>
-              </Link>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="extended"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.55 }}
+                className="mt-16 md:mt-22"
+              >
+                {/* Chapter 05 header */}
+                <div className="flex items-center gap-5 mb-8 md:mb-10">
+                  <div className="flex-shrink-0">
+                    <p className="text-[#D4AF37]/45 text-[8.5px] font-mono uppercase tracking-[0.42em] mb-0.5">Chapter 05</p>
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-white uppercase tracking-tight">The Full Archive</h3>
+                  </div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#D4AF37]/20 via-white/6 to-transparent" />
+                  <span className="flex-shrink-0 text-[8.5px] font-bold text-white/18 uppercase tracking-[0.3em] hidden sm:block">Complete Journey</span>
+                </div>
+
+                {/* Extended curated images */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-6">
+                  {EXTENDED_GALLERY.map((img, imgIdx) => {
+                    const globalIdx = EXTENDED_START_IDX + imgIdx;
+                    const isHero = imgIdx === 0;
+                    return (
+                      <motion.figure
+                        key={img.src}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-30px" }}
+                        transition={{ duration: 0.6, delay: (imgIdx % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                        className={cn(
+                          "group relative overflow-hidden rounded-2xl cursor-zoom-in",
+                          "border border-white/[0.06] bg-[#0a0a0a]",
+                          "shadow-[0_8px_28px_rgba(0,0,0,0.5)]",
+                          "hover:border-[#D4AF37]/22 hover:shadow-[0_16px_50px_rgba(0,0,0,0.65)] transition-all duration-500",
+                          isHero ? "sm:col-span-2 lg:col-span-2 h-[280px]" : "h-[230px]"
+                        )}
+                        onClick={() => setSelectedJourneyIndex(globalIdx)}
+                        role="button"
+                        aria-label="Open archive image in fullscreen"
+                      >
+                        <img
+                          src={img.src}
+                          alt={`${img.alt} — Kiut`}
+                          loading="lazy"
+                          className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_650ms_ease] group-hover:scale-[1.04]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                        {img.badge && (
+                          <div className="absolute bottom-0 left-0 right-0 px-3 pb-3">
+                            <span className="inline-flex items-center gap-1.5 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#D4AF37] bg-black/65 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#D4AF37]/18">
+                              <span className="w-0.5 h-0.5 rounded-full bg-[#D4AF37]/60 inline-block" />
+                              {img.badge}
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.14)] transition-opacity duration-400 pointer-events-none" />
+                      </motion.figure>
+                    );
+                  })}
+                </div>
+
+                {/* Uploaded journey images — compact 4-col archive grid */}
+                <div className="mt-2">
+                  <p className="text-white/20 text-[9px] font-mono uppercase tracking-[0.3em] mb-5 text-center">Full Journey Archive — {uploadedJourneyImages.length} Moments</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 md:gap-3">
+                    {uploadedJourneyImages.map((src, imgIdx) => {
+                      const globalIdx = JOURNEY_UPLOADS_START_IDX + imgIdx;
+                      return (
+                        <motion.figure
+                          key={src}
+                          initial={{ opacity: 0, y: 16 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: "-20px" }}
+                          transition={{ duration: 0.5, delay: (imgIdx % 4) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                          className="group relative h-[170px] sm:h-[200px] overflow-hidden rounded-xl cursor-zoom-in border border-white/[0.06] bg-[#0a0a0a] hover:border-[#D4AF37]/18 hover:shadow-[0_10px_32px_rgba(0,0,0,0.6)] transition-all duration-400"
+                          onClick={() => setSelectedJourneyIndex(globalIdx)}
+                          role="button"
+                          aria-label={`Open journey moment ${imgIdx + 1} in fullscreen`}
+                        >
+                          <img
+                            src={src}
+                            alt={`Journey moment ${imgIdx + 1} — Kiut`}
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_600ms_ease] group-hover:scale-[1.05]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                            <span className="text-[7px] font-mono text-white/20 tabular-nums">
+                              {String(imgIdx + 1).padStart(3, "0")}
+                            </span>
+                          </div>
+                          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] transition-opacity duration-400 pointer-events-none" />
+                        </motion.figure>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ── "The Journey Continues" — Cinematic CTA ─────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-20 md:mt-28 text-center"
+          >
+            <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/18 to-transparent mb-14" />
+            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">What Comes Next</p>
+            <h3 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4 leading-tight">
+              The Journey<br className="hidden md:block" /> Continues
+            </h3>
+            <p className="text-white/35 text-[14px] font-light mb-10 max-w-sm mx-auto leading-relaxed">
+              New chapters are being written. Follow the story through the music and the visuals.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/videos">
                 <motion.button
+                  type="button"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-9 py-4 rounded-full border border-white/20 text-white font-bold uppercase tracking-widest text-sm hover:border-white/45 hover:bg-white/5 transition-all duration-300 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-[10.5px] hover:border-[#D4AF37]/40 hover:text-[#D4AF37] hover:bg-white/[0.03] transition-all duration-350 w-full sm:w-auto"
                 >
-                  Watch Videos
+                  <Film className="w-3.5 h-3.5" /> Watch Latest Visual
+                </motion.button>
+              </Link>
+              <Link href="/music">
+                <motion.button
+                  type="button"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[10.5px] shadow-[0_0_24px_rgba(212,175,55,0.35)] hover:shadow-[0_0_44px_rgba(212,175,55,0.6)] transition-shadow duration-350 w-full sm:w-auto"
+                >
+                  <Headphones className="w-3.5 h-3.5" /> Listen Now
                 </motion.button>
               </Link>
             </div>
@@ -860,9 +1119,9 @@ export default function About() {
                   <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D4AF37]">
                     Visual Archive
                   </p>
-                  {JOURNEY_LABELS[selectedJourneyIndex ?? 0] && (
+                  {allGalleryImages[selectedJourneyIndex ?? 0]?.badge && (
                     <p className="text-[11px] text-white/50 mt-0.5 font-light tracking-wide">
-                      {JOURNEY_LABELS[selectedJourneyIndex ?? 0]}
+                      {allGalleryImages[selectedJourneyIndex ?? 0]?.badge}
                     </p>
                   )}
                 </div>
@@ -870,7 +1129,7 @@ export default function About() {
 
               <div className="flex items-center gap-3">
                 <span className="text-[11px] font-mono text-white/30 tabular-nums tracking-widest hidden sm:block">
-                  {String((selectedJourneyIndex ?? 0) + 1).padStart(3, "0")} / {String(uploadedJourneyImages.length).padStart(3, "0")}
+                  {String((selectedJourneyIndex ?? 0) + 1).padStart(3, "0")} / {String(allGalleryImages.length).padStart(3, "0")}
                 </span>
                 <button
                   type="button"
@@ -908,8 +1167,8 @@ export default function About() {
                     className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.8)] max-w-[90vw] max-h-[80vh]"
                   >
                     <img
-                      src={selectedJourneyImage}
-                      alt={JOURNEY_LABELS[selectedJourneyIndex ?? 0] ?? `Journey moment ${(selectedJourneyIndex ?? 0) + 1}`}
+                      src={selectedJourneyImage ?? ""}
+                      alt={allGalleryImages[selectedJourneyIndex ?? 0]?.alt ?? `Journey moment ${(selectedJourneyIndex ?? 0) + 1}`}
                       className="block max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
                       style={{ display: "block" }}
                     />
@@ -932,9 +1191,9 @@ export default function About() {
               className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-5 pt-3 z-10 gap-1.5"
               onClick={(e) => e.stopPropagation()}
             >
-              {uploadedJourneyImages.slice(
+              {allGalleryImages.slice(
                 Math.max(0, (selectedJourneyIndex ?? 0) - 4),
-                Math.min(uploadedJourneyImages.length, (selectedJourneyIndex ?? 0) + 5)
+                Math.min(allGalleryImages.length, (selectedJourneyIndex ?? 0) + 5)
               ).map((_, relIdx) => {
                 const absIdx = Math.max(0, (selectedJourneyIndex ?? 0) - 4) + relIdx;
                 const isActive = absIdx === selectedJourneyIndex;

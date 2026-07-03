@@ -528,9 +528,11 @@ export default function Home() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeStoreIdx, setActiveStoreIdx] = useState(0);
+  const [gridSpotlight, setGridSpotlight] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setActiveStoreIdx(p => (p + 1) % 3), 4500);
-    return () => clearInterval(t);
+    const t1 = setInterval(() => setActiveStoreIdx(p => (p + 1) % 3), 5000);
+    const t2 = setInterval(() => setGridSpotlight(p => (p + 1) % 4), 3800);
+    return () => { clearInterval(t1); clearInterval(t2); };
   }, []);
 
   const slides = [
@@ -930,198 +932,134 @@ export default function Home() {
       </section>
 
       {/* ─── KIUTRABA'S STORE FEATURE ─────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5 overflow-hidden">
+      <section className="py-24 md:py-36 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg,#030303 0%,#050507 50%,#060608 100%)" }}>
         <style>{`
           @keyframes store-tape {
             from { transform: translateX(0); }
             to   { transform: translateX(-50%); }
           }
-          .store-tape-track { animation: store-tape 30s linear infinite; }
+          .store-tape-track { animation: store-tape 32s linear infinite; }
           .store-tape-track:hover { animation-play-state: paused; }
         `}</style>
 
-        {/* Ambient radial glow — shifts with active product */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_35%_55%,rgba(212,175,55,0.07),transparent_60%)]" />
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#030303] to-transparent" />
+        {/* Atmospheric lighting — left gold bloom, right deep shadow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_40%,rgba(212,175,55,0.08),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(212,175,55,0.04),transparent_50%)]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/60 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
 
-          {/* ── Heading ── */}
+          {/* ── Section heading ── */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-12"
           >
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-4">Kiut × Raba Bag</p>
+            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-4">
               KiutRaba<span className="text-[#D4AF37]">'s</span> Store
             </h2>
-            <p className="text-white/40 text-[14px] font-light max-w-xl mx-auto leading-relaxed">
+            <p className="text-white/38 text-[14px] font-light max-w-lg mx-auto leading-relaxed">
               Exclusive apparel and collectibles inspired by the music, culture, and journey.
             </p>
           </motion.div>
 
-          {/* ── Cycling Spotlight ── */}
+          {/* ── 1. Featured Collection Banner (cycling hero) ── */}
           {(() => {
-            const spotlightItems = [
-              {
-                img: "/assets/images/merch-hoodie.jpg",
-                fit: "object-cover object-top",
-                badge: "Limited Edition",
-                category: "Featured Drop",
-                name: "KiutRaba Signature Hoodie",
-                desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered crown logo — wear the sound.",
-              },
-              {
-                img: "/assets/images/merch-cap-black.png",
-                fit: "object-contain p-10",
-                badge: "Apparel",
-                category: "New Arrival",
-                name: "KR Crown Cap",
-                desc: "Structured silhouette, gold 3D embroidered Raba Bag monogram. Street meets luxury.",
-              },
-              {
-                img: "/assets/images/merch-outfit-red.jpg",
-                fit: "object-contain p-6",
-                badge: "Collection",
-                category: "Signature Series",
-                name: "Signature Red Set",
-                desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy.",
-              },
+            const bannerItems = [
+              { img: "/assets/images/merch-hoodie.jpg",     imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
+              { img: "/assets/images/merch-cap-black.png",  imgCls: "object-contain p-8",      badge: "New Arrival",     category: "Apparel",           name: "KR Crown Cap",              desc: "Structured silhouette, gold 3D embroidered Raba Bag monogram. Street meets luxury." },
+              { img: "/assets/images/merch-outfit-red.jpg", imgCls: "object-contain p-6",      badge: "Exclusive",       category: "Signature Series",  name: "Signature Red Set",         desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
             ];
-            const active = spotlightItems[activeStoreIdx];
+            const active = bannerItems[activeStoreIdx];
             return (
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl overflow-hidden border border-white/[0.07] shadow-[0_30px_90px_rgba(0,0,0,0.65)]"
-                style={{ background: "rgba(10,10,12,0.7)", backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)" }}
+                className="rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_32px_100px_rgba(0,0,0,0.7)]"
+                style={{ background: "#0a0a0c" }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr]">
+                <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr]">
 
-                  {/* Left — cycling image */}
-                  <div className="relative overflow-hidden bg-[#0c0c0e] min-h-[420px] lg:min-h-[560px]">
+                  {/* Left — full-bleed cycling image */}
+                  <div className="relative overflow-hidden bg-[#0d0d0f] min-h-[400px] lg:min-h-[520px]">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeStoreIdx}
-                        initial={{ opacity: 0, scale: 1.06 }}
+                        initial={{ opacity: 0, scale: 1.07 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.97 }}
-                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                        exit={{ opacity: 0, scale: 0.96 }}
+                        transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute inset-0"
                       >
-                        <img
-                          src={active.img}
-                          alt={active.name}
-                          className={`w-full h-full ${active.fit}`}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/30 lg:block hidden" />
+                        <img src={active.img} alt={active.name} className={`w-full h-full ${active.imgCls}`} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0c]/50 hidden lg:block" />
                       </motion.div>
                     </AnimatePresence>
 
-                    {/* Badge */}
+                    {/* Gold badge */}
                     <div className="absolute top-5 left-5 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.3em] text-black bg-[#D4AF37] shadow-[0_0_22px_rgba(212,175,55,0.55)]">
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.5)]">
                         <span>✦</span> {active.badge}
                       </span>
                     </div>
 
-                    {/* Counter */}
+                    {/* Film counter */}
                     <div className="absolute top-5 right-5 z-10">
-                      <span className="text-[11px] font-mono text-white/30 tabular-nums tracking-widest">
+                      <span className="text-[10px] font-mono text-white/28 tabular-nums tracking-widest">
                         {String(activeStoreIdx + 1).padStart(2, "0")} / 03
                       </span>
                     </div>
 
-                    {/* Prev / Next arrows */}
-                    <button
-                      onClick={() => setActiveStoreIdx(p => (p - 1 + 3) % 3)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/40 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/30 transition-all duration-300"
-                    >
-                      <ChevronLeft className="w-4 h-4 text-white/60" />
+                    {/* Prev / Next */}
+                    <button onClick={() => setActiveStoreIdx(p => (p - 1 + 3) % 3)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/35 transition-all duration-300">
+                      <ChevronLeft className="w-4 h-4 text-white/55" />
                     </button>
-                    <button
-                      onClick={() => setActiveStoreIdx(p => (p + 1) % 3)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/40 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/30 transition-all duration-300"
-                    >
-                      <ChevronRight className="w-4 h-4 text-white/60" />
+                    <button onClick={() => setActiveStoreIdx(p => (p + 1) % 3)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/35 transition-all duration-300">
+                      <ChevronRight className="w-4 h-4 text-white/55" />
                     </button>
 
-                    {/* Bottom label */}
+                    {/* Animated bottom label */}
                     <AnimatePresence mode="wait">
-                      <motion.div
-                        key={activeStoreIdx + "-label"}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute bottom-0 left-0 right-0 p-6 z-10"
-                      >
+                      <motion.div key={activeStoreIdx + "-bl"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 right-0 p-6 z-10">
                         <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D4AF37]/80 mb-1">{active.category}</p>
-                        <p className="font-display text-2xl font-bold text-white uppercase tracking-tight">{active.name}</p>
+                        <p className="font-display text-[22px] font-bold text-white uppercase tracking-tight">{active.name}</p>
                       </motion.div>
                     </AnimatePresence>
                   </div>
 
-                  {/* Right — animated editorial content */}
+                  {/* Right — animated editorial copy */}
                   <div className="flex flex-col justify-between p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/[0.06]">
-
-                    {/* Animated text content */}
                     <AnimatePresence mode="wait">
-                      <motion.div
-                        key={activeStoreIdx + "-text"}
-                        initial={{ opacity: 0, x: 18 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -12 }}
-                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="mb-8"
-                      >
-                        <p className="text-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.45em] mb-4">New Drop</p>
-                        <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
+                      <motion.div key={activeStoreIdx + "-copy"} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="mb-8">
+                        <p className="text-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.45em] mb-5">New Drop</p>
+                        <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-5">
                           Discover KiutRaba's<br />Exclusive Collection
                         </h3>
-                        <p className="text-white/45 text-[13px] font-light leading-relaxed">
-                          {active.desc}
-                        </p>
+                        <p className="text-white/42 text-[13px] font-light leading-relaxed">{active.desc}</p>
                       </motion.div>
                     </AnimatePresence>
 
-                    {/* Dot indicators */}
-                    <div className="flex items-center gap-2.5 mb-8">
-                      {[0, 1, 2].map(i => (
-                        <button
-                          key={i}
-                          onClick={() => setActiveStoreIdx(i)}
-                          className={`rounded-full transition-all duration-400 ${
-                            i === activeStoreIdx
-                              ? "w-8 h-2 bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.6)]"
-                              : "w-2 h-2 bg-white/20 hover:bg-white/40"
-                          }`}
-                        />
-                      ))}
-                    </div>
+                    <div>
+                      {/* Progress dots */}
+                      <div className="flex items-center gap-2.5 mb-7">
+                        {[0, 1, 2].map(i => (
+                          <button key={i} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-500 ${i === activeStoreIdx ? "w-8 h-[6px] bg-[#D4AF37] shadow-[0_0_12px_rgba(212,175,55,0.65)]" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
+                        ))}
+                      </div>
 
-                    {/* CTA */}
-                    <div className="space-y-4">
+                      {/* CTA */}
                       <Link href="/about#kiutraba-store">
-                        <motion.button
-                          whileHover={{ y: -3, scale: 1.02 }}
-                          whileTap={{ scale: 0.97 }}
-                          className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[11px] shadow-[0_0_24px_rgba(212,175,55,0.30)] hover:shadow-[0_0_48px_rgba(212,175,55,0.60)] transition-shadow duration-300"
-                        >
-                          <span className="text-[9px]">✦</span>
-                          Explore The Store
-                          <ArrowRight className="w-3.5 h-3.5" />
+                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[11px] shadow-[0_0_28px_rgba(212,175,55,0.28)] hover:shadow-[0_0_52px_rgba(212,175,55,0.58)] transition-shadow duration-300 mb-3">
+                          <span className="text-[9px]">✦</span> Explore Collection <ArrowRight className="w-3.5 h-3.5" />
                         </motion.button>
                       </Link>
-                      <p className="text-center text-white/20 text-[10px] font-light uppercase tracking-[0.32em]">
-                        11 pieces available
-                      </p>
+                      <p className="text-center text-white/18 text-[10px] font-light uppercase tracking-[0.3em]">11 Exclusive Pieces</p>
                     </div>
                   </div>
                 </div>
@@ -1129,53 +1067,180 @@ export default function Home() {
             );
           })()}
 
-          {/* ── Infinite Product Tape ── */}
-          <div className="mt-6 overflow-hidden rounded-2xl border border-white/[0.05]" style={{ mask: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)" }}>
-            <div className="store-tape-track flex gap-3 py-3 w-max">
-              {[
-                { name: "Signature Hoodie",     img: "/assets/images/merch-hoodie.jpg",       fit: "object-cover" },
-                { name: "Studio Shirt",          img: "/assets/images/merch-shirt.jpg",        fit: "object-contain" },
-                { name: "Red Set",               img: "/assets/images/merch-outfit-red.jpg",   fit: "object-contain" },
-                { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.png",    fit: "object-contain" },
-                { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.png",       fit: "object-contain" },
-                { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.png",  fit: "object-contain" },
-                { name: "Rababag Cap",           img: "/assets/images/merch-cap-rababag.png",  fit: "object-contain" },
-                { name: "Full Drop",             img: "/assets/images/merch-collection.png",   fit: "object-contain" },
-                { name: "Confam Boy Print",      img: "/assets/images/merch-confamboy.png",    fit: "object-contain" },
-                { name: "Physical EP",           img: "/assets/images/merch-cd.png",           fit: "object-contain" },
-                { name: "Digital EP",            img: "/assets/images/merch-ep-digital.png",   fit: "object-contain" },
-                { name: "Signature Hoodie",     img: "/assets/images/merch-hoodie.jpg",       fit: "object-cover" },
-                { name: "Studio Shirt",          img: "/assets/images/merch-shirt.jpg",        fit: "object-contain" },
-                { name: "Red Set",               img: "/assets/images/merch-outfit-red.jpg",   fit: "object-contain" },
-                { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.png",    fit: "object-contain" },
-                { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.png",       fit: "object-contain" },
-                { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.png",  fit: "object-contain" },
-                { name: "Rababag Cap",           img: "/assets/images/merch-cap-rababag.png",  fit: "object-contain" },
-                { name: "Full Drop",             img: "/assets/images/merch-collection.png",   fit: "object-contain" },
-                { name: "Confam Boy Print",      img: "/assets/images/merch-confamboy.png",    fit: "object-contain" },
-                { name: "Physical EP",           img: "/assets/images/merch-cd.png",           fit: "object-contain" },
-                { name: "Digital EP",            img: "/assets/images/merch-ep-digital.png",   fit: "object-contain" },
-              ].map((p, i) => (
-                <Link key={i} href="/about#kiutraba-store">
-                  <div className="group relative flex-shrink-0 w-[150px] h-[150px] rounded-xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-[#D4AF37]/30 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] cursor-pointer">
-                    <div className="w-full h-full p-3">
-                      <img
-                        src={p.img}
-                        alt={p.name}
-                        loading="lazy"
-                        className={`w-full h-full ${p.fit} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07]`}
-                      />
+          {/* ── 2. Editorial Product Grid ── */}
+          {(() => {
+            const gridItems = [
+              { name: "KR Crown Cap",             img: "/assets/images/merch-cap-black.png",   isCover: false, badge: "NEW",            badgeKind: "gold-fill",    desc: "Gold 3D embroidered Raba Bag monogram. Street meets luxury.",        colCls: "sm:col-span-1 lg:col-span-1", spotlight: 0 },
+              { name: "KiutRaba Waffle Beanie",   img: "/assets/images/merch-beanie.png",      isCover: false, badge: "PREMIUM",        badgeKind: "gold-outline", desc: "Structured waffle knit. The everyday KiutRaba staple piece.",        colCls: "sm:col-span-1 lg:col-span-1", spotlight: 1 },
+              { name: "Raba Bag Studio Shirt",    img: "/assets/images/merch-shirt.jpg",       isCover: false, badge: "BEST SELLER",    badgeKind: "ghost",        desc: "Clean drop-shoulder silhouette. The essential studio wardrobe.",      colCls: "sm:col-span-2 lg:col-span-1", spotlight: 2 },
+              { name: "Good Life Full Drop",      img: "/assets/images/merch-collection.png",  isCover: false, badge: "COLLECTION",     badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe moment.",      colCls: "sm:col-span-2 lg:col-span-1", spotlight: 3 },
+            ];
+
+            return (
+              <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                {gridItems.map((product, idx) => {
+                  const isSpotlit = gridSpotlight === product.spotlight;
+                  return (
+                    <motion.a
+                      key={product.name}
+                      href="https://kiutrababag.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 22 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: idx * 0.09, ease: [0.22, 1, 0.36, 1] }}
+                      whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                      className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-[border-color,box-shadow,transform] duration-500 ${product.colCls} ${
+                        isSpotlit
+                          ? "border border-[#D4AF37]/40 shadow-[0_18px_60px_rgba(212,175,55,0.14),0_0_0_1px_rgba(212,175,55,0.10)]"
+                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-[#D4AF37]/28 hover:shadow-[0_18px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.06)]"
+                      }`}
+                      style={{ background: "#0b0b0d" }}
+                    >
+                      {/* "Featured This Week" badge — spotlight only */}
+                      <AnimatePresence>
+                        {isSpotlit && (
+                          <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3 }} className="absolute top-2.5 right-2.5 z-20">
+                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.22em] text-black bg-[#D4AF37] shadow-[0_0_14px_rgba(212,175,55,0.55)]">
+                              ✦ This Week
+                            </span>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {/* Product badge */}
+                      <div className="absolute top-2.5 left-2.5 z-20">
+                        <span className={`inline-flex items-center px-2.5 py-[5px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.2em] ${
+                          product.badgeKind === "gold-fill"
+                            ? "text-black bg-[#D4AF37]/90"
+                            : product.badgeKind === "gold-outline"
+                            ? "text-[#D4AF37] border border-[#D4AF37]/40 bg-black/55 backdrop-blur-sm"
+                            : "text-white/50 border border-white/15 bg-black/45 backdrop-blur-sm"
+                        }`}>
+                          {product.badge}
+                        </span>
+                      </div>
+
+                      {/* Image — 78% of card */}
+                      <div className="relative overflow-hidden bg-[#0e0e10] h-[160px] sm:h-[200px] md:h-[220px] flex-shrink-0">
+                        <img
+                          src={product.img}
+                          alt={`${product.name} — KiutRaba`}
+                          loading="lazy"
+                          className="w-full h-full object-contain p-3 [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                        />
+                        {isSpotlit && (
+                          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07),transparent_68%)] pointer-events-none" />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d]/60 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] [transition:opacity_400ms_ease] pointer-events-none" />
+                      </div>
+
+                      {/* Card footer */}
+                      <div className="flex flex-col flex-1 justify-between p-3.5 bg-[#0a0a0c] border-t border-white/[0.05]">
+                        <div className="mb-2.5">
+                          <h3 className="font-display text-[12px] md:text-[13px] font-bold text-white uppercase tracking-tight leading-tight mb-1">{product.name}</h3>
+                          <p className="text-white/35 text-[10px] font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
+                        </div>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-white/22 text-[10px] font-light tracking-widest">$ –</span>
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#D4AF37]/32 text-[#D4AF37] text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/58 transition-all duration-300 whitespace-nowrap">
+                            Shop Now <ExternalLink className="w-2 h-2" />
+                          </span>
+                        </div>
+                      </div>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          {/* ── 3. "More From KiutRaba" Carousel ── */}
+          <div className="mt-10">
+            <div className="flex items-baseline justify-between mb-5">
+              <div>
+                <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
+                <p className="text-white/25 text-[11px] font-light tracking-wide">More From KiutRaba</p>
+              </div>
+              <Link href="/about#kiutraba-store">
+                <span className="text-white/28 text-[10px] font-light uppercase tracking-[0.28em] hover:text-[#D4AF37] transition-colors duration-200 cursor-pointer">
+                  View All →
+                </span>
+              </Link>
+            </div>
+
+            <div className="overflow-hidden rounded-2xl" style={{ WebkitMaskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)", maskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)" }}>
+              <div className="store-tape-track flex gap-3 w-max py-1">
+                {[
+                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
+                  { name: "Studio Shirt",        img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "Signature Red Set",   img: "/assets/images/merch-outfit-red.jpg",   cover: false },
+                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
+                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
+                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
+                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
+                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
+                  { name: "Confam Boy Print",    img: "/assets/images/merch-confamboy.png",    cover: false },
+                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
+                  { name: "Digital EP",          img: "/assets/images/merch-ep-digital.png",   cover: false },
+                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
+                  { name: "Studio Shirt",        img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "Signature Red Set",   img: "/assets/images/merch-outfit-red.jpg",   cover: false },
+                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
+                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
+                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
+                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
+                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
+                  { name: "Confam Boy Print",    img: "/assets/images/merch-confamboy.png",    cover: false },
+                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
+                  { name: "Digital EP",          img: "/assets/images/merch-ep-digital.png",   cover: false },
+                ].map((p, i) => (
+                  <Link key={i} href="/about#kiutraba-store">
+                    <div className="group relative flex-shrink-0 w-[160px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-[#D4AF37]/32 transition-all duration-350 hover:shadow-[0_10px_36px_rgba(0,0,0,0.55)] cursor-pointer">
+                      {/* Image — fills 80% of card */}
+                      <div className="h-[130px] w-full bg-[#0e0e10]">
+                        <img
+                          src={p.img}
+                          alt={p.name}
+                          loading="lazy"
+                          className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07]`}
+                        />
+                      </div>
+                      {/* Footer */}
+                      <div className="px-3 py-2.5 bg-[#0a0a0c] border-t border-white/[0.05]">
+                        <p className="text-[9.5px] font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
+                        <p className="text-white/22 text-[8.5px] font-light tracking-widest">$ –</p>
+                      </div>
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-2xl [transition:opacity_350ms_ease] pointer-events-none" />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-2.5">
-                      <p className="text-[9px] font-bold text-white uppercase tracking-tight truncate leading-tight">{p.name}</p>
-                    </div>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.2)] rounded-xl [transition:opacity_350ms_ease]" />
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* ── 4. Bottom CTA ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-14 text-center"
+          >
+            <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/12 to-transparent mb-10" />
+            <Link href="/about#kiutraba-store">
+              <motion.button
+                whileHover={{ y: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-[#D4AF37]/32 text-[#D4AF37] font-bold uppercase tracking-widest text-[11px] hover:bg-[#D4AF37]/[0.07] hover:border-[#D4AF37]/60 hover:shadow-[0_0_36px_rgba(212,175,55,0.18)] transition-all duration-350"
+              >
+                <span>✦</span> View Full Collection <ArrowRight className="w-4 h-4" />
+              </motion.button>
+            </Link>
+            <p className="text-white/14 text-[10px] font-light uppercase tracking-[0.38em] mt-4">11 Exclusive Pieces Available</p>
+          </motion.div>
 
         </div>
       </section>

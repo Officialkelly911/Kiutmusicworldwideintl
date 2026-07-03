@@ -1195,17 +1195,22 @@ export default function About() {
                         const isHero = product.featured && isFeaturedVisible;
                         const isContain = product.fit === "contain";
                         return (
-                          <motion.div
+                          <motion.a
                             key={product.id}
+                            href="https://dreamplanet.org/store-profile/61"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Shop ${product.name} on Dream Planet Store`}
                             layout
                             initial={{ opacity: 0, y: 24, scale: 0.97 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.22 } }}
                             transition={{ duration: 0.55, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                            whileHover={{ y: -4, transition: { duration: 0.3 } }}
                             className={cn(
-                              "group flex flex-col rounded-2xl overflow-hidden",
-                              "border border-white/[0.07] hover:border-[#D4AF37]/28",
-                              "shadow-[0_6px_28px_rgba(0,0,0,0.38)] hover:shadow-[0_14px_50px_rgba(0,0,0,0.55)]",
+                              "group flex flex-col rounded-2xl overflow-hidden cursor-pointer",
+                              "border border-white/[0.07] hover:border-[#D4AF37]/30",
+                              "shadow-[0_6px_28px_rgba(0,0,0,0.38)] hover:shadow-[0_16px_52px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.06)]",
                               "transition-[border-color,box-shadow] duration-400",
                               isHero ? "md:col-span-2" : ""
                             )}
@@ -1273,18 +1278,12 @@ export default function About() {
                                 <h3 className="font-display text-[14px] font-bold text-white uppercase tracking-tight leading-tight truncate">{product.name}</h3>
                                 <p className="text-white/25 text-[11px] font-light mt-0.5 tracking-widest">$ –</p>
                               </div>
-                              <a
-                                href="https://kiutrababag.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#D4AF37]/35 text-[#D4AF37] text-[9.5px] font-bold uppercase tracking-[0.18em] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]/65 transition-all duration-300 whitespace-nowrap"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                View
+                              <span className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#D4AF37]/35 text-[#D4AF37] text-[9.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/65 transition-all duration-300 whitespace-nowrap">
+                                Shop Now
                                 <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
-                              </a>
+                              </span>
                             </div>
-                          </motion.div>
+                          </motion.a>
                         );
                       })}
                     </AnimatePresence>
@@ -1312,17 +1311,18 @@ export default function About() {
                 <p className="text-white/38 text-[14px] font-light mb-9 max-w-md mx-auto leading-relaxed">
                   Explore the full collection and carry the journey beyond the music.
                 </p>
-                <a href="https://kiutrababag.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://dreamplanet.org/store-profile/61" target="_blank" rel="noopener noreferrer" aria-label="Explore the full KiutRaba collection on Dream Planet Store">
                   <motion.button
                     whileHover={{ y: -4, scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
                     className="inline-flex items-center gap-3 px-11 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[12px] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:shadow-[0_0_55px_rgba(212,175,55,0.62)] transition-shadow duration-300"
                   >
                     <span className="text-[10px]">✦</span>
-                    Explore Store
+                    Explore Store ↗
                     <ExternalLink className="w-3.5 h-3.5" />
                   </motion.button>
                 </a>
+                <p className="text-white/18 text-[10px] font-light tracking-[0.24em] mt-4">Secure checkout powered by Dream Planet</p>
               </motion.div>
 
             </div>

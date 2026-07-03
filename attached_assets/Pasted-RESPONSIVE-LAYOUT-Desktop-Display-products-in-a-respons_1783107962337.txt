@@ -1,0 +1,120 @@
+RESPONSIVE LAYOUT
+
+Desktop:
+
+Display products in a responsive three-column grid.
+
+Tablet:
+
+Display two products per row.
+
+Mobile:
+
+Display one product per row.
+
+Maintain equal spacing and alignment.
+
+⸻
+
+FEATURED PRODUCT
+
+Highlight one merchandise item as:
+
+FEATURED
+
+Use:
+
+* Slightly larger card
+* Premium gold border
+* Soft glow
+* Stronger shadow
+
+This product should immediately attract attention.
+
+⸻
+
+HOVER EFFECTS
+
+Apply premium hover interactions:
+
+* Slight image zoom
+* Card lift
+* Enhanced shadow
+* Soft gold glow
+* Smooth transitions (300–500 ms)
+
+Maintain subtle, elegant animations.
+
+⸻
+
+CTA BUTTONS
+
+Ensure every product includes a clear call-to-action button.
+
+Examples:
+
+* Shop Now
+* View Product
+* Explore Collection
+
+All buttons should continue redirecting to the official Dream Planet Store profile.
+
+Preserve existing link behavior and styling.
+
+⸻
+
+SECTION LAYOUT
+
+Maintain the existing section placement on the Home page.
+
+Increase vertical spacing slightly to accommodate the additional products without making the section feel crowded.
+
+Ensure the layout remains balanced and visually appealing.
+
+⸻
+
+PERFORMANCE
+
+Optimize all newly added images using:
+
+* Lazy loading
+* Responsive image sizing
+* Efficient rendering
+
+Prevent layout shifts.
+
+Maintain fast loading times.
+
+⸻
+
+DESIGN CONSISTENCY
+
+Ensure the expanded Store CTA section matches the rest of the Kiut Music website.
+
+Maintain:
+
+* Premium typography
+* Dark luxury color palette
+* Gold accent styling
+* Smooth animations
+* Consistent spacing
+* Responsive behavior
+
+The section should feel like a curated artist collection rather than a generic online store.
+
+⸻
+
+FINAL GOAL
+
+Transform the Store CTA section into a richer merchandise showcase featuring six carefully presented products, including two additional outfits and one exclusive digital product.
+
+The finished section should immediately communicate quality, exclusivity, and professionalism while encouraging visitors to explore the full Dream Planet store.
+
+After implementation, provide a summary including:
+
+1. Files modified.
+2. New merchandise cards added.
+3. Digital product integrated.
+4. Layout and responsiveness improvements.
+5. Performance optimizations.
+6. Confirmation that all merchandise links continue to redirect to the official Dream Planet Store.

@@ -1,0 +1,628 @@
+# Kiut Studio Design Language (KSDL)
+
+# 05 – Button System
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Button System defines every interactive button used throughout the Kiut Music website.
+
+Buttons are one of the most frequently used interface elements and should immediately communicate trust, clarity, and premium quality.
+
+Every button must follow this system.
+
+---
+
+# Design Philosophy
+
+Buttons should feel:
+
+- Premium
+
+- Confident
+
+- Elegant
+
+- Responsive
+
+- Accessible
+
+A button should invite interaction without demanding attention.
+
+---
+
+# Primary Button
+
+Purpose
+
+Main Call-To-Action.
+
+Examples
+
+Listen Now
+
+Shop Collection
+
+Watch Video
+
+Book Tickets
+
+Meet & Greet
+
+Fan Card
+
+Style
+
+Background
+
+Royal Gold
+
+Text
+
+Midnight Black
+
+Radius
+
+16px
+
+Padding
+
+16px 28px
+
+Font
+
+Inter
+
+Weight
+
+600
+
+Minimum Height
+
+48px
+
+---
+
+Hover
+
+Background
+
+Warm Gold
+
+Lift
+
+4px
+
+Shadow
+
+Gold Glow
+
+Scale
+
+1.02
+
+Duration
+
+200ms
+
+---
+
+Active
+
+Scale
+
+0.98
+
+Glow
+
+Reduced
+
+---
+
+Disabled
+
+Opacity
+
+50%
+
+Cursor
+
+Not Allowed
+
+No Hover Animation
+
+---
+
+# Secondary Button
+
+Purpose
+
+Supporting actions.
+
+Style
+
+Transparent
+
+Border
+
+1px Royal Gold
+
+Text
+
+Royal Gold
+
+Hover
+
+Gold Background
+
+Black Text
+
+---
+
+# Ghost Button
+
+Purpose
+
+Low-priority actions.
+
+Transparent background.
+
+White text.
+
+Hover
+
+Soft Glass Background
+
+---
+
+# Outline Button
+
+Purpose
+
+Alternative CTA.
+
+White Border
+
+Transparent Background
+
+Hover
+
+Gold Border
+
+---
+
+# Streaming Platform Button
+
+Platforms
+
+Spotify
+
+Apple Music
+
+YouTube
+
+Audiomack
+
+SoundCloud
+
+Amazon Music
+
+Requirements
+
+Platform icon
+
+Platform name
+
+External link indicator
+
+Consistent height
+
+---
+
+Hover
+
+Slide icon
+
+Gold underline
+
+Glow
+
+---
+
+# Store Button
+
+Primary Purchase CTA.
+
+Text
+
+Visit Store
+
+External Link Icon
+
+Hover
+
+Glow
+
+Soft Lift
+
+---
+
+# Social Button
+
+Platforms
+
+Instagram
+
+TikTok
+
+Facebook
+
+X
+
+Threads
+
+YouTube
+
+Hover
+
+Icon rotates slightly.
+
+Gold accent appears.
+
+---
+
+# Floating Button
+
+Purpose
+
+Scroll To Top
+
+Quick Contact
+
+Music Player
+
+Support
+
+Shape
+
+Circular
+
+Size
+
+56px
+
+Shadow
+
+Medium
+
+Hover
+
+Scale
+
+1.08
+
+---
+
+# Icon Button
+
+Size
+
+48px
+
+Shape
+
+Rounded
+
+Background
+
+Glass Surface
+
+Hover
+
+Gold Border
+
+---
+
+# Premium Button
+
+Reserved For
+
+VIP
+
+Premium Fan Card
+
+Exclusive Content
+
+Meet & Greet
+
+Animation
+
+Golden Pulse
+
+Soft Shine Sweep
+
+Gold Glow
+
+---
+
+# Loading Button
+
+Spinner
+
+Centered
+
+Text remains visible.
+
+Prevent duplicate clicks.
+
+---
+
+# Success Button
+
+Used After
+
+Purchase
+
+Form Submission
+
+Application
+
+Background
+
+Success Green
+
+Icon
+
+Checkmark
+
+---
+
+# Error Button
+
+Background
+
+Error Red
+
+Only for destructive actions.
+
+Requires confirmation.
+
+---
+
+# Button Sizes
+
+Small
+
+40px
+
+Medium
+
+48px
+
+Large
+
+56px
+
+Hero
+
+64px
+
+---
+
+# Border Radius
+
+Standard
+
+16px
+
+Rounded
+
+24px
+
+Pill
+
+999px
+
+---
+
+# Animation Standards
+
+Hover
+
+200ms
+
+Click
+
+120ms
+
+Loading
+
+Continuous
+
+Pulse
+
+2.5s
+
+Shine Sweep
+
+3s
+
+---
+
+# Icon Placement
+
+Leading Icon
+
+Preferred
+
+Trailing Icon
+
+External Links
+
+Center Icon
+
+Floating Buttons
+
+Spacing
+
+12px
+
+---
+
+# Accessibility
+
+Minimum Touch Target
+
+48px
+
+Visible Focus Ring
+
+Required
+
+Keyboard Accessible
+
+Required
+
+Screen Reader Labels
+
+Required
+
+---
+
+# Button Hierarchy
+
+1
+
+Primary
+
+2
+
+Premium
+
+3
+
+Secondary
+
+4
+
+Outline
+
+5
+
+Ghost
+
+6
+
+Icon
+
+---
+
+# Usage Rules
+
+One primary CTA per section.
+
+Avoid placing two primary buttons together.
+
+Premium buttons are reserved for premium experiences only.
+
+Streaming buttons must always remain visually consistent.
+
+---
+
+# Do's
+
+✔ Keep labels concise.
+
+✔ Use action verbs.
+
+✔ Maintain consistent spacing.
+
+✔ Keep hover subtle.
+
+✔ Preserve accessibility.
+
+---
+
+# Don'ts
+
+✘ Use multiple glow colors.
+
+✘ Stretch buttons vertically.
+
+✘ Use inconsistent padding.
+
+✘ Create page-specific button styles.
+
+✘ Introduce unapproved colors.
+
+---
+
+# CSS Design Tokens
+
+```css
+:root{
+
+--button-height-sm:40px;
+--button-height-md:48px;
+--button-height-lg:56px;
+--button-height-xl:64px;
+
+--button-radius:16px;
+--button-radius-pill:999px;
+
+--button-padding-x:28px;
+--button-padding-y:16px;
+
+--button-transition:200ms;
+
+--button-shadow:var(--shadow-gold);
+
+}
+```
+
+---
+
+# Future Expansion
+
+Animated Tour Button
+
+AI Assistant Button
+
+Exclusive Fan Button
+
+Concert Countdown CTA
+
+Limited Release Button
+
+---
+
+# Related Documents
+
+Color System
+
+Typography System
+
+Spacing System
+
+Card System
+
+Motion System
+
+Shadow & Glow System
+
+Responsive System
+
+Design Tokens
+
+---
+
+# Version History
+
+Version 1.0

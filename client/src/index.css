@@ -4,10 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -32,37 +33,132 @@
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
+
+  /* ── KSDL brand palette — exposed as first-class Tailwind utilities ──
+     (bg-gold, text-champagne, border-graphite, etc.) per Studio Handbook
+     03_Design_System/01_Color_System.md */
+  --color-midnight: #080808;
+  --color-charcoal: #121212;
+  --color-graphite: #1e1e1e;
+  --color-heading: #ffffff;
+  --color-body: #d6d6d6;
+  --color-muted-text: #9b9b9b;
+  --color-gold: #d4af37;
+  --color-gold-hover: #f4c542;
+  --color-champagne: #f7e7a1;
+  --color-purple: #6d3eff;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* ── KSDL shadow scale — 11_Design_Tokens.md ── */
+  --shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 14px 32px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 40px 120px rgba(0, 0, 0, 0.4);
+
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
 }
 
 :root {
-  --background: 240 10% 4%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 6%;
-  --card-foreground: 0 0% 98%;
-  --card-border: 240 6% 15%;
-  --popover: 240 10% 6%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 280 100% 65%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240 6% 12%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 6% 12%;
-  --muted-foreground: 240 5% 55%;
-  --accent: 320 100% 60%;
+  /* ── Shadcn/ui semantic tokens, remapped to the KSDL brand palette ──
+     (Midnight Black / Charcoal / Graphite / Royal Gold / Royal Purple)
+     instead of the generic purple/pink defaults. Any shadcn primitive
+     using bg-background, bg-primary, bg-accent, etc. now automatically
+     matches the Kiut brand identity instead of an unused placeholder theme. */
+  --background: 0 0% 3%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 100%;
+  --card-border: 0 0% 15%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 46 65% 52%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 7%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 61%;
+  --accent: 255 100% 62%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border: 240 6% 15%;
-  --input: 240 6% 15%;
-  --ring: 280 100% 65%;
-  --chart-1: 280 100% 65%;
-  --chart-2: 320 100% 60%;
-  --chart-3: 200 100% 60%;
-  --chart-4: 160 100% 50%;
-  --chart-5: 40 100% 60%;
-  --radius: 0.75rem;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 46 65% 52%;
+  --chart-1: 46 65% 52%;
+  --chart-2: 255 100% 62%;
+  --chart-3: 217 91% 60%;
+  --chart-4: 158 64% 52%;
+  --chart-5: 43 96% 56%;
+  --radius: 24px;
+
+  /* ── KSDL spacing scale (8-point grid) — 03_Spacing_Layout_System.md ── */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  --space-9: 128px;
+  --space-10: 160px;
+
+  /* ── KSDL glow tokens — 08_Shadow_Glow_System.md ── */
+  --glow-gold: 0 0 24px rgba(212, 175, 55, 0.28);
+  --glow-gold-hover: 0 0 42px rgba(244, 197, 66, 0.38);
+  --glow-purple: 0 0 30px rgba(109, 62, 255, 0.22);
+  --glow-champagne: 0 0 28px rgba(247, 231, 161, 0.25);
+
+  /* ── KSDL motion tokens — 07_Animation_Motion_System.md ── */
+  --motion-fast: 180ms;
+  --motion-normal: 250ms;
+  --motion-medium: 350ms;
+  --motion-slow: 500ms;
+  --motion-cinematic: 800ms;
+  --ease-default: ease-out;
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: ease-in;
+  --ease-page: ease-in-out;
+
+  /* ── KSDL icon sizes — 09_Iconography_System.md ── */
+  --icon-xs: 16px;
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+  --icon-xl: 48px;
+
+  /* ── KSDL layout containers & breakpoints — 10_Responsive_System.md ── */
+  --container-sm: 720px;
+  --container-md: 960px;
+  --container-lg: 1200px;
+  --container-xl: 1440px;
+  --container-ultra: 1600px;
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
+  --bp-desktop: 1280px;
+  --bp-wide: 1440px;
+  --bp-ultrawide: 1920px;
+
+  /* ── KSDL z-index layers — 11_Design_Tokens.md ── */
+  --z-background: 0;
+  --z-content: 10;
+  --z-navigation: 100;
+  --z-dropdown: 500;
+  --z-modal: 1000;
+  --z-toast: 1100;
+  --z-loader: 1200;
+
+  /* ── KSDL opacity tokens — 11_Design_Tokens.md ── */
+  --opacity-disabled: 0.5;
+  --opacity-overlay: 0.65;
+  --opacity-glass: 0.08;
+  --opacity-hover: 0.92;
 }
 
 @layer base {

@@ -1,0 +1,424 @@
+# Kiut Studio Design Language (KSDL)
+
+# Master Replit Agent Guide
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+This document is the official operating manual for Replit Agent while working on the Kiut Music website.
+
+Every implementation, enhancement, optimization, or bug fix must follow the standards defined in the Kiut Studio Handbook.
+
+The handbook is the single source of truth.
+
+---
+
+# Project Vision
+
+The Kiut Music website is designed to be more than a traditional artist website.
+
+It should feel like a premium digital experience that combines music, storytelling, merchandise, concerts, and community into one seamless platform.
+
+Every page should communicate quality, creativity, and professionalism.
+
+---
+
+# Development Philosophy
+
+Before building anything, understand the existing system.
+
+Reuse before creating.
+
+Improve before replacing.
+
+Optimize before shipping.
+
+Document before finishing.
+
+---
+
+# Source of Truth
+
+When making changes, consult the Studio Handbook in the following order:
+
+1. Design Tokens
+2. Color System
+3. Typography System
+4. Spacing System
+5. Component Library
+6. Button System
+7. Card System
+8. Motion System
+9. Shadow & Glow System
+10. Iconography
+11. Responsive System
+12. Accessibility Standards
+13. Page Templates
+14. UI Patterns
+15. Implementation Standards
+16. Asset Guidelines
+17. Performance Standards
+18. Studio QA Checklist
+
+No implementation should contradict these documents.
+
+---
+
+# General Rules
+
+Always reuse existing components.
+
+Never duplicate code.
+
+Never hardcode colors.
+
+Never hardcode spacing.
+
+Always use design tokens.
+
+Always use approved typography.
+
+Always maintain responsiveness.
+
+Always preserve accessibility.
+
+Always preserve performance.
+
+Always document significant changes.
+
+---
+
+# Design Rules
+
+Maintain the Kiut visual identity.
+
+Use the approved color palette.
+
+Preserve cinematic layouts.
+
+Maintain premium spacing.
+
+Preserve typography hierarchy.
+
+Reuse animation patterns.
+
+Maintain consistent shadows.
+
+Keep interactions elegant and intentional.
+
+---
+
+# Component Rules
+
+Before creating a new component:
+
+Search for an existing reusable component.
+
+If one exists, extend it rather than duplicate it.
+
+If a new component is required:
+
+Make it reusable.
+
+Document it.
+
+Use existing tokens.
+
+Follow naming conventions.
+
+---
+
+# Page Rules
+
+Every page must:
+
+Follow the approved page template.
+
+Use approved UI patterns.
+
+Include responsive layouts.
+
+Include accessibility support.
+
+Remain visually consistent.
+
+---
+
+# Media Rules
+
+Optimize all images.
+
+Optimize all videos.
+
+Compress assets.
+
+Use approved formats.
+
+Provide alt text.
+
+Lazy-load off-screen media.
+
+Never upload oversized assets.
+
+---
+
+# Performance Rules
+
+Maintain Lighthouse targets.
+
+Respect performance budgets.
+
+Avoid unnecessary JavaScript.
+
+Minimize third-party libraries.
+
+Lazy-load where appropriate.
+
+Monitor Core Web Vitals.
+
+---
+
+# Accessibility Rules
+
+Follow WCAG 2.2 AA.
+
+Keyboard navigation required.
+
+Visible focus states required.
+
+Semantic HTML required.
+
+Reduced motion supported.
+
+High contrast maintained.
+
+---
+
+# Documentation Rules
+
+Whenever introducing a new:
+
+Component
+
+Section
+
+Animation
+
+Feature
+
+Pattern
+
+Page
+
+Utility
+
+Update the appropriate Studio Handbook document if necessary.
+
+---
+
+# Before Starting Any Task
+
+Understand the request.
+
+Review existing implementation.
+
+Review relevant handbook documents.
+
+Identify reusable components.
+
+Identify required assets.
+
+Identify required animations.
+
+Plan implementation.
+
+Only then begin coding.
+
+---
+
+# During Development
+
+Maintain code quality.
+
+Write readable code.
+
+Keep components modular.
+
+Avoid unnecessary complexity.
+
+Preserve consistency.
+
+Follow naming conventions.
+
+Respect responsive behavior.
+
+---
+
+# Before Finishing
+
+Verify:
+
+Visual quality
+
+Responsiveness
+
+Accessibility
+
+Performance
+
+Code quality
+
+Documentation
+
+QA checklist
+
+Only complete the task when every item passes.
+
+---
+
+# Never Do
+
+Never duplicate components.
+
+Never hardcode design values.
+
+Never ignore accessibility.
+
+Never ignore responsiveness.
+
+Never sacrifice performance for visual effects.
+
+Never introduce inconsistent styles.
+
+Never create one-off solutions without strong justification.
+
+---
+
+# Preferred Workflow
+
+Read request
+
+↓
+
+Review handbook
+
+↓
+
+Plan implementation
+
+↓
+
+Reuse existing systems
+
+↓
+
+Implement
+
+↓
+
+Test
+
+↓
+
+Optimize
+
+↓
+
+Update documentation
+
+↓
+
+Complete QA
+
+↓
+
+Deliver
+
+---
+
+# Response Style
+
+When completing a task:
+
+Briefly explain the implementation.
+
+List affected files.
+
+Mention reused components.
+
+Mention any new components created.
+
+Mention documentation updates.
+
+Mention any remaining recommendations.
+
+---
+
+# Success Criteria
+
+Every completed task should:
+
+Look premium.
+
+Perform smoothly.
+
+Remain responsive.
+
+Be accessible.
+
+Be maintainable.
+
+Match the Kiut Studio Design Language.
+
+Require minimal future rework.
+
+---
+
+# Continuous Improvement
+
+If an opportunity exists to improve:
+
+Performance
+
+Accessibility
+
+Maintainability
+
+Readability
+
+Reusability
+
+Visual consistency
+
+Developer experience
+
+...implement the improvement when it does not conflict with the requested task.
+
+---
+
+# Final Principle
+
+Every decision should make the Kiut Music website easier to maintain, easier to expand, and more enjoyable for visitors.
+
+Build for the future, not just for today.
+
+---
+
+# Related Documents
+
+All Studio Handbook documentation.
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Master Replit Agent Guide established.

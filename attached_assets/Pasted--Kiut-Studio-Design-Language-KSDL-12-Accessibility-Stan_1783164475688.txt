@@ -1,0 +1,461 @@
+# Kiut Studio Design Language (KSDL)
+
+# 12 – Accessibility Standards
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Accessibility Standards define how every interface on the Kiut Music website should be designed and developed to ensure an inclusive experience.
+
+Accessibility is a core quality standard, not an optional enhancement.
+
+The website should aim to meet WCAG 2.2 AA standards.
+
+---
+
+# Design Philosophy
+
+Everyone should be able to enjoy the Kiut Music experience.
+
+Accessibility should improve usability without compromising visual quality.
+
+Premium design and accessibility work together.
+
+---
+
+# Accessibility Principles
+
+The website must be:
+
+• Perceivable
+
+• Operable
+
+• Understandable
+
+• Robust
+
+---
+
+# Color Contrast
+
+Body Text
+
+Minimum 4.5:1
+
+Large Text
+
+Minimum 3:1
+
+Buttons
+
+Minimum 4.5:1
+
+Links
+
+Must remain distinguishable.
+
+Never rely on color alone.
+
+---
+
+# Typography
+
+Minimum Body Size
+
+16px
+
+Minimum Line Height
+
+1.5
+
+Maximum Reading Width
+
+75 characters
+
+Avoid justified paragraphs.
+
+Maintain sufficient paragraph spacing.
+
+---
+
+# Keyboard Navigation
+
+Every interactive element must be reachable.
+
+Logical tab order.
+
+Visible focus indicators.
+
+Escape closes dialogs.
+
+Enter activates buttons.
+
+Space activates controls.
+
+No keyboard traps.
+
+---
+
+# Focus States
+
+Every interactive component requires:
+
+Visible outline
+
+Minimum 2px
+
+Brand Gold focus ring
+
+High contrast
+
+Never remove outlines without replacement.
+
+---
+
+# Images
+
+Every meaningful image requires:
+
+Alternative text
+
+Decorative images
+
+aria-hidden="true"
+
+Album artwork
+
+Descriptive alt text
+
+Merchandise
+
+Product-specific alt text
+
+Gallery
+
+Contextual descriptions
+
+---
+
+# Icons
+
+Decorative icons
+
+aria-hidden="true"
+
+Interactive icons
+
+Accessible labels
+
+Icons must never replace readable text.
+
+---
+
+# Buttons
+
+Minimum height
+
+48px
+
+Minimum width
+
+48px
+
+Clearly labelled
+
+Consistent behavior
+
+Never rely on icons alone.
+
+---
+
+# Forms
+
+Every field requires:
+
+Visible label
+
+Helpful placeholder
+
+Validation message
+
+Error explanation
+
+Required field indicator
+
+Autocomplete where appropriate
+
+---
+
+# Error Messages
+
+Describe:
+
+Problem
+
+Cause
+
+Solution
+
+Avoid vague messages.
+
+Example
+
+Incorrect:
+
+Something went wrong.
+
+Correct:
+
+Email address is required.
+
+---
+
+# Motion
+
+Respect prefers-reduced-motion.
+
+Disable unnecessary animations.
+
+Avoid flashing effects.
+
+Pause decorative animation when requested.
+
+---
+
+# Audio & Video
+
+Captions
+
+Required
+
+Transcripts
+
+Recommended
+
+Mute autoplay videos.
+
+Provide playback controls.
+
+Never autoplay audio.
+
+---
+
+# Navigation
+
+Consistent navigation order.
+
+Skip to content link.
+
+Visible active page.
+
+Logical hierarchy.
+
+Sticky navigation should remain keyboard accessible.
+
+---
+
+# Links
+
+Clearly descriptive.
+
+Avoid:
+
+Click Here
+
+Use:
+
+Watch Official Video
+
+Buy Premium Fan Card
+
+Visit Kiut Store
+
+---
+
+# Headings
+
+One H1 per page.
+
+Sequential hierarchy.
+
+No skipped heading levels.
+
+Headings describe sections accurately.
+
+---
+
+# Tables
+
+Use only for data.
+
+Provide headers.
+
+Maintain reading order.
+
+Avoid tables for layout.
+
+---
+
+# Language
+
+Set HTML language.
+
+Mark language changes.
+
+Avoid unnecessary jargon.
+
+Write clearly.
+
+---
+
+# Responsive Accessibility
+
+Touch targets
+
+Minimum 48×48px
+
+Spacing
+
+Minimum 8px
+
+No overlapping controls.
+
+Support zoom up to 200%.
+
+---
+
+# Screen Readers
+
+Use semantic HTML.
+
+Provide landmarks.
+
+Label forms.
+
+Describe media.
+
+Maintain logical reading order.
+
+---
+
+# Performance
+
+Lazy-load media responsibly.
+
+Avoid blocking interaction.
+
+Ensure loading indicators are announced where necessary.
+
+---
+
+# Accessibility Testing
+
+Keyboard only
+
+Screen reader
+
+Zoom
+
+High contrast mode
+
+Reduced motion
+
+Mobile accessibility
+
+Desktop accessibility
+
+---
+
+# Accessibility Do's
+
+✔ Use semantic HTML
+
+✔ Label everything
+
+✔ Maintain contrast
+
+✔ Test keyboard navigation
+
+✔ Provide descriptive links
+
+✔ Respect user preferences
+
+---
+
+# Accessibility Don'ts
+
+✘ Remove focus outlines
+
+✘ Depend on color alone
+
+✘ Autoplay audio
+
+✘ Hide labels
+
+✘ Create keyboard traps
+
+✘ Flash content rapidly
+
+---
+
+# ARIA Guidelines
+
+Use ARIA only when native HTML is insufficient.
+
+Prefer semantic elements first.
+
+Avoid redundant ARIA attributes.
+
+---
+
+# Implementation Checklist
+
+□ Keyboard accessible
+
+□ Screen reader tested
+
+□ Contrast verified
+
+□ Alt text complete
+
+□ Form labels present
+
+□ Focus indicators visible
+
+□ Responsive accessibility verified
+
+□ Motion preferences respected
+
+□ Captions available
+
+---
+
+# Related Documents
+
+Typography System
+
+Responsive System
+
+Motion System
+
+Implementation Standards
+
+Performance Standards
+
+QA Checklist
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Accessibility Standards established.

@@ -1,0 +1,539 @@
+# Kiut Studio Design Language (KSDL)
+
+# 10 – Responsive System
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Responsive System defines how the Kiut Music website adapts across all supported screen sizes.
+
+Responsive design is more than scaling layouts. It ensures every visitor enjoys the same premium experience regardless of device.
+
+The website follows a Mobile-First philosophy.
+
+---
+
+# Design Philosophy
+
+Every screen deserves a premium experience.
+
+Layouts should adapt naturally.
+
+Interactions should remain intuitive.
+
+Performance should improve on smaller devices.
+
+Navigation should become simpler, never weaker.
+
+---
+
+# Supported Breakpoints
+
+Extra Small
+
+320px+
+
+Small Mobile
+
+375px+
+
+Large Mobile
+
+480px+
+
+Tablet Portrait
+
+768px+
+
+Tablet Landscape
+
+1024px+
+
+Laptop
+
+1280px+
+
+Desktop
+
+1440px+
+
+Ultra Wide
+
+1920px+
+
+Large Display
+
+2560px+
+
+---
+
+# Mobile First Rules
+
+Every component must first be designed for mobile.
+
+Tablet enhances layout.
+
+Desktop expands experience.
+
+Ultra-wide improves presentation without stretching content.
+
+---
+
+# Container Widths
+
+Mobile
+
+100%
+
+Tablet
+
+90%
+
+Desktop
+
+1200px
+
+Large Desktop
+
+1440px
+
+Ultra Wide
+
+1600px
+
+Maximum readable content width should remain below 1440px.
+
+---
+
+# Grid System
+
+Mobile
+
+4 Columns
+
+Tablet
+
+8 Columns
+
+Desktop
+
+12 Columns
+
+Gap
+
+16px Mobile
+
+24px Tablet
+
+32px Desktop
+
+---
+
+# Typography Scaling
+
+Hero
+
+42px
+
+↓
+
+56px
+
+↓
+
+72px
+
+H1
+
+36px
+
+↓
+
+48px
+
+↓
+
+56px
+
+Body
+
+16px
+
+↓
+
+16px
+
+↓
+
+18px
+
+Never reduce body text below 16px.
+
+---
+
+# Navigation
+
+Desktop
+
+Horizontal Navigation
+
+Tablet
+
+Compact Navigation
+
+Mobile
+
+Drawer Menu
+
+Rules
+
+Sticky
+
+Accessible
+
+Touch Friendly
+
+---
+
+# Hero Section
+
+Desktop
+
+Full cinematic layout
+
+Tablet
+
+Reduced spacing
+
+Mobile
+
+Centered content
+
+Background video remains optimized.
+
+---
+
+# Gallery
+
+Desktop
+
+4 Columns
+
+Tablet
+
+3 Columns
+
+Mobile
+
+2 Columns
+
+Featured image may span columns on desktop only.
+
+---
+
+# Store
+
+Desktop
+
+4 Products
+
+Tablet
+
+2 Products
+
+Mobile
+
+1 Product
+
+Cards should maintain equal heights.
+
+---
+
+# Music Page
+
+Desktop
+
+3 Album Cards
+
+Tablet
+
+2 Album Cards
+
+Mobile
+
+1 Album Card
+
+Streaming buttons should stack on smaller screens.
+
+---
+
+# Videos
+
+Desktop
+
+3 Videos
+
+Tablet
+
+2 Videos
+
+Mobile
+
+1 Video
+
+Maintain 16:9 thumbnails.
+
+---
+
+# Forms
+
+Desktop
+
+Two Columns
+
+Tablet
+
+Single Column
+
+Mobile
+
+Single Column
+
+Inputs remain minimum 48px tall.
+
+---
+
+# Buttons
+
+Desktop
+
+Default
+
+Tablet
+
+Default
+
+Mobile
+
+Full Width where appropriate
+
+Minimum height
+
+48px
+
+---
+
+# Images
+
+Use responsive image sizes.
+
+Prefer WebP.
+
+Lazy-load below the fold.
+
+Avoid layout shifts.
+
+Never upscale low-resolution assets.
+
+---
+
+# Video
+
+Autoplay only when appropriate.
+
+Mute by default.
+
+Provide poster image.
+
+Reduce resolution on slower devices.
+
+---
+
+# Performance
+
+Reduce animation complexity on mobile.
+
+Limit simultaneous animations.
+
+Lazy-load heavy media.
+
+Prioritize above-the-fold content.
+
+---
+
+# Touch Targets
+
+Minimum
+
+48×48px
+
+Spacing
+
+8px minimum
+
+Interactive controls should never overlap.
+
+---
+
+# Responsive Behavior
+
+Hide decorative elements on mobile if necessary.
+
+Never hide essential content.
+
+Stack layouts before shrinking text.
+
+Avoid horizontal scrolling.
+
+---
+
+# Accessibility
+
+Zoom support
+
+Required
+
+Orientation support
+
+Required
+
+Screen reader compatibility
+
+Required
+
+Keyboard navigation
+
+Required
+
+Reduced motion
+
+Supported
+
+---
+
+# Device Testing Matrix
+
+iPhone SE
+
+iPhone 15
+
+Pixel
+
+Samsung Galaxy
+
+iPad Mini
+
+iPad Pro
+
+MacBook Air
+
+MacBook Pro
+
+Desktop 1440p
+
+Ultra-wide Monitor
+
+---
+
+# Responsive Do's
+
+✔ Design Mobile First
+
+✔ Test on real devices
+
+✔ Maintain spacing rhythm
+
+✔ Optimize images
+
+✔ Preserve usability
+
+---
+
+# Responsive Don'ts
+
+✘ Shrink text excessively
+
+✘ Create separate mobile websites
+
+✘ Hide important actions
+
+✘ Break component consistency
+
+✘ Ignore landscape orientation
+
+---
+
+# CSS Tokens
+
+```css
+:root{
+
+--breakpoint-xs:320px;
+--breakpoint-sm:480px;
+--breakpoint-md:768px;
+--breakpoint-lg:1024px;
+--breakpoint-xl:1280px;
+--breakpoint-2xl:1440px;
+--breakpoint-ultra:1920px;
+
+--container-mobile:100%;
+--container-tablet:90%;
+--container-desktop:1200px;
+--container-wide:1440px;
+--container-ultra:1600px;
+
+}
+```
+
+---
+
+# Implementation Checklist
+
+□ Mobile-first layout
+
+□ Responsive typography
+
+□ Responsive spacing
+
+□ Responsive navigation
+
+□ Responsive images
+
+□ Responsive video
+
+□ Touch targets verified
+
+□ No horizontal scrolling
+
+□ Performance optimized
+
+---
+
+# Related Documents
+
+Spacing & Layout System
+
+Typography System
+
+Component Library
+
+Motion System
+
+Performance Standards
+
+Accessibility Standards
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Responsive System established.

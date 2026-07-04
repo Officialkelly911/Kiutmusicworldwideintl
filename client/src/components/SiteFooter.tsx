@@ -81,10 +81,11 @@ export default function SiteFooter() {
             <ul className="space-y-3.5">
               {navLinks.map(({ label, href }) => (
                 <li key={href}>
-                  <Link href={href}>
-                    <a className="text-white/40 hover:text-[#D4AF37] transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium">
-                      {label}
-                    </a>
+                  <Link
+                    href={href}
+                    className="text-white/40 hover:text-[#D4AF37] transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium"
+                  >
+                    {label}
                   </Link>
                 </li>
               ))}

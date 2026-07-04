@@ -1,0 +1,330 @@
+🎬 HOMEPAGE
+
+Overall Objective
+
+Transform the homepage into a cinematic, premium landing experience that immediately communicates Kiut’s brand identity while encouraging visitors to explore the music, videos, store, and artist story.
+
+⸻
+
+1. Hero Section Refinement
+
+Keep the existing hero video, but enhance its presentation.
+
+Improvements
+
+* Add a cinematic entrance sequence:
+    * Hero background video fades in first.
+    * Kiut logo appears with a slight glow.
+    * Headline animates upward.
+    * Subtitle fades in.
+    * CTA buttons appear with staggered timing.
+    * Animated scroll indicator appears last.
+* Add a subtle dark overlay (approximately 35–45%) to improve text readability.
+* Introduce a soft gold ambient glow around the hero title.
+* Add a smooth parallax effect between the hero content and the background video.
+
+⸻
+
+2. Premium Loading Experience
+
+Replace the standard page load with a branded loading animation.
+
+Display:
+
+* Custom Kiut “K” monogram.
+* Animated gold waveform.
+* “Loading Experience” text.
+* Smooth fade into the homepage.
+
+Target duration: approximately 1.5 seconds.
+
+⸻
+
+3. Animated Statistics Section
+
+Insert a compact statistics strip between the Hero section and the Creative Portfolio.
+
+Example metrics:
+
+* 20+ Music Videos
+* 15+ Singles
+* Worldwide Audience
+* Millions of Streams
+
+Animate the counters when they enter the viewport.
+
+⸻
+
+4. Creative Portfolio
+
+Keep the existing layout.
+
+Enhance with:
+
+* More spacing.
+* Consistent card heights.
+* Slight hover lift.
+* Soft gold border glow.
+* Smooth image zoom.
+* Refined hover shadows.
+
+⸻
+
+5. Store CTA Section
+
+Retain the current concept while improving presentation.
+
+Improvements
+
+* Merchandise images should fill more of each card.
+* Allow products to extend slightly beyond the card boundaries for a premium fashion-style presentation.
+* Increase image scale while keeping products fully visible.
+* Standardize all product dimensions.
+* Add gentle hover animation.
+* Improve CTA button styling.
+* Add subtle background glow behind featured products.
+
+⸻
+
+6. Section Transitions
+
+Avoid abrupt transitions.
+
+Between sections, introduce:
+
+* Gradient fades.
+* Soft blur dividers.
+* Ambient glow transitions.
+* Increased vertical spacing.
+
+⸻
+
+7. Motion System
+
+Every homepage section should animate into view.
+
+Use:
+
+* Fade.
+* Slide.
+* Scale.
+* Staggered reveal.
+
+Animations should remain smooth and subtle.
+
+⸻
+
+8. Interactive Background
+
+Add very subtle ambient lighting behind major sections.
+
+Examples:
+
+* Floating blurred circles.
+* Gold light streaks.
+* Slow-moving gradients.
+
+Opacity should remain below 5%.
+
+⸻
+
+9. Floating Music Player
+
+Add a persistent mini-player across the website.
+
+Features:
+
+* Album artwork.
+* Song title.
+* Play/Pause.
+* Progress bar.
+* Next track.
+* Volume control (optional).
+* Minimize/Expand.
+
+The player should never obstruct important content and should remain responsive.
+
+⸻
+
+10. Featured Quote
+
+Introduce a minimalist artist quote between major homepage sections.
+
+Example:
+
+“Music is more than sound. It’s memory.”
+
+Animate gently into view.
+
+⸻
+
+11. Global Consistency Pass
+
+Ensure all homepage components share:
+
+* Identical border radius.
+* Consistent spacing.
+* Matching shadows.
+* Unified typography scale.
+* Consistent animation timing.
+* Uniform button styles.
+
+⸻
+
+🎵 MUSIC PAGE
+
+Overall Objective
+
+Transform the Music page into a premium digital streaming hub that encourages exploration while maintaining a clean, elegant experience.
+
+⸻
+
+1. Album Card Redesign
+
+Retain the current layout.
+
+Upgrade every release card with:
+
+* Glassmorphism styling.
+* Larger album artwork.
+* Gradient borders.
+* Better spacing.
+* Improved typography hierarchy.
+
+⸻
+
+2. Premium Hover Effects
+
+On hover:
+
+* Card lifts slightly.
+* Artwork slowly zooms.
+* Soft gold glow appears.
+* Shadow increases.
+* Play button animates.
+
+⸻
+
+3. Streaming Platform Badges
+
+Display platform availability beneath every release.
+
+Supported platforms:
+
+* Spotify
+* Apple Music
+* Audiomack
+* YouTube Music
+* Boomplay (if available)
+
+Use branded icons.
+
+⸻
+
+4. Album Metadata
+
+Display additional release information.
+
+Include:
+
+* Number of tracks.
+* Release year.
+* Genre.
+* Available platforms.
+* Official Release badge.
+
+⸻
+
+5. Animated Timeline
+
+Retain the existing timeline.
+
+Enhance with:
+
+* Scroll-triggered animations.
+* Sequential node activation.
+* Smooth connecting line animation.
+
+⸻
+
+6. Floating Audio Equalizer
+
+Introduce a subtle animated waveform within the page background.
+
+Keep movement slow and understated.
+
+⸻
+
+7. Background Enhancement
+
+Maintain the black background while introducing:
+
+* Soft floating gold particles.
+* Ambient gradients.
+* Gentle light movement.
+
+Opacity should remain below 5%.
+
+⸻
+
+8. CTA Button Refinement
+
+Replace generic labels such as “Play Now” with:
+
+* ▶ Listen Now
+* ▶ Stream Everywhere
+
+Buttons should feature:
+
+* Gradient backgrounds.
+* Hover glow.
+* Press animation.
+* Ripple effect.
+
+⸻
+
+9. Listening Progress
+
+If playback history is available, display:
+
+“Continue Listening”
+
+instead of
+
+“Play Now”
+
+where appropriate.
+
+⸻
+
+10. Music Discovery Section
+
+Near the bottom of the page, introduce a recommendation area.
+
+Example:
+
+“If you enjoyed Good Life EP”
+
+“You may also like”
+
+Display related singles or albums.
+
+⸻
+
+11. Motion Design
+
+Animate:
+
+* Album cards.
+* Timeline.
+* Buttons.
+* Headers.
+* Platform badges.
+
+Maintain smooth, premium motion throughout.
+
+⸻
+
+12. Visual Consistency
+
+Ensure all music page elements follow the same design language established across the website.

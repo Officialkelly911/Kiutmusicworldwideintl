@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
@@ -102,75 +102,238 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
 }
 
 function CinematicIntro({ onComplete }: { onComplete: () => void }) {
+  const waveHeights = [0.55, 0.9, 1.4, 1.0, 1.6, 0.75, 1.2, 0.5, 1.35, 0.8, 1.5, 0.65];
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.9, ease: "easeInOut" }}
       className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Blurred Background Video */}
+      {/* Blurred background video */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        transition={{ duration: 2, delay: 0.3 }}
+        animate={{ opacity: 0.35 }}
+        transition={{ duration: 2, delay: 0.2 }}
         className="absolute inset-0 z-0"
       >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster={heroPoster}
-          className="w-full h-full object-cover blur-lg scale-105"
-        >
+        <video autoPlay loop muted playsInline preload="auto" poster={heroPoster}
+          className="w-full h-full object-cover blur-lg scale-105">
           <source src={heroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80" />
       </motion.div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full w-full">
-        {/* Logo */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="font-display text-6xl md:text-8xl font-bold text-white tracking-[0.2em] uppercase mb-8"
+      {/* Ambient gold glow */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.8, delay: 0.4 }}
+        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+      >
+        <div className="w-[600px] h-[600px] rounded-full blur-[160px]"
+          style={{ background: "radial-gradient(ellipse, rgba(212,175,55,0.12), transparent 70%)" }} />
+      </motion.div>
+
+      <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
+        {/* K Monogram */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-6"
         >
-          Kiut<span className="text-[#D4AF37]">.</span>
+          <div className="w-20 h-20 rounded-2xl flex items-center justify-center relative"
+            style={{ background: "rgba(212,175,55,0.08)", border: "1px solid rgba(212,175,55,0.22)" }}>
+            <span className="font-display text-5xl font-bold tracking-tight" style={{ color: "#D4AF37" }}>K</span>
+            <div className="absolute inset-0 rounded-2xl blur-xl" style={{ background: "rgba(212,175,55,0.15)" }} />
+          </div>
+        </motion.div>
+
+        {/* Logo wordmark */}
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="font-display text-5xl md:text-7xl font-bold text-white tracking-[0.22em] uppercase mb-2"
+        >
+          Kiut<span style={{ color: "#D4AF37" }}>.</span>
         </motion.h1>
 
-        {/* Accent Line */}
+        {/* Accent line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeInOut" }}
-          className="w-32 md:w-64 h-[2px] bg-[#D4AF37] mb-8 origin-center shadow-[0_0_15px_rgba(212,175,55,0.5)]"
+          transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
+          className="w-24 md:w-48 h-[2px] mb-7 origin-center"
+          style={{ background: "#D4AF37", boxShadow: "0 0 14px rgba(212,175,55,0.5)" }}
         />
 
-        {/* Brand Statement */}
+        {/* Animated gold waveform */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.1 }}
+          className="flex items-center gap-[4px] mb-7"
+          style={{ height: 32 }}
+        >
+          {waveHeights.map((h, i) => (
+            <motion.div
+              key={i}
+              className="rounded-full"
+              style={{ width: 3, background: "#D4AF37", opacity: 0.7 }}
+              animate={{ height: [`${h * 8}px`, `${h * 22}px`, `${h * 8}px`] }}
+              transition={{ repeat: Infinity, duration: 0.55 + i * 0.09, ease: "easeInOut", delay: i * 0.06 }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Loading text */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
-          className="text-white/90 tracking-[0.3em] uppercase text-sm md:text-lg font-light text-center px-6 drop-shadow-lg"
+          transition={{ duration: 0.7, delay: 1.3 }}
+          className="text-white/45 tracking-[0.4em] uppercase text-[10px] font-light"
         >
-          Afro-Caribbean Sound. <span className="text-white font-medium">Global Energy.</span>
+          Loading Experience
+        </motion.p>
+
+        {/* Brand tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.7 }}
+          className="mt-5 text-white/60 tracking-[0.22em] uppercase text-xs font-light text-center px-6"
+        >
+          Afro-Caribbean Sound. <span className="text-white/80 font-medium">Global Energy.</span>
         </motion.p>
       </div>
 
-      {/* Skip Button */}
+      {/* Skip button */}
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.6 }}
         onClick={onComplete}
-        className="absolute bottom-12 right-12 text-white/40 hover:text-white uppercase tracking-[0.2em] text-xs transition-colors z-20"
+        className="absolute bottom-10 right-10 text-white/35 hover:text-white/70 uppercase tracking-[0.22em] text-[10px] transition-colors z-20"
       >
-        Skip Intro
+        Skip ↓
       </motion.button>
     </motion.div>
+  );
+}
+
+function HomeStatsStrip() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const [counts, setCounts] = useState([0, 0, 0, 0]);
+
+  const stats = [
+    { value: 20, suffix: "+", label: "Music Videos" },
+    { value: 15, suffix: "+", label: "Singles & EPs" },
+    { value: 5,  suffix: "",  label: "Platforms Worldwide" },
+    { value: 4,  suffix: "+", label: "Years Creating" },
+  ];
+
+  useEffect(() => {
+    if (!inView) return;
+    stats.forEach((stat, i) => {
+      let start = 0;
+      const step = Math.ceil(stat.value / 28);
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= stat.value) {
+          start = stat.value;
+          clearInterval(timer);
+        }
+        setCounts(prev => { const n = [...prev]; n[i] = start; return n; });
+      }, 38);
+    });
+  }, [inView]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="relative overflow-hidden"
+      style={{ background: "linear-gradient(90deg, #080808 0%, #0c0a00 50%, #080808 100%)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+    >
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.04), transparent 70%)" }} />
+      <div className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+        {stats.map((stat, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center text-center"
+          >
+            <div className="font-display text-4xl md:text-5xl font-bold mb-1" style={{ color: "#D4AF37" }}>
+              {counts[i]}{stat.suffix}
+            </div>
+            <div className="text-white/35 text-[10px] font-bold uppercase tracking-[0.32em]">{stat.label}</div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function FeaturedQuote() {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="py-28 relative overflow-hidden"
+      style={{ background: "#050505" }}
+    >
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.035), transparent 65%)" }} />
+      <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeInOut", delay: 0.2 }}
+          className="w-8 h-[2px] mx-auto mb-10 origin-center"
+          style={{ background: "rgba(212,175,55,0.5)" }}
+        />
+        <motion.blockquote
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="font-display text-3xl md:text-4xl lg:text-5xl font-light tracking-wide text-white leading-snug italic mb-8"
+          style={{ textShadow: "0 0 80px rgba(212,175,55,0.12)" }}
+        >
+          "Music is more than sound.
+          <br />
+          <span style={{ color: "#D4AF37" }}>It's memory.</span>"
+        </motion.blockquote>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.55 }}
+          className="text-white/25 text-[10px] font-bold uppercase tracking-[0.45em]"
+        >
+          — Kiut
+        </motion.p>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeInOut", delay: 0.6 }}
+          className="w-8 h-[2px] mx-auto mt-10 origin-center"
+          style={{ background: "rgba(212,175,55,0.5)" }}
+        />
+      </div>
+    </motion.section>
   );
 }
 
@@ -755,6 +918,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Stats Strip ── */}
+      <HomeStatsStrip />
+
       {/* MILESTONE SECTION */}
       <section className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.03),transparent_70%)]" />
@@ -848,6 +1014,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Featured Quote ── */}
+      <FeaturedQuote />
 
       {/* MUSIC SECTION */}
       <section className="py-24 md:py-32 bg-black border-t border-white/5 relative overflow-hidden">

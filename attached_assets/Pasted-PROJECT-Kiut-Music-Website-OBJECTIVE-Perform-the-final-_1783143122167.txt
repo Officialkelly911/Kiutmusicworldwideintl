@@ -1,0 +1,338 @@
+PROJECT:
+Kiut Music Website
+
+OBJECTIVE:
+
+Perform the final premium refinement pass for the Homepage and Music page.
+
+Do not redesign the website from scratch.
+
+Instead, preserve the existing structure while significantly improving polish, consistency, animation, interactivity, and perceived production quality.
+
+========================================
+
+GENERAL REQUIREMENTS
+
+Maintain:
+
+• Existing routing
+• Existing responsive layouts
+• Existing media
+• Existing functionality
+• Existing content
+
+Do NOT remove or break any current features.
+
+Focus exclusively on visual refinement, interaction quality, animation, consistency, and user experience.
+
+========================================
+
+HOMEPAGE
+
+Upgrade the homepage into a cinematic artist landing experience.
+
+----------------------------------------
+
+HERO
+
+Keep the existing hero background video.
+
+Enhance it by:
+
+• Staggering the entrance animations:
+  - Hero video
+  - Logo
+  - Headline
+  - Subtitle
+  - CTA buttons
+  - Scroll indicator
+
+• Add a subtle dark overlay (35–45%).
+
+• Introduce a soft gold glow behind the heading.
+
+• Apply a gentle parallax effect between hero content and the background video.
+
+----------------------------------------
+
+LOADING EXPERIENCE
+
+Create a branded loading animation.
+
+Display:
+
+• Custom Kiut "K" monogram
+• Animated gold waveform
+• "Loading Experience"
+• Fade into homepage
+
+Duration:
+Approximately 1.5 seconds.
+
+----------------------------------------
+
+STATISTICS SECTION
+
+Insert an animated statistics strip between the Hero and Creative Portfolio sections.
+
+Display counters such as:
+
+• 20+ Music Videos
+• 15+ Singles
+• Worldwide Audience
+• Millions of Streams
+
+Animate counters when they enter the viewport.
+
+----------------------------------------
+
+CREATIVE PORTFOLIO
+
+Preserve the layout.
+
+Enhance with:
+
+• Improved spacing
+• Equal card heights
+• Hover lift
+• Gold glow
+• Image zoom
+• Refined shadows
+
+----------------------------------------
+
+STORE CTA
+
+Improve the merchandise presentation.
+
+Requirements:
+
+• Merchandise graphics should occupy more of each container.
+• Products should feel bold and fashion-forward.
+• Images may extend slightly beyond the card edges while remaining fully visible.
+• Maintain consistent sizing and alignment.
+• Add hover elevation and glow.
+• Improve CTA buttons.
+
+----------------------------------------
+
+SECTION TRANSITIONS
+
+Replace abrupt section breaks with:
+
+• Gradient fades
+• Ambient glow
+• Soft blur dividers
+• Improved vertical spacing
+
+----------------------------------------
+
+BACKGROUND EFFECTS
+
+Add subtle ambient effects.
+
+Examples:
+
+• Floating blurred circles
+• Soft gold lighting
+• Animated gradients
+
+Keep opacity below 5%.
+
+----------------------------------------
+
+MOTION SYSTEM
+
+Use Framer Motion where appropriate.
+
+Apply:
+
+• Fade
+• Slide
+• Scale
+• Staggered reveals
+
+Animations should feel smooth and premium.
+
+----------------------------------------
+
+FLOATING MUSIC PLAYER
+
+Create a responsive floating mini-player that remains available across the website.
+
+Include:
+
+• Artwork
+• Song title
+• Play/Pause
+• Progress bar
+• Next track
+• Optional volume control
+• Minimize/Expand
+
+Do not obstruct page content.
+
+----------------------------------------
+
+FEATURED QUOTE
+
+Add a minimalist quote section between major homepage sections.
+
+Animate gently.
+
+----------------------------------------
+
+MUSIC PAGE
+
+Transform the Music page into a premium streaming experience while preserving the existing layout.
+
+----------------------------------------
+
+ALBUM CARDS
+
+Upgrade each release card.
+
+Include:
+
+• Glassmorphism
+• Larger artwork
+• Gradient borders
+• Better spacing
+• Improved typography
+
+----------------------------------------
+
+HOVER INTERACTIONS
+
+On hover:
+
+• Lift card
+• Zoom artwork
+• Gold glow
+• Enhanced shadow
+• Animated Play button
+
+----------------------------------------
+
+STREAMING BADGES
+
+Display branded platform badges beneath each release.
+
+Support:
+
+• Spotify
+• Apple Music
+• Audiomack
+• YouTube Music
+• Boomplay (if available)
+
+----------------------------------------
+
+METADATA
+
+Display:
+
+• Track count
+• Release year
+• Genre
+• Platform availability
+• Official Release badge
+
+----------------------------------------
+
+TIMELINE
+
+Retain the existing release timeline.
+
+Enhance with:
+
+• Scroll-triggered animations
+• Sequential node activation
+• Animated connecting lines
+
+----------------------------------------
+
+BACKGROUND
+
+Maintain the black background.
+
+Add:
+
+• Floating gold particles
+• Ambient gradients
+• Gentle lighting effects
+
+Opacity below 5%.
+
+----------------------------------------
+
+CTA BUTTONS
+
+Replace generic labels with:
+
+▶ Listen Now
+
+▶ Stream Everywhere
+
+Apply:
+
+• Gradient styling
+• Hover glow
+• Press animation
+• Ripple effect
+
+----------------------------------------
+
+DISCOVERY SECTION
+
+Add a recommendation section near the bottom.
+
+Example:
+
+"If you enjoyed this release"
+
+"You may also like"
+
+Display related albums or singles.
+
+----------------------------------------
+
+MOTION
+
+Animate:
+
+• Cards
+• Timeline
+• Buttons
+• Headers
+• Platform badges
+
+Maintain smooth transitions throughout.
+
+----------------------------------------
+
+GLOBAL CONSISTENCY
+
+Ensure both pages share:
+
+• Consistent spacing
+• Unified typography
+• Matching border radii
+• Consistent shadows
+• Identical animation timing
+• Unified button styles
+• Responsive behavior across all screen sizes
+
+----------------------------------------
+
+FINAL CHECKLIST
+
+✔ No TypeScript errors.
+✔ No broken links.
+✔ Existing functionality preserved.
+✔ Responsive on mobile, tablet, and desktop.
+✔ Smooth animations.
+✔ No layout shifts.
+✔ Performance optimized.
+✔ Production-ready code.
+✔ Premium, modern, cohesive visual experience.

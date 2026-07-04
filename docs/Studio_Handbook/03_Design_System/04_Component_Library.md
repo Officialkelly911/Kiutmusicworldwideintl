@@ -1,0 +1,563 @@
+# Kiut Studio Design Language (KSDL)
+
+# 04 – Component Library
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Component Library defines every reusable UI element used throughout the Kiut Music website.
+
+Rather than designing each page independently, every page should assemble pre-approved components from this library.
+
+Consistency is achieved by reusing components instead of recreating them.
+
+---
+
+# Design Philosophy
+
+Components should be:
+
+- Reusable
+
+- Responsive
+
+- Accessible
+
+- Elegant
+
+- Lightweight
+
+- Easy to maintain
+
+Every component should solve one problem exceptionally well.
+
+---
+
+# Component Categories
+
+## Navigation
+
+Global Navbar
+
+Mobile Navigation Drawer
+
+Floating Navigation
+
+Breadcrumb
+
+Page Indicator
+
+Sticky CTA
+
+---
+
+## Hero Components
+
+Video Hero
+
+Image Hero
+
+Split Hero
+
+Album Hero
+
+Concert Hero
+
+Store Hero
+
+Minimal Hero
+
+---
+
+## Typography Components
+
+Section Label
+
+Section Heading
+
+Page Heading
+
+Hero Heading
+
+Paragraph
+
+Quote Block
+
+Caption
+
+Statistic
+
+Highlight Text
+
+---
+
+## Buttons
+
+Primary Button
+
+Secondary Button
+
+Ghost Button
+
+Outline Button
+
+Icon Button
+
+Floating Button
+
+Play Button
+
+Streaming Button
+
+Store Button
+
+Social Button
+
+---
+
+## Cards
+
+Music Card
+
+Album Card
+
+Video Card
+
+Gallery Card
+
+Store Card
+
+Event Card
+
+Tour Card
+
+Feature Card
+
+Glass Card
+
+Premium Card
+
+Artist Card
+
+---
+
+## Gallery Components
+
+Masonry Grid
+
+Featured Image
+
+Lightbox
+
+Carousel
+
+Journey Timeline
+
+Photo Stack
+
+Media Slider
+
+---
+
+## Music Components
+
+Album Showcase
+
+Streaming Links
+
+Track List
+
+Featured Release
+
+Discography Grid
+
+Now Playing Banner
+
+Audio Platform Links
+
+---
+
+## Video Components
+
+Video Grid
+
+Featured Video
+
+Playlist
+
+Video Modal
+
+Platform Links
+
+Video Metadata
+
+---
+
+## Store Components
+
+Featured Product
+
+Product Grid
+
+Category Filter
+
+Price Badge
+
+Stock Badge
+
+Add to Cart CTA
+
+External Purchase CTA
+
+Product Carousel
+
+---
+
+## Concert Components
+
+Upcoming Event Card
+
+Venue Card
+
+Ticket CTA
+
+Countdown Timer
+
+Location Badge
+
+Sold Out Badge
+
+VIP Badge
+
+Meet & Greet CTA
+
+---
+
+## About Components
+
+Biography Block
+
+Artist Timeline
+
+Journey Gallery
+
+Awards Section
+
+Statistics Counter
+
+Milestones
+
+Mission Statement
+
+---
+
+## Community Components
+
+Newsletter
+
+Social Feed
+
+Testimonials
+
+Fan Wall
+
+Instagram Grid
+
+Community CTA
+
+---
+
+## Footer Components
+
+Footer Navigation
+
+Social Icons
+
+Newsletter Form
+
+Copyright
+
+Quick Links
+
+Legal Links
+
+---
+
+# Component Anatomy
+
+Every component should contain:
+
+Purpose
+
+↓
+
+Structure
+
+↓
+
+States
+
+↓
+
+Accessibility
+
+↓
+
+Responsive Behavior
+
+↓
+
+Animation Rules
+
+↓
+
+Usage Guidelines
+
+---
+
+# Component States
+
+Default
+
+Hover
+
+Focused
+
+Pressed
+
+Loading
+
+Disabled
+
+Success
+
+Error
+
+Every interactive component must define all applicable states.
+
+---
+
+# Shared Design Rules
+
+All components should:
+
+Use approved colors.
+
+Use approved typography.
+
+Use approved spacing.
+
+Use approved shadows.
+
+Use approved animations.
+
+Support keyboard navigation.
+
+Maintain accessibility.
+
+Support dark mode.
+
+---
+
+# Animation Rules
+
+Hover
+
+200ms
+
+Page Transition
+
+500ms
+
+Card Lift
+
+250ms
+
+Fade
+
+300ms
+
+Reveal
+
+450ms
+
+Scale
+
+200ms
+
+No animation should feel abrupt.
+
+---
+
+# Accessibility Rules
+
+Minimum touch target
+
+48px
+
+Keyboard accessible
+
+Required
+
+Visible focus state
+
+Required
+
+ARIA support
+
+Required where applicable
+
+Screen reader friendly
+
+Required
+
+---
+
+# Naming Convention
+
+Every reusable component should follow:
+
+ComponentName.tsx
+
+Examples:
+
+HeroSection.tsx
+
+GalleryCard.tsx
+
+StoreCard.tsx
+
+MusicCard.tsx
+
+VideoCard.tsx
+
+JourneyGallery.tsx
+
+PremiumButton.tsx
+
+FooterNewsletter.tsx
+
+---
+
+# Folder Structure
+
+```
+components/
+
+Navigation/
+
+Hero/
+
+Buttons/
+
+Cards/
+
+Gallery/
+
+Music/
+
+Videos/
+
+Store/
+
+About/
+
+Footer/
+
+Shared/
+
+UI/
+```
+
+---
+
+# Component Checklist
+
+Before creating a new component:
+
+□ Does it already exist?
+
+□ Can an existing component be extended?
+
+□ Does it follow the Design System?
+
+□ Is it responsive?
+
+□ Is it accessible?
+
+□ Is it reusable?
+
+□ Does it avoid duplicated code?
+
+Only create a new component if the answer to the first two questions is "No."
+
+---
+
+# Performance Rules
+
+Lazy-load heavy media.
+
+Memoize expensive components.
+
+Avoid unnecessary re-renders.
+
+Optimize images.
+
+Use responsive assets.
+
+Minimize bundle size.
+
+---
+
+# Future Expansion
+
+Upcoming component categories:
+
+Audio Visualizer
+
+Interactive Timeline
+
+Tour Map
+
+Premium Membership
+
+Digital Downloads
+
+Fan Dashboard
+
+Artist Journal
+
+Behind-the-Scenes Hub
+
+---
+
+# Related Documents
+
+Color System
+
+Typography System
+
+Spacing & Layout System
+
+Button System
+
+Card System
+
+Motion System
+
+Responsive System
+
+Implementation Guidelines
+
+---
+
+# Version History
+
+Version 1.0

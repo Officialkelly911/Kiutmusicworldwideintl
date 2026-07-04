@@ -1,0 +1,460 @@
+# Kiut Studio Design Language (KSDL)
+
+# 18 – Studio QA Checklist
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Studio QA Checklist is the final verification process before publishing any update to the Kiut Music website.
+
+Every deployment, regardless of size, must pass this checklist before going live.
+
+---
+
+# Release Philosophy
+
+If it hasn't been tested,
+it isn't finished.
+
+Quality comes before speed.
+
+Every visitor deserves the same premium experience.
+
+---
+
+# Visual Inspection
+
+□ No broken layouts
+
+□ No overlapping elements
+
+□ No unexpected spacing
+
+□ No clipped content
+
+□ No stretched images
+
+□ No blurry assets
+
+□ No inconsistent typography
+
+□ Colors match KSDL
+
+□ Shadows consistent
+
+□ Buttons consistent
+
+□ Cards consistent
+
+---
+
+# Homepage
+
+□ Hero video loads
+
+□ Hero CTA works
+
+□ Navigation works
+
+□ Featured music loads
+
+□ Portfolio section displays correctly
+
+□ Store CTA works
+
+□ Latest videos display
+
+□ Concert section works
+
+□ Newsletter works
+
+□ Footer complete
+
+---
+
+# Music Page
+
+□ Albums display correctly
+
+□ Singles display correctly
+
+□ Streaming buttons work
+
+□ Album artwork loads
+
+□ Mobile layout verified
+
+---
+
+# Videos Page
+
+□ Featured video loads
+
+□ All thumbnails visible
+
+□ Play buttons work
+
+□ Apple Music links work
+
+□ Spotify links work
+
+□ Audiomack links work
+
+□ YouTube links work
+
+□ Responsive layout verified
+
+---
+
+# About Page
+
+□ Background hero video works
+
+□ Biography formatted
+
+□ Moments From The Journey gallery complete
+
+□ Images properly cropped
+
+□ Statistics animate correctly
+
+□ Store CTA works
+
+---
+
+# Store
+
+□ Product images load
+
+□ Product labels correct
+
+□ Prices correct
+
+□ Containers aligned
+
+□ Hover animations work
+
+□ Dream Planet redirects work
+
+□ Mobile layout verified
+
+---
+
+# Tour Page
+
+□ Events display
+
+□ Dates accurate
+
+□ Ticket buttons work
+
+□ Availability displayed
+
+□ VIP section correct
+
+---
+
+# Fan Card Page
+
+□ Regular card pricing correct
+
+□ Premium card pricing correct
+
+□ Membership comparison complete
+
+□ CTA buttons work
+
+□ Email redirection works
+
+---
+
+# Navigation
+
+□ Every menu item works
+
+□ Active state visible
+
+□ Mobile menu works
+
+□ Tablet navigation works
+
+□ Footer navigation works
+
+---
+
+# Forms
+
+□ Required fields validate
+
+□ Error messages display
+
+□ Success messages display
+
+□ Email validation works
+
+□ Keyboard navigation works
+
+---
+
+# Buttons
+
+□ Hover state
+
+□ Focus state
+
+□ Active state
+
+□ Disabled state
+
+□ Loading state
+
+---
+
+# Images
+
+□ Optimized
+
+□ Lazy-loaded
+
+□ Correct aspect ratio
+
+□ Alt text added
+
+□ No broken images
+
+---
+
+# Videos
+
+□ Poster images present
+
+□ Playback works
+
+□ Mobile playback verified
+
+□ Captions available where needed
+
+□ Muted autoplay only
+
+---
+
+# Accessibility
+
+□ Keyboard navigation
+
+□ Focus indicators
+
+□ Screen reader labels
+
+□ Semantic headings
+
+□ Contrast verified
+
+□ Reduced motion supported
+
+---
+
+# Responsive Testing
+
+Devices
+
+□ iPhone SE
+
+□ iPhone 15
+
+□ Samsung Galaxy
+
+□ Pixel
+
+□ iPad Mini
+
+□ iPad Pro
+
+□ MacBook Air
+
+□ MacBook Pro
+
+□ Desktop 1440p
+
+□ Ultra-wide Monitor
+
+---
+
+# Browser Testing
+
+□ Chrome
+
+□ Safari
+
+□ Firefox
+
+□ Edge
+
+---
+
+# Performance
+
+□ Lighthouse >95 Mobile
+
+□ Lighthouse 100 Desktop
+
+□ Core Web Vitals passed
+
+□ Images optimized
+
+□ Videos optimized
+
+□ Fonts optimized
+
+□ No large layout shifts
+
+---
+
+# SEO
+
+□ Page title
+
+□ Meta description
+
+□ Open Graph image
+
+□ Canonical URL
+
+□ Structured data
+
+---
+
+# Security
+
+□ HTTPS only
+
+□ No exposed API keys
+
+□ External links verified
+
+□ No mixed content
+
+---
+
+# Console
+
+□ No JavaScript errors
+
+□ No React warnings
+
+□ No missing assets
+
+□ No failed network requests
+
+---
+
+# Analytics
+
+□ Analytics loading
+
+□ Events tracked
+
+□ CTA clicks recorded
+
+□ Newsletter tracking working
+
+---
+
+# Content Review
+
+□ Grammar checked
+
+□ Spelling checked
+
+□ Artist information accurate
+
+□ Dates accurate
+
+□ Prices accurate
+
+□ Links verified
+
+---
+
+# Brand Consistency
+
+□ Typography follows KSDL
+
+□ Color palette consistent
+
+□ Motion consistent
+
+□ Components reused
+
+□ Overall premium quality maintained
+
+---
+
+# Final Approval
+
+Design Review
+
+□ Passed
+
+Development Review
+
+□ Passed
+
+Performance Review
+
+□ Passed
+
+Accessibility Review
+
+□ Passed
+
+Content Review
+
+□ Passed
+
+Final Release Approval
+
+□ Approved
+
+---
+
+# Release Log
+
+Version
+
+Release Date
+
+Changes
+
+Reviewer
+
+Notes
+
+---
+
+# Related Documents
+
+Implementation Standards
+
+Performance Standards
+
+Asset Guidelines
+
+Accessibility Standards
+
+Page Templates
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Studio QA Checklist established.

@@ -1,0 +1,533 @@
+# Kiut Studio Design Language (KSDL)
+
+# 03 – Spacing & Layout System
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Spacing & Layout System establishes a consistent spatial rhythm across the Kiut Music website.
+
+It defines how content is positioned, how sections relate to one another, and how whitespace contributes to the premium, cinematic experience.
+
+Every page should feel balanced, breathable, and intentional.
+
+---
+
+# Design Philosophy
+
+Whitespace is an active design element.
+
+Space improves readability.
+
+Space creates luxury.
+
+Space directs attention.
+
+Every margin and every padding value should have a purpose.
+
+---
+
+# Base Grid System
+
+The Kiut website uses an **8-point spacing system**.
+
+Every spacing value should be a multiple of 8 whenever possible.
+
+Examples:
+
+8px
+
+16px
+
+24px
+
+32px
+
+40px
+
+48px
+
+64px
+
+80px
+
+96px
+
+128px
+
+160px
+
+---
+
+# Global Container Widths
+
+Small
+
+720px
+
+Medium
+
+960px
+
+Large
+
+1200px
+
+Extra Large
+
+1440px
+
+Ultra Wide
+
+1600px
+
+Content should rarely exceed 1440px for readability.
+
+---
+
+# Section Width Rules
+
+Hero
+
+100% viewport width
+
+Content Sections
+
+1200px maximum
+
+Gallery
+
+1400px maximum
+
+Store
+
+1400px maximum
+
+Footer
+
+1200px maximum
+
+---
+
+# Section Spacing
+
+Small Section
+
+64px
+
+Medium Section
+
+96px
+
+Large Section
+
+128px
+
+Feature Section
+
+160px
+
+Hero
+
+Minimum 100vh
+
+---
+
+# Internal Padding
+
+Cards
+
+24px
+
+Premium Cards
+
+32px
+
+Buttons
+
+Horizontal 24px
+
+Vertical 14px
+
+Forms
+
+24px
+
+Modals
+
+32px
+
+Navigation
+
+20px
+
+---
+
+# Grid System
+
+Desktop
+
+12 Columns
+
+Tablet
+
+8 Columns
+
+Mobile
+
+4 Columns
+
+---
+
+# Grid Gaps
+
+Desktop
+
+32px
+
+Tablet
+
+24px
+
+Mobile
+
+16px
+
+---
+
+# Border Radius
+
+Small
+
+8px
+
+Medium
+
+16px
+
+Large
+
+24px
+
+Extra Large
+
+32px
+
+Circular
+
+999px
+
+---
+
+# Card Layout Rules
+
+Every card should include:
+
+Image
+
+↓
+
+Content
+
+↓
+
+Supporting Metadata
+
+↓
+
+Primary CTA
+
+↓
+
+Secondary Actions
+
+Consistent spacing between each layer is required.
+
+---
+
+# Gallery Layout
+
+Desktop
+
+4 Columns
+
+Tablet
+
+3 Columns
+
+Mobile
+
+2 Columns
+
+Featured Image
+
+May span 2 columns
+
+All image ratios should remain consistent within a row.
+
+---
+
+# Store Layout
+
+Desktop
+
+4 Products
+
+Tablet
+
+2 Products
+
+Mobile
+
+1 Product
+
+Cards must maintain equal heights.
+
+Product images should occupy approximately 70% of the card height.
+
+---
+
+# Music Grid
+
+Desktop
+
+3 Albums
+
+Tablet
+
+2 Albums
+
+Mobile
+
+1 Album
+
+Streaming buttons should align consistently.
+
+---
+
+# Video Grid
+
+Desktop
+
+3 Videos
+
+Tablet
+
+2 Videos
+
+Mobile
+
+1 Video
+
+All thumbnails should use identical aspect ratios.
+
+---
+
+# Navigation Layout
+
+Logo
+
+↓
+
+Navigation
+
+↓
+
+Primary CTA
+
+Desktop
+
+Horizontal
+
+Tablet
+
+Collapsible
+
+Mobile
+
+Drawer Navigation
+
+---
+
+# Footer Layout
+
+Brand
+
+Quick Links
+
+Music
+
+Social
+
+Newsletter
+
+Copyright
+
+Each section should maintain consistent spacing.
+
+---
+
+# Vertical Rhythm
+
+Every page should follow a consistent flow:
+
+Hero
+
+↓
+
+Introduction
+
+↓
+
+Featured Content
+
+↓
+
+Supporting Content
+
+↓
+
+CTA
+
+↓
+
+Footer
+
+Avoid abrupt spacing changes.
+
+---
+
+# Alignment Rules
+
+Headings align with content.
+
+Buttons align with cards.
+
+Images align with grids.
+
+Icons align with text baselines.
+
+Sections align with container edges.
+
+---
+
+# Responsive Layout
+
+Mobile First
+
+Every layout begins with mobile.
+
+Tablet expands the experience.
+
+Desktop enhances rather than redesigns.
+
+---
+
+# Layout Do's
+
+✔ Use consistent spacing.
+
+✔ Maintain alignment.
+
+✔ Allow breathing room.
+
+✔ Prioritize readability.
+
+✔ Keep layouts modular.
+
+---
+
+# Layout Don'ts
+
+✘ Don't crowd content.
+
+✘ Don't mix spacing values randomly.
+
+✘ Don't stretch content beyond readable widths.
+
+✘ Don't use inconsistent border radii.
+
+✘ Don't create one-off layouts.
+
+---
+
+# CSS Design Tokens
+
+```css
+:root{
+
+--space-1:8px;
+--space-2:16px;
+--space-3:24px;
+--space-4:32px;
+--space-5:48px;
+--space-6:64px;
+--space-7:80px;
+--space-8:96px;
+--space-9:128px;
+--space-10:160px;
+
+--container-sm:720px;
+--container-md:960px;
+--container-lg:1200px;
+--container-xl:1440px;
+
+--radius-sm:8px;
+--radius-md:16px;
+--radius-lg:24px;
+--radius-xl:32px;
+--radius-full:999px;
+
+}
+```
+
+---
+
+# Implementation Checklist
+
+Before merging any new layout:
+
+□ Uses approved spacing tokens
+
+□ Uses approved container widths
+
+□ Maintains grid consistency
+
+□ Aligns with neighboring sections
+
+□ Preserves responsive behavior
+
+□ Matches border radius standards
+
+□ Keeps vertical rhythm intact
+
+---
+
+# Related Documents
+
+Color System
+
+Typography System
+
+Component Library
+
+Responsive System
+
+Design Tokens
+
+Implementation Guidelines
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Spacing & Layout System established.

@@ -1,0 +1,497 @@
+# Kiut Studio Design Language (KSDL)
+
+# 17 – Performance Standards
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Performance Standards define how the Kiut Music website should deliver a fast, responsive, and premium browsing experience.
+
+Every new feature must maintain or improve website performance.
+
+Performance is a feature.
+
+---
+
+# Performance Goals
+
+Desktop Lighthouse
+
+100 Performance
+
+100 Accessibility
+
+100 Best Practices
+
+100 SEO
+
+---
+
+Mobile Lighthouse
+
+95+ Performance
+
+100 Accessibility
+
+100 Best Practices
+
+100 SEO
+
+---
+
+Core Web Vitals
+
+Largest Contentful Paint (LCP)
+
+Target
+
+< 2.5 seconds
+
+---
+
+Interaction to Next Paint (INP)
+
+Target
+
+< 200ms
+
+---
+
+Cumulative Layout Shift (CLS)
+
+Target
+
+< 0.1
+
+---
+
+Time To First Byte
+
+Target
+
+< 800ms
+
+---
+
+First Contentful Paint
+
+Target
+
+< 1.8 seconds
+
+---
+
+# Loading Strategy
+
+Load Critical
+
+↓
+
+Load Visible
+
+↓
+
+Lazy Load Remaining
+
+↓
+
+Preload Future Navigation
+
+---
+
+# Images
+
+Preferred
+
+AVIF
+
+↓
+
+WebP
+
+↓
+
+PNG/JPEG (fallback)
+
+Use responsive images.
+
+Compress aggressively.
+
+Never upscale.
+
+Lazy-load all below-the-fold images.
+
+Use proper width and height attributes.
+
+---
+
+# Video
+
+Homepage Hero Video
+
+Maximum
+
+15MB
+
+Preferred Codec
+
+H.264
+
+Poster Image Required
+
+Yes
+
+Lazy Load
+
+Yes
+
+Autoplay
+
+Muted
+
+Loop
+
+Optional
+
+Only preload hero video.
+
+---
+
+# Audio
+
+Prefer streaming embeds.
+
+Avoid loading multiple audio players simultaneously.
+
+Lazy-load embedded players.
+
+---
+
+# Fonts
+
+Limit to two font families.
+
+Preload primary fonts.
+
+Use font-display: swap.
+
+Subset font files where possible.
+
+Avoid loading unused weights.
+
+---
+
+# JavaScript
+
+Code split by route.
+
+Tree shake unused code.
+
+Remove dead code.
+
+Load non-critical scripts asynchronously.
+
+Minimize third-party scripts.
+
+---
+
+# CSS
+
+Use CSS variables.
+
+Purge unused CSS.
+
+Minify production styles.
+
+Avoid duplicate styles.
+
+Prefer reusable utility classes.
+
+---
+
+# Animations
+
+Animate only:
+
+Opacity
+
+Transform
+
+Avoid animating:
+
+Width
+
+Height
+
+Top
+
+Left
+
+Box-shadow blur radius
+
+Respect reduced-motion preferences.
+
+---
+
+# Network Requests
+
+Batch requests where possible.
+
+Cache static assets.
+
+Reduce API calls.
+
+Avoid duplicate requests.
+
+Use compression.
+
+---
+
+# Caching
+
+Images
+
+1 Year
+
+Fonts
+
+1 Year
+
+JavaScript
+
+Long Cache
+
+HTML
+
+Short Cache
+
+Use cache busting for updates.
+
+---
+
+# Lazy Loading
+
+Required For
+
+Gallery Images
+
+Videos
+
+Music Players
+
+Store Images
+
+Testimonials
+
+Statistics
+
+Maps
+
+Any off-screen content
+
+---
+
+# Preloading
+
+Preload
+
+Hero Image
+
+Hero Video
+
+Primary Font
+
+Critical CSS
+
+Logo
+
+Do not preload non-essential media.
+
+---
+
+# Asset Optimization
+
+Compress images.
+
+Compress videos.
+
+Minify JavaScript.
+
+Minify CSS.
+
+Enable Brotli or Gzip.
+
+Use SVG for icons.
+
+---
+
+# Third-Party Services
+
+Limit external scripts.
+
+Load analytics after interaction where possible.
+
+Only include trusted providers.
+
+Monitor impact regularly.
+
+---
+
+# SEO Performance
+
+Unique metadata.
+
+Structured data.
+
+Optimized Open Graph images.
+
+Fast page speed.
+
+Semantic HTML.
+
+---
+
+# Mobile Optimization
+
+Prioritize touch responsiveness.
+
+Reduce animation complexity.
+
+Avoid heavy background effects.
+
+Optimize media sizes.
+
+---
+
+# Accessibility & Performance
+
+Performance improvements must never reduce accessibility.
+
+Accessibility takes priority over visual effects.
+
+---
+
+# Monitoring
+
+Run Lighthouse after major updates.
+
+Monitor Core Web Vitals.
+
+Track bundle size.
+
+Review asset sizes monthly.
+
+---
+
+# Performance Budget
+
+Homepage JavaScript
+
+< 250KB
+
+Critical CSS
+
+< 60KB
+
+Hero Image
+
+< 500KB
+
+Hero Video
+
+< 15MB
+
+Gallery Images
+
+< 300KB each
+
+Store Images
+
+< 350KB each
+
+Fonts
+
+< 200KB total
+
+---
+
+# Performance Do's
+
+✔ Optimize before uploading.
+
+✔ Lazy-load media.
+
+✔ Compress everything.
+
+✔ Test on mobile.
+
+✔ Monitor Core Web Vitals.
+
+✔ Remove unused assets.
+
+---
+
+# Performance Don'ts
+
+✘ Autoplay audio.
+
+✘ Oversized images.
+
+✘ Blocking JavaScript.
+
+✘ Unused CSS.
+
+✘ Duplicate assets.
+
+✘ Heavy animations.
+
+---
+
+# Performance Checklist
+
+□ Lighthouse targets met
+
+□ Core Web Vitals passed
+
+□ Responsive images used
+
+□ Lazy loading implemented
+
+□ Code splitting enabled
+
+□ Assets compressed
+
+□ Fonts optimized
+
+□ Bundle size acceptable
+
+□ Accessibility maintained
+
+---
+
+# Related Documents
+
+Asset Guidelines
+
+Implementation Standards
+
+Responsive System
+
+Accessibility Standards
+
+Studio QA Checklist
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Performance Standards established.

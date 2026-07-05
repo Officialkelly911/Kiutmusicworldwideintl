@@ -30,7 +30,7 @@ export default function MiniPlayer() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-0 inset-x-0 z-[60] bg-[#0d0d0d]/97 backdrop-blur-2xl border-t border-white/[0.08] shadow-[0_-20px_70px_rgba(0,0,0,0.75)]"
+          className="fixed bottom-0 inset-x-0 z-[60] bg-charcoal/97 backdrop-blur-2xl border-t border-white/[0.08] shadow-[0_-20px_70px_rgba(0,0,0,0.75)]"
         >
           {/* Seek bar at top edge */}
           <div
@@ -38,10 +38,10 @@ export default function MiniPlayer() {
             onClick={handleBarClick}
           >
             <div
-              className="h-full bg-gradient-to-r from-[#D4AF37] to-[#f0c842] transition-all duration-150 relative"
+              className="h-full bg-gradient-to-r from-gold to-gold-hover transition-all duration-150 relative"
               style={{ width: `${pct}%` }}
             >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#D4AF37] scale-0 group-hover/bar:scale-100 transition-transform shadow-[0_0_8px_rgba(212,175,55,0.9)]" />
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gold scale-0 group-hover/bar:scale-100 transition-transform shadow-[var(--glow-gold)]" />
             </div>
           </div>
 
@@ -88,7 +88,7 @@ export default function MiniPlayer() {
               <button
                 onClick={togglePlayPause}
                 aria-label={isPlaying ? "Pause" : "Play"}
-                className="w-10 h-10 rounded-full bg-[#D4AF37] text-black flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.45)] hover:shadow-[0_0_28px_rgba(212,175,55,0.65)] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-10 h-10 rounded-full bg-gold text-midnight flex items-center justify-center shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] hover:scale-105 active:scale-95 transition-all duration-200"
               >
                 {isPlaying
                   ? <Pause size={15} fill="currentColor" />

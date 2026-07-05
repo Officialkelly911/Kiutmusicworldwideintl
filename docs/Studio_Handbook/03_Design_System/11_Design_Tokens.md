@@ -94,7 +94,7 @@ Tokens should describe purpose rather than appearance.
 ```css
 :root{
 
---font-display:"Bebas Neue",sans-serif;
+--font-display:"Space Grotesk",sans-serif;
 --font-body:"Inter",sans-serif;
 
 --font-size-display:72px;

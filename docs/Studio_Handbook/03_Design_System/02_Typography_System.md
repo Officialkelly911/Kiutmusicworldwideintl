@@ -40,9 +40,23 @@ Luxury is communicated through spacing and restraint rather than excessive font 
 
 # Font Stack
 
+The Kiut Music website uses a two-family system: **Space Grotesk** for display
+and identity moments, and **Inter** for everything functional. This keeps the
+site fast (two font families, per the Performance Standards) while giving the
+brand a distinct, modern geometric voice for headlines and numerals.
+
+## Typography Roles
+
+| Purpose | Font |
+|---|---|
+| Display / Hero / Logo / H1–H3 | Space Grotesk |
+| Body Text / Paragraphs | Inter |
+| UI Labels / Buttons / Forms | Inter Medium |
+| Numbers / Statistics / Counters | Space Grotesk SemiBold |
+
 ## Primary Display Font
 
-Bebas Neue
+Space Grotesk
 
 Purpose
 
@@ -50,11 +64,15 @@ Hero titles
 
 Section headers
 
+Logo / wordmark
+
 Campaign banners
 
 Concert announcements
 
 Large promotional text
+
+Statistics and counters (SemiBold weight)
 
 ---
 
@@ -86,7 +104,7 @@ Footer
 
 font-family:
 
-"Bebas Neue",
+"Space Grotesk",
 "Inter",
 system-ui,
 -apple-system,
@@ -94,6 +112,18 @@ BlinkMacSystemFont,
 "Segoe UI",
 Roboto,
 sans-serif;
+
+---
+
+## Note on Bebas Neue
+
+An earlier draft of this system specified Bebas Neue as the display font.
+The shipped website already established Space Grotesk as its display
+typeface (headings, logo, hero) and it aligns with the brand's modern,
+geometric identity, so **Space Grotesk is the approved display font**.
+Bebas Neue remains available only as an optional treatment for future
+one-off promotional graphics or special campaign assets — never for
+core site headings, navigation, or logo usage.
 
 ---
 
@@ -397,7 +427,7 @@ Gold + Underline
 
 Display Font
 
-Bebas Neue
+Space Grotesk
 
 Maximum Width
 
@@ -470,8 +500,9 @@ Maintain WCAG AA compliance.
 ```css
 :root{
 
---font-display:"Bebas Neue",sans-serif;
+--font-display:"Space Grotesk",sans-serif;
 --font-ui:"Inter",sans-serif;
+--font-display-weight-numeric:600;
 
 --font-size-display:72px;
 --font-size-h1:56px;

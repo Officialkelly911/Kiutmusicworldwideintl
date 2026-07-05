@@ -20,9 +20,9 @@ const navLinks = [
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-[#040404] border-t border-white/[0.07] relative overflow-hidden">
+    <footer className="bg-midnight border-t border-white/[0.07] relative overflow-hidden">
       {/* Ambient glows */}
-      <div className="absolute top-0 right-0 w-[520px] h-[400px] bg-[#D4AF37]/4 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[520px] h-[400px] bg-gold/4 blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-amber-500/4 blur-[120px] rounded-full pointer-events-none" />
 
       {/* ── Streaming strip ───────────────────────────────────── */}
@@ -37,7 +37,7 @@ export default function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={label}
-                className="flex items-center gap-1.5 text-white/30 hover:text-[#D4AF37] transition-colors duration-200 group"
+                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-colors duration-200 group"
               >
                 <Icon size={14} className="group-hover:scale-110 transition-transform duration-200" />
                 <span className="text-[10px] font-medium hidden sm:block">{label}</span>
@@ -54,7 +54,7 @@ export default function SiteFooter() {
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase mb-3">
-              Kiut<span className="text-[#D4AF37]">.</span>
+              Kiut<span className="text-gold">.</span>
             </h3>
             <p className="text-white/45 text-base mb-8 font-light max-w-sm leading-relaxed">
               Join the inner circle for exclusive updates, early releases, and behind-the-scenes access.
@@ -64,11 +64,11 @@ export default function SiteFooter() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full bg-white/[0.04] border border-white/[0.09] rounded-full px-6 py-4 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-[#D4AF37]/50 focus:ring-1 focus:ring-[#D4AF37]/30 transition-all pr-32"
+                className="w-full bg-white/[0.04] border border-white/[0.09] rounded-full px-6 py-4 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all pr-32"
               />
               <button
                 type="button"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-[#D4AF37] hover:bg-yellow-400 text-black px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors"
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors"
               >
                 Join
               </button>
@@ -83,7 +83,7 @@ export default function SiteFooter() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-white/40 hover:text-[#D4AF37] transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium"
+                    className="text-white/40 hover:text-gold transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium"
                   >
                     {label}
                   </Link>
@@ -99,28 +99,28 @@ export default function SiteFooter() {
               <a
                 href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.45)] transition-all duration-300"
+                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
               >
                 <Instagram size={18} />
               </a>
               <a
                 href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo"
                 target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.45)] transition-all duration-300"
+                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
               >
                 <Youtube size={18} />
               </a>
               <a
                 href="https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb"
                 target="_blank" rel="noopener noreferrer" title="Linktree" aria-label="Linktree"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.45)] transition-all duration-300"
+                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
               >
                 <LinktreeIcon size={18} />
               </a>
               <a
                 href="https://dreamplanet.org/user/61"
                 target="_blank" rel="noopener noreferrer" title="DreamPlanet" aria-label="DreamPlanet"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.45)] transition-all duration-300"
+                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
               >
                 <img src="/assets/images/dreamplanet-icon.png" alt="DreamPlanet" className="w-7 h-7 object-contain rounded-md" />
               </a>

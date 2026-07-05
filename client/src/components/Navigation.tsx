@@ -31,11 +31,11 @@ export function Navigation() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="w-10 h-10 rounded-xl border border-[#D4AF37]/30 bg-[#D4AF37] flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.24)] group-hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-shadow duration-300">
-                <Music className="w-5 h-5 text-black" />
+              <div className="w-10 h-10 rounded-xl border border-gold/30 bg-gold flex items-center justify-center shadow-[var(--glow-gold)] group-hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300">
+                <Music className="w-5 h-5 text-midnight" />
               </div>
               <span className="font-display text-xl font-bold tracking-tight">
-                Kiut <span className="text-[#D4AF37]">Music</span>
+                Kiut <span className="text-gold">Music</span>
               </span>
             </motion.div>
           </Link>
@@ -57,17 +57,17 @@ export function Navigation() {
                     {isActive && (
                       <motion.div
                         layoutId="nav-active"
-                        className="absolute inset-0 bg-[#D4AF37]/10 rounded-lg border border-[#D4AF37]/22 shadow-[0_0_22px_rgba(212,175,55,0.14),inset_0_1px_0_rgba(212,175,55,0.12)]"
+                        className="absolute inset-0 bg-gold/10 rounded-lg border border-gold/22 shadow-[0_0_22px_rgba(212,175,55,0.14),inset_0_1px_0_rgba(212,175,55,0.12)]"
                         transition={{ type: "spring", bounce: 0.18, duration: 0.5 }}
                       />
                     )}
-                    <span className={`relative z-10 font-medium text-sm tracking-wide transition-colors duration-200 ${isActive ? "text-[#D4AF37]" : ""}`}>
+                    <span className={`relative z-10 font-medium text-sm tracking-wide transition-colors duration-200 ${isActive ? "text-gold" : ""}`}>
                       {item.label}
                     </span>
                     {isActive && (
                       <motion.div
                         layoutId="nav-underline"
-                        className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-[#D4AF37] rounded-full"
+                        className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-gold rounded-full"
                         transition={{ type: "spring", bounce: 0.18, duration: 0.5 }}
                       />
                     )}
@@ -84,8 +84,8 @@ export function Navigation() {
                 whileTap={{ scale: 0.97 }}
                 className={`ml-2 px-5 py-2 rounded-full cursor-pointer font-bold text-sm tracking-widest uppercase transition-all duration-300 ${
                   location === "/newsletter"
-                    ? "bg-[#D4AF37] text-black shadow-[0_0_25px_rgba(212,175,55,0.5)]"
-                    : "bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37] hover:text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.4)]"
+                    ? "bg-gold text-midnight shadow-[var(--glow-gold-hover)]"
+                    : "bg-gold/10 text-gold border border-gold/30 hover:bg-gold hover:text-midnight hover:shadow-[var(--glow-gold)]"
                 }`}
               >
                 Newsletter
@@ -138,16 +138,16 @@ export function Navigation() {
                       onClick={() => setMobileOpen(false)}
                       className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer mb-1 transition-all duration-200 ${
                         isActive
-                          ? "bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/20"
+                          ? "bg-gold/15 text-gold border border-gold/20"
                           : isNewsletter
-                          ? "bg-[#D4AF37]/5 text-[#D4AF37]/80 border border-[#D4AF37]/10 hover:bg-[#D4AF37]/15"
+                          ? "bg-gold/5 text-gold/80 border border-gold/10 hover:bg-gold/15"
                           : "text-white/60 hover:text-white hover:bg-white/5 border border-transparent"
                       }`}
                       data-testid={`mobile-nav-${item.label.toLowerCase()}`}
                     >
                       <Icon className="w-5 h-5" />
                       <span className="font-medium tracking-wide">{item.label}</span>
-                      {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />}
+                      {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-gold" />}
                     </motion.div>
                   </Link>
                 );

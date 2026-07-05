@@ -1101,6 +1101,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PORTFOLIO SECTION */}
+      <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white uppercase mb-4">
+              Creative Portfolio
+            </h2>
+            <p className="text-white/60 font-light max-w-2xl mx-auto">
+              A visual journey through performances, behind-the-scenes, and cinematic projects.
+            </p>
+          </motion.div>
+
+          <a
+            href="https://dreamplanet.org/user/61"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative aspect-video rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 group cursor-pointer"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+              >
+                <source src={portfolioVideo} type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 gap-3">
+                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
+                  <ExternalLink size={32} />
+                </div>
+                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
+              </div>
+            </motion.div>
+          </a>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-12"
+          >
+            <a
+              href="https://dreamplanet.org/user/61"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <motion.button
+                whileHover={{ scale: 1.04, borderColor: "#D4AF37", color: "#D4AF37" }}
+                whileTap={{ scale: 0.97 }}
+                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 mx-auto"
+              >
+                Explore Portfolio <ExternalLink size={14} />
+              </motion.button>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ─── KIUTRABA'S STORE FEATURE ─────────────────────────────────── */}
       <section className="py-24 md:py-36 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg,#030303 0%,#050507 50%,#060608 100%)" }}>
         <style>{`
@@ -1417,78 +1489,6 @@ export default function Home() {
             <p className="text-white/10 text-[9px] font-light tracking-[0.22em] mt-1.5">Secure checkout powered by Dream Planet</p>
           </motion.div>
 
-        </div>
-      </section>
-
-      {/* PORTFOLIO SECTION */}
-      <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12"
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white uppercase mb-4">
-              Creative Portfolio
-            </h2>
-            <p className="text-white/60 font-light max-w-2xl mx-auto">
-              A visual journey through performances, behind-the-scenes, and cinematic projects.
-            </p>
-          </motion.div>
-
-          <a
-            href="https://dreamplanet.org/user/61"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative aspect-video rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 group cursor-pointer"
-            >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-              >
-                <source src={portfolioVideo} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 gap-3">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                  <ExternalLink size={32} />
-                </div>
-                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
-              </div>
-            </motion.div>
-          </a>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-12"
-          >
-            <a
-              href="https://dreamplanet.org/user/61"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <motion.button
-                whileHover={{ scale: 1.04, borderColor: "#D4AF37", color: "#D4AF37" }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 mx-auto"
-              >
-                Explore Portfolio <ExternalLink size={14} />
-              </motion.button>
-            </a>
-          </motion.div>
         </div>
       </section>
 

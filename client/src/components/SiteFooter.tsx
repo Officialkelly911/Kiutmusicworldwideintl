@@ -11,11 +11,12 @@ const streamingLinks = [
 ];
 
 const navLinks = [
-  { label: "Home",        href: "/" },
-  { label: "About Kiut", href: "/about" },
-  { label: "Music",       href: "/music" },
-  { label: "Videos",      href: "/videos" },
-  { label: "Newsletter",  href: "/newsletter" },
+  { label: "Home",       href: "/"           },
+  { label: "About Kiut", href: "/about"      },
+  { label: "Music",      href: "/music"      },
+  { label: "Videos",     href: "/videos"     },
+  { label: "Tour",       href: "/tour"       },
+  { label: "Newsletter", href: "/newsletter" },
 ];
 
 export default function SiteFooter() {

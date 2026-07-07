@@ -1403,10 +1403,47 @@ export default function About() {
               ))}
             </div>
 
+            {/* Merch preview — 3 featured products */}
+            <div className="grid grid-cols-3 gap-3 mb-10 max-w-sm mx-auto">
+              {[
+                { img: "/assets/images/merch-hoodie.jpg",     name: "Signature Hoodie", cover: true  },
+                { img: "/assets/images/merch-confamboy.png",  name: "Confam Boy Tee",   cover: false },
+                { img: "/assets/images/merch-ep-digital.png", name: "Eligible EP",      cover: false },
+              ].map((item) => (
+                <motion.a
+                  key={item.name}
+                  href="https://dreamplanet.org/store-profile/61"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(212,175,55,0.16)] transition-[border-color,box-shadow] duration-300"
+                  style={{ background: "#0d0d0f" }}
+                >
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={`w-full h-full ${item.cover ? "object-cover object-top" : "object-contain p-2.5"} group-hover:scale-[1.06] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)]`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
+                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-[8px] font-bold text-white/80 uppercase tracking-wide px-1 line-clamp-1">{item.name}</p>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Dream Planet attribution */}
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" loading="lazy" className="w-3.5 h-3.5 opacity-35" />
+              <span className="text-white/22 text-[9px] uppercase tracking-[0.32em] font-medium">Exclusive on Dream Planet</span>
+            </div>
+
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <motion.a
-                href="https://kiutmusic.com/store"
+                href="https://dreamplanet.org/store-profile/61"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -3, scale: 1.02 }}

@@ -1,0 +1,1 @@
+- [Phase roadmap pattern](phase-roadmap.md) — each phase ends with an audit report in docs/Studio_Handbook/05_Audit_Reports/; inline style= #D4AF37 is acceptable to keep, only Tailwind class literals need token migration.

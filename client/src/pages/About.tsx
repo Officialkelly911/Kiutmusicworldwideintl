@@ -1406,9 +1406,9 @@ export default function About() {
             {/* Merch preview — 3 featured products */}
             <div className="grid grid-cols-3 gap-3 mb-10 max-w-sm mx-auto">
               {[
-                { img: "/assets/images/merch-hoodie.jpg",     name: "Signature Hoodie", cover: true  },
-                { img: "/assets/images/merch-confamboy.png",  name: "Confam Boy Tee",   cover: false },
-                { img: "/assets/images/merch-ep-digital.png", name: "Eligible EP",      cover: false },
+                { img: "/assets/images/merch-hoodie.jpg",        name: "Signature Hoodie",    cover: true  },
+                { img: "/assets/images/merch-baggy-jeans.jpg",  name: "KR Baggy Jeans",      cover: false },
+                { img: "/assets/images/merch-goodlife-ep.png",  name: "Goodlife Digital EP", cover: true  },
               ].map((item) => (
                 <motion.a
                   key={item.name}

@@ -1648,14 +1648,14 @@ export default function Home() {
               {/* Right — CTA */}
               <div className="flex flex-col items-center md:items-end gap-6">
                 <div className="flex flex-col gap-3 w-full md:w-auto">
-                  <Link href="/newsletter">
+                  <Link href="/tour">
                     <motion.button
                       data-testid="button-concert-notify"
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
                       className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
                     >
-                      Get Notified <ArrowRight size={14} />
+                      View Tour Dates <ArrowRight size={14} />
                     </motion.button>
                   </Link>
                   <p className="text-center text-white/18 text-[10px] font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>

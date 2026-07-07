@@ -1217,9 +1217,8 @@ export default function Home() {
               { img: "/assets/images/merch-collection.png",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
               { img: "/assets/images/merch-cap-vintage.png", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
               { img: "/assets/images/merch-cd.png",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
-              { img: "/assets/images/merch-confamboy.png",   imgCls: "object-contain p-5",      badge: "New Drop",        category: "Apparel",          name: "Confam Boy Tee",            desc: "Street-coded graphic tee. The Confam Boy drop — culture-first, KiutRaba endorsed." },
               { img: "/assets/images/merch-baggy-jeans.jpg", imgCls: "object-contain p-4",      badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
-              { img: "/assets/images/merch-ep-digital.png",  imgCls: "object-contain p-6",      badge: "Digital",         category: "Music",            name: "Eligible EP",               desc: "Own the Eligible EP — Afrobeat-forward sounds from the vault of KiutRaba." },
+              { img: "/assets/images/merch-goodlife-ep.png", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
             ];
             const active = bannerItems[activeStoreIdx];
             const total = bannerItems.length;
@@ -1325,9 +1324,8 @@ export default function Home() {
               { name: "Good Life Full Drop",       img: "/assets/images/merch-collection.png",   isCover: false, badge: "COLLECTION",    badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe.",            spotlight: 3 },
               { name: "EP Trucker Cap",            img: "/assets/images/merch-cap-vintage.png",  isCover: false, badge: "NEW",           badgeKind: "gold-fill",    desc: "Structured trucker with EP embroidery. Everyday KiutRaba flex.",     spotlight: 4 },
               { name: "Good Life EP",              img: "/assets/images/merch-cd.png",           isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "The debut EP — Afrobeat meets Caribbean. Stream or own it.",         spotlight: 5 },
-              { name: "Confam Boy Tee",            img: "/assets/images/merch-confamboy.png",    isCover: false, badge: "NEW DROP",      badgeKind: "gold-fill",    desc: "Street-coded graphic tee. Culture-first, KiutRaba endorsed.",        spotlight: 6 },
               { name: "KR Baggy Jeans",            img: "/assets/images/merch-baggy-jeans.jpg",  isCover: false, badge: "APPAREL",       badgeKind: "ghost",        desc: "Wide-leg, culture-first. The KiutRaba street silhouette.",            spotlight: 7 },
-              { name: "Eligible EP",               img: "/assets/images/merch-ep-digital.png",   isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "Own the Eligible EP — Afrobeat-forward sounds from the vault.",       spotlight: 8 },
+              { name: "Goodlife Digital EP",       img: "/assets/images/merch-goodlife-ep.png",  isCover: true,  badge: "DIGITAL",       badgeKind: "gold-outline", desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault.", spotlight: 8 },
             ];
 
             return (
@@ -1440,24 +1438,22 @@ export default function Home() {
                   { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
                   { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
                   { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
-                  { name: "Confam Boy Tee",      img: "/assets/images/merch-confamboy.png",    cover: false },
-                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
-                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
-                  { name: "Eligible EP",         img: "/assets/images/merch-ep-digital.png",   cover: false },
-                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
-                  { name: "KR Baggy Jeans",      img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
-                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
-                  { name: "Hoodking",            img: "/assets/images/merch-outfit-red.jpg",   cover: false },
-                  { name: "Classic Man",         img: "/assets/images/merch-shirt.jpg",        cover: false },
-                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
-                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
-                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
-                  { name: "Confam Boy Tee",      img: "/assets/images/merch-confamboy.png",    cover: false },
-                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
-                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
-                  { name: "Eligible EP",         img: "/assets/images/merch-ep-digital.png",   cover: false },
-                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
-                  { name: "KR Baggy Jeans",      img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "Rababag Classic Cap",   img: "/assets/images/merch-cap-rababag.png",  cover: false },
+                  { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.png",   cover: false },
+                  { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.png",  cover: true  },
+                  { name: "Good Life EP",          img: "/assets/images/merch-cd.png",           cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "Signature Hoodie",      img: "/assets/images/merch-hoodie.jpg",       cover: true  },
+                  { name: "Hoodking",              img: "/assets/images/merch-outfit-red.jpg",   cover: false },
+                  { name: "Classic Man",           img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.png",    cover: false },
+                  { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.png",       cover: false },
+                  { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.png",  cover: false },
+                  { name: "Rababag Classic Cap",   img: "/assets/images/merch-cap-rababag.png",  cover: false },
+                  { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.png",   cover: false },
+                  { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.png",  cover: true  },
+                  { name: "Good Life EP",          img: "/assets/images/merch-cd.png",           cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
                 ].map((p, i) => (
                   <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
                     <div className="group relative flex-shrink-0 w-[168px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/35 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 cursor-pointer">

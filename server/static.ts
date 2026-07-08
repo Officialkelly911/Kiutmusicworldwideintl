@@ -27,9 +27,11 @@ function setStaticCacheHeaders(req: Request, res: Response, next: () => void) {
     return next();
   }
 
-  // Images, fonts, audio, WebP — long but not immutable
+  // Images, fonts, audio, WebP
+  // Many asset filenames are stable (hero-poster.webp, merch-hoodie.webp), so we use 7 days
+  // rather than a long immutable cache — safe if assets are ever swapped in-place.
   if (/\.(webp|png|jpe?g|gif|svg|ico|woff2?|ttf|otf|mp3|m4a|ogg|mp4|webm)$/.test(url)) {
-    res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+    res.setHeader("Cache-Control", "public, max-age=604800, stale-while-revalidate=86400"); // 7 days + swr
     return next();
   }
 

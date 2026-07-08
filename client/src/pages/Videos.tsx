@@ -29,7 +29,7 @@ import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
-const videosHeroBg = "/assets/images/IMG_1254_1774433277988.jpeg";
+const videosHeroBg = "/assets/images/IMG_1254_1774433277988.webp";
 const STORE_URL     = "https://dreamplanet.org/store-profile/61";
 const WATCHED_KEY   = "kiut_watched_videos";
 

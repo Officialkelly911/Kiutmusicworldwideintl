@@ -37,7 +37,10 @@
 
     <!-- ── Hero media preloads — above-the-fold, highest priority ────── -->
     <!-- These are the only resources that block first paint intentionally. -->
-    <link rel="preload" as="image" href="/assets/images/hero-poster.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/assets/images/hero-poster.webp" fetchpriority="high" />
+
+    <!-- ── Color scheme ──────────────────────────────────────────────── -->
+    <meta name="color-scheme" content="dark" />
     <!-- Note: preload as="video" is not in the fetch spec; browsers ignore it, so removed to silence the console warning -->
     <!-- The video is loaded by the <video> element itself with preload="metadata" -->
 

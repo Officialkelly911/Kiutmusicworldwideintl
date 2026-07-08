@@ -1,0 +1,175 @@
+The website currently uses generic SVG icons in the footer. Replace them with the official brand icons for each social media platform while preserving the existing premium design language.
+
+OBJECTIVE
+
+Replace all generic social icons across every footer on the website with their official brand icons and refine the footer's overall appearance without changing its layout or branding.
+
+TASKS
+
+1. Audit every footer.
+   - Locate every footer component used throughout the website.
+   - Determine whether a shared Footer component exists.
+   - If multiple footer implementations exist, consolidate them into a single reusable Footer component where appropriate.
+
+2. Replace generic icons.
+
+Replace the current icons with the official icons for each platform using a professional icon library such as:
+
+• Lucide (where appropriate)
+• Simple Icons
+• React Icons
+• Font Awesome
+
+Prefer official brand icons from Simple Icons or React Icons.
+
+Supported platforms include (where applicable):
+
+• Instagram
+• YouTube
+• TikTok
+• Spotify
+• Apple Music
+• Audiomack
+• SoundCloud
+• Facebook
+• X (Twitter)
+• Threads
+• Deezer
+• Dream Planet
+
+Only display icons for platforms that actually have valid links configured.
+
+3. Maintain visual consistency.
+
+Every icon should:
+
+• Have identical size
+• Have identical spacing
+• Have identical alignment
+• Be vertically centered
+• Have equal padding
+• Match the site's premium visual identity
+
+4. Styling.
+
+Default state:
+
+• Soft gray or muted white
+• Subtle opacity
+• No harsh outlines
+
+Hover state:
+
+• Gold accent matching the site's branding
+• Slight scale animation (approximately 1.08–1.12x)
+• Smooth transition (200–300 ms)
+• Soft glow
+• Cursor pointer
+
+Avoid flashy or distracting animations.
+
+5. Accessibility.
+
+Each icon must include:
+
+• Accessible aria-label
+• Descriptive title
+• Keyboard focus support
+• Visible focus indicator
+• Proper semantic links
+
+6. External links.
+
+Every social link should:
+
+• Open in a new tab
+• Use:
+  target="_blank"
+
+• Include:
+  rel="noopener noreferrer"
+
+7. Verify URLs.
+
+Inspect every configured social link.
+
+If a platform has:
+
+• Missing URL
+• Placeholder URL
+• Empty value
+
+Do NOT render that icon.
+
+Never display inactive social icons.
+
+8. Responsive behavior.
+
+Ensure icons remain perfectly aligned on:
+
+• Desktop
+• Laptop
+• Tablet
+• Mobile
+
+Prevent wrapping, overlap, or uneven spacing.
+
+9. Preserve existing footer.
+
+Do NOT modify:
+
+• Footer layout
+• Typography
+• Colors (except icon improvements)
+• Background
+• Copyright section
+• Spacing
+• Navigation
+• Newsletter section
+
+Only improve the icon implementation.
+
+10. Performance.
+
+Use lightweight SVG icon components.
+
+Avoid loading unnecessary icon libraries.
+
+Tree-shake unused icons.
+
+11. Code quality.
+
+Remove:
+
+• Old SVG files
+• Duplicate icon components
+• Unused imports
+• Deprecated icon code
+
+12. Quality Assurance.
+
+Before completing the work, verify:
+
+✓ Every icon is an official brand icon.
+✓ No generic placeholder icons remain.
+✓ All icons have consistent sizing.
+✓ Hover animations work smoothly.
+✓ Keyboard navigation works.
+✓ Accessibility passes.
+✓ Links open correctly.
+✓ Mobile layout remains intact.
+✓ No console errors exist.
+
+13. Final report.
+
+Provide:
+
+• Footer files modified.
+• Icon library selected and why.
+• Icons replaced.
+• Any missing social links detected.
+• Confirmation that all footer icons now use official branded assets while maintaining the premium visual identity.
+
+IMPORTANT
+
+Do not redesign the footer. Preserve its overall look and feel. The goal is to elevate the professionalism and brand recognition by replacing generic SVGs with authentic platform icons while keeping the interface clean, elegant, responsive, and consistent across the entire website.

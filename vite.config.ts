@@ -36,8 +36,13 @@ export default defineConfig({
          * vice versa.
          */
         manualChunks(id: string) {
-          // React core — changes rarely, very long cache TTL
-          if (id.includes("node_modules/react/") || id.includes("node_modules/react-dom/")) {
+          // React core + scheduler (react-dom peer) — changes rarely, very long cache TTL
+          if (
+            id.includes("node_modules/react/") ||
+            id.includes("node_modules/react-dom/") ||
+            id.includes("node_modules/scheduler/") ||
+            id.includes("node_modules/react-is/")
+          ) {
             return "vendor-react";
           }
           // Framer Motion — large, isolated, update independently

@@ -70,6 +70,7 @@ export default function SiteFooter() {
               <input
                 type="email"
                 placeholder="Enter your email"
+                aria-label="Email address for newsletter"
                 className="w-full bg-white/[0.04] border border-white/[0.09] rounded-full px-6 py-4 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all pr-32"
               />
               <button

@@ -26,6 +26,7 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Kiut Music Worldwide" />
+    <link rel="canonical" href="https://kiutmusic.com/" />
 
     <!-- ── Twitter card ──────────────────────────────────────────────── -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -36,7 +37,8 @@
     <!-- ── Hero media preloads — above-the-fold, highest priority ────── -->
     <!-- These are the only resources that block first paint intentionally. -->
     <link rel="preload" as="image" href="/assets/images/hero-poster.jpg" fetchpriority="high" />
-    <link rel="preload" as="video" href="/assets/videos/hero-optimized.mp4" type="video/mp4" />
+    <!-- Note: preload as="video" is not in the fetch spec; browsers ignore it, so removed to silence the console warning -->
+    <!-- The video is loaded by the <video> element itself with preload="metadata" -->
 
     <!-- ── Fonts — non-render-blocking ───────────────────────────────── -->
     <!--
@@ -63,14 +65,14 @@
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap"
       />
     </noscript>
-    <script type="module" crossorigin src="/assets/index-C5tAeXw0.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-misc-D7sZQWk8.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-B8lJeE9O.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-router-D-MdBkFh.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-query-BTIEyj0g.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-radix-B8IIVS-I.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-BDil9Adj.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-motion-CtXcVSeM.js">
+    <script type="module" crossorigin src="/assets/index-3pmWvqht.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Boyz8gL2.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-misc-o-vUnVYi.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-router-zeCMNJyk.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-query-DU8q7JeG.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-radix-DlpozqCz.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-C7zpZrEN.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-motion-BooQy4jP.js">
     <link rel="stylesheet" crossorigin href="/assets/index-BEKu67E8.css">
   </head>
   <body>

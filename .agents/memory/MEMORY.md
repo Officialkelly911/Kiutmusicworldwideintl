@@ -1,3 +1,3 @@
 - [Phase roadmap pattern](phase-roadmap.md) — each phase ends with an audit report in docs/Studio_Handbook/05_Audit_Reports/; inline style= #D4AF37 is acceptable to keep, only Tailwind class literals need token migration.
 - [motion.create vs motion()](motion-create.md) — framer-motion wrapping third-party components requires motion.create(), not deprecated motion().
-- [motion.create vs motion()](motion-create.md) — framer-motion wrapping third-party components requires motion.create(), not deprecated motion().
+- [KSDL motion system](ksdl-motion-system.md) — shared variants/easings in client/src/lib/motion.ts; MotionConfig reducedMotion="user" in App.tsx covers all pages globally; CSS rule in index.css covers CSS transitions.

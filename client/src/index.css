@@ -247,3 +247,52 @@ img {
 /* Hide scrollbar helper */
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── KSDL Loading shimmer ────────────────────────────────────────────────── */
+@keyframes ksdl-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.ksdl-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(212, 175, 55, 0.07)  40%,
+    rgba(255, 255, 255, 0.03) 60%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  background-size: 200% 100%;
+  animation: ksdl-shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── KSDL Pulse glow (gold buttons / icons) ─────────────────────────────── */
+@keyframes ksdl-pulse-glow {
+  0%, 100% { box-shadow: var(--glow-gold); }
+  50%       { box-shadow: var(--glow-gold-hover); }
+}
+
+.ksdl-pulse-glow {
+  animation: ksdl-pulse-glow 2.4s ease-in-out infinite;
+}
+
+/* ── Accessibility: prefers-reduced-motion ──────────────────────────────── */
+/* CSS safety net — Framer Motion's MotionConfig reducedMotion="user" handles
+   JS animations; this rule covers all CSS transitions and keyframe animations
+   for users who have requested reduced motion at the OS level. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+
+  /* Keep shimmer visible but static (no movement) */
+  .ksdl-shimmer {
+    animation: none;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}

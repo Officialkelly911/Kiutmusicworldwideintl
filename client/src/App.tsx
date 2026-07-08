@@ -6,7 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
 import { PlayerProvider, usePlayer } from "@/context/PlayerContext";
 import MiniPlayer from "@/components/MiniPlayer";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { pageVariants } from "@/lib/motion";
 import Home from "@/pages/Home";
 import Music from "@/pages/Music";
 import Videos from "@/pages/Videos";
@@ -15,12 +16,6 @@ import Newsletter from "@/pages/Newsletter";
 import Tour from "@/pages/Tour";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
-
-const pageVariants: Variants = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0,  transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] as const } },
-  exit:    { opacity: 0,         transition: { duration: 0.15, ease: "easeIn" } },
-};
 
 function AnimatedRouter() {
   const [location] = useLocation();
@@ -56,12 +51,20 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <PlayerProvider>
-          <Toaster />
-          <Navigation />
-          <AnimatedRouter />
-          <MiniPlayer />
-        </PlayerProvider>
+        {/*
+          MotionConfig reducedMotion="user" — single global setting that makes
+          every framer-motion animation on the site respect the OS-level
+          prefers-reduced-motion preference automatically.
+          CSS transitions are covered by the @media rule in index.css.
+        */}
+        <MotionConfig reducedMotion="user">
+          <PlayerProvider>
+            <Toaster />
+            <Navigation />
+            <AnimatedRouter />
+            <MiniPlayer />
+          </PlayerProvider>
+        </MotionConfig>
       </TooltipProvider>
     </QueryClientProvider>
   );

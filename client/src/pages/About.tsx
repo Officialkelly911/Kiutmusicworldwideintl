@@ -114,6 +114,7 @@ const collageImages: CollageItem[] = [
   { src: img_momentStoneSeat,  alt: "Kiut seated on stone steps",          label: "Still Moment",   col: "md:col-span-1", row: "md:row-span-1", mobileOrder: 20, objectPos: "object-center" },
 ];
 
+// upload-030.jpg does not exist on disk — removed to prevent broken image links.
 const uploadedJourneyImages = [
   "/assets/about-journey/upload-001.jpg",
   "/assets/about-journey/upload-002.jpg",
@@ -144,7 +145,6 @@ const uploadedJourneyImages = [
   "/assets/about-journey/upload-027.jpg",
   "/assets/about-journey/upload-028.jpg",
   "/assets/about-journey/upload-029.jpg",
-  "/assets/about-journey/upload-030.jpg",
   "/assets/about-journey/upload-031.jpg",
   "/assets/about-journey/upload-032.jpg",
   "/assets/about-journey/upload-033.jpg",
@@ -205,7 +205,7 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     badge: "Studio Life",
     images: [
       { src: "/assets/images/studio_kiut_1774440627098.jpeg",  alt: "Kiut — studio session",              badge: "Studio"     },
-      { src: "/assets/images/studio_session_1774440627098.jpeg", alt: "Kiut — recording session",         badge: "Recording"  },
+      { src: "/assets/images/IMG_2452_1772753968062.jpg",       alt: "Kiut — artist portrait",             badge: "Portrait"   },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg", alt: "Mixing session", badge: "In The Mix" },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg", alt: "Studio synthesizers", badge: "The Gear" },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701227223296_1095425_1774430915892.jpeg", alt: "Studio standing", badge: "Studio"   },
@@ -220,7 +220,7 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     images: [
       { src: "/assets/images/times_square_1774440627098.jpeg",  alt: "Kiut — Times Square NYC",           badge: "New York"   },
       { src: "/assets/images/IMG_2027_1774430840570.jpeg",      alt: "Kiut — California palms",           badge: "West Coast" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3786107874124605259_1095425_1774430915892.jpeg", alt: "LA milestone", badge: "Milestone" },
+      { src: "/assets/images/announce-cover.jpg",               alt: "Kiut — worldwide announcement",     badge: "Worldwide"  },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.jpeg", alt: "Nigeria — back to roots", badge: "Back To Roots" },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.jpeg", alt: "Nigeria celebration", badge: "Celebration" },
       { src: "/assets/images/about-moments-stone-seat.jpg",     alt: "Kiut — still moment on stone steps", badge: "Still Moment" },
@@ -233,9 +233,9 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     badge: "Visual Archive",
     images: [
       { src: "/assets/images/Hero1.jpeg",                       alt: "Kiut — hero portrait",              badge: "Portrait"   },
-      { src: "/assets/images/Hero1_1767873472478.jpeg",         alt: "Kiut — cinematic still",            badge: "Cinematic"  },
+      { src: "/assets/images/goodlife-poster.jpg",              alt: "Kiut — Good Life era promo",        badge: "Promo Art"  },
       { src: "/assets/images/about-moments-garden-seat.jpg",    alt: "Kiut — golden hour garden",         badge: "Golden Hour"},
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985976478358_1095425_1774430915892.jpeg", alt: "Kiut — studio mood", badge: "Studio" },
+      { src: "/assets/images/praya-request-cover.jpeg",         alt: "Kiut — Praya Request artwork",      badge: "Artwork"    },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024700849651951_1095425_1774430915892.jpeg", alt: "Kiut — Instagram moment", badge: "Moment" },
       { src: "/assets/images/IMG_1254_1774433277988.jpeg",      alt: "Kiut — portrait session",           badge: "Portrait"   },
     ],
@@ -243,15 +243,14 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
 ];
 
 // Extended gallery — revealed by "View Complete Journey"
+// Removed duplicates: Hero1_1767874042707 (= Hero1.jpeg), IMG_0682_1774440591738 (= ch01),
+// WhatsApp_1767874948786 (= WhatsApp_1767874201323).
 const EXTENDED_GALLERY: GalleryImage[] = [
-  { src: "/assets/images/Hero1_1767874042707.jpeg",     alt: "Kiut — performance",       badge: "Performance" },
-  { src: "/assets/images/IMG_0682_1774440591738.jpeg",  alt: "Kiut — editorial II",      badge: "Editorial"   },
   { src: "/assets/images/IMG_1257_1774433050958.jpeg",  alt: "Kiut — portrait II",       badge: "Portrait"    },
   { src: "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.jpg", alt: "Kiut — live clip", badge: "Live" },
   { src: "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.jpg", alt: "Kiut — performance clip", badge: "Performance" },
   { src: "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.jpg", alt: "Kiut — social moment", badge: "Moment" },
   { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874201323.jpeg", alt: "Kiut — candid", badge: "Candid" },
-  { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.jpeg", alt: "Kiut — exclusive", badge: "Exclusive" },
   { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701990647365_1095425_1774430915892.jpeg", alt: "Instagram session", badge: "Session" },
   { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986907667189_1095425_1774430915892.jpeg", alt: "Kiut — behind the lens", badge: "Behind The Lens" },
 ];
@@ -261,8 +260,8 @@ const allGalleryImages: GalleryImage[] = [
   { src: FEATURED_HERO_SRC, alt: "The Good Life Era — Kiut", badge: "The Journey" },
   ...GALLERY_CHAPTERS.flatMap(ch => ch.images),
   ...EXTENDED_GALLERY,
-  ...Array.from({ length: 59 }, (_, i) => ({
-    src: `/assets/about-journey/upload-${String(i + 1).padStart(3, "0")}${i >= 57 ? ".jpeg" : ".jpg"}`,
+  ...uploadedJourneyImages.map((src, i) => ({
+    src,
     alt: `Journey moment ${i + 1}`,
     badge: undefined,
   })),

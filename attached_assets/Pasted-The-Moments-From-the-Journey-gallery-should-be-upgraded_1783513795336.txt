@@ -1,0 +1,249 @@
+The "Moments From the Journey" gallery should be upgraded into a premium, interactive portfolio experience while preserving the Kiut Music visual identity and design language.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Transform the existing gallery into a modern, premium, cinematic image experience by adding refined hover animations and a full-screen lightbox viewer.
+
+Do not redesign the gallery layout.
+
+Maintain the existing premium black-and-gold aesthetic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 1 – PREMIUM HOVER ANIMATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Enhance every gallery card with subtle, high-end interactions.
+
+On hover:
+
+• Smooth image zoom (scale between 1.03–1.08)
+• Soft gold border glow
+• Slight elevation (translateY: -4px)
+• Shadow intensity increases subtly
+• Image brightness increases slightly
+• Labels gently fade upward
+• Cursor changes to indicate interactivity
+
+Animation timing:
+
+• Duration: 250–350ms
+• Easing: ease-out or cubic-bezier(0.22,1,0.36,1)
+
+Avoid exaggerated movement.
+
+The interaction should feel elegant and luxurious.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART 2 – CINEMATIC LIGHTBOX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When a gallery image is clicked:
+
+Open a full-screen modal lightbox.
+
+The lightbox should:
+
+• Fade in smoothly
+• Darken the entire background
+• Focus attention on the selected image
+• Prevent background scrolling
+• Close smoothly
+
+Use a soft backdrop blur where supported.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LIGHTBOX FEATURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Include:
+
+✓ Large high-resolution image
+
+✓ Image title
+
+✓ Optional category
+
+✓ Optional caption
+
+✓ Image counter
+
+Example:
+
+3 / 12
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NAVIGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Allow users to:
+
+• Next image
+• Previous image
+
+Support:
+
+• Arrow buttons
+• Keyboard arrows
+• Swipe gestures on mobile
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CLOSE OPTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Allow closing via:
+
+• Close button
+• ESC key
+• Clicking outside the image
+• Swipe down (mobile if supported)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMAGE LOADING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use:
+
+• Smooth fade transition
+• Loading spinner while images load
+• Lazy loading
+• Optimized image rendering
+
+Prevent flickering.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MOBILE EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure the lightbox works perfectly on:
+
+• Desktop
+• Laptop
+• Tablet
+• Mobile
+
+Support:
+
+• Pinch-to-zoom (if practical)
+• Swipe navigation
+• Responsive scaling
+• Safe-area spacing on iOS devices
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACCESSIBILITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement:
+
+• Keyboard navigation
+• Focus trapping
+• ESC to close
+• Proper ARIA roles
+• Accessible labels
+• Screen reader support
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VISUAL STYLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Maintain the existing Kiut Music premium identity.
+
+Use:
+
+• Dark overlay (85–90% opacity)
+• Gold accent for controls
+• Elegant rounded corners
+• Soft shadows
+• Smooth animations
+
+Avoid bright colors or distracting effects.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERFORMANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize for:
+
+• Fast loading
+• GPU-accelerated animations
+• Lazy-loaded images
+• No layout shifts
+• Minimal bundle size
+
+Use reusable components where possible.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRESERVE EXISTING DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT modify:
+
+• Gallery layout
+• Typography
+• Existing spacing
+• Color palette
+• Card dimensions
+• Overall page structure
+
+Only enhance interactions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CODE QUALITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If no reusable gallery component exists:
+
+Create one.
+
+Suggested structure:
+
+GalleryGrid
+
+GalleryCard
+
+GalleryLightbox
+
+GalleryNavigation
+
+GalleryControls
+
+Reuse these components across the website if future galleries are added.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY ASSURANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before completion verify:
+
+✓ Hover animations are smooth.
+✓ Images zoom correctly.
+✓ Gold glow appears consistently.
+✓ Lightbox opens instantly.
+✓ Navigation works.
+✓ ESC key works.
+✓ Click outside closes the modal.
+✓ Swipe gestures work on mobile.
+✓ Keyboard navigation works.
+✓ No console errors.
+✓ Responsive layout remains intact.
+✓ No accessibility violations.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPLETION REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Provide a report including:
+
+• Files modified
+• Components created
+• Animations implemented
+• Lightbox functionality added
+• Accessibility improvements
+• Performance optimizations
+• Responsive testing results
+• Confirmation that the gallery now delivers a premium interactive viewing experience while preserving the existing Kiut Music design language.
+
+IMPORTANT
+
+The final gallery should feel like the portfolio section of a world-class recording artist. Every interaction should be subtle, refined, cinematic, and intentional. The experience should encourage visitors to spend time exploring the artist's journey without overwhelming them with unnecessary animations or visual distractions.

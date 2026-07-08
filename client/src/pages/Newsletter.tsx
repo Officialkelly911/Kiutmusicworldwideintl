@@ -97,6 +97,8 @@ export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [showSticky, setShowSticky] = useState(false);
   const { count, ref: countRef } = useCountUp(50000);
 
@@ -106,9 +108,32 @@ export default function Newsletter() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email || submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const formatCount = (n: number) =>
@@ -381,13 +406,21 @@ export default function Newsletter() {
                           <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#D4AF37] to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-500" />
                         </div>
 
+                        {/* Error message */}
+                        {error && (
+                          <p role="alert" className="text-red-400 text-sm font-light -mb-1">
+                            {error}
+                          </p>
+                        )}
+
                         {/* CTA button */}
                         <div className="pt-2">
                           <motion.button
                             type="submit"
-                            whileHover={{ scale: 1.03, y: -2 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group"
+                            disabled={submitting}
+                            whileHover={submitting ? {} : { scale: 1.03, y: -2 }}
+                            whileTap={submitting ? {} : { scale: 0.97 }}
+                            className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group disabled:opacity-60 disabled:cursor-not-allowed"
                             style={{
                               background: "linear-gradient(90deg, #D4AF37, #f5d97a, #c9a227, #D4AF37)",
                               backgroundSize: "250% auto",
@@ -403,7 +436,9 @@ export default function Newsletter() {
                                 backgroundSize: "200% 100%",
                               }}
                             />
-                            <span className="relative z-10 drop-shadow-sm">Join the Rhythm</span>
+                            <span className="relative z-10 drop-shadow-sm">
+                              {submitting ? "Joining..." : "Join the Rhythm"}
+                            </span>
                             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
 
                             {/* Hover glow */}

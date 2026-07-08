@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { usePlayer } from "@/context/PlayerContext";
 import { ALL_TRACKS, TRACK_GROUPS, type Track } from "@/data/tracks";
+import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // ─── Image + audio constants ──────────────────────────────────────────────────
 const goodLifeEP  = "/assets/images/Good_Life_EP_1767961904057.jpeg";
@@ -130,11 +131,11 @@ const timelineEvents = [
 
 function PlayingBars() {
   return (
-    <div className="flex gap-[3px] items-end h-4">
+    <div className="flex gap-[3px] items-end h-4" aria-hidden="true">
       {[0.8, 1.2, 0.9, 1.4, 0.7].map((h, i) => (
         <motion.div
           key={i}
-          className="w-[3px] bg-[#D4AF37] rounded-full"
+          className="w-[3px] bg-gold rounded-full"
           animate={{ height: [`${h * 5}px`, `${h * 13}px`, `${h * 5}px`] }}
           transition={{ repeat: Infinity, duration: 0.7 + i * 0.12, ease: "easeInOut" }}
         />
@@ -234,7 +235,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.7 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-black shadow-[0_0_50px_rgba(212,175,55,0.8)] mb-4"
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-midnight shadow-[0_0_50px_rgba(212,175,55,0.8)] mb-4"
                   style={{ background: "#D4AF37" }}
                 >
                   <Play size={32} className="ml-1.5" fill="currentColor" />
@@ -243,7 +244,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
                   <motion.span
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-[#D4AF37] text-xs font-bold uppercase tracking-[0.2em]"
+                    className="text-gold text-xs font-bold uppercase tracking-[0.2em]"
                     style={{ animation: "pulse 2s ease-in-out infinite" }}
                   >
                     Playing Preview
@@ -256,7 +257,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           {/* Glass info bar at bottom */}
           <div className="px-4 py-3 border-t border-white/[0.05]" style={{ background: "rgba(255,255,255,0.02)" }}>
             <div className="flex items-center justify-between">
-              <span className="text-[#D4AF37] text-[9px] font-black uppercase tracking-[0.22em]">Official Release</span>
+              <span className="text-gold text-[9px] font-black uppercase tracking-[0.22em]">Official Release</span>
               <span className="text-white/30 text-[9px] font-mono">{album.tracks} tracks · {album.yearShort}</span>
             </div>
           </div>
@@ -272,7 +273,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
         }}
       />
 
-      {album.previewAudio && <audio ref={audioRef} src={album.previewAudio} preload="metadata" loop />}
+      {album.previewAudio && <audio ref={audioRef} src={album.previewAudio} preload="none" loop />}
     </div>
   );
 };
@@ -284,22 +285,29 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
   return (
     <motion.div
       onClick={() => playTrack(track)}
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3, delay: index * 0.035, ease: "easeOut" }}
-      className={`group flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3.5 rounded-xl cursor-pointer transition-all duration-200 ${
+      variants={staggerItem}
+      className={`group relative flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3.5 rounded-xl cursor-pointer transition-all duration-200 ${
         isActive
-          ? "bg-[#D4AF37]/10 border border-[#D4AF37]/22"
-          : "border border-transparent hover:bg-white/[0.04] hover:border-white/6"
+          ? "bg-gold/[0.07] border border-gold/20"
+          : "border border-transparent hover:bg-white/[0.04] hover:border-white/[0.06]"
       }`}
       data-testid={`track-row-${track.id}`}
     >
+      {/* Gold left-indicator for active track */}
+      {isActive && (
+        <motion.div
+          layoutId="track-active-bar"
+          className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        />
+      )}
       <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-lg overflow-hidden flex-shrink-0 bg-black/40">
         <img src={track.albumArt} alt={track.album} className="w-full h-full object-cover" loading="lazy" />
         {isActive && (
           <div className="absolute inset-0 bg-black/55 flex items-center justify-center">
-            {isPlaying ? <PlayingBars /> : <Play size={12} className="text-[#D4AF37] ml-0.5" fill="currentColor" />}
+            {isPlaying ? <PlayingBars /> : <Play size={12} className="text-gold ml-0.5" fill="currentColor" />}
           </div>
         )}
       </div>
@@ -308,7 +316,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
         {isActive && isPlaying ? (
           <PlayingBars />
         ) : (
-          <span className={`text-xs font-mono ${isActive ? "text-[#D4AF37]" : "text-white/20 group-hover:text-white/45"} transition-colors`}>
+          <span className={`text-xs font-mono ${isActive ? "text-gold" : "text-white/20 group-hover:text-white/45"} transition-colors`}>
             {String(index + 1).padStart(2, "0")}
           </span>
         )}
@@ -316,14 +324,14 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
 
       <div className="flex flex-col min-w-0 flex-1">
         <span className={`font-semibold text-[13px] leading-snug truncate transition-colors duration-200 ${
-          isActive ? "text-[#D4AF37]" : "text-white group-hover:text-[#D4AF37]"
+          isActive ? "text-gold" : "text-white group-hover:text-gold"
         }`}>
           {track.title}
         </span>
         <span className="mt-0.5">
           {track.album !== "Single" ? (
             <span className={`inline-block px-1.5 py-[1px] rounded text-[9px] font-bold uppercase tracking-wider ${
-              track.albumType === "ep" ? "bg-[#D4AF37]/12 text-[#D4AF37]/80" : "bg-white/6 text-white/35"
+              track.albumType === "ep" ? "bg-gold/12 text-gold/80" : "bg-white/6 text-white/35"
             }`}>{track.album}</span>
           ) : (
             <span className="text-white/25 text-[11px]">{track.released}</span>
@@ -337,7 +345,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
         onClick={(e) => { e.stopPropagation(); playTrack(track); }}
         className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
           isActive && isPlaying
-            ? "bg-[#D4AF37] text-black shadow-[0_0_14px_rgba(212,175,55,0.5)]"
+            ? "bg-gold text-midnight shadow-[0_0_14px_rgba(212,175,55,0.5)]"
             : "text-white/30 group-hover:text-white group-hover:bg-white/10"
         }`}
         data-testid={`button-play-${track.id}`}
@@ -368,12 +376,12 @@ function MusicDiscovery() {
       className="mt-24 mb-12"
     >
       {/* Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent mb-20" />
+      <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent mb-20" />
 
       <div className="text-center mb-14">
-        <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-3">Explore More</p>
+        <p className="text-gold text-[10px] font-bold tracking-[0.45em] uppercase mb-3">Explore More</p>
         <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white uppercase">
-          Music <span className="text-[#D4AF37]">Discovery</span>
+          Music <span className="text-gold">Discovery</span>
         </h2>
         <p className="text-white/30 text-sm font-light mt-3">You may also like</p>
       </div>
@@ -391,7 +399,7 @@ function MusicDiscovery() {
               <motion.div
                 whileHover={{ y: -6, boxShadow: "0 20px 50px rgba(212,175,55,0.10)" }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="group rounded-2xl overflow-hidden border border-white/[0.06] hover:border-[#D4AF37]/25 transition-colors duration-300"
+                className="group rounded-2xl overflow-hidden border border-white/[0.06] hover:border-gold/25 transition-colors duration-300"
                 style={{ background: "#0a0a0a" }}
               >
                 {/* "Enjoyed X" label */}
@@ -411,15 +419,15 @@ function MusicDiscovery() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.6)]">
-                      <Play size={18} className="ml-0.5 text-black" fill="currentColor" />
+                    <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.6)]">
+                      <Play size={18} className="ml-0.5 text-midnight" fill="currentColor" />
                     </div>
                   </div>
                 </div>
 
                 {/* Info */}
                 <div className="px-4 pb-4">
-                  <span className="inline-block px-2 py-0.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/22 text-[#D4AF37] text-[8px] font-bold uppercase tracking-widest mb-2">
+                  <span className="inline-block px-2 py-0.5 rounded-full bg-gold/10 border border-gold/22 text-gold text-[8px] font-bold uppercase tracking-widest mb-2">
                     {to.type}
                   </span>
                   <h4 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight mb-0.5">
@@ -427,7 +435,7 @@ function MusicDiscovery() {
                   </h4>
                   <p className="text-white/28 text-[10px] font-light">{to.genre} · {to.yearShort}</p>
 
-                  <div className="mt-3 flex items-center gap-1.5 text-[#D4AF37]/60 hover:text-[#D4AF37] transition-colors text-[10px] font-bold uppercase tracking-widest">
+                  <div className="mt-3 flex items-center gap-1.5 text-gold/60 hover:text-gold transition-colors text-[10px] font-bold uppercase tracking-widest">
                     <Play size={9} fill="currentColor" />
                     <span>Stream Everywhere</span>
                     <ExternalLink size={9} />
@@ -476,18 +484,57 @@ export default function Music() {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
 
-        {/* ── Page Header ─────────────────────────────────────────── */}
+        {/* ── Page Hero ───────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-20"
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-24 pt-6"
         >
-          <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.45em] uppercase mb-4">Kiut Music Worldwide</p>
-          <h1 className="font-display text-5xl md:text-6xl font-light tracking-[0.25em] text-white uppercase mb-4">
-            Music
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.6em" }}
+            animate={{ opacity: 1, letterSpacing: "0.48em" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-5"
+          >
+            Kiut Music Worldwide
+          </motion.p>
+
+          <h1 className="font-display text-6xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
+            The<br /><span className="text-gold">Music</span>
           </h1>
-          <div className="w-12 h-px mx-auto" style={{ background: "rgba(212,175,55,0.5)" }} />
+
+          <p className="text-white/35 text-base font-light max-w-md mx-auto leading-relaxed mb-10">
+            Four EPs. Dozens of tracks. One cinematic sound shaped by two continents.
+          </p>
+
+          {/* Animated waveform accent — decorative, hidden from screen readers */}
+          <div className="flex items-end justify-center gap-[4px] h-6 mb-10" aria-hidden="true">
+            {[0.5, 0.8, 1.2, 1.6, 1.0, 1.4, 0.9, 1.5, 1.1, 0.7, 1.3, 0.6].map((h, i) => (
+              <motion.div
+                key={i}
+                className="w-[3px] rounded-full bg-gold/40"
+                animate={{ height: [`${h * 6}px`, `${h * 18}px`, `${h * 6}px`] }}
+                transition={{ repeat: Infinity, duration: 1.4 + i * 0.08, ease: "easeInOut", delay: i * 0.06 }}
+              />
+            ))}
+          </div>
+
+          {/* Stats strip */}
+          <div className="inline-flex items-center gap-8 px-8 py-4 rounded-full border border-white/[0.07]"
+            style={{ background: "rgba(255,255,255,0.02)" }}>
+            {[
+              { value: "4", label: "EPs" },
+              { value: "24+", label: "Tracks" },
+              { value: "5", label: "Platforms" },
+              { value: "6+", label: "Years" },
+            ].map(({ value, label }, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <span className="font-display text-xl font-bold text-gold leading-none">{value}</span>
+                <span className="text-white/30 text-[9px] uppercase tracking-[0.3em] mt-0.5">{label}</span>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* ── Featured Track Hero ──────────────────────────────────── */}
@@ -497,7 +544,7 @@ export default function Music() {
           transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="mb-28"
         >
-          <div className="relative rounded-3xl overflow-hidden border border-[#D4AF37]/12 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+          <div className="relative rounded-3xl overflow-hidden border border-gold/12 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
             style={{ background: "linear-gradient(135deg, #100e00 0%, #0d0d0d 50%, #080408 100%)" }}>
             <div className="absolute top-0 right-0 w-80 h-80 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(212,175,55,0.08)" }} />
             <div className="absolute bottom-0 left-0 w-56 h-56 blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(100,50,255,0.04)" }} />
@@ -595,7 +642,7 @@ export default function Music() {
           className="mb-32 overflow-hidden"
         >
           <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white text-center mb-16 uppercase">
-            Discography <span className="text-[#D4AF37]">Timeline</span>
+            Discography <span className="text-gold">Timeline</span>
           </h2>
           <div className="relative py-32 px-6 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
             {/* Animated connecting line */}
@@ -620,8 +667,8 @@ export default function Music() {
                 >
                   {/* Hover tooltip */}
                   <div className="absolute bottom-full mb-8 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none w-56 z-20">
-                    <div className="bg-[#111] border border-[#D4AF37]/22 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
-                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#111] border-b border-r border-[#D4AF37]/22 transform rotate-45" />
+                    <div className="bg-[#111] border border-gold/22 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#111] border-b border-r border-gold/22 transform rotate-45" />
                       <img src={event.image} alt={event.title} className="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy" />
                       <div className="text-center">
                         <h4 className="text-white font-bold text-sm mb-1">{event.title}</h4>
@@ -634,13 +681,13 @@ export default function Music() {
                   </div>
 
                   {/* Node */}
-                  <div className="w-5 h-5 rounded-full bg-black border-[3px] border-[#D4AF37] relative group-hover:scale-150 transition-transform duration-300 group-hover:bg-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.4)] cursor-pointer z-10">
-                    <div className="absolute inset-0 bg-[#D4AF37] rounded-full animate-ping opacity-20 group-hover:opacity-0" />
+                  <div className="w-5 h-5 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-300 group-hover:bg-gold shadow-[0_0_15px_rgba(212,175,55,0.4)] cursor-pointer z-10">
+                    <div className="absolute inset-0 bg-gold rounded-full animate-ping opacity-20 group-hover:opacity-0" />
                   </div>
 
                   {/* Year label */}
                   <div className="absolute top-full mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <p className="text-[#D4AF37] text-[10px] font-bold tracking-widest uppercase">{event.year}</p>
+                    <p className="text-gold text-[10px] font-bold tracking-widest uppercase">{event.year}</p>
                   </div>
 
                   {/* Always-visible year below on mobile */}
@@ -733,7 +780,7 @@ export default function Music() {
         >
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Complete</p>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Complete</p>
               <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white uppercase">
                 Track List
               </h2>
@@ -758,13 +805,91 @@ export default function Music() {
                   <div className="flex-1 h-px bg-white/[0.04] ml-2" />
                 </div>
 
-                <div className="rounded-2xl overflow-hidden bg-[#070707] border border-white/[0.05] divide-y divide-white/[0.03]">
+                <motion.div
+                  className="rounded-2xl overflow-hidden bg-[#070707] border border-white/[0.05] divide-y divide-white/[0.03]"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewport}
+                  variants={staggerContainer(0.05)}
+                >
                   {group.tracks.map((track, idx) => (
                     <TrackRow key={track.id} track={track} index={idx} />
                   ))}
-                </div>
+                </motion.div>
               </div>
             ))}
+          </div>
+        </motion.div>
+
+        {/* ── Streaming Platforms ─────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="my-24"
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-20" />
+
+          <div className="text-center mb-12">
+            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-3">Available On</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">
+              Stream <span className="text-gold">Everywhere</span>
+            </h2>
+          </div>
+
+          <div className="relative rounded-3xl border border-white/[0.06] overflow-hidden p-8 md:p-12"
+            style={{ background: "linear-gradient(135deg,#0c0c0c 0%,#0a0a06 100%)" }}>
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.05),transparent_60%)]" />
+
+            <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-10">
+              {(Object.entries(PLATFORMS) as [PlatformId, typeof PLATFORMS[PlatformId]][]).map(([id, p], i) => (
+                <motion.div
+                  key={id}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -4, scale: 1.05 }}
+                  className="flex items-center gap-2.5 px-5 py-3 rounded-full border transition-all duration-300 cursor-default"
+                  style={{
+                    borderColor: `${p.color}30`,
+                    background: `${p.color}0a`,
+                    color: p.color,
+                    boxShadow: `0 0 0 0 ${p.color}00`,
+                  }}
+                  data-testid={`badge-platform-${id}`}
+                >
+                  <span className="w-5 h-5 flex-shrink-0">{p.icon}</span>
+                  <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: p.color }}>
+                    {p.label}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+                <motion.button
+                  data-testid="button-stream-all"
+                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] transition-shadow duration-300"
+                >
+                  <ExternalLink size={13} /> Stream the Latest EP
+                </motion.button>
+              </a>
+              <a href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer">
+                <motion.button
+                  data-testid="button-all-links"
+                  whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.4)", color: "#D4AF37" }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-white/55 font-bold uppercase tracking-widest text-[11px] transition-all duration-300"
+                >
+                  All Music Links
+                </motion.button>
+              </a>
+            </div>
           </div>
         </motion.div>
 

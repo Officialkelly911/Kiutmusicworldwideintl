@@ -1,4 +1,4 @@
-modules = ["nodejs-20"]
+modules = ["nodejs-20", "web", "nix"]
 [agent]
 expertMode = true
 stack = "FULLSTACK_JS"
@@ -33,6 +33,10 @@ outputType = "webview"
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3001
 
 [deployment]
 deploymentTarget = "autoscale"

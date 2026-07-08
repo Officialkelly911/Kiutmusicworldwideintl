@@ -5,27 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
     <title>Kiut Music Worldwide</title>
-    <meta property="og:title" content="Kiut Music Worldwide" />
-    <meta property="og:description" content="Discover the latest music, videos, and releases from Kiut Music Worldwide. Stream new tracks and stay connected with the freshest sounds." />
+    <meta name="description" content="Afro-Caribbean Sound. Global Energy. Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut." />
+
+    <!-- ── Theme color ────────────────────────────────────────────────── -->
+    <meta name="theme-color" content="#0a0a0c" />
+    <meta name="msapplication-TileColor" content="#0a0a0c" />
+
+    <!-- ── Favicon system ────────────────────────────────────────────── -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- ── Open Graph / social sharing ──────────────────────────────── -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://replit.com/public/images/opengraph.png" />
+    <meta property="og:title" content="Kiut Music" />
+    <meta property="og:description" content="Afro-Caribbean Sound. Global Energy." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Kiut Music Worldwide" />
+    <link rel="canonical" href="https://kiutmusic.com/" />
+
+    <!-- ── Twitter card ──────────────────────────────────────────────── -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@replit" />
-    <meta name="twitter:title" content="Kiut Music Worldwide" />
-    <meta name="twitter:description" content="Discover the latest music, videos, and releases from Kiut Music Worldwide. Stream new tracks and stay connected with the freshest sounds." />
-    <meta name="twitter:image" content="https://replit.com/public/images/opengraph.png" />
+    <meta name="twitter:title" content="Kiut Music" />
+    <meta name="twitter:description" content="Afro-Caribbean Sound. Global Energy." />
+    <meta name="twitter:image" content="/og-image.png" />
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
-
-    <!-- Hero media preloads — above-the-fold priority -->
+    <!-- ── Hero media preloads — above-the-fold, highest priority ────── -->
+    <!-- These are the only resources that block first paint intentionally. -->
     <link rel="preload" as="image" href="/assets/images/hero-poster.jpg" fetchpriority="high" />
-    <link rel="preload" as="video" href="/assets/videos/hero-optimized.mp4" type="video/mp4" />
+    <!-- Note: preload as="video" is not in the fetch spec; browsers ignore it, so removed to silence the console warning -->
+    <!-- The video is loaded by the <video> element itself with preload="metadata" -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-D2wyIfId.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-GgWPS5Dn.css">
+    <!-- ── Fonts — non-render-blocking ───────────────────────────────── -->
+    <!--
+      Loading strategy: preconnect for DNS + TLS warmup, then load the
+      stylesheet via media="print" so it is fetched at low priority and
+      does not block rendering. The onload handler switches media to "all"
+      once the fonts are ready. The <noscript> fallback serves users with
+      JS disabled.
+
+      font-display=swap in the Google Fonts URL ensures text remains visible
+      in the system font while the web font loads (no invisible text flash).
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap"
+      />
+    </noscript>
+    <script type="module" crossorigin src="/assets/index-3pmWvqht.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Boyz8gL2.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-misc-o-vUnVYi.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-router-zeCMNJyk.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-query-DU8q7JeG.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-radix-DlpozqCz.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-C7zpZrEN.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-motion-BooQy4jP.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BEKu67E8.css">
   </head>
   <body>
     <div id="root"></div>

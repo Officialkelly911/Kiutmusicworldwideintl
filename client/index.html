@@ -26,6 +26,7 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Kiut Music Worldwide" />
+    <link rel="canonical" href="https://kiutmusic.com/" />
 
     <!-- ── Twitter card ──────────────────────────────────────────────── -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -33,14 +34,37 @@
     <meta name="twitter:description" content="Afro-Caribbean Sound. Global Energy." />
     <meta name="twitter:image" content="/og-image.png" />
 
-    <!-- ── Hero media preloads — above-the-fold priority ────────────── -->
+    <!-- ── Hero media preloads — above-the-fold, highest priority ────── -->
+    <!-- These are the only resources that block first paint intentionally. -->
     <link rel="preload" as="image" href="/assets/images/hero-poster.jpg" fetchpriority="high" />
-    <link rel="preload" as="video" href="/assets/videos/hero-optimized.mp4" type="video/mp4" />
+    <!-- Note: preload as="video" is not in the fetch spec; browsers ignore it, so removed to silence the console warning -->
+    <!-- The video is loaded by the <video> element itself with preload="metadata" -->
 
-    <!-- ── Fonts ─────────────────────────────────────────────────────── -->
+    <!-- ── Fonts — non-render-blocking ───────────────────────────────── -->
+    <!--
+      Loading strategy: preconnect for DNS + TLS warmup, then load the
+      stylesheet via media="print" so it is fetched at low priority and
+      does not block rendering. The onload handler switches media to "all"
+      once the fonts are ready. The <noscript> fallback serves users with
+      JS disabled.
+
+      font-display=swap in the Google Fonts URL ensures text remains visible
+      in the system font while the web font loads (no invisible text flash).
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300..700&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <div id="root"></div>

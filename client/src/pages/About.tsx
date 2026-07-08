@@ -26,7 +26,7 @@ const img_courtyard   = "/assets/images/about-moments-coast.jpg";
 const img_sneakers    = "/assets/images/IMG_1254_1774433277988.jpeg";
 const img_mixing      = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg";
 const img_synth       = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg";
-const img_icon        = "/assets/images/about-icon-statement.png";
+const img_icon        = "/assets/images/about-icon-statement.webp";
 const img_momentLawnWide = "/assets/images/times_square_1774440627098.jpeg";
 const img_momentGardenSeat = "/assets/images/about-moments-garden-seat.jpg";
 const img_momentLounge = "/assets/images/about-moments-lounge.jpg";
@@ -300,9 +300,11 @@ function AudiomackIcon() {
 export default function About() {
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const closeLightboxBtnRef = useRef<HTMLButtonElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
   const [showExtended, setShowExtended] = useState(false);
+  const [activeChapter, setActiveChapter] = useState<string>("all");
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -323,6 +325,12 @@ export default function About() {
     selectedJourneyIndex === null ? null : allGalleryImages[selectedJourneyIndex]?.src ?? null;
 
   const closeJourneyLightbox = useCallback(() => setSelectedJourneyIndex(null), []);
+
+  useEffect(() => {
+    if (selectedJourneyIndex !== null) {
+      closeLightboxBtnRef.current?.focus();
+    }
+  }, [selectedJourneyIndex]);
   const showPreviousJourneyImage = useCallback(() => {
     setSelectedJourneyIndex((prev) =>
       prev === null ? null : (prev - 1 + allGalleryImages.length) % allGalleryImages.length
@@ -386,7 +394,7 @@ export default function About() {
       />
 
       {/* ─── 1. CINEMATIC HERO ──────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative h-screen min-h-[600px] flex items-end pb-20 overflow-hidden">
+      <section ref={heroRef} className="relative h-screen min-h-[640px] flex items-end pb-20 overflow-hidden">
         {/* Parallax background video */}
         <motion.div
           style={{ y: heroY }}
@@ -409,6 +417,17 @@ export default function About() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" />
 
+        {/* Top-right archive badge */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="absolute top-6 right-6 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/50 border border-gold/25 backdrop-blur-sm"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span className="text-white/55 text-[9px] font-bold uppercase tracking-[0.32em]">About · Kiut Raba</span>
+        </motion.div>
+
         {/* Content */}
         <motion.div
           style={{ opacity: heroOpacity }}
@@ -418,7 +437,7 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-[#D4AF37] text-xs font-bold tracking-[0.4em] uppercase mb-6"
+            className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-6"
           >
             Nigerian-American Artist
           </motion.p>
@@ -429,7 +448,7 @@ export default function About() {
             transition={{ duration: 0.9, delay: 0.3 }}
             className="font-display text-[clamp(5rem,15vw,14rem)] font-bold leading-none tracking-tight uppercase text-white mb-4"
           >
-            Kiut<span className="text-[#D4AF37]">.</span>
+            Kiut<span className="text-gold">.</span>
           </motion.h1>
 
           <motion.p
@@ -452,7 +471,7 @@ export default function About() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] transition-shadow duration-300"
+                className="px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] transition-shadow duration-300"
               >
                 Listen Now
               </motion.button>
@@ -471,6 +490,8 @@ export default function About() {
 
         {/* Bottom fade — blends hero into the fixed video layer */}
         <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/80 to-transparent" />
+        {/* Gold hairline at section boundary */}
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
       </section>
 
       {/* ─── 2. THE STORY ───────────────────────────────────────────────── */}
@@ -495,12 +516,12 @@ export default function About() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
               {/* Gold accent bar */}
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center">
-                <Headphones className="w-8 h-8 text-[#D4AF37]" />
+              <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center">
+                <Headphones className="w-8 h-8 text-gold" />
               </div>
               {/* Floating label */}
               <div className="absolute top-6 right-6 bg-black/70 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-[#D4AF37] text-xs font-bold tracking-widest uppercase">Kingsley Moses</p>
+                <p className="text-gold text-xs font-bold tracking-widest uppercase">Kingsley Moses</p>
                 <p className="text-white/60 text-xs tracking-wider">aka Kiut</p>
               </div>
             </motion.div>
@@ -512,10 +533,10 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.9, delay: 0.15 }}
             >
-              <p className="text-[#D4AF37] text-xs font-bold tracking-[0.35em] uppercase mb-6">The Story</p>
+              <p className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-6">The Story</p>
               <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-8 leading-tight uppercase">
                 Where Nigeria<br />
-                <span className="text-[#D4AF37]">Meets the World</span>
+                <span className="text-gold">Meets the World</span>
               </h2>
 
               <div className="space-y-6 text-white/70 font-light leading-[1.9] text-lg">
@@ -534,7 +555,7 @@ export default function About() {
                 <Link href="/music">
                   <motion.button
                     whileHover={{ x: 5 }}
-                    className="group flex items-center gap-3 text-white font-semibold tracking-widest uppercase text-sm hover:text-[#D4AF37] transition-colors"
+                    className="group flex items-center gap-3 text-white font-semibold tracking-widest uppercase text-sm hover:text-gold transition-colors"
                   >
                     Explore the Music
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -575,12 +596,12 @@ export default function About() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">
+                <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4">
                   Kiut Music Worldwide
                 </p>
                 <h2 className="font-display text-5xl md:text-7xl font-bold text-white uppercase tracking-tight leading-none mb-5">
                   Born to<br />
-                  <span className="text-[#D4AF37]">Stand Out</span>
+                  <span className="text-gold">Stand Out</span>
                 </h2>
                 <p className="text-white/55 text-sm md:text-base font-light max-w-xs leading-relaxed">
                   A vision, a sound, a presence — unmistakably Kiut.
@@ -600,16 +621,16 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-24"
           >
-            <p className="text-[#D4AF37] text-xs font-bold tracking-[0.35em] uppercase mb-4">A Career Built on Sound</p>
+            <p className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-4">A Career Built on Sound</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight">
-              The <span className="text-[#D4AF37]">Journey</span>
+              The <span className="text-gold">Journey</span>
             </h2>
           </motion.div>
 
           {/* Desktop timeline */}
           <div className="hidden md:block relative">
-            {/* Connecting line */}
-            <div className="absolute top-[26px] left-[12.5%] right-[12.5%] h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+            {/* Connecting line — sits at the node row (year label ≈ 44px, mb-2 ≈ 8px = 52px offset) */}
+            <div className="absolute top-[58px] left-[12.5%] right-[12.5%] h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
             <div className="grid grid-cols-4 gap-6 relative z-10">
               {milestones.map((m, i) => (
@@ -621,17 +642,28 @@ export default function About() {
                   transition={{ delay: i * 0.15 }}
                   className="flex flex-col items-center group"
                 >
+                  {/* Year label above node */}
+                  <motion.span
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.15 + 0.1 }}
+                    className="font-display text-2xl font-bold text-gold/70 group-hover:text-gold tracking-tight mb-2 transition-colors duration-300"
+                  >
+                    {m.year}
+                  </motion.span>
+
                   {/* Glowing node */}
                   <motion.div
                     whileHover={{ scale: 1.4 }}
-                    className="w-[14px] h-[14px] rounded-full bg-[#D4AF37] shadow-[0_0_16px_4px_rgba(212,175,55,0.5)] mb-10 cursor-pointer transition-shadow duration-300 group-hover:shadow-[0_0_28px_8px_rgba(212,175,55,0.7)]"
+                    className="w-[14px] h-[14px] rounded-full bg-gold shadow-[0_0_16px_4px_rgba(212,175,55,0.5)] mb-10 cursor-pointer transition-shadow duration-300 group-hover:shadow-[0_0_28px_8px_rgba(212,175,55,0.7)]"
                   />
 
                   {/* Card */}
                   <motion.div
                     whileHover={{ y: -8 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="w-full p-6 rounded-2xl bg-white/5 border border-white/10 group-hover:border-[#D4AF37]/40 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all duration-300"
+                    className="w-full p-6 rounded-2xl bg-white/5 border border-white/10 group-hover:border-gold/40 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all duration-300"
                   >
                     <span className="text-white font-semibold text-sm uppercase tracking-widest block mb-3">{m.title}</span>
                     <p className="text-white/55 text-sm font-light leading-relaxed">{m.description}</p>
@@ -643,7 +675,7 @@ export default function About() {
 
           {/* Mobile timeline */}
           <div className="md:hidden relative pl-8">
-            <div className="absolute left-[11px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37]/40 to-transparent" />
+            <div className="absolute left-[11px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-gold/40 to-transparent" />
             <div className="space-y-10">
               {milestones.map((m, i) => (
                 <motion.div
@@ -655,12 +687,13 @@ export default function About() {
                   className="relative group"
                 >
                   {/* Node */}
-                  <div className="absolute -left-[29px] top-5 w-[14px] h-[14px] rounded-full bg-[#D4AF37] shadow-[0_0_12px_4px_rgba(212,175,55,0.5)]" />
+                  <div className="absolute -left-[29px] top-5 w-[14px] h-[14px] rounded-full bg-gold shadow-[0_0_12px_4px_rgba(212,175,55,0.5)]" />
 
                   <motion.div
                     whileHover={{ x: 4 }}
-                    className="p-6 rounded-2xl bg-white/5 border border-white/10 group-hover:border-[#D4AF37]/40 transition-all duration-300"
+                    className="p-6 rounded-2xl bg-white/5 border border-white/10 group-hover:border-gold/40 transition-all duration-300"
                   >
+                    <span className="font-display text-xl font-bold text-gold/70 group-hover:text-gold transition-colors duration-300 block mb-1">{m.year}</span>
                     <span className="text-white font-semibold text-sm uppercase tracking-widest block mb-3">{m.title}</span>
                     <p className="text-white/55 text-sm font-light leading-relaxed">{m.description}</p>
                   </motion.div>
@@ -680,9 +713,9 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <p className="text-[#D4AF37] text-xs font-bold tracking-[0.35em] uppercase mb-4">Defining an Artist</p>
+            <p className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-4">Defining an Artist</p>
             <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight">
-              The Kiut <span className="text-[#D4AF37]">Sound</span>
+              The Kiut <span className="text-gold">Sound</span>
             </h2>
           </motion.div>
 
@@ -697,14 +730,14 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="group relative p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-[#D4AF37]/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(212,175,55,0.08)] transition-all duration-400 overflow-hidden"
+                  className="group relative p-8 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(212,175,55,0.08)] transition-all duration-400 overflow-hidden"
                 >
                   {/* Subtle glow behind icon */}
-                  <div className="absolute top-0 left-0 w-32 h-32 bg-[#D4AF37]/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-[#D4AF37]/10 transition-colors duration-500" />
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-gold/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-gold/10 transition-colors duration-500" />
 
                   <div className="relative z-10">
-                    <div className="w-14 h-14 rounded-xl bg-black border border-white/10 group-hover:border-[#D4AF37]/40 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-[0_0_0_rgba(212,175,55,0)] group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]">
-                      <Icon className="w-7 h-7 text-[#D4AF37]" />
+                    <div className="w-14 h-14 rounded-xl bg-black border border-white/10 group-hover:border-gold/40 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-[0_0_0_rgba(212,175,55,0)] group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                      <Icon className="w-7 h-7 text-gold" />
                     </div>
                     <h3 className="font-display text-xl font-bold text-white mb-3 uppercase tracking-wide">
                       {s.title}
@@ -736,17 +769,17 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="mb-14 md:mb-20 text-center mx-auto max-w-3xl"
           >
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Visual Archive</p>
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Visual Archive</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none mb-6">
               Moments From{" "}
-              <span className="text-[#D4AF37]">The Journey</span>
+              <span className="text-gold">The Journey</span>
             </h2>
             <p className="text-white/45 text-[15px] font-light leading-relaxed max-w-xl mx-auto">
               A visual documentary of milestones, studio sessions, performances, and memories behind the music.
             </p>
             <div className="mt-8 flex items-center justify-center gap-4">
               <div className="h-px w-10 bg-white/10" />
-              <div className="h-px w-10 bg-[#D4AF37]/60" />
+              <div className="h-px w-10 bg-gold/60" />
               <div className="h-px w-10 bg-white/10" />
             </div>
           </motion.div>
@@ -765,15 +798,46 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative px-5 py-7 rounded-2xl border border-white/[0.08] bg-white/[0.02] hover:border-[#D4AF37]/25 hover:bg-white/[0.03] transition-all duration-500 text-center overflow-hidden"
+                className="group relative px-5 py-7 rounded-2xl border border-white/[0.08] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-500 text-center overflow-hidden"
               >
                 <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05),transparent_70%)] transition-opacity duration-500" />
-                <p className="font-display text-3xl md:text-4xl font-bold text-[#D4AF37] tracking-tight mb-1 relative">{stat.value}</p>
+                <p className="font-display text-3xl md:text-4xl font-bold text-gold tracking-tight mb-1 relative">{stat.value}</p>
                 <p className="text-white text-[11px] font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
                 <p className="text-white/30 text-[9.5px] font-light tracking-wide uppercase relative">{stat.sub}</p>
               </motion.div>
             ))}
           </div>
+
+          {/* ── Chapter Filter Tabs ─────────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap items-center justify-center gap-2.5 mb-12"
+          >
+            {[
+              { id: "all", label: "All Chapters" },
+              ...GALLERY_CHAPTERS.map((c) => ({ id: c.id, label: c.title })),
+            ].map((tab) => (
+              <motion.button
+                key={tab.id}
+                type="button"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => setActiveChapter(tab.id)}
+                data-testid={`filter-chapter-${tab.id}`}
+                className={cn(
+                  "px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.28em] transition-all duration-300",
+                  activeChapter === tab.id
+                    ? "bg-gold text-midnight shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+                    : "border border-white/12 text-white/45 hover:border-gold/35 hover:text-gold/80"
+                )}
+              >
+                {tab.label}
+              </motion.button>
+            ))}
+          </motion.div>
 
           {/* ── Featured Hero Image ─────────────────────────────────────── */}
           <motion.figure
@@ -789,7 +853,7 @@ export default function About() {
             <img
               src={FEATURED_HERO_SRC}
               alt="The Good Life Era — Kiut"
-              loading="eager"
+              loading="eager" fetchPriority="high"
               className="absolute inset-0 w-full h-full object-cover object-top [transition:transform_1200ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
@@ -798,10 +862,10 @@ export default function About() {
             {/* Hero overlay content */}
             <div className="absolute bottom-0 left-0 right-0 p-7 md:p-12">
               <div className="flex items-center gap-3 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] text-black bg-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.55)]">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-[0_0_20px_rgba(212,175,55,0.55)]">
                   ✦ Featured
                 </span>
-                <span className="text-[#D4AF37]/55 text-[9px] font-mono uppercase tracking-[0.25em]">2024 – 2025</span>
+                <span className="text-gold/55 text-[9px] font-mono uppercase tracking-[0.25em]">2024 – 2025</span>
               </div>
               <h3 className="font-display text-3xl md:text-5xl font-bold text-white uppercase tracking-tight leading-tight mb-2">
                 The Good Life Era
@@ -812,7 +876,7 @@ export default function About() {
               </p>
               <button
                 type="button"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/22 text-white text-[9.5px] font-bold uppercase tracking-[0.22em] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] transition-all duration-300 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/22 text-white text-[9.5px] font-bold uppercase tracking-[0.22em] hover:border-gold/50 hover:text-gold transition-all duration-300 backdrop-blur-sm"
                 onClick={(e) => { e.stopPropagation(); setSelectedJourneyIndex(0); }}
               >
                 Explore Story <ArrowRight className="w-3 h-3" />
@@ -829,8 +893,8 @@ export default function About() {
             a coffee-table book. The staggered whileInView + chapter separator
             creates the "memory mode" sequential reveal experience.
           */}
-          {GALLERY_CHAPTERS.map((chapter, chIdx) => {
-            const chapterBaseIdx = CHAPTER_START_IDX(chIdx);
+          {GALLERY_CHAPTERS.filter((c) => activeChapter === "all" || c.id === activeChapter).map((chapter, chIdx) => {
+            const chapterBaseIdx = CHAPTER_START_IDX(GALLERY_CHAPTERS.findIndex(c => c.id === chapter.id));
             return (
               <div key={chapter.id} className="mt-18 md:mt-24 lg:mt-28">
 
@@ -843,14 +907,14 @@ export default function About() {
                   className="flex items-center gap-5 mb-8 md:mb-10"
                 >
                   <div className="flex-shrink-0">
-                    <p className="text-[#D4AF37]/45 text-[8.5px] font-mono uppercase tracking-[0.42em] mb-0.5">
+                    <p className="text-gold/45 text-[8.5px] font-mono uppercase tracking-[0.42em] mb-0.5">
                       Chapter {chapter.chapter}
                     </p>
                     <h3 className="font-display text-xl md:text-2xl font-bold text-white uppercase tracking-tight">
                       {chapter.title}
                     </h3>
                   </div>
-                  <div className="flex-1 h-px bg-gradient-to-r from-[#D4AF37]/20 via-white/6 to-transparent" />
+                  <div className="flex-1 h-px bg-gradient-to-r from-gold/20 via-white/6 to-transparent" />
                   <span className="flex-shrink-0 text-[8.5px] font-bold text-white/18 uppercase tracking-[0.3em] hidden sm:block">
                     {chapter.badge}
                   </span>
@@ -876,7 +940,7 @@ export default function About() {
                           "group relative overflow-hidden rounded-2xl cursor-zoom-in",
                           "border border-white/[0.07] bg-[#0a0a0a]",
                           "shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
-                          "hover:border-[#D4AF37]/28 hover:shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(212,175,55,0.07)]",
+                          "hover:border-gold/28 hover:shadow-[0_20px_60px_rgba(0,0,0,0.7),0_0_0_1px_rgba(212,175,55,0.07)]",
                           "transition-[border-color,box-shadow] duration-500",
                           isHero
                             ? "sm:col-span-2 lg:col-span-2 h-[290px] sm:h-[340px]"
@@ -889,7 +953,7 @@ export default function About() {
                         <img
                           src={img.src}
                           alt={`${img.alt} — Kiut`}
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                           className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_650ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
@@ -897,8 +961,8 @@ export default function About() {
                         {/* Badge pill */}
                         {img.badge && (
                           <div className="absolute bottom-0 left-0 right-0 px-3.5 pb-3.5">
-                            <span className="inline-flex items-center gap-1.5 text-[8.5px] font-semibold uppercase tracking-[0.25em] text-[#D4AF37] bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#D4AF37]/20">
-                              <span className="w-1 h-1 rounded-full bg-[#D4AF37]/70 inline-block" />
+                            <span className="inline-flex items-center gap-1.5 text-[8.5px] font-semibold uppercase tracking-[0.25em] text-gold bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-gold/20">
+                              <span className="w-1 h-1 rounded-full bg-gold/70 inline-block" />
                               {img.badge}
                             </span>
                           </div>
@@ -941,7 +1005,7 @@ export default function About() {
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setShowExtended(true)}
-                  className="inline-flex items-center gap-3 px-9 py-4 rounded-full border border-[#D4AF37]/30 text-[#D4AF37] font-bold uppercase tracking-widest text-[10.5px] hover:bg-[#D4AF37]/[0.07] hover:border-[#D4AF37]/55 hover:shadow-[0_0_32px_rgba(212,175,55,0.18)] transition-all duration-350"
+                  className="inline-flex items-center gap-3 px-9 py-4 rounded-full border border-gold/30 text-gold font-bold uppercase tracking-widest text-[10.5px] hover:bg-gold/[0.07] hover:border-gold/55 hover:shadow-[0_0_32px_rgba(212,175,55,0.18)] transition-all duration-350"
                 >
                   ✦ View Complete Journey
                 </motion.button>
@@ -957,10 +1021,10 @@ export default function About() {
                 {/* Chapter 05 header */}
                 <div className="flex items-center gap-5 mb-8 md:mb-10">
                   <div className="flex-shrink-0">
-                    <p className="text-[#D4AF37]/45 text-[8.5px] font-mono uppercase tracking-[0.42em] mb-0.5">Chapter 05</p>
+                    <p className="text-gold/45 text-[8.5px] font-mono uppercase tracking-[0.42em] mb-0.5">Chapter 05</p>
                     <h3 className="font-display text-xl md:text-2xl font-bold text-white uppercase tracking-tight">The Full Archive</h3>
                   </div>
-                  <div className="flex-1 h-px bg-gradient-to-r from-[#D4AF37]/20 via-white/6 to-transparent" />
+                  <div className="flex-1 h-px bg-gradient-to-r from-gold/20 via-white/6 to-transparent" />
                   <span className="flex-shrink-0 text-[8.5px] font-bold text-white/18 uppercase tracking-[0.3em] hidden sm:block">Complete Journey</span>
                 </div>
 
@@ -980,7 +1044,7 @@ export default function About() {
                           "group relative overflow-hidden rounded-2xl cursor-zoom-in",
                           "border border-white/[0.06] bg-[#0a0a0a]",
                           "shadow-[0_8px_28px_rgba(0,0,0,0.5)]",
-                          "hover:border-[#D4AF37]/22 hover:shadow-[0_16px_50px_rgba(0,0,0,0.65)] transition-all duration-500",
+                          "hover:border-gold/22 hover:shadow-[0_16px_50px_rgba(0,0,0,0.65)] transition-all duration-500",
                           isHero ? "sm:col-span-2 lg:col-span-2 h-[280px]" : "h-[230px]"
                         )}
                         onClick={() => setSelectedJourneyIndex(globalIdx)}
@@ -990,14 +1054,14 @@ export default function About() {
                         <img
                           src={img.src}
                           alt={`${img.alt} — Kiut`}
-                          loading="lazy"
+                          loading="lazy" decoding="async"
                           className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_650ms_ease] group-hover:scale-[1.04]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                         {img.badge && (
                           <div className="absolute bottom-0 left-0 right-0 px-3 pb-3">
-                            <span className="inline-flex items-center gap-1.5 text-[8px] font-semibold uppercase tracking-[0.22em] text-[#D4AF37] bg-black/65 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#D4AF37]/18">
-                              <span className="w-0.5 h-0.5 rounded-full bg-[#D4AF37]/60 inline-block" />
+                            <span className="inline-flex items-center gap-1.5 text-[8px] font-semibold uppercase tracking-[0.22em] text-gold bg-black/65 backdrop-blur-md px-2.5 py-1 rounded-full border border-gold/18">
+                              <span className="w-0.5 h-0.5 rounded-full bg-gold/60 inline-block" />
                               {img.badge}
                             </span>
                           </div>
@@ -1021,7 +1085,7 @@ export default function About() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-20px" }}
                           transition={{ duration: 0.5, delay: (imgIdx % 4) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                          className="group relative h-[170px] sm:h-[200px] overflow-hidden rounded-xl cursor-zoom-in border border-white/[0.06] bg-[#0a0a0a] hover:border-[#D4AF37]/18 hover:shadow-[0_10px_32px_rgba(0,0,0,0.6)] transition-all duration-400"
+                          className="group relative h-[170px] sm:h-[200px] overflow-hidden rounded-xl cursor-zoom-in border border-white/[0.06] bg-[#0a0a0a] hover:border-gold/18 hover:shadow-[0_10px_32px_rgba(0,0,0,0.6)] transition-all duration-400"
                           onClick={() => setSelectedJourneyIndex(globalIdx)}
                           role="button"
                           aria-label={`Open journey moment ${imgIdx + 1} in fullscreen`}
@@ -1029,7 +1093,7 @@ export default function About() {
                           <img
                             src={src}
                             alt={`Journey moment ${imgIdx + 1} — Kiut`}
-                            loading="lazy"
+                            loading="lazy" decoding="async"
                             className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_600ms_ease] group-hover:scale-[1.05]"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -1056,8 +1120,8 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="mt-20 md:mt-28 text-center"
           >
-            <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/18 to-transparent mb-14" />
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-4">What Comes Next</p>
+            <div className="h-px bg-gradient-to-r from-transparent via-gold/18 to-transparent mb-14" />
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4">What Comes Next</p>
             <h3 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4 leading-tight">
               The Journey<br className="hidden md:block" /> Continues
             </h3>
@@ -1070,7 +1134,7 @@ export default function About() {
                   type="button"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-[10.5px] hover:border-[#D4AF37]/40 hover:text-[#D4AF37] hover:bg-white/[0.03] transition-all duration-350 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-[10.5px] hover:border-gold/40 hover:text-gold hover:bg-white/[0.03] transition-all duration-350 w-full sm:w-auto"
                 >
                   <Film className="w-3.5 h-3.5" /> Watch Latest Visual
                 </motion.button>
@@ -1080,7 +1144,7 @@ export default function About() {
                   type="button"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[10.5px] shadow-[0_0_24px_rgba(212,175,55,0.35)] hover:shadow-[0_0_44px_rgba(212,175,55,0.6)] transition-shadow duration-350 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[10.5px] shadow-[0_0_24px_rgba(212,175,55,0.35)] hover:shadow-[0_0_44px_rgba(212,175,55,0.6)] transition-shadow duration-350 w-full sm:w-auto"
                 >
                   <Headphones className="w-3.5 h-3.5" /> Listen Now
                 </motion.button>
@@ -1100,6 +1164,9 @@ export default function About() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-lg"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Visual Archive photo gallery"
             onClick={closeJourneyLightbox}
             onTouchStart={handleLightboxTouchStart}
             onTouchEnd={handleLightboxTouchEnd}
@@ -1113,9 +1180,9 @@ export default function About() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-4">
-                <div className="h-5 w-px bg-[#D4AF37]/40" />
+                <div className="h-5 w-px bg-gold/40" />
                 <div>
-                  <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D4AF37]">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-gold">
                     Visual Archive
                   </p>
                   {allGalleryImages[selectedJourneyIndex ?? 0]?.badge && (
@@ -1131,11 +1198,13 @@ export default function About() {
                   {String((selectedJourneyIndex ?? 0) + 1).padStart(3, "0")} / {String(allGalleryImages.length).padStart(3, "0")}
                 </span>
                 <button
+                  ref={closeLightboxBtnRef}
                   type="button"
                   onClick={(e) => { e.stopPropagation(); closeJourneyLightbox(); }}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-[#D4AF37]/40 hover:text-white hover:bg-white/10 transition-all duration-200"
+                  aria-label="Close photo gallery"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-gold/40 hover:text-white hover:bg-white/10 transition-all duration-200"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -1149,9 +1218,10 @@ export default function About() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showPreviousJourneyImage(); }}
-                className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-[#D4AF37]/40 hover:text-white hover:bg-black/80 transition-all duration-200"
+                aria-label="Previous image"
+                className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-200"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
 
               {/* Image */}
@@ -1179,9 +1249,10 @@ export default function About() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showNextJourneyImage(); }}
-                className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-[#D4AF37]/40 hover:text-white hover:bg-black/80 transition-all duration-200"
+                aria-label="Next image"
+                className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-200"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
@@ -1204,7 +1275,7 @@ export default function About() {
                     className={cn(
                       "rounded-full transition-all duration-300",
                       isActive
-                        ? "w-5 h-1.5 bg-[#D4AF37]"
+                        ? "w-5 h-1.5 bg-gold"
                         : "w-1.5 h-1.5 bg-white/20 hover:bg-white/40"
                     )}
                   />
@@ -1227,10 +1298,10 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-[#D4AF37] text-xs font-bold tracking-[0.35em] uppercase mb-6">Available Everywhere</p>
+            <p className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-6">Available Everywhere</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-white mb-6">
               Experience<br />
-              <span className="text-[#D4AF37]">the Sound</span>
+              <span className="text-gold">the Sound</span>
             </h2>
             <p className="text-white/50 text-lg font-light mb-10 max-w-md mx-auto leading-relaxed">
               Stream Kiut's music on your favourite platform and join the global community of listeners.
@@ -1251,7 +1322,7 @@ export default function About() {
                   transition={{ delay: 0.1 + i * 0.1 }}
                   className="text-center"
                 >
-                  <div className="font-display text-3xl md:text-4xl font-bold text-[#D4AF37]">{s.value}</div>
+                  <div className="font-display text-3xl md:text-4xl font-bold text-gold">{s.value}</div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-white/35 mt-1">{s.label}</div>
                 </motion.div>
               ))}
@@ -1310,6 +1381,107 @@ export default function About() {
         </div>
       </section>
 
+
+      {/* ─── 7. STORE CTA ───────────────────────────────────────────────── */}
+      <section className="py-28 md:py-36 relative z-10 border-t border-white/[0.04] overflow-hidden">
+        {/* Radial gold glow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(212,175,55,0.07),transparent_60%)]" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-6">Kiut Official Merch</p>
+            <h2 className="font-display text-4xl md:text-6xl font-bold uppercase tracking-tight text-white mb-6 leading-tight">
+              Wear the<br />
+              <span className="text-gold">Culture</span>
+            </h2>
+            <p className="text-white/45 text-lg font-light mb-10 max-w-md mx-auto leading-relaxed">
+              Official merchandise from the world of Kiut Music Worldwide — limited drops, curated for the culture.
+            </p>
+
+            {/* Feature bullets */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
+              {[
+                { label: "Limited Edition Drops" },
+                { label: "Ships Worldwide" },
+                { label: "Artist-Curated" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
+                  <span className="text-white/50 text-[11px] font-bold uppercase tracking-[0.25em]">{item.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Merch preview — 3 featured products */}
+            <div className="grid grid-cols-3 gap-3 mb-10 max-w-sm mx-auto">
+              {[
+                { img: "/assets/images/merch-hoodie.jpg",        name: "Signature Hoodie",    cover: true  },
+                { img: "/assets/images/merch-baggy-jeans.jpg",  name: "KR Baggy Jeans",      cover: false },
+                { img: "/assets/images/merch-goodlife-ep.webp",  name: "Goodlife Digital EP", cover: true  },
+              ].map((item) => (
+                <motion.a
+                  key={item.name}
+                  href="https://dreamplanet.org/store-profile/61"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(212,175,55,0.16)] transition-[border-color,box-shadow] duration-300"
+                  style={{ background: "#0d0d0f" }}
+                >
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={`w-full h-full ${item.cover ? "object-cover object-top" : "object-contain p-2.5"} group-hover:scale-[1.06] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)]`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
+                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-[8px] font-bold text-white/80 uppercase tracking-wide px-1 line-clamp-1">{item.name}</p>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Dream Planet attribution */}
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" loading="lazy" className="w-3.5 h-3.5 opacity-35" />
+              <span className="text-white/22 text-[9px] uppercase tracking-[0.32em] font-medium">Exclusive on Dream Planet</span>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <motion.a
+                href="https://dreamplanet.org/store-profile/61"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                data-testid="link-store-shop"
+                className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[0_0_30px_rgba(212,175,55,0.35)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] transition-shadow duration-300 w-full sm:w-auto justify-center"
+              >
+                <Music className="w-3.5 h-3.5" /> Shop Now
+              </motion.a>
+              <Link href="/music">
+                <motion.button
+                  type="button"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  data-testid="button-store-listen"
+                  className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-[11px] hover:border-gold/40 hover:text-gold hover:bg-white/[0.03] transition-all duration-300 w-full sm:w-auto justify-center"
+                >
+                  <Headphones className="w-3.5 h-3.5" /> Stream the Music
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       <SiteFooter />
     </div>

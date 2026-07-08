@@ -1,5 +1,5 @@
 import { Instagram, Youtube, Music2, PlayCircle, Radio } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import LinktreeIcon from "./LinktreeIcon";
 
@@ -11,14 +11,17 @@ const streamingLinks = [
 ];
 
 const navLinks = [
-  { label: "Home",        href: "/" },
-  { label: "About Kiut", href: "/about" },
-  { label: "Music",       href: "/music" },
-  { label: "Videos",      href: "/videos" },
-  { label: "Newsletter",  href: "/newsletter" },
+  { label: "Home",       href: "/"           },
+  { label: "About Kiut", href: "/about"      },
+  { label: "Music",      href: "/music"      },
+  { label: "Videos",     href: "/videos"     },
+  { label: "Tour",       href: "/tour"       },
+  { label: "Contact",    href: "/contact"    },
+  { label: "Newsletter", href: "/newsletter" },
 ];
 
 export default function SiteFooter() {
+  const [, navigate] = useLocation();
   return (
     <footer className="bg-midnight border-t border-white/[0.07] relative overflow-hidden">
       {/* Ambient glows */}
@@ -60,14 +63,18 @@ export default function SiteFooter() {
               Join the inner circle for exclusive updates, early releases, and behind-the-scenes access.
             </p>
 
-            <form className="w-full max-w-md relative" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="w-full max-w-md relative"
+              onSubmit={(e) => { e.preventDefault(); navigate("/newsletter"); }}
+            >
               <input
                 type="email"
                 placeholder="Enter your email"
+                aria-label="Email address for newsletter"
                 className="w-full bg-white/[0.04] border border-white/[0.09] rounded-full px-6 py-4 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all pr-32"
               />
               <button
-                type="button"
+                type="submit"
                 className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors"
               >
                 Join
@@ -80,14 +87,18 @@ export default function SiteFooter() {
             <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-[11px]">Navigate</h4>
             <ul className="space-y-3.5">
               {navLinks.map(({ label, href }) => (
-                <li key={href}>
+                <motion.li
+                  key={href}
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <Link
                     href={href}
                     className="text-white/40 hover:text-gold transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium"
                   >
                     {label}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>

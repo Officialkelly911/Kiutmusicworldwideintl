@@ -141,7 +141,7 @@ const PLATFORMS = [
 // ─── Badge style ───────────────────────────────────────────────────────────────
 function getBadgeStyle(type: string) {
   const t = type.toLowerCase();
-  if (t.includes("lyric"))    return { text: "text-[#D4AF37]",  border: "border-[#D4AF37]/30",  bg: "bg-[#D4AF37]/10",  glow: "shadow-[0_0_8px_rgba(212,175,55,0.25)]"  };
+  if (t.includes("lyric"))    return { text: "text-gold",  border: "border-gold/30",  bg: "bg-gold/10",  glow: "shadow-[0_0_8px_rgba(212,175,55,0.25)]"  };
   if (t.includes("music"))    return { text: "text-[#c084fc]",  border: "border-[#c084fc]/30",  bg: "bg-[#c084fc]/10",  glow: "shadow-[0_0_8px_rgba(192,132,252,0.20)]" };
   if (t.includes("visual"))   return { text: "text-[#60a5fa]",  border: "border-[#60a5fa]/30",  bg: "bg-[#60a5fa]/10",  glow: "shadow-[0_0_8px_rgba(96,165,250,0.20)]"  };
   if (t.includes("live"))     return { text: "text-[#f97316]",  border: "border-[#f97316]/30",  bg: "bg-[#f97316]/10",  glow: "shadow-[0_0_8px_rgba(249,115,22,0.20)]"  };
@@ -215,13 +215,14 @@ function SharePopup({
       onClick={(e) => e.stopPropagation()}
     >
       <div className="flex items-center justify-between mb-4">
-        <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#D4AF37]">Share Video</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-gold">Share Video</p>
         <button
           type="button"
           onClick={onClose}
+          aria-label="Close share panel"
           className="w-6 h-6 rounded-full flex items-center justify-center text-white/40 hover:text-white transition-colors"
         >
-          <X className="w-3 h-3" />
+          <X className="w-3 h-3" aria-hidden="true" />
         </button>
       </div>
 
@@ -233,7 +234,7 @@ function SharePopup({
           "w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border transition-all duration-300 mb-3 text-left",
           copied
             ? "border-[#1DB954]/40 bg-[#1DB954]/10 text-[#1DB954]"
-            : "border-white/10 bg-white/[0.03] text-white/70 hover:border-[#D4AF37]/30 hover:text-white"
+            : "border-white/10 bg-white/[0.03] text-white/70 hover:border-gold/30 hover:text-white"
         )}
       >
         <span className="text-[11px] font-semibold truncate">{url}</span>
@@ -263,7 +264,7 @@ function SharePopup({
 function PremiumStreamingLinks() {
   return (
     <div className="mt-8 pt-8 border-t border-white/[0.06]">
-      <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#D4AF37] mb-6">Listen Everywhere</p>
+      <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold mb-6">Listen Everywhere</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {PLATFORMS.map((p, i) => (
           <motion.a
@@ -366,10 +367,10 @@ function KiutUniverse() {
     <div className="mt-12 pt-8 border-t border-white/[0.06]">
       <div className="flex items-center gap-3 mb-7">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#D4AF37] mb-0.5">Explore More</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold mb-0.5">Explore More</p>
           <h3 className="font-display text-lg font-bold text-white uppercase tracking-tight">Kiut Universe</h3>
         </div>
-        <div className="flex-1 h-px bg-gradient-to-r from-[#D4AF37]/18 to-transparent" />
+        <div className="flex-1 h-px bg-gradient-to-r from-gold/18 to-transparent" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -445,20 +446,24 @@ function RecCard({
       className={cn(
         "group cursor-pointer flex flex-col w-full rounded-2xl overflow-hidden transition-all duration-300",
         isFirst
-          ? "bg-[#0f0f0f] border border-[#D4AF37]/22 hover:border-[#D4AF37]/50 hover:shadow-[0_22px_55px_rgba(212,175,55,0.14)]"
-          : "bg-[#0c0c0c] border border-white/[0.06] hover:border-[#D4AF37]/22 hover:shadow-[0_14px_38px_rgba(212,175,55,0.08)]"
+          ? "bg-[#0f0f0f] border border-gold/22 hover:border-gold/50 hover:shadow-[0_22px_55px_rgba(212,175,55,0.14)]"
+          : "bg-[#0c0c0c] border border-white/[0.06] hover:border-gold/22 hover:shadow-[0_14px_38px_rgba(212,175,55,0.08)]"
       )}
     >
       {/* Thumbnail */}
       <div className={cn("relative w-full overflow-hidden bg-[#090909] flex-shrink-0", isFirst ? "aspect-[4/3] sm:aspect-video" : "aspect-video")}>
         {!imgFailed ? (
-          <img
-            src={video.thumbnail}
-            alt={video.title}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.07]"
-            onError={() => setImgFailed(true)}
-          />
+          <>
+            <img
+              src={video.thumbnail}
+              alt={video.title}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.07]"
+              onError={() => setImgFailed(true)}
+            />
+            {/* Skeleton shimmer while image is loading */}
+            <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] via-white/[0.05] to-white/[0.02] opacity-0 group-[&:not([src])]:opacity-100 pointer-events-none" />
+          </>
         ) : (
           <ThumbnailFallback />
         )}
@@ -471,7 +476,7 @@ function RecCard({
         </div>
 
         {isFirst && (
-          <div className="absolute top-2.5 right-2.5 px-2.5 py-[3.5px] rounded-full bg-[#D4AF37]/15 backdrop-blur-md text-[#D4AF37] text-[8px] font-black uppercase tracking-[0.22em] leading-none border border-[#D4AF37]/30">
+          <div className="absolute top-2.5 right-2.5 px-2.5 py-[3.5px] rounded-full bg-gold/15 backdrop-blur-md text-gold text-[8px] font-black uppercase tracking-[0.22em] leading-none border border-gold/30">
             Featured
           </div>
         )}
@@ -479,8 +484,8 @@ function RecCard({
         {/* Watched indicator */}
         {watched && (
           <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 px-2 py-[3px] rounded-full bg-black/80 backdrop-blur-sm">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
-            <span className="text-[7.5px] font-bold uppercase tracking-wider text-[#D4AF37]">Watched</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-gold" />
+            <span className="text-[7.5px] font-bold uppercase tracking-wider text-gold">Watched</span>
           </div>
         )}
 
@@ -491,19 +496,19 @@ function RecCard({
             isFirst ? "w-12 h-12" : "w-10 h-10",
             "opacity-30 group-hover:opacity-100",
             "border-white/25 bg-black/35",
-            "group-hover:bg-[#D4AF37] group-hover:border-[#D4AF37] group-hover:shadow-[0_0_28px_rgba(212,175,55,0.65)]",
+            "group-hover:bg-gold group-hover:border-gold group-hover:shadow-[0_0_28px_rgba(212,175,55,0.65)]",
             "scale-90 group-hover:scale-100"
           )}>
-            <Play className={cn("text-white group-hover:text-black transition-colors duration-200", isFirst ? "w-5 h-5" : "w-4 h-4")} />
+            <Play className={cn("text-white group-hover:text-midnight transition-colors duration-200", isFirst ? "w-5 h-5" : "w-4 h-4")} />
           </div>
         </div>
 
-        {isFirst && <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/45 to-transparent" />}
+        {isFirst && <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/45 to-transparent" />}
       </div>
 
       {/* Text */}
       <div className={cn("flex flex-col flex-1", isFirst ? "p-5" : "p-4")}>
-        <h4 className={cn("font-bold leading-snug line-clamp-2 text-white group-hover:text-[#D4AF37] transition-colors duration-200", isFirst ? "text-[15px] mb-2" : "text-[13px] mb-1.5")}>
+        <h4 className={cn("font-bold leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-200", isFirst ? "text-[15px] mb-2" : "text-[13px] mb-1.5")}>
           {video.title}
         </h4>
         <p className="text-white/40 text-[11px] font-medium truncate mb-3">{video.artist}</p>
@@ -534,10 +539,21 @@ function VideoCard({
       onClick={onClick}
       whileHover={{ scale: 1.015, x: 3 }}
       className={cn(
-        "group flex gap-3.5 p-3 rounded-xl cursor-pointer transition-all duration-300",
-        isActive ? "bg-[#D4AF37]/10 border border-[#D4AF37]/28" : "hover:bg-white/[0.04] border border-transparent hover:border-white/[0.06]"
+        "group relative flex gap-3.5 p-3 rounded-xl cursor-pointer transition-all duration-300",
+        isActive ? "bg-gold/[0.07] border border-gold/25" : "hover:bg-white/[0.04] border border-transparent hover:border-white/[0.06]"
       )}
+      data-testid={`video-card-${video.id}`}
     >
+      {/* Gold left-bar active indicator */}
+      {isActive && (
+        <motion.div
+          layoutId="video-active-bar"
+          className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        />
+      )}
       <div className="relative w-36 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black/50 shadow-md">
         <img
           src={video.thumbnail}
@@ -546,29 +562,29 @@ function VideoCard({
           loading="lazy"
         />
         {isActive ? (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center border-l-2 border-[#D4AF37]">
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center border-l-2 border-gold">
             <div className="flex gap-0.5 items-end h-4">
-              <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-[#D4AF37] rounded-full" />
-              <motion.div animate={{ height: [4, 16, 4] }} transition={{ repeat: Infinity, duration: 1.0 }} className="w-1 bg-[#D4AF37] rounded-full" />
-              <motion.div animate={{ height: [4, 8, 4] }}  transition={{ repeat: Infinity, duration: 0.9 }} className="w-1 bg-[#D4AF37] rounded-full" />
+              <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-gold rounded-full" />
+              <motion.div animate={{ height: [4, 16, 4] }} transition={{ repeat: Infinity, duration: 1.0 }} className="w-1 bg-gold rounded-full" />
+              <motion.div animate={{ height: [4, 8, 4] }}  transition={{ repeat: Infinity, duration: 0.9 }} className="w-1 bg-gold rounded-full" />
             </div>
           </div>
         ) : (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="w-7 h-7 rounded-full bg-[#D4AF37] flex items-center justify-center pl-0.5 shadow-[0_0_12px_rgba(212,175,55,0.6)]">
-              <Play className="w-3.5 h-3.5 text-black" />
+            <div className="w-7 h-7 rounded-full bg-gold flex items-center justify-center pl-0.5 shadow-[0_0_12px_rgba(212,175,55,0.6)]">
+              <Play className="w-3.5 h-3.5 text-midnight" />
             </div>
           </div>
         )}
         {watched && !isActive && (
-          <div className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-[#D4AF37] flex items-center justify-center">
-            <Check className="w-2 h-2 text-black" />
+          <div className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-gold flex items-center justify-center">
+            <Check className="w-2 h-2 text-midnight" />
           </div>
         )}
       </div>
 
       <div className="flex flex-col justify-center py-0.5 flex-1 min-w-0">
-        <h4 className={cn("font-semibold text-[12.5px] line-clamp-2 leading-snug mb-1 transition-colors", isActive ? "text-[#D4AF37]" : "text-white group-hover:text-[#D4AF37]")}>
+        <h4 className={cn("font-semibold text-[12.5px] line-clamp-2 leading-snug mb-1 transition-colors", isActive ? "text-gold" : "text-white group-hover:text-gold")}>
           {video.title}
         </h4>
         <p className="text-white/45 text-[10px] truncate">{video.artist}</p>
@@ -586,10 +602,10 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative px-5 py-5 rounded-2xl border border-white/[0.07] bg-white/[0.025] hover:border-[#D4AF37]/22 hover:bg-white/[0.04] transition-all duration-500 text-center overflow-hidden"
+      className="group relative px-5 py-5 rounded-2xl border border-white/[0.07] bg-white/[0.025] hover:border-gold/22 hover:bg-white/[0.04] transition-all duration-500 text-center overflow-hidden"
     >
       <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05),transparent_70%)] transition-opacity duration-500" />
-      <p className="font-display text-2xl md:text-3xl font-bold text-[#D4AF37] tracking-tight mb-0.5 relative">{value}</p>
+      <p className="font-display text-2xl md:text-3xl font-bold text-gold tracking-tight mb-0.5 relative">{value}</p>
       <p className="text-white text-[10px] font-bold uppercase tracking-[0.22em] mb-0.5 relative">{label}</p>
       <p className="text-white/28 text-[9px] uppercase tracking-wide relative">{sub}</p>
     </motion.div>
@@ -670,7 +686,7 @@ export default function Videos() {
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-[#D4AF37] opacity-[0.025] blur-[120px]"
+          className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-gold opacity-[0.025] blur-[120px]"
         />
         <motion.div
           animate={{ x: [0, -20, 0], y: [0, 25, 0] }}
@@ -685,10 +701,24 @@ export default function Videos() {
       </div>
 
       {/* ── HERO ── */}
-      <section className="relative h-[88vh] min-h-[560px] flex items-end pb-20 overflow-hidden">
-        <img src={videosHeroBg} alt="Kiut Videos" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" />
+      <section className="relative h-[92vh] min-h-[600px] flex items-end pb-20 overflow-hidden">
+        <img src={videosHeroBg} alt="Kiut Videos" className="absolute inset-0 w-full h-full object-cover object-center scale-[1.04]" loading="eager" />
+        {/* Multi-layer gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(212,175,55,0.06),transparent_55%)]" />
+
+        {/* Top-right archive badge */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute top-8 right-6 md:right-10 z-10 flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md"
+          style={{ background: "rgba(0,0,0,0.4)" }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span className="text-white/60 text-[9px] font-bold uppercase tracking-[0.3em]">{videos.length} Official Visuals</span>
+        </motion.div>
 
         <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 md:px-6">
           <motion.div
@@ -696,19 +726,41 @@ export default function Videos() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.35em] mb-5">Official Visuals</p>
+            <motion.p
+              initial={{ opacity: 0, letterSpacing: "0.55em" }}
+              animate={{ opacity: 1, letterSpacing: "0.35em" }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-gold text-[10px] font-bold uppercase tracking-[0.35em] mb-5"
+            >
+              Official Visuals · Kiut Raba TV
+            </motion.p>
             <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
-              Watch<br /><span className="text-[#D4AF37]">Kiut</span>
+              Watch<br /><span className="text-gold">Kiut</span>
             </h1>
-            <p className="text-white/55 text-base md:text-lg font-light max-w-lg mb-10">
+            <p className="text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
               Every frame, every story. Cinematic visuals from the world of Kiut Music Worldwide.
             </p>
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-px bg-[#D4AF37]" />
-              <span className="text-white/35 text-[11px] uppercase tracking-[0.25em]">Scroll to explore</span>
+            <div className="flex flex-wrap items-center gap-6">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-px bg-gold/70" />
+                <span className="text-white/35 text-[11px] uppercase tracking-[0.25em]">Scroll to explore</span>
+              </div>
+              <a
+                href="https://www.youtube.com/@kiutrabatv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-gold/35 transition-all duration-300 text-[10px] font-bold uppercase tracking-widest backdrop-blur-sm"
+                style={{ background: "rgba(0,0,0,0.35)" }}
+                data-testid="link-hero-youtube-channel"
+              >
+                <Youtube size={12} /> Subscribe on YouTube
+              </a>
             </div>
           </motion.div>
         </div>
+
+        {/* Bottom gold hairline */}
+        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
       </section>
 
       {/* ── STATS STRIP ── */}
@@ -729,26 +781,26 @@ export default function Videos() {
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-[9.5px] font-bold uppercase tracking-[0.28em] text-[#D4AF37]">Your Progress</p>
+                <p className="text-[9.5px] font-bold uppercase tracking-[0.28em] text-gold">Your Progress</p>
                 <p className="text-[9.5px] font-bold text-white/35">{watchedCount} / {totalCount} watched</p>
               </div>
               <div className="h-1 rounded-full bg-white/[0.07] overflow-hidden">
                 <motion.div
-                  className="h-full rounded-full bg-gradient-to-r from-[#D4AF37] to-[#f5d062]"
+                  className="h-full rounded-full bg-gradient-to-r from-gold to-[#f5d062]"
                   initial={{ width: 0 }}
                   animate={{ width: `${watchPct}%` }}
                   transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 />
               </div>
             </div>
-            <p className="text-2xl font-bold text-[#D4AF37] flex-shrink-0">{watchPct}%</p>
+            <p className="text-2xl font-bold text-gold flex-shrink-0">{watchPct}%</p>
           </motion.div>
         )}
       </div>
 
       {/* ── PLAYER SECTION ── */}
       <div ref={playerRef} className="relative z-10 pb-16">
-        <div className="pointer-events-none absolute top-0 left-0 w-full h-[500px] bg-[#D4AF37]/[0.04] blur-[160px]" />
+        <div className="pointer-events-none absolute top-0 left-0 w-full h-[500px] bg-gold/[0.04] blur-[160px]" />
         <div className="max-w-[1600px] mx-auto px-4 md:px-6 relative pt-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12">
 
@@ -756,24 +808,45 @@ export default function Videos() {
             <div className="lg:col-span-2 flex flex-col gap-6">
 
               {/* Embedded player */}
-              <motion.div
-                key={featuredVideo.youtubeId}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="group w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.85)] border border-white/10 relative"
-              >
-                <iframe
-                  src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}?autoplay=1`}
-                  title={featuredVideo.title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full relative z-10"
-                  loading="lazy"
-                />
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#D4AF37]/0 via-[#D4AF37]/18 to-[#D4AF37]/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 z-0" />
-              </motion.div>
+              <div className="relative">
+                {/* Now Playing chip */}
+                <motion.div
+                  key={`chip-${featuredVideo.id}`}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex items-center gap-2 mb-3"
+                >
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gold/25 text-gold text-[9px] font-bold uppercase tracking-[0.3em]"
+                    style={{ background: "rgba(212,175,55,0.07)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                    Now Playing
+                  </span>
+                  <span className="text-white/30 text-[11px] font-light truncate max-w-xs">{featuredVideo.title}</span>
+                </motion.div>
+
+                <motion.div
+                  key={featuredVideo.youtubeId}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  className="group w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-[0_24px_70px_rgba(0,0,0,0.85)] border border-gold/15 hover:border-gold/30 transition-colors duration-500 relative"
+                >
+                  <iframe
+                    src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}?autoplay=1`}
+                    title={featuredVideo.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full h-full relative z-10"
+                    loading="lazy"
+                  />
+                  {/* Ambient gold glow on hover */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-gold/0 via-gold/18 to-gold/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 z-0 pointer-events-none" />
+                  {/* Persistent bottom glow */}
+                  <div className="absolute bottom-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent z-20 pointer-events-none" />
+                </motion.div>
+              </div>
 
               {/* Video info card */}
               <motion.div
@@ -787,14 +860,14 @@ export default function Videos() {
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-6">
                   <div className="flex-1 min-w-0">
                     {/* Type badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.3em] mb-4 border border-[#D4AF37]/20">
-                      <span className="w-1 h-1 rounded-full bg-[#D4AF37] inline-block" />
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold/10 text-gold text-[9px] font-bold uppercase tracking-[0.3em] mb-4 border border-gold/20">
+                      <span className="w-1 h-1 rounded-full bg-gold inline-block" />
                       {featuredVideo.type}
                     </div>
 
-                    <h1 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white mb-4 leading-tight">
+                    <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white mb-4 leading-tight">
                       {featuredVideo.title}
-                    </h1>
+                    </h2>
 
                     {/* Metadata pills */}
                     <div className="flex flex-wrap items-center gap-2">
@@ -823,7 +896,7 @@ export default function Videos() {
                       <motion.div
                         whileHover={{ scale: 1.04, y: -2 }}
                         whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-2 rounded-full bg-[#D4AF37] px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_36px_rgba(212,175,55,0.6)] transition-shadow duration-300 cursor-pointer"
+                        className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-midnight shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_36px_rgba(212,175,55,0.6)] transition-shadow duration-300 cursor-pointer"
                       >
                         <Youtube size={15} />
                         Watch on YouTube
@@ -836,9 +909,12 @@ export default function Videos() {
                         whileHover={{ scale: 1.04, y: -2 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={handleShare}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-5 py-3 text-[11px] font-semibold text-white/75 hover:border-[#D4AF37]/35 hover:text-white transition-all duration-200"
+                        aria-label={`Share ${featuredVideo.title}`}
+                        aria-expanded={showShare}
+                        aria-haspopup="dialog"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-5 py-3 text-[11px] font-semibold text-white/75 hover:border-gold/35 hover:text-white transition-all duration-200"
                       >
-                        <Share2 size={14} />
+                        <Share2 size={14} aria-hidden="true" />
                         Share
                       </motion.button>
                       <AnimatePresence>
@@ -873,7 +949,7 @@ export default function Videos() {
             <div className="lg:col-span-1">
               <div className="bg-[#0a0a0a]/80 backdrop-blur-xl rounded-3xl p-5 border border-white/[0.05] shadow-[0_16px_50px_rgba(0,0,0,0.55)] sticky top-24">
                 <div className="mb-5 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#D4AF37]/18 bg-[#D4AF37]/8 text-[#D4AF37]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold/18 bg-gold/8 text-gold">
                     <SlidersHorizontal size={16} />
                   </div>
                   <div>
@@ -883,7 +959,7 @@ export default function Videos() {
                 </div>
 
                 {/* Filter chips */}
-                <div className="mb-5 flex flex-wrap gap-1.5">
+                <div className="mb-5 flex flex-wrap gap-1.5" role="group" aria-label="Filter videos by category">
                   {videoTypes.map((type) => {
                     const active = activeType === type;
                     return (
@@ -891,11 +967,13 @@ export default function Videos() {
                         key={type}
                         type="button"
                         onClick={() => setActiveType(type)}
+                        aria-pressed={active}
+                        aria-label={`Filter by ${type}`}
                         className={cn(
                           "rounded-full px-3 py-1.5 text-[9.5px] font-bold uppercase tracking-[0.18em] transition-all duration-250",
                           active
-                            ? "bg-[#D4AF37] text-black border border-[#D4AF37] shadow-[0_0_14px_rgba(212,175,55,0.38)]"
-                            : "border border-white/10 bg-white/[0.03] text-white/45 hover:border-[#D4AF37]/22 hover:text-white/80"
+                            ? "bg-gold text-midnight border border-gold shadow-[0_0_14px_rgba(212,175,55,0.38)]"
+                            : "border border-white/10 bg-white/[0.03] text-white/45 hover:border-gold/22 hover:text-white/80"
                         )}
                       >
                         {type}
@@ -936,9 +1014,9 @@ export default function Videos() {
           className="flex items-start justify-between gap-4 mb-12"
         >
           <div>
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Curated Picks</p>
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Curated Picks</p>
             <h3 className="font-display text-2xl md:text-3xl font-bold uppercase tracking-wider mb-2">
-              Recommended <span className="text-[#D4AF37]">Visuals</span>
+              Recommended <span className="text-gold">Visuals</span>
             </h3>
             <p className="text-white/30 text-[13px] font-light max-w-md">
               Every frame, every story — the official visual catalogue of Kiut Music Worldwide.
@@ -948,7 +1026,7 @@ export default function Videos() {
             href="https://www.youtube.com/@kiutrabatv"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-1.5 text-white/30 hover:text-[#D4AF37] transition-colors text-[10px] font-bold uppercase tracking-widest shrink-0 mt-1"
+            className="group flex items-center gap-1.5 text-white/30 hover:text-gold transition-colors text-[10px] font-bold uppercase tracking-widest shrink-0 mt-1"
           >
             See All <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
           </a>
@@ -996,7 +1074,7 @@ export default function Videos() {
               href={featuredVideoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#D4AF37] text-black text-[10px] font-bold uppercase tracking-widest hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-shadow"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gold text-midnight text-[10px] font-bold uppercase tracking-widest hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-shadow"
             >
               <Youtube className="w-3.5 h-3.5" /> Watch on YouTube
             </a>
@@ -1011,9 +1089,10 @@ export default function Videos() {
             <button
               type="button"
               onClick={handleShare}
-              className="flex items-center justify-center w-9 h-9 rounded-full border border-white/12 text-white/55 hover:border-[#D4AF37]/35 hover:text-white transition-all"
+              aria-label="Share this video"
+              className="flex items-center justify-center w-9 h-9 rounded-full border border-white/12 text-white/55 hover:border-gold/35 hover:text-white transition-all"
             >
-              <Share2 className="w-3.5 h-3.5" />
+              <Share2 className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </motion.div>
         )}

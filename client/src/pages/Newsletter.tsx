@@ -182,7 +182,8 @@ export default function Newsletter() {
             </motion.div>
 
             {/* Split headline */}
-            <div className="mb-8">
+            <h1 className="sr-only">Kiut Music Newsletter — Stay in the Rhythm</h1>
+            <div className="mb-8" aria-hidden="true">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

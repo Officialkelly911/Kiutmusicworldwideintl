@@ -51,8 +51,14 @@ export default function MiniPlayer() {
               <img src={currentTrack.albumArt} alt={currentTrack.title} className="w-full h-full object-cover" />
             </div>
 
-            {/* Track info */}
-            <div className="flex flex-col min-w-0 flex-1">
+            {/* Track info — aria-live announces track changes to screen readers */}
+            <div
+              className="flex flex-col min-w-0 flex-1"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-label={`Now playing: ${currentTrack.title} by ${currentTrack.artist}`}
+            >
               <motion.span
                 key={currentTrack.id}
                 initial={{ opacity: 0, y: 4 }}
@@ -61,7 +67,7 @@ export default function MiniPlayer() {
               >
                 {currentTrack.title}
               </motion.span>
-              <span className="text-white/35 text-[11px] truncate">
+              <span className="text-white/35 text-[11px] truncate" aria-hidden="true">
                 {currentTrack.artist}
                 {currentTrack.album !== "Single" && (
                   <span className="text-white/20"> · {currentTrack.album}</span>

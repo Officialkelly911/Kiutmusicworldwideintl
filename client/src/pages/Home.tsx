@@ -31,7 +31,7 @@ const homeVideos = [
 
 function getHomeBadge(type: string) {
   const t = type.toLowerCase();
-  if (t.includes("lyric"))  return { text: "text-[#D4AF37]", border: "border-[#D4AF37]/30", bg: "bg-[#D4AF37]/10" };
+  if (t.includes("lyric"))  return { text: "text-gold", border: "border-gold/30", bg: "bg-gold/10" };
   if (t.includes("music"))  return { text: "text-[#c084fc]", border: "border-[#c084fc]/30", bg: "bg-[#c084fc]/10" };
   if (t.includes("visual")) return { text: "text-[#60a5fa]", border: "border-[#60a5fa]/30", bg: "bg-[#60a5fa]/10" };
   return                           { text: "text-white/60",  border: "border-white/15",     bg: "bg-white/5"      };
@@ -45,7 +45,7 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
       <motion.div
         whileHover={{ y: -6 }}
         transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-2xl overflow-hidden bg-[#0c0c0c] border border-white/[0.06] hover:border-[#D4AF37]/25 hover:shadow-[0_14px_38px_rgba(212,175,55,0.09)] transition-all duration-300 snap-start"
+        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-2xl overflow-hidden bg-[#0c0c0c] border border-white/[0.06] hover:border-gold/25 hover:shadow-[0_14px_38px_rgba(212,175,55,0.09)] transition-all duration-300 snap-start"
       >
         {/* Thumbnail */}
         <div className="relative w-full aspect-video overflow-hidden bg-[#090909] flex-shrink-0">
@@ -80,14 +80,14 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
           )}
           {/* Play icon */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-9 h-9 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center pl-0.5 opacity-30 group-hover:opacity-100 group-hover:bg-[#D4AF37] group-hover:border-[#D4AF37] group-hover:shadow-[0_0_22px_rgba(212,175,55,0.55)] transition-all duration-300 scale-90 group-hover:scale-100">
-              <Play className="w-3.5 h-3.5 text-white group-hover:text-black transition-colors duration-200" />
+            <div className="w-9 h-9 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center pl-0.5 opacity-30 group-hover:opacity-100 group-hover:bg-gold group-hover:border-gold group-hover:shadow-[0_0_22px_rgba(212,175,55,0.55)] transition-all duration-300 scale-90 group-hover:scale-100">
+              <Play className="w-3.5 h-3.5 text-white group-hover:text-midnight transition-colors duration-200" />
             </div>
           </div>
         </div>
         {/* Text */}
         <div className="p-3.5 flex flex-col gap-1">
-          <h4 className="font-bold text-[12px] leading-snug line-clamp-2 text-white group-hover:text-[#D4AF37] transition-colors duration-200">
+          <h4 className="font-bold text-[12px] leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-200">
             {video.title}
           </h4>
           <div className="flex items-center gap-1.5 text-[10px] text-white/25 mt-0.5">
@@ -428,7 +428,7 @@ function MilestoneGallery() {
                   animate={{ opacity: 1 }} 
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1.5 }}
-                  className="absolute inset-0 border border-[#D4AF37]/60 rounded-3xl pointer-events-none shadow-[inset_0_0_50px_rgba(212,175,55,0.25)]"
+                  className="absolute inset-0 border border-gold/60 rounded-3xl pointer-events-none shadow-[inset_0_0_50px_rgba(212,175,55,0.25)]"
                 />
               )}
             </AnimatePresence>
@@ -549,7 +549,7 @@ function KiutEmbedSection() {
           {/* Section header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <Globe className="w-5 h-5 text-[#D4AF37]" />
+              <Globe className="w-5 h-5 text-gold" />
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tight">
                 More from Kiut Music
               </h2>
@@ -558,7 +558,7 @@ function KiutEmbedSection() {
               href={EMBED_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-2 text-white/50 hover:text-[#D4AF37] transition-colors text-sm font-medium uppercase tracking-widest"
+              className="hidden md:flex items-center gap-2 text-white/50 hover:text-gold transition-colors text-sm font-medium uppercase tracking-widest"
             >
               Open <ExternalLink size={14} />
             </a>
@@ -567,13 +567,13 @@ function KiutEmbedSection() {
           {/* Embed container */}
           <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)] bg-[#111]">
             {/* Glow accents */}
-            <div className="absolute top-0 right-0 w-72 h-72 bg-[#D4AF37]/8 blur-[120px] pointer-events-none z-0" />
+            <div className="absolute top-0 right-0 w-72 h-72 bg-gold/8 blur-[120px] pointer-events-none z-0" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-pink-500/8 blur-[120px] pointer-events-none z-0" />
 
             {/* Loading shimmer */}
             {status === "loading" && (
               <div className="relative z-10 flex flex-col items-center justify-center h-[520px] md:h-[640px] gap-6">
-                <div className="w-10 h-10 rounded-full border-2 border-[#D4AF37] border-t-transparent animate-spin" />
+                <div className="w-10 h-10 rounded-full border-2 border-gold border-t-transparent animate-spin" />
                 <p className="text-white/40 text-sm tracking-widest uppercase">Loading experience…</p>
               </div>
             )}
@@ -595,11 +595,11 @@ function KiutEmbedSection() {
             {/* Fallback card */}
             {status === "fallback" && (
               <div className="relative z-10 flex flex-col items-center justify-center px-8 py-16 md:py-24 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center mb-8">
-                  <Music className="w-8 h-8 text-[#D4AF37]" />
+                <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-8">
+                  <Music className="w-8 h-8 text-gold" />
                 </div>
 
-                <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-[0.3em] mb-4">Featured Experience</p>
+                <p className="text-gold text-xs font-bold uppercase tracking-[0.3em] mb-4">Featured Experience</p>
                 <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
                   {EMBED_TITLE}
                 </h3>
@@ -628,7 +628,7 @@ function KiutEmbedSection() {
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(212,175,55,0.35)]"
+                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(212,175,55,0.35)]"
                 >
                   Explore All Links <ExternalLink size={16} />
                 </a>
@@ -638,7 +638,7 @@ function KiutEmbedSection() {
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 flex md:hidden items-center gap-2 text-white/40 hover:text-[#D4AF37] transition-colors text-sm"
+                  className="mt-6 flex md:hidden items-center gap-2 text-white/40 hover:text-gold transition-colors text-sm"
                 >
                   Open in browser <ExternalLink size={13} />
                 </a>
@@ -653,7 +653,7 @@ function KiutEmbedSection() {
               animate={{ opacity: 1 }}
               className="mt-4 flex items-center justify-between px-1"
             >
-              <span className="text-[#D4AF37] text-xs font-bold uppercase tracking-[0.25em]">
+              <span className="text-gold text-xs font-bold uppercase tracking-[0.25em]">
                 ✦ Featured Experience
               </span>
               <a
@@ -785,15 +785,15 @@ export default function Home() {
                 transition={{ duration: 0.6 }}
                 className="flex flex-col items-center lg:items-start"
               >
-                <div className="inline-block px-3 py-1 mb-6 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 backdrop-blur-sm">
-                  <span className="text-[#D4AF37] text-xs font-bold tracking-[0.2em] uppercase">
+                <div className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
+                  <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase">
                     {slides[currentSlide].badge}
                   </span>
                 </div>
                 
                 <h1 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase">
                   {slides[currentSlide].title.split(' ')[0]}<br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-yellow-200 to-[#D4AF37]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">
                     {slides[currentSlide].title.split(' ').slice(1).join(' ')}
                   </span>
                 </h1>
@@ -812,7 +812,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-[#D4AF37] to-yellow-600 text-black font-bold uppercase tracking-widest shadow-[0_0_40px_-10px_rgba(212,175,55,0.5)] group-hover:shadow-[0_0_60px_-10px_rgba(212,175,55,0.7)] transition-all duration-300"
+                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-gold to-yellow-600 text-midnight font-bold uppercase tracking-widest shadow-[0_0_40px_-10px_rgba(212,175,55,0.5)] group-hover:shadow-[0_0_60px_-10px_rgba(212,175,55,0.7)] transition-all duration-300"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -844,9 +844,9 @@ export default function Home() {
                   exit={{ opacity: 0 }}
                   className="flex items-center gap-6 mt-10 text-white/50"
                 >
-                  <div className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors cursor-pointer"><Music2 size={18} /><span className="text-sm font-medium">Spotify</span></div>
-                  <div className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors cursor-pointer"><PlayCircle size={18} /><span className="text-sm font-medium">Apple Music</span></div>
-                  <div className="hidden md:flex items-center gap-2 hover:text-[#D4AF37] transition-colors cursor-pointer"><Radio size={18} /><span className="text-sm font-medium">Audiomack</span></div>
+                  <div className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><Music2 size={18} /><span className="text-sm font-medium">Spotify</span></div>
+                  <div className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><PlayCircle size={18} /><span className="text-sm font-medium">Apple Music</span></div>
+                  <div className="hidden md:flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><Radio size={18} /><span className="text-sm font-medium">Audiomack</span></div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -873,7 +873,7 @@ export default function Home() {
                   }}
                   className="perspective-[1000px] mb-8"
                 >
-                  <div className="relative w-64 md:w-80 lg:w-96 aspect-square rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#D4AF37]/30 transform-gpu rotate-y-[-5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
+                  <div className="relative w-64 md:w-80 lg:w-96 aspect-square rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gold/30 transform-gpu rotate-y-[-5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
                     <img 
                       src={musicImage} 
                       alt="Good Life EP Cover" 
@@ -881,7 +881,7 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20" />
                   </div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#D4AF37]/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -901,7 +901,7 @@ export default function Home() {
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
                     className={`w-12 h-1 rounded-full transition-all duration-300 ${
-                      idx === currentSlide ? "bg-[#D4AF37]" : "bg-white/20 hover:bg-white/40"
+                      idx === currentSlide ? "bg-gold" : "bg-white/20 hover:bg-white/40"
                     }`}
                   />
                 ))}
@@ -931,9 +931,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block px-4 py-1.5 mb-6 rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/5"
+              className="inline-block px-4 py-1.5 mb-6 rounded-full border border-gold/20 bg-gold/5"
             >
-              <span className="text-[#D4AF37] text-xs font-bold tracking-[0.2em] uppercase">
+              <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase">
                 Milestone Achievement
               </span>
             </motion.div>
@@ -946,7 +946,7 @@ export default function Home() {
               className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 tracking-tight"
             >
               Dreams Realized:<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-yellow-200">From Nigeria to Hollywood</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold to-yellow-200">From Nigeria to Hollywood</span>
             </motion.h2>
           </div>
 
@@ -972,7 +972,7 @@ export default function Home() {
                 We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
               </p>
 
-              <blockquote className="border-l-2 border-[#D4AF37] pl-6 my-8">
+              <blockquote className="border-l-2 border-gold pl-6 my-8">
                 <p className="text-2xl font-serif italic text-white/80 leading-snug">
                   "His journey is a powerful reminder that with faith, belief, and relentless hard work, dreams truly become reality."
                 </p>
@@ -986,7 +986,7 @@ export default function Home() {
                 This achievement stands as an inspiration to dream boldly, trust God’s timing, and never give up.
               </p>
 
-              <p className="text-xl font-serif italic text-[#D4AF37]">
+              <p className="text-xl font-serif italic text-gold">
                 Congratulations on this well-deserved accomplishment and the bright future ahead!
               </p>
 
@@ -1002,9 +1002,9 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-[#111] hover:bg-[#1a1a1a] text-white hover:text-[#D4AF37] border border-white/10 hover:border-[#D4AF37] rounded-full transition-all duration-300 font-bold tracking-wider text-sm shadow-none hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-[#111] hover:bg-[#1a1a1a] text-white hover:text-gold border border-white/10 hover:border-gold rounded-full transition-all duration-300 font-bold tracking-wider text-sm shadow-none hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
                     >
-                      <Instagram size={18} className="text-white group-hover:text-[#D4AF37] transition-colors duration-300" />
+                      <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-300" />
                       SEE MORE
                     </motion.button>
                   </a>
@@ -1030,9 +1030,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Latest Drop</p>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Latest Drop</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">
-                Featured <span className="text-[#D4AF37]">Release</span>
+                Featured <span className="text-gold">Release</span>
               </h2>
             </motion.div>
             
@@ -1068,7 +1068,7 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left"
             >
-              <span className="inline-block px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/25 text-[#D4AF37] text-xs font-bold tracking-[0.2em] uppercase mb-4">Latest EP</span>
+              <span className="inline-block px-3 py-1 rounded-full bg-gold/10 border border-gold/25 text-gold text-xs font-bold tracking-[0.2em] uppercase mb-4">Latest EP</span>
               <h3 className="font-display text-4xl md:text-5xl font-bold text-white mb-6 uppercase">
                 Good Life
               </h3>
@@ -1084,7 +1084,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-10 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.25)]"
+                  className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.25)]"
                 >
                   Listen Now
                 </motion.button>
@@ -1164,7 +1164,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.04, borderColor: "#D4AF37", color: "#D4AF37" }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 mx-auto"
+                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-gold hover:text-gold transition-all duration-300 flex items-center gap-2 mx-auto"
               >
                 Explore Portfolio <ExternalLink size={14} />
               </motion.button>
@@ -1199,9 +1199,9 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-12"
           >
-            <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
+            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-4">
-              KiutRaba<span className="text-[#D4AF37]">'s</span> Store
+              KiutRaba<span className="text-gold">'s</span> Store
             </h2>
             <p className="text-white/38 text-[14px] font-light max-w-lg mx-auto leading-relaxed">
               Exclusive apparel and collectibles inspired by the music, culture, and journey.
@@ -1214,9 +1214,11 @@ export default function Home() {
               { img: "/assets/images/merch-hoodie.jpg",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
               { img: "/assets/images/merch-outfit-red.jpg",  imgCls: "object-contain p-6",      badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
               { img: "/assets/images/merch-shirt.jpg",       imgCls: "object-contain p-4",      badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
-              { img: "/assets/images/merch-collection.png",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
-              { img: "/assets/images/merch-cap-vintage.png", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
-              { img: "/assets/images/merch-cd.png",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
+              { img: "/assets/images/merch-collection.webp",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
+              { img: "/assets/images/merch-cap-vintage.webp", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
+              { img: "/assets/images/merch-cd.webp",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
+              { img: "/assets/images/merch-baggy-jeans.jpg", imgCls: "object-contain p-4",      badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
+              { img: "/assets/images/merch-goodlife-ep.webp", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
             ];
             const active = bannerItems[activeStoreIdx];
             const total = bannerItems.length;
@@ -1250,7 +1252,7 @@ export default function Home() {
 
                     {/* Badge */}
                     <div className="absolute top-5 left-5 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-black bg-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.5)]">
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-midnight bg-gold shadow-[0_0_20px_rgba(212,175,55,0.5)]">
                         <span>✦</span> {active.badge}
                       </span>
                     </div>
@@ -1263,17 +1265,17 @@ export default function Home() {
                     </div>
 
                     {/* Prev / Next */}
-                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4AF37]">
+                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
                       <ChevronLeft className="w-4 h-4 text-white/55" />
                     </button>
-                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-[#D4AF37]/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4AF37]">
+                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
                       <ChevronRight className="w-4 h-4 text-white/55" />
                     </button>
 
                     {/* Animated bottom label */}
                     <AnimatePresence mode="wait">
                       <motion.div key={activeStoreIdx + "-bl"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-[#D4AF37]/80 mb-1">{active.category}</p>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-gold/80 mb-1">{active.category}</p>
                         <p className="font-display text-[22px] font-bold text-white uppercase tracking-tight">{active.name}</p>
                       </motion.div>
                     </AnimatePresence>
@@ -1283,7 +1285,7 @@ export default function Home() {
                   <div className="flex flex-col justify-between p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/[0.06]">
                     <AnimatePresence mode="wait">
                       <motion.div key={activeStoreIdx + "-copy"} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="mb-8">
-                        <p className="text-[#D4AF37] text-[9px] font-bold uppercase tracking-[0.45em] mb-5">Dream Planet Store</p>
+                        <p className="text-gold text-[9px] font-bold uppercase tracking-[0.45em] mb-5">Dream Planet Store</p>
                         <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-5">
                           Discover KiutRaba's<br />Exclusive Collection
                         </h3>
@@ -1295,13 +1297,13 @@ export default function Home() {
                       {/* Progress dots — 6 items */}
                       <div className="flex items-center gap-2 mb-7 flex-wrap">
                         {bannerItems.map((_, i) => (
-                          <button key={i} aria-label={`Go to product ${i + 1}`} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4AF37] ${i === activeStoreIdx ? "w-8 h-[6px] bg-[#D4AF37] shadow-[0_0_12px_rgba(212,175,55,0.65)]" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
+                          <button key={i} aria-label={`Go to product ${i + 1}`} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${i === activeStoreIdx ? "w-8 h-[6px] bg-gold shadow-[0_0_12px_rgba(212,175,55,0.65)]" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
                         ))}
                       </div>
 
                       {/* CTA */}
                       <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="Explore KiutRaba's collection on Dream Planet Store">
-                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-[#D4AF37] text-black font-bold uppercase tracking-widest text-[11px] shadow-[0_0_28px_rgba(212,175,55,0.28)] hover:shadow-[0_0_52px_rgba(212,175,55,0.58)] transition-shadow duration-300 mb-2">
+                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[0_0_28px_rgba(212,175,55,0.28)] hover:shadow-[0_0_52px_rgba(212,175,55,0.58)] transition-shadow duration-300 mb-2">
                           <span className="text-[9px]">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
                         </motion.button>
                       </a>
@@ -1319,13 +1321,15 @@ export default function Home() {
               { name: "KiutRaba Signature Hoodie", img: "/assets/images/merch-hoodie.jpg",       isCover: true,  badge: "FEATURED",      badgeKind: "gold-fill",    desc: "Premium heavyweight fleece, embroidered KR crown logo.",             spotlight: 0 },
               { name: "Hoodking",                  img: "/assets/images/merch-outfit-red.jpg",   isCover: false, badge: "EXCLUSIVE",     badgeKind: "gold-outline", desc: "Bold color, editorial cut. Head-to-toe KiutRaba energy.",            spotlight: 1 },
               { name: "Classic Man",               img: "/assets/images/merch-shirt.jpg",        isCover: false, badge: "BEST SELLER",   badgeKind: "ghost",        desc: "Clean drop-shoulder silhouette. The essential studio staple.",       spotlight: 2 },
-              { name: "Good Life Full Drop",       img: "/assets/images/merch-collection.png",   isCover: false, badge: "COLLECTION",    badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe.",            spotlight: 3 },
-              { name: "EP Trucker Cap",            img: "/assets/images/merch-cap-vintage.png",  isCover: false, badge: "NEW",           badgeKind: "gold-fill",    desc: "Structured trucker with EP embroidery. Everyday KiutRaba flex.",     spotlight: 4 },
-              { name: "Good Life EP",              img: "/assets/images/merch-cd.png",           isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "The debut EP — Afrobeat meets Caribbean. Stream or own it.",         spotlight: 5 },
+              { name: "Good Life Full Drop",       img: "/assets/images/merch-collection.webp",   isCover: false, badge: "COLLECTION",    badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe.",            spotlight: 3 },
+              { name: "EP Trucker Cap",            img: "/assets/images/merch-cap-vintage.webp",  isCover: false, badge: "NEW",           badgeKind: "gold-fill",    desc: "Structured trucker with EP embroidery. Everyday KiutRaba flex.",     spotlight: 4 },
+              { name: "Good Life EP",              img: "/assets/images/merch-cd.webp",           isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "The debut EP — Afrobeat meets Caribbean. Stream or own it.",         spotlight: 5 },
+              { name: "KR Baggy Jeans",            img: "/assets/images/merch-baggy-jeans.jpg",  isCover: false, badge: "APPAREL",       badgeKind: "ghost",        desc: "Wide-leg, culture-first. The KiutRaba street silhouette.",            spotlight: 7 },
+              { name: "Goodlife Digital EP",       img: "/assets/images/merch-goodlife-ep.webp",  isCover: true,  badge: "DIGITAL",       badgeKind: "gold-outline", desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault.", spotlight: 8 },
             ];
 
             return (
-              <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
                 {gridItems.map((product, idx) => {
                   const isSpotlit = gridSpotlight === product.spotlight;
                   const isFeatured = idx === 0;
@@ -1340,11 +1344,11 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                      whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                      whileHover={{ y: -7, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
                       className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-500 ${
                         isSpotlit || isFeatured
-                          ? "border border-[#D4AF37]/42 shadow-[0_18px_60px_rgba(212,175,55,0.15),0_0_0_1px_rgba(212,175,55,0.10)]"
-                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-[#D4AF37]/28 hover:shadow-[0_18px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.06)]"
+                          ? "border border-gold/42 shadow-[0_18px_60px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.12)]"
+                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-gold/32 hover:shadow-[0_22px_64px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.08)]"
                       }`}
                       style={{ background: "#0b0b0d" }}
                     >
@@ -1352,7 +1356,7 @@ export default function Home() {
                       <AnimatePresence>
                         {isSpotlit && !isFeatured && (
                           <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3 }} className="absolute top-2.5 right-2.5 z-20">
-                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.22em] text-black bg-[#D4AF37] shadow-[0_0_14px_rgba(212,175,55,0.55)]">
+                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.22em] text-midnight bg-gold shadow-[0_0_14px_rgba(212,175,55,0.55)]">
                               ✦ This Week
                             </span>
                           </motion.div>
@@ -1363,9 +1367,9 @@ export default function Home() {
                       <div className="absolute top-2.5 left-2.5 z-20">
                         <span className={`inline-flex items-center px-2.5 py-[5px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.2em] ${
                           product.badgeKind === "gold-fill"
-                            ? "text-black bg-[#D4AF37]/90 shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+                            ? "text-midnight bg-gold/90 shadow-[0_0_10px_rgba(212,175,55,0.4)]"
                             : product.badgeKind === "gold-outline"
-                            ? "text-[#D4AF37] border border-[#D4AF37]/40 bg-black/55 backdrop-blur-sm"
+                            ? "text-gold border border-gold/40 bg-black/55 backdrop-blur-sm"
                             : "text-white/50 border border-white/15 bg-black/45 backdrop-blur-sm"
                         }`}>
                           {product.badge}
@@ -1373,12 +1377,13 @@ export default function Home() {
                       </div>
 
                       {/* Image — 80% of card, featured item slightly taller */}
-                      <div className={`relative overflow-hidden bg-[#0e0e10] flex-shrink-0 ${isFeatured ? "h-[180px] sm:h-[230px] md:h-[250px]" : "h-[160px] sm:h-[200px] md:h-[220px]"}`}>
+                      <div className={`relative overflow-hidden bg-[#0e0e10] flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
                         <img
                           src={product.img}
                           alt={`${product.name} — KiutRaba`}
                           loading="lazy"
-                          className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]`}
+                          decoding="async"
+                          className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]`}
                         />
                         {(isSpotlit || isFeatured) && (
                           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07),transparent_68%)] pointer-events-none" />
@@ -1394,8 +1399,11 @@ export default function Home() {
                           <p className="text-white/35 text-[10px] font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-white/22 text-[10px] font-light tracking-widest">$ –</span>
-                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-[#D4AF37]/32 text-[#D4AF37] text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/58 transition-all duration-300 whitespace-nowrap">
+                          <span className="inline-flex items-center gap-1 text-white/18 text-[9px] font-light tracking-wide">
+                            <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
+                            Dream Planet
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-[0_0_14px_rgba(212,175,55,0.2)] transition-all duration-300 whitespace-nowrap">
                             Shop Now <ExternalLink className="w-2 h-2" />
                           </span>
                         </div>
@@ -1411,11 +1419,11 @@ export default function Home() {
           <div className="mt-10">
             <div className="flex items-baseline justify-between mb-5">
               <div>
-                <p className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
+                <p className="text-gold text-[10px] font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
                 <p className="text-white/25 text-[11px] font-light tracking-wide">More From KiutRaba</p>
               </div>
               <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
-                <span className="text-white/28 text-[10px] font-light uppercase tracking-[0.28em] hover:text-[#D4AF37] transition-colors duration-200 cursor-pointer">
+                <span className="text-white/28 text-[10px] font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-200 cursor-pointer">
                   View All ↗
                 </span>
               </a>
@@ -1427,32 +1435,35 @@ export default function Home() {
                   { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
                   { name: "Hoodking",            img: "/assets/images/merch-outfit-red.jpg",   cover: false },
                   { name: "Classic Man",         img: "/assets/images/merch-shirt.jpg",        cover: false },
-                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
-                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
-                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
-                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
-                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
-                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
-                  { name: "Men's Baggy",         img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
-                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
-                  { name: "Hoodking",            img: "/assets/images/merch-outfit-red.jpg",   cover: false },
-                  { name: "Classic Man",         img: "/assets/images/merch-shirt.jpg",        cover: false },
-                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
-                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
-                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
-                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
-                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
-                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
-                  { name: "Men's Baggy",         img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.webp",    cover: false },
+                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.webp",       cover: false },
+                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.webp",  cover: false },
+                  { name: "Rababag Classic Cap",   img: "/assets/images/merch-cap-rababag.webp",  cover: false },
+                  { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.webp",   cover: false },
+                  { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.webp",  cover: true  },
+                  { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "Signature Hoodie",      img: "/assets/images/merch-hoodie.jpg",       cover: true  },
+                  { name: "Hoodking",              img: "/assets/images/merch-outfit-red.jpg",   cover: false },
+                  { name: "Classic Man",           img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.webp",    cover: false },
+                  { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.webp",       cover: false },
+                  { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.webp",  cover: false },
+                  { name: "Rababag Classic Cap",   img: "/assets/images/merch-cap-rababag.webp",  cover: false },
+                  { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.webp",   cover: false },
+                  { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.webp",  cover: true  },
+                  { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
                 ].map((p, i) => (
                   <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
-                    <div className="group relative flex-shrink-0 w-[160px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-[#D4AF37]/32 transition-all duration-300 hover:shadow-[0_10px_36px_rgba(0,0,0,0.55)] cursor-pointer">
-                      <div className="h-[130px] w-full bg-[#0e0e10]">
+                    <div className="group relative flex-shrink-0 w-[168px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/35 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 cursor-pointer">
+                      <div className="h-[142px] w-full bg-[#0e0e10]">
                         <img
                           src={p.img}
                           alt={p.name}
                           loading="lazy"
-                          className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07]`}
+                          decoding="async"
+                          className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.09]`}
                         />
                       </div>
                       <div className="px-3 py-2.5 bg-[#0a0a0c] border-t border-white/[0.05]">
@@ -1475,12 +1486,12 @@ export default function Home() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mt-14 text-center"
           >
-            <div className="h-px bg-gradient-to-r from-transparent via-[#D4AF37]/12 to-transparent mb-10" />
+            <div className="h-px bg-gradient-to-r from-transparent via-gold/12 to-transparent mb-10" />
             <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store">
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-[#D4AF37]/32 text-[#D4AF37] font-bold uppercase tracking-widest text-[11px] hover:bg-[#D4AF37]/[0.07] hover:border-[#D4AF37]/60 hover:shadow-[0_0_36px_rgba(212,175,55,0.18)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4AF37]"
+                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-gold/32 text-gold font-bold uppercase tracking-widest text-[11px] hover:bg-gold/[0.07] hover:border-gold/60 hover:shadow-[0_0_36px_rgba(212,175,55,0.18)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
               >
                 <span>✦</span> View Full Collection <ExternalLink className="w-4 h-4" />
               </motion.button>
@@ -1500,14 +1511,14 @@ export default function Home() {
           {/* Heading row */}
           <div className="flex flex-row items-end justify-between mb-10 md:mb-14 gap-4">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Official Visuals</p>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Official Visuals</p>
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white uppercase">
-                Latest <span className="text-[#D4AF37]">Visuals</span>
+                Latest <span className="text-gold">Visuals</span>
               </h2>
             </motion.div>
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="shrink-0">
               <Link href="/videos">
-                <span className="group flex items-center gap-1.5 text-white/45 hover:text-[#D4AF37] transition-colors cursor-pointer text-xs font-bold uppercase tracking-widest whitespace-nowrap">
+                <span className="group flex items-center gap-1.5 text-white/45 hover:text-gold transition-colors cursor-pointer text-xs font-bold uppercase tracking-widest whitespace-nowrap">
                   Watch All <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </Link>
@@ -1523,7 +1534,7 @@ export default function Home() {
             className="mb-6 md:mb-8"
           >
             <Link href="/videos">
-              <div className="group relative w-full rounded-2xl overflow-hidden cursor-pointer border border-white/8 hover:border-[#D4AF37]/30 transition-all duration-500 hover:shadow-[0_24px_60px_rgba(212,175,55,0.16)] aspect-video md:aspect-[21/9]">
+              <div className="group relative w-full rounded-2xl overflow-hidden cursor-pointer border border-white/8 hover:border-gold/30 transition-all duration-500 hover:shadow-[0_24px_60px_rgba(212,175,55,0.16)] aspect-video md:aspect-[21/9]">
                 <video
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   poster={videoGalleryCover}
@@ -1540,15 +1551,15 @@ export default function Home() {
                 <div className="absolute inset-0 flex items-end p-6 md:p-10">
                   <div className="flex items-end justify-between w-full gap-6">
                     <div>
-                      <span className="inline-block px-3 py-1.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/35 text-[#D4AF37] text-[9px] font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
+                      <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-[9px] font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
                         Official Video
                       </span>
                       <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-2 leading-tight">Good Life</h3>
                       <p className="text-white/50 text-sm font-light">Kiut · 2025</p>
                     </div>
                     <div className="flex flex-col items-center gap-2 shrink-0">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#D4AF37] flex items-center justify-center pl-1 shadow-[0_0_30px_rgba(212,175,55,0.45)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(212,175,55,0.7)] transition-all duration-300">
-                        <Play size={20} className="text-black" />
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-[0_0_30px_rgba(212,175,55,0.45)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(212,175,55,0.7)] transition-all duration-300">
+                        <Play size={20} className="text-midnight" />
                       </div>
                       <span className="text-white/45 text-[9px] font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
                     </div>
@@ -1573,6 +1584,85 @@ export default function Home() {
             </div>
           </motion.div>
 
+        </div>
+      </section>
+
+      {/* ─── CONCERT CTA SECTION ──────────────────────────────────────── */}
+      <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, #060606 0%, #090806 60%, #060606 100%)" }}>
+        {/* Atmospheric glows */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(212,175,55,0.07),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(212,175,55,0.04),transparent_50%)]" />
+
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center mb-14"
+          >
+            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Live Experiences</p>
+            <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-5">
+              See Kiut <span className="text-gold">Live</span>
+            </h2>
+            <p className="text-white/40 text-base font-light max-w-lg mx-auto leading-relaxed">
+              Raw energy. Cinematic performance. Experience the music the way it was meant to be felt — live.
+            </p>
+          </motion.div>
+
+          {/* Coming Soon State */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-3xl overflow-hidden border border-white/[0.07] relative"
+            style={{ background: "#0a0a0a" }}
+          >
+            {/* Decorative top bar */}
+            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+
+            <div className="px-8 md:px-16 py-14 md:py-20 flex flex-col md:flex-row items-center gap-12">
+              {/* Left — icon + copy */}
+              <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border border-gold/20"
+                  style={{ background: "rgba(212,175,55,0.06)" }}>
+                  <Music className="w-7 h-7 text-gold" />
+                </div>
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/25 text-gold text-[9px] font-bold uppercase tracking-[0.35em] mb-5"
+                  style={{ background: "rgba(212,175,55,0.05)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                  Dates Coming Soon
+                </span>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
+                  Tour Dates<br />Dropping Soon
+                </h3>
+                <p className="text-white/38 text-[14px] font-light leading-relaxed max-w-sm">
+                  Be the first to know when Kiut announces shows in your city. Sign up to the newsletter and never miss a date.
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="hidden md:block w-px h-48 bg-gradient-to-b from-transparent via-white/8 to-transparent" />
+
+              {/* Right — CTA */}
+              <div className="flex flex-col items-center md:items-end gap-6">
+                <div className="flex flex-col gap-3 w-full md:w-auto">
+                  <Link href="/tour">
+                    <motion.button
+                      data-testid="button-concert-notify"
+                      whileHover={{ y: -3, scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                    >
+                      View Tour Dates <ArrowRight size={14} />
+                    </motion.button>
+                  </Link>
+                  <p className="text-center text-white/18 text-[10px] font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1604,9 +1694,9 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-[#D4AF37] text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Behind the Scenes</p>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Behind the Scenes</p>
               <h2 className="font-display text-4xl font-bold tracking-tight text-white uppercase">
-                Moments From <span className="text-[#D4AF37]">the Journey</span>
+                Moments From <span className="text-gold">the Journey</span>
               </h2>
             </motion.div>
             <motion.div
@@ -1615,7 +1705,7 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <Link href="/about#moments">
-                <span className="group flex items-center gap-2 text-white/60 hover:text-[#D4AF37] transition-colors cursor-pointer text-sm font-medium uppercase tracking-widest">
+                <span className="group flex items-center gap-2 text-white/60 hover:text-gold transition-colors cursor-pointer text-sm font-medium uppercase tracking-widest">
                   View All Moments <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </Link>
@@ -1630,7 +1720,7 @@ export default function Home() {
               gradImage1, heroImage, gradImage2, gradImage3, momentImg4, momentImg5, momentImg6, momentImg7].map((img, i) => (
               <div
                 key={i}
-                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-[#D4AF37]/40 transition-all duration-300 cursor-pointer"
+                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-300 cursor-pointer"
               >
                 <img
                   src={img}
@@ -1639,7 +1729,7 @@ export default function Home() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300" />
               </div>
             ))}
           </div>
@@ -1652,7 +1742,7 @@ export default function Home() {
               momentImg7, momentImg6, gradImage3, momentImg5, gradImage1, momentImg4, heroImage, gradImage2].map((img, i) => (
               <div
                 key={i}
-                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-[#D4AF37]/40 transition-all duration-300 cursor-pointer"
+                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-300 cursor-pointer"
               >
                 <img
                   src={img}
@@ -1661,10 +1751,206 @@ export default function Home() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300" />
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── FAN COMMUNITY SECTION ───────────────────────────────────── */}
+      <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden bg-midnight">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(109,62,255,0.07),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(212,175,55,0.04),transparent_55%)]" />
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center mb-14"
+          >
+            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">The Inner Circle</p>
+            <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-5">
+              Fan <span className="text-gold">Community</span>
+            </h2>
+            <p className="text-white/40 text-base font-light max-w-lg mx-auto leading-relaxed">
+              Join a growing community of fans connected by the music, the culture, and the journey.
+            </p>
+          </motion.div>
+
+          {/* Two-tier cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12">
+            {/* Regular — Standard Tier */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="relative rounded-3xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
+              style={{ background: "#0c0c0c" }}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(255,255,255,0.03),transparent_60%)]" />
+              <div className="relative z-10">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/15 text-white/50 text-[9px] font-bold uppercase tracking-[0.35em] mb-6">
+                  Fan Member
+                </span>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">Standard</h3>
+                <p className="text-white/35 text-sm font-light leading-relaxed mb-8">
+                  Stay connected with updates, music drops, and exclusive behind-the-scenes content delivered to your inbox.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {["Newsletter updates", "Early music releases", "Behind-the-scenes access", "Event announcements"].map(item => (
+                    <li key={item} className="flex items-center gap-3 text-white/55 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/30 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/newsletter">
+                  <motion.button
+                    data-testid="button-fan-standard"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full py-3.5 rounded-full border border-white/15 text-white/70 hover:text-white hover:border-white/30 font-bold uppercase tracking-widest text-[11px] transition-all duration-300"
+                  >
+                    Join Free
+                  </motion.button>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Premium — Fan Card Tier */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="relative rounded-3xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-[0_0_60px_rgba(212,175,55,0.07)]"
+              style={{ background: "linear-gradient(145deg,#0d0b07 0%,#0c0a06 100%)" }}
+            >
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(212,175,55,0.08),transparent_60%)]" />
+              {/* Featured badge */}
+              <div className="absolute top-5 right-5 z-10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-[var(--glow-gold)]">
+                  <span>✦</span> Premium
+                </span>
+              </div>
+              <div className="relative z-10">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-gold/30 text-gold text-[9px] font-bold uppercase tracking-[0.35em] mb-6"
+                  style={{ background: "rgba(212,175,55,0.06)" }}>
+                  Fan Card Member
+                </span>
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">
+                  Inner Circle
+                </h3>
+                <p className="text-white/45 text-sm font-light leading-relaxed mb-8">
+                  The premium fan experience. Exclusive perks, priority access, and a direct connection to the Kiut world.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {["Everything in Standard", "Fan Card (digital)", "VIP event access", "Exclusive merch drops", "Meet & greet opportunities"].map(item => (
+                    <li key={item} className="flex items-center gap-3 text-white/65 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold/60 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/newsletter">
+                  <motion.button
+                    data-testid="button-fan-premium"
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                  >
+                    Apply for Fan Card
+                  </motion.button>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Social proof row */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-center"
+          >
+            <div className="flex items-center gap-2">
+              <Instagram className="w-4 h-4 text-gold/60" />
+              <a href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-[11px] font-medium tracking-wider uppercase">@kiut_rababag</a>
+            </div>
+            <div className="hidden sm:block w-px h-4 bg-white/10" />
+            <div className="flex items-center gap-2">
+              <Youtube className="w-4 h-4 text-gold/60" />
+              <a href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-[11px] font-medium tracking-wider uppercase">@kiutrabatv</a>
+            </div>
+            <div className="hidden sm:block w-px h-4 bg-white/10" />
+            <span className="text-white/18 text-[10px] uppercase tracking-[0.3em]">Global Community</span>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── NEWSLETTER CTA SECTION ──────────────────────────────────── */}
+      <section className="py-20 md:py-28 relative border-t border-white/5 overflow-hidden" style={{ background: "#050505" }}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(212,175,55,0.05),transparent_65%)]" />
+
+        <div className="max-w-2xl mx-auto px-6 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeInOut", delay: 0.1 }}
+              className="w-8 h-[2px] mx-auto mb-8 origin-center bg-gold/50"
+            />
+            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Stay Connected</p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-snug uppercase mb-5 text-white">
+              Join the<br /><span className="text-gold">Inner Circle</span>
+            </h2>
+            <p className="text-white/38 text-base font-light leading-relaxed mb-10 max-w-md mx-auto">
+              Exclusive music drops, behind-the-scenes content, tour announcements, and merch access — straight to your inbox.
+            </p>
+
+            <form
+              data-testid="form-newsletter-home"
+              className="relative max-w-md mx-auto mb-4"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                data-testid="input-newsletter-email"
+                type="email"
+                placeholder="Enter your email address"
+                className="w-full bg-white/[0.04] border border-white/[0.09] rounded-full px-6 py-4 text-white text-sm placeholder:text-white/25 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all pr-36"
+              />
+              <motion.button
+                data-testid="button-newsletter-submit"
+                type="submit"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors duration-200"
+              >
+                Subscribe
+              </motion.button>
+            </form>
+            <p className="text-white/18 text-[10px] uppercase tracking-[0.28em]">No spam. Unsubscribe anytime.</p>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeInOut", delay: 0.3 }}
+              className="w-8 h-[2px] mx-auto mt-10 origin-center bg-gold/30"
+            />
+          </motion.div>
         </div>
       </section>
 

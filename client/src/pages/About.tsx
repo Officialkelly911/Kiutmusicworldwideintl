@@ -26,7 +26,7 @@ const img_courtyard   = "/assets/images/about-moments-coast.jpg";
 const img_sneakers    = "/assets/images/IMG_1254_1774433277988.jpeg";
 const img_mixing      = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg";
 const img_synth       = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg";
-const img_icon        = "/assets/images/about-icon-statement.png";
+const img_icon        = "/assets/images/about-icon-statement.webp";
 const img_momentLawnWide = "/assets/images/times_square_1774440627098.jpeg";
 const img_momentGardenSeat = "/assets/images/about-moments-garden-seat.jpg";
 const img_momentLounge = "/assets/images/about-moments-lounge.jpg";
@@ -1408,7 +1408,7 @@ export default function About() {
               {[
                 { img: "/assets/images/merch-hoodie.jpg",        name: "Signature Hoodie",    cover: true  },
                 { img: "/assets/images/merch-baggy-jeans.jpg",  name: "KR Baggy Jeans",      cover: false },
-                { img: "/assets/images/merch-goodlife-ep.png",  name: "Goodlife Digital EP", cover: true  },
+                { img: "/assets/images/merch-goodlife-ep.webp",  name: "Goodlife Digital EP", cover: true  },
               ].map((item) => (
                 <motion.a
                   key={item.name}

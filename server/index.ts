@@ -1,10 +1,28 @@
 import express, { type Request, Response, NextFunction } from "express";
+import compression from "compression";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
 
 const app = express();
 const httpServer = createServer(app);
+
+// ── Gzip/Brotli compression (production only) ─────────────────────────────────
+// Compresses all text responses (HTML, JS, CSS, JSON, SVG) before sending.
+// Skips dev so Vite HMR websocket payloads are never interfered with.
+if (process.env.NODE_ENV === "production") {
+  app.use(compression({
+    // Only compress responses > 1KB (below threshold is not worth the CPU)
+    threshold: 1024,
+    // Compression level 6 — good balance of speed vs ratio
+    level: 6,
+    filter: (req, res) => {
+      // Don't compress SSE streams or already-encoded responses
+      if (req.headers["x-no-compression"]) return false;
+      return compression.filter(req, res);
+    },
+  }));
+}
 
 declare module "http" {
   interface IncomingMessage {

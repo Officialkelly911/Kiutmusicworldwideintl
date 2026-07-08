@@ -2,13 +2,15 @@ import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Mail, Send, MessageSquare, Mic2, Newspaper, Briefcase,
-  Instagram, Youtube, Music2, PlayCircle, Radio, ArrowRight,
-  CheckCircle2, Globe, Users, Heart, ChevronRight,
+  ArrowRight, CheckCircle2, Globe, Users, Heart, ChevronRight,
 } from "lucide-react";
+import {
+  SiSpotify, SiApplemusic, SiAudiomack,
+  SiInstagram, SiYoutube, SiLinktree,
+} from "react-icons/si";
 import { useState, useRef } from "react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
-import LinktreeIcon from "../components/LinktreeIcon";
 
 const MotionLink = motion.create(Link) as unknown as React.FC<
   React.ComponentProps<typeof Link> & {
@@ -78,7 +80,7 @@ const socialLinks = [
   {
     label: "Spotify",
     sub: "Kiut Music",
-    icon: Music2,
+    icon: SiSpotify,
     href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ",
     color: "from-green-500/10 to-emerald-700/10",
     border: "hover:border-green-500/30",
@@ -87,7 +89,7 @@ const socialLinks = [
   {
     label: "Apple Music",
     sub: "Kiut",
-    icon: PlayCircle,
+    icon: SiApplemusic,
     href: "https://music.apple.com/artist/kiut",
     color: "from-rose-400/10 to-pink-600/10",
     border: "hover:border-rose-400/30",
@@ -96,7 +98,7 @@ const socialLinks = [
   {
     label: "Audiomack",
     sub: "@kiutrabatv",
-    icon: Radio,
+    icon: SiAudiomack,
     href: "https://audiomack.com/kiutrabatv",
     color: "from-orange-500/10 to-amber-600/10",
     border: "hover:border-orange-500/30",
@@ -105,7 +107,7 @@ const socialLinks = [
   {
     label: "Linktree",
     sub: "@kiutmusic",
-    icon: null,
+    icon: SiLinktree,
     href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
     color: "from-green-400/10 to-lime-600/10",
     border: "hover:border-green-400/30",
@@ -329,11 +331,7 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
       className={`group relative flex items-center gap-4 p-5 rounded-2xl border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-all duration-300`}
     >
       <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-200 flex-shrink-0`}>
-        {Icon ? (
-          <Icon size={20} />
-        ) : (
-          <LinktreeIcon size={20} />
-        )}
+        <Icon size={20} />
       </div>
       <div className="min-w-0">
         <p className="text-white/75 text-sm font-semibold group-hover:text-white transition-colors duration-200 truncate">{link.label}</p>
@@ -596,9 +594,9 @@ export default function Contact() {
                 {/* Mini social row */}
                 <div className="flex items-center gap-3 flex-wrap">
                   {[
-                    { href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", Icon: Instagram, label: "Instagram" },
-                    { href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo", Icon: Youtube, label: "YouTube" },
-                    { href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb", Icon: null, label: "Linktree" },
+                    { href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", Icon: SiInstagram, label: "Instagram" },
+                    { href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo", Icon: SiYoutube, label: "YouTube" },
+                    { href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb", Icon: SiLinktree, label: "Linktree" },
                   ].map(({ href, Icon, label }) => (
                     <motion.a
                       key={label}
@@ -610,7 +608,7 @@ export default function Contact() {
                       whileTap={{ scale: 0.95 }}
                       className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.03] text-white/40 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold)] transition-all duration-250"
                     >
-                      {Icon ? <Icon size={18} /> : <LinktreeIcon size={18} />}
+                      <Icon size={18} aria-hidden="true" />
                     </motion.a>
                   ))}
                   <motion.a

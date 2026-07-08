@@ -1,0 +1,213 @@
+The website should include a subtle designer credit across the footer of every page.
+
+The objective is to professionally acknowledge the website designer without distracting from the Kiut Music brand or altering the premium aesthetic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add a tasteful designer credit that reads:
+
+"Designed & Developed by Kelly"
+
+The credit should feel like a professional studio signature rather than promotional advertising.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMPLEMENTATION REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Audit the Footer
+
+• Locate the shared Footer component.
+• If multiple footer implementations exist, consolidate them into a single reusable Footer component where appropriate.
+• Apply the designer credit consistently across every page that uses the footer.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2. Placement
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Position the designer credit beneath the copyright notice.
+
+Example:
+
+© 2026 Kiut Music. All Rights Reserved.
+
+Designed & Developed by Kelly
+
+The spacing should feel balanced and elegant.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+3. Typography
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The designer credit should:
+
+• Use the site's existing body font.
+• Be one typography level smaller than the copyright text.
+• Use a light or regular font weight.
+• Maintain consistent line height.
+• Preserve readability.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+4. Color Styling
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Default:
+
+• Soft gray
+• Approximately 70% opacity
+
+Hover:
+
+• Transition smoothly to the site's premium gold accent.
+• Slight increase in brightness.
+• No flashing effects.
+• No excessive animations.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. Interaction
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Make "Kelly" clickable.
+
+Temporarily link it to:
+
+"#"
+
+or an easily replaceable placeholder URL.
+
+The link should later be replaceable with:
+
+• Portfolio
+• LinkedIn
+• GitHub
+• Personal website
+
+without modifying the component structure.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. Animation
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use subtle interactions only.
+
+Examples:
+
+• Soft fade
+• Slight color transition
+• Optional 1–2px upward movement
+
+Animation duration:
+
+200–300ms
+
+Avoid dramatic motion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+7. Responsive Design
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure the designer credit displays correctly on:
+
+• Desktop
+• Laptop
+• Tablet
+• Mobile
+
+Text should remain centered (or follow the existing footer alignment).
+
+Prevent overflow or wrapping issues.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. Accessibility
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure:
+
+• Proper semantic link
+• Keyboard focus support
+• Visible focus state
+• Accessible color contrast
+• ARIA label for the designer link
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+9. Preserve Existing Footer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT modify:
+
+• Footer layout
+• Footer navigation
+• Social icons
+• Newsletter section
+• Background
+• Existing typography hierarchy
+• Existing spacing
+• Existing branding
+
+Only extend the footer by adding the designer credit.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+10. Performance
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The addition should:
+
+• Not introduce unnecessary dependencies.
+• Not affect Lighthouse performance.
+• Not affect layout stability.
+• Not increase bundle size significantly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+11. Code Quality
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Reuse the existing Footer component.
+• Avoid duplicated footer code.
+• Keep the implementation modular.
+• Document the new designer credit section.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+12. Future Flexibility
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement the designer credit so that the displayed name and destination URL can easily be changed from a single configuration value without editing multiple files.
+
+Example:
+
+Designer Name:
+Kelly
+
+Designer URL:
+Placeholder
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+13. Quality Assurance
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before completing the work verify:
+
+✓ Designer credit appears on every page.
+✓ Typography matches the site's design system.
+✓ Hover effect works smoothly.
+✓ Responsive layout remains intact.
+✓ Accessibility passes.
+✓ No layout shifts occur.
+✓ Footer visual hierarchy remains unchanged.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+14. Completion Report
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Provide a report containing:
+
+• Footer files modified.
+• Components updated.
+• Configuration added.
+• Responsive verification.
+• Accessibility verification.
+• Confirmation that the designer credit has been successfully integrated across the entire website.
+
+IMPORTANT
+
+The final implementation should feel like a discreet signature from a professional web studio. It should enhance the craftsmanship of the website without drawing attention away from Kiut Music or competing with the artist's branding. The credit should remain elegant, minimal, timeless, and fully consistent with the premium cinematic design language established throughout the site.

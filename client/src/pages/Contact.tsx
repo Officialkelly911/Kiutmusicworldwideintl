@@ -2,13 +2,15 @@ import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Mail, Send, MessageSquare, Mic2, Newspaper, Briefcase,
-  Instagram, Youtube, Music2, PlayCircle, Radio, ArrowRight,
-  CheckCircle2, Globe, Users, Heart, ChevronRight,
+  ArrowRight, CheckCircle2, Globe, Users, Heart, ChevronRight,
 } from "lucide-react";
+import {
+  SiSpotify, SiApplemusic, SiAudiomack,
+  SiInstagram, SiYoutube, SiLinktree,
+} from "react-icons/si";
 import { useState, useRef } from "react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
-import LinktreeIcon from "../components/LinktreeIcon";
 
 const MotionLink = motion.create(Link) as unknown as React.FC<
   React.ComponentProps<typeof Link> & {
@@ -60,7 +62,7 @@ const socialLinks = [
   {
     label: "Instagram",
     sub: "@kiut_rababag",
-    icon: Instagram,
+    icon: SiInstagram,
     href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     color: "from-pink-500/10 to-rose-600/10",
     border: "hover:border-pink-500/30",
@@ -69,7 +71,7 @@ const socialLinks = [
   {
     label: "YouTube",
     sub: "@kiutrabatv",
-    icon: Youtube,
+    icon: SiYoutube,
     href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
     color: "from-red-500/10 to-red-700/10",
     border: "hover:border-red-500/30",
@@ -78,7 +80,7 @@ const socialLinks = [
   {
     label: "Spotify",
     sub: "Kiut Music",
-    icon: Music2,
+    icon: SiSpotify,
     href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ",
     color: "from-green-500/10 to-emerald-700/10",
     border: "hover:border-green-500/30",
@@ -87,7 +89,7 @@ const socialLinks = [
   {
     label: "Apple Music",
     sub: "Kiut",
-    icon: PlayCircle,
+    icon: SiApplemusic,
     href: "https://music.apple.com/artist/kiut",
     color: "from-rose-400/10 to-pink-600/10",
     border: "hover:border-rose-400/30",
@@ -96,7 +98,7 @@ const socialLinks = [
   {
     label: "Audiomack",
     sub: "@kiutrabatv",
-    icon: Radio,
+    icon: SiAudiomack,
     href: "https://audiomack.com/kiutrabatv",
     color: "from-orange-500/10 to-amber-600/10",
     border: "hover:border-orange-500/30",
@@ -105,7 +107,7 @@ const socialLinks = [
   {
     label: "Linktree",
     sub: "@kiutmusic",
-    icon: null,
+    icon: SiLinktree,
     href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
     color: "from-green-400/10 to-lime-600/10",
     border: "hover:border-green-400/30",
@@ -132,17 +134,41 @@ const communityStats = [
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 function ContactForm() {
   const [activeType, setActiveType] = useState("general");
-  const [name, setName]     = useState("");
-  const [email, setEmail]   = useState("");
+  const [name, setName]       = useState("");
+  const [email, setEmail]     = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted]   = useState(false);
+  const [loading, setLoading]       = useState(false);
+  const [errorMsg, setErrorMsg]     = useState<string | null>(null);
 
   const active = enquiryTypes.find(t => t.id === activeType)!;
   const Icon   = active.icon;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && message) setSubmitted(true);
+    setErrorMsg(null);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name:        name.trim() || undefined,
+          email:       email.trim(),
+          subject:     subject.trim() || active.label,
+          enquiryType: activeType,
+          message:     message.trim(),
+        }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.message || "Something went wrong.");
+      setSubmitted(true);
+    } catch (err: any) {
+      setErrorMsg(err.message ?? "We couldn't send your message. Please try again shortly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -203,8 +229,8 @@ function ContactForm() {
                 {/* Name + Email row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {[
-                    { id: "name",  label: "Your Name",          type: "text",  value: name,  set: setName,  required: false },
-                    { id: "email", label: "Email Address",       type: "email", value: email, set: setEmail, required: true  },
+                    { id: "name",  label: "Your Name",    type: "text",  value: name,  set: setName,  required: false },
+                    { id: "email", label: "Email Address", type: "email", value: email, set: setEmail, required: true  },
                   ].map((field) => (
                     <div key={field.id} className="relative group">
                       <input
@@ -225,6 +251,27 @@ function ContactForm() {
                       <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-500" />
                     </div>
                   ))}
+                </div>
+
+                {/* Subject */}
+                <div className="relative group">
+                  <input
+                    id="subject"
+                    type="text"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    required
+                    placeholder=" "
+                    maxLength={200}
+                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] transition-all duration-300 peer placeholder-transparent"
+                  />
+                  <label
+                    htmlFor="subject"
+                    className="absolute text-white/35 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
+                  >
+                    Subject *
+                  </label>
+                  <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-500" />
                 </div>
 
                 {/* Message */}
@@ -259,14 +306,36 @@ function ContactForm() {
                   <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-500" />
                 </div>
 
+                {/* Error message */}
+                {errorMsg && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400/80 text-[12px] text-center leading-relaxed px-2"
+                  >
+                    {errorMsg}
+                  </motion.p>
+                )}
+
                 {/* Submit */}
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                  disabled={loading}
+                  whileHover={loading ? {} : { scale: 1.02, y: -2 }}
+                  whileTap={loading ? {} : { scale: 0.97 }}
+                  className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message <Send size={13} />
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                      </svg>
+                      Sending…
+                    </>
+                  ) : (
+                    <>Send Message <Send size={13} /></>
+                  )}
                 </motion.button>
 
                 <p className="text-center text-white/20 text-[10px] tracking-[0.2em] uppercase">
@@ -296,7 +365,7 @@ function ContactForm() {
                 Your message has been received. You'll hear back within 48–72 hours.
               </p>
               <button
-                onClick={() => { setSubmitted(false); setName(""); setEmail(""); setMessage(""); setActiveType("general"); }}
+                onClick={() => { setSubmitted(false); setName(""); setEmail(""); setSubject(""); setMessage(""); setActiveType("general"); setErrorMsg(null); }}
                 className="text-white/30 hover:text-white/60 text-[11px] uppercase tracking-widest transition-colors"
               >
                 Send Another Message
@@ -329,11 +398,7 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
       className={`group relative flex items-center gap-4 p-5 rounded-2xl border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-all duration-300`}
     >
       <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-200 flex-shrink-0`}>
-        {Icon ? (
-          <Icon size={20} />
-        ) : (
-          <LinktreeIcon size={20} />
-        )}
+        <Icon size={20} />
       </div>
       <div className="min-w-0">
         <p className="text-white/75 text-sm font-semibold group-hover:text-white transition-colors duration-200 truncate">{link.label}</p>
@@ -596,9 +661,9 @@ export default function Contact() {
                 {/* Mini social row */}
                 <div className="flex items-center gap-3 flex-wrap">
                   {[
-                    { href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", Icon: Instagram, label: "Instagram" },
-                    { href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo", Icon: Youtube, label: "YouTube" },
-                    { href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb", Icon: null, label: "Linktree" },
+                    { href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", Icon: SiInstagram, label: "Instagram" },
+                    { href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo", Icon: SiYoutube, label: "YouTube" },
+                    { href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb", Icon: SiLinktree, label: "Linktree" },
                   ].map(({ href, Icon, label }) => (
                     <motion.a
                       key={label}
@@ -610,7 +675,7 @@ export default function Contact() {
                       whileTap={{ scale: 0.95 }}
                       className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.03] text-white/40 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold)] transition-all duration-250"
                     >
-                      {Icon ? <Icon size={18} /> : <LinktreeIcon size={18} />}
+                      <Icon size={18} aria-hidden="true" />
                     </motion.a>
                   ))}
                   <motion.a

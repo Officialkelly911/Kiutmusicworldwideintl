@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "nix"]
+modules = ["nodejs-20", "web", "nix", "postgresql-16", "python-base-3.13"]
 [agent]
 expertMode = true
 stack = "FULLSTACK_JS"
@@ -38,7 +38,17 @@ externalPort = 80
 localPort = 5001
 externalPort = 3001
 
+[[ports]]
+localPort = 23636
+externalPort = 3002
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["node", "./dist/index.cjs"]
 build = ["npm", "run", "build"]
+
+[userenv]
+
+[userenv.shared]
+CONTACT_EMAIL = "contact@kiutmusic.com"
+CONTACT_FROM_EMAIL = "Kiut Music <onboarding@resend.dev>"

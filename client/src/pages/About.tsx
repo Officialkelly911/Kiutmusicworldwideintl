@@ -5,34 +5,34 @@ import SiteFooter from "../components/SiteFooter";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
 
-const artistPhoto    = "/assets/images/IMG_2452_1772753968062.jpg";
+const artistPhoto    = "/assets/images/IMG_2452_1772753968062.webp";
 const aboutHeroVideo = "/assets/videos/about-hero.mp4";
-const aboutHeroPoster = "/assets/images/about-hero-poster.jpg";
-const img_editorial1  = "/assets/images/IMG_4994_1774430840570.jpeg";
-const img_editorial2  = "/assets/images/IMG_0682_1774430840570.jpeg";
-const img_editorial3  = "/assets/images/IMG_0850_1774430840570.jpeg";
-const img_studio1     = "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701227223296_1095425_1774430915892.jpeg";
-const img_studio2     = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985993282385_1095425_1774430915892.jpeg";
-const img_studio3     = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985976478358_1095425_1774430915892.jpeg";
-const img_milestoneLA = "/assets/images/anonyig.io_Instagram_kiut_rababag_3786107874124605259_1095425_1774430915892.jpeg";
-const img_nigeria1    = "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.jpeg";
-const img_nigeria2    = "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.jpeg";
-const img_tunnel      = "/assets/images/Hero1.jpeg";
-const img_palms       = "/assets/images/IMG_2027_1774430840570.jpeg";
-const img_desert      = "/assets/images/about-moments-stone-seat.jpg";
-const img_gallery     = "/assets/images/IMG_0162_1774430840570.jpeg";
-const img_museum      = "/assets/images/about-moments-garden-seat.jpg";
-const img_courtyard   = "/assets/images/about-moments-coast.jpg";
-const img_sneakers    = "/assets/images/IMG_1254_1774433277988.jpeg";
-const img_mixing      = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg";
-const img_synth       = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg";
+const aboutHeroPoster = "/assets/images/about-hero-poster.webp";
+const img_editorial1  = "/assets/images/IMG_4994_1774430840570.webp";
+const img_editorial2  = "/assets/images/IMG_0682_1774430840570.webp";
+const img_editorial3  = "/assets/images/IMG_0850_1774430840570.webp";
+const img_studio1     = "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701227223296_1095425_1774430915892.webp";
+const img_studio2     = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985993282385_1095425_1774430915892.webp";
+const img_studio3     = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985976478358_1095425_1774430915892.webp";
+const img_milestoneLA = "/assets/images/anonyig.io_Instagram_kiut_rababag_3786107874124605259_1095425_1774430915892.webp";
+const img_nigeria1    = "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.webp";
+const img_nigeria2    = "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.webp";
+const img_tunnel      = "/assets/images/Hero1.webp";
+const img_palms       = "/assets/images/IMG_2027_1774430840570.webp";
+const img_desert      = "/assets/images/about-moments-stone-seat.webp";
+const img_gallery     = "/assets/images/IMG_0162_1774430840570.webp";
+const img_museum      = "/assets/images/about-moments-garden-seat.webp";
+const img_courtyard   = "/assets/images/about-moments-coast.webp";
+const img_sneakers    = "/assets/images/IMG_1254_1774433277988.webp";
+const img_mixing      = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.webp";
+const img_synth       = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.webp";
 const img_icon        = "/assets/images/about-icon-statement.webp";
-const img_momentLawnWide = "/assets/images/times_square_1774440627098.jpeg";
-const img_momentGardenSeat = "/assets/images/about-moments-garden-seat.jpg";
-const img_momentLounge = "/assets/images/about-moments-lounge.jpg";
-const img_momentCoast = "/assets/images/about-moments-coast.jpg";
-const img_momentLeather = "/assets/images/about-moments-leather-pose.jpg";
-const img_momentStoneSeat = "/assets/images/about-moments-stone-seat.jpg";
+const img_momentLawnWide = "/assets/images/times_square_1774440627098.webp";
+const img_momentGardenSeat = "/assets/images/about-moments-garden-seat.webp";
+const img_momentLounge = "/assets/images/about-moments-lounge.webp";
+const img_momentCoast = "/assets/images/about-moments-coast.webp";
+const img_momentLeather = "/assets/images/about-moments-leather-pose.webp";
+const img_momentStoneSeat = "/assets/images/about-moments-stone-seat.webp";
 
 const milestones = [
   {
@@ -114,73 +114,73 @@ const collageImages: CollageItem[] = [
   { src: img_momentStoneSeat,  alt: "Kiut seated on stone steps",          label: "Still Moment",   col: "md:col-span-1", row: "md:row-span-1", mobileOrder: 20, objectPos: "object-center" },
 ];
 
+// upload-030.jpg does not exist on disk — removed to prevent broken image links.
 const uploadedJourneyImages = [
-  "/assets/about-journey/upload-001.jpg",
-  "/assets/about-journey/upload-002.jpg",
-  "/assets/about-journey/upload-003.jpg",
-  "/assets/about-journey/upload-004.jpg",
-  "/assets/about-journey/upload-005.jpg",
-  "/assets/about-journey/upload-006.jpg",
-  "/assets/about-journey/upload-007.jpg",
-  "/assets/about-journey/upload-008.jpg",
-  "/assets/about-journey/upload-009.jpg",
-  "/assets/about-journey/upload-010.jpg",
-  "/assets/about-journey/upload-011.jpg",
-  "/assets/about-journey/upload-012.jpg",
-  "/assets/about-journey/upload-013.jpg",
-  "/assets/about-journey/upload-014.jpg",
-  "/assets/about-journey/upload-015.jpg",
-  "/assets/about-journey/upload-016.jpg",
-  "/assets/about-journey/upload-017.jpg",
-  "/assets/about-journey/upload-018.jpg",
-  "/assets/about-journey/upload-019.jpg",
-  "/assets/about-journey/upload-020.jpg",
-  "/assets/about-journey/upload-021.jpg",
-  "/assets/about-journey/upload-022.jpg",
-  "/assets/about-journey/upload-023.jpg",
-  "/assets/about-journey/upload-024.jpg",
-  "/assets/about-journey/upload-025.jpg",
-  "/assets/about-journey/upload-026.jpg",
-  "/assets/about-journey/upload-027.jpg",
-  "/assets/about-journey/upload-028.jpg",
-  "/assets/about-journey/upload-029.jpg",
-  "/assets/about-journey/upload-030.jpg",
-  "/assets/about-journey/upload-031.jpg",
-  "/assets/about-journey/upload-032.jpg",
-  "/assets/about-journey/upload-033.jpg",
-  "/assets/about-journey/upload-034.jpg",
-  "/assets/about-journey/upload-035.jpg",
-  "/assets/about-journey/upload-036.jpg",
-  "/assets/about-journey/upload-037.jpg",
-  "/assets/about-journey/upload-038.jpg",
-  "/assets/about-journey/upload-039.jpg",
-  "/assets/about-journey/upload-040.jpg",
-  "/assets/about-journey/upload-041.jpg",
-  "/assets/about-journey/upload-042.jpg",
-  "/assets/about-journey/upload-043.jpg",
-  "/assets/about-journey/upload-044.jpg",
-  "/assets/about-journey/upload-045.jpg",
-  "/assets/about-journey/upload-046.jpg",
-  "/assets/about-journey/upload-047.jpg",
-  "/assets/about-journey/upload-048.jpg",
-  "/assets/about-journey/upload-049.jpg",
-  "/assets/about-journey/upload-050.jpg",
-  "/assets/about-journey/upload-051.jpg",
-  "/assets/about-journey/upload-052.jpg",
-  "/assets/about-journey/upload-053.jpg",
-  "/assets/about-journey/upload-054.jpg",
-  "/assets/about-journey/upload-055.jpg",
-  "/assets/about-journey/upload-056.jpg",
-  "/assets/about-journey/upload-057.jpg",
-  "/assets/about-journey/upload-058.jpeg",
-  "/assets/about-journey/upload-059.jpeg",
+  "/assets/about-journey/upload-001.webp",
+  "/assets/about-journey/upload-002.webp",
+  "/assets/about-journey/upload-003.webp",
+  "/assets/about-journey/upload-004.webp",
+  "/assets/about-journey/upload-005.webp",
+  "/assets/about-journey/upload-006.webp",
+  "/assets/about-journey/upload-007.webp",
+  "/assets/about-journey/upload-008.webp",
+  "/assets/about-journey/upload-009.webp",
+  "/assets/about-journey/upload-010.webp",
+  "/assets/about-journey/upload-011.webp",
+  "/assets/about-journey/upload-012.webp",
+  "/assets/about-journey/upload-013.webp",
+  "/assets/about-journey/upload-014.webp",
+  "/assets/about-journey/upload-015.webp",
+  "/assets/about-journey/upload-016.webp",
+  "/assets/about-journey/upload-017.webp",
+  "/assets/about-journey/upload-018.webp",
+  "/assets/about-journey/upload-019.webp",
+  "/assets/about-journey/upload-020.webp",
+  "/assets/about-journey/upload-021.webp",
+  "/assets/about-journey/upload-022.webp",
+  "/assets/about-journey/upload-023.webp",
+  "/assets/about-journey/upload-024.webp",
+  "/assets/about-journey/upload-025.webp",
+  "/assets/about-journey/upload-026.webp",
+  "/assets/about-journey/upload-027.webp",
+  "/assets/about-journey/upload-028.webp",
+  "/assets/about-journey/upload-029.webp",
+  "/assets/about-journey/upload-031.webp",
+  "/assets/about-journey/upload-032.webp",
+  "/assets/about-journey/upload-033.webp",
+  "/assets/about-journey/upload-034.webp",
+  "/assets/about-journey/upload-035.webp",
+  "/assets/about-journey/upload-036.webp",
+  "/assets/about-journey/upload-037.webp",
+  "/assets/about-journey/upload-038.webp",
+  "/assets/about-journey/upload-039.webp",
+  "/assets/about-journey/upload-040.webp",
+  "/assets/about-journey/upload-041.webp",
+  "/assets/about-journey/upload-042.webp",
+  "/assets/about-journey/upload-043.webp",
+  "/assets/about-journey/upload-044.webp",
+  "/assets/about-journey/upload-045.webp",
+  "/assets/about-journey/upload-046.webp",
+  "/assets/about-journey/upload-047.webp",
+  "/assets/about-journey/upload-048.webp",
+  "/assets/about-journey/upload-049.webp",
+  "/assets/about-journey/upload-050.webp",
+  "/assets/about-journey/upload-051.webp",
+  "/assets/about-journey/upload-052.webp",
+  "/assets/about-journey/upload-053.webp",
+  "/assets/about-journey/upload-054.webp",
+  "/assets/about-journey/upload-055.webp",
+  "/assets/about-journey/upload-056.webp",
+  "/assets/about-journey/upload-057.webp",
+  "/assets/about-journey/upload-058.webp",
+  "/assets/about-journey/upload-059.webp",
 ];
 
 // ─── Journey gallery: cinematic editorial chapter-based gallery ───────────────
 
-const FEATURED_HERO_SRC = "/assets/images/IMG_4994_1774430840570.jpeg";
+const FEATURED_HERO_SRC = "/assets/images/IMG_4994_1774430840570.webp";
 
-type GalleryImage = { src: string; alt: string; badge?: string };
+type GalleryImage = { src: string; alt: string; badge?: string; objectPos?: string };
 type GalleryChapter = { id: string; chapter: string; title: string; badge: string; images: GalleryImage[] };
 
 const GALLERY_CHAPTERS: GalleryChapter[] = [
@@ -190,12 +190,12 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     title: "Lifestyle",
     badge: "Culture",
     images: [
-      { src: "/assets/images/IMG_0682_1774430840570.jpeg",     alt: "Kiut — white suit editorial",        badge: "Editorial"  },
-      { src: "/assets/images/IMG_0850_1774430840570.jpeg",     alt: "Kiut — close up portrait",           badge: "Portrait"   },
-      { src: "/assets/images/IMG_0162_1774430840570.jpeg",     alt: "Kiut — gallery moment",              badge: "Gallery"    },
-      { src: "/assets/images/about-moments-coast.jpg",         alt: "Kiut — coastal frame",               badge: "Coastal"    },
-      { src: "/assets/images/about-moments-lounge.jpg",        alt: "Kiut — quiet luxury lounge",         badge: "Lifestyle"  },
-      { src: "/assets/images/about-moments-leather-pose.jpg",  alt: "Kiut — street armor leather jacket", badge: "Street"     },
+      { src: "/assets/images/IMG_0682_1774430840570.webp",     alt: "Kiut — white suit editorial",        badge: "Editorial",   objectPos: "center 15%" },
+      { src: "/assets/images/IMG_0850_1774430840570.webp",     alt: "Kiut — close up portrait",           badge: "Portrait",    objectPos: "center 20%" },
+      { src: "/assets/images/IMG_0162_1774430840570.webp",     alt: "Kiut — gallery moment",              badge: "Gallery",     objectPos: "center center" },
+      { src: "/assets/images/about-moments-coast.webp",        alt: "Kiut — coastal frame",               badge: "Coastal",     objectPos: "center center" },
+      { src: "/assets/images/about-moments-lounge.webp",       alt: "Kiut — quiet luxury lounge",         badge: "Lifestyle",   objectPos: "center 30%" },
+      { src: "/assets/images/about-moments-leather-pose.webp", alt: "Kiut — street armor leather jacket", badge: "Street",      objectPos: "center 15%" },
     ],
   },
   {
@@ -204,12 +204,12 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     title: "Behind The Scenes",
     badge: "Studio Life",
     images: [
-      { src: "/assets/images/studio_kiut_1774440627098.jpeg",  alt: "Kiut — studio session",              badge: "Studio"     },
-      { src: "/assets/images/studio_session_1774440627098.jpeg", alt: "Kiut — recording session",         badge: "Recording"  },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg", alt: "Mixing session", badge: "In The Mix" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg", alt: "Studio synthesizers", badge: "The Gear" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701227223296_1095425_1774430915892.jpeg", alt: "Studio standing", badge: "Studio"   },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985993282385_1095425_1774430915892.jpeg", alt: "Studio red",   badge: "In The Studio" },
+      { src: "/assets/images/studio_kiut_1774440627098.webp",  alt: "Kiut — studio session",              badge: "Studio",      objectPos: "center center" },
+      { src: "/assets/images/IMG_2452_1772753968062.webp",      alt: "Kiut — artist portrait",             badge: "Portrait",    objectPos: "center 20%" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.webp", alt: "Mixing session", badge: "In The Mix", objectPos: "center center" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.webp", alt: "Studio synthesizers", badge: "The Gear", objectPos: "center center" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701227223296_1095425_1774430915892.webp", alt: "Studio standing", badge: "Studio",   objectPos: "center 20%" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985993282385_1095425_1774430915892.webp", alt: "Studio red",   badge: "In The Studio", objectPos: "center 15%" },
     ],
   },
   {
@@ -218,12 +218,12 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     title: "On The Road",
     badge: "Tour",
     images: [
-      { src: "/assets/images/times_square_1774440627098.jpeg",  alt: "Kiut — Times Square NYC",           badge: "New York"   },
-      { src: "/assets/images/IMG_2027_1774430840570.jpeg",      alt: "Kiut — California palms",           badge: "West Coast" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3786107874124605259_1095425_1774430915892.jpeg", alt: "LA milestone", badge: "Milestone" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.jpeg", alt: "Nigeria — back to roots", badge: "Back To Roots" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.jpeg", alt: "Nigeria celebration", badge: "Celebration" },
-      { src: "/assets/images/about-moments-stone-seat.jpg",     alt: "Kiut — still moment on stone steps", badge: "Still Moment" },
+      { src: "/assets/images/times_square_1774440627098.webp",  alt: "Kiut — Times Square NYC",           badge: "New York",    objectPos: "center center" },
+      { src: "/assets/images/IMG_2027_1774430840570.webp",      alt: "Kiut — California palms",           badge: "West Coast",  objectPos: "center center" },
+      { src: "/assets/images/announce-cover.webp",              alt: "Kiut — worldwide announcement",     badge: "Worldwide",   objectPos: "center center" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399092237138795_1095425_1774431303109.webp", alt: "Nigeria — back to roots", badge: "Back To Roots", objectPos: "center 20%" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_2991399093235490892_1095425_1774431303109.webp", alt: "Nigeria celebration", badge: "Celebration", objectPos: "center 20%" },
+      { src: "/assets/images/about-moments-stone-seat.webp",    alt: "Kiut — still moment on stone steps", badge: "Still Moment", objectPos: "center 30%" },
     ],
   },
   {
@@ -232,28 +232,27 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     title: "The Archive",
     badge: "Visual Archive",
     images: [
-      { src: "/assets/images/Hero1.jpeg",                       alt: "Kiut — hero portrait",              badge: "Portrait"   },
-      { src: "/assets/images/Hero1_1767873472478.jpeg",         alt: "Kiut — cinematic still",            badge: "Cinematic"  },
-      { src: "/assets/images/about-moments-garden-seat.jpg",    alt: "Kiut — golden hour garden",         badge: "Golden Hour"},
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344985976478358_1095425_1774430915892.jpeg", alt: "Kiut — studio mood", badge: "Studio" },
-      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024700849651951_1095425_1774430915892.jpeg", alt: "Kiut — Instagram moment", badge: "Moment" },
-      { src: "/assets/images/IMG_1254_1774433277988.jpeg",      alt: "Kiut — portrait session",           badge: "Portrait"   },
+      { src: "/assets/images/Hero1.webp",                       alt: "Kiut — hero portrait",              badge: "Portrait",    objectPos: "center 15%" },
+      { src: "/assets/images/goodlife-poster.webp",             alt: "Kiut — Good Life era promo",        badge: "Promo Art",   objectPos: "center center" },
+      { src: "/assets/images/about-moments-garden-seat.webp",   alt: "Kiut — golden hour garden",         badge: "Golden Hour", objectPos: "center 25%" },
+      { src: "/assets/images/praya-request-cover.webp",         alt: "Kiut — Praya Request artwork",      badge: "Artwork",     objectPos: "center center" },
+      { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024700849651951_1095425_1774430915892.webp", alt: "Kiut — Instagram moment", badge: "Moment", objectPos: "center 20%" },
+      { src: "/assets/images/IMG_1254_1774433277988.webp",      alt: "Kiut — portrait session",           badge: "Portrait",    objectPos: "center 15%" },
     ],
   },
 ];
 
 // Extended gallery — revealed by "View Complete Journey"
+// Removed duplicates: Hero1_1767874042707 (= Hero1.jpeg), IMG_0682_1774440591738 (= ch01),
+// WhatsApp_1767874948786 (= WhatsApp_1767874201323).
 const EXTENDED_GALLERY: GalleryImage[] = [
-  { src: "/assets/images/Hero1_1767874042707.jpeg",     alt: "Kiut — performance",       badge: "Performance" },
-  { src: "/assets/images/IMG_0682_1774440591738.jpeg",  alt: "Kiut — editorial II",      badge: "Editorial"   },
-  { src: "/assets/images/IMG_1257_1774433050958.jpeg",  alt: "Kiut — portrait II",       badge: "Portrait"    },
-  { src: "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.jpg", alt: "Kiut — live clip", badge: "Live" },
-  { src: "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.jpg", alt: "Kiut — performance clip", badge: "Performance" },
-  { src: "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.jpg", alt: "Kiut — social moment", badge: "Moment" },
-  { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874201323.jpeg", alt: "Kiut — candid", badge: "Candid" },
-  { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.jpeg", alt: "Kiut — exclusive", badge: "Exclusive" },
-  { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701990647365_1095425_1774430915892.jpeg", alt: "Instagram session", badge: "Session" },
-  { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986907667189_1095425_1774430915892.jpeg", alt: "Kiut — behind the lens", badge: "Behind The Lens" },
+  { src: "/assets/images/IMG_1257_1774433050958.webp",  alt: "Kiut — portrait II",       badge: "Portrait",         objectPos: "center 15%" },
+  { src: "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp", alt: "Kiut — live clip", badge: "Live", objectPos: "center 20%" },
+  { src: "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp", alt: "Kiut — performance clip", badge: "Performance", objectPos: "center 20%" },
+  { src: "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp", alt: "Kiut — social moment", badge: "Moment", objectPos: "center 20%" },
+  { src: "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874201323.webp", alt: "Kiut — candid", badge: "Candid", objectPos: "center center" },
+  { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024701990647365_1095425_1774430915892.webp", alt: "Instagram session", badge: "Session", objectPos: "center 20%" },
+  { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986907667189_1095425_1774430915892.webp", alt: "Kiut — behind the lens", badge: "Behind The Lens", objectPos: "center center" },
 ];
 
 // Flat image array for lightbox navigation (hero + all chapters + extended + uploaded journey images)
@@ -261,8 +260,8 @@ const allGalleryImages: GalleryImage[] = [
   { src: FEATURED_HERO_SRC, alt: "The Good Life Era — Kiut", badge: "The Journey" },
   ...GALLERY_CHAPTERS.flatMap(ch => ch.images),
   ...EXTENDED_GALLERY,
-  ...Array.from({ length: 59 }, (_, i) => ({
-    src: `/assets/about-journey/upload-${String(i + 1).padStart(3, "0")}${i >= 57 ? ".jpeg" : ".jpg"}`,
+  ...uploadedJourneyImages.map((src, i) => ({
+    src,
     alt: `Journey moment ${i + 1}`,
     badge: undefined,
   })),
@@ -305,6 +304,8 @@ export default function About() {
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
   const [showExtended, setShowExtended] = useState(false);
   const [activeChapter, setActiveChapter] = useState<string>("all");
+  const [aboutVideoReady, setAboutVideoReady] = useState(false);
+  const [aboutVideoError, setAboutVideoError] = useState(false);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -371,17 +372,29 @@ export default function About() {
       {/* ─── FIXED CINEMATIC VIDEO BACKGROUND ──────────────────────────── */}
       {/* Same source as hero — browser caches it, no double download.     */}
       <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster={aboutHeroPoster}
-          className="w-full h-full object-cover object-center"
-        >
-          <source src={aboutHeroVideo} type="video/mp4" />
-        </video>
+        {/* Poster always underneath as fallback */}
+        <img
+          src={aboutHeroPoster}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {!aboutVideoError && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={aboutHeroPoster}
+            onCanPlay={() => setAboutVideoReady(true)}
+            onError={() => setAboutVideoError(true)}
+            className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+            style={{ opacity: aboutVideoReady ? 1 : 0 }}
+          >
+            <source src={aboutHeroVideo} type="video/mp4" />
+          </video>
+        )}
       </div>
 
       {/* ─── SCROLL-DEEPENING DARKNESS OVERLAY ──────────────────────────── */}
@@ -400,17 +413,29 @@ export default function About() {
           style={{ y: heroY }}
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            poster={aboutHeroPoster}
-            className="w-full h-full object-cover object-center"
-          >
-            <source src={aboutHeroVideo} type="video/mp4" />
-          </video>
+          {/* Poster always underneath as fallback */}
+          <img
+            src={aboutHeroPoster}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          {!aboutVideoError && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster={aboutHeroPoster}
+              onCanPlay={() => setAboutVideoReady(true)}
+              onError={() => setAboutVideoError(true)}
+              className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+              style={{ opacity: aboutVideoReady ? 1 : 0 }}
+            >
+              <source src={aboutHeroVideo} type="video/mp4" />
+            </video>
+          )}
         </motion.div>
 
         {/* Gradient overlays */}
@@ -954,7 +979,8 @@ export default function About() {
                           src={img.src}
                           alt={`${img.alt} — Kiut`}
                           loading="lazy" decoding="async"
-                          className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_650ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                          className="absolute inset-0 w-full h-full object-cover [transition:transform_650ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                          style={{ objectPosition: img.objectPos ?? "center" }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
 
@@ -1055,7 +1081,8 @@ export default function About() {
                           src={img.src}
                           alt={`${img.alt} — Kiut`}
                           loading="lazy" decoding="async"
-                          className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_650ms_ease] group-hover:scale-[1.04]"
+                          className="absolute inset-0 w-full h-full object-cover [transition:transform_650ms_ease] group-hover:scale-[1.04]"
+                          style={{ objectPosition: img.objectPos ?? "center" }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                         {img.badge && (
@@ -1420,8 +1447,8 @@ export default function About() {
             {/* Merch preview — 3 featured products */}
             <div className="grid grid-cols-3 gap-3 mb-10 max-w-sm mx-auto">
               {[
-                { img: "/assets/images/merch-hoodie.jpg",        name: "Signature Hoodie",    cover: true  },
-                { img: "/assets/images/merch-baggy-jeans.jpg",  name: "KR Baggy Jeans",      cover: false },
+                { img: "/assets/images/merch-hoodie.webp",       name: "Signature Hoodie",    cover: true  },
+                { img: "/assets/images/merch-baggy-jeans.webp", name: "KR Baggy Jeans",      cover: false },
                 { img: "/assets/images/merch-goodlife-ep.webp",  name: "Goodlife Digital EP", cover: true  },
               ].map((item) => (
                 <motion.a

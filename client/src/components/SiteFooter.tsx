@@ -1,13 +1,46 @@
-import { Instagram, Youtube, Music2, PlayCircle, Radio } from "lucide-react";
 import { Link, useLocation } from "wouter";
+
+// ── Designer credit ────────────────────────────────────────────────────────────
+// Change name or url here to update the credit across the entire site.
+const DESIGNER = {
+  name: "Kelly",
+  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
+} as const;
 import { motion } from "framer-motion";
-import LinktreeIcon from "./LinktreeIcon";
+import { KiutMark } from "./KiutMark";
+import {
+  SiSpotify,
+  SiApplemusic,
+  SiAudiomack,
+  SiYoutubemusic,
+  SiInstagram,
+  SiYoutube,
+  SiLinktree,
+} from "react-icons/si";
 
 const streamingLinks = [
-  { label: "Spotify",      icon: Music2,       href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ" },
-  { label: "Apple Music",  icon: PlayCircle,   href: "https://music.apple.com/artist/kiut" },
-  { label: "Audiomack",    icon: Radio,         href: "https://audiomack.com/kiutrabatv" },
-  { label: "YouTube Music",icon: Youtube,       href: "https://music.youtube.com/channel/UCKiutRababag" },
+  { label: "Spotify",       Icon: SiSpotify,      href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ" },
+  { label: "Apple Music",   Icon: SiApplemusic,   href: "https://music.apple.com/artist/kiut" },
+  { label: "Audiomack",     Icon: SiAudiomack,    href: "https://audiomack.com/kiutrabatv" },
+  { label: "YouTube Music", Icon: SiYoutubemusic, href: "https://music.youtube.com/channel/UCKiutRababag" },
+];
+
+const connectLinks = [
+  {
+    label:     "Instagram",
+    Icon:      SiInstagram,
+    href:      "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+  },
+  {
+    label:     "YouTube",
+    Icon:      SiYoutube,
+    href:      "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
+  },
+  {
+    label:     "Linktree",
+    Icon:      SiLinktree,
+    href:      "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
+  },
 ];
 
 const navLinks = [
@@ -33,16 +66,21 @@ export default function SiteFooter() {
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em]">Available on all platforms</p>
           <div className="flex items-center gap-6">
-            {streamingLinks.map(({ label, icon: Icon, href }) => (
+            {streamingLinks.map(({ label, Icon, href }) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={label}
-                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-colors duration-200 group"
+                aria-label={label}
+                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-all duration-250 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
               >
-                <Icon size={14} className="group-hover:scale-110 transition-transform duration-200" />
+                <Icon
+                  size={14}
+                  aria-hidden="true"
+                  className="group-hover:scale-110 transition-transform duration-250"
+                />
                 <span className="text-[10px] font-medium hidden sm:block">{label}</span>
               </a>
             ))}
@@ -56,9 +94,12 @@ export default function SiteFooter() {
 
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase mb-3">
-              Kiut<span className="text-gold">.</span>
-            </h3>
+            <div className="flex flex-col items-center lg:items-start gap-3 mb-3">
+              <KiutMark size={48} color="#D4AF37" className="drop-shadow-[0_0_16px_rgba(212,175,55,0.25)]" />
+              <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase">
+                KIUT<span className="text-gold">.</span>
+              </h3>
+            </div>
             <p className="text-white/45 text-base mb-8 font-light max-w-sm leading-relaxed">
               Join the inner circle for exclusive updates, early releases, and behind-the-scenes access.
             </p>
@@ -107,34 +148,34 @@ export default function SiteFooter() {
           <div className="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-[11px]">Connect</h4>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-              <a
-                href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo"
-                target="_blank" rel="noopener noreferrer" title="YouTube" aria-label="YouTube"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
-              >
-                <Youtube size={18} />
-              </a>
-              <a
-                href="https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb"
-                target="_blank" rel="noopener noreferrer" title="Linktree" aria-label="Linktree"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
-              >
-                <LinktreeIcon size={18} />
-              </a>
+
+              {/* Official brand icon buttons */}
+              {connectLinks.map(({ label, Icon, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={label}
+                  aria-label={label}
+                  className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] hover:scale-[1.1] transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                >
+                  <Icon size={18} aria-hidden="true" />
+                </a>
+              ))}
+
+              {/* DreamPlanet — custom platform, PNG icon */}
               <a
                 href="https://dreamplanet.org/user/61"
-                target="_blank" rel="noopener noreferrer" title="DreamPlanet" aria-label="DreamPlanet"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-[var(--glow-gold-hover)] transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="DreamPlanet"
+                aria-label="DreamPlanet"
+                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-[var(--glow-gold-hover)] hover:scale-[1.1] transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
               >
-                <img src="/assets/images/dreamplanet-icon.png" alt="DreamPlanet" className="w-7 h-7 object-contain rounded-md" />
+                <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
               </a>
+
             </div>
             <p className="mt-4 text-white/20 text-[9px] uppercase tracking-[0.25em]">@kiut_rababag</p>
           </div>
@@ -150,6 +191,20 @@ export default function SiteFooter() {
             <a href="#" className="hover:text-white/70 transition-colors duration-200">Terms</a>
           </div>
         </div>
+
+        {/* ── Designer credit ──────────────────────────────────── */}
+        <p className="mt-4 text-center text-[9px] font-light tracking-[0.2em] text-white/20">
+          Designed &amp; Developed by{" "}
+          <a
+            href={DESIGNER.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${DESIGNER.name}'s portfolio`}
+            className="text-white/30 hover:text-gold transition-colors duration-250 hover:-translate-y-px inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/40 rounded-sm"
+          >
+            {DESIGNER.name}
+          </a>
+        </p>
       </div>
     </footer>
   );

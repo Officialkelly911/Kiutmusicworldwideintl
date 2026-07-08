@@ -7,6 +7,16 @@ import { createServer } from "http";
 const app = express();
 const httpServer = createServer(app);
 
+// ── Security headers ──────────────────────────────────────────────────────────
+// Applied to every response (HTML, API, assets) for Lighthouse Best Practices.
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), payment=()");
+  next();
+});
+
 // ── Gzip/Brotli compression (production only) ─────────────────────────────────
 // Compresses all text responses (HTML, JS, CSS, JSON, SVG) before sending.
 // Skips dev so Vite HMR websocket payloads are never interfered with.

@@ -1,0 +1,278 @@
+The Contact page currently contains a contact form that requires a production-ready backend. Your task is to implement a secure, reliable contact form that sends messages to the official Kiut Music contact email while preserving the website's existing design and user experience.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Connect the Contact Form to a real backend so that every submitted message is:
+
+• Validated
+• Securely processed
+• Delivered to the official contact email
+• Optionally stored in the database
+• Logged for debugging
+• User-friendly
+
+Do not modify the visual design of the Contact page.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EMAIL DESTINATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create a configurable environment variable for the recipient email.
+
+Example:
+
+CONTACT_EMAIL=contact@kiutmusic.com
+
+Do not hardcode email addresses inside the source code.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BACKEND IMPLEMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement a secure backend endpoint.
+
+Recommended stack:
+
+• Resend API (preferred)
+or
+• SendGrid
+or
+• EmailJS (only if server-side options are unavailable)
+
+The backend should:
+
+• Receive form submissions
+• Validate all fields
+• Sanitize inputs
+• Send the email
+• Return proper success and error responses
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORM FIELDS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Support:
+
+• Full Name
+• Email Address
+• Subject
+• Message
+
+Optional:
+
+• Phone Number
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Validate:
+
+• Required fields
+• Valid email format
+• Minimum message length
+• Maximum message length
+• Invalid characters where appropriate
+
+Prevent:
+
+• Empty submissions
+• Spam
+• Malformed requests
+
+Display friendly validation messages.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EMAIL FORMAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Incoming emails should be professionally formatted.
+
+Subject:
+
+New Contact Form Submission
+
+Body:
+
+Name:
+{name}
+
+Email:
+{email}
+
+Subject:
+{subject}
+
+Message:
+
+{message}
+
+Submission Time:
+{timestamp}
+
+User Agent:
+{browser}
+
+IP Address (if available)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUCCESS EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After successful submission:
+
+• Clear the form
+• Display an elegant success message
+• Preserve page layout
+• Do not reload the page
+
+Example:
+
+"Thank you for reaching out. Your message has been received successfully. We will respond as soon as possible."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ERROR HANDLING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If submission fails:
+
+Display a friendly message such as:
+
+"We couldn't send your message at the moment. Please try again shortly."
+
+Never expose technical errors to users.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DATABASE (OPTIONAL)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If a database exists:
+
+Also save:
+
+• Name
+• Email
+• Subject
+• Message
+• Timestamp
+• Status
+
+This allows future message management.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECURITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement:
+
+• Server-side validation
+• Rate limiting
+• Spam protection
+• Input sanitization
+• CSRF protection where appropriate
+
+Never expose API keys.
+
+Use environment variables for all secrets.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+USER EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+While submitting:
+
+• Disable the submit button
+• Show a loading spinner
+• Prevent duplicate submissions
+
+After success:
+
+Show a smooth confirmation animation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPONSIVENESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verify functionality on:
+
+• Desktop
+• Tablet
+• Mobile
+
+Maintain existing responsiveness.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACCESSIBILITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure:
+
+• Keyboard navigation
+• Proper labels
+• ARIA attributes
+• Focus management
+• Screen reader compatibility
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRESERVE EXISTING DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT modify:
+
+• Layout
+• Typography
+• Color palette
+• Animations
+• Buttons
+• Card styling
+• Page spacing
+
+Only improve the functionality.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Store all configuration in environment variables.
+
+Example:
+
+CONTACT_EMAIL=
+RESEND_API_KEY=
+
+Avoid hardcoding values.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY ASSURANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before completion verify:
+
+✓ Form validation works.
+✓ Emails are delivered successfully.
+✓ Success messages display correctly.
+✓ Error handling works.
+✓ API keys remain secure.
+✓ Mobile functionality works.
+✓ No console errors exist.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPLETION REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Provide a report including:
+
+• Files modified
+• Backend endpoint created
+• Email provider used
+• Environment variables required
+• Database integration (if implemented)
+• Security measures added
+• Testing results
+• Confirmation that the Contact Form is fully production-ready.
+
+IMPORTANT
+
+The implementation must be secure, maintainable, and scalable. It should follow modern best practices, preserve the existing premium Kiut Music user experience, and ensure that every legitimate inquiry reliably reaches the official contact email while protecting the website from spam and abuse.

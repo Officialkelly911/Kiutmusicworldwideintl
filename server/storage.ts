@@ -3,8 +3,11 @@ import {
   type InsertUser,
   type NewsletterSubscriber,
   type InsertNewsletterSubscriber,
+  type ContactSubmission,
+  type InsertContactSubmission,
   users,
   newsletterSubscribers,
+  contactSubmissions,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -23,6 +26,10 @@ export interface IStorage {
   createNewsletterSubscriber(
     subscriber: InsertNewsletterSubscriber,
   ): Promise<NewsletterSubscriber>;
+
+  createContactSubmission(
+    data: InsertContactSubmission & { ipAddress?: string; userAgent?: string },
+  ): Promise<ContactSubmission>;
 }
 
 export class DbStorage implements IStorage {
@@ -65,6 +72,24 @@ export class DbStorage implements IStorage {
       })
       .returning();
     return subscriber;
+  }
+
+  async createContactSubmission(
+    data: InsertContactSubmission & { ipAddress?: string; userAgent?: string },
+  ): Promise<ContactSubmission> {
+    const [submission] = await db
+      .insert(contactSubmissions)
+      .values({
+        name:        data.name || null,
+        email:       data.email,
+        subject:     data.subject,
+        enquiryType: data.enquiryType ?? "general",
+        message:     data.message,
+        ipAddress:   data.ipAddress ?? null,
+        userAgent:   data.userAgent ?? null,
+      })
+      .returning();
+    return submission;
   }
 }
 

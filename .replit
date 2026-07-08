@@ -42,3 +42,9 @@ externalPort = 3001
 deploymentTarget = "autoscale"
 run = ["node", "./dist/index.cjs"]
 build = ["npm", "run", "build"]
+
+[userenv]
+
+[userenv.shared]
+CONTACT_EMAIL = "contact@kiutmusic.com"
+CONTACT_FROM_EMAIL = "Kiut Music <onboarding@resend.dev>"

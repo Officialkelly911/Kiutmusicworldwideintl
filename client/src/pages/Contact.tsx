@@ -1,3 +1,4 @@
+import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Mail, Send, MessageSquare, Mic2, Newspaper, Briefcase,
@@ -9,7 +10,18 @@ import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import LinktreeIcon from "../components/LinktreeIcon";
 
-const MotionLink = motion.create(Link);
+const MotionLink = motion.create(Link) as unknown as React.FC<
+  React.ComponentProps<typeof Link> & {
+    className?: string;
+    whileHover?: object;
+    whileTap?: object;
+    initial?: object;
+    animate?: object;
+    exit?: object;
+    transition?: object;
+    variants?: object;
+  }
+>;
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
 const enquiryTypes = [

@@ -1,3 +1,4 @@
+import React from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, MapPin, Calendar, Star, Ticket, Users, Shield,
@@ -8,7 +9,18 @@ import SiteFooter from "../components/SiteFooter";
 import { useRef, useState } from "react";
 
 // Single interactive element — avoids nesting <a> inside <button>
-const MotionLink = motion.create(Link);
+const MotionLink = motion.create(Link) as unknown as React.FC<
+  React.ComponentProps<typeof Link> & {
+    className?: string;
+    whileHover?: object;
+    whileTap?: object;
+    initial?: object;
+    animate?: object;
+    exit?: object;
+    transition?: object;
+    variants?: object;
+  }
+>;
 
 // ─── Featured Performances (real YouTube content) ────────────────────────────
 const featuredPerformances = [
@@ -134,7 +146,7 @@ const fanCardTiers = [
 // ─── Performance Card ─────────────────────────────────────────────────────────
 function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]; index: number }) {
   const [imgFailed, setImgFailed] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const TypeIcon = perf.typeIcon;
 

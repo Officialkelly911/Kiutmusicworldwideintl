@@ -1,5 +1,6 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
+import { KiutMark } from "../components/KiutMark";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
@@ -152,18 +153,19 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
-        {/* K Monogram */}
+        {/* K Brand Mark */}
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6"
+          className="mb-6 relative"
         >
-          <div className="w-20 h-20 rounded-2xl flex items-center justify-center relative"
-            style={{ background: "rgba(212,175,55,0.08)", border: "1px solid rgba(212,175,55,0.22)" }}>
-            <span className="font-display text-5xl font-bold tracking-tight" style={{ color: "#D4AF37" }}>K</span>
-            <div className="absolute inset-0 rounded-2xl blur-xl" style={{ background: "rgba(212,175,55,0.15)" }} />
-          </div>
+          <KiutMark
+            size={88}
+            color="#D4AF37"
+            className="drop-shadow-[0_0_28px_rgba(212,175,55,0.35)]"
+            label="KIUT."
+          />
         </motion.div>
 
         {/* Logo wordmark */}

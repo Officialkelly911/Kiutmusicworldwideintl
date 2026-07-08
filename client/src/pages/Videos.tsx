@@ -219,9 +219,10 @@ function SharePopup({
         <button
           type="button"
           onClick={onClose}
+          aria-label="Close share panel"
           className="w-6 h-6 rounded-full flex items-center justify-center text-white/40 hover:text-white transition-colors"
         >
-          <X className="w-3 h-3" />
+          <X className="w-3 h-3" aria-hidden="true" />
         </button>
       </div>
 
@@ -908,9 +909,12 @@ export default function Videos() {
                         whileHover={{ scale: 1.04, y: -2 }}
                         whileTap={{ scale: 0.97 }}
                         onClick={handleShare}
+                        aria-label={`Share ${featuredVideo.title}`}
+                        aria-expanded={showShare}
+                        aria-haspopup="dialog"
                         className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-5 py-3 text-[11px] font-semibold text-white/75 hover:border-gold/35 hover:text-white transition-all duration-200"
                       >
-                        <Share2 size={14} />
+                        <Share2 size={14} aria-hidden="true" />
                         Share
                       </motion.button>
                       <AnimatePresence>
@@ -955,7 +959,7 @@ export default function Videos() {
                 </div>
 
                 {/* Filter chips */}
-                <div className="mb-5 flex flex-wrap gap-1.5">
+                <div className="mb-5 flex flex-wrap gap-1.5" role="group" aria-label="Filter videos by category">
                   {videoTypes.map((type) => {
                     const active = activeType === type;
                     return (
@@ -963,6 +967,8 @@ export default function Videos() {
                         key={type}
                         type="button"
                         onClick={() => setActiveType(type)}
+                        aria-pressed={active}
+                        aria-label={`Filter by ${type}`}
                         className={cn(
                           "rounded-full px-3 py-1.5 text-[9.5px] font-bold uppercase tracking-[0.18em] transition-all duration-250",
                           active
@@ -1083,9 +1089,10 @@ export default function Videos() {
             <button
               type="button"
               onClick={handleShare}
+              aria-label="Share this video"
               className="flex items-center justify-center w-9 h-9 rounded-full border border-white/12 text-white/55 hover:border-gold/35 hover:text-white transition-all"
             >
-              <Share2 className="w-3.5 h-3.5" />
+              <Share2 className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </motion.div>
         )}

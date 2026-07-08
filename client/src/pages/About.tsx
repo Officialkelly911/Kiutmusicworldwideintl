@@ -300,6 +300,7 @@ function AudiomackIcon() {
 export default function About() {
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const closeLightboxBtnRef = useRef<HTMLButtonElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
   const [showExtended, setShowExtended] = useState(false);
@@ -324,6 +325,12 @@ export default function About() {
     selectedJourneyIndex === null ? null : allGalleryImages[selectedJourneyIndex]?.src ?? null;
 
   const closeJourneyLightbox = useCallback(() => setSelectedJourneyIndex(null), []);
+
+  useEffect(() => {
+    if (selectedJourneyIndex !== null) {
+      closeLightboxBtnRef.current?.focus();
+    }
+  }, [selectedJourneyIndex]);
   const showPreviousJourneyImage = useCallback(() => {
     setSelectedJourneyIndex((prev) =>
       prev === null ? null : (prev - 1 + allGalleryImages.length) % allGalleryImages.length
@@ -1157,6 +1164,9 @@ export default function About() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-lg"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Visual Archive photo gallery"
             onClick={closeJourneyLightbox}
             onTouchStart={handleLightboxTouchStart}
             onTouchEnd={handleLightboxTouchEnd}
@@ -1188,11 +1198,13 @@ export default function About() {
                   {String((selectedJourneyIndex ?? 0) + 1).padStart(3, "0")} / {String(allGalleryImages.length).padStart(3, "0")}
                 </span>
                 <button
+                  ref={closeLightboxBtnRef}
                   type="button"
                   onClick={(e) => { e.stopPropagation(); closeJourneyLightbox(); }}
+                  aria-label="Close photo gallery"
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-gold/40 hover:text-white hover:bg-white/10 transition-all duration-200"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -1206,9 +1218,10 @@ export default function About() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showPreviousJourneyImage(); }}
+                aria-label="Previous image"
                 className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-200"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
 
               {/* Image */}
@@ -1236,9 +1249,10 @@ export default function About() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showNextJourneyImage(); }}
+                aria-label="Next image"
                 className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-200"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 

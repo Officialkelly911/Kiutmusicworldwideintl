@@ -87,8 +87,11 @@ function App() {
         <MotionConfig reducedMotion="user">
           <PlayerProvider>
             <Toaster />
+            <a href="#main-content" className="skip-link">Skip to content</a>
             <Navigation />
-            <AnimatedRouter />
+            <main id="main-content">
+              <AnimatedRouter />
+            </main>
             <MiniPlayer />
           </PlayerProvider>
         </MotionConfig>

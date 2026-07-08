@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { usePlayer } from "@/context/PlayerContext";
 import { ALL_TRACKS, TRACK_GROUPS, type Track } from "@/data/tracks";
+import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // ─── Image + audio constants ──────────────────────────────────────────────────
 const goodLifeEP  = "/assets/images/Good_Life_EP_1767961904057.jpeg";
@@ -284,10 +285,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
   return (
     <motion.div
       onClick={() => playTrack(track)}
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3, delay: index * 0.035, ease: "easeOut" }}
+      variants={staggerItem}
       className={`group relative flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3.5 rounded-xl cursor-pointer transition-all duration-200 ${
         isActive
           ? "bg-gold/[0.07] border border-gold/20"
@@ -807,11 +805,17 @@ export default function Music() {
                   <div className="flex-1 h-px bg-white/[0.04] ml-2" />
                 </div>
 
-                <div className="rounded-2xl overflow-hidden bg-[#070707] border border-white/[0.05] divide-y divide-white/[0.03]">
+                <motion.div
+                  className="rounded-2xl overflow-hidden bg-[#070707] border border-white/[0.05] divide-y divide-white/[0.03]"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewport}
+                  variants={staggerContainer(0.05)}
+                >
                   {group.tracks.map((track, idx) => (
                     <TrackRow key={track.id} track={track} index={idx} />
                   ))}
-                </div>
+                </motion.div>
               </div>
             ))}
           </div>

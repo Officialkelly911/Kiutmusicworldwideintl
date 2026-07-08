@@ -4,21 +4,21 @@ import { KiutMark } from "../components/KiutMark";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
-const heroImage = "/assets/images/Hero1_1767873472478.jpeg";
-const heroPoster = "/assets/images/hero-poster.jpg";
-const videoGalleryCover = "/assets/images/IMG_1257_1774433050958.jpeg";
-const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.jpeg";
+const heroImage = "/assets/images/Hero1_1767873472478.webp";
+const heroPoster = "/assets/images/hero-poster.webp";
+const videoGalleryCover = "/assets/images/IMG_1257_1774433050958.webp";
+const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
 const heroVideo = "/assets/videos/hero-optimized.mp4";
-const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.jpeg";
+const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
 const goodLifeVideo = "/assets/videos/goodlife-optimized.mp4";
-const goodLifePoster = "/assets/images/IMG_1254_1774433277988.jpeg";
-const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.jpg";
-const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.jpg";
-const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.jpg";
-const momentImg4 = "/assets/images/IMG_0682_1774440591738.jpeg";
-const momentImg5 = "/assets/images/studio_session_1774440627098.jpeg";
-const momentImg6 = "/assets/images/studio_kiut_1774440627098.jpeg";
-const momentImg7 = "/assets/images/times_square_1774440627098.jpeg";
+const goodLifePoster = "/assets/images/IMG_1254_1774433277988.webp";
+const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
+const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
+const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
+const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
+const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
+const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
+const momentImg7 = "/assets/images/times_square_1774440627098.webp";
 const portfolioVideo = "/assets/videos/portfolio-optimized.mp4";
 
 // Videos shown in the Latest Visuals horizontal scroll row
@@ -1239,13 +1239,13 @@ export default function Home() {
           {/* ── 1. Featured Collection Banner (6-item cycling hero) ── */}
           {(() => {
             const bannerItems = [
-              { img: "/assets/images/merch-hoodie.jpg",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
-              { img: "/assets/images/merch-outfit-red.jpg",  imgCls: "object-contain p-6",      badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
-              { img: "/assets/images/merch-shirt.jpg",       imgCls: "object-contain p-4",      badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
+              { img: "/assets/images/merch-hoodie.webp",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
+              { img: "/assets/images/merch-outfit-red.webp",  imgCls: "object-contain p-6",     badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
+              { img: "/assets/images/merch-shirt.webp",       imgCls: "object-contain p-4",     badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
               { img: "/assets/images/merch-collection.webp",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
               { img: "/assets/images/merch-cap-vintage.webp", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
               { img: "/assets/images/merch-cd.webp",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
-              { img: "/assets/images/merch-baggy-jeans.jpg", imgCls: "object-contain p-4",      badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
+              { img: "/assets/images/merch-baggy-jeans.webp", imgCls: "object-contain p-4",     badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
               { img: "/assets/images/merch-goodlife-ep.webp", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
             ];
             const active = bannerItems[activeStoreIdx];
@@ -1346,13 +1346,13 @@ export default function Home() {
           {/* ── 2. Editorial Product Grid — 6 cards, 3-col desktop ── */}
           {(() => {
             const gridItems = [
-              { name: "KiutRaba Signature Hoodie", img: "/assets/images/merch-hoodie.jpg",       isCover: true,  badge: "FEATURED",      badgeKind: "gold-fill",    desc: "Premium heavyweight fleece, embroidered KR crown logo.",             spotlight: 0 },
-              { name: "Hoodking",                  img: "/assets/images/merch-outfit-red.jpg",   isCover: false, badge: "EXCLUSIVE",     badgeKind: "gold-outline", desc: "Bold color, editorial cut. Head-to-toe KiutRaba energy.",            spotlight: 1 },
-              { name: "Classic Man",               img: "/assets/images/merch-shirt.jpg",        isCover: false, badge: "BEST SELLER",   badgeKind: "ghost",        desc: "Clean drop-shoulder silhouette. The essential studio staple.",       spotlight: 2 },
+              { name: "KiutRaba Signature Hoodie", img: "/assets/images/merch-hoodie.webp",      isCover: true,  badge: "FEATURED",      badgeKind: "gold-fill",    desc: "Premium heavyweight fleece, embroidered KR crown logo.",             spotlight: 0 },
+              { name: "Hoodking",                  img: "/assets/images/merch-outfit-red.webp",  isCover: false, badge: "EXCLUSIVE",     badgeKind: "gold-outline", desc: "Bold color, editorial cut. Head-to-toe KiutRaba energy.",            spotlight: 1 },
+              { name: "Classic Man",               img: "/assets/images/merch-shirt.webp",       isCover: false, badge: "BEST SELLER",   badgeKind: "ghost",        desc: "Clean drop-shoulder silhouette. The essential studio staple.",       spotlight: 2 },
               { name: "Good Life Full Drop",       img: "/assets/images/merch-collection.webp",   isCover: false, badge: "COLLECTION",    badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe.",            spotlight: 3 },
               { name: "EP Trucker Cap",            img: "/assets/images/merch-cap-vintage.webp",  isCover: false, badge: "NEW",           badgeKind: "gold-fill",    desc: "Structured trucker with EP embroidery. Everyday KiutRaba flex.",     spotlight: 4 },
               { name: "Good Life EP",              img: "/assets/images/merch-cd.webp",           isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "The debut EP — Afrobeat meets Caribbean. Stream or own it.",         spotlight: 5 },
-              { name: "KR Baggy Jeans",            img: "/assets/images/merch-baggy-jeans.jpg",  isCover: false, badge: "APPAREL",       badgeKind: "ghost",        desc: "Wide-leg, culture-first. The KiutRaba street silhouette.",            spotlight: 7 },
+              { name: "KR Baggy Jeans",            img: "/assets/images/merch-baggy-jeans.webp", isCover: false, badge: "APPAREL",       badgeKind: "ghost",        desc: "Wide-leg, culture-first. The KiutRaba street silhouette.",            spotlight: 7 },
               { name: "Goodlife Digital EP",       img: "/assets/images/merch-goodlife-ep.webp",  isCover: true,  badge: "DIGITAL",       badgeKind: "gold-outline", desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault.", spotlight: 8 },
             ];
 
@@ -1460,9 +1460,9 @@ export default function Home() {
             <div className="overflow-hidden rounded-2xl" style={{ WebkitMaskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)", maskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)" }}>
               <div className="store-tape-track flex gap-3 w-max py-1">
                 {[
-                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
-                  { name: "Hoodking",            img: "/assets/images/merch-outfit-red.jpg",   cover: false },
-                  { name: "Classic Man",         img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.webp",      cover: true  },
+                  { name: "Hoodking",            img: "/assets/images/merch-outfit-red.webp",  cover: false },
+                  { name: "Classic Man",         img: "/assets/images/merch-shirt.webp",       cover: false },
                   { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.webp",    cover: false },
                   { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.webp",       cover: false },
                   { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.webp",  cover: false },
@@ -1470,10 +1470,10 @@ export default function Home() {
                   { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.webp",   cover: false },
                   { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.webp",  cover: true  },
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
-                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
-                  { name: "Signature Hoodie",      img: "/assets/images/merch-hoodie.jpg",       cover: true  },
-                  { name: "Hoodking",              img: "/assets/images/merch-outfit-red.jpg",   cover: false },
-                  { name: "Classic Man",           img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
+                  { name: "Signature Hoodie",      img: "/assets/images/merch-hoodie.webp",      cover: true  },
+                  { name: "Hoodking",              img: "/assets/images/merch-outfit-red.webp",  cover: false },
+                  { name: "Classic Man",           img: "/assets/images/merch-shirt.webp",       cover: false },
                   { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.webp",    cover: false },
                   { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.webp",       cover: false },
                   { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.webp",  cover: false },
@@ -1481,7 +1481,7 @@ export default function Home() {
                   { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.webp",   cover: false },
                   { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.webp",  cover: true  },
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
-                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
                   <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
                     <div className="group relative flex-shrink-0 w-[168px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/35 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 cursor-pointer">

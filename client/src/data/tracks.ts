@@ -17,13 +17,13 @@ export interface TrackGroup {
   tracks: Track[];
 }
 
-const goodLifeEP        = "/assets/images/Good_Life_EP_1767961904057.jpeg";
-const sofaEP            = "/assets/images/SOFA_EP_1767961904056.png";
-const announceImg       = "/assets/images/announce-cover.jpg";
-const eligibleEP        = "/assets/images/KIUT_ELIGIBLE_EP_1767961904056.png";
-const confamBoyCover    = "/assets/images/confam-boy-cover.jpeg";
-const prayaRequestCover = "/assets/images/praya-request-cover.jpeg";
-const chikitoCover      = "/assets/images/chikito-cover.jpeg";
+const goodLifeEP        = "/assets/images/Good_Life_EP_1767961904057.webp";
+const sofaEP            = "/assets/images/SOFA_EP_1767961904056.webp";
+const announceImg       = "/assets/images/announce-cover.webp";
+const eligibleEP        = "/assets/images/KIUT_ELIGIBLE_EP_1767961904056.webp";
+const confamBoyCover    = "/assets/images/confam-boy-cover.webp";
+const prayaRequestCover = "/assets/images/praya-request-cover.webp";
+const chikitoCover      = "/assets/images/chikito-cover.webp";
 
 export const ALL_TRACKS: Track[] = [
   // Good Life EP — Oct 30, 2025

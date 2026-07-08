@@ -1214,9 +1214,11 @@ export default function Home() {
               { img: "/assets/images/merch-hoodie.jpg",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
               { img: "/assets/images/merch-outfit-red.jpg",  imgCls: "object-contain p-6",      badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
               { img: "/assets/images/merch-shirt.jpg",       imgCls: "object-contain p-4",      badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
-              { img: "/assets/images/merch-collection.png",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
-              { img: "/assets/images/merch-cap-vintage.png", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
-              { img: "/assets/images/merch-cd.png",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
+              { img: "/assets/images/merch-collection.webp",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
+              { img: "/assets/images/merch-cap-vintage.webp", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
+              { img: "/assets/images/merch-cd.webp",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
+              { img: "/assets/images/merch-baggy-jeans.jpg", imgCls: "object-contain p-4",      badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
+              { img: "/assets/images/merch-goodlife-ep.webp", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
             ];
             const active = bannerItems[activeStoreIdx];
             const total = bannerItems.length;
@@ -1319,13 +1321,15 @@ export default function Home() {
               { name: "KiutRaba Signature Hoodie", img: "/assets/images/merch-hoodie.jpg",       isCover: true,  badge: "FEATURED",      badgeKind: "gold-fill",    desc: "Premium heavyweight fleece, embroidered KR crown logo.",             spotlight: 0 },
               { name: "Hoodking",                  img: "/assets/images/merch-outfit-red.jpg",   isCover: false, badge: "EXCLUSIVE",     badgeKind: "gold-outline", desc: "Bold color, editorial cut. Head-to-toe KiutRaba energy.",            spotlight: 1 },
               { name: "Classic Man",               img: "/assets/images/merch-shirt.jpg",        isCover: false, badge: "BEST SELLER",   badgeKind: "ghost",        desc: "Clean drop-shoulder silhouette. The essential studio staple.",       spotlight: 2 },
-              { name: "Good Life Full Drop",       img: "/assets/images/merch-collection.png",   isCover: false, badge: "COLLECTION",    badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe.",            spotlight: 3 },
-              { name: "EP Trucker Cap",            img: "/assets/images/merch-cap-vintage.png",  isCover: false, badge: "NEW",           badgeKind: "gold-fill",    desc: "Structured trucker with EP embroidery. Everyday KiutRaba flex.",     spotlight: 4 },
-              { name: "Good Life EP",              img: "/assets/images/merch-cd.png",           isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "The debut EP — Afrobeat meets Caribbean. Stream or own it.",         spotlight: 5 },
+              { name: "Good Life Full Drop",       img: "/assets/images/merch-collection.webp",   isCover: false, badge: "COLLECTION",    badgeKind: "ghost",        desc: "Every piece. One drop. The complete Good Life wardrobe.",            spotlight: 3 },
+              { name: "EP Trucker Cap",            img: "/assets/images/merch-cap-vintage.webp",  isCover: false, badge: "NEW",           badgeKind: "gold-fill",    desc: "Structured trucker with EP embroidery. Everyday KiutRaba flex.",     spotlight: 4 },
+              { name: "Good Life EP",              img: "/assets/images/merch-cd.webp",           isCover: false, badge: "DIGITAL",       badgeKind: "gold-outline", desc: "The debut EP — Afrobeat meets Caribbean. Stream or own it.",         spotlight: 5 },
+              { name: "KR Baggy Jeans",            img: "/assets/images/merch-baggy-jeans.jpg",  isCover: false, badge: "APPAREL",       badgeKind: "ghost",        desc: "Wide-leg, culture-first. The KiutRaba street silhouette.",            spotlight: 7 },
+              { name: "Goodlife Digital EP",       img: "/assets/images/merch-goodlife-ep.webp",  isCover: true,  badge: "DIGITAL",       badgeKind: "gold-outline", desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault.", spotlight: 8 },
             ];
 
             return (
-              <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
                 {gridItems.map((product, idx) => {
                   const isSpotlit = gridSpotlight === product.spotlight;
                   const isFeatured = idx === 0;
@@ -1340,11 +1344,11 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                      whileHover={{ y: -5, transition: { duration: 0.3 } }}
+                      whileHover={{ y: -7, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
                       className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-500 ${
                         isSpotlit || isFeatured
-                          ? "border border-gold/42 shadow-[0_18px_60px_rgba(212,175,55,0.15),0_0_0_1px_rgba(212,175,55,0.10)]"
-                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-gold/28 hover:shadow-[0_18px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(212,175,55,0.06)]"
+                          ? "border border-gold/42 shadow-[0_18px_60px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.12)]"
+                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-gold/32 hover:shadow-[0_22px_64px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.08)]"
                       }`}
                       style={{ background: "#0b0b0d" }}
                     >
@@ -1373,12 +1377,13 @@ export default function Home() {
                       </div>
 
                       {/* Image — 80% of card, featured item slightly taller */}
-                      <div className={`relative overflow-hidden bg-[#0e0e10] flex-shrink-0 ${isFeatured ? "h-[180px] sm:h-[230px] md:h-[250px]" : "h-[160px] sm:h-[200px] md:h-[220px]"}`}>
+                      <div className={`relative overflow-hidden bg-[#0e0e10] flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
                         <img
                           src={product.img}
                           alt={`${product.name} — KiutRaba`}
                           loading="lazy"
-                          className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]`}
+                          decoding="async"
+                          className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]`}
                         />
                         {(isSpotlit || isFeatured) && (
                           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07),transparent_68%)] pointer-events-none" />
@@ -1394,8 +1399,11 @@ export default function Home() {
                           <p className="text-white/35 text-[10px] font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-white/22 text-[10px] font-light tracking-widest">$ –</span>
-                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 transition-all duration-300 whitespace-nowrap">
+                          <span className="inline-flex items-center gap-1 text-white/18 text-[9px] font-light tracking-wide">
+                            <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
+                            Dream Planet
+                          </span>
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-[0_0_14px_rgba(212,175,55,0.2)] transition-all duration-300 whitespace-nowrap">
                             Shop Now <ExternalLink className="w-2 h-2" />
                           </span>
                         </div>
@@ -1427,32 +1435,35 @@ export default function Home() {
                   { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
                   { name: "Hoodking",            img: "/assets/images/merch-outfit-red.jpg",   cover: false },
                   { name: "Classic Man",         img: "/assets/images/merch-shirt.jpg",        cover: false },
-                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
-                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
-                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
-                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
-                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
-                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
-                  { name: "Men's Baggy",         img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
-                  { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.jpg",       cover: true  },
-                  { name: "Hoodking",            img: "/assets/images/merch-outfit-red.jpg",   cover: false },
-                  { name: "Classic Man",         img: "/assets/images/merch-shirt.jpg",        cover: false },
-                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.png",    cover: false },
-                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.png",       cover: false },
-                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.png",  cover: false },
-                  { name: "Rababag Classic Cap", img: "/assets/images/merch-cap-rababag.png",  cover: false },
-                  { name: "Good Life Full Drop", img: "/assets/images/merch-collection.png",   cover: false },
-                  { name: "Good Life EP",        img: "/assets/images/merch-cd.png",           cover: false },
-                  { name: "Men's Baggy",         img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "KR Crown Cap",        img: "/assets/images/merch-cap-black.webp",    cover: false },
+                  { name: "Waffle Beanie",       img: "/assets/images/merch-beanie.webp",       cover: false },
+                  { name: "EP Trucker Cap",      img: "/assets/images/merch-cap-vintage.webp",  cover: false },
+                  { name: "Rababag Classic Cap",   img: "/assets/images/merch-cap-rababag.webp",  cover: false },
+                  { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.webp",   cover: false },
+                  { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.webp",  cover: true  },
+                  { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
+                  { name: "Signature Hoodie",      img: "/assets/images/merch-hoodie.jpg",       cover: true  },
+                  { name: "Hoodking",              img: "/assets/images/merch-outfit-red.jpg",   cover: false },
+                  { name: "Classic Man",           img: "/assets/images/merch-shirt.jpg",        cover: false },
+                  { name: "KR Crown Cap",          img: "/assets/images/merch-cap-black.webp",    cover: false },
+                  { name: "Waffle Beanie",         img: "/assets/images/merch-beanie.webp",       cover: false },
+                  { name: "EP Trucker Cap",        img: "/assets/images/merch-cap-vintage.webp",  cover: false },
+                  { name: "Rababag Classic Cap",   img: "/assets/images/merch-cap-rababag.webp",  cover: false },
+                  { name: "Good Life Full Drop",   img: "/assets/images/merch-collection.webp",   cover: false },
+                  { name: "Goodlife Digital EP",   img: "/assets/images/merch-goodlife-ep.webp",  cover: true  },
+                  { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
+                  { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.jpg",  cover: false },
                 ].map((p, i) => (
                   <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
-                    <div className="group relative flex-shrink-0 w-[160px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/32 transition-all duration-300 hover:shadow-[0_10px_36px_rgba(0,0,0,0.55)] cursor-pointer">
-                      <div className="h-[130px] w-full bg-[#0e0e10]">
+                    <div className="group relative flex-shrink-0 w-[168px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/35 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 cursor-pointer">
+                      <div className="h-[142px] w-full bg-[#0e0e10]">
                         <img
                           src={p.img}
                           alt={p.name}
                           loading="lazy"
-                          className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07]`}
+                          decoding="async"
+                          className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.09]`}
                         />
                       </div>
                       <div className="px-3 py-2.5 bg-[#0a0a0c] border-t border-white/[0.05]">
@@ -1637,14 +1648,14 @@ export default function Home() {
               {/* Right — CTA */}
               <div className="flex flex-col items-center md:items-end gap-6">
                 <div className="flex flex-col gap-3 w-full md:w-auto">
-                  <Link href="/newsletter">
+                  <Link href="/tour">
                     <motion.button
                       data-testid="button-concert-notify"
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
                       className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
                     >
-                      Get Notified <ArrowRight size={14} />
+                      View Tour Dates <ArrowRight size={14} />
                     </motion.button>
                   </Link>
                   <p className="text-center text-white/18 text-[10px] font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>

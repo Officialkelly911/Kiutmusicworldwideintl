@@ -26,7 +26,7 @@ const img_courtyard   = "/assets/images/about-moments-coast.jpg";
 const img_sneakers    = "/assets/images/IMG_1254_1774433277988.jpeg";
 const img_mixing      = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344986471452864_1095425_1774434961599.jpeg";
 const img_synth       = "/assets/images/anonyig.io_Instagram_kiut_rababag_3709344988233024643_1095425_1774434961599.jpeg";
-const img_icon        = "/assets/images/about-icon-statement.png";
+const img_icon        = "/assets/images/about-icon-statement.webp";
 const img_momentLawnWide = "/assets/images/times_square_1774440627098.jpeg";
 const img_momentGardenSeat = "/assets/images/about-moments-garden-seat.jpg";
 const img_momentLounge = "/assets/images/about-moments-lounge.jpg";
@@ -300,6 +300,7 @@ function AudiomackIcon() {
 export default function About() {
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const closeLightboxBtnRef = useRef<HTMLButtonElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
   const [showExtended, setShowExtended] = useState(false);
@@ -324,6 +325,12 @@ export default function About() {
     selectedJourneyIndex === null ? null : allGalleryImages[selectedJourneyIndex]?.src ?? null;
 
   const closeJourneyLightbox = useCallback(() => setSelectedJourneyIndex(null), []);
+
+  useEffect(() => {
+    if (selectedJourneyIndex !== null) {
+      closeLightboxBtnRef.current?.focus();
+    }
+  }, [selectedJourneyIndex]);
   const showPreviousJourneyImage = useCallback(() => {
     setSelectedJourneyIndex((prev) =>
       prev === null ? null : (prev - 1 + allGalleryImages.length) % allGalleryImages.length
@@ -1157,6 +1164,9 @@ export default function About() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[80] bg-black/95 backdrop-blur-lg"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Visual Archive photo gallery"
             onClick={closeJourneyLightbox}
             onTouchStart={handleLightboxTouchStart}
             onTouchEnd={handleLightboxTouchEnd}
@@ -1188,11 +1198,13 @@ export default function About() {
                   {String((selectedJourneyIndex ?? 0) + 1).padStart(3, "0")} / {String(allGalleryImages.length).padStart(3, "0")}
                 </span>
                 <button
+                  ref={closeLightboxBtnRef}
                   type="button"
                   onClick={(e) => { e.stopPropagation(); closeJourneyLightbox(); }}
+                  aria-label="Close photo gallery"
                   className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-gold/40 hover:text-white hover:bg-white/10 transition-all duration-200"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -1206,9 +1218,10 @@ export default function About() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showPreviousJourneyImage(); }}
+                aria-label="Previous image"
                 className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-200"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
 
               {/* Image */}
@@ -1236,9 +1249,10 @@ export default function About() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showNextJourneyImage(); }}
+                aria-label="Next image"
                 className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-200"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
@@ -1403,10 +1417,47 @@ export default function About() {
               ))}
             </div>
 
+            {/* Merch preview — 3 featured products */}
+            <div className="grid grid-cols-3 gap-3 mb-10 max-w-sm mx-auto">
+              {[
+                { img: "/assets/images/merch-hoodie.jpg",        name: "Signature Hoodie",    cover: true  },
+                { img: "/assets/images/merch-baggy-jeans.jpg",  name: "KR Baggy Jeans",      cover: false },
+                { img: "/assets/images/merch-goodlife-ep.webp",  name: "Goodlife Digital EP", cover: true  },
+              ].map((item) => (
+                <motion.a
+                  key={item.name}
+                  href="https://dreamplanet.org/store-profile/61"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(212,175,55,0.16)] transition-[border-color,box-shadow] duration-300"
+                  style={{ background: "#0d0d0f" }}
+                >
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={`w-full h-full ${item.cover ? "object-cover object-top" : "object-contain p-2.5"} group-hover:scale-[1.06] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)]`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
+                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-[8px] font-bold text-white/80 uppercase tracking-wide px-1 line-clamp-1">{item.name}</p>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Dream Planet attribution */}
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" loading="lazy" className="w-3.5 h-3.5 opacity-35" />
+              <span className="text-white/22 text-[9px] uppercase tracking-[0.32em] font-medium">Exclusive on Dream Planet</span>
+            </div>
+
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <motion.a
-                href="https://kiutmusic.com/store"
+                href="https://dreamplanet.org/store-profile/61"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -3, scale: 1.02 }}

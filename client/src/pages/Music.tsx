@@ -130,7 +130,7 @@ const timelineEvents = [
 
 function PlayingBars() {
   return (
-    <div className="flex gap-[3px] items-end h-4">
+    <div className="flex gap-[3px] items-end h-4" aria-hidden="true">
       {[0.8, 1.2, 0.9, 1.4, 0.7].map((h, i) => (
         <motion.div
           key={i}
@@ -510,8 +510,8 @@ export default function Music() {
             Four EPs. Dozens of tracks. One cinematic sound shaped by two continents.
           </p>
 
-          {/* Animated waveform accent */}
-          <div className="flex items-end justify-center gap-[4px] h-6 mb-10">
+          {/* Animated waveform accent — decorative, hidden from screen readers */}
+          <div className="flex items-end justify-center gap-[4px] h-6 mb-10" aria-hidden="true">
             {[0.5, 0.8, 1.2, 1.6, 1.0, 1.4, 0.9, 1.5, 1.1, 0.7, 1.3, 0.6].map((h, i) => (
               <motion.div
                 key={i}

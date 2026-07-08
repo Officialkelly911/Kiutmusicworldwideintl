@@ -6,20 +6,39 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
 import { PlayerProvider, usePlayer } from "@/context/PlayerContext";
 import MiniPlayer from "@/components/MiniPlayer";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
-import Home from "@/pages/Home";
-import Music from "@/pages/Music";
-import Videos from "@/pages/Videos";
-import About from "@/pages/About";
-import Newsletter from "@/pages/Newsletter";
-import NotFound from "@/pages/not-found";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { pageVariants } from "@/lib/motion";
+import { lazy, Suspense } from "react";
 
-const pageVariants: Variants = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0,  transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] as const } },
-  exit:    { opacity: 0,         transition: { duration: 0.15, ease: "easeIn" } },
-};
+// ── Route-level code splitting ────────────────────────────────────────────────
+// Each page is loaded only when navigated to. Vite will emit a separate chunk
+// per page (combined with manualChunks in vite.config.ts for vendor splitting).
+const Home       = lazy(() => import("@/pages/Home"));
+const Music      = lazy(() => import("@/pages/Music"));
+const Videos     = lazy(() => import("@/pages/Videos"));
+const About      = lazy(() => import("@/pages/About"));
+const Newsletter = lazy(() => import("@/pages/Newsletter"));
+const Tour       = lazy(() => import("@/pages/Tour"));
+const Contact    = lazy(() => import("@/pages/Contact"));
+const NotFound   = lazy(() => import("@/pages/not-found"));
 
+// ── Page loading fallback ─────────────────────────────────────────────────────
+// Shown during the first load of each lazy chunk. Intentionally minimal so
+// it doesn't conflict with the page's own hero animation.
+function PageFallback() {
+  return (
+    <div className="min-h-screen bg-midnight flex items-center justify-center">
+      <div
+        className="w-10 h-10 rounded-full border-2 border-t-gold animate-spin"
+        style={{ borderColor: "rgba(212,175,55,0.15)", borderTopColor: "#D4AF37" }}
+        role="status"
+        aria-label="Loading page"
+      />
+    </div>
+  );
+}
+
+// ── Animated router ───────────────────────────────────────────────────────────
 function AnimatedRouter() {
   const [location] = useLocation();
   const { showPlayer } = usePlayer();
@@ -34,30 +53,48 @@ function AnimatedRouter() {
           animate="animate"
           exit="exit"
         >
-          <Switch>
-            <Route path="/"           component={Home}       />
-            <Route path="/music"      component={Music}      />
-            <Route path="/videos"     component={Videos}     />
-            <Route path="/about"      component={About}      />
-            <Route path="/newsletter" component={Newsletter} />
-            <Route                    component={NotFound}   />
-          </Switch>
+          {/* Suspense boundary per-route — fallback is the minimal spinner above.
+              The spinner is rarely seen after the first visit because the chunk
+              is cached by the browser. */}
+          <Suspense fallback={<PageFallback />}>
+            <Switch>
+              <Route path="/"           component={Home}       />
+              <Route path="/music"      component={Music}      />
+              <Route path="/videos"     component={Videos}     />
+              <Route path="/about"      component={About}      />
+              <Route path="/newsletter" component={Newsletter} />
+              <Route path="/tour"       component={Tour}       />
+              <Route path="/contact"    component={Contact}    />
+              <Route                    component={NotFound}   />
+            </Switch>
+          </Suspense>
         </motion.div>
       </AnimatePresence>
     </div>
   );
 }
 
+// ── App root ──────────────────────────────────────────────────────────────────
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <PlayerProvider>
-          <Toaster />
-          <Navigation />
-          <AnimatedRouter />
-          <MiniPlayer />
-        </PlayerProvider>
+        {/*
+          MotionConfig reducedMotion="user" — makes every framer-motion animation
+          on the site respect the OS-level prefers-reduced-motion preference.
+          CSS transitions are covered by the @media rule in index.css.
+        */}
+        <MotionConfig reducedMotion="user">
+          <PlayerProvider>
+            <Toaster />
+            <a href="#main-content" className="skip-link">Skip to content</a>
+            <Navigation />
+            <main id="main-content">
+              <AnimatedRouter />
+            </main>
+            <MiniPlayer />
+          </PlayerProvider>
+        </MotionConfig>
       </TooltipProvider>
     </QueryClientProvider>
   );

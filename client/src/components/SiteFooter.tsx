@@ -1,4 +1,11 @@
 import { Link, useLocation } from "wouter";
+
+// ── Designer credit ────────────────────────────────────────────────────────────
+// Change name or url here to update the credit across the entire site.
+const DESIGNER = {
+  name: "Kelly",
+  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
+} as const;
 import { motion } from "framer-motion";
 import {
   SiSpotify,
@@ -180,6 +187,20 @@ export default function SiteFooter() {
             <a href="#" className="hover:text-white/70 transition-colors duration-200">Terms</a>
           </div>
         </div>
+
+        {/* ── Designer credit ──────────────────────────────────── */}
+        <p className="mt-4 text-center text-[9px] font-light tracking-[0.2em] text-white/20">
+          Designed &amp; Developed by{" "}
+          <a
+            href={DESIGNER.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${DESIGNER.name}'s portfolio`}
+            className="text-white/30 hover:text-gold transition-colors duration-250 hover:-translate-y-px inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/40 rounded-sm"
+          >
+            {DESIGNER.name}
+          </a>
+        </p>
       </div>
     </footer>
   );

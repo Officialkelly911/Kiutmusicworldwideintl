@@ -62,7 +62,7 @@ const socialLinks = [
   {
     label: "Instagram",
     sub: "@kiut_rababag",
-    icon: Instagram,
+    icon: SiInstagram,
     href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     color: "from-pink-500/10 to-rose-600/10",
     border: "hover:border-pink-500/30",
@@ -71,7 +71,7 @@ const socialLinks = [
   {
     label: "YouTube",
     sub: "@kiutrabatv",
-    icon: Youtube,
+    icon: SiYoutube,
     href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
     color: "from-red-500/10 to-red-700/10",
     border: "hover:border-red-500/30",

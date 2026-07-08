@@ -103,6 +103,8 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
 
 function CinematicIntro({ onComplete }: { onComplete: () => void }) {
   const waveHeights = [0.55, 0.9, 1.4, 1.0, 1.6, 0.75, 1.2, 0.5, 1.35, 0.8, 1.5, 0.65];
+  const [introVideoReady, setIntroVideoReady] = useState(false);
+  const [introVideoError, setIntroVideoError] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 1 }}
@@ -117,10 +119,24 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
         transition={{ duration: 2, delay: 0.2 }}
         className="absolute inset-0 z-0"
       >
-        <video autoPlay loop muted playsInline preload="auto" poster={heroPoster}
-          className="w-full h-full object-cover blur-lg scale-105">
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        {/* Poster — always present as fallback beneath the video */}
+        <img
+          src={heroPoster}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover blur-lg scale-105"
+        />
+        {!introVideoError && (
+          <video
+            autoPlay loop muted playsInline preload="auto" poster={heroPoster}
+            onCanPlay={() => setIntroVideoReady(true)}
+            onError={() => setIntroVideoError(true)}
+            className="absolute inset-0 w-full h-full object-cover blur-lg scale-105 transition-opacity duration-700"
+            style={{ opacity: introVideoReady ? 1 : 0 }}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80" />
       </motion.div>
 
@@ -442,9 +458,11 @@ function MilestoneGallery() {
 function HeroSlideMedia({ src, poster, isFirst }: { src: string; poster: string; isFirst: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     setVideoReady(false);
+    setVideoError(false);
     const v = videoRef.current;
     if (!v) return;
     v.load();
@@ -457,32 +475,40 @@ function HeroSlideMedia({ src, poster, isFirst }: { src: string; poster: string;
     setVideoReady(true);
   };
 
+  const handleError = () => {
+    setVideoError(true);
+    setVideoReady(false);
+  };
+
   return (
     <div className="absolute inset-0 w-full h-full">
-      {/* Poster — shown immediately, fades out once video is ready */}
+      {/* Poster — shown immediately, fades out once video is ready; stays visible on error */}
       <img
         src={poster}
         alt=""
         aria-hidden
         className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-        style={{ opacity: videoReady ? 0 : 1 }}
+        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
         fetchPriority={isFirst ? "high" : "low"}
       />
-      {/* Video — fades in once buffered */}
-      <video
-        ref={videoRef}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload={isFirst ? "auto" : "metadata"}
-        poster={poster}
-        onCanPlay={handleCanPlay}
-        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-        style={{ opacity: videoReady ? 1 : 0 }}
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+      {/* Video — fades in once buffered; hidden on error so poster shows through */}
+      {!videoError && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload={isFirst ? "auto" : "metadata"}
+          poster={poster}
+          onCanPlay={handleCanPlay}
+          onError={handleError}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      )}
     </div>
   );
 }

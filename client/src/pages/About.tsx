@@ -305,6 +305,8 @@ export default function About() {
   const [selectedJourneyIndex, setSelectedJourneyIndex] = useState<number | null>(null);
   const [showExtended, setShowExtended] = useState(false);
   const [activeChapter, setActiveChapter] = useState<string>("all");
+  const [aboutVideoReady, setAboutVideoReady] = useState(false);
+  const [aboutVideoError, setAboutVideoError] = useState(false);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -371,17 +373,29 @@ export default function About() {
       {/* ─── FIXED CINEMATIC VIDEO BACKGROUND ──────────────────────────── */}
       {/* Same source as hero — browser caches it, no double download.     */}
       <div className="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          poster={aboutHeroPoster}
-          className="w-full h-full object-cover object-center"
-        >
-          <source src={aboutHeroVideo} type="video/mp4" />
-        </video>
+        {/* Poster always underneath as fallback */}
+        <img
+          src={aboutHeroPoster}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {!aboutVideoError && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster={aboutHeroPoster}
+            onCanPlay={() => setAboutVideoReady(true)}
+            onError={() => setAboutVideoError(true)}
+            className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+            style={{ opacity: aboutVideoReady ? 1 : 0 }}
+          >
+            <source src={aboutHeroVideo} type="video/mp4" />
+          </video>
+        )}
       </div>
 
       {/* ─── SCROLL-DEEPENING DARKNESS OVERLAY ──────────────────────────── */}
@@ -400,17 +414,29 @@ export default function About() {
           style={{ y: heroY }}
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            poster={aboutHeroPoster}
-            className="w-full h-full object-cover object-center"
-          >
-            <source src={aboutHeroVideo} type="video/mp4" />
-          </video>
+          {/* Poster always underneath as fallback */}
+          <img
+            src={aboutHeroPoster}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          {!aboutVideoError && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster={aboutHeroPoster}
+              onCanPlay={() => setAboutVideoReady(true)}
+              onError={() => setAboutVideoError(true)}
+              className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+              style={{ opacity: aboutVideoReady ? 1 : 0 }}
+            >
+              <source src={aboutHeroVideo} type="video/mp4" />
+            </video>
+          )}
         </motion.div>
 
         {/* Gradient overlays */}

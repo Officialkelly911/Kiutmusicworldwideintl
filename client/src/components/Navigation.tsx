@@ -1,14 +1,15 @@
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Music, Video, Home, Info, Mail, Menu, X, Ticket } from "lucide-react";
+import { Music, Video, Home, Info, Mail, Menu, X, Ticket, MessageSquare } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
-  { href: "/",       label: "Home",   icon: Home   },
-  { href: "/music",  label: "Music",  icon: Music  },
-  { href: "/videos", label: "Videos", icon: Video  },
-  { href: "/about",  label: "About",  icon: Info   },
-  { href: "/tour",   label: "Tour",   icon: Ticket },
+  { href: "/",        label: "Home",    icon: Home          },
+  { href: "/music",   label: "Music",   icon: Music         },
+  { href: "/videos",  label: "Videos",  icon: Video         },
+  { href: "/about",   label: "About",   icon: Info          },
+  { href: "/tour",    label: "Tour",    icon: Ticket        },
+  { href: "/contact", label: "Contact", icon: MessageSquare },
 ];
 
 export function Navigation() {

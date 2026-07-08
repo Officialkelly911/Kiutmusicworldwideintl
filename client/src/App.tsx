@@ -13,6 +13,7 @@ import Videos from "@/pages/Videos";
 import About from "@/pages/About";
 import Newsletter from "@/pages/Newsletter";
 import Tour from "@/pages/Tour";
+import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
 const pageVariants: Variants = {
@@ -42,6 +43,7 @@ function AnimatedRouter() {
             <Route path="/about"      component={About}      />
             <Route path="/newsletter" component={Newsletter} />
             <Route path="/tour"       component={Tour}       />
+            <Route path="/contact"    component={Contact}    />
             <Route                    component={NotFound}   />
           </Switch>
         </motion.div>

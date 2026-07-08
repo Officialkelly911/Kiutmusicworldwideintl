@@ -865,9 +865,9 @@ export default function Videos() {
                       {featuredVideo.type}
                     </div>
 
-                    <h1 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white mb-4 leading-tight">
+                    <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-white mb-4 leading-tight">
                       {featuredVideo.title}
-                    </h1>
+                    </h2>
 
                     {/* Metadata pills */}
                     <div className="flex flex-wrap items-center gap-2">

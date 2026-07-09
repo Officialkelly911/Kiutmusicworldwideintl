@@ -1,0 +1,174 @@
+Replace the About Page Hero Image
+
+Replace the existing About page hero image with the newly uploaded high-resolution cinematic beach portrait.
+
+Objectives
+
+This image should become the new visual identity of the About page.
+
+The section should immediately communicate:
+
+* premium artistry
+* confidence
+* elegance
+* emotional storytelling
+* cinematic quality
+
+Requirements
+
+1. Replace the existing image
+
+Locate the About page hero component.
+
+Remove the current hero image completely.
+
+Use the newly uploaded refined beach portrait as the hero background.
+
+Do not leave any references to the previous image.
+
+⸻
+
+2. Hero Layout
+
+Display the image full-width.
+
+Height:
+
+* Desktop: 90–100vh
+* Tablet: 80vh
+* Mobile: 65–70vh
+
+The image should always fill the container using:
+
+object-fit: cover;
+
+Never stretch the image.
+
+Never squash the image.
+
+⸻
+
+3. Image Positioning
+
+The artist should remain the focal point.
+
+Crop responsively so:
+
+Desktop
+
+* artist positioned slightly left of center
+* beach visible
+* ocean visible
+* sky visible
+
+Tablet
+
+* artist centered
+
+Mobile
+
+* artist centered vertically
+* keep face fully visible
+* preserve the flowers and teddy bear if possible
+
+Avoid awkward crops that remove the subject.
+
+⸻
+
+4. Cinematic Overlay
+
+Add a subtle cinematic overlay above the image.
+
+Use a layered gradient similar to:
+
+Top:
+rgba(0,0,0,.25)
+
+Middle:
+rgba(0,0,0,.35)
+
+Bottom:
+rgba(0,0,0,.60)
+
+This should improve readability without hiding the photography.
+
+⸻
+
+5. Preserve Existing Content
+
+Do NOT redesign the About page.
+
+Only replace the hero image.
+
+Keep:
+
+* heading
+* typography
+* buttons
+* spacing
+* animations
+* layout
+* responsiveness
+
+exactly as they are.
+
+⸻
+
+6. Smooth Entrance
+
+The image should fade in elegantly on page load.
+
+Suggested animation:
+
+* opacity
+* slight scale (1.03 → 1.00)
+* duration around 1.2 seconds
+* ease-out
+
+The movement should feel premium and cinematic.
+
+⸻
+
+7. Performance
+
+Optimize the uploaded image.
+
+Generate responsive versions.
+
+Enable lazy loading where appropriate.
+
+Use modern formats (WebP/AVIF if supported).
+
+Maintain excellent visual quality while reducing load time.
+
+⸻
+
+8. Accessibility
+
+Provide meaningful alt text.
+
+Example:
+
+“Kiut on a quiet beach at golden hour, reflecting the emotional storytelling behind his music.”
+
+⸻
+
+9. Final Validation
+
+Verify that:
+
+✓ Hero image displays correctly.
+
+✓ Responsive cropping looks excellent.
+
+✓ No stretching occurs.
+
+✓ No pixelation.
+
+✓ Overlay improves readability.
+
+✓ Existing About page content remains unchanged.
+
+✓ Lighthouse performance is unaffected or improved.
+
+The final result should feel like the opening frame of a premium music documentary rather than a standard website banner.

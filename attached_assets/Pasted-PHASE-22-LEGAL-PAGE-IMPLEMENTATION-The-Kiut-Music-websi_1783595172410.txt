@@ -1,0 +1,268 @@
+PHASE 22 — LEGAL PAGE IMPLEMENTATION
+
+The Kiut Music website is now approaching production launch.
+
+Your task is to create a single professional Legal page that contains both the Privacy Policy and Terms & Conditions as separate sections within one beautifully designed page.
+
+Do NOT create two separate pages.
+
+The final URL should be:
+
+/legal
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create one elegant Legal page that matches the premium aesthetic of the Kiut Music website while ensuring visitors can easily read both the Privacy Policy and Terms & Conditions.
+
+The page should feel editorial rather than overly legalistic.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PAGE STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Design the page with the following structure:
+
+Hero Section
+
+Title:
+Legal
+
+Subtitle:
+Privacy, transparency, and the terms that govern your use of the Kiut Music website.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section 1
+
+Privacy Policy
+
+Include professionally written content covering:
+
+• Information collected
+• Contact form submissions
+• Newsletter subscriptions
+• Cookies
+• Analytics
+• Third-party services
+• Email communications
+• Data security
+• Data retention
+• User rights
+• Children's privacy
+• Changes to the policy
+• Contact information
+
+The language should be concise, modern, and easy to understand.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section Divider
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section 2
+
+Terms & Conditions
+
+Include:
+
+• Acceptance of terms
+• Website usage
+• Intellectual property
+• Copyright
+• Music ownership
+• Video ownership
+• Image ownership
+• Merchandise
+• External links
+• Limitation of liability
+• User conduct
+• Availability of services
+• Changes to terms
+• Governing law
+• Contact information
+
+Use professional, readable language.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section Divider
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Footer Note
+
+Display:
+
+Last Updated
+
+Automatically display today's date or make it configurable.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DESIGN REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The page must follow the existing Kiut Music design system.
+
+Maintain:
+
+• Black premium background
+• Gold accents
+• White typography
+• Existing spacing system
+• Existing typography scale
+• Existing animation language
+• Existing responsive layout
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TYPOGRAPHY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Headings:
+
+Elegant serif display font
+
+Body:
+
+Existing body font
+
+Readable line height
+
+Comfortable paragraph width
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NAVIGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Update the Footer.
+
+Replace
+
+Privacy Policy
+
+Terms & Conditions
+
+with
+
+Legal
+
+The Legal link should navigate to:
+
+/legal
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPONSIVENESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure the page is fully responsive on:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile
+
+Maintain excellent readability across all screen sizes.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACCESSIBILITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement:
+
+• Proper heading hierarchy
+• Keyboard navigation
+• Semantic HTML
+• High contrast
+• Focus indicators
+• Accessible links
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SEO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add:
+
+Title:
+
+Legal | Kiut Music
+
+Meta Description:
+
+Read the Privacy Policy and Terms & Conditions governing the official Kiut Music website.
+
+Implement proper Open Graph metadata.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRESERVE EXISTING WEBSITE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT modify:
+
+Homepage
+
+Music Page
+
+Videos Page
+
+About Page
+
+Tour Page
+
+Store
+
+Gallery
+
+Navigation
+
+Branding
+
+Animations
+
+Color palette
+
+Only add the new Legal page and update the Footer link.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY ASSURANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verify:
+
+✓ Legal page loads correctly.
+
+✓ Footer links navigate correctly.
+
+✓ Responsive layout functions properly.
+
+✓ Typography matches the design system.
+
+✓ Accessibility passes.
+
+✓ SEO metadata is implemented.
+
+✓ No broken links exist.
+
+✓ No console errors occur.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Provide a completion report including:
+
+• Files created.
+• Routes added.
+• Footer updated.
+• SEO implemented.
+• Accessibility improvements.
+• Responsive testing.
+• Confirmation that the Legal page is production-ready.
+
+IMPORTANT
+
+The Legal page should feel like an integrated part of the Kiut Music brand, not a generic legal template. Use clean spacing, refined typography, subtle section dividers, and the same premium visual language found throughout the rest of the website. The goal is to make legal information approachable, professional, and consistent with the site's luxury, cinematic identity.

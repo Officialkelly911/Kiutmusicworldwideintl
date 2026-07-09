@@ -186,9 +186,13 @@ export default function SiteFooter() {
           <p className="text-white/30 text-[11px] tracking-[0.2em] uppercase">
             © {new Date().getFullYear()} Kiut Music Worldwide. All rights reserved.
           </p>
-          <div className="flex gap-8 text-[11px] tracking-widest uppercase font-medium text-white/30">
-            <span>Privacy</span>
-            <span>Terms</span>
+          <div className="flex gap-8 text-[11px] tracking-widest uppercase font-medium">
+            <a
+              href="/legal"
+              className="text-white/30 hover:text-gold transition-colors duration-200 focus-visible:outline-none focus-visible:underline"
+            >
+              Legal
+            </a>
           </div>
         </div>
 

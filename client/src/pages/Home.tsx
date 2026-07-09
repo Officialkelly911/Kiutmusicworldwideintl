@@ -464,7 +464,9 @@ function HeroSlideMedia({
     const v = videoRef.current;
     if (!v) return;
     v.load();
-    v.play().catch(() => {});
+    // Attempt play immediately after load — muted videos are autoplay-safe in all browsers
+    const playPromise = v.play();
+    if (playPromise !== undefined) playPromise.catch(() => {});
   }, [video]);
 
   return (
@@ -726,7 +728,7 @@ export default function Home() {
       poster: heroReelPoster,
       badge: "New EP Out Now",
       isExternal: true,
-      duration: 7000,
+      duration: 1500,
     },
     {
       id: 1,

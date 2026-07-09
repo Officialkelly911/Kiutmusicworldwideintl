@@ -6,6 +6,8 @@ import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
+const heroReelVideo  = "/assets/videos/hero-reel.mp4";
+const heroReelPoster = "/assets/images/hero-reel-poster.jpg";
 const videoGalleryCover = "/assets/images/IMG_1257_1774433050958.webp";
 const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
 const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
@@ -442,16 +444,61 @@ function MilestoneGallery() {
   );
 }
 
-function HeroSlideMedia({ poster, isFirst }: { poster: string; isFirst: boolean }) {
+function HeroSlideMedia({
+  video,
+  poster,
+  isFirst,
+}: {
+  video?: string;
+  poster: string;
+  isFirst: boolean;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    if (!video) return;
+    setVideoReady(false);
+    setVideoError(false);
+    const v = videoRef.current;
+    if (!v) return;
+    v.load();
+    v.play().catch(() => {});
+  }, [video]);
+
   return (
     <div className="absolute inset-0 w-full h-full">
+      {/* Poster — instant paint, fades out once video is buffered */}
       <img
         src={poster}
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+        style={{ opacity: video && videoReady && !videoError ? 0 : 1 }}
         fetchPriority={isFirst ? "high" : "low"}
       />
+      {/* Video layer — only rendered for slides that supply one */}
+      {video && !videoError && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload={isFirst ? "auto" : "metadata"}
+          poster={poster}
+          onCanPlay={() => {
+            videoRef.current?.play().catch(() => {});
+            setVideoReady(true);
+          }}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+      )}
     </div>
   );
 }
@@ -670,6 +717,18 @@ export default function Home() {
 
   const slides = [
     {
+      id: 0,
+      title: "Good Life EP",
+      description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
+      ctaText: "Listen Now",
+      ctaLink: "https://linktr.ee/kiut_goodlife",
+      video: heroReelVideo,
+      poster: heroReelPoster,
+      badge: "New EP Out Now",
+      isExternal: true,
+      duration: 7000,
+    },
+    {
       id: 1,
       title: "Good Life Visuals",
       description: "Watch the cinematic visual experience for the lead single. Directed with precision and artistic vision.",
@@ -677,7 +736,8 @@ export default function Home() {
       ctaLink: "/videos",
       poster: goodLifePoster,
       badge: "Featured Music Video",
-      isExternal: false
+      isExternal: false,
+      duration: 6000,
     },
     {
       id: 2,
@@ -687,16 +747,19 @@ export default function Home() {
       ctaLink: "https://dreamplanet.org/user/61",
       poster: gradImage1,
       badge: "Creative Highlight",
-      isExternal: true
+      isExternal: true,
+      duration: 6000,
     }
   ];
 
+  // Per-slide timing: first slide lingers 7 s, others cycle at 6 s
   useEffect(() => {
-    const timer = setInterval(() => {
+    const delay = slides[currentSlide].duration;
+    const timer = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
@@ -719,12 +782,18 @@ export default function Home() {
             className="absolute inset-0 w-full h-full z-0"
           >
             <HeroSlideMedia
+              video={(slides[currentSlide] as any).video}
               poster={slides[currentSlide].poster}
               isFirst={currentSlide === 0}
             />
-            {/* Lightened cinematic gradient — keeps text readable without burying the visual */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+            {/* Cinematic dark overlay ~35% for text readability */}
+            <div className="absolute inset-0 bg-black/35" />
+            {/* Directional gradient — text side darker */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+            {/* Cinematic vignette */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ boxShadow: "inset 0 0 120px 40px rgba(0,0,0,0.65)" }} />
           </motion.div>
         </AnimatePresence>
 

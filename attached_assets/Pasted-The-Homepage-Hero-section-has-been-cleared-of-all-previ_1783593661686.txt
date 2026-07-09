@@ -1,0 +1,134 @@
+The Homepage Hero section has been cleared of all previous video assets. A brand-new hero video has now been uploaded to the project and is ready to be integrated.
+
+Your task is to implement this new video as the primary media for the first Hero slide and ensure it delivers a premium, cinematic first impression while preserving the existing design language of the Kiut Music website.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Integrate the newly uploaded hero video into the first Hero slide and optimize it to create a smooth, immersive, cinematic experience that immediately captures visitors' attention.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VIDEO INTEGRATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Locate the first Hero slide on the Homepage.
+
+2. Connect the newly uploaded video asset as the background media for the first slide.
+
+3. Ensure the Hero section references only the new video.
+
+4. Remove any obsolete video imports, references, constants, or unused code related to the previous hero videos.
+
+5. Verify there are no broken asset paths or missing media references.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VIDEO PLAYBACK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Configure the Hero video to:
+
+• Autoplay immediately when the page loads.
+• Loop continuously without interruption.
+• Play muted.
+• Use playsInline for mobile compatibility.
+• Use preload="auto" (or the most appropriate loading strategy for performance).
+• Hide all video controls.
+• Start smoothly without flashing or flickering.
+• Continue playing seamlessly during the first Hero slide.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CINEMATIC PRESENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Transform the Hero into a premium cinematic experience.
+
+Implement:
+
+• A subtle dark overlay (approximately 30–40%) to improve text readability.
+• Soft cinematic vignette around the edges.
+• Smooth fade-in animation when the page loads.
+• Rich contrast with deep blacks and natural highlights.
+• High-quality rendering without degrading the uploaded video.
+• Elegant transitions between Hero slides.
+• Preserve the emotional impact of the footage.
+
+The Hero should feel like the opening sequence of a premium artist documentary or luxury music campaign.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VISUAL QUALITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure the video:
+
+• Uses object-fit: cover.
+• Completely fills the Hero section.
+• Maintains the correct aspect ratio.
+• Never stretches or distorts.
+• Remains sharp on Retina and high-resolution displays.
+• Looks excellent across desktop, tablet, and mobile devices.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PERFORMANCE OPTIMIZATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Optimize the Hero for fast loading while maintaining premium quality.
+
+Implement:
+
+• Efficient video loading.
+• Responsive media delivery.
+• Smooth playback.
+• Minimal buffering.
+• Lazy loading for non-active Hero slides if applicable.
+• No layout shifts.
+• GPU-friendly rendering where appropriate.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRESERVE EXISTING DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT modify:
+
+• Hero layout.
+• Headlines.
+• Typography.
+• CTA buttons.
+• Navigation.
+• Branding.
+• Section spacing.
+• Existing responsive behavior.
+
+Only enhance the Hero video implementation and playback experience.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY ASSURANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before completing the implementation, verify:
+
+✓ The new Hero video is successfully connected.
+✓ The video autoplays correctly.
+✓ The video loops continuously.
+✓ The video plays smoothly on desktop and mobile.
+✓ No console errors exist.
+✓ No broken media references remain.
+✓ Page performance remains optimized.
+✓ The Hero section delivers a premium cinematic first impression.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPLETION REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Provide a final report including:
+
+• Files modified.
+• Components updated.
+• New Hero video successfully integrated.
+• Performance optimizations applied.
+• Playback improvements implemented.
+• Confirmation that the Hero section now provides a premium cinematic experience across all supported devices.
+
+IMPORTANT
+
+Treat the Hero section as the visual centerpiece of the entire website. Every detail should contribute to a luxurious, modern, and emotionally engaging first impression. The implementation should feel polished, immersive, and worthy of a professional recording artist's official website while maintaining excellent performance and responsiveness.

@@ -1,0 +1,208 @@
+Here’s the master implementation prompt I’d use. It’s structured so Replit doesn’t just “swap an image”, but updates the brand consistently across the entire website.
+
+⸻
+
+KIUT MUSIC | Phase 1 Brand Integration (Master Logo)
+
+Objective
+
+Replace every existing KIUT Music logo, favicon, and branding asset with the newly approved master logo while preserving all existing functionality and layout.
+
+The uploaded logo is now the official primary brand identity.
+
+⸻
+
+1. Import the New Logo
+
+Locate the uploaded master logo and save it inside the brand assets folder.
+
+/client/public/assets/brand/
+or
+/client/src/assets/brand/
+
+Rename it to:
+
+kiut-master-logo.png
+
+If the project uses an assets index file, register the new logo there.
+
+⸻
+
+2. Replace Every Existing Logo
+
+Search the entire project for every logo reference including:
+
+* Header
+* Navigation
+* Mobile Menu
+* Footer
+* Loading Screen
+* Splash Screen
+* About Page
+* Contact Page
+* Newsletter
+* Gallery
+* SEO Images
+* Open Graph Image
+* Social Share Image
+
+Replace every old logo reference with:
+
+kiut-master-logo.png
+
+Remove any unused logo files from the project to avoid duplicate assets.
+
+⸻
+
+3. Preserve Logo Quality
+
+The logo must:
+
+* remain transparent
+* never be cropped
+* never be stretched
+* never lose aspect ratio
+* render sharply on Retina displays
+* remain crisp on mobile devices
+
+⸻
+
+4. Header Logo
+
+Configure the navigation logo so it:
+
+Desktop
+
+Height:
+60px
+Auto Width
+
+Tablet
+
+Height:
+52px
+
+Mobile
+
+Height:
+44px
+
+Use CSS similar to:
+
+.logo img{
+height:auto;
+width:auto;
+max-height:60px;
+object-fit:contain;
+display:block;
+}
+
+⸻
+
+5. Footer Logo
+
+Replace the footer logo with the new master logo.
+
+Maintain generous spacing above the copyright.
+
+⸻
+
+6. Loading Screen
+
+If a loading animation exists,
+
+replace the current logo with
+
+kiut-master-logo.png
+
+Animate using:
+
+* fade in
+* slight scale
+* soft glow
+* fade out
+
+Duration:
+
+1.2s
+
+⸻
+
+7. Browser Favicon
+
+Generate and install:
+
+favicon-16.png
+favicon-32.png
+apple-touch-icon.png
+android-192.png
+android-512.png
+favicon.ico
+
+Update:
+
+index.html
+
+with the proper favicon references.
+
+⸻
+
+8. Social Preview
+
+Replace the OpenGraph image.
+
+Update:
+
+og:image
+twitter:image
+
+to use the new master logo.
+
+⸻
+
+9. SEO
+
+Update structured data so the organization logo references:
+
+kiut-master-logo.png
+
+⸻
+
+10. Responsive Testing
+
+Verify the logo displays correctly on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile Portrait
+* Mobile Landscape
+
+No clipping.
+
+No distortion.
+
+No pixelation.
+
+⸻
+
+11. Performance
+
+Optimize the PNG without visible quality loss.
+
+Enable browser caching.
+
+Lazy-load the logo where appropriate (excluding the header).
+
+⸻
+
+12. Final Validation
+
+Verify that:
+
+* The same logo appears consistently throughout the site.
+* No old logo files remain in use.
+* All links, animations, and layouts continue to function correctly.
+* Lighthouse performance and accessibility scores are not negatively affected.
+
+Do not redesign, recolor, recreate, or reinterpret the logo. Use the uploaded artwork exactly as the official Kiut Music master logo. Preserve its proportions, colors, metallic finish, and transparent background. Only integrate it throughout the website and remove all obsolete logo assets.

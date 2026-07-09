@@ -140,12 +140,45 @@ export default function Newsletter() {
     n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : n.toString();
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-[#050505] text-white relative overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="min-h-screen pt-24 pb-16 text-white relative overflow-hidden"
+    >
 
-      {/* ── Layered gradient background ───────────────────────── */}
+      {/* ── Cinematic beach background ────────────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Base dark purple sweep */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-[#0d0618] to-black" />
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcSet="/assets/newsletter/beach-hero-768.webp"
+          />
+          <source
+            media="(max-width: 1279px)"
+            srcSet="/assets/newsletter/beach-hero-1280.webp"
+          />
+          <source srcSet="/assets/newsletter/beach-hero-1920.webp" />
+          <img
+            src="/assets/newsletter/beach-hero-1920.jpg"
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            fetchPriority="high"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        </picture>
+        {/* Luxury cinematic overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55), rgba(0,0,0,0.68))",
+          }}
+        />
+        {/* Subtle brand-color sweep for cohesion (kept light so the beach stays visible) */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-[#0d0618]/10 to-black/20 mix-blend-multiply" />
 
         {/* Gold orb — top left */}
         <Orb
@@ -352,7 +385,7 @@ export default function Newsletter() {
               {/* Glow ring */}
               <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-br from-[#D4AF37]/30 via-purple-600/20 to-transparent pointer-events-none" />
 
-              <div className="relative p-8 md:p-10 rounded-3xl bg-[#090909]/90 backdrop-blur-xl border border-white/[0.06] shadow-[0_30px_80px_rgba(0,0,0,0.7)]">
+              <div className="relative p-8 md:p-10 rounded-3xl bg-[#090909]/75 backdrop-blur-2xl border border-white/[0.08] shadow-[0_30px_80px_rgba(0,0,0,0.75)]">
                 <AnimatePresence mode="wait">
                   {!submitted ? (
                     <motion.div
@@ -519,6 +552,6 @@ export default function Newsletter() {
         )}
       </AnimatePresence>
       <SiteFooter />
-    </div>
+    </motion.div>
   );
 }

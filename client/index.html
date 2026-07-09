@@ -12,6 +12,7 @@
     <meta name="msapplication-TileColor" content="#0a0a0c" />
 
     <!-- ── Favicon system ────────────────────────────────────────────── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -36,7 +37,35 @@
 
     <!-- ── Hero media preloads — above-the-fold, highest priority ────── -->
     <!-- These are the only resources that block first paint intentionally. -->
-    <link rel="preload" as="image" href="/assets/images/hero-poster.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/assets/images/hero-poster.webp" fetchpriority="high" />
+
+    <!-- ── Robots ────────────────────────────────────────────────────── -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- ── Structured data (JSON-LD) ─────────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicGroup",
+      "name": "Kiut",
+      "alternateName": "Kiut Music",
+      "description": "Nigerian-American Afro-Caribbean music artist blending Afrobeat, Dancehall, and R&B into a signature sound that crosses continents.",
+      "url": "https://kiutmusic.com",
+      "image": "https://kiutmusic.com/og-image.png",
+      "genre": ["Afrobeats", "Dancehall", "R&B", "Afro-Caribbean", "Afropop"],
+      "foundingLocation": { "@type": "Place", "name": "United States" },
+      "sameAs": [
+        "https://music.apple.com/us/artist/kiut/1484593132",
+        "https://audiomack.com/kiutraba",
+        "https://audiomack.com/kiutrabatv",
+        "https://linktr.ee/kiutmusic",
+        "https://dreamplanet.org/user/61"
+      ]
+    }
+    </script>
+
+    <!-- ── Color scheme ──────────────────────────────────────────────── -->
+    <meta name="color-scheme" content="dark" />
     <!-- Note: preload as="video" is not in the fetch spec; browsers ignore it, so removed to silence the console warning -->
     <!-- The video is loaded by the <video> element itself with preload="metadata" -->
 

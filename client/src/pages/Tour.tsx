@@ -235,10 +235,11 @@ export default function Tour() {
       <section className="relative min-h-[80vh] flex items-end pb-24 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/assets/images/Hero1_1767873472478.jpeg"
+            src="/assets/images/Hero1_1767873472478.webp"
             alt="Kiut Live Performance"
             className="w-full h-full object-cover object-top"
             loading="eager"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-midnight" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/25" />

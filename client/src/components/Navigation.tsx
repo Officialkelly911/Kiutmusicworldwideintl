@@ -2,6 +2,7 @@ import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Music, Video, Home, Info, Mail, Menu, X, Ticket, MessageSquare } from "lucide-react";
 import { useState } from "react";
+import { KiutMark } from "./KiutMark";
 
 const navItems = [
   { href: "/",        label: "Home",    icon: Home          },
@@ -30,15 +31,17 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" data-testid="link-home-logo" aria-label="Kiut Music — home">
             <motion.div
-              className="flex items-center gap-2.5 cursor-pointer group"
+              className="flex items-center gap-3 cursor-pointer group"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="w-10 h-10 rounded-xl border border-gold/30 bg-gold flex items-center justify-center shadow-[var(--glow-gold)] group-hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300">
-                <Music className="w-5 h-5 text-midnight" aria-hidden="true" />
-              </div>
-              <span className="font-display text-xl font-bold tracking-tight">
-                Kiut <span className="text-gold">Music</span>
+              <KiutMark
+                size={32}
+                color="#D4AF37"
+                className="transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.55)]"
+              />
+              <span className="font-display text-base font-light tracking-[0.28em] uppercase text-white/90 group-hover:text-white transition-colors duration-300">
+                KIUT<span style={{ color: "#D4AF37" }}>.</span>
               </span>
             </motion.div>
           </Link>

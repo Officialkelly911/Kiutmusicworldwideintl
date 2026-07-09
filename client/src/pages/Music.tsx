@@ -7,10 +7,10 @@ import { ALL_TRACKS, TRACK_GROUPS, type Track } from "@/data/tracks";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // ─── Image + audio constants ──────────────────────────────────────────────────
-const goodLifeEP  = "/assets/images/Good_Life_EP_1767961904057.jpeg";
-const sofaEP      = "/assets/images/SOFA_EP_1767961904056.png";
-const announceImg = "/assets/images/announce-cover.jpg";
-const eligibleEP  = "/assets/images/KIUT_ELIGIBLE_EP_1767961904056.png";
+const goodLifeEP  = "/assets/images/Good_Life_EP_1767961904057.webp";
+const sofaEP      = "/assets/images/SOFA_EP_1767961904056.webp";
+const announceImg = "/assets/images/announce-cover.webp";
+const eligibleEP  = "/assets/images/KIUT_ELIGIBLE_EP_1767961904056.webp";
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
 type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay";
@@ -430,9 +430,9 @@ function MusicDiscovery() {
                   <span className="inline-block px-2 py-0.5 rounded-full bg-gold/10 border border-gold/22 text-gold text-[8px] font-bold uppercase tracking-widest mb-2">
                     {to.type}
                   </span>
-                  <h4 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight mb-0.5">
+                  <h3 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight mb-0.5">
                     {to.title}
-                  </h4>
+                  </h3>
                   <p className="text-white/28 text-[10px] font-light">{to.genre} · {to.yearShort}</p>
 
                   <div className="mt-3 flex items-center gap-1.5 text-gold/60 hover:text-gold transition-colors text-[10px] font-bold uppercase tracking-widest">

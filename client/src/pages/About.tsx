@@ -6,7 +6,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
 
 const artistPhoto    = "/assets/images/IMG_2452_1772753968062.webp";
-const aboutHeroVideo = "/assets/videos/about-hero.mp4";
+const aboutHeroVideo = "/assets/videos/portfolio-optimized.mp4";
 const aboutHeroPoster = "/assets/images/about-hero-poster.webp";
 const img_editorial1  = "/assets/images/IMG_4994_1774430840570.webp";
 const img_editorial2  = "/assets/images/IMG_0682_1774430840570.webp";

@@ -1,7 +1,6 @@
 
 // KIUT. Brand Identity Showcase
-// Displays all logo variants: mark only, horizontal lockup, vertical lockup
-// across the three primary colorways.
+// Displays all logo variants + canonical location assignments
 
 function KMark({ color = "#D4AF37", size = 80 }: { color?: string; size?: number }) {
   return (
@@ -13,216 +12,251 @@ function KMark({ color = "#D4AF37", size = 80 }: { color?: string; size?: number
   );
 }
 
-type CardProps = {
-  bg: string;
-  border: string;
-  label: string;
-  labelColor: string;
-  children: React.ReactNode;
-};
-
-function Card({ bg, border, label, labelColor, children }: CardProps) {
-  return (
-    <div
-      style={{
-        background: bg,
-        border: `1px solid ${border}`,
-        borderRadius: 20,
-        padding: "40px 32px 28px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 0,
-        minHeight: 200,
-        position: "relative",
-      }}
-    >
-      {children}
-      <span
-        style={{
-          position: "absolute",
-          bottom: 14,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          fontSize: 10,
-          letterSpacing: "0.18em",
-          color: labelColor,
-          textTransform: "uppercase",
-          fontFamily: "system-ui, sans-serif",
-          opacity: 0.55,
-        }}
-      >
-        {label}
-      </span>
-    </div>
-  );
-}
-
-function HorizLockup({ markColor, textColor, dotColor, size = 52 }: {
-  markColor: string; textColor: string; dotColor: string; size?: number;
-}) {
-  const fontSize = size * 0.55;
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: size * 0.22 }}>
-      <KMark color={markColor} size={size} />
-      <span style={{
-        fontFamily: "'Space Grotesk', system-ui, sans-serif",
-        fontWeight: 300,
-        fontSize,
-        letterSpacing: "0.3em",
-        lineHeight: 1,
-        color: textColor,
-        textTransform: "uppercase",
-      }}>
-        KIUT<span style={{ color: dotColor }}>.</span>
-      </span>
-    </div>
-  );
-}
-
-function VertLockup({ markColor, textColor, dotColor, size = 64 }: {
-  markColor: string; textColor: string; dotColor: string; size?: number;
-}) {
-  const fontSize = size * 0.38;
-  return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: size * 0.18 }}>
-      <KMark color={markColor} size={size} />
-      <span style={{
-        fontFamily: "'Space Grotesk', system-ui, sans-serif",
-        fontWeight: 300,
-        fontSize,
-        letterSpacing: "0.35em",
-        lineHeight: 1,
-        color: textColor,
-        textTransform: "uppercase",
-      }}>
-        KIUT<span style={{ color: dotColor }}>.</span>
-      </span>
-    </div>
-  );
-}
-
 const GOLD = "#D4AF37";
-const IVORY = "#F5F0E8";
 const BLACK = "#0a0a0c";
 const WHITE = "#ffffff";
 
-export function LogoShowcase() {
+function Card({ bg, border, label, labelColor, children }: {
+  bg: string; border: string; label: string; labelColor: string; children: React.ReactNode;
+}) {
   return (
     <div style={{
-      minHeight: "100vh",
-      background: "#111113",
-      fontFamily: "system-ui, sans-serif",
-      padding: "48px 40px 60px",
+      background: bg, border: `1px solid ${border}`, borderRadius: 16,
+      padding: "32px 24px 28px", display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center", minHeight: 170, position: "relative",
     }}>
-      {/* Space Grotesk font */}
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400&display=swap');`}</style>
+      {children}
+      <span style={{
+        position: "absolute", bottom: 12, left: 0, right: 0, textAlign: "center",
+        fontSize: 9, letterSpacing: "0.18em", color: labelColor,
+        textTransform: "uppercase", fontFamily: "system-ui, sans-serif", opacity: 0.5,
+      }}>{label}</span>
+    </div>
+  );
+}
 
-      {/* Header */}
-      <div style={{ marginBottom: 44 }}>
-        <p style={{ color: GOLD, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 8 }}>
-          KIUT. — Brand Identity System
-        </p>
-        <h1 style={{ color: WHITE, fontSize: 26, fontWeight: 300, letterSpacing: "0.08em", margin: 0 }}>
-          Logo Variants
-        </h1>
-      </div>
+function HorizLockup({ markColor, textColor, dotColor, size = 48 }: {
+  markColor: string; textColor: string; dotColor: string; size?: number;
+}) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: size * 0.2 }}>
+      <KMark color={markColor} size={size} />
+      <span style={{
+        fontFamily: "'Space Grotesk', system-ui, sans-serif", fontWeight: 300,
+        fontSize: size * 0.52, letterSpacing: "0.28em", lineHeight: 1,
+        color: textColor, textTransform: "uppercase",
+      }}>KIUT<span style={{ color: dotColor }}>.</span></span>
+    </div>
+  );
+}
 
-      {/* ── Section 1: The Mark alone ───────────────────────── */}
-      <SectionLabel>Mark Only</SectionLabel>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 36 }}>
-        <Card bg={BLACK} border="#2a2a2e" label="Gold on Black" labelColor={GOLD}>
-          <KMark color={GOLD} size={88} />
-        </Card>
-        <Card bg="#1a1a1c" border="#2e2e32" label="White on Charcoal" labelColor="#666">
-          <KMark color={WHITE} size={88} />
-        </Card>
-        <Card bg="#f0ebe0" border="#d8d0c0" label="Gold on Ivory" labelColor="#888">
-          <KMark color={GOLD} size={88} />
-        </Card>
-        <Card bg={WHITE} border="#e0e0e0" label="Black on White" labelColor="#999">
-          <KMark color={BLACK} size={88} />
-        </Card>
-      </div>
-
-      {/* ── Section 2: Horizontal Lockup ────────────────────── */}
-      <SectionLabel>Horizontal Lockup</SectionLabel>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 36 }}>
-        <Card bg={BLACK} border="#2a2a2e" label="Gold / Primary" labelColor={GOLD}>
-          <HorizLockup markColor={GOLD} textColor={WHITE} dotColor={GOLD} size={52} />
-        </Card>
-        <Card bg="#1a1a1c" border="#2e2e32" label="All White" labelColor="#666">
-          <HorizLockup markColor={WHITE} textColor={WHITE} dotColor={WHITE} size={52} />
-        </Card>
-        <Card bg={WHITE} border="#e0e0e0" label="Black / Reversed" labelColor="#999">
-          <HorizLockup markColor={BLACK} textColor={BLACK} dotColor={BLACK} size={52} />
-        </Card>
-      </div>
-
-      {/* ── Section 3: Vertical Lockup ──────────────────────── */}
-      <SectionLabel>Vertical Lockup (Stacked)</SectionLabel>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 36 }}>
-        <Card bg={BLACK} border="#2a2a2e" label="Gold / Primary" labelColor={GOLD}>
-          <VertLockup markColor={GOLD} textColor={WHITE} dotColor={GOLD} size={72} />
-        </Card>
-        <Card bg="#1a1a1c" border="#2e2e32" label="All White" labelColor="#666">
-          <VertLockup markColor={WHITE} textColor={WHITE} dotColor={WHITE} size={72} />
-        </Card>
-        <Card bg={WHITE} border="#e0e0e0" label="Black / Reversed" labelColor="#999">
-          <VertLockup markColor={BLACK} textColor={BLACK} dotColor={BLACK} size={72} />
-        </Card>
-      </div>
-
-      {/* ── Section 4: Special-use ──────────────────────────── */}
-      <SectionLabel>Special Use</SectionLabel>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-        {/* Favicon / social avatar */}
-        <Card bg="#0a0a0c" border="#2a2a2e" label="Favicon / Avatar (32×32)" labelColor={GOLD}>
-          <div style={{
-            width: 64, height: 64, background: BLACK, borderRadius: 12,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            border: `1px solid #2a2a2e`,
-          }}>
-            <KMark color={GOLD} size={40} />
-          </div>
-        </Card>
-        {/* Watermark / overlay */}
-        <Card bg="linear-gradient(135deg,#1a1a1c 0%,#0d0d0f 100%)" border="#2a2a2e" label="Watermark / Overlay" labelColor="#555">
-          <div style={{ position: "relative" }}>
-            <div style={{
-              width: 180, height: 100, borderRadius: 10, overflow: "hidden",
-              background: "linear-gradient(135deg, #2a2a2e, #111)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <span style={{ color: "#444", fontSize: 12, letterSpacing: "0.1em" }}>photo / video</span>
-            </div>
-            <div style={{ position: "absolute", bottom: 8, right: 10, opacity: 0.35 }}>
-              <HorizLockup markColor={WHITE} textColor={WHITE} dotColor={WHITE} size={22} />
-            </div>
-          </div>
-        </Card>
-        {/* Merch tag */}
-        <Card bg={GOLD} border={GOLD} label="Merch / Physical Goods" labelColor="rgba(0,0,0,0.45)">
-          <KMark color={BLACK} size={72} />
-        </Card>
-      </div>
+function VertLockup({ markColor, textColor, dotColor, size = 60 }: {
+  markColor: string; textColor: string; dotColor: string; size?: number;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: size * 0.16 }}>
+      <KMark color={markColor} size={size} />
+      <span style={{
+        fontFamily: "'Space Grotesk', system-ui, sans-serif", fontWeight: 300,
+        fontSize: size * 0.35, letterSpacing: "0.32em", lineHeight: 1,
+        color: textColor, textTransform: "uppercase",
+      }}>KIUT<span style={{ color: dotColor }}>.</span></span>
     </div>
   );
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p style={{
-      color: "#555",
-      fontSize: 10,
-      letterSpacing: "0.2em",
-      textTransform: "uppercase",
-      margin: "0 0 12px 2px",
-      fontFamily: "system-ui, sans-serif",
-    }}>
+    <p style={{ color: "#555", fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px 2px", fontFamily: "system-ui" }}>
       {children}
     </p>
+  );
+}
+
+function UsageRow({ location, variant, bg, note, children }: {
+  location: string; variant: string; bg: string; note: string; children: React.ReactNode;
+}) {
+  return (
+    <div style={{
+      display: "grid", gridTemplateColumns: "1fr 220px 1fr",
+      alignItems: "center", gap: 20, padding: "16px 0",
+      borderBottom: "1px solid #1a1a1c",
+    }}>
+      <div>
+        <div style={{ color: WHITE, fontSize: 12, fontWeight: 500, marginBottom: 4, fontFamily: "system-ui" }}>{location}</div>
+        <div style={{ color: "#555", fontSize: 10, fontFamily: "system-ui", lineHeight: 1.5 }}>{note}</div>
+      </div>
+      <div style={{
+        background: bg, borderRadius: 10, padding: "14px 16px",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        minHeight: 64, border: "1px solid #2a2a2e",
+      }}>{children}</div>
+      <div style={{ color: "#666", fontSize: 10, fontFamily: "system-ui", paddingLeft: 10, lineHeight: 1.6 }}>
+        {variant}
+      </div>
+    </div>
+  );
+}
+
+export function LogoShowcase() {
+  return (
+    <div style={{ minHeight: "100vh", background: "#111113", fontFamily: "system-ui, sans-serif", padding: "48px 40px 60px" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400&display=swap');`}</style>
+
+      {/* Header */}
+      <div style={{ marginBottom: 40 }}>
+        <p style={{ color: GOLD, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 8 }}>
+          KIUT. — Brand Identity System
+        </p>
+        <h1 style={{ color: WHITE, fontSize: 24, fontWeight: 300, letterSpacing: "0.08em", margin: 0 }}>
+          Logo Variants
+        </h1>
+      </div>
+
+      {/* ── Mark Only ──────────────────────────────────────── */}
+      <SectionLabel>Mark Only</SectionLabel>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, marginBottom: 32 }}>
+        <Card bg={BLACK} border="#2a2a2e" label="Gold on Black" labelColor={GOLD}>
+          <KMark color={GOLD} size={80} />
+        </Card>
+        <Card bg="#1a1a1c" border="#2e2e32" label="White on Charcoal" labelColor="#666">
+          <KMark color={WHITE} size={80} />
+        </Card>
+        <Card bg="#f0ebe0" border="#d8d0c0" label="Gold on Ivory" labelColor="#888">
+          <KMark color={GOLD} size={80} />
+        </Card>
+        <Card bg={WHITE} border="#e0e0e0" label="Black on White" labelColor="#999">
+          <KMark color={BLACK} size={80} />
+        </Card>
+      </div>
+
+      {/* ── Horizontal Lockup ──────────────────────────────── */}
+      <SectionLabel>Horizontal Lockup</SectionLabel>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 32 }}>
+        <Card bg={BLACK} border="#2a2a2e" label="Gold / Primary" labelColor={GOLD}>
+          <HorizLockup markColor={GOLD} textColor={WHITE} dotColor={GOLD} size={46} />
+        </Card>
+        <Card bg="#1a1a1c" border="#2e2e32" label="All White" labelColor="#666">
+          <HorizLockup markColor={WHITE} textColor={WHITE} dotColor={WHITE} size={46} />
+        </Card>
+        <Card bg={WHITE} border="#e0e0e0" label="Black / Reversed" labelColor="#999">
+          <HorizLockup markColor={BLACK} textColor={BLACK} dotColor={BLACK} size={46} />
+        </Card>
+      </div>
+
+      {/* ── Vertical Lockup ────────────────────────────────── */}
+      <SectionLabel>Vertical Lockup (Stacked)</SectionLabel>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginBottom: 48 }}>
+        <Card bg={BLACK} border="#2a2a2e" label="Gold / Primary" labelColor={GOLD}>
+          <VertLockup markColor={GOLD} textColor={WHITE} dotColor={GOLD} size={64} />
+        </Card>
+        <Card bg="#1a1a1c" border="#2e2e32" label="All White" labelColor="#666">
+          <VertLockup markColor={WHITE} textColor={WHITE} dotColor={WHITE} size={64} />
+        </Card>
+        <Card bg={WHITE} border="#e0e0e0" label="Black / Reversed" labelColor="#999">
+          <VertLockup markColor={BLACK} textColor={BLACK} dotColor={BLACK} size={64} />
+        </Card>
+      </div>
+
+      {/* ── Location Assignments ───────────────────────────── */}
+      <div style={{ marginBottom: 20 }}>
+        <p style={{ color: GOLD, fontSize: 9, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 6 }}>
+          Canonical Assignment
+        </p>
+        <h2 style={{ color: WHITE, fontSize: 18, fontWeight: 300, letterSpacing: "0.08em", margin: "0 0 6px" }}>
+          Where Each Variant Lives
+        </h2>
+        <p style={{ color: "#555", fontSize: 10, margin: 0 }}>
+          Authoritative variant selected for each location across the site.
+        </p>
+      </div>
+
+      <div style={{ border: "1px solid #1e1e20", borderRadius: 16, padding: "0 20px", overflow: "hidden" }}>
+        {/* Table header */}
+        <div style={{
+          display: "grid", gridTemplateColumns: "1fr 220px 1fr", gap: 20,
+          padding: "12px 0", borderBottom: "1px solid #2a2a2e",
+        }}>
+          {["Location", "Preview", "Variant"].map(h => (
+            <span key={h} style={{ color: "#444", fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "system-ui" }}>{h}</span>
+          ))}
+        </div>
+
+        <UsageRow
+          location="Navigation Bar"
+          variant="Horizontal Lockup — Gold / Primary"
+          bg={BLACK}
+          note="Sticky top bar, dark glass background. Mark(32) + 'KIUT.' text span with hover drop-shadow."
+        >
+          <HorizLockup markColor={GOLD} textColor={WHITE} dotColor={GOLD} size={28} />
+        </UsageRow>
+
+        <UsageRow
+          location="Loading Screen (Cinematic Intro)"
+          variant="Mark Only — Gold on Black (large)"
+          bg={BLACK}
+          note="Full-screen centered reveal. Mark(88) animates in; wordmark enters separately for theatre."
+        >
+          <KMark color={GOLD} size={50} />
+        </UsageRow>
+
+        <UsageRow
+          location="Site Footer"
+          variant="Mark Only — Gold on Black + bold display wordmark"
+          bg={BLACK}
+          note="Editorial treatment. Mark(48) above text-5xl–7xl bold wordmark for visual weight."
+        >
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
+            <KMark color={GOLD} size={28} />
+            <span style={{ color: WHITE, fontSize: 17, fontWeight: 700, letterSpacing: "0.18em", fontFamily: "system-ui" }}>
+              KIUT<span style={{ color: GOLD }}>.</span>
+            </span>
+          </div>
+        </UsageRow>
+
+        <UsageRow
+          location="Browser Favicon"
+          variant="Mark Only — Gold on Black square (favicon.svg)"
+          bg="#1a1a1c"
+          note="16–32 px — wordmark invisible at this scale. Black square background required."
+        >
+          <div style={{ width: 40, height: 40, background: BLACK, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <KMark color={GOLD} size={26} />
+          </div>
+        </UsageRow>
+
+        <UsageRow
+          location="Social / OG Image (1200 × 630)"
+          variant="Horizontal Lockup — Gold / Primary on black canvas"
+          bg={BLACK}
+          note="Full lockup reads at social thumbnail scale. Confirms brand identity in feed previews."
+        >
+          <HorizLockup markColor={GOLD} textColor={WHITE} dotColor={GOLD} size={34} />
+        </UsageRow>
+
+        <UsageRow
+          location="Photo / Video Watermark"
+          variant="Horizontal Lockup — All White at 30% opacity"
+          bg="linear-gradient(135deg,#2e2e32,#111)"
+          note="White at low opacity reads on any photo/video background without obscuring content."
+        >
+          <div style={{ opacity: 0.3 }}>
+            <HorizLockup markColor={WHITE} textColor={WHITE} dotColor={WHITE} size={28} />
+          </div>
+        </UsageRow>
+
+        <UsageRow
+          location="Merch / Physical Goods"
+          variant="Mark Only — Black on Gold"
+          bg={GOLD}
+          note="Single-colour for embroidery, screen-printing, heat stamp. Gold substrate = brand colour."
+        >
+          <KMark color={BLACK} size={44} />
+        </UsageRow>
+      </div>
+
+      {/* bottom breathing room */}
+      <div style={{ height: 40 }} />
+    </div>
   );
 }

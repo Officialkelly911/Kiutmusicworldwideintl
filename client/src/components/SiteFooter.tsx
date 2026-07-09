@@ -187,23 +187,15 @@ export default function SiteFooter() {
             © {new Date().getFullYear()} Kiut Music Worldwide. All rights reserved.
           </p>
           <div className="flex gap-8 text-[11px] tracking-widest uppercase font-medium text-white/30">
-            <a href="#" className="hover:text-white/70 transition-colors duration-200">Privacy</a>
-            <a href="#" className="hover:text-white/70 transition-colors duration-200">Terms</a>
+            <span>Privacy</span>
+            <span>Terms</span>
           </div>
         </div>
 
         {/* ── Designer credit ──────────────────────────────────── */}
         <p className="mt-4 text-center text-[9px] font-light tracking-[0.2em] text-white/20">
           Designed &amp; Developed by{" "}
-          <a
-            href={DESIGNER.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${DESIGNER.name}'s portfolio`}
-            className="text-white/30 hover:text-gold transition-colors duration-250 hover:-translate-y-px inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/40 rounded-sm"
-          >
-            {DESIGNER.name}
-          </a>
+          <span className="text-white/30">{DESIGNER.name}</span>
         </p>
       </div>
     </footer>

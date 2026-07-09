@@ -233,9 +233,9 @@ const GALLERY_CHAPTERS: GalleryChapter[] = [
     badge: "Visual Archive",
     images: [
       { src: "/assets/images/Hero1.webp",                       alt: "Kiut — hero portrait",              badge: "Portrait",    objectPos: "center 15%" },
-      { src: "/assets/images/goodlife-poster.webp",             alt: "Kiut — Good Life era promo",        badge: "Promo Art",   objectPos: "center center" },
+      { src: "/assets/images/beach-editorial.webp",             alt: "Kiut — beach editorial, sunset shoreline", badge: "Beach Editorial", objectPos: "center 40%" },
       { src: "/assets/images/about-moments-garden-seat.webp",   alt: "Kiut — golden hour garden",         badge: "Golden Hour", objectPos: "center 25%" },
-      { src: "/assets/images/praya-request-cover.webp",         alt: "Kiut — Praya Request artwork",      badge: "Artwork",     objectPos: "center center" },
+      { src: "/assets/images/coastal-vibes.webp",               alt: "Kiut — coastal vibes, oceanfront portrait", badge: "Coastal Vibes", objectPos: "center 35%" },
       { src: "/assets/images/anonyig.io_Instagram_kiut_rababag_3639024700849651951_1095425_1774430915892.webp", alt: "Kiut — Instagram moment", badge: "Moment", objectPos: "center 20%" },
       { src: "/assets/images/IMG_1254_1774433277988.webp",      alt: "Kiut — portrait session",           badge: "Portrait",    objectPos: "center 15%" },
     ],

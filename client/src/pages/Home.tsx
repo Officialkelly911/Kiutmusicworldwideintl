@@ -8,7 +8,6 @@ const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const videoGalleryCover = "/assets/images/IMG_1257_1774433050958.webp";
 const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
-const heroVideo = "/assets/videos/portfolio-optimized.mp4";
 const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
 const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
 const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
@@ -104,8 +103,6 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
 
 function CinematicIntro({ onComplete }: { onComplete: () => void }) {
   const waveHeights = [0.55, 0.9, 1.4, 1.0, 1.6, 0.75, 1.2, 0.5, 1.35, 0.8, 1.5, 0.65];
-  const [introVideoReady, setIntroVideoReady] = useState(false);
-  const [introVideoError, setIntroVideoError] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 1 }}
@@ -113,31 +110,19 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
       transition={{ duration: 0.9, ease: "easeInOut" }}
       className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Blurred background video */}
+      {/* Blurred background image */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.35 }}
         transition={{ duration: 2, delay: 0.2 }}
         className="absolute inset-0 z-0"
       >
-        {/* Poster — always present as fallback beneath the video */}
         <img
           src={heroPoster}
           alt=""
           aria-hidden
           className="absolute inset-0 w-full h-full object-cover blur-lg scale-105"
         />
-        {!introVideoError && (
-          <video
-            autoPlay loop muted playsInline preload="auto" poster={heroPoster}
-            onCanPlay={() => setIntroVideoReady(true)}
-            onError={() => setIntroVideoError(true)}
-            className="absolute inset-0 w-full h-full object-cover blur-lg scale-105 transition-opacity duration-700"
-            style={{ opacity: introVideoReady ? 1 : 0 }}
-          >
-            <source src={heroVideo} type="video/mp4" />
-          </video>
-        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80" />
       </motion.div>
 
@@ -457,60 +442,16 @@ function MilestoneGallery() {
   );
 }
 
-function HeroSlideMedia({ src, poster, isFirst }: { src: string; poster: string; isFirst: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoError, setVideoError] = useState(false);
-
-  useEffect(() => {
-    setVideoReady(false);
-    setVideoError(false);
-    const v = videoRef.current;
-    if (!v) return;
-    v.load();
-  }, [src]);
-
-  const handleCanPlay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.play().catch(() => {});
-    setVideoReady(true);
-  };
-
-  const handleError = () => {
-    setVideoError(true);
-    setVideoReady(false);
-  };
-
+function HeroSlideMedia({ poster, isFirst }: { poster: string; isFirst: boolean }) {
   return (
     <div className="absolute inset-0 w-full h-full">
-      {/* Poster — shown immediately, fades out once video is ready; stays visible on error */}
       <img
         src={poster}
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+        className="absolute inset-0 w-full h-full object-cover object-center"
         fetchPriority={isFirst ? "high" : "low"}
       />
-      {/* Video — fades in once buffered; hidden on error so poster shows through */}
-      {!videoError && (
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload={isFirst ? "auto" : "metadata"}
-          poster={poster}
-          onCanPlay={handleCanPlay}
-          onError={handleError}
-          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-          style={{ opacity: videoReady ? 1 : 0 }}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
-      )}
     </div>
   );
 }
@@ -734,7 +675,6 @@ export default function Home() {
       description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
       ctaText: "Listen Now",
       ctaLink: "https://linktr.ee/kiut_goodlife",
-      media: heroVideo,
       poster: heroPoster,
       badge: "New EP Out Now",
       isExternal: true
@@ -745,7 +685,6 @@ export default function Home() {
       description: "Watch the cinematic visual experience for the lead single. Directed with precision and artistic vision.",
       ctaText: "Watch Video",
       ctaLink: "/videos",
-      media: goodLifeVideo,
       poster: goodLifePoster,
       badge: "Featured Music Video",
       isExternal: false
@@ -756,7 +695,6 @@ export default function Home() {
       description: "A visual journey through performances, behind-the-scenes, and cinematic projects that define Kiut Music.",
       ctaText: "Explore Portfolio",
       ctaLink: "https://dreamplanet.org/user/61",
-      media: portfolioVideo,
       poster: gradImage1,
       badge: "Creative Highlight",
       isExternal: true
@@ -791,7 +729,6 @@ export default function Home() {
             className="absolute inset-0 w-full h-full z-0"
           >
             <HeroSlideMedia
-              src={slides[currentSlide].media}
               poster={slides[currentSlide].poster}
               isFirst={currentSlide === 0}
             />

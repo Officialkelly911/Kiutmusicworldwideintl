@@ -670,16 +670,6 @@ export default function Home() {
 
   const slides = [
     {
-      id: 0,
-      title: "Good Life EP",
-      description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
-      ctaText: "Listen Now",
-      ctaLink: "https://linktr.ee/kiut_goodlife",
-      poster: heroPoster,
-      badge: "New EP Out Now",
-      isExternal: true
-    },
-    {
       id: 1,
       title: "Good Life Visuals",
       description: "Watch the cinematic visual experience for the lead single. Directed with precision and artistic vision.",

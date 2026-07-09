@@ -9,4 +9,6 @@ if (!process.env.DATABASE_URL) {
 }
 
 export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+// pool as any: the installed pg Pool type has a minor version mismatch with
+// drizzle-orm's NodePgClient interface; the runtime is identical.
+export const db = drizzle(pool as any, { schema });

@@ -20,6 +20,7 @@ const About      = lazy(() => import("@/pages/About"));
 const Newsletter = lazy(() => import("@/pages/Newsletter"));
 const Tour       = lazy(() => import("@/pages/Tour"));
 const Contact    = lazy(() => import("@/pages/Contact"));
+const Legal      = lazy(() => import("@/pages/Legal"));
 const NotFound   = lazy(() => import("@/pages/not-found"));
 
 // ── Page loading fallback ─────────────────────────────────────────────────────
@@ -65,6 +66,7 @@ function AnimatedRouter() {
               <Route path="/newsletter" component={Newsletter} />
               <Route path="/tour"       component={Tour}       />
               <Route path="/contact"    component={Contact}    />
+              <Route path="/legal"      component={Legal}      />
               <Route                    component={NotFound}   />
             </Switch>
           </Suspense>

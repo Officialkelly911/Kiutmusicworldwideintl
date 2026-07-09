@@ -407,40 +407,36 @@ export default function About() {
       />
 
       {/* ─── 1. CINEMATIC HERO ──────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative h-screen min-h-[640px] flex items-end pb-20 overflow-hidden">
-        {/* Parallax background video */}
+      <section ref={heroRef} className="relative h-[67vh] md:h-[80vh] lg:h-screen md:min-h-[560px] flex items-end pb-20 overflow-hidden">
+        {/* Parallax background — cinematic beach portrait */}
         <motion.div
           style={{ y: heroY }}
+          initial={{ opacity: 0, scale: 1.03 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0 w-full h-[120%] -top-[10%]"
         >
-          {/* Poster always underneath as fallback */}
-          <img
-            src={aboutHeroPoster}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-          {!aboutVideoError && (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              poster={aboutHeroPoster}
-              onCanPlay={() => setAboutVideoReady(true)}
-              onError={() => setAboutVideoError(true)}
-              className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-              style={{ opacity: aboutVideoReady ? 1 : 0 }}
-            >
-              <source src={aboutHeroVideo} type="video/mp4" />
-            </video>
-          )}
+          <picture className="absolute inset-0 block w-full h-full">
+            <source media="(max-width: 767px)"  srcSet="/assets/images/about-hero-beach-768.webp"  type="image/webp" />
+            <source media="(max-width: 1279px)" srcSet="/assets/images/about-hero-beach-1280.webp" type="image/webp" />
+            <img
+              src="/assets/images/about-hero-beach.webp"
+              alt="Kiut on a quiet beach at golden hour, reflecting the emotional storytelling behind his music."
+              className="absolute inset-0 w-full h-full object-cover object-[50%_15%] md:object-center lg:object-[55%_center]"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </motion.div>
 
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" />
+        {/* Cinematic overlay — top · mid · bottom per brief */}
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.60) 100%)" }}
+          aria-hidden="true"
+        />
+        {/* Left-weighted readability gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" aria-hidden="true" />
 
         {/* Top-right archive badge */}
         <motion.div

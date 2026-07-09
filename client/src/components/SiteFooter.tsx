@@ -189,8 +189,21 @@ export default function SiteFooter() {
           <div className="flex gap-8 text-[11px] tracking-widest uppercase font-medium">
             <a
               href="/legal"
-              className="text-white/30 hover:text-gold transition-colors duration-200 focus-visible:outline-none focus-visible:underline"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold/40 text-gold/80 hover:text-[#0a0a0a] hover:bg-gold hover:border-gold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="w-3 h-3 shrink-0"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 1a.75.75 0 0 1 .75.75v6.19l1.22-1.22a.75.75 0 1 1 1.06 1.06l-2.5 2.5a.75.75 0 0 1-1.06 0l-2.5-2.5a.75.75 0 0 1 1.06-1.06l1.22 1.22V1.75A.75.75 0 0 1 8 1ZM3 9.75A2.25 2.25 0 0 1 5.25 7.5h.75a.75.75 0 0 1 0 1.5h-.75a.75.75 0 0 0-.75.75v2.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2.5a.75.75 0 0 0-.75-.75h-.75a.75.75 0 0 1 0-1.5h.75A2.25 2.25 0 0 1 13 9.75v2.5A2.25 2.25 0 0 1 10.75 14.5h-5.5A2.25 2.25 0 0 1 3 12.25v-2.5Z"
+                  clipRule="evenodd"
+                />
+              </svg>
               Legal
             </a>
           </div>

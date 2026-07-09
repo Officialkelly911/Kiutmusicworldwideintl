@@ -728,7 +728,7 @@ export default function Home() {
       poster: heroReelPoster,
       badge: "New EP Out Now",
       isExternal: true,
-      duration: 1500,
+      duration: 4500,
     },
     {
       id: 1,

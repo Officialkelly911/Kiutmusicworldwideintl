@@ -150,7 +150,7 @@ function PlatformBadge({ id }: { id: PlatformId }) {
     <motion.div
       whileHover={{ scale: 1.1, y: -2 }}
       title={p.label}
-      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-all duration-200 cursor-default"
+      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border transition-all duration-fast cursor-default"
       style={{
         borderColor: `${p.color}28`,
         background: `${p.color}0d`,
@@ -158,7 +158,7 @@ function PlatformBadge({ id }: { id: PlatformId }) {
       }}
     >
       {p.icon}
-      <span className="text-[9px] font-bold uppercase tracking-wider hidden sm:block" style={{ color: p.color }}>
+      <span className="text-xs font-bold uppercase tracking-wider hidden sm:block" style={{ color: p.color }}>
         {p.label}
       </span>
     </motion.div>
@@ -191,7 +191,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           scale: isHovered ? 1.03 : 1,
         }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="relative rounded-2xl p-[1px]"
+        className="relative rounded-md p-[1px]"
         style={{
           background: isHovered
             ? "linear-gradient(135deg, rgba(212,175,55,0.7) 0%, rgba(212,175,55,0.15) 50%, rgba(212,175,55,0.5) 100%)"
@@ -235,8 +235,8 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
                   animate={{ scale: 1 }}
                   exit={{ scale: 0.7 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-20 h-20 rounded-full flex items-center justify-center text-midnight shadow-[0_0_50px_rgba(212,175,55,0.8)] mb-4"
-                  style={{ background: "#D4AF37" }}
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-midnight shadow-glow-gold-hover mb-4"
+                  style={{ background: "var(--color-gold)" }}
                 >
                   <Play size={32} className="ml-1.5" fill="currentColor" />
                 </motion.div>
@@ -257,8 +257,8 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           {/* Glass info bar at bottom */}
           <div className="px-4 py-3 border-t border-white/[0.05]" style={{ background: "rgba(255,255,255,0.02)" }}>
             <div className="flex items-center justify-between">
-              <span className="text-gold text-[9px] font-black uppercase tracking-[0.22em]">Official Release</span>
-              <span className="text-white/30 text-[9px] font-mono">{album.tracks} tracks · {album.yearShort}</span>
+              <span className="text-gold text-xs font-black uppercase tracking-[0.22em]">Official Release</span>
+              <span className="text-white/30 text-xs font-mono">{album.tracks} tracks · {album.yearShort}</span>
             </div>
           </div>
         </div>
@@ -266,7 +266,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
 
       {/* Ambient glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full blur-[80px] -z-10 rounded-full transition-opacity duration-500 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full blur-[80px] -z-10 rounded-full transition-opacity duration-slow pointer-events-none"
         style={{
           background: "radial-gradient(ellipse, rgba(212,175,55,0.15), transparent 70%)",
           opacity: isHovered ? 1 : 0,
@@ -286,7 +286,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
     <motion.div
       onClick={() => playTrack(track)}
       variants={staggerItem}
-      className={`group relative flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3.5 rounded-xl cursor-pointer transition-all duration-200 ${
+      className={`group relative flex items-center gap-3 md:gap-4 px-3 md:px-5 py-3.5 rounded-xl cursor-pointer transition-all duration-fast ${
         isActive
           ? "bg-gold/[0.07] border border-gold/20"
           : "border border-transparent hover:bg-white/[0.04] hover:border-white/[0.06]"
@@ -297,7 +297,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
       {isActive && (
         <motion.div
           layoutId="track-active-bar"
-          className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.6)]"
+          className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-gold shadow-glow-gold"
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
@@ -323,29 +323,29 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
       </div>
 
       <div className="flex flex-col min-w-0 flex-1">
-        <span className={`font-semibold text-[13px] leading-snug truncate transition-colors duration-200 ${
+        <span className={`font-semibold text-xs leading-snug truncate transition-colors duration-fast ${
           isActive ? "text-gold" : "text-white group-hover:text-gold"
         }`}>
           {track.title}
         </span>
         <span className="mt-0.5">
           {track.album !== "Single" ? (
-            <span className={`inline-block px-1.5 py-[1px] rounded text-[9px] font-bold uppercase tracking-wider ${
+            <span className={`inline-block px-1.5 py-[1px] rounded text-xs font-bold uppercase tracking-wider ${
               track.albumType === "ep" ? "bg-gold/12 text-gold/80" : "bg-white/6 text-white/35"
             }`}>{track.album}</span>
           ) : (
-            <span className="text-white/25 text-[11px]">{track.released}</span>
+            <span className="text-white/25 text-xs">{track.released}</span>
           )}
         </span>
       </div>
 
-      <span className="text-white/25 text-[11px] font-mono flex-shrink-0 hidden sm:block tabular-nums">{track.duration}</span>
+      <span className="text-white/25 text-xs font-mono flex-shrink-0 hidden sm:block tabular-nums">{track.duration}</span>
 
       <button
         onClick={(e) => { e.stopPropagation(); playTrack(track); }}
-        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-fast ${
           isActive && isPlaying
-            ? "bg-gold text-midnight shadow-[0_0_14px_rgba(212,175,55,0.5)]"
+            ? "bg-gold text-midnight shadow-glow-gold"
             : "text-white/30 group-hover:text-white group-hover:bg-white/10"
         }`}
         data-testid={`button-play-${track.id}`}
@@ -379,7 +379,7 @@ function MusicDiscovery() {
       <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent mb-20" />
 
       <div className="text-center mb-14">
-        <p className="text-gold text-[10px] font-bold tracking-[0.45em] uppercase mb-3">Explore More</p>
+        <p className="text-gold text-xs font-bold tracking-[0.45em] uppercase mb-3">Explore More</p>
         <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white uppercase">
           Music <span className="text-gold">Discovery</span>
         </h2>
@@ -399,12 +399,12 @@ function MusicDiscovery() {
               <motion.div
                 whileHover={{ y: -6, boxShadow: "0 20px 50px rgba(212,175,55,0.10)" }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="group rounded-2xl overflow-hidden border border-white/[0.06] hover:border-gold/25 transition-colors duration-300"
-                style={{ background: "#0a0a0a" }}
+                className="group rounded-md overflow-hidden border border-white/[0.06] hover:border-gold/25 transition-colors duration-normal"
+                style={{ background: "var(--color-midnight)" }}
               >
                 {/* "Enjoyed X" label */}
                 <div className="px-4 pt-4 pb-2">
-                  <p className="text-white/25 text-[9px] font-light tracking-widest uppercase">
+                  <p className="text-white/25 text-xs font-light tracking-widest uppercase">
                     If you enjoyed <span className="text-white/45">{from.title}</span>
                   </p>
                 </div>
@@ -415,11 +415,11 @@ function MusicDiscovery() {
                     src={to.image}
                     alt={to.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                    className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.06]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.6)]">
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal">
+                    <div className="w-12 h-12 rounded-full bg-gold flex items-center justify-center shadow-glow-gold-hover">
                       <Play size={18} className="ml-0.5 text-midnight" fill="currentColor" />
                     </div>
                   </div>
@@ -427,15 +427,15 @@ function MusicDiscovery() {
 
                 {/* Info */}
                 <div className="px-4 pb-4">
-                  <span className="inline-block px-2 py-0.5 rounded-full bg-gold/10 border border-gold/22 text-gold text-[8px] font-bold uppercase tracking-widest mb-2">
+                  <span className="inline-block px-2 py-0.5 rounded-full bg-gold/10 border border-gold/22 text-gold text-xs font-bold uppercase tracking-widest mb-2">
                     {to.type}
                   </span>
                   <h3 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight mb-0.5">
                     {to.title}
                   </h3>
-                  <p className="text-white/28 text-[10px] font-light">{to.genre} · {to.yearShort}</p>
+                  <p className="text-white/28 text-xs font-light">{to.genre} · {to.yearShort}</p>
 
-                  <div className="mt-3 flex items-center gap-1.5 text-gold/60 hover:text-gold transition-colors text-[10px] font-bold uppercase tracking-widest">
+                  <div className="mt-3 flex items-center gap-1.5 text-gold/60 hover:text-gold transition-colors text-xs font-bold uppercase tracking-widest">
                     <Play size={9} fill="currentColor" />
                     <span>Stream Everywhere</span>
                     <ExternalLink size={9} />
@@ -495,7 +495,7 @@ export default function Music() {
             initial={{ opacity: 0, letterSpacing: "0.6em" }}
             animate={{ opacity: 1, letterSpacing: "0.48em" }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-5"
+            className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-5"
           >
             Kiut Music Worldwide
           </motion.p>
@@ -531,7 +531,7 @@ export default function Music() {
             ].map(({ value, label }, i) => (
               <div key={i} className="flex flex-col items-center">
                 <span className="font-display text-xl font-bold text-gold leading-none">{value}</span>
-                <span className="text-white/30 text-[9px] uppercase tracking-[0.3em] mt-0.5">{label}</span>
+                <span className="text-white/30 text-xs uppercase tracking-[0.3em] mt-0.5">{label}</span>
               </div>
             ))}
           </div>
@@ -544,14 +544,14 @@ export default function Music() {
           transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="mb-28"
         >
-          <div className="relative rounded-3xl overflow-hidden border border-gold/12 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
-            style={{ background: "linear-gradient(135deg, #100e00 0%, #0d0d0d 50%, #080408 100%)" }}>
+          <div className="relative rounded-xl overflow-hidden border border-gold/12 shadow-xl"
+            style={{ background: "linear-gradient(135deg, #100e00 0%, var(--color-charcoal) 50%, #080408 100%)" }}>
             <div className="absolute top-0 right-0 w-80 h-80 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(212,175,55,0.08)" }} />
             <div className="absolute bottom-0 left-0 w-56 h-56 blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(100,50,255,0.04)" }} />
 
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 p-8 md:p-12">
               <motion.div
-                className="w-44 h-44 md:w-56 md:h-56 flex-shrink-0 rounded-2xl overflow-hidden shadow-[0_20px_55px_rgba(0,0,0,0.75)] border border-white/[0.07]"
+                className="w-44 h-44 md:w-56 md:h-56 flex-shrink-0 rounded-md overflow-hidden shadow-xl border border-white/[0.07]"
                 animate={currentTrack ? { scale: isPlaying ? 1.03 : 1 } : {}}
                 transition={{ duration: 0.5 }}
               >
@@ -563,8 +563,8 @@ export default function Music() {
               </motion.div>
 
               <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1 min-w-0">
-                <span className="inline-block px-3 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-[0.22em] mb-4 leading-none"
-                  style={{ background: "rgba(212,175,55,0.12)", borderColor: "rgba(212,175,55,0.28)", color: "#D4AF37" }}>
+                <span className="inline-block px-3 py-1.5 rounded-full border text-xs font-black uppercase tracking-[0.22em] mb-4 leading-none"
+                  style={{ background: "rgba(212,175,55,0.12)", borderColor: "rgba(212,175,55,0.28)", color: "var(--color-gold)" }}>
                   {currentTrack ? "Now Playing" : "Featured Release"}
                 </span>
 
@@ -583,7 +583,7 @@ export default function Music() {
                     whileTap={{ scale: 0.96 }}
                     onClick={() => playTrack(currentTrack ?? featuredTrack)}
                     className="flex items-center gap-2.5 px-7 py-3.5 font-bold uppercase tracking-widest text-sm rounded-full transition-shadow"
-                    style={{ background: "#D4AF37", color: "#000", boxShadow: "0 0 24px rgba(212,175,55,0.38)" }}
+                    style={{ background: "var(--color-gold)", color: "var(--color-midnight)", boxShadow: "var(--glow-gold)" }}
                   >
                     {currentTrack && isPlaying
                       ? <><Pause size={15} fill="currentColor" /> Pause</>
@@ -594,7 +594,7 @@ export default function Music() {
                   {!currentTrack && (
                     <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
                       <motion.button
-                        whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.5)", color: "#D4AF37" }}
+                        whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.5)", color: "var(--color-gold)" }}
                         whileTap={{ scale: 0.97 }}
                         className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-white/60 transition-all text-sm font-medium"
                       >
@@ -615,14 +615,14 @@ export default function Music() {
                       }}
                     >
                       <div
-                        className="h-full transition-all duration-150"
+                        className="h-full transition-all duration-fast"
                         style={{
                           width: duration > 0 ? `${(currentTime / duration) * 100}%` : "0%",
-                          background: "linear-gradient(to right, #D4AF37, #f0c842)",
+                          background: "linear-gradient(to right, var(--color-gold), var(--color-gold-hover))",
                         }}
                       />
                     </div>
-                    <div className="flex justify-between mt-1.5 text-[10px] text-white/20 font-mono tabular-nums">
+                    <div className="flex justify-between mt-1.5 text-xs text-white/20 font-mono tabular-nums">
                       <span>{Math.floor(currentTime / 60)}:{String(Math.floor(currentTime % 60)).padStart(2, "0")}</span>
                       <span>{currentTrack.duration}</span>
                     </div>
@@ -666,14 +666,14 @@ export default function Music() {
                   className="relative group flex flex-col items-center"
                 >
                   {/* Hover tooltip */}
-                  <div className="absolute bottom-full mb-8 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0 pointer-events-none w-56 z-20">
-                    <div className="bg-[#111] border border-gold/22 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
-                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#111] border-b border-r border-gold/22 transform rotate-45" />
+                  <div className="absolute bottom-full mb-8 opacity-0 group-hover:opacity-100 transition-all duration-normal translate-y-4 group-hover:translate-y-0 pointer-events-none w-56 z-20">
+                    <div className="bg-charcoal border border-gold/22 rounded-md p-4 shadow-xl">
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-charcoal border-b border-r border-gold/22 transform rotate-45" />
                       <img src={event.image} alt={event.title} className="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy" />
                       <div className="text-center">
                         <h4 className="text-white font-bold text-sm mb-1">{event.title}</h4>
-                        <span className="inline-block px-2 py-0.5 rounded-full text-[9px] uppercase tracking-widest font-bold"
-                          style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.28)", color: "#D4AF37" }}>
+                        <span className="inline-block px-2 py-0.5 rounded-full text-xs uppercase tracking-widest font-bold"
+                          style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.28)", color: "var(--color-gold)" }}>
                           {event.type}
                         </span>
                       </div>
@@ -681,17 +681,17 @@ export default function Music() {
                   </div>
 
                   {/* Node */}
-                  <div className="w-5 h-5 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-300 group-hover:bg-gold shadow-[0_0_15px_rgba(212,175,55,0.4)] cursor-pointer z-10">
+                  <div className="w-5 h-5 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-normal group-hover:bg-gold shadow-glow-gold cursor-pointer z-10">
                     <div className="absolute inset-0 bg-gold rounded-full animate-ping opacity-20 group-hover:opacity-0" />
                   </div>
 
                   {/* Year label */}
-                  <div className="absolute top-full mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <p className="text-gold text-[10px] font-bold tracking-widest uppercase">{event.year}</p>
+                  <div className="absolute top-full mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal pointer-events-none">
+                    <p className="text-gold text-xs font-bold tracking-widest uppercase">{event.year}</p>
                   </div>
 
                   {/* Always-visible year below on mobile */}
-                  <p className="absolute top-full mt-8 text-white/20 text-[9px] font-mono tracking-widest">{event.year}</p>
+                  <p className="absolute top-full mt-8 text-white/20 text-xs font-mono tracking-widest">{event.year}</p>
                 </motion.div>
               ))}
             </div>
@@ -714,8 +714,8 @@ export default function Music() {
 
               <div className={`w-full md:w-1/2 text-center ${i % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
                 {/* Type badge */}
-                <span className="inline-block px-3 py-1 rounded-full border text-[10px] font-bold uppercase tracking-widest mb-4"
-                  style={{ background: "rgba(212,175,55,0.10)", borderColor: "rgba(212,175,55,0.22)", color: "#D4AF37" }}>
+                <span className="inline-block px-3 py-1 rounded-full border text-xs font-bold uppercase tracking-widest mb-4"
+                  style={{ background: "rgba(212,175,55,0.10)", borderColor: "rgba(212,175,55,0.22)", color: "var(--color-gold)" }}>
                   {album.type}
                 </span>
 
@@ -724,7 +724,7 @@ export default function Music() {
                 </h2>
 
                 {/* Metadata row */}
-                <div className={`flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-2 mb-6 text-white/30 text-[11px] font-light ${i % 2 === 0 ? "justify-center md:justify-start" : "justify-center md:justify-end"}`}>
+                <div className={`flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-2 mb-6 text-white/30 text-xs font-light ${i % 2 === 0 ? "justify-center md:justify-start" : "justify-center md:justify-end"}`}>
                   <span>Released {album.year}</span>
                   <span className="text-white/12">·</span>
                   <span>{album.tracks} tracks</span>
@@ -745,9 +745,9 @@ export default function Music() {
                     <motion.button
                       whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.38)" }}
                       whileTap={{ scale: 0.96 }}
-                      className="px-8 py-3.5 font-bold uppercase tracking-widest transition-all duration-300 rounded-full inline-flex items-center gap-2 text-sm"
+                      className="px-8 py-3.5 font-bold uppercase tracking-widest transition-all duration-normal rounded-full inline-flex items-center gap-2 text-sm"
                       style={{
-                        background: "linear-gradient(135deg, #D4AF37 0%, #c49a2e 100%)",
+                        background: "linear-gradient(135deg, var(--color-gold) 0%, #c49a2e 100%)",
                         color: "#000",
                         boxShadow: "0 0 24px rgba(212,175,55,0.22)",
                       }}
@@ -758,9 +758,9 @@ export default function Music() {
                   </a>
                   <a href={album.link} target="_blank" rel="noopener noreferrer">
                     <motion.button
-                      whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.5)", color: "#D4AF37" }}
+                      whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.5)", color: "var(--color-gold)" }}
                       whileTap={{ scale: 0.97 }}
-                      className="px-8 py-3.5 rounded-full border border-white/15 text-white/50 font-bold uppercase tracking-widest transition-all duration-300 inline-flex items-center gap-2 text-sm"
+                      className="px-8 py-3.5 rounded-full border border-white/15 text-white/50 font-bold uppercase tracking-widest transition-all duration-normal inline-flex items-center gap-2 text-sm"
                     >
                       <ExternalLink size={13} /> Stream Everywhere
                     </motion.button>
@@ -780,7 +780,7 @@ export default function Music() {
         >
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Complete</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-2">Complete</p>
               <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white uppercase">
                 Track List
               </h2>
@@ -796,7 +796,7 @@ export default function Music() {
                     <img src={group.image} alt={group.label} className="w-full h-full object-cover" loading="lazy" />
                   </div>
                   <div className="flex items-center gap-2.5 min-w-0 flex-wrap">
-                    <span className="text-white font-bold text-[13px] uppercase tracking-wider">{group.label}</span>
+                    <span className="text-white font-bold text-xs uppercase tracking-wider">{group.label}</span>
                     <span className="text-white/20 text-xs">·</span>
                     <span className="text-white/30 text-xs">{group.year}</span>
                     <span className="text-white/20 text-xs">·</span>
@@ -806,7 +806,7 @@ export default function Music() {
                 </div>
 
                 <motion.div
-                  className="rounded-2xl overflow-hidden bg-[#070707] border border-white/[0.05] divide-y divide-white/[0.03]"
+                  className="rounded-md overflow-hidden bg-midnight border border-white/[0.05] divide-y divide-white/[0.03]"
                   initial="hidden"
                   whileInView="visible"
                   viewport={viewport}
@@ -832,13 +832,13 @@ export default function Music() {
           <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-20" />
 
           <div className="text-center mb-12">
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-3">Available On</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-3">Available On</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">
               Stream <span className="text-gold">Everywhere</span>
             </h2>
           </div>
 
-          <div className="relative rounded-3xl border border-white/[0.06] overflow-hidden p-8 md:p-12"
+          <div className="relative rounded-xl border border-white/[0.06] overflow-hidden p-8 md:p-12"
             style={{ background: "linear-gradient(135deg,#0c0c0c 0%,#0a0a06 100%)" }}>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.05),transparent_60%)]" />
 
@@ -851,7 +851,7 @@ export default function Music() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   whileHover={{ y: -4, scale: 1.05 }}
-                  className="flex items-center gap-2.5 px-5 py-3 rounded-full border transition-all duration-300 cursor-default"
+                  className="flex items-center gap-2.5 px-5 py-3 rounded-full border transition-all duration-normal cursor-default"
                   style={{
                     borderColor: `${p.color}30`,
                     background: `${p.color}0a`,
@@ -861,7 +861,7 @@ export default function Music() {
                   data-testid={`badge-platform-${id}`}
                 >
                   <span className="w-5 h-5 flex-shrink-0">{p.icon}</span>
-                  <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: p.color }}>
+                  <span className="text-xs font-bold uppercase tracking-wider" style={{ color: p.color }}>
                     {p.label}
                   </span>
                 </motion.div>
@@ -874,7 +874,7 @@ export default function Music() {
                   data-testid="button-stream-all"
                   whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] transition-shadow duration-300"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold transition-shadow duration-normal"
                 >
                   <ExternalLink size={13} /> Stream the Latest EP
                 </motion.button>
@@ -882,9 +882,9 @@ export default function Music() {
               <a href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer">
                 <motion.button
                   data-testid="button-all-links"
-                  whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.4)", color: "#D4AF37" }}
+                  whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.4)", color: "var(--color-gold)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-white/55 font-bold uppercase tracking-widest text-[11px] transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-white/55 font-bold uppercase tracking-widest text-xs transition-all duration-normal"
                 >
                   All Music Links
                 </motion.button>

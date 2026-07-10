@@ -161,17 +161,17 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group flex flex-col rounded-2xl overflow-hidden border border-white/[0.06] bg-[#0c0c0e] hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(212,175,55,0.10)] transition-all duration-300 cursor-pointer"
+      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-[#0c0c0e] hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(212,175,55,0.10)] transition-all duration-normal cursor-pointer"
     >
       {/* Thumbnail */}
-      <div className="relative w-full aspect-video overflow-hidden bg-[#090909] flex-shrink-0">
+      <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
         {!imgFailed ? (
           <img
             src={`https://i.ytimg.com/vi/${perf.youtubeId}/hqdefault.jpg`}
             alt={perf.title}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.07]"
+            className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
             onError={() => setImgFailed(true)}
           />
         ) : (
@@ -180,7 +180,7 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
             <div className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{ background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.18)" }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <polygon points="4,3 13,8 4,13" fill="#D4AF37" opacity="0.65" />
+                <polygon points="4,3 13,8 4,13" fill="var(--color-gold)" opacity="0.65" />
               </svg>
             </div>
             <span style={{ color: "rgba(212,175,55,0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
@@ -196,7 +196,7 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
           {perf.type}
         </div>
         {/* Play overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal">
           <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.7)]"
             style={{ background: "rgba(212,175,55,0.92)" }}>
             <Play className="w-5 h-5 text-midnight ml-0.5" fill="currentColor" />
@@ -210,10 +210,10 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
 
       {/* Info row */}
       <div className="px-4 py-3.5 flex items-center justify-between">
-        <p className="text-white/80 text-sm font-medium group-hover:text-gold transition-colors duration-200 truncate pr-3">
+        <p className="text-white/80 text-sm font-medium group-hover:text-gold transition-colors duration-fast truncate pr-3">
           {perf.title}
         </p>
-        <ArrowRight size={13} className="text-white/20 group-hover:text-gold transition-colors duration-200 flex-shrink-0" />
+        <ArrowRight size={13} className="text-white/20 group-hover:text-gold transition-colors duration-fast flex-shrink-0" />
       </div>
     </motion.a>
   );
@@ -274,7 +274,7 @@ export default function Tour() {
                 href="/newsletter"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
               >
                 Notify Me <Mail size={13} />
               </MotionLink>
@@ -282,7 +282,7 @@ export default function Tour() {
                 onClick={scrollToFeatured}
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white/[0.06] border border-white/15 text-white font-bold uppercase tracking-widest text-[11px] backdrop-blur-sm hover:border-gold/40 hover:text-gold transition-all duration-300"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white/[0.06] border border-white/15 text-white font-bold uppercase tracking-widest text-xs backdrop-blur-sm hover:border-gold/40 hover:text-gold transition-all duration-normal"
               >
                 Watch Live Performances <Play size={13} />
               </motion.button>
@@ -324,7 +324,7 @@ export default function Tour() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-3xl border border-white/[0.07] overflow-hidden"
+            className="relative rounded-xl border border-white/[0.07] overflow-hidden"
             style={{ background: "#09090c" }}
           >
             {/* Animated background orbs */}
@@ -351,7 +351,7 @@ export default function Tour() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="w-20 h-20 rounded-2xl flex items-center justify-center mb-8 border border-gold/20"
+                className="w-20 h-20 rounded-md flex items-center justify-center mb-8 border border-gold/20"
                 style={{ background: "rgba(212,175,55,0.06)" }}
               >
                 <Ticket className="w-9 h-9 text-gold/60" />
@@ -397,7 +397,7 @@ export default function Tour() {
                   href="/newsletter"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2.5 px-9 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                  className="inline-flex items-center gap-2.5 px-9 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
                 >
                   Join the Mailing List <Mail size={13} />
                 </MotionLink>
@@ -449,7 +449,7 @@ export default function Tour() {
               rel="noopener noreferrer"
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/12 text-white/50 hover:text-gold hover:border-gold/30 text-[11px] font-bold uppercase tracking-widest transition-all duration-200"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/12 text-white/50 hover:text-gold hover:border-gold/30 text-xs font-bold uppercase tracking-widest transition-all duration-fast"
             >
               View All on YouTube <ArrowRight size={12} />
             </motion.a>
@@ -489,7 +489,7 @@ export default function Tour() {
                 href="/newsletter"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
               >
                 Register VIP Interest <ChevronRight size={14} />
               </MotionLink>
@@ -506,16 +506,16 @@ export default function Tour() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    className="p-6 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-gold/[0.03] transition-all duration-300 group"
+                    className="p-6 rounded-md border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-gold/[0.03] transition-all duration-normal group"
                   >
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 border border-gold/20 group-hover:border-gold/40 transition-colors duration-300"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 border border-gold/20 group-hover:border-gold/40 transition-colors duration-normal"
                       style={{ background: "rgba(212,175,55,0.06)" }}
                     >
                       <Icon className="w-5 h-5 text-gold" />
                     </div>
-                    <h3 className="font-display text-sm font-bold uppercase tracking-tight text-white mb-2 group-hover:text-gold transition-colors duration-200 leading-snug">{perk.title}</h3>
-                    <p className="text-white/38 text-[13px] leading-relaxed">{perk.desc}</p>
+                    <h3 className="font-display text-sm font-bold uppercase tracking-tight text-white mb-2 group-hover:text-gold transition-colors duration-fast leading-snug">{perk.title}</h3>
+                    <p className="text-white/38 text-xs leading-relaxed">{perk.desc}</p>
                   </motion.div>
                 );
               })}
@@ -551,7 +551,7 @@ export default function Tour() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className={`relative rounded-3xl border overflow-hidden p-8 md:p-10 flex flex-col ${
+                className={`relative rounded-xl border overflow-hidden p-8 md:p-10 flex flex-col ${
                   tier.isPremium
                     ? "border-gold/35 shadow-[0_0_60px_rgba(212,175,55,0.10),0_20px_60px_rgba(0,0,0,0.5)]"
                     : "border-white/[0.09]"
@@ -602,7 +602,7 @@ export default function Tour() {
                           tier.isPremium ? "bg-gold/15 border border-gold/30" : "bg-white/5 border border-white/10"
                         }`}>
                           <svg width="7" height="6" viewBox="0 0 7 6" fill="none">
-                            <path d="M1 3L2.7 5L6 1" stroke={tier.isPremium ? "#D4AF37" : "rgba(255,255,255,0.4)"} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M1 3L2.7 5L6 1" stroke={tier.isPremium ? "var(--color-gold)" : "rgba(255,255,255,0.4)"} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </span>
                         {perk}
@@ -615,7 +615,7 @@ export default function Tour() {
                     href="/newsletter"
                     whileHover={{ y: -2, scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className={`w-full text-center py-4 rounded-full font-bold uppercase tracking-widest text-[11px] transition-all duration-300 ${
+                    className={`w-full text-center py-4 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-normal ${
                       tier.isPremium
                         ? "bg-gold text-midnight shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)]"
                         : "bg-white/[0.05] text-white border border-white/12 hover:bg-white/[0.09] hover:border-white/20"
@@ -679,11 +679,11 @@ export default function Tour() {
                       </div>
                       <div className="w-px h-8 bg-white/[0.06] flex-shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-white/70 text-sm font-medium group-hover:text-white transition-colors duration-200 truncate">
+                        <p className="text-white/70 text-sm font-medium group-hover:text-white transition-colors duration-fast truncate">
                           {ev.city}
                           <span className="text-white/28 text-xs font-normal ml-1.5">{ev.country}</span>
                         </p>
-                        <p className="text-white/22 text-[11px] mt-0.5 flex items-center gap-1 truncate">
+                        <p className="text-white/22 text-xs mt-0.5 flex items-center gap-1 truncate">
                           <MapPin size={9} className="flex-shrink-0" /> {ev.venue}
                         </p>
                       </div>
@@ -706,7 +706,7 @@ export default function Tour() {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setShowAllPast(true)}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.09] text-white/35 hover:text-white hover:border-white/22 text-[11px] font-bold uppercase tracking-widest transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.09] text-white/35 hover:text-white hover:border-white/22 text-xs font-bold uppercase tracking-widest transition-all duration-fast"
                 >
                   Show All Years <ChevronRight size={13} />
                 </motion.button>
@@ -769,8 +769,8 @@ export default function Tour() {
 
                   {/* Content card */}
                   <div className={`flex-1 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"} pl-0 md:pl-0`}>
-                    <div className="inline-block px-6 py-5 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 hover:bg-gold/[0.025] transition-all duration-300 group">
-                      <h3 className="font-display text-lg font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-200">
+                    <div className="inline-block px-6 py-5 rounded-md border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 hover:bg-gold/[0.025] transition-all duration-normal group">
+                      <h3 className="font-display text-lg font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-fast">
                         {step.label}
                       </h3>
                       <p className="text-white/35 text-sm leading-relaxed">{step.sub}</p>
@@ -793,7 +793,7 @@ export default function Tour() {
               href="/newsletter"
               whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gold/30 text-gold bg-gold/[0.06] hover:bg-gold/10 font-bold uppercase tracking-widest text-[11px] transition-all duration-200"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gold/30 text-gold bg-gold/[0.06] hover:bg-gold/10 font-bold uppercase tracking-widest text-xs transition-all duration-fast"
             >
               Stay Informed <Mail size={13} />
             </MotionLink>
@@ -809,7 +809,7 @@ export default function Tour() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-3xl border border-gold/18 overflow-hidden text-center p-12 md:p-16"
+            className="relative rounded-xl border border-gold/18 overflow-hidden text-center p-12 md:p-16"
             style={{ background: "linear-gradient(160deg, rgba(212,175,55,0.05) 0%, #08080d 50%, rgba(212,175,55,0.03) 100%)" }}
           >
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[160px] bg-gold/7 blur-[90px] rounded-full pointer-events-none" />
@@ -825,7 +825,7 @@ export default function Tour() {
                 href="/newsletter"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
               >
                 Subscribe to Newsletter <Mail size={13} />
               </MotionLink>

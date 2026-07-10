@@ -29,7 +29,7 @@ function TableOfContents({ active }: { active: string }) {
   const activeItem = TOC.find(t => t.id === active) ?? TOC[0];
 
   return (
-    <div className="sticky top-[72px] z-40 bg-[#080808]/95 backdrop-blur-md border-b border-white/[0.07]">
+    <div className="sticky top-[72px] z-40 bg-midnight/95 backdrop-blur-md border-b border-white/[0.07]">
       <div className="max-w-4xl mx-auto px-6">
 
         {/* ── Desktop: horizontal pill row ── */}
@@ -38,9 +38,9 @@ function TableOfContents({ active }: { active: string }) {
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 ${
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 ${
                 active === id
-                  ? "bg-gold text-midnight shadow-[0_0_16px_rgba(212,175,55,0.35)]"
+                  ? "bg-gold text-midnight shadow-glow-gold"
                   : "text-white/40 hover:text-white/80 hover:bg-white/[0.06]"
               }`}
             >
@@ -56,7 +56,7 @@ function TableOfContents({ active }: { active: string }) {
             onClick={() => setOpen(o => !o)}
             aria-expanded={open}
             aria-controls="toc-mobile-menu"
-            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.08] text-white/80 text-[11px] font-bold uppercase tracking-widest"
+            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.08] text-white/80 text-xs font-bold uppercase tracking-widest"
           >
             <span className="flex items-center gap-2">
               <activeItem.icon size={11} className="text-gold" />
@@ -82,7 +82,7 @@ function TableOfContents({ active }: { active: string }) {
                     <button
                       key={id}
                       onClick={() => { scrollTo(id); setOpen(false); }}
-                      className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-[11px] font-bold uppercase tracking-widest text-left transition-all duration-150 ${
+                      className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest text-left transition-all duration-fast ${
                         active === id
                           ? "text-gold bg-gold/10"
                           : "text-white/50 hover:text-white/80 hover:bg-white/[0.04]"
@@ -128,7 +128,7 @@ function SectionHeading({ icon: Icon, title, subtitle }: {
 // ── Sub-heading ───────────────────────────────────────────────────────────────
 function Sub({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-white font-semibold text-[13px] uppercase tracking-[0.18em] mt-8 mb-3">
+    <h3 className="text-white font-semibold text-xs uppercase tracking-[0.18em] mt-8 mb-3">
       {children}
     </h3>
   );
@@ -136,7 +136,7 @@ function Sub({ children }: { children: React.ReactNode }) {
 
 // ── Body paragraph ────────────────────────────────────────────────────────────
 function P({ children }: { children: React.ReactNode }) {
-  return <p className="text-white/55 text-[15px] leading-[1.85] mb-4">{children}</p>;
+  return <p className="text-white/55 text-sm leading-relaxed mb-4">{children}</p>;
 }
 
 // ── Section divider ───────────────────────────────────────────────────────────
@@ -179,7 +179,7 @@ export default function Legal() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white">
+    <div className="min-h-screen bg-midnight text-white">
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
       <div className="relative pt-32 pb-16 overflow-hidden">
@@ -195,7 +195,7 @@ export default function Legal() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-gold text-[10px] font-black uppercase tracking-[0.35em] mb-5">
+            <p className="text-gold text-xs font-black uppercase tracking-[0.35em] mb-5">
               Kiut Music · Official
             </p>
             <h1 className="font-display text-5xl md:text-7xl font-black text-white leading-none tracking-tight mb-6">
@@ -385,11 +385,11 @@ export default function Legal() {
             For any questions, concerns, or requests relating to this Privacy Policy or Terms & Conditions — including data access, correction, or deletion requests — please reach out through our official contact form.
           </P>
 
-          <div className="mt-8 p-8 rounded-2xl border border-white/[0.08] bg-white/[0.02]">
-            <p className="text-white/40 text-[11px] uppercase tracking-[0.2em] font-semibold mb-2">Official Contact</p>
+          <div className="mt-8 p-8 rounded-md border border-white/[0.08] bg-white/[0.02]">
+            <p className="text-white/40 text-xs uppercase tracking-[0.2em] font-semibold mb-2">Official Contact</p>
             <a
               href="mailto:contact@kiutmusic.com"
-              className="text-gold text-lg font-semibold hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:underline"
+              className="text-gold text-lg font-semibold hover:text-white transition-colors duration-fast focus-visible:outline-none focus-visible:underline"
             >
               contact@kiutmusic.com
             </a>
@@ -401,10 +401,10 @@ export default function Legal() {
 
         {/* ── Last updated ───────────────────────────────────────── */}
         <div className="mt-20 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-white/20 text-[11px] uppercase tracking-[0.22em]">
+          <p className="text-white/20 text-xs uppercase tracking-[0.22em]">
             Last updated: {LAST_UPDATED}
           </p>
-          <p className="text-white/20 text-[11px] uppercase tracking-[0.22em]">
+          <p className="text-white/20 text-xs uppercase tracking-[0.22em]">
             © {new Date().getFullYear()} Kiut Music Worldwide
           </p>
         </div>

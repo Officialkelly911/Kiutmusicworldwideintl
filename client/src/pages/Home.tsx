@@ -47,23 +47,23 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
       <motion.div
         whileHover={{ y: -6 }}
         transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-2xl overflow-hidden bg-[#0c0c0c] border border-white/[0.06] hover:border-gold/25 hover:shadow-[0_14px_38px_rgba(212,175,55,0.09)] transition-all duration-300 snap-start"
+        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-md overflow-hidden bg-charcoal border border-white/[0.06] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-normal snap-start"
       >
         {/* Thumbnail */}
-        <div className="relative w-full aspect-video overflow-hidden bg-[#090909] flex-shrink-0">
+        <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
           {!failed ? (
             <img
               src={video.thumbnail}
               alt={video.title}
               loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.07]"
+              className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
               onError={() => setFailed(true)}
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
-              style={{ background: "linear-gradient(145deg,#0a0a0a 0%,#110d1a 100%)" }}>
+              style={{ background: "linear-gradient(145deg, var(--color-midnight) 0%, #110d1a 100%)" }}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.18)" }}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="#D4AF37" opacity="0.65" /></svg>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="var(--color-gold)" opacity="0.65" /></svg>
               </div>
               <span style={{ color: "rgba(212,175,55,0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>Kiut Music</span>
             </div>
@@ -71,28 +71,28 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
           {/* Scrim */}
           <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
           {/* Badge */}
-          <div className={`absolute top-2 left-2 px-2 py-[3px] rounded-full backdrop-blur-md text-[8px] font-bold uppercase tracking-widest leading-none border ${badge.text} ${badge.border} ${badge.bg}`}>
+          <div className={`absolute top-2 left-2 px-2 py-[3px] rounded-full backdrop-blur-md text-xs font-bold uppercase tracking-widest leading-none border ${badge.text} ${badge.border} ${badge.bg}`}>
             {video.type}
           </div>
           {/* Duration */}
           {video.duration !== "—" && (
-            <div className="absolute bottom-2 right-2 px-1.5 py-[3px] rounded-md bg-black/90 backdrop-blur-md text-white/75 text-[9px] font-semibold leading-none">
+            <div className="absolute bottom-2 right-2 px-1.5 py-[3px] rounded-md bg-black/90 backdrop-blur-md text-white/75 text-xs font-semibold leading-none">
               {video.duration}
             </div>
           )}
           {/* Play icon */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-9 h-9 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center pl-0.5 opacity-30 group-hover:opacity-100 group-hover:bg-gold group-hover:border-gold group-hover:shadow-[0_0_22px_rgba(212,175,55,0.55)] transition-all duration-300 scale-90 group-hover:scale-100">
-              <Play className="w-3.5 h-3.5 text-white group-hover:text-midnight transition-colors duration-200" />
+            <div className="w-9 h-9 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center pl-0.5 opacity-30 group-hover:opacity-100 group-hover:bg-gold group-hover:border-gold group-hover:shadow-glow-gold-hover transition-all duration-normal scale-90 group-hover:scale-100">
+              <Play className="w-3.5 h-3.5 text-white group-hover:text-midnight transition-colors duration-fast" />
             </div>
           </div>
         </div>
         {/* Text */}
         <div className="p-3.5 flex flex-col gap-1">
-          <h4 className="font-bold text-[12px] leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-200">
+          <h4 className="font-bold text-xs leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-fast">
             {video.title}
           </h4>
-          <div className="flex items-center gap-1.5 text-[10px] text-white/25 mt-0.5">
+          <div className="flex items-center gap-1.5 text-xs text-white/25 mt-0.5">
             <span>Kiut</span>
             <span className="text-white/15">·</span>
             <span>{video.date}</span>
@@ -149,8 +149,8 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
         >
           <KiutMark
             size={88}
-            color="#D4AF37"
-            className="drop-shadow-[0_0_28px_rgba(212,175,55,0.35)]"
+            color="var(--color-gold)"
+            className="drop-glow-gold"
             label="KIUT."
           />
         </motion.div>
@@ -162,7 +162,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
           transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="font-display text-5xl md:text-7xl font-bold text-white tracking-[0.22em] uppercase mb-2"
         >
-          Kiut<span style={{ color: "#D4AF37" }}>.</span>
+          Kiut<span style={{ color: "var(--color-gold)" }}>.</span>
         </motion.h1>
 
         {/* Accent line */}
@@ -171,7 +171,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
           className="w-24 md:w-48 h-[2px] mb-7 origin-center"
-          style={{ background: "#D4AF37", boxShadow: "0 0 14px rgba(212,175,55,0.5)" }}
+          style={{ background: "var(--color-gold)", boxShadow: "var(--glow-gold)" }}
         />
 
         {/* Animated gold waveform */}
@@ -186,7 +186,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
             <motion.div
               key={i}
               className="rounded-full"
-              style={{ width: 3, background: "#D4AF37", opacity: 0.7 }}
+              style={{ width: 3, background: "var(--color-gold)", opacity: 0.7 }}
               animate={{ height: [`${h * 8}px`, `${h * 22}px`, `${h * 8}px`] }}
               transition={{ repeat: Infinity, duration: 0.55 + i * 0.09, ease: "easeInOut", delay: i * 0.06 }}
             />
@@ -198,7 +198,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.3 }}
-          className="text-white/45 tracking-[0.4em] uppercase text-[10px] font-light"
+          className="text-white/45 tracking-[0.4em] uppercase text-xs font-light"
         >
           Loading Experience
         </motion.p>
@@ -220,7 +220,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6 }}
         onClick={onComplete}
-        className="absolute bottom-10 right-10 text-white/35 hover:text-white/70 uppercase tracking-[0.22em] text-[10px] transition-colors z-20"
+        className="absolute bottom-10 right-10 text-white/35 hover:text-white/70 uppercase tracking-[0.22em] text-xs transition-colors z-20"
       >
         Skip ↓
       </motion.button>
@@ -263,7 +263,7 @@ function HomeStatsStrip() {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(90deg, #080808 0%, #0c0a00 50%, #080808 100%)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+      style={{ background: "linear-gradient(90deg, var(--color-midnight) 0%, #0c0a00 50%, var(--color-midnight) 100%)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.04), transparent 70%)" }} />
@@ -276,10 +276,10 @@ function HomeStatsStrip() {
             transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center text-center"
           >
-            <div className="font-display text-4xl md:text-5xl font-bold mb-1" style={{ color: "#D4AF37" }}>
+            <div className="font-display text-4xl md:text-5xl font-bold mb-1" style={{ color: "var(--color-gold)" }}>
               {counts[i]}{stat.suffix}
             </div>
-            <div className="text-white/35 text-[10px] font-bold uppercase tracking-[0.32em]">{stat.label}</div>
+            <div className="text-white/35 text-xs font-bold uppercase tracking-[0.32em]">{stat.label}</div>
           </motion.div>
         ))}
       </div>
@@ -295,7 +295,7 @@ function FeaturedQuote() {
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className="py-28 relative overflow-hidden"
-      style={{ background: "#050505" }}
+      style={{ background: "var(--color-midnight)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.035), transparent 65%)" }} />
@@ -318,14 +318,14 @@ function FeaturedQuote() {
         >
           "Music is more than sound.
           <br />
-          <span style={{ color: "#D4AF37" }}>It's memory.</span>"
+          <span style={{ color: "var(--color-gold)" }}>It's memory.</span>"
         </motion.blockquote>
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.55 }}
-          className="text-white/25 text-[10px] font-bold uppercase tracking-[0.45em]"
+          className="text-white/25 text-xs font-bold uppercase tracking-[0.45em]"
         >
           — Kiut
         </motion.p>
@@ -420,7 +420,7 @@ function MilestoneGallery() {
               duration: 1.8,
               ease: [0.22, 1, 0.36, 1], // Premium cinematic easing
             }}
-            className="absolute w-[65%] md:w-[55%] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 bg-[#0a0a0a] transform-gpu"
+            className="absolute w-[65%] md:w-[55%] aspect-[4/5] rounded-xl overflow-hidden shadow-xl border border-white/10 bg-midnight transform-gpu"
             style={{ transformStyle: 'preserve-3d' }}
           >
             <img src={img} alt="Milestone Gallery" className="w-full h-full object-cover" />
@@ -433,7 +433,7 @@ function MilestoneGallery() {
                   animate={{ opacity: 1 }} 
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1.5 }}
-                  className="absolute inset-0 border border-gold/60 rounded-3xl pointer-events-none shadow-[inset_0_0_50px_rgba(212,175,55,0.25)]"
+                  className="absolute inset-0 border border-gold/60 rounded-xl pointer-events-none shadow-glow-gold"
                 />
               )}
             </AnimatePresence>
@@ -476,7 +476,7 @@ function HeroSlideMedia({
         src={poster}
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-cinematic"
         style={{ opacity: video && videoReady && !videoError ? 0 : 1 }}
         fetchPriority={isFirst ? "high" : "low"}
       />
@@ -495,7 +495,7 @@ function HeroSlideMedia({
             setVideoReady(true);
           }}
           onError={() => setVideoError(true)}
-          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-cinematic"
           style={{ opacity: videoReady ? 1 : 0 }}
         >
           <source src={video} type="video/mp4" />
@@ -556,7 +556,7 @@ function KiutEmbedSection() {
   };
 
   return (
-    <section className="py-24 bg-[#0a0a0a] border-t border-white/5">
+    <section className="py-24 bg-midnight border-t border-white/5">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -583,7 +583,7 @@ function KiutEmbedSection() {
           </div>
 
           {/* Embed container */}
-          <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)] bg-[#111]">
+          <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-xl bg-charcoal">
             {/* Glow accents */}
             <div className="absolute top-0 right-0 w-72 h-72 bg-gold/8 blur-[120px] pointer-events-none z-0" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-pink-500/8 blur-[120px] pointer-events-none z-0" />
@@ -604,7 +604,7 @@ function KiutEmbedSection() {
               onLoad={handleLoad}
               onError={handleError}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              className={`relative z-10 w-full transition-opacity duration-500 ${
+              className={`relative z-10 w-full transition-opacity duration-slow ${
                 status === "loaded" ? "opacity-100" : "opacity-0 absolute inset-0"
               }`}
               style={{ height: status === "loaded" ? "640px" : "0px", border: "none" }}
@@ -613,7 +613,7 @@ function KiutEmbedSection() {
             {/* Fallback card */}
             {status === "fallback" && (
               <div className="relative z-10 flex flex-col items-center justify-center px-8 py-16 md:py-24 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-8">
+                <div className="w-16 h-16 rounded-md bg-gold/10 border border-gold/20 flex items-center justify-center mb-8">
                   <Music className="w-8 h-8 text-gold" />
                 </div>
 
@@ -646,7 +646,7 @@ function KiutEmbedSection() {
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(212,175,55,0.35)]"
+                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-normal shadow-glow-gold"
                 >
                   Explore All Links <ExternalLink size={16} />
                 </a>
@@ -838,7 +838,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-gold to-yellow-600 text-midnight font-bold uppercase tracking-widest shadow-[0_0_40px_-10px_rgba(212,175,55,0.5)] group-hover:shadow-[0_0_60px_-10px_rgba(212,175,55,0.7)] transition-all duration-300"
+                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-gold to-yellow-600 text-midnight font-bold uppercase tracking-widest shadow-glow-gold group-hover:shadow-glow-gold-hover transition-all duration-normal"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -850,7 +850,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-bold uppercase tracking-widest shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] group-hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] transition-all duration-300"
+                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-bold uppercase tracking-widest shadow-lg group-hover:shadow-xl transition-all duration-normal"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -899,13 +899,13 @@ export default function Home() {
                   }}
                   className="perspective-[1000px] mb-8"
                 >
-                  <div className="relative w-64 md:w-80 lg:w-96 aspect-square rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gold/30 transform-gpu rotate-y-[-5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
+                  <div className="relative w-64 md:w-80 lg:w-96 aspect-square rounded-md overflow-hidden shadow-lg border border-gold/30 transform-gpu rotate-y-[-5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-cinematic">
                     <img 
                       src={musicImage} 
                       alt="Good Life EP Cover" 
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
                   </div>
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
                 </motion.div>
@@ -926,7 +926,7 @@ export default function Home() {
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
-                    className={`w-12 h-1 rounded-full transition-all duration-300 ${
+                    className={`w-12 h-1 rounded-full transition-all duration-normal ${
                       idx === currentSlide ? "bg-gold" : "bg-white/20 hover:bg-white/40"
                     }`}
                   />
@@ -948,7 +948,7 @@ export default function Home() {
       <HomeStatsStrip />
 
       {/* MILESTONE SECTION */}
-      <section className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
+      <section className="py-24 md:py-32 relative overflow-hidden bg-midnight">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.03),transparent_70%)]" />
         
         <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -1028,9 +1028,9 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-[#111] hover:bg-[#1a1a1a] text-white hover:text-gold border border-white/10 hover:border-gold rounded-full transition-all duration-300 font-bold tracking-wider text-sm shadow-none hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-charcoal hover:bg-graphite text-white hover:text-gold border border-white/10 hover:border-gold rounded-full transition-all duration-normal font-bold tracking-wider text-sm shadow-none hover:shadow-glow-gold"
                     >
-                      <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-300" />
+                      <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-normal" />
                       SEE MORE
                     </motion.button>
                   </a>
@@ -1056,7 +1056,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Latest Drop</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Latest Drop</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">
                 Featured <span className="text-gold">Release</span>
               </h2>
@@ -1075,14 +1075,14 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-12">
+          <div className="bg-midnight border border-white/10 rounded-xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-12">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               whileHover={{ y: -10, scale: 1.02 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="w-full md:w-1/2 max-w-sm rounded-2xl overflow-hidden shadow-2xl shadow-pink-900/20"
+              className="w-full md:w-1/2 max-w-sm rounded-md overflow-hidden shadow-2xl shadow-pink-900/20"
             >
               <img src={musicImage} alt="Good Life EP" className="w-full h-auto object-cover" />
             </motion.div>
@@ -1110,17 +1110,17 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.25)]"
+                  className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-normal shadow-glow-gold"
                 >
                   Listen Now
                 </motion.button>
               </a>
 
               <div className="flex items-center gap-6 mt-8 text-white/40">
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Music2 size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">Spotify</span></div>
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><PlayCircle size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">Apple</span></div>
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Youtube size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">YouTube</span></div>
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Radio size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">AudioMack</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Music2 size={24} /><span className="text-xs font-medium uppercase tracking-wider">Spotify</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><PlayCircle size={24} /><span className="text-xs font-medium uppercase tracking-wider">Apple</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Youtube size={24} /><span className="text-xs font-medium uppercase tracking-wider">YouTube</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Radio size={24} /><span className="text-xs font-medium uppercase tracking-wider">AudioMack</span></div>
               </div>
             </motion.div>
           </div>
@@ -1128,7 +1128,7 @@ export default function Home() {
       </section>
 
       {/* PORTFOLIO SECTION */}
-      <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5">
+      <section className="py-24 md:py-32 bg-midnight relative border-t border-white/5">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1154,20 +1154,20 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative aspect-video rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 group cursor-pointer"
+              className="relative aspect-video rounded-xl overflow-hidden shadow-xl border border-white/10 group cursor-pointer"
             >
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-105"
               >
                 <source src={portfolioVideo} type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 gap-3">
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-slow gap-3">
                 <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
                   <ExternalLink size={32} />
                 </div>
@@ -1188,9 +1188,9 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <motion.button
-                whileHover={{ scale: 1.04, borderColor: "#D4AF37", color: "#D4AF37" }}
+                whileHover={{ scale: 1.04, borderColor: "var(--color-gold)", color: "var(--color-gold)" }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-gold hover:text-gold transition-all duration-300 flex items-center gap-2 mx-auto"
+                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-gold hover:text-gold transition-all duration-normal flex items-center gap-2 mx-auto"
               >
                 Explore Portfolio <ExternalLink size={14} />
               </motion.button>
@@ -1225,11 +1225,11 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-12"
           >
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-4">
               KiutRaba<span className="text-gold">'s</span> Store
             </h2>
-            <p className="text-white/38 text-[14px] font-light max-w-lg mx-auto leading-relaxed">
+            <p className="text-white/38 text-sm font-light max-w-lg mx-auto leading-relaxed">
               Exclusive apparel and collectibles inspired by the music, culture, and journey.
             </p>
           </motion.div>
@@ -1254,13 +1254,13 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_32px_100px_rgba(0,0,0,0.7)]"
+                className="rounded-xl overflow-hidden border border-white/[0.08] shadow-xl"
                 style={{ background: "#0a0a0c" }}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr]">
 
                   {/* Left — full-bleed cycling image */}
-                  <div className="relative overflow-hidden bg-[#0d0d0f] min-h-[400px] lg:min-h-[520px]">
+                  <div className="relative overflow-hidden bg-charcoal min-h-[400px] lg:min-h-[520px]">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeStoreIdx}
@@ -1278,31 +1278,31 @@ export default function Home() {
 
                     {/* Badge */}
                     <div className="absolute top-5 left-5 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-midnight bg-gold shadow-[0_0_20px_rgba(212,175,55,0.5)]">
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.28em] text-midnight bg-gold shadow-glow-gold-hover">
                         <span>✦</span> {active.badge}
                       </span>
                     </div>
 
                     {/* Film counter */}
                     <div className="absolute top-5 right-5 z-10">
-                      <span className="text-[10px] font-mono text-white/28 tabular-nums tracking-widest">
+                      <span className="text-xs font-mono text-white/28 tabular-nums tracking-widest">
                         {String(activeStoreIdx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                       </span>
                     </div>
 
                     {/* Prev / Next */}
-                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
                       <ChevronLeft className="w-4 h-4 text-white/55" />
                     </button>
-                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
                       <ChevronRight className="w-4 h-4 text-white/55" />
                     </button>
 
                     {/* Animated bottom label */}
                     <AnimatePresence mode="wait">
                       <motion.div key={activeStoreIdx + "-bl"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-gold/80 mb-1">{active.category}</p>
-                        <p className="font-display text-[22px] font-bold text-white uppercase tracking-tight">{active.name}</p>
+                        <p className="text-xs font-bold uppercase tracking-[0.38em] text-gold/80 mb-1">{active.category}</p>
+                        <p className="font-display text-xl font-bold text-white uppercase tracking-tight">{active.name}</p>
                       </motion.div>
                     </AnimatePresence>
                   </div>
@@ -1311,11 +1311,11 @@ export default function Home() {
                   <div className="flex flex-col justify-between p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/[0.06]">
                     <AnimatePresence mode="wait">
                       <motion.div key={activeStoreIdx + "-copy"} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="mb-8">
-                        <p className="text-gold text-[9px] font-bold uppercase tracking-[0.45em] mb-5">Dream Planet Store</p>
+                        <p className="text-gold text-xs font-bold uppercase tracking-[0.45em] mb-5">Dream Planet Store</p>
                         <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-5">
                           Discover KiutRaba's<br />Exclusive Collection
                         </h3>
-                        <p className="text-white/42 text-[13px] font-light leading-relaxed">{active.desc}</p>
+                        <p className="text-white/42 text-xs font-light leading-relaxed">{active.desc}</p>
                       </motion.div>
                     </AnimatePresence>
 
@@ -1323,17 +1323,17 @@ export default function Home() {
                       {/* Progress dots — 6 items */}
                       <div className="flex items-center gap-2 mb-7 flex-wrap">
                         {bannerItems.map((_, i) => (
-                          <button key={i} aria-label={`Go to product ${i + 1}`} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${i === activeStoreIdx ? "w-8 h-[6px] bg-gold shadow-[0_0_12px_rgba(212,175,55,0.65)]" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
+                          <button key={i} aria-label={`Go to product ${i + 1}`} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-slow focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${i === activeStoreIdx ? "w-8 h-[6px] bg-gold shadow-glow-gold" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
                         ))}
                       </div>
 
                       {/* CTA */}
                       <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="Explore KiutRaba's collection on Dream Planet Store">
-                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[0_0_28px_rgba(212,175,55,0.28)] hover:shadow-[0_0_52px_rgba(212,175,55,0.58)] transition-shadow duration-300 mb-2">
-                          <span className="text-[9px]">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
+                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal mb-2">
+                          <span className="text-xs">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
                         </motion.button>
                       </a>
-                      <p className="text-center text-white/18 text-[10px] font-light tracking-[0.25em]">Secure checkout via Dream Planet</p>
+                      <p className="text-center text-white/18 text-xs font-light tracking-[0.25em]">Secure checkout via Dream Planet</p>
                     </div>
                   </div>
                 </div>
@@ -1371,10 +1371,10 @@ export default function Home() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
                       whileHover={{ y: -7, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
-                      className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-500 ${
+                      className={`group relative flex flex-col rounded-md overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-slow ${
                         isSpotlit || isFeatured
-                          ? "border border-gold/42 shadow-[0_18px_60px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.12)]"
-                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-gold/32 hover:shadow-[0_22px_64px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.08)]"
+                          ? "border border-gold/42 shadow-glow-gold-hover"
+                          : "border border-white/[0.07] shadow-sm hover:border-gold/32 hover:shadow-glow-gold-hover"
                       }`}
                       style={{ background: "#0b0b0d" }}
                     >
@@ -1382,7 +1382,7 @@ export default function Home() {
                       <AnimatePresence>
                         {isSpotlit && !isFeatured && (
                           <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3 }} className="absolute top-2.5 right-2.5 z-20">
-                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.22em] text-midnight bg-gold shadow-[0_0_14px_rgba(212,175,55,0.55)]">
+                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-xs font-bold uppercase tracking-[0.22em] text-midnight bg-gold shadow-glow-gold">
                               ✦ This Week
                             </span>
                           </motion.div>
@@ -1391,9 +1391,9 @@ export default function Home() {
 
                       {/* Product badge */}
                       <div className="absolute top-2.5 left-2.5 z-20">
-                        <span className={`inline-flex items-center px-2.5 py-[5px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.2em] ${
+                        <span className={`inline-flex items-center px-2.5 py-[5px] rounded-full text-xs font-bold uppercase tracking-[0.2em] ${
                           product.badgeKind === "gold-fill"
-                            ? "text-midnight bg-gold/90 shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+                            ? "text-midnight bg-gold/90 shadow-glow-gold"
                             : product.badgeKind === "gold-outline"
                             ? "text-gold border border-gold/40 bg-black/55 backdrop-blur-sm"
                             : "text-white/50 border border-white/15 bg-black/45 backdrop-blur-sm"
@@ -1403,7 +1403,7 @@ export default function Home() {
                       </div>
 
                       {/* Image — 80% of card, featured item slightly taller */}
-                      <div className={`relative overflow-hidden bg-[#0e0e10] flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
+                      <div className={`relative overflow-hidden bg-charcoal flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
                         <img
                           src={product.img}
                           alt={`${product.name} — KiutRaba`}
@@ -1415,21 +1415,21 @@ export default function Home() {
                           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07),transparent_68%)] pointer-events-none" />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d]/60 via-transparent to-transparent pointer-events-none" />
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] [transition:opacity_400ms_ease] pointer-events-none" />
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] transition-opacity duration-medium pointer-events-none" />
                       </div>
 
                       {/* Card footer */}
-                      <div className="flex flex-col flex-1 justify-between p-3.5 bg-[#0a0a0c] border-t border-white/[0.05]">
+                      <div className="flex flex-col flex-1 justify-between p-3.5 bg-midnight border-t border-white/[0.05]">
                         <div className="mb-2.5">
-                          <h3 className="font-display text-[12px] md:text-[13px] font-bold text-white uppercase tracking-tight leading-tight mb-1">{product.name}</h3>
-                          <p className="text-white/35 text-[10px] font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
+                          <h3 className="font-display text-xs md:text-xs font-bold text-white uppercase tracking-tight leading-tight mb-1">{product.name}</h3>
+                          <p className="text-white/35 text-xs font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="inline-flex items-center gap-1 text-white/18 text-[9px] font-light tracking-wide">
+                          <span className="inline-flex items-center gap-1 text-white/18 text-xs font-light tracking-wide">
                             <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
                             Dream Planet
                           </span>
-                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-[0_0_14px_rgba(212,175,55,0.2)] transition-all duration-300 whitespace-nowrap">
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-xs font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-glow-gold transition-all duration-normal whitespace-nowrap">
                             Shop Now <ExternalLink className="w-2 h-2" />
                           </span>
                         </div>
@@ -1445,17 +1445,17 @@ export default function Home() {
           <div className="mt-10">
             <div className="flex items-baseline justify-between mb-5">
               <div>
-                <p className="text-gold text-[10px] font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
-                <p className="text-white/25 text-[11px] font-light tracking-wide">More From KiutRaba</p>
+                <p className="text-gold text-xs font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
+                <p className="text-white/25 text-xs font-light tracking-wide">More From KiutRaba</p>
               </div>
               <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
-                <span className="text-white/28 text-[10px] font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-200 cursor-pointer">
+                <span className="text-white/28 text-xs font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-fast cursor-pointer">
                   View All ↗
                 </span>
               </a>
             </div>
 
-            <div className="overflow-hidden rounded-2xl" style={{ WebkitMaskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)", maskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)" }}>
+            <div className="overflow-hidden rounded-md" style={{ WebkitMaskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)", maskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)" }}>
               <div className="store-tape-track flex gap-3 w-max py-1">
                 {[
                   { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.webp",      cover: true  },
@@ -1482,8 +1482,8 @@ export default function Home() {
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
                   <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
-                    <div className="group relative flex-shrink-0 w-[168px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/35 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 cursor-pointer">
-                      <div className="h-[142px] w-full bg-[#0e0e10]">
+                    <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
+                      <div className="h-[142px] w-full bg-charcoal">
                         <img
                           src={p.img}
                           alt={p.name}
@@ -1492,11 +1492,11 @@ export default function Home() {
                           className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.09]`}
                         />
                       </div>
-                      <div className="px-3 py-2.5 bg-[#0a0a0c] border-t border-white/[0.05]">
-                        <p className="text-[9.5px] font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
-                        <p className="text-white/22 text-[8.5px] font-light tracking-widest">$ –</p>
+                      <div className="px-3 py-2.5 bg-midnight border-t border-white/[0.05]">
+                        <p className="text-xs font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
+                        <p className="text-white/22 text-xs font-light tracking-widest">$ –</p>
                       </div>
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-2xl [transition:opacity_350ms_ease] pointer-events-none" />
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-md transition-opacity duration-medium pointer-events-none" />
                     </div>
                   </a>
                 ))}
@@ -1517,13 +1517,13 @@ export default function Home() {
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-gold/32 text-gold font-bold uppercase tracking-widest text-[11px] hover:bg-gold/[0.07] hover:border-gold/60 hover:shadow-[0_0_36px_rgba(212,175,55,0.18)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-gold/32 text-gold font-bold uppercase tracking-widest text-xs hover:bg-gold/[0.07] hover:border-gold/60 hover:shadow-glow-gold-hover transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
               >
                 <span>✦</span> View Full Collection <ExternalLink className="w-4 h-4" />
               </motion.button>
             </a>
-            <p className="text-white/14 text-[10px] font-light uppercase tracking-[0.38em] mt-3">Browse All Pieces on Dream Planet</p>
-            <p className="text-white/10 text-[9px] font-light tracking-[0.22em] mt-1.5">Secure checkout powered by Dream Planet</p>
+            <p className="text-white/14 text-xs font-light uppercase tracking-[0.38em] mt-3">Browse All Pieces on Dream Planet</p>
+            <p className="text-white/10 text-xs font-light tracking-[0.22em] mt-1.5">Secure checkout powered by Dream Planet</p>
           </motion.div>
 
         </div>
@@ -1537,7 +1537,7 @@ export default function Home() {
           {/* Heading row */}
           <div className="flex flex-row items-end justify-between mb-10 md:mb-14 gap-4">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Official Visuals</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-2">Official Visuals</p>
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white uppercase">
                 Latest <span className="text-gold">Visuals</span>
               </h2>
@@ -1560,9 +1560,9 @@ export default function Home() {
             className="mb-6 md:mb-8"
           >
             <Link href="/videos">
-              <div className="group relative w-full rounded-2xl overflow-hidden cursor-pointer border border-white/8 hover:border-gold/30 transition-all duration-500 hover:shadow-[0_24px_60px_rgba(212,175,55,0.16)] aspect-video md:aspect-[21/9]">
+              <div className="group relative w-full rounded-md overflow-hidden cursor-pointer border border-white/8 hover:border-gold/30 transition-all duration-slow hover:shadow-glow-gold-hover aspect-video md:aspect-[21/9]">
                 <video
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.04]"
                   poster={videoGalleryCover}
                   muted loop playsInline
                   onMouseOver={e => (e.target as HTMLVideoElement).play()}
@@ -1577,17 +1577,17 @@ export default function Home() {
                 <div className="absolute inset-0 flex items-end p-6 md:p-10">
                   <div className="flex items-end justify-between w-full gap-6">
                     <div>
-                      <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-[9px] font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
+                      <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-xs font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
                         Official Video
                       </span>
                       <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-2 leading-tight">Good Life</h3>
                       <p className="text-white/50 text-sm font-light">Kiut · 2025</p>
                     </div>
                     <div className="flex flex-col items-center gap-2 shrink-0">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-[0_0_30px_rgba(212,175,55,0.45)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(212,175,55,0.7)] transition-all duration-300">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-glow-gold group-hover:scale-110 group-hover:shadow-glow-gold-hover transition-all duration-normal">
                         <Play size={20} className="text-midnight" />
                       </div>
-                      <span className="text-white/45 text-[9px] font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
+                      <span className="text-white/45 text-xs font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
                     </div>
                   </div>
                 </div>
@@ -1627,7 +1627,7 @@ export default function Home() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-14"
           >
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Live Experiences</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">Live Experiences</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-5">
               See Kiut <span className="text-gold">Live</span>
             </h2>
@@ -1642,7 +1642,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-3xl overflow-hidden border border-white/[0.07] relative"
+            className="rounded-xl overflow-hidden border border-white/[0.07] relative"
             style={{ background: "#0a0a0a" }}
           >
             {/* Decorative top bar */}
@@ -1651,11 +1651,11 @@ export default function Home() {
             <div className="px-8 md:px-16 py-14 md:py-20 flex flex-col md:flex-row items-center gap-12">
               {/* Left — icon + copy */}
               <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border border-gold/20"
+                <div className="w-16 h-16 rounded-md flex items-center justify-center mb-6 border border-gold/20"
                   style={{ background: "rgba(212,175,55,0.06)" }}>
                   <Music className="w-7 h-7 text-gold" />
                 </div>
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/25 text-gold text-[9px] font-bold uppercase tracking-[0.35em] mb-5"
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/25 text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
                   style={{ background: "rgba(212,175,55,0.05)" }}>
                   <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                   Dates Coming Soon
@@ -1663,7 +1663,7 @@ export default function Home() {
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
                   Tour Dates<br />Dropping Soon
                 </h3>
-                <p className="text-white/38 text-[14px] font-light leading-relaxed max-w-sm">
+                <p className="text-white/38 text-sm font-light leading-relaxed max-w-sm">
                   Be the first to know when Kiut announces shows in your city. Sign up to the newsletter and never miss a date.
                 </p>
               </div>
@@ -1679,12 +1679,12 @@ export default function Home() {
                       data-testid="button-concert-notify"
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
-                      className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                      className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
                     >
                       View Tour Dates <ArrowRight size={14} />
                     </motion.button>
                   </Link>
-                  <p className="text-center text-white/18 text-[10px] font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
+                  <p className="text-center text-white/18 text-xs font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
                 </div>
               </div>
             </div>
@@ -1720,7 +1720,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Behind the Scenes</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Behind the Scenes</p>
               <h2 className="font-display text-4xl font-bold tracking-tight text-white uppercase">
                 Moments From <span className="text-gold">the Journey</span>
               </h2>
@@ -1746,16 +1746,16 @@ export default function Home() {
               gradImage1, heroImage, gradImage2, gradImage3, momentImg4, momentImg5, momentImg6, momentImg7].map((img, i) => (
               <div
                 key={i}
-                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-300 cursor-pointer"
+                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-md overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-normal cursor-pointer"
               >
                 <img
                   src={img}
                   alt="Moments from the Journey"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal" />
+                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-normal" />
               </div>
             ))}
           </div>
@@ -1768,16 +1768,16 @@ export default function Home() {
               momentImg7, momentImg6, gradImage3, momentImg5, gradImage1, momentImg4, heroImage, gradImage2].map((img, i) => (
               <div
                 key={i}
-                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-300 cursor-pointer"
+                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-md overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-normal cursor-pointer"
               >
                 <img
                   src={img}
                   alt="Moments from the Journey"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal" />
+                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-normal" />
               </div>
             ))}
           </div>
@@ -1798,7 +1798,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-14"
           >
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">The Inner Circle</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">The Inner Circle</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-5">
               Fan <span className="text-gold">Community</span>
             </h2>
@@ -1815,12 +1815,12 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
+              className="relative rounded-xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
               style={{ background: "#0c0c0c" }}
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(255,255,255,0.03),transparent_60%)]" />
               <div className="relative z-10">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/15 text-white/50 text-[9px] font-bold uppercase tracking-[0.35em] mb-6">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/15 text-white/50 text-xs font-bold uppercase tracking-[0.35em] mb-6">
                   Fan Member
                 </span>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">Standard</h3>
@@ -1840,7 +1840,7 @@ export default function Home() {
                     data-testid="button-fan-standard"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full border border-white/15 text-white/70 hover:text-white hover:border-white/30 font-bold uppercase tracking-widest text-[11px] transition-all duration-300"
+                    className="w-full py-3.5 rounded-full border border-white/15 text-white/70 hover:text-white hover:border-white/30 font-bold uppercase tracking-widest text-xs transition-all duration-normal"
                   >
                     Join Free
                   </motion.button>
@@ -1854,18 +1854,18 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-[0_0_60px_rgba(212,175,55,0.07)]"
+              className="relative rounded-xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-glow-gold"
               style={{ background: "linear-gradient(145deg,#0d0b07 0%,#0c0a06 100%)" }}
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(212,175,55,0.08),transparent_60%)]" />
               {/* Featured badge */}
               <div className="absolute top-5 right-5 z-10">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-[var(--glow-gold)]">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-glow-gold">
                   <span>✦</span> Premium
                 </span>
               </div>
               <div className="relative z-10">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-gold/30 text-gold text-[9px] font-bold uppercase tracking-[0.35em] mb-6"
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-gold/30 text-gold text-xs font-bold uppercase tracking-[0.35em] mb-6"
                   style={{ background: "rgba(212,175,55,0.06)" }}>
                   Fan Card Member
                 </span>
@@ -1888,7 +1888,7 @@ export default function Home() {
                     data-testid="button-fan-premium"
                     whileHover={{ y: -2, scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                    className="w-full py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
                   >
                     Apply for Fan Card
                   </motion.button>
@@ -1907,21 +1907,21 @@ export default function Home() {
           >
             <div className="flex items-center gap-2">
               <Instagram className="w-4 h-4 text-gold/60" />
-              <a href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-[11px] font-medium tracking-wider uppercase">@kiut_rababag</a>
+              <a href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-xs font-medium tracking-wider uppercase">@kiut_rababag</a>
             </div>
             <div className="hidden sm:block w-px h-4 bg-white/10" />
             <div className="flex items-center gap-2">
               <Youtube className="w-4 h-4 text-gold/60" />
-              <a href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-[11px] font-medium tracking-wider uppercase">@kiutrabatv</a>
+              <a href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-xs font-medium tracking-wider uppercase">@kiutrabatv</a>
             </div>
             <div className="hidden sm:block w-px h-4 bg-white/10" />
-            <span className="text-white/18 text-[10px] uppercase tracking-[0.3em]">Global Community</span>
+            <span className="text-white/18 text-xs uppercase tracking-[0.3em]">Global Community</span>
           </motion.div>
         </div>
       </section>
 
       {/* ─── NEWSLETTER CTA SECTION ──────────────────────────────────── */}
-      <section className="py-20 md:py-28 relative border-t border-white/5 overflow-hidden" style={{ background: "#050505" }}>
+      <section className="py-20 md:py-28 relative border-t border-white/5 overflow-hidden" style={{ background: "var(--color-midnight)" }}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(212,175,55,0.05),transparent_65%)]" />
 
         <div className="max-w-2xl mx-auto px-6 text-center relative z-10">
@@ -1938,7 +1938,7 @@ export default function Home() {
               transition={{ duration: 0.7, ease: "easeInOut", delay: 0.1 }}
               className="w-8 h-[2px] mx-auto mb-8 origin-center bg-gold/50"
             />
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Stay Connected</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">Stay Connected</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-snug uppercase mb-5 text-white">
               Join the<br /><span className="text-gold">Inner Circle</span>
             </h2>
@@ -1962,12 +1962,12 @@ export default function Home() {
                 type="submit"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors duration-200"
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-colors duration-fast"
               >
                 Subscribe
               </motion.button>
             </form>
-            <p className="text-white/18 text-[10px] uppercase tracking-[0.28em]">No spam. Unsubscribe anytime.</p>
+            <p className="text-white/18 text-xs uppercase tracking-[0.28em]">No spam. Unsubscribe anytime.</p>
 
             <motion.div
               initial={{ scaleX: 0 }}

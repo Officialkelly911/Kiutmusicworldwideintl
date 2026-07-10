@@ -61,6 +61,16 @@
 
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Space Grotesk', sans-serif;
+
+  /* ── KSDL motion durations as first-class Tailwind utilities ──
+     (duration-fast, duration-normal, duration-medium, duration-slow,
+     duration-cinematic) per 07_Animation_Motion_System.md — use these
+     instead of arbitrary duration-[Nms] values. */
+  --duration-fast: 180ms;
+  --duration-normal: 250ms;
+  --duration-medium: 350ms;
+  --duration-slow: 500ms;
+  --duration-cinematic: 800ms;
 }
 
 :root {
@@ -199,7 +209,13 @@
   .noise {
     position: relative;
   }
-  
+
+  /* ── KSDL glow drop-shadow (for SVG/icon elements using filter,
+     where box-shadow tokens don't apply) — 08_Shadow_Glow_System.md ── */
+  .drop-glow-gold {
+    filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.25));
+  }
+
   .noise::before {
     content: "";
     position: absolute;
@@ -208,6 +224,21 @@
     opacity: 0.03;
     pointer-events: none;
   }
+}
+
+/* ── KSDL box-shadow glow utilities — 08_Shadow_Glow_System.md ──
+   Use instead of one-off shadow-[0_0_Npx_rgba(212,175,55,x)] literals. */
+@utility shadow-glow-gold {
+  box-shadow: var(--glow-gold);
+}
+@utility shadow-glow-gold-hover {
+  box-shadow: var(--glow-gold-hover);
+}
+@utility shadow-glow-purple {
+  box-shadow: var(--glow-purple);
+}
+@utility shadow-glow-champagne {
+  box-shadow: var(--glow-champagne);
 }
 
 /* ── Global base refinements ─────────────────────────────── */

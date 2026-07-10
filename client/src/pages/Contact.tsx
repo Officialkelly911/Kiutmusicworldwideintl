@@ -172,7 +172,7 @@ function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl border border-white/[0.07] overflow-hidden" style={{ background: "#09090d" }}>
+    <div className="rounded-xl border border-white/[0.07] overflow-hidden" style={{ background: "var(--color-midnight)" }}>
       {/* Top accent */}
       <div className="h-[1px] bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
 
@@ -187,7 +187,7 @@ function ContactForm() {
             >
               {/* Enquiry type tabs */}
               <div className="mb-8">
-                <p className="text-white/35 text-[10px] font-bold tracking-[0.35em] uppercase mb-4">Enquiry Type</p>
+                <p className="text-white/35 text-xs font-bold tracking-[0.35em] uppercase mb-4">Enquiry Type</p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {enquiryTypes.map((type) => {
                     const TIcon = type.icon;
@@ -199,14 +199,14 @@ function ContactForm() {
                         onClick={() => setActiveType(type.id)}
                         whileHover={{ y: -1 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`flex flex-col items-center gap-2 p-3.5 rounded-xl border text-center transition-all duration-200 ${
+                        className={`flex flex-col items-center gap-2 p-3.5 rounded-xl border text-center transition-all duration-fast ${
                           isActive
-                            ? "border-gold/40 bg-gold/[0.08] text-gold shadow-[0_0_20px_rgba(212,175,55,0.08)]"
+                            ? "border-gold/40 bg-gold/[0.08] text-gold shadow-glow-gold"
                             : "border-white/[0.06] bg-transparent text-white/35 hover:text-white/60 hover:border-white/12"
                         }`}
                       >
                         <TIcon size={16} />
-                        <span className="text-[10px] font-bold uppercase tracking-wide leading-none">{type.label}</span>
+                        <span className="text-xs font-bold uppercase tracking-wide leading-none">{type.label}</span>
                       </motion.button>
                     );
                   })}
@@ -240,15 +240,15 @@ function ContactForm() {
                         onChange={(e) => field.set(e.target.value)}
                         required={field.required}
                         placeholder=" "
-                        className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] transition-all duration-300 peer placeholder-transparent"
+                        className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
                       />
                       <label
                         htmlFor={field.id}
-                        className="absolute text-white/35 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
+                        className="absolute text-white/35 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
                       >
                         {field.label}{field.required && " *"}
                       </label>
-                      <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-500" />
+                      <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
                     </div>
                   ))}
                 </div>
@@ -263,15 +263,15 @@ function ContactForm() {
                     required
                     placeholder=" "
                     maxLength={200}
-                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] transition-all duration-300 peer placeholder-transparent"
+                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
                   />
                   <label
                     htmlFor="subject"
-                    className="absolute text-white/35 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
+                    className="absolute text-white/35 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
                   >
                     Subject *
                   </label>
-                  <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-500" />
+                  <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
                 </div>
 
                 {/* Message */}
@@ -283,11 +283,11 @@ function ContactForm() {
                     required
                     rows={5}
                     placeholder=" "
-                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.08)] transition-all duration-300 peer placeholder-transparent resize-none leading-relaxed"
+                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent resize-none leading-relaxed"
                   />
                   <label
                     htmlFor="message"
-                    className="absolute text-white/35 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
+                    className="absolute text-white/35 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
                   >
                     Message *
                   </label>
@@ -297,13 +297,13 @@ function ContactForm() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute bottom-4 left-5 right-5 text-white/18 text-[11px] leading-relaxed pointer-events-none peer-focus:opacity-0 transition-opacity"
+                        className="absolute bottom-4 left-5 right-5 text-white/18 text-xs leading-relaxed pointer-events-none peer-focus:opacity-0 transition-opacity"
                       >
                         {active.placeholder}
                       </motion.p>
                     )}
                   </AnimatePresence>
-                  <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-500" />
+                  <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
                 </div>
 
                 {/* Error message */}
@@ -311,7 +311,7 @@ function ContactForm() {
                   <motion.p
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-red-400/80 text-[12px] text-center leading-relaxed px-2"
+                    className="text-red-400/80 text-xs text-center leading-relaxed px-2"
                   >
                     {errorMsg}
                   </motion.p>
@@ -323,7 +323,7 @@ function ContactForm() {
                   disabled={loading}
                   whileHover={loading ? {} : { scale: 1.02, y: -2 }}
                   whileTap={loading ? {} : { scale: 0.97 }}
-                  className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-all duration-normal disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>
@@ -338,7 +338,7 @@ function ContactForm() {
                   )}
                 </motion.button>
 
-                <p className="text-center text-white/20 text-[10px] tracking-[0.2em] uppercase">
+                <p className="text-center text-white/20 text-xs tracking-[0.2em] uppercase">
                   Every message is read personally
                 </p>
               </form>
@@ -355,7 +355,7 @@ function ContactForm() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 260, delay: 0.1 }}
-                className="w-20 h-20 rounded-full border border-gold flex items-center justify-center mb-8 shadow-[0_0_40px_rgba(212,175,55,0.3)]"
+                className="w-20 h-20 rounded-full border border-gold flex items-center justify-center mb-8 shadow-glow-gold-hover"
                 style={{ background: "rgba(212,175,55,0.10)" }}
               >
                 <CheckCircle2 className="w-9 h-9 text-gold" />
@@ -366,7 +366,7 @@ function ContactForm() {
               </p>
               <button
                 onClick={() => { setSubmitted(false); setName(""); setEmail(""); setSubject(""); setMessage(""); setActiveType("general"); setErrorMsg(null); }}
-                className="text-white/30 hover:text-white/60 text-[11px] uppercase tracking-widest transition-colors"
+                className="text-white/30 hover:text-white/60 text-xs uppercase tracking-widest transition-colors"
               >
                 Send Another Message
               </button>
@@ -395,16 +395,16 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -5, scale: 1.02 }}
-      className={`group relative flex items-center gap-4 p-5 rounded-2xl border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-all duration-300`}
+      className={`group relative flex items-center gap-4 p-5 rounded-md border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-lg transition-all duration-normal`}
     >
-      <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-200 flex-shrink-0`}>
+      <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-fast flex-shrink-0`}>
         <Icon size={20} />
       </div>
       <div className="min-w-0">
-        <p className="text-white/75 text-sm font-semibold group-hover:text-white transition-colors duration-200 truncate">{link.label}</p>
-        <p className="text-white/28 text-[11px] truncate">{link.sub}</p>
+        <p className="text-white/75 text-sm font-semibold group-hover:text-white transition-colors duration-fast truncate">{link.label}</p>
+        <p className="text-white/28 text-xs truncate">{link.sub}</p>
       </div>
-      <ArrowRight size={13} className="ml-auto text-white/15 group-hover:text-white/40 transition-colors duration-200 flex-shrink-0" />
+      <ArrowRight size={13} className="ml-auto text-white/15 group-hover:text-white/40 transition-colors duration-fast flex-shrink-0" />
     </motion.a>
   );
 }
@@ -437,7 +437,7 @@ export default function Contact() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/25 bg-gold/[0.06] backdrop-blur-sm mb-7">
               <Mail size={11} className="text-gold" />
-              <span className="text-gold text-[10px] font-bold tracking-[0.35em] uppercase">Contact & Community</span>
+              <span className="text-gold text-xs font-bold tracking-[0.35em] uppercase">Contact & Community</span>
             </div>
             <h1 className="font-display text-[clamp(3rem,10vw,7rem)] font-bold uppercase tracking-tight leading-[0.92] text-white mb-6">
               Let's <span className="text-gold">Connect</span>
@@ -459,7 +459,7 @@ export default function Contact() {
                 {i > 0 && <div className="w-px h-8 bg-white/[0.08] hidden sm:block" />}
                 <div>
                   <p className="font-display text-2xl font-bold text-gold">{stat.value}</p>
-                  <p className="text-white/30 text-[10px] uppercase tracking-widest font-medium">{stat.label}</p>
+                  <p className="text-white/30 text-xs uppercase tracking-widest font-medium">{stat.label}</p>
                 </div>
               </div>
             ))}
@@ -479,7 +479,7 @@ export default function Contact() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="mb-8">
-                <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
+                <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> Send a Message
                 </p>
                 <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-white">
@@ -498,7 +498,7 @@ export default function Contact() {
             >
               {/* Business Enquiries */}
               <div>
-                <p className="text-white/35 text-[10px] font-bold tracking-[0.4em] uppercase mb-4">Business Enquiries</p>
+                <p className="text-white/35 text-xs font-bold tracking-[0.4em] uppercase mb-4">Business Enquiries</p>
                 <div className="space-y-3">
                   {[
                     {
@@ -524,19 +524,19 @@ export default function Contact() {
                     return (
                       <div
                         key={card.title}
-                        className="group flex items-start gap-4 p-5 rounded-2xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.03] transition-all duration-300"
+                        className="group flex items-start gap-4 p-5 rounded-md border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.03] transition-all duration-normal"
                       >
                         <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center border border-gold/18 flex-shrink-0 group-hover:border-gold/35 transition-colors duration-200"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center border border-gold/18 flex-shrink-0 group-hover:border-gold/35 transition-colors duration-fast"
                           style={{ background: "rgba(212,175,55,0.06)" }}
                         >
                           <Icon size={16} className="text-gold" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-display text-sm font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-200">
+                          <h3 className="font-display text-sm font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-fast">
                             {card.title}
                           </h3>
-                          <p className="text-white/35 text-[12px] leading-relaxed">{card.desc}</p>
+                          <p className="text-white/35 text-xs leading-relaxed">{card.desc}</p>
                         </div>
                       </div>
                     );
@@ -545,13 +545,13 @@ export default function Contact() {
               </div>
 
               {/* Response time card */}
-              <div className="p-6 rounded-2xl border border-gold/15 bg-gold/[0.04]">
+              <div className="p-6 rounded-md border border-gold/15 bg-gold/[0.04]">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-60" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
                   </span>
-                  <span className="text-gold text-[10px] font-bold tracking-[0.35em] uppercase">Response Time</span>
+                  <span className="text-gold text-xs font-bold tracking-[0.35em] uppercase">Response Time</span>
                 </div>
                 <p className="text-white/55 text-sm leading-relaxed">
                   All messages are read personally. Expect a reply within{" "}
@@ -564,7 +564,7 @@ export default function Contact() {
       </section>
 
       {/* ── SOCIAL LINKS ─────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/[0.05]" style={{ background: "#07070a" }}>
+      <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--color-midnight)" }}>
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -574,7 +574,7 @@ export default function Contact() {
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
           >
             <div>
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
                 <Globe size={11} className="text-gold" /> Find Kiut
               </p>
               <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
@@ -605,8 +605,8 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl border border-gold/22 overflow-hidden p-10 flex flex-col"
-              style={{ background: "linear-gradient(145deg, rgba(212,175,55,0.07) 0%, #08080d 60%)" }}
+              className="relative rounded-xl border border-gold/22 overflow-hidden p-10 flex flex-col"
+              style={{ background: "linear-gradient(145deg, rgba(212,175,55,0.07) 0%, var(--color-midnight) 60%)" }}
             >
               <div className="absolute top-0 left-0 w-[300px] h-[200px] bg-gold/[0.06] blur-[80px] rounded-full pointer-events-none" />
               <div className="relative z-10 flex flex-col flex-1">
@@ -616,7 +616,7 @@ export default function Contact() {
                 >
                   <Mail className="w-5 h-5 text-gold" />
                 </div>
-                <p className="text-gold text-[10px] font-bold tracking-[0.35em] uppercase mb-3">Inner Circle</p>
+                <p className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-3">Inner Circle</p>
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white mb-3 leading-snug">
                   Join the Newsletter
                 </h3>
@@ -627,7 +627,7 @@ export default function Contact() {
                   href="/newsletter"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300 self-start"
+                  className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal self-start"
                 >
                   Subscribe Free <ArrowRight size={13} />
                 </MotionLink>
@@ -640,8 +640,8 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl border border-white/[0.07] overflow-hidden p-10 flex flex-col"
-              style={{ background: "#09090d" }}
+              className="relative rounded-xl border border-white/[0.07] overflow-hidden p-10 flex flex-col"
+              style={{ background: "var(--color-midnight)" }}
             >
               <div className="relative z-10 flex flex-col flex-1">
                 <div
@@ -650,7 +650,7 @@ export default function Contact() {
                 >
                   <Users className="w-5 h-5 text-white/50" />
                 </div>
-                <p className="text-white/30 text-[10px] font-bold tracking-[0.35em] uppercase mb-3">Community</p>
+                <p className="text-white/30 text-xs font-bold tracking-[0.35em] uppercase mb-3">Community</p>
                 <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white mb-3 leading-snug">
                   Follow the Journey
                 </h3>
@@ -673,7 +673,7 @@ export default function Contact() {
                       aria-label={label}
                       whileHover={{ y: -2, scale: 1.08 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.03] text-white/40 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold)] transition-all duration-250"
+                      className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.03] text-white/40 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-glow-gold transition-all duration-normal"
                     >
                       <Icon size={18} aria-hidden="true" />
                     </motion.a>
@@ -683,7 +683,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ x: 2 }}
-                    className="flex items-center gap-1.5 text-white/25 hover:text-white/50 text-[11px] font-medium uppercase tracking-widest transition-colors duration-200 ml-1"
+                    className="flex items-center gap-1.5 text-white/25 hover:text-white/50 text-xs font-medium uppercase tracking-widest transition-colors duration-fast ml-1"
                   >
                     All Platforms <ChevronRight size={11} />
                   </motion.a>
@@ -709,7 +709,7 @@ export default function Contact() {
           >
             <Heart className="w-5 h-5 text-gold/40" fill="rgba(212,175,55,0.4)" />
           </motion.div>
-          <p className="text-white/18 text-[11px] uppercase tracking-[0.35em] font-medium">
+          <p className="text-white/18 text-xs uppercase tracking-[0.35em] font-medium">
             Made with love · Kiut Music Worldwide
           </p>
         </motion.div>

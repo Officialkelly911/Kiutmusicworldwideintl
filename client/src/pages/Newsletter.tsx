@@ -40,7 +40,7 @@ function Orb({ style, animate }: { style: React.CSSProperties; animate: TargetAn
 function Particle({ x, y, delay }: { x: string; y: string; delay: number }) {
   return (
     <motion.div
-      className="absolute w-1 h-1 rounded-full bg-[#D4AF37]/40"
+      className="absolute w-1 h-1 rounded-full bg-gold/40"
       style={{ left: x, top: y }}
       animate={{ y: [0, -30, 0], opacity: [0, 1, 0] }}
       transition={{ duration: 4 + Math.random() * 3, repeat: Infinity, delay }}
@@ -87,7 +87,7 @@ const particles = [
 
 /* ── Avatar stack ─────────────────────────────────────────────── */
 const avatarGradients = [
-  "from-[#D4AF37] to-yellow-700",
+  "from-gold to-yellow-700",
   "from-purple-500 to-purple-800",
   "from-rose-400 to-pink-700",
   "from-cyan-400 to-blue-700",
@@ -228,15 +228,15 @@ export default function Newsletter() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-[#D4AF37]/30 mb-10 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-gold/30 mb-10 backdrop-blur-sm"
             >
               {/* Pulsing dot */}
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
               </span>
-              <Mail className="w-4 h-4 text-[#D4AF37]" />
-              <span className="text-sm font-bold tracking-widest uppercase text-[#D4AF37]">Inner Circle</span>
+              <Mail className="w-4 h-4 text-gold" />
+              <span className="text-sm font-bold tracking-widest uppercase text-gold">Inner Circle</span>
             </motion.div>
 
             {/* Split headline */}
@@ -263,7 +263,7 @@ export default function Newsletter() {
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   className="font-display text-[clamp(3.5rem,10vw,8rem)] font-bold tracking-tight uppercase leading-none block"
                   style={{
-                    background: "linear-gradient(90deg, #D4AF37, #f5d97a, #a87c22, #D4AF37, #8B5CF6, #D4AF37)",
+                    background: "linear-gradient(90deg, var(--color-gold), var(--color-champagne), #a87c22, var(--color-gold), var(--color-purple), var(--color-gold))",
                     backgroundSize: "300% auto",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -297,17 +297,17 @@ export default function Newsletter() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + i * 0.12 }}
                     whileHover={{ scale: 1.03, x: 4 }}
-                    className="group flex items-start gap-5 p-5 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#D4AF37]/35 hover:bg-white/[0.07] hover:shadow-[0_0_30px_rgba(212,175,55,0.08)] transition-all duration-300 backdrop-blur-sm cursor-default"
+                    className="group flex items-start gap-5 p-5 rounded-md bg-white/[0.04] border border-white/10 hover:border-gold/35 hover:bg-white/[0.07] hover:shadow-glow-gold transition-all duration-normal backdrop-blur-sm cursor-default"
                   >
                     <motion.div
                       whileHover={{ rotate: 8, scale: 1.15 }}
                       transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                      className="w-12 h-12 rounded-xl bg-black/60 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-[#D4AF37]/50 group-hover:shadow-[0_0_18px_rgba(212,175,55,0.2)] transition-all duration-300"
+                      className="w-12 h-12 rounded-xl bg-black/60 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/50 group-hover:shadow-glow-gold transition-all duration-normal"
                     >
-                      <Icon className="w-5 h-5 text-[#D4AF37]" />
+                      <Icon className="w-5 h-5 text-gold" />
                     </motion.div>
                     <div>
-                      <h3 className="font-display text-base font-bold mb-1 tracking-wide uppercase group-hover:text-[#D4AF37] transition-colors duration-300">
+                      <h3 className="font-display text-base font-bold mb-1 tracking-wide uppercase group-hover:text-gold transition-colors duration-normal">
                         {benefit.title}
                       </h3>
                       <p className="text-white/55 font-light text-sm leading-relaxed">{benefit.description}</p>
@@ -334,12 +334,12 @@ export default function Newsletter() {
               </div>
               <div>
                 <div className="flex items-baseline gap-1">
-                  <span ref={countRef} className="font-display text-lg font-bold text-[#D4AF37]">
+                  <span ref={countRef} className="font-display text-lg font-bold text-gold">
                     {formatCount(count)}+
                   </span>
                   <span className="text-xs text-white/50 uppercase tracking-widest font-medium">subscribers</span>
                 </div>
-                <p className="text-white/35 text-[11px] tracking-wider">and counting</p>
+                <p className="text-white/35 text-xs tracking-wider">and counting</p>
               </div>
             </motion.div>
           </motion.div>
@@ -356,13 +356,13 @@ export default function Newsletter() {
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="mb-5 p-5 rounded-2xl border border-purple-500/20 bg-purple-950/20 backdrop-blur-sm"
+              className="mb-5 p-5 rounded-md border border-purple-500/20 bg-purple-950/20 backdrop-blur-sm"
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-5 h-5 rounded-full bg-purple-500/30 flex items-center justify-center">
                   <Music2 className="w-3 h-3 text-purple-300" />
                 </div>
-                <span className="text-purple-300 text-[10px] font-bold tracking-[0.3em] uppercase">Private Fan Access</span>
+                <span className="text-purple-300 text-xs font-bold tracking-[0.3em] uppercase">Private Fan Access</span>
               </div>
               <ul className="space-y-1.5">
                 {exclusivePerks.map((perk, i) => (
@@ -373,7 +373,7 @@ export default function Newsletter() {
                     transition={{ delay: 0.5 + i * 0.08 }}
                     className="flex items-center gap-2 text-white/70 text-sm font-light"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
                     {perk}
                   </motion.li>
                 ))}
@@ -381,11 +381,11 @@ export default function Newsletter() {
             </motion.div>
 
             {/* Form card */}
-            <div className="relative rounded-3xl overflow-hidden">
+            <div className="relative rounded-xl overflow-hidden">
               {/* Glow ring */}
-              <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-br from-[#D4AF37]/30 via-purple-600/20 to-transparent pointer-events-none" />
+              <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-br from-gold/30 via-purple-600/20 to-transparent pointer-events-none" />
 
-              <div className="relative p-8 md:p-10 rounded-3xl bg-[#090909]/75 backdrop-blur-2xl border border-white/[0.08] shadow-[0_30px_80px_rgba(0,0,0,0.75)]">
+              <div className="relative p-8 md:p-10 rounded-xl bg-midnight/75 backdrop-blur-2xl border border-white/[0.08] shadow-xl">
                 <AnimatePresence mode="wait">
                   {!submitted ? (
                     <motion.div
@@ -395,7 +395,7 @@ export default function Newsletter() {
                       exit={{ opacity: 0, scale: 0.95 }}
                     >
                       <h2 className="font-display text-2xl font-bold mb-7 uppercase tracking-wide text-center">
-                        Unlock <span className="text-[#D4AF37]">Access</span>
+                        Unlock <span className="text-gold">Access</span>
                       </h2>
 
                       <form onSubmit={handleSubmit} className="space-y-5">
@@ -406,18 +406,18 @@ export default function Newsletter() {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-[#D4AF37] focus:bg-white/[0.07] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.12),0_0_20px_rgba(212,175,55,0.08)] transition-all duration-300 peer placeholder-transparent"
+                            className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
                             placeholder=" "
                             required
                           />
                           <label
                             htmlFor="email"
-                            className="absolute text-white/40 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-[#D4AF37] pointer-events-none"
+                            className="absolute text-white/40 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold pointer-events-none"
                           >
                             Email Address
                           </label>
                           {/* Bottom border animation */}
-                          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#D4AF37] to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-500" />
+                          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-slow" />
                         </div>
 
                         {/* Name input */}
@@ -427,16 +427,16 @@ export default function Newsletter() {
                             id="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-[#D4AF37] focus:bg-white/[0.07] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.12),0_0_20px_rgba(212,175,55,0.08)] transition-all duration-300 peer placeholder-transparent"
+                            className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
                             placeholder=" "
                           />
                           <label
                             htmlFor="name"
-                            className="absolute text-white/40 duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-[#D4AF37] pointer-events-none"
+                            className="absolute text-white/40 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold pointer-events-none"
                           >
                             Name (Optional)
                           </label>
-                          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#D4AF37] to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-500" />
+                          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-slow" />
                         </div>
 
                         {/* Error message */}
@@ -455,7 +455,7 @@ export default function Newsletter() {
                             whileTap={submitting ? {} : { scale: 0.97 }}
                             className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group disabled:opacity-60 disabled:cursor-not-allowed"
                             style={{
-                              background: "linear-gradient(90deg, #D4AF37, #f5d97a, #c9a227, #D4AF37)",
+                              background: "linear-gradient(90deg, var(--color-gold), var(--color-champagne), #c9a227, var(--color-gold))",
                               backgroundSize: "250% auto",
                             }}
                           >
@@ -475,23 +475,23 @@ export default function Newsletter() {
                             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
 
                             {/* Hover glow */}
-                            <span className="absolute -inset-1 rounded-xl bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/20 blur-xl transition-all duration-300 pointer-events-none" />
+                            <span className="absolute -inset-1 rounded-xl bg-gold/0 group-hover:bg-gold/20 blur-xl transition-all duration-normal pointer-events-none" />
                           </motion.button>
 
                           {/* Urgent microcopy */}
-                          <p className="text-center text-white/30 text-[11px] uppercase tracking-widest mt-3 font-medium">
+                          <p className="text-center text-white/30 text-xs uppercase tracking-widest mt-3 font-medium">
                             Limited access&nbsp;•&nbsp;Inner circle only
                           </p>
                         </div>
                       </form>
 
                       {/* Trust row */}
-                      <div className="mt-7 pt-6 border-t border-white/8 flex flex-col sm:flex-row items-center justify-center gap-3 text-[10px] text-white/35 uppercase tracking-wider font-medium">
-                        <div className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" /> No spam</div>
+                      <div className="mt-7 pt-6 border-t border-white/8 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-white/35 uppercase tracking-wider font-medium">
+                        <div className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-gold" /> No spam</div>
                         <span className="hidden sm:inline text-white/15">•</span>
-                        <div className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5 text-[#D4AF37]" /> Private list</div>
+                        <div className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5 text-gold" /> Private list</div>
                         <span className="hidden sm:inline text-white/15">•</span>
-                        <div className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#D4AF37]" /> Unsubscribe anytime</div>
+                        <div className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-gold" /> Unsubscribe anytime</div>
                       </div>
                     </motion.div>
                   ) : (
@@ -506,11 +506,11 @@ export default function Newsletter() {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 250, delay: 0.1 }}
-                        className="w-20 h-20 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37] flex items-center justify-center mx-auto mb-8 shadow-[0_0_40px_rgba(212,175,55,0.3)]"
+                        className="w-20 h-20 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto mb-8 shadow-glow-gold-hover"
                       >
-                        <Check className="w-10 h-10 text-[#D4AF37]" />
+                        <Check className="w-10 h-10 text-gold" />
                       </motion.div>
-                      <h2 className="font-display text-3xl font-bold mb-4 uppercase text-[#D4AF37]">
+                      <h2 className="font-display text-3xl font-bold mb-4 uppercase text-gold">
                         You're in the Rhythm.
                       </h2>
                       <p className="text-white/55 mb-8 font-light max-w-xs mx-auto leading-relaxed text-sm">
@@ -518,7 +518,7 @@ export default function Newsletter() {
                       </p>
                       <button
                         onClick={() => { setSubmitted(false); setEmail(""); setName(""); }}
-                        className="text-[#D4AF37] font-medium hover:text-white uppercase tracking-widest text-xs transition-colors"
+                        className="text-gold font-medium hover:text-white uppercase tracking-widest text-xs transition-colors"
                       >
                         Subscribe another email
                       </button>
@@ -543,8 +543,8 @@ export default function Newsletter() {
           >
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="w-full max-w-sm py-4 rounded-full font-bold uppercase tracking-widest text-black shadow-[0_0_20px_rgba(212,175,55,0.4)]"
-              style={{ background: "linear-gradient(90deg, #D4AF37, #f5d97a, #c9a227)" }}
+              className="w-full max-w-sm py-4 rounded-full font-bold uppercase tracking-widest text-black shadow-glow-gold"
+              style={{ background: "linear-gradient(90deg, var(--color-gold), var(--color-champagne), #c9a227)" }}
             >
               Join the Inner Circle
             </button>

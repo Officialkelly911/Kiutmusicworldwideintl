@@ -37,11 +37,11 @@ export function Navigation() {
             >
               <KiutMark
                 size={32}
-                color="#D4AF37"
-                className="transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.55)]"
+                color="var(--color-gold)"
+                className="transition-all duration-normal group-hover:drop-glow-gold"
               />
-              <span className="font-display text-base font-light tracking-[0.28em] uppercase text-white/90 group-hover:text-white transition-colors duration-300">
-                KIUT<span style={{ color: "#D4AF37" }}>.</span>
+              <span className="font-display text-base font-light tracking-[0.28em] uppercase text-white/90 group-hover:text-white transition-colors duration-normal">
+                KIUT<span style={{ color: "var(--color-gold)" }}>.</span>
               </span>
             </motion.div>
           </Link>
@@ -57,7 +57,7 @@ export function Navigation() {
                       data-testid={`nav-${item.label.toLowerCase()}`}
                       aria-current={isActive ? "page" : undefined}
                       aria-label={item.label}
-                      className={`relative px-5 py-2.5 rounded-lg cursor-pointer transition-colors duration-200 ${
+                      className={`relative px-5 py-2.5 rounded-md cursor-pointer transition-colors duration-fast ${
                         isActive ? "text-white" : "text-white/50 hover:text-white"
                       }`}
                       whileHover={{ scale: 1.03 }}
@@ -66,11 +66,11 @@ export function Navigation() {
                       {isActive && (
                         <motion.div
                           layoutId="nav-active"
-                          className="absolute inset-0 bg-gold/10 rounded-lg border border-gold/22 shadow-[0_0_22px_rgba(212,175,55,0.14),inset_0_1px_0_rgba(212,175,55,0.12)]"
+                          className="absolute inset-0 bg-gold/10 rounded-md border border-gold/22 shadow-glow-gold"
                           transition={{ type: "spring", bounce: 0.18, duration: 0.5 }}
                         />
                       )}
-                      <span className={`relative z-10 font-medium text-sm tracking-wide transition-colors duration-200 ${isActive ? "text-gold" : ""}`}>
+                      <span className={`relative z-10 font-medium text-sm tracking-wide transition-colors duration-fast ${isActive ? "text-gold" : ""}`}>
                         {item.label}
                       </span>
                       {isActive && (
@@ -94,10 +94,10 @@ export function Navigation() {
                 aria-current={location === "/newsletter" ? "page" : undefined}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className={`ml-2 px-5 py-2 rounded-full cursor-pointer font-bold text-sm tracking-widest uppercase transition-all duration-300 ${
+                className={`ml-2 px-5 py-2 rounded-full cursor-pointer font-bold text-sm tracking-widest uppercase transition-all duration-normal ${
                   location === "/newsletter"
-                    ? "bg-gold text-midnight shadow-[var(--glow-gold-hover)]"
-                    : "bg-gold/10 text-gold border border-gold/30 hover:bg-gold hover:text-midnight hover:shadow-[var(--glow-gold)]"
+                    ? "bg-gold text-midnight shadow-glow-gold-hover"
+                    : "bg-gold/10 text-gold border border-gold/30 hover:bg-gold hover:text-midnight hover:shadow-glow-gold"
                 }`}
               >
                 Newsletter
@@ -155,7 +155,7 @@ export function Navigation() {
                       transition={{ delay: i * 0.06 }}
                       onClick={() => setMobileOpen(false)}
                       aria-current={isActive ? "page" : undefined}
-                      className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer mb-1 transition-all duration-200 ${
+                      className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer mb-1 transition-all duration-fast ${
                         isActive
                           ? "bg-gold/15 text-gold border border-gold/20"
                           : isNewsletter

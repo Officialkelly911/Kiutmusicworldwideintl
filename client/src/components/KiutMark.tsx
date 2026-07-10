@@ -11,7 +11,7 @@
  */
 
 interface KiutMarkProps {
-  /** Fill color for all three shapes. Defaults to matte gold #D4AF37. */
+  /** Fill color for all three shapes. Defaults to the brand gold token. */
   color?: string;
   /** Rendered size in px (square). Defaults to 40. */
   size?: number;
@@ -22,7 +22,7 @@ interface KiutMarkProps {
 }
 
 export function KiutMark({
-  color = "#D4AF37",
+  color = "var(--color-gold)",
   size = 40,
   className,
   label,
@@ -65,9 +65,9 @@ const sizeMap = {
 };
 
 export function KiutLogo({
-  markColor = "#D4AF37",
-  textColor = "#FFFFFF",
-  dotColor = "#D4AF37",
+  markColor = "var(--color-gold)",
+  textColor = "var(--color-heading)",
+  dotColor = "var(--color-gold)",
   size = "md",
   className,
 }: KiutLogoProps) {

@@ -74,12 +74,12 @@ export default function SiteFooter() {
                 rel="noopener noreferrer"
                 title={label}
                 aria-label={label}
-                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-all duration-250 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
+                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-all duration-normal group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
               >
                 <Icon
                   size={14}
                   aria-hidden="true"
-                  className="group-hover:scale-110 transition-transform duration-250"
+                  className="group-hover:scale-110 transition-transform duration-normal"
                 />
                 <span className="text-[10px] font-medium hidden sm:block">{label}</span>
               </a>
@@ -95,7 +95,7 @@ export default function SiteFooter() {
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="flex flex-col items-center lg:items-start gap-3 mb-3">
-              <KiutMark size={48} color="#D4AF37" className="drop-shadow-[0_0_16px_rgba(212,175,55,0.25)]" />
+              <KiutMark size={48} color="var(--color-gold)" className="drop-glow-gold" />
               <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase">
                 KIUT<span className="text-gold">.</span>
               </h3>
@@ -116,7 +116,7 @@ export default function SiteFooter() {
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors"
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-colors"
               >
                 Join
               </button>
@@ -125,7 +125,7 @@ export default function SiteFooter() {
 
           {/* Navigation */}
           <div className="lg:col-span-3 text-center lg:text-left">
-            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-[11px]">Navigate</h4>
+            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-xs">Navigate</h4>
             <ul className="space-y-3.5">
               {navLinks.map(({ label, href }) => (
                 <motion.li
@@ -135,7 +135,7 @@ export default function SiteFooter() {
                 >
                   <Link
                     href={href}
-                    className="text-white/40 hover:text-gold transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium"
+                    className="text-white/40 hover:text-gold transition-colors duration-fast uppercase text-xs tracking-widest font-medium"
                   >
                     {label}
                   </Link>
@@ -146,7 +146,7 @@ export default function SiteFooter() {
 
           {/* Connect */}
           <div className="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-[11px]">Connect</h4>
+            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-xs">Connect</h4>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
 
               {/* Official brand icon buttons */}
@@ -158,7 +158,7 @@ export default function SiteFooter() {
                   rel="noopener noreferrer"
                   title={label}
                   aria-label={label}
-                  className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] hover:scale-[1.1] transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                  className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-glow-gold-hover hover:scale-[1.1] transition-all duration-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
                 >
                   <Icon size={18} aria-hidden="true" />
                 </a>
@@ -171,7 +171,7 @@ export default function SiteFooter() {
                 rel="noopener noreferrer"
                 title="DreamPlanet"
                 aria-label="DreamPlanet"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-[var(--glow-gold-hover)] hover:scale-[1.1] transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-glow-gold-hover hover:scale-[1.1] transition-all duration-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
               >
                 <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
               </a>
@@ -183,13 +183,13 @@ export default function SiteFooter() {
 
         {/* ── Bottom bar ───────────────────────────────────────── */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-[11px] tracking-[0.2em] uppercase">
+          <p className="text-white/30 text-xs tracking-[0.2em] uppercase">
             © {new Date().getFullYear()} Kiut Music Worldwide. All rights reserved.
           </p>
-          <div className="flex gap-8 text-[11px] tracking-widest uppercase font-medium">
+          <div className="flex gap-8 text-xs tracking-widest uppercase font-medium">
             <a
               href="/legal"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold/40 text-gold/80 hover:text-[#0a0a0a] hover:bg-gold hover:border-gold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold/40 text-gold/80 hover:text-midnight hover:bg-gold hover:border-gold transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

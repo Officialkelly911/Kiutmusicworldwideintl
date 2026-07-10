@@ -632,7 +632,7 @@ export default function Contact() {
                   href="/newsletter"
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal self-start"
+                  className="btn-base btn-primary self-start"
                 >
                   Subscribe Free <ArrowRight size={13} />
                 </MotionLink>

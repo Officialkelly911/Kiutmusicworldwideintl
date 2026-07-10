@@ -402,7 +402,7 @@ export default function Tour() {
                   href="/newsletter"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2.5 px-9 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                  className="btn-base btn-primary"
                 >
                   Join the Mailing List <Mail size={13} />
                 </MotionLink>
@@ -454,7 +454,7 @@ export default function Tour() {
               rel="noopener noreferrer"
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/12 text-white/50 hover:text-gold hover:border-gold/30 text-xs font-bold uppercase tracking-widest transition-all duration-fast"
+              className="btn-base btn-sm flex-shrink-0 border border-white/12 text-white/50 hover:text-gold hover:border-gold/30"
             >
               View All on YouTube <ArrowRight size={12} />
             </motion.a>
@@ -494,7 +494,7 @@ export default function Tour() {
                 href="/newsletter"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                className="btn-base btn-primary"
               >
                 Register VIP Interest <ChevronRight size={14} />
               </MotionLink>
@@ -620,9 +620,9 @@ export default function Tour() {
                     href="/newsletter"
                     whileHover={{ y: -2, scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className={`w-full text-center py-4 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-normal ${
+                    className={`btn-base w-full ${
                       tier.isPremium
-                        ? "bg-gold text-midnight shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)]"
+                        ? "btn-primary"
                         : "bg-white/[0.05] text-white border border-white/12 hover:bg-white/[0.09] hover:border-white/20"
                     }`}
                   >
@@ -798,7 +798,7 @@ export default function Tour() {
               href="/newsletter"
               whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full border border-gold/30 text-gold bg-gold/[0.06] hover:bg-gold/10 font-bold uppercase tracking-widest text-xs transition-all duration-fast"
+              className="btn-base btn-secondary"
             >
               Stay Informed <Mail size={13} />
             </MotionLink>
@@ -830,7 +830,7 @@ export default function Tour() {
                 href="/newsletter"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                className="btn-base btn-primary"
               >
                 Subscribe to Newsletter <Mail size={13} />
               </MotionLink>

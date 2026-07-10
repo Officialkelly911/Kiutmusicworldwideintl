@@ -754,7 +754,7 @@ export default function Videos() {
                 href="https://www.youtube.com/@kiutrabatv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-gold/35 transition-all duration-normal text-xs font-bold uppercase tracking-widest backdrop-blur-sm"
+                className="btn-base btn-sm border border-white/15 text-white/60 hover:border-gold/35 hover:text-white backdrop-blur-sm"
                 style={{ background: "rgba(var(--black-rgb),0.35)" }}
                 data-testid="link-hero-youtube-channel"
               >
@@ -1079,7 +1079,7 @@ export default function Videos() {
               href={featuredVideoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gold text-midnight text-xs font-bold uppercase tracking-widest hover:shadow-glow-gold transition-shadow"
+              className="btn-base btn-primary btn-sm"
             >
               <Youtube className="w-3.5 h-3.5" /> Watch on YouTube
             </a>

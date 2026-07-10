@@ -458,7 +458,7 @@ export default function Newsletter() {
                             disabled={submitting}
                             whileHover={submitting ? {} : { scale: 1.03, y: -2 }}
                             whileTap={submitting ? {} : { scale: 0.97 }}
-                            className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group disabled:opacity-60 disabled:pointer-events-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold cursor-pointer"
                             style={{
                               background: "linear-gradient(90deg, var(--royal-gold), var(--champagne-gold), var(--dark-gold), var(--royal-gold))",
                               backgroundSize: "250% auto",
@@ -548,8 +548,7 @@ export default function Newsletter() {
           >
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="w-full max-w-sm py-4 rounded-full font-bold uppercase tracking-widest text-black shadow-glow-gold"
-              style={{ background: "linear-gradient(90deg, var(--royal-gold), var(--champagne-gold), var(--dark-gold))" }}
+              className="btn-base btn-primary w-full max-w-sm"
             >
               Join the Inner Circle
             </button>

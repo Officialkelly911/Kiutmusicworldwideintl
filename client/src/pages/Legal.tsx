@@ -38,7 +38,7 @@ function TableOfContents({ active }: { active: string }) {
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 ${
+              className={`btn-base btn-sm ${
                 active === id
                   ? "bg-gold text-midnight shadow-glow-gold"
                   : "text-white/40 hover:text-white/80 hover:bg-white/[0.06]"

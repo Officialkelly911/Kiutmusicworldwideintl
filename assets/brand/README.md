@@ -8,7 +8,7 @@ master instead.
 
 The master SVG is built entirely from editable vector paths, grouped into five named layers:
 
-- `#crown` — royal five-point crown with ball finials
+- `#crown` — flame-pointed crown with two ball finials and a base band with a center seam line
 - `#monogram` — interlocking IK monogram (bezier paths + connecting flourish)
 - `#wordmark` — "KIUT" (set in Cinzel, an OpenType typeface — fully editable text, not outlines)
 - `#divider` — the two hairline rules flanking the subtitle
@@ -24,7 +24,7 @@ assets/brand/
 ├── svg/            all logo lockups and color variants
 ├── png/            transparent PNG exports of the master lockup — 512 / 1024 / 2048 / 4096 px
 ├── pdf/            kiut-master-logo.pdf — vector, print-ready
-├── eps/            kiut-master-logo.eps — vector EPS
+├── eps/            kiut-master-logo.eps — correct dimensions/bbox; rasterized fallback (see EPS note)
 ├── favicon/        favicon.ico, favicon.svg, PNG sizes, site.webmanifest
 ├── app-icons/       ios / android / macos / windows / pwa icon sets
 ├── social/         crowned-monogram profile icons for 7 platforms, 3 colors each
@@ -53,8 +53,19 @@ and 4096 px wide (proportional height).
 
 ## PDF / EPS / AI
 
-- `pdf/kiut-master-logo.pdf` — true vector PDF, generated directly from the master SVG. Print-ready.
-- `eps/kiut-master-logo.eps` — true vector EPS, generated directly from the master SVG.
+- `pdf/kiut-master-logo.pdf` — true vector PDF, generated directly from the master SVG. Verified to
+  use real PDF pattern/shading objects (`/PatternType 2`, `/ShadingType 2`) for the metallic
+  gradients, not embedded raster. Print-ready.
+- `eps/kiut-master-logo.eps` — **limitation:** the EPS toolchain available in this environment
+  (librsvg/cairo's PostScript backend, and Poppler's `pdftops`) cannot express this artwork's
+  gradient fills as native PostScript shading and falls back to rasterizing the whole page into one
+  embedded high-resolution image (300ppi) inside the EPS wrapper. This happens even when gradients
+  are swapped for flat colors, so it is a toolchain limitation, not a simplification of the artwork
+  itself. The page bounding box and dimensions are still correct and it will place/print fine, but
+  it is **not** infinitely scalable vector artwork — treat `pdf/kiut-master-logo.pdf` (true vector)
+  or `master/kiut-master-logo.svg` as the authoritative vector source if you need to scale, edit, or
+  recolor the artwork; re-export EPS from those in Illustrator/Acrobat if a true vector EPS is
+  required.
 - `master/kiut-master-logo.ai` — **limitation:** this environment has no Illustrator/native `.ai`
   writer available. This file is the same vector PDF content saved with an `.ai` extension, which
   Adobe Illustrator can open (Illustrator opens PDF-compatible `.ai` files natively) but it is not a
@@ -110,5 +121,6 @@ files are vector and lossless at any size.
 - [x] PNG/social/app-icon exports use transparent or documented solid backgrounds
 - [x] Naming is consistent (`logo-*`, `symbol-*`, per-platform icon sizes)
 - [x] Vector files scale losslessly from favicon (16px) to 4096px+ print
-- [ ] True native `.ai` and CMYK-converted PDF/EPS — not producible in this environment; see AI/CMYK
-      note above for the recommended finishing step in Illustrator
+- [ ] True native `.ai`, true vector EPS, and CMYK-converted PDF/EPS — not producible in this
+      environment (no Illustrator writer, no PostScript shading support for gradients, no ICC/CMYK
+      tool); see the AI and EPS notes above for the recommended finishing steps in Illustrator/Acrobat

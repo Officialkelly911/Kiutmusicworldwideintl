@@ -37,15 +37,15 @@
   /* ── KSDL brand palette — exposed as first-class Tailwind utilities ──
      (bg-gold, text-champagne, border-graphite, etc.) per Studio Handbook
      03_Design_System/01_Color_System.md */
-  --color-midnight: #080808;
+  --color-midnight: var(--color-midnight-black);
   --color-charcoal: #121212;
   --color-graphite: #1e1e1e;
   --color-heading: var(--color-white);
   --color-body: #d6d6d6;
-  --color-muted-text: #9b9b9b;
-  --color-gold: #d4af37;
+  --color-muted-text: var(--color-neutral-gray);
+  --color-gold: var(--color-royal-gold);
   --color-gold-hover: #f4c542;
-  --color-champagne: #f7e7a1;
+  --color-champagne: var(--color-champagne-gold);
   --color-purple: #6d3eff;
   --color-success: #34d399;
   --color-warning: #fbbf24;
@@ -62,12 +62,23 @@
   --color-gray-100: #f5f5f5;
   --color-gray-300: #d4d4d4;
 
+  /* ── KIUT Brand Integration Phase 3 — official named brand tokens.
+     These are the single source of truth for the brand palette; every
+     button, icon, link, card, background, divider, border, and hover
+     state should reference one of these six colors (or an opacity
+     variant of one) instead of a hard-coded hex/rgba value. ── */
+  --color-royal-gold: #d4af37;      /* Royal Gold — primary brand accent */
+  --color-champagne-gold: #f7e7a1;  /* Champagne Gold — light accent / highlights */
+  --color-dark-gold: #a8842c;       /* Dark Gold — pressed/active states, deep accents */
+  --color-midnight-black: #080808;  /* Midnight Black — primary background */
+  --color-neutral-gray: #9b9b9b;    /* Neutral Gray — secondary/muted text, icons */
+
   /* ── KSDL shadow scale — 11_Design_Tokens.md ── */
-  --shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.12);
-  --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 14px 32px rgba(0, 0, 0, 0.28);
-  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.35);
-  --shadow-xl: 0 40px 120px rgba(0, 0, 0, 0.4);
+  --shadow-xs: 0 2px 6px rgba(var(--black-rgb), 0.12);
+  --shadow-sm: 0 8px 20px rgba(var(--black-rgb), 0.2);
+  --shadow-md: 0 14px 32px rgba(var(--black-rgb), 0.28);
+  --shadow-lg: 0 24px 60px rgba(var(--black-rgb), 0.35);
+  --shadow-xl: 0 40px 120px rgba(var(--black-rgb), 0.4);
 
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Cinzel', serif;
@@ -96,10 +107,26 @@
   --gray-100: var(--color-gray-100);
   --gray-300: var(--color-gray-300);
 
+  /* Official brand token aliases (Phase 3 naming) — same values as
+     above, exposed under their brand names for use in inline styles,
+     e.g. style={{ color: "var(--royal-gold)" }}. */
+  --royal-gold: var(--color-royal-gold);
+  --champagne-gold: var(--color-champagne-gold);
+  --dark-gold: var(--color-dark-gold);
+  --midnight-black: var(--color-midnight-black);
+  --neutral-gray: var(--color-neutral-gray);
+
   /* RGB triplets for use inside rgba(...) with variable opacity. */
   --gold-primary-rgb: 212, 175, 55;
+  --royal-gold-rgb: 212, 175, 55;
+  --champagne-gold-rgb: 247, 231, 161;
+  --dark-gold-rgb: 168, 132, 44;
+  --midnight-black-rgb: 8, 8, 8;
+  --neutral-gray-rgb: 155, 155, 155;
   --black-rgb: 0, 0, 0;
   --white-rgb: 255, 255, 255;
+  --gold-hover-rgb: 244, 197, 66;
+  --purple-rgb: 109, 62, 255;
 
   /* ── Shadcn/ui semantic tokens, remapped to the KSDL brand palette ──
      (Midnight Black / Charcoal / Graphite / Royal Gold / Royal Purple)
@@ -147,9 +174,9 @@
 
   /* ── KSDL glow tokens — 08_Shadow_Glow_System.md ── */
   --glow-gold: 0 0 24px rgba(var(--gold-primary-rgb), 0.28);
-  --glow-gold-hover: 0 0 42px rgba(244, 197, 66, 0.38);
-  --glow-purple: 0 0 30px rgba(109, 62, 255, 0.22);
-  --glow-champagne: 0 0 28px rgba(247, 231, 161, 0.25);
+  --glow-gold-hover: 0 0 42px rgba(var(--gold-hover-rgb), 0.38);
+  --glow-purple: 0 0 30px rgba(var(--purple-rgb), 0.22);
+  --glow-champagne: 0 0 28px rgba(var(--champagne-gold-rgb), 0.25);
 
   /* ── KSDL motion tokens — 07_Animation_Motion_System.md ── */
   --motion-fast: 180ms;
@@ -227,10 +254,10 @@
   }
   
   .glass {
-    background: rgba(8, 8, 8, 0.85);
+    background: rgba(var(--midnight-black-rgb), 0.85);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(var(--white-rgb), 0.06);
   }
   
   .noise {
@@ -297,7 +324,7 @@ html {
   z-index: 9999;
   padding: 0.5rem 1rem;
   background: var(--gold-primary);
-  color: #080808;
+  color: var(--midnight-black);
   font-weight: 700;
   font-size: 0.875rem;
   letter-spacing: 0.05em;
@@ -307,7 +334,7 @@ html {
 }
 .skip-link:focus {
   top: 0;
-  outline: 2px solid #080808;
+  outline: 2px solid var(--midnight-black);
   outline-offset: 2px;
 }
 
@@ -356,7 +383,7 @@ img {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(var(--white-rgb), 0.08);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -376,10 +403,10 @@ img {
 .ksdl-shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.03) 0%,
+    rgba(var(--white-rgb), 0.03) 0%,
     rgba(var(--gold-primary-rgb), 0.07)  40%,
-    rgba(255, 255, 255, 0.03) 60%,
-    rgba(255, 255, 255, 0.01) 100%
+    rgba(var(--white-rgb), 0.03) 60%,
+    rgba(var(--white-rgb), 0.01) 100%
   );
   background-size: 200% 100%;
   animation: ksdl-shimmer 1.8s ease-in-out infinite;
@@ -412,6 +439,6 @@ img {
   /* Keep shimmer visible but static (no movement) */
   .ksdl-shimmer {
     animation: none;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(var(--white-rgb), 0.04);
   }
 }

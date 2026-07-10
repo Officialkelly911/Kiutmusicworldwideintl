@@ -154,7 +154,7 @@ function ThumbnailFallback({ onRetry }: { onRetry?: () => void }) {
   return (
     <div
       className="absolute inset-0 flex flex-col items-center justify-center gap-3 cursor-pointer"
-      style={{ background: "linear-gradient(145deg,#0a0a0a 0%,#110d1a 100%)" }}
+      style={{ background: "linear-gradient(145deg, var(--midnight-black) 0%, color-mix(in srgb, var(--midnight-black) 92%, var(--dark-gold) 8%) 100%)" }}
       onClick={onRetry}
     >
       <div
@@ -786,7 +786,7 @@ export default function Videos() {
               </div>
               <div className="h-1 rounded-full bg-white/[0.07] overflow-hidden">
                 <motion.div
-                  className="h-full rounded-full bg-gradient-to-r from-gold to-[#f5d062]"
+                  className="h-full rounded-full bg-gradient-to-r from-gold to-champagne-gold"
                   initial={{ width: 0 }}
                   animate={{ width: `${watchPct}%` }}
                   transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}

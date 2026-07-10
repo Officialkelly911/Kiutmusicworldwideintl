@@ -194,8 +194,8 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
         className="relative rounded-md p-[1px]"
         style={{
           background: isHovered
-            ? "linear-gradient(135deg, rgba(212,175,55,0.7) 0%, rgba(212,175,55,0.15) 50%, rgba(212,175,55,0.5) 100%)"
-            : "linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(212,175,55,0.08) 100%)",
+            ? "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.7) 0%, rgba(var(--gold-primary-rgb),0.15) 50%, rgba(var(--gold-primary-rgb),0.5) 100%)"
+            : "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.15) 0%, rgba(var(--white-rgb),0.05) 50%, rgba(var(--gold-primary-rgb),0.08) 100%)",
         }}
       >
         {/* Glass inner */}
@@ -204,8 +204,8 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           style={{
             background: "rgba(10,10,10,0.92)",
             boxShadow: isHovered
-              ? "0 30px 70px -12px rgba(212,175,55,0.30)"
-              : "0 20px 50px -12px rgba(0,0,0,0.80)",
+              ? "0 30px 70px -12px rgba(var(--gold-primary-rgb),0.30)"
+              : "0 20px 50px -12px rgba(var(--black-rgb),0.80)",
           }}
         >
           {/* Album art */}
@@ -228,7 +228,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="absolute inset-0 flex flex-col items-center justify-center"
-                style={{ background: "rgba(0,0,0,0.60)", backdropFilter: "blur(6px)" }}
+                style={{ background: "rgba(var(--black-rgb),0.60)", backdropFilter: "blur(6px)" }}
               >
                 <motion.div
                   initial={{ scale: 0.7 }}
@@ -255,7 +255,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           </AnimatePresence>
 
           {/* Glass info bar at bottom */}
-          <div className="px-4 py-3 border-t border-white/[0.05]" style={{ background: "rgba(255,255,255,0.02)" }}>
+          <div className="px-4 py-3 border-t border-white/[0.05]" style={{ background: "rgba(var(--white-rgb),0.02)" }}>
             <div className="flex items-center justify-between">
               <span className="text-gold text-xs font-black uppercase tracking-[0.22em]">Official Release</span>
               <span className="text-white/30 text-xs font-mono">{album.tracks} tracks · {album.yearShort}</span>
@@ -268,7 +268,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full blur-[80px] -z-10 rounded-full transition-opacity duration-slow pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse, rgba(212,175,55,0.15), transparent 70%)",
+          background: "radial-gradient(ellipse, rgba(var(--gold-primary-rgb),0.15), transparent 70%)",
           opacity: isHovered ? 1 : 0,
         }}
       />
@@ -397,7 +397,7 @@ function MusicDiscovery() {
           >
             <a href={to.link} target="_blank" rel="noopener noreferrer">
               <motion.div
-                whileHover={{ y: -6, boxShadow: "0 20px 50px rgba(212,175,55,0.10)" }}
+                whileHover={{ y: -6, boxShadow: "0 20px 50px rgba(var(--gold-primary-rgb),0.10)" }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="group rounded-md overflow-hidden border border-white/[0.06] hover:border-gold/25 transition-colors duration-normal"
                 style={{ background: "var(--color-midnight)" }}
@@ -466,13 +466,13 @@ export default function Music() {
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full blur-[140px]"
-          style={{ background: "rgba(212,175,55,0.025)" }}
+          style={{ background: "rgba(var(--gold-primary-rgb),0.025)" }}
         />
         <motion.div
           animate={{ x: [0, -25, 0], y: [0, 30, 0] }}
           transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 4 }}
           className="absolute bottom-[20%] right-[5%] w-[400px] h-[400px] rounded-full blur-[120px]"
-          style={{ background: "rgba(212,175,55,0.02)" }}
+          style={{ background: "rgba(var(--gold-primary-rgb),0.02)" }}
         />
         <motion.div
           animate={{ x: [0, 20, -10, 0], y: [0, -15, 20, 0] }}
@@ -522,7 +522,7 @@ export default function Music() {
 
           {/* Stats strip */}
           <div className="inline-flex items-center gap-8 px-8 py-4 rounded-full border border-white/[0.07]"
-            style={{ background: "rgba(255,255,255,0.02)" }}>
+            style={{ background: "rgba(var(--white-rgb),0.02)" }}>
             {[
               { value: "4", label: "EPs" },
               { value: "24+", label: "Tracks" },
@@ -546,7 +546,7 @@ export default function Music() {
         >
           <div className="relative rounded-xl overflow-hidden border border-gold/12 shadow-xl"
             style={{ background: "linear-gradient(135deg, #100e00 0%, var(--color-charcoal) 50%, #080408 100%)" }}>
-            <div className="absolute top-0 right-0 w-80 h-80 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(212,175,55,0.08)" }} />
+            <div className="absolute top-0 right-0 w-80 h-80 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }} />
             <div className="absolute bottom-0 left-0 w-56 h-56 blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(100,50,255,0.04)" }} />
 
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 p-8 md:p-12">
@@ -564,7 +564,7 @@ export default function Music() {
 
               <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1 min-w-0">
                 <span className="inline-block px-3 py-1.5 rounded-full border text-xs font-black uppercase tracking-[0.22em] mb-4 leading-none"
-                  style={{ background: "rgba(212,175,55,0.12)", borderColor: "rgba(212,175,55,0.28)", color: "var(--color-gold)" }}>
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.12)", borderColor: "rgba(var(--gold-primary-rgb),0.28)", color: "var(--color-gold)" }}>
                   {currentTrack ? "Now Playing" : "Featured Release"}
                 </span>
 
@@ -579,7 +579,7 @@ export default function Music() {
 
                 <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
                   <motion.button
-                    whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.55)" }}
+                    whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.55)" }}
                     whileTap={{ scale: 0.96 }}
                     onClick={() => playTrack(currentTrack ?? featuredTrack)}
                     className="flex items-center gap-2.5 px-7 py-3.5 font-bold uppercase tracking-widest text-sm rounded-full transition-shadow"
@@ -594,7 +594,7 @@ export default function Music() {
                   {!currentTrack && (
                     <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
                       <motion.button
-                        whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.5)", color: "var(--color-gold)" }}
+                        whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
                         whileTap={{ scale: 0.97 }}
                         className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-white/60 transition-all text-sm font-medium"
                       >
@@ -608,7 +608,7 @@ export default function Music() {
                   <div className="mt-6 w-full max-w-xs">
                     <div
                       className="h-[3px] rounded-full overflow-hidden cursor-pointer"
-                      style={{ background: "rgba(255,255,255,0.09)" }}
+                      style={{ background: "rgba(var(--white-rgb),0.09)" }}
                       onClick={(e) => {
                         const r = e.currentTarget.getBoundingClientRect();
                         seek((e.clientX - r.left) / r.width);
@@ -649,7 +649,7 @@ export default function Music() {
             <div className="absolute top-1/2 left-10 right-10 h-[1px] -translate-y-1/2 overflow-hidden">
               <motion.div
                 className="h-full"
-                style={{ background: "linear-gradient(to right, rgba(255,255,255,0.05), rgba(212,175,55,0.40), rgba(255,255,255,0.05))" }}
+                style={{ background: "linear-gradient(to right, rgba(var(--white-rgb),0.05), rgba(var(--gold-primary-rgb),0.40), rgba(var(--white-rgb),0.05))" }}
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={timelineInView ? { scaleX: 1 } : { scaleX: 0 }}
                 transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -673,7 +673,7 @@ export default function Music() {
                       <div className="text-center">
                         <h4 className="text-white font-bold text-sm mb-1">{event.title}</h4>
                         <span className="inline-block px-2 py-0.5 rounded-full text-xs uppercase tracking-widest font-bold"
-                          style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.28)", color: "var(--color-gold)" }}>
+                          style={{ background: "rgba(var(--gold-primary-rgb),0.12)", border: "1px solid rgba(var(--gold-primary-rgb),0.28)", color: "var(--color-gold)" }}>
                           {event.type}
                         </span>
                       </div>
@@ -715,7 +715,7 @@ export default function Music() {
               <div className={`w-full md:w-1/2 text-center ${i % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
                 {/* Type badge */}
                 <span className="inline-block px-3 py-1 rounded-full border text-xs font-bold uppercase tracking-widest mb-4"
-                  style={{ background: "rgba(212,175,55,0.10)", borderColor: "rgba(212,175,55,0.22)", color: "var(--color-gold)" }}>
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.10)", borderColor: "rgba(var(--gold-primary-rgb),0.22)", color: "var(--color-gold)" }}>
                   {album.type}
                 </span>
 
@@ -743,13 +743,13 @@ export default function Music() {
                 <div className={`flex flex-wrap gap-3 ${i % 2 === 0 ? "justify-center md:justify-start" : "justify-center md:justify-end"}`}>
                   <a href={album.link} target="_blank" rel="noopener noreferrer">
                     <motion.button
-                      whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.38)" }}
+                      whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.38)" }}
                       whileTap={{ scale: 0.96 }}
                       className="px-8 py-3.5 font-bold uppercase tracking-widest transition-all duration-normal rounded-full inline-flex items-center gap-2 text-sm"
                       style={{
                         background: "linear-gradient(135deg, var(--color-gold) 0%, #c49a2e 100%)",
-                        color: "#000",
-                        boxShadow: "0 0 24px rgba(212,175,55,0.22)",
+                        color: "var(--black)",
+                        boxShadow: "0 0 24px rgba(var(--gold-primary-rgb),0.22)",
                       }}
                       data-testid={`button-listen-${album.id}`}
                     >
@@ -758,7 +758,7 @@ export default function Music() {
                   </a>
                   <a href={album.link} target="_blank" rel="noopener noreferrer">
                     <motion.button
-                      whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.5)", color: "var(--color-gold)" }}
+                      whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
                       whileTap={{ scale: 0.97 }}
                       className="px-8 py-3.5 rounded-full border border-white/15 text-white/50 font-bold uppercase tracking-widest transition-all duration-normal inline-flex items-center gap-2 text-sm"
                     >
@@ -840,7 +840,7 @@ export default function Music() {
 
           <div className="relative rounded-xl border border-white/[0.06] overflow-hidden p-8 md:p-12"
             style={{ background: "linear-gradient(135deg,#0c0c0c 0%,#0a0a06 100%)" }}>
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.05),transparent_60%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(var(--gold-primary-rgb),0.05),transparent_60%)]" />
 
             <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-10">
               {(Object.entries(PLATFORMS) as [PlatformId, typeof PLATFORMS[PlatformId]][]).map(([id, p], i) => (
@@ -872,7 +872,7 @@ export default function Music() {
               <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
                 <motion.button
                   data-testid="button-stream-all"
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
+                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold transition-shadow duration-normal"
                 >
@@ -882,7 +882,7 @@ export default function Music() {
               <a href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer">
                 <motion.button
                   data-testid="button-all-links"
-                  whileHover={{ scale: 1.03, borderColor: "rgba(212,175,55,0.4)", color: "var(--color-gold)" }}
+                  whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.4)", color: "var(--color-gold)" }}
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-white/55 font-bold uppercase tracking-widest text-xs transition-all duration-normal"
                 >

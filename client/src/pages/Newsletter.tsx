@@ -174,7 +174,7 @@ export default function Newsletter() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55), rgba(0,0,0,0.68))",
+              "linear-gradient(180deg, rgba(var(--black-rgb),0.45), rgba(var(--black-rgb),0.55), rgba(var(--black-rgb),0.68))",
           }}
         />
         {/* Subtle brand-color sweep for cohesion (kept light so the beach stays visible) */}
@@ -184,7 +184,7 @@ export default function Newsletter() {
         <Orb
           style={{
             top: "-15%", left: "-10%", width: "55%", height: "55%",
-            background: "radial-gradient(circle, rgba(212,175,55,0.18) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(var(--gold-primary-rgb),0.18) 0%, transparent 70%)",
             filter: "blur(40px)",
           }}
           animate={{ scale: [1, 1.25, 1], opacity: [0.6, 1, 0.6] }}
@@ -204,7 +204,7 @@ export default function Newsletter() {
         <Orb
           style={{
             top: "30%", left: "35%", width: "30%", height: "30%",
-            background: "radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(var(--gold-primary-rgb),0.07) 0%, transparent 70%)",
             filter: "blur(30px)",
           }}
           animate={{ scale: [1, 1.6, 1], opacity: [0.3, 0.6, 0.3] }}
@@ -268,7 +268,7 @@ export default function Newsletter() {
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
-                    filter: "drop-shadow(0 0 20px rgba(212,175,55,0.4))",
+                    filter: "drop-shadow(0 0 20px rgba(var(--gold-primary-rgb),0.4))",
                   }}
                 >
                   RHYTHM
@@ -465,7 +465,7 @@ export default function Newsletter() {
                               transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
                               className="absolute inset-0 pointer-events-none"
                               style={{
-                                background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)",
+                                background: "linear-gradient(90deg, transparent 0%, rgba(var(--white-rgb),0.25) 50%, transparent 100%)",
                                 backgroundSize: "200% 100%",
                               }}
                             />

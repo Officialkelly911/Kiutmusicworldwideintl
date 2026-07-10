@@ -62,10 +62,10 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
               style={{ background: "linear-gradient(145deg, var(--color-midnight) 0%, #110d1a 100%)" }}>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.18)" }}>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(var(--gold-primary-rgb),0.10)", border: "1px solid rgba(var(--gold-primary-rgb),0.18)" }}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="var(--color-gold)" opacity="0.65" /></svg>
               </div>
-              <span style={{ color: "rgba(212,175,55,0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>Kiut Music</span>
+              <span style={{ color: "rgba(var(--gold-primary-rgb),0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>Kiut Music</span>
             </div>
           )}
           {/* Scrim */}
@@ -136,7 +136,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
         className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
       >
         <div className="w-[600px] h-[600px] rounded-full blur-[160px]"
-          style={{ background: "radial-gradient(ellipse, rgba(212,175,55,0.12), transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse, rgba(var(--gold-primary-rgb),0.12), transparent 70%)" }} />
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
@@ -263,10 +263,10 @@ function HomeStatsStrip() {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(90deg, var(--color-midnight) 0%, #0c0a00 50%, var(--color-midnight) 100%)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+      style={{ background: "linear-gradient(90deg, var(--color-midnight) 0%, #0c0a00 50%, var(--color-midnight) 100%)", borderTop: "1px solid rgba(var(--white-rgb),0.04)", borderBottom: "1px solid rgba(var(--white-rgb),0.04)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.04), transparent 70%)" }} />
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--gold-primary-rgb),0.04), transparent 70%)" }} />
       <div className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
         {stats.map((stat, i) => (
           <motion.div
@@ -298,7 +298,7 @@ function FeaturedQuote() {
       style={{ background: "var(--color-midnight)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.035), transparent 65%)" }} />
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--gold-primary-rgb),0.035), transparent 65%)" }} />
       <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ scaleX: 0 }}
@@ -306,7 +306,7 @@ function FeaturedQuote() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeInOut", delay: 0.2 }}
           className="w-8 h-[2px] mx-auto mb-10 origin-center"
-          style={{ background: "rgba(212,175,55,0.5)" }}
+          style={{ background: "rgba(var(--gold-primary-rgb),0.5)" }}
         />
         <motion.blockquote
           initial={{ opacity: 0, y: 12 }}
@@ -314,7 +314,7 @@ function FeaturedQuote() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="font-editorial text-3xl md:text-4xl lg:text-5xl font-light tracking-wide text-white leading-snug italic mb-8"
-          style={{ textShadow: "0 0 80px rgba(212,175,55,0.12)" }}
+          style={{ textShadow: "0 0 80px rgba(var(--gold-primary-rgb),0.12)" }}
         >
           "Music is more than sound.
           <br />
@@ -335,7 +335,7 @@ function FeaturedQuote() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeInOut", delay: 0.6 }}
           className="w-8 h-[2px] mx-auto mt-10 origin-center"
-          style={{ background: "rgba(212,175,55,0.5)" }}
+          style={{ background: "rgba(var(--gold-primary-rgb),0.5)" }}
         />
       </div>
     </motion.section>
@@ -795,7 +795,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
             {/* Cinematic vignette */}
             <div className="absolute inset-0 pointer-events-none"
-              style={{ boxShadow: "inset 0 0 120px 40px rgba(0,0,0,0.65)" }} />
+              style={{ boxShadow: "inset 0 0 120px 40px rgba(var(--black-rgb),0.65)" }} />
           </motion.div>
         </AnimatePresence>
 
@@ -949,7 +949,7 @@ export default function Home() {
 
       {/* MILESTONE SECTION */}
       <section className="py-24 md:py-32 relative overflow-hidden bg-midnight">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.03),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(var(--gold-primary-rgb),0.03),transparent_70%)]" />
         
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -1108,7 +1108,7 @@ export default function Home() {
                 rel="noopener noreferrer"
               >
                 <motion.button
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
+                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
                   whileTap={{ scale: 0.97 }}
                   className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-normal shadow-glow-gold"
                 >
@@ -1211,8 +1211,8 @@ export default function Home() {
         `}</style>
 
         {/* Atmospheric lighting — left gold bloom, right deep shadow */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_40%,rgba(212,175,55,0.08),transparent_55%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(212,175,55,0.04),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_40%,rgba(var(--gold-primary-rgb),0.08),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(var(--gold-primary-rgb),0.04),transparent_50%)]" />
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/60 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -1412,10 +1412,10 @@ export default function Home() {
                           className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]`}
                         />
                         {(isSpotlit || isFeatured) && (
-                          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07),transparent_68%)] pointer-events-none" />
+                          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.07),transparent_68%)] pointer-events-none" />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d]/60 via-transparent to-transparent pointer-events-none" />
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.12)] transition-opacity duration-medium pointer-events-none" />
                       </div>
 
                       {/* Card footer */}
@@ -1496,7 +1496,7 @@ export default function Home() {
                         <p className="text-xs font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
                         <p className="text-white/22 text-xs font-light tracking-widest">$ –</p>
                       </div>
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-md transition-opacity duration-medium pointer-events-none" />
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.18)] rounded-md transition-opacity duration-medium pointer-events-none" />
                     </div>
                   </a>
                 ))}
@@ -1616,8 +1616,8 @@ export default function Home() {
       {/* ─── CONCERT CTA SECTION ──────────────────────────────────────── */}
       <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, #060606 0%, #090806 60%, #060606 100%)" }}>
         {/* Atmospheric glows */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(212,175,55,0.07),transparent_55%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(212,175,55,0.04),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(var(--gold-primary-rgb),0.07),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(var(--gold-primary-rgb),0.04),transparent_50%)]" />
 
         <div className="max-w-5xl mx-auto px-6 relative z-10">
           <motion.div
@@ -1652,11 +1652,11 @@ export default function Home() {
               {/* Left — icon + copy */}
               <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
                 <div className="w-16 h-16 rounded-md flex items-center justify-center mb-6 border border-gold/20"
-                  style={{ background: "rgba(212,175,55,0.06)" }}>
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}>
                   <Music className="w-7 h-7 text-gold" />
                 </div>
                 <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/25 text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
-                  style={{ background: "rgba(212,175,55,0.05)" }}>
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.05)" }}>
                   <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                   Dates Coming Soon
                 </span>
@@ -1787,7 +1787,7 @@ export default function Home() {
       {/* ─── FAN COMMUNITY SECTION ───────────────────────────────────── */}
       <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden bg-midnight">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(109,62,255,0.07),transparent_60%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(212,175,55,0.04),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(var(--gold-primary-rgb),0.04),transparent_55%)]" />
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           {/* Section header */}
@@ -1818,7 +1818,7 @@ export default function Home() {
               className="relative rounded-xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
               style={{ background: "#0c0c0c" }}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(255,255,255,0.03),transparent_60%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(var(--white-rgb),0.03),transparent_60%)]" />
               <div className="relative z-10">
                 <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/15 text-white/50 text-xs font-bold uppercase tracking-[0.35em] mb-6">
                   Fan Member
@@ -1857,7 +1857,7 @@ export default function Home() {
               className="relative rounded-xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-glow-gold"
               style={{ background: "linear-gradient(145deg,#0d0b07 0%,#0c0a06 100%)" }}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(212,175,55,0.08),transparent_60%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(var(--gold-primary-rgb),0.08),transparent_60%)]" />
               {/* Featured badge */}
               <div className="absolute top-5 right-5 z-10">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-glow-gold">
@@ -1866,7 +1866,7 @@ export default function Home() {
               </div>
               <div className="relative z-10">
                 <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-gold/30 text-gold text-xs font-bold uppercase tracking-[0.35em] mb-6"
-                  style={{ background: "rgba(212,175,55,0.06)" }}>
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}>
                   Fan Card Member
                 </span>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">
@@ -1922,7 +1922,7 @@ export default function Home() {
 
       {/* ─── NEWSLETTER CTA SECTION ──────────────────────────────────── */}
       <section className="py-20 md:py-28 relative border-t border-white/5 overflow-hidden" style={{ background: "var(--color-midnight)" }}>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(212,175,55,0.05),transparent_65%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(var(--gold-primary-rgb),0.05),transparent_65%)]" />
 
         <div className="max-w-2xl mx-auto px-6 text-center relative z-10">
           <motion.div

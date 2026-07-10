@@ -186,7 +186,7 @@ export default function Legal() {
         {/* Background atmosphere */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20"
-            style={{ background: "radial-gradient(ellipse, rgba(212,175,55,0.15) 0%, transparent 70%)", filter: "blur(60px)" }} />
+            style={{ background: "radial-gradient(ellipse, rgba(var(--gold-primary-rgb),0.15) 0%, transparent 70%)", filter: "blur(60px)" }} />
         </div>
 
         <div className="relative max-w-4xl mx-auto px-6">

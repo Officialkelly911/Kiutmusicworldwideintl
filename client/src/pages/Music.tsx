@@ -191,7 +191,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           scale: isHovered ? 1.03 : 1,
         }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="relative rounded-md p-[1px]"
+        className="relative rounded-xl p-[1px]"
         style={{
           background: isHovered
             ? "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.7) 0%, rgba(var(--gold-primary-rgb),0.15) 50%, rgba(var(--gold-primary-rgb),0.5) 100%)"

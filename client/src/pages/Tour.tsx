@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 // Single interactive element — avoids nesting <a> inside <button>
 const MotionLink = motion.create(Link) as unknown as React.FC<
@@ -221,6 +221,11 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Tour() {
+  useEffect(() => {
+    document.title = "Tour | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const [showAllPast, setShowAllPast] = useState(false);
   const featuredRef = useRef<HTMLElement>(null);
 

@@ -691,6 +691,11 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");
   });

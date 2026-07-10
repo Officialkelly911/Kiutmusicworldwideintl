@@ -156,6 +156,11 @@ function Divider() {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function Legal() {
+  useEffect(() => {
+    document.title = "Legal | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const [activeSection, setActiveSection] = useState("privacy");
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 

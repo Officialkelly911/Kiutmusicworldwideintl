@@ -8,7 +8,7 @@ import {
   SiSpotify, SiApplemusic, SiAudiomack,
   SiInstagram, SiYoutube, SiLinktree,
 } from "react-icons/si";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 
@@ -411,6 +411,11 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Contact() {
+  useEffect(() => {
+    document.title = "Contact | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   return (
     <div className="min-h-screen bg-midnight text-white">
 

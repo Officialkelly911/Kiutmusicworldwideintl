@@ -45,9 +45,9 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
   return (
     <Link href="/videos">
       <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-md overflow-hidden bg-charcoal border border-white/[0.06] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-normal snap-start"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-xl overflow-hidden bg-charcoal border border-white/[0.07] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-300 snap-start"
       >
         {/* Thumbnail */}
         <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">

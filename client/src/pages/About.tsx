@@ -297,6 +297,11 @@ function AudiomackIcon() {
 }
 
 export default function About() {
+  useEffect(() => {
+    document.title = "About | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
   const closeLightboxBtnRef = useRef<HTMLButtonElement>(null);

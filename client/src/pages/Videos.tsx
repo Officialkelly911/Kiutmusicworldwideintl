@@ -614,6 +614,11 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
 
 // ─── Main component ────────────────────────────────────────────────────────────
 export default function Videos() {
+  useEffect(() => {
+    document.title = "Videos | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const [featuredVideo, setFeaturedVideo]   = useState(videos[0]);
   const [activeType, setActiveType]         = useState("All");
   const [showShare, setShowShare]           = useState(false);

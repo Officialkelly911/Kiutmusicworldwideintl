@@ -453,6 +453,11 @@ function MusicDiscovery() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Music() {
+  useEffect(() => {
+    document.title = "Music | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
   const featuredTrack = ALL_TRACKS[0];
   const timelineRef = useRef<HTMLDivElement>(null);

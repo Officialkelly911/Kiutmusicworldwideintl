@@ -94,6 +94,11 @@ const avatarGradients = [
 ];
 
 export default function Newsletter() {
+  useEffect(() => {
+    document.title = "Newsletter | Kiut Music Worldwide";
+    return () => { document.title = "Kiut Music Worldwide"; };
+  }, []);
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);

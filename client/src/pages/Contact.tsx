@@ -442,7 +442,7 @@ export default function Contact() {
             <h1 className="font-display text-[clamp(3rem,10vw,7rem)] font-bold uppercase tracking-tight leading-[0.92] text-white mb-6">
               Let's <span className="text-gold">Connect</span>
             </h1>
-            <p className="text-white/45 text-lg font-light max-w-lg leading-relaxed">
+            <p className="font-editorial italic text-white/45 text-lg font-light max-w-lg leading-relaxed">
               Whether you're booking a show, pitching a story, or just reaching out as a fan — the door is open.
             </p>
           </motion.div>

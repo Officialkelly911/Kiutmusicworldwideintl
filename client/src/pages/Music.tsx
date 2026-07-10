@@ -504,7 +504,7 @@ export default function Music() {
             The<br /><span className="text-gold">Music</span>
           </h1>
 
-          <p className="text-white/35 text-base font-light max-w-md mx-auto leading-relaxed mb-10">
+          <p className="font-editorial italic text-white/35 text-base font-light max-w-md mx-auto leading-relaxed mb-10">
             Four EPs. Dozens of tracks. One cinematic sound shaped by two continents.
           </p>
 

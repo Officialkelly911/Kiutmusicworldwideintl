@@ -280,7 +280,7 @@ export default function Newsletter() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45 }}
-              className="text-lg text-white/65 mb-12 font-light leading-relaxed max-w-md"
+              className="font-editorial italic text-lg text-white/65 mb-12 font-light leading-relaxed max-w-md"
             >
               Join the Kiut Music inner circle. Early music access, exclusive fan content,
               and private updates delivered straight from the studio.

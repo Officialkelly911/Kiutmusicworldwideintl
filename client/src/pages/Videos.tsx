@@ -737,7 +737,7 @@ export default function Videos() {
             <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
               Watch<br /><span className="text-gold">Kiut</span>
             </h1>
-            <p className="text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
+            <p className="font-editorial italic text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
               Every frame, every story. Cinematic visuals from the world of Kiut Music Worldwide.
             </p>
             <div className="flex flex-wrap items-center gap-6">

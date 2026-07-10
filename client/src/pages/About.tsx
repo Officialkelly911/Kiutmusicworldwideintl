@@ -476,7 +476,7 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-white/70 text-lg md:text-2xl font-light tracking-wide mb-10 max-w-xl"
+            className="font-editorial italic text-white/70 text-lg md:text-2xl font-light tracking-wide mb-10 max-w-xl"
           >
             Afro-Caribbean Visionary<br />
             <span className="text-white/50 text-base md:text-lg">Bridging Nigeria and the World Through Sound</span>

@@ -274,7 +274,7 @@ export default function Tour() {
                 href="/newsletter"
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
+                className="btn-base btn-primary"
               >
                 Notify Me <Mail size={13} />
               </MotionLink>
@@ -282,7 +282,7 @@ export default function Tour() {
                 onClick={scrollToFeatured}
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-white/[0.06] border border-white/15 text-white font-bold uppercase tracking-widest text-xs backdrop-blur-sm hover:border-gold/40 hover:text-gold transition-all duration-normal"
+                className="btn-base btn-secondary !border-white/15 !text-white"
               >
                 Watch Live Performances <Play size={13} />
               </motion.button>
@@ -706,7 +706,7 @@ export default function Tour() {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setShowAllPast(true)}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.09] text-white/35 hover:text-white hover:border-white/22 text-xs font-bold uppercase tracking-widest transition-all duration-fast"
+                  className="btn-base btn-secondary btn-sm !border-white/[0.09] !text-white/35"
                 >
                   Show All Years <ChevronRight size={13} />
                 </motion.button>

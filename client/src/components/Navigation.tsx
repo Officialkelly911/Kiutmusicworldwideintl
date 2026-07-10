@@ -94,10 +94,8 @@ export function Navigation() {
                 aria-current={location === "/newsletter" ? "page" : undefined}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className={`ml-2 px-5 py-2 rounded-full cursor-pointer font-bold text-sm tracking-widest uppercase transition-all duration-normal ${
-                  location === "/newsletter"
-                    ? "bg-gold text-midnight shadow-glow-gold-hover"
-                    : "bg-gold/10 text-gold border border-gold/30 hover:bg-gold hover:text-midnight hover:shadow-glow-gold"
+                className={`btn-base btn-sm ml-2 ${
+                  location === "/newsletter" ? "btn-primary shadow-glow-gold-hover" : "btn-secondary"
                 }`}
               >
                 Newsletter

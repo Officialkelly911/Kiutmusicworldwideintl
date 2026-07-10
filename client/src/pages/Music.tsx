@@ -343,7 +343,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
 
       <button
         onClick={(e) => { e.stopPropagation(); playTrack(track); }}
-        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-fast ${
+        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold disabled:opacity-50 disabled:pointer-events-none ${
           isActive && isPlaying
             ? "bg-gold text-midnight shadow-glow-gold"
             : "text-white/30 group-hover:text-white group-hover:bg-white/10"
@@ -582,8 +582,7 @@ export default function Music() {
                     whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.55)" }}
                     whileTap={{ scale: 0.96 }}
                     onClick={() => playTrack(currentTrack ?? featuredTrack)}
-                    className="flex items-center gap-2.5 px-7 py-3.5 font-bold uppercase tracking-widest text-sm rounded-full transition-shadow"
-                    style={{ background: "var(--color-gold)", color: "var(--color-midnight)", boxShadow: "var(--glow-gold)" }}
+                    className="btn-base btn-primary"
                   >
                     {currentTrack && isPlaying
                       ? <><Pause size={15} fill="currentColor" /> Pause</>
@@ -596,7 +595,7 @@ export default function Music() {
                       <motion.button
                         whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
                         whileTap={{ scale: 0.97 }}
-                        className="flex items-center gap-2 px-6 py-3.5 rounded-full border border-white/15 text-white/60 transition-all text-sm font-medium"
+                        className="btn-base btn-secondary"
                       >
                         <ExternalLink size={13} /> Stream Everywhere
                       </motion.button>
@@ -745,12 +744,7 @@ export default function Music() {
                     <motion.button
                       whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.38)" }}
                       whileTap={{ scale: 0.96 }}
-                      className="px-8 py-3.5 font-bold uppercase tracking-widest transition-all duration-normal rounded-full inline-flex items-center gap-2 text-sm"
-                      style={{
-                        background: "linear-gradient(135deg, var(--royal-gold) 0%, var(--dark-gold) 100%)",
-                        color: "var(--black)",
-                        boxShadow: "0 0 24px rgba(var(--gold-primary-rgb),0.22)",
-                      }}
+                      className="btn-base btn-primary"
                       data-testid={`button-listen-${album.id}`}
                     >
                       <Play size={13} fill="currentColor" className="ml-0.5" /> Listen Now
@@ -760,7 +754,7 @@ export default function Music() {
                     <motion.button
                       whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
                       whileTap={{ scale: 0.97 }}
-                      className="px-8 py-3.5 rounded-full border border-white/15 text-white/50 font-bold uppercase tracking-widest transition-all duration-normal inline-flex items-center gap-2 text-sm"
+                      className="btn-base btn-secondary"
                     >
                       <ExternalLink size={13} /> Stream Everywhere
                     </motion.button>
@@ -874,7 +868,7 @@ export default function Music() {
                   data-testid="button-stream-all"
                   whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold transition-shadow duration-normal"
+                  className="btn-base btn-primary"
                 >
                   <ExternalLink size={13} /> Stream the Latest EP
                 </motion.button>
@@ -884,7 +878,7 @@ export default function Music() {
                   data-testid="button-all-links"
                   whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.4)", color: "var(--color-gold)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-white/55 font-bold uppercase tracking-widest text-xs transition-all duration-normal"
+                  className="btn-base btn-secondary"
                 >
                   All Music Links
                 </motion.button>

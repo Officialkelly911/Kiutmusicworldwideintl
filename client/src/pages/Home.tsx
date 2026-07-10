@@ -646,7 +646,7 @@ function KiutEmbedSection() {
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-normal shadow-glow-gold"
+                  className="btn-base btn-primary"
                 >
                   Explore All Links <ExternalLink size={16} />
                 </a>
@@ -838,7 +838,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-gold to-yellow-600 text-midnight font-bold uppercase tracking-widest shadow-glow-gold group-hover:shadow-glow-gold-hover transition-all duration-normal"
+                      className="btn-base btn-primary relative overflow-hidden"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -850,7 +850,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-bold uppercase tracking-widest shadow-lg group-hover:shadow-xl transition-all duration-normal"
+                      className="btn-base btn-primary relative overflow-hidden"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -914,9 +914,10 @@ export default function Home() {
 
             {/* Slider Controls */}
             <div className="flex items-center gap-6 mt-8">
-              <button 
+              <button
                 onClick={prevSlide}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                aria-label="Previous slide"
+                className="btn-icon"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -933,9 +934,10 @@ export default function Home() {
                 ))}
               </div>
 
-              <button 
+              <button
                 onClick={nextSlide}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                aria-label="Next slide"
+                className="btn-icon"
               >
                 <ChevronRight size={24} />
               </button>
@@ -1028,7 +1030,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-charcoal hover:bg-graphite text-white hover:text-gold border border-white/10 hover:border-gold rounded-full transition-all duration-normal font-bold tracking-wider text-sm shadow-none hover:shadow-glow-gold"
+                      className="btn-base btn-secondary group w-full"
                     >
                       <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-normal" />
                       SEE MORE
@@ -1110,7 +1112,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
                   whileTap={{ scale: 0.97 }}
-                  className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-normal shadow-glow-gold"
+                  className="btn-base btn-primary"
                 >
                   Listen Now
                 </motion.button>
@@ -1190,7 +1192,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.04, borderColor: "var(--color-gold)", color: "var(--color-gold)" }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-gold hover:text-gold transition-all duration-normal flex items-center gap-2 mx-auto"
+                className="btn-base btn-secondary mx-auto"
               >
                 Explore Portfolio <ExternalLink size={14} />
               </motion.button>
@@ -1291,10 +1293,10 @@ export default function Home() {
                     </div>
 
                     {/* Prev / Next */}
-                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="btn-icon btn-icon-sm absolute left-4 top-1/2 -translate-y-1/2 z-10 !bg-black/45">
                       <ChevronLeft className="w-4 h-4 text-white/55" />
                     </button>
-                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="btn-icon btn-icon-sm absolute right-4 top-1/2 -translate-y-1/2 z-10 !bg-black/45">
                       <ChevronRight className="w-4 h-4 text-white/55" />
                     </button>
 
@@ -1329,7 +1331,7 @@ export default function Home() {
 
                       {/* CTA */}
                       <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="Explore KiutRaba's collection on Dream Planet Store">
-                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal mb-2">
+                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="btn-base btn-primary w-full mb-2">
                           <span className="text-xs">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
                         </motion.button>
                       </a>
@@ -1517,7 +1519,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-gold/32 text-gold font-bold uppercase tracking-widest text-xs hover:bg-gold/[0.07] hover:border-gold/60 hover:shadow-glow-gold-hover transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+                className="btn-base btn-secondary"
               >
                 <span>✦</span> View Full Collection <ExternalLink className="w-4 h-4" />
               </motion.button>
@@ -1679,7 +1681,7 @@ export default function Home() {
                       data-testid="button-concert-notify"
                       whileHover={{ y: -3, scale: 1.02 }}
                       whileTap={{ scale: 0.97 }}
-                      className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
+                      className="btn-base btn-primary w-full md:w-auto"
                     >
                       View Tour Dates <ArrowRight size={14} />
                     </motion.button>
@@ -1840,7 +1842,7 @@ export default function Home() {
                     data-testid="button-fan-standard"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full border border-white/15 text-white/70 hover:text-white hover:border-white/30 font-bold uppercase tracking-widest text-xs transition-all duration-normal"
+                    className="btn-base btn-secondary w-full !border-white/15 !text-white/70 hover:!border-gold hover:!text-midnight"
                   >
                     Join Free
                   </motion.button>
@@ -1888,7 +1890,7 @@ export default function Home() {
                     data-testid="button-fan-premium"
                     whileHover={{ y: -2, scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
+                    className="btn-base btn-primary w-full"
                   >
                     Apply for Fan Card
                   </motion.button>
@@ -1962,7 +1964,7 @@ export default function Home() {
                 type="submit"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-colors duration-fast"
+                className="btn-base btn-primary btn-sm absolute right-1.5 top-1.5 bottom-1.5"
               >
                 Subscribe
               </motion.button>

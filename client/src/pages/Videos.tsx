@@ -220,7 +220,7 @@ function SharePopup({
           type="button"
           onClick={onClose}
           aria-label="Close share panel"
-          className="w-6 h-6 rounded-full flex items-center justify-center text-white/40 hover:text-white transition-colors"
+          className="btn-icon btn-icon-sm !w-6 !h-6"
         >
           <X className="w-3 h-3" aria-hidden="true" />
         </button>
@@ -896,7 +896,7 @@ export default function Videos() {
                       <motion.div
                         whileHover={{ scale: 1.04, y: -2 }}
                         whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-midnight shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal cursor-pointer"
+                        className="btn-base btn-primary btn-sm"
                       >
                         <Youtube size={15} />
                         Watch on YouTube
@@ -912,7 +912,7 @@ export default function Videos() {
                         aria-label={`Share ${featuredVideo.title}`}
                         aria-expanded={showShare}
                         aria-haspopup="dialog"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-5 py-3 text-xs font-semibold text-white/75 hover:border-gold/35 hover:text-white transition-all duration-fast"
+                        className="btn-base btn-secondary btn-sm !border-white/12 !text-white/75 hover:!text-midnight"
                       >
                         <Share2 size={14} aria-hidden="true" />
                         Share
@@ -1082,7 +1082,7 @@ export default function Videos() {
               href="https://open.spotify.com/artist/7yc6EAIFaY5TO7G1JBWgng"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/12 text-white/70 text-xs font-bold uppercase tracking-widest hover:border-[#1DB954]/40 hover:text-white transition-all"
+              className="btn-base btn-secondary btn-sm !border-white/12 !text-white/70 hover:!text-midnight"
             >
               <Music2 className="w-3.5 h-3.5" /> Listen
             </a>
@@ -1090,7 +1090,7 @@ export default function Videos() {
               type="button"
               onClick={handleShare}
               aria-label="Share this video"
-              className="flex items-center justify-center w-9 h-9 rounded-full border border-white/12 text-white/55 hover:border-gold/35 hover:text-white transition-all"
+              className="btn-icon btn-icon-sm !border-white/12"
             >
               <Share2 className="w-3.5 h-3.5" aria-hidden="true" />
             </button>

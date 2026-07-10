@@ -116,7 +116,7 @@ export default function SiteFooter() {
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-colors"
+                className="btn-base btn-primary btn-sm absolute right-1.5 top-1.5 bottom-1.5"
               >
                 Join
               </button>
@@ -158,7 +158,7 @@ export default function SiteFooter() {
                   rel="noopener noreferrer"
                   title={label}
                   aria-label={label}
-                  className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-glow-gold-hover hover:scale-[1.1] transition-all duration-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                  className="btn-icon"
                 >
                   <Icon size={18} aria-hidden="true" />
                 </a>
@@ -171,7 +171,7 @@ export default function SiteFooter() {
                 rel="noopener noreferrer"
                 title="DreamPlanet"
                 aria-label="DreamPlanet"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-glow-gold-hover hover:scale-[1.1] transition-all duration-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                className="btn-icon overflow-hidden"
               >
                 <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
               </a>
@@ -189,7 +189,7 @@ export default function SiteFooter() {
           <div className="flex gap-8 text-xs tracking-widest uppercase font-medium">
             <a
               href="/legal"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold/40 text-gold/80 hover:text-midnight hover:bg-gold hover:border-gold transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="btn-base btn-secondary btn-sm !border-gold/40 text-gold/80"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

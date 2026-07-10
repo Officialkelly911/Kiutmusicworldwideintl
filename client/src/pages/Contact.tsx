@@ -323,7 +323,7 @@ function ContactForm() {
                   disabled={loading}
                   whileHover={loading ? {} : { scale: 1.02, y: -2 }}
                   whileTap={loading ? {} : { scale: 0.97 }}
-                  className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-all duration-normal disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="btn-base btn-primary w-full !rounded-xl"
                 >
                   {loading ? (
                     <>
@@ -366,7 +366,7 @@ function ContactForm() {
               </p>
               <button
                 onClick={() => { setSubmitted(false); setName(""); setEmail(""); setSubject(""); setMessage(""); setActiveType("general"); setErrorMsg(null); }}
-                className="text-white/30 hover:text-white/60 text-xs uppercase tracking-widest transition-colors"
+                className="text-white/30 hover:text-white/60 text-xs uppercase tracking-widest transition-colors duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold rounded"
               >
                 Send Another Message
               </button>

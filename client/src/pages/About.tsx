@@ -1225,7 +1225,7 @@ export default function About() {
                   type="button"
                   onClick={(e) => { e.stopPropagation(); closeJourneyLightbox(); }}
                   aria-label="Close photo gallery"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-gold/40 hover:text-white hover:bg-white/10 transition-all duration-fast"
+                  className="btn-icon btn-icon-sm"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -1242,7 +1242,7 @@ export default function About() {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showPreviousJourneyImage(); }}
                 aria-label="Previous image"
-                className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-fast"
+                className="btn-icon absolute left-3 sm:left-5 z-10 !bg-black/50"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -1273,7 +1273,7 @@ export default function About() {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showNextJourneyImage(); }}
                 aria-label="Next image"
-                className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-fast"
+                className="btn-icon absolute right-3 sm:right-5 z-10 !bg-black/50"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -1486,7 +1486,7 @@ export default function About() {
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 data-testid="link-store-shop"
-                className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal w-full sm:w-auto justify-center"
+                className="btn-base btn-primary w-full sm:w-auto"
               >
                 <Music className="w-3.5 h-3.5" /> Shop Now
               </motion.a>
@@ -1496,7 +1496,7 @@ export default function About() {
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   data-testid="button-store-listen"
-                  className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-xs hover:border-gold/40 hover:text-gold hover:bg-white/[0.03] transition-all duration-normal w-full sm:w-auto justify-center"
+                  className="btn-base btn-secondary w-full sm:w-auto"
                 >
                   <Headphones className="w-3.5 h-3.5" /> Stream the Music
                 </motion.button>

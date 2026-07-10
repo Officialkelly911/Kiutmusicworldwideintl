@@ -178,7 +178,7 @@ export default function Newsletter() {
           }}
         />
         {/* Subtle brand-color sweep for cohesion (kept light so the beach stays visible) */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-[#0d0618]/10 to-black/20 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-midnight-black/10 to-black/20 mix-blend-multiply" />
 
         {/* Gold orb — top left */}
         <Orb
@@ -263,7 +263,7 @@ export default function Newsletter() {
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   className="font-display text-[clamp(3.5rem,10vw,8rem)] font-bold tracking-tight uppercase leading-none block"
                   style={{
-                    background: "linear-gradient(90deg, var(--color-gold), var(--color-champagne), #a87c22, var(--color-gold), var(--color-purple), var(--color-gold))",
+                    background: "linear-gradient(90deg, var(--royal-gold), var(--champagne-gold), var(--dark-gold), var(--royal-gold), var(--color-purple), var(--royal-gold))",
                     backgroundSize: "300% auto",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
@@ -328,7 +328,7 @@ export default function Newsletter() {
                 {avatarGradients.map((g, i) => (
                   <div
                     key={i}
-                    className={`w-9 h-9 rounded-full bg-gradient-to-br ${g} border-2 border-[#050505] shadow-md`}
+                    className={`w-9 h-9 rounded-full bg-gradient-to-br ${g} border-2 border-midnight-black shadow-md`}
                   />
                 ))}
               </div>
@@ -455,7 +455,7 @@ export default function Newsletter() {
                             whileTap={submitting ? {} : { scale: 0.97 }}
                             className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group disabled:opacity-60 disabled:cursor-not-allowed"
                             style={{
-                              background: "linear-gradient(90deg, var(--color-gold), var(--color-champagne), #c9a227, var(--color-gold))",
+                              background: "linear-gradient(90deg, var(--royal-gold), var(--champagne-gold), var(--dark-gold), var(--royal-gold))",
                               backgroundSize: "250% auto",
                             }}
                           >
@@ -544,7 +544,7 @@ export default function Newsletter() {
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="w-full max-w-sm py-4 rounded-full font-bold uppercase tracking-widest text-black shadow-glow-gold"
-              style={{ background: "linear-gradient(90deg, var(--color-gold), var(--color-champagne), #c9a227)" }}
+              style={{ background: "linear-gradient(90deg, var(--royal-gold), var(--champagne-gold), var(--dark-gold))" }}
             >
               Join the Inner Circle
             </button>

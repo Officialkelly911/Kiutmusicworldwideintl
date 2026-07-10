@@ -61,7 +61,7 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
-              style={{ background: "linear-gradient(145deg, var(--color-midnight) 0%, #110d1a 100%)" }}>
+              style={{ background: "linear-gradient(145deg, var(--color-midnight) 0%, color-mix(in srgb, var(--midnight-black) 90%, var(--dark-gold) 10%) 100%)" }}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(var(--gold-primary-rgb),0.10)", border: "1px solid rgba(var(--gold-primary-rgb),0.18)" }}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="var(--color-gold)" opacity="0.65" /></svg>
               </div>
@@ -263,7 +263,7 @@ function HomeStatsStrip() {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(90deg, var(--color-midnight) 0%, #0c0a00 50%, var(--color-midnight) 100%)", borderTop: "1px solid rgba(var(--white-rgb),0.04)", borderBottom: "1px solid rgba(var(--white-rgb),0.04)" }}
+      style={{ background: "linear-gradient(90deg, var(--color-midnight) 0%, color-mix(in srgb, var(--midnight-black) 93%, var(--dark-gold) 7%) 50%, var(--color-midnight) 100%)", borderTop: "1px solid rgba(var(--white-rgb),0.04)", borderBottom: "1px solid rgba(var(--white-rgb),0.04)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--gold-primary-rgb),0.04), transparent 70%)" }} />
@@ -1200,7 +1200,7 @@ export default function Home() {
       </section>
 
       {/* ─── KIUTRABA'S STORE FEATURE ─────────────────────────────────── */}
-      <section className="py-24 md:py-36 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg,#030303 0%,#050507 50%,#060608 100%)" }}>
+      <section className="py-24 md:py-36 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(var(--midnight-black-rgb),1) 0%, rgba(var(--midnight-black-rgb),0.97) 50%, rgba(var(--midnight-black-rgb),0.94) 100%)" }}>
         <style>{`
           @keyframes store-tape {
             from { transform: translateX(0); }
@@ -1255,7 +1255,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
                 className="rounded-xl overflow-hidden border border-white/[0.08] shadow-xl"
-                style={{ background: "#0a0a0c" }}
+                style={{ background: "var(--midnight-black)" }}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr]">
 
@@ -1272,7 +1272,7 @@ export default function Home() {
                       >
                         <img src={active.img} alt={active.name} className={`w-full h-full ${active.imgCls}`} />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0c]/50 hidden lg:block" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-midnight-black/50 hidden lg:block" />
                       </motion.div>
                     </AnimatePresence>
 
@@ -1376,7 +1376,7 @@ export default function Home() {
                           ? "border border-gold/42 shadow-glow-gold-hover"
                           : "border border-white/[0.07] shadow-sm hover:border-gold/32 hover:shadow-glow-gold-hover"
                       }`}
-                      style={{ background: "#0b0b0d" }}
+                      style={{ background: "var(--midnight-black)" }}
                     >
                       {/* "Featured This Week" badge — cycling spotlight */}
                       <AnimatePresence>
@@ -1414,7 +1414,7 @@ export default function Home() {
                         {(isSpotlit || isFeatured) && (
                           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.07),transparent_68%)] pointer-events-none" />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d]/60 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-midnight-black/60 via-transparent to-transparent pointer-events-none" />
                         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.12)] transition-opacity duration-medium pointer-events-none" />
                       </div>
 
@@ -1614,7 +1614,7 @@ export default function Home() {
       </section>
 
       {/* ─── CONCERT CTA SECTION ──────────────────────────────────────── */}
-      <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, #060606 0%, #090806 60%, #060606 100%)" }}>
+      <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(var(--midnight-black-rgb),1) 0%, color-mix(in srgb, var(--midnight-black) 94%, var(--dark-gold) 6%) 60%, rgba(var(--midnight-black-rgb),1) 100%)" }}>
         {/* Atmospheric glows */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(var(--gold-primary-rgb),0.07),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(var(--gold-primary-rgb),0.04),transparent_50%)]" />
@@ -1643,7 +1643,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="rounded-xl overflow-hidden border border-white/[0.07] relative"
-            style={{ background: "#0a0a0a" }}
+            style={{ background: "var(--midnight-black)" }}
           >
             {/* Decorative top bar */}
             <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
@@ -1786,7 +1786,7 @@ export default function Home() {
 
       {/* ─── FAN COMMUNITY SECTION ───────────────────────────────────── */}
       <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden bg-midnight">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(109,62,255,0.07),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(var(--purple-rgb),0.07),transparent_60%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(var(--gold-primary-rgb),0.04),transparent_55%)]" />
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -1816,7 +1816,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
               className="relative rounded-xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
-              style={{ background: "#0c0c0c" }}
+              style={{ background: "var(--midnight-black)" }}
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(var(--white-rgb),0.03),transparent_60%)]" />
               <div className="relative z-10">
@@ -1855,7 +1855,7 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="relative rounded-xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-glow-gold"
-              style={{ background: "linear-gradient(145deg,#0d0b07 0%,#0c0a06 100%)" }}
+              style={{ background: "linear-gradient(145deg, color-mix(in srgb, var(--midnight-black) 94%, var(--dark-gold) 6%) 0%, color-mix(in srgb, var(--midnight-black) 96%, var(--dark-gold) 4%) 100%)" }}
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(var(--gold-primary-rgb),0.08),transparent_60%)]" />
               {/* Featured badge */}

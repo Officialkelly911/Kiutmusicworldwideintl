@@ -202,7 +202,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
         <div
           className="relative rounded-[calc(1rem-1px)] overflow-hidden"
           style={{
-            background: "rgba(10,10,10,0.92)",
+            background: "rgba(var(--midnight-black-rgb),0.92)",
             boxShadow: isHovered
               ? "0 30px 70px -12px rgba(var(--gold-primary-rgb),0.30)"
               : "0 20px 50px -12px rgba(var(--black-rgb),0.80)",
@@ -545,7 +545,7 @@ export default function Music() {
           className="mb-28"
         >
           <div className="relative rounded-xl overflow-hidden border border-gold/12 shadow-xl"
-            style={{ background: "linear-gradient(135deg, #100e00 0%, var(--color-charcoal) 50%, #080408 100%)" }}>
+            style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--midnight-black) 92%, var(--dark-gold) 8%) 0%, var(--color-charcoal) 50%, var(--midnight-black) 100%)" }}>
             <div className="absolute top-0 right-0 w-80 h-80 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }} />
             <div className="absolute bottom-0 left-0 w-56 h-56 blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(100,50,255,0.04)" }} />
 
@@ -747,7 +747,7 @@ export default function Music() {
                       whileTap={{ scale: 0.96 }}
                       className="px-8 py-3.5 font-bold uppercase tracking-widest transition-all duration-normal rounded-full inline-flex items-center gap-2 text-sm"
                       style={{
-                        background: "linear-gradient(135deg, var(--color-gold) 0%, #c49a2e 100%)",
+                        background: "linear-gradient(135deg, var(--royal-gold) 0%, var(--dark-gold) 100%)",
                         color: "var(--black)",
                         boxShadow: "0 0 24px rgba(var(--gold-primary-rgb),0.22)",
                       }}
@@ -839,7 +839,7 @@ export default function Music() {
           </div>
 
           <div className="relative rounded-xl border border-white/[0.06] overflow-hidden p-8 md:p-12"
-            style={{ background: "linear-gradient(135deg,#0c0c0c 0%,#0a0a06 100%)" }}>
+            style={{ background: "linear-gradient(135deg, var(--midnight-black) 0%, color-mix(in srgb, var(--midnight-black) 95%, var(--dark-gold) 5%) 100%)" }}>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(var(--gold-primary-rgb),0.05),transparent_60%)]" />
 
             <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-10">

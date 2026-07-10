@@ -1456,7 +1456,7 @@ export default function About() {
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(var(--gold-primary-rgb),0.16)] transition-[border-color,box-shadow] duration-normal"
-                  style={{ background: "#0d0d0f" }}
+                  style={{ background: "var(--midnight-black)" }}
                 >
                   <img
                     src={item.img}

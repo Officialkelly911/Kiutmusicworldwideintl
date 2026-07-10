@@ -161,7 +161,7 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-[#0c0c0e] hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.10)] transition-all duration-normal cursor-pointer"
+      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-midnight-black hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.10)] transition-all duration-normal cursor-pointer"
     >
       {/* Thumbnail */}
       <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
@@ -176,7 +176,7 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
-            style={{ background: "linear-gradient(145deg,#0a0a0a 0%,#110d1a 100%)" }}>
+            style={{ background: "linear-gradient(145deg, var(--midnight-black) 0%, color-mix(in srgb, var(--midnight-black) 92%, var(--dark-gold) 8%) 100%)" }}>
             <div className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{ background: "rgba(var(--gold-primary-rgb),0.10)", border: "1px solid rgba(var(--gold-primary-rgb),0.18)" }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -325,7 +325,7 @@ export default function Tour() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-xl border border-white/[0.07] overflow-hidden"
-            style={{ background: "#09090c" }}
+            style={{ background: "var(--midnight-black)" }}
           >
             {/* Animated background orbs */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -423,7 +423,7 @@ export default function Tour() {
       </section>
 
       {/* ── FEATURED PERFORMANCES ─────────────────────────────────────────── */}
-      <section ref={featuredRef} className="py-24 border-t border-white/[0.05]" style={{ background: "#07070a" }}>
+      <section ref={featuredRef} className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -525,7 +525,7 @@ export default function Tour() {
       </section>
 
       {/* ── FAN CARD — Regular vs Premium ─────────────────────────────────── */}
-      <section className="py-24 border-t border-white/[0.05]" style={{ background: "#06060a" }}>
+      <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
         <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -558,8 +558,8 @@ export default function Tour() {
                 }`}
                 style={{
                   background: tier.isPremium
-                    ? "linear-gradient(145deg, rgba(var(--gold-primary-rgb),0.07) 0%, #07070a 50%, rgba(var(--gold-primary-rgb),0.04) 100%)"
-                    : "#09090d",
+                    ? "linear-gradient(145deg, rgba(var(--gold-primary-rgb),0.07) 0%, var(--midnight-black) 50%, rgba(var(--gold-primary-rgb),0.04) 100%)"
+                    : "var(--midnight-black)",
                 }}
               >
                 {/* Premium top glow */}
@@ -717,7 +717,7 @@ export default function Tour() {
       </section>
 
       {/* ── NEXT LIVE CHAPTER — Animated timeline ─────────────────────────── */}
-      <section className="py-24 border-t border-white/[0.05]" style={{ background: "#07070b" }}>
+      <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -761,7 +761,7 @@ export default function Tour() {
                   {/* Node */}
                   <div className="flex-shrink-0 relative z-10 flex items-center justify-center w-16 h-16 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-0">
                     <motion.div
-                      className="w-5 h-5 rounded-full border-2 border-gold bg-[#07070b] shadow-[0_0_16px_rgba(var(--gold-primary-rgb),0.35)]"
+                      className="w-5 h-5 rounded-full border-2 border-gold bg-midnight-black shadow-[0_0_16px_rgba(var(--gold-primary-rgb),0.35)]"
                       animate={{ boxShadow: ["0 0 12px rgba(var(--gold-primary-rgb),0.2)", "0 0 24px rgba(var(--gold-primary-rgb),0.45)", "0 0 12px rgba(var(--gold-primary-rgb),0.2)"] }}
                       transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.6 }}
                     />
@@ -810,7 +810,7 @@ export default function Tour() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-xl border border-gold/18 overflow-hidden text-center p-12 md:p-16"
-            style={{ background: "linear-gradient(160deg, rgba(var(--gold-primary-rgb),0.05) 0%, #08080d 50%, rgba(var(--gold-primary-rgb),0.03) 100%)" }}
+            style={{ background: "linear-gradient(160deg, rgba(var(--gold-primary-rgb),0.05) 0%, var(--midnight-black) 50%, rgba(var(--gold-primary-rgb),0.03) 100%)" }}
           >
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[160px] bg-gold/7 blur-[90px] rounded-full pointer-events-none" />
             <div className="relative z-10">

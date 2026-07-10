@@ -43,15 +43,16 @@ All colors are flat. This is what keeps the mark timeless and production-ready.
 
 ## 3. Typography
 
-**Primary (already loaded via Google Fonts):**
-- **Space Grotesk** — wordmark and navigation labels
-  - Weights used: 300 (Light) for the wordmark; 400–700 for UI text
+**Primary (loaded via Google Fonts):**
+- **Cinzel** — headings, wordmark, and navigation labels (`--font-display`)
+  - Weights used: 400–900; wordmark set light-weight, uppercase
   - Letter-spacing: `0.25em–0.32em` on the wordmark (wide tracking = luxury)
-- **Inter** — body copy, UI fallback
+- **Inter** — body copy, UI text (`--font-sans`)
+- **Cormorant Garamond** — editorial text: pull quotes, blockquotes (`--font-editorial`), always italic
 
 **Wordmark rendering:**
 ```
-KIUT.   font-weight: 300   letter-spacing: 0.28–0.32em   ALL CAPS
+KIUT.   font-weight: 400 (Cinzel's lightest cut)   letter-spacing: 0.28–0.32em   ALL CAPS
 ```
 The period (`.`) always appears in Matte Gold `#D4AF37`, even in white or black versions.
 
@@ -145,7 +146,9 @@ For white merchandise, use the black-on-white variants. The mark's clean geometr
 ```
 Primary mark color:   #D4AF37
 Background:           #0A0A0C
-Wordmark font:        Space Grotesk, weight 300
+Wordmark font:        Cinzel, weight 400
+Body font:            Inter
+Editorial font:       Cormorant Garamond (italic)
 Wordmark tracking:    0.28–0.32em
 React symbol:         <KiutMark color="#D4AF37" size={40} />
 React lockup:         <KiutLogo size="md" />

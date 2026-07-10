@@ -60,7 +60,8 @@
   --shadow-xl: 0 40px 120px rgba(0, 0, 0, 0.4);
 
   --font-sans: 'Inter', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-display: 'Cinzel', serif;
+  --font-editorial: 'Cormorant Garamond', serif;
 
   /* ── KSDL motion durations as first-class Tailwind utilities ──
      (duration-fast, duration-normal, duration-medium, duration-slow,

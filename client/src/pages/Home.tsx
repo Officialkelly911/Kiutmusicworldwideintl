@@ -313,7 +313,7 @@ function FeaturedQuote() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-3xl md:text-4xl lg:text-5xl font-light tracking-wide text-white leading-snug italic mb-8"
+          className="font-editorial text-3xl md:text-4xl lg:text-5xl font-light tracking-wide text-white leading-snug italic mb-8"
           style={{ textShadow: "0 0 80px rgba(212,175,55,0.12)" }}
         >
           "Music is more than sound.
@@ -999,7 +999,7 @@ export default function Home() {
               </p>
 
               <blockquote className="border-l-2 border-gold pl-6 my-8">
-                <p className="text-2xl font-serif italic text-white/80 leading-snug">
+                <p className="text-2xl font-editorial italic text-white/80 leading-snug">
                   "His journey is a powerful reminder that with faith, belief, and relentless hard work, dreams truly become reality."
                 </p>
               </blockquote>
@@ -1012,7 +1012,7 @@ export default function Home() {
                 This achievement stands as an inspiration to dream boldly, trust God’s timing, and never give up.
               </p>
 
-              <p className="text-xl font-serif italic text-gold">
+              <p className="text-xl font-editorial italic text-gold">
                 Congratulations on this well-deserved accomplishment and the bright future ahead!
               </p>
 

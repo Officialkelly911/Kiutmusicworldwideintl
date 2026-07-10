@@ -8,6 +8,7 @@ Features: animated loading screen, mini audio player, smooth page transitions (F
 
 ## Stack
 - **Frontend:** React 19, Vite, TailwindCSS 4, Radix UI, shadcn/ui, Framer Motion, Wouter (routing)
+- **Fonts:** Cinzel (headings/`font-display`), Inter (body/`font-sans`), Cormorant Garamond (editorial quotes/`font-editorial`)
 - **Backend:** Express.js (TypeScript), `tsx` dev server
 - **Database:** PostgreSQL via Replit's built-in DB + Drizzle ORM
 - **Auth:** Passport.js (local strategy), express-session

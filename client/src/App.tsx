@@ -31,7 +31,7 @@ function PageFallback() {
     <div className="min-h-screen bg-midnight flex items-center justify-center">
       <div
         className="w-10 h-10 rounded-full border-2 border-t-gold animate-spin"
-        style={{ borderColor: "rgba(212,175,55,0.15)", borderTopColor: "#D4AF37" }}
+        style={{ borderColor: "rgba(var(--gold-primary-rgb),0.15)", borderTopColor: "var(--gold-primary)" }}
         role="status"
         aria-label="Loading page"
       />

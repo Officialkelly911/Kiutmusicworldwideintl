@@ -356,7 +356,7 @@ function ContactForm() {
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 260, delay: 0.1 }}
                 className="w-20 h-20 rounded-full border border-gold flex items-center justify-center mb-8 shadow-glow-gold-hover"
-                style={{ background: "rgba(212,175,55,0.10)" }}
+                style={{ background: "rgba(var(--gold-primary-rgb),0.10)" }}
               >
                 <CheckCircle2 className="w-9 h-9 text-gold" />
               </motion.div>
@@ -423,7 +423,7 @@ export default function Contact() {
           <div
             className="absolute inset-0 opacity-[0.025]"
             style={{
-              backgroundImage: "linear-gradient(rgba(212,175,55,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.5) 1px, transparent 1px)",
+              backgroundImage: "linear-gradient(rgba(var(--gold-primary-rgb),0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--gold-primary-rgb),0.5) 1px, transparent 1px)",
               backgroundSize: "60px 60px",
             }}
           />
@@ -528,7 +528,7 @@ export default function Contact() {
                       >
                         <div
                           className="w-10 h-10 rounded-xl flex items-center justify-center border border-gold/18 flex-shrink-0 group-hover:border-gold/35 transition-colors duration-fast"
-                          style={{ background: "rgba(212,175,55,0.06)" }}
+                          style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}
                         >
                           <Icon size={16} className="text-gold" />
                         </div>
@@ -606,13 +606,13 @@ export default function Contact() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="relative rounded-xl border border-gold/22 overflow-hidden p-10 flex flex-col"
-              style={{ background: "linear-gradient(145deg, rgba(212,175,55,0.07) 0%, var(--color-midnight) 60%)" }}
+              style={{ background: "linear-gradient(145deg, rgba(var(--gold-primary-rgb),0.07) 0%, var(--color-midnight) 60%)" }}
             >
               <div className="absolute top-0 left-0 w-[300px] h-[200px] bg-gold/[0.06] blur-[80px] rounded-full pointer-events-none" />
               <div className="relative z-10 flex flex-col flex-1">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center border border-gold/25 mb-6"
-                  style={{ background: "rgba(212,175,55,0.08)" }}
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }}
                 >
                   <Mail className="w-5 h-5 text-gold" />
                 </div>
@@ -646,7 +646,7 @@ export default function Contact() {
               <div className="relative z-10 flex flex-col flex-1">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/10 mb-6"
-                  style={{ background: "rgba(255,255,255,0.04)" }}
+                  style={{ background: "rgba(var(--white-rgb),0.04)" }}
                 >
                   <Users className="w-5 h-5 text-white/50" />
                 </div>
@@ -707,7 +707,7 @@ export default function Contact() {
             animate={{ scale: [1, 1.12, 1] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Heart className="w-5 h-5 text-gold/40" fill="rgba(212,175,55,0.4)" />
+            <Heart className="w-5 h-5 text-gold/40" fill="rgba(var(--gold-primary-rgb),0.4)" />
           </motion.div>
           <p className="text-white/18 text-xs uppercase tracking-[0.35em] font-medium">
             Made with love · Kiut Music Worldwide

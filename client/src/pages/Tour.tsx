@@ -161,7 +161,7 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-[#0c0c0e] hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(212,175,55,0.10)] transition-all duration-normal cursor-pointer"
+      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-[#0c0c0e] hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.10)] transition-all duration-normal cursor-pointer"
     >
       {/* Thumbnail */}
       <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
@@ -178,12 +178,12 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
             style={{ background: "linear-gradient(145deg,#0a0a0a 0%,#110d1a 100%)" }}>
             <div className="w-10 h-10 rounded-full flex items-center justify-center"
-              style={{ background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.18)" }}>
+              style={{ background: "rgba(var(--gold-primary-rgb),0.10)", border: "1px solid rgba(var(--gold-primary-rgb),0.18)" }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <polygon points="4,3 13,8 4,13" fill="var(--color-gold)" opacity="0.65" />
               </svg>
             </div>
-            <span style={{ color: "rgba(212,175,55,0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
+            <span style={{ color: "rgba(var(--gold-primary-rgb),0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>
               Kiut Music
             </span>
           </div>
@@ -197,8 +197,8 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
         </div>
         {/* Play overlay */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.7)]"
-            style={{ background: "rgba(212,175,55,0.92)" }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(var(--black-rgb),0.7)]"
+            style={{ background: "rgba(var(--gold-primary-rgb),0.92)" }}>
             <Play className="w-5 h-5 text-midnight ml-0.5" fill="currentColor" />
           </div>
         </div>
@@ -352,7 +352,7 @@ export default function Tour() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="w-20 h-20 rounded-md flex items-center justify-center mb-8 border border-gold/20"
-                style={{ background: "rgba(212,175,55,0.06)" }}
+                style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}
               >
                 <Ticket className="w-9 h-9 text-gold/60" />
               </motion.div>
@@ -510,7 +510,7 @@ export default function Tour() {
                   >
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 border border-gold/20 group-hover:border-gold/40 transition-colors duration-normal"
-                      style={{ background: "rgba(212,175,55,0.06)" }}
+                      style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}
                     >
                       <Icon className="w-5 h-5 text-gold" />
                     </div>
@@ -553,12 +553,12 @@ export default function Tour() {
                 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 className={`relative rounded-xl border overflow-hidden p-8 md:p-10 flex flex-col ${
                   tier.isPremium
-                    ? "border-gold/35 shadow-[0_0_60px_rgba(212,175,55,0.10),0_20px_60px_rgba(0,0,0,0.5)]"
+                    ? "border-gold/35 shadow-[0_0_60px_rgba(var(--gold-primary-rgb),0.10),0_20px_60px_rgba(var(--black-rgb),0.5)]"
                     : "border-white/[0.09]"
                 }`}
                 style={{
                   background: tier.isPremium
-                    ? "linear-gradient(145deg, rgba(212,175,55,0.07) 0%, #07070a 50%, rgba(212,175,55,0.04) 100%)"
+                    ? "linear-gradient(145deg, rgba(var(--gold-primary-rgb),0.07) 0%, #07070a 50%, rgba(var(--gold-primary-rgb),0.04) 100%)"
                     : "#09090d",
                 }}
               >
@@ -602,7 +602,7 @@ export default function Tour() {
                           tier.isPremium ? "bg-gold/15 border border-gold/30" : "bg-white/5 border border-white/10"
                         }`}>
                           <svg width="7" height="6" viewBox="0 0 7 6" fill="none">
-                            <path d="M1 3L2.7 5L6 1" stroke={tier.isPremium ? "var(--color-gold)" : "rgba(255,255,255,0.4)"} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M1 3L2.7 5L6 1" stroke={tier.isPremium ? "var(--color-gold)" : "rgba(var(--white-rgb),0.4)"} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </span>
                         {perk}
@@ -761,8 +761,8 @@ export default function Tour() {
                   {/* Node */}
                   <div className="flex-shrink-0 relative z-10 flex items-center justify-center w-16 h-16 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-0">
                     <motion.div
-                      className="w-5 h-5 rounded-full border-2 border-gold bg-[#07070b] shadow-[0_0_16px_rgba(212,175,55,0.35)]"
-                      animate={{ boxShadow: ["0 0 12px rgba(212,175,55,0.2)", "0 0 24px rgba(212,175,55,0.45)", "0 0 12px rgba(212,175,55,0.2)"] }}
+                      className="w-5 h-5 rounded-full border-2 border-gold bg-[#07070b] shadow-[0_0_16px_rgba(var(--gold-primary-rgb),0.35)]"
+                      animate={{ boxShadow: ["0 0 12px rgba(var(--gold-primary-rgb),0.2)", "0 0 24px rgba(var(--gold-primary-rgb),0.45)", "0 0 12px rgba(var(--gold-primary-rgb),0.2)"] }}
                       transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.6 }}
                     />
                   </div>
@@ -810,7 +810,7 @@ export default function Tour() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative rounded-xl border border-gold/18 overflow-hidden text-center p-12 md:p-16"
-            style={{ background: "linear-gradient(160deg, rgba(212,175,55,0.05) 0%, #08080d 50%, rgba(212,175,55,0.03) 100%)" }}
+            style={{ background: "linear-gradient(160deg, rgba(var(--gold-primary-rgb),0.05) 0%, #08080d 50%, rgba(var(--gold-primary-rgb),0.03) 100%)" }}
           >
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[160px] bg-gold/7 blur-[90px] rounded-full pointer-events-none" />
             <div className="relative z-10">

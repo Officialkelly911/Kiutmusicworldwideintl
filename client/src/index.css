@@ -40,7 +40,7 @@
   --color-midnight: #080808;
   --color-charcoal: #121212;
   --color-graphite: #1e1e1e;
-  --color-heading: #ffffff;
+  --color-heading: var(--color-white);
   --color-body: #d6d6d6;
   --color-muted-text: #9b9b9b;
   --color-gold: #d4af37;
@@ -51,6 +51,16 @@
   --color-warning: #fbbf24;
   --color-error: #ef4444;
   --color-info: #3b82f6;
+
+  /* ── Global design tokens — the canonical palette. Every component
+     should reference these instead of hard-coded hex/rgba colors. ── */
+  --color-gold-primary: #d4af37;
+  --color-gold-light: #e8c766;
+  --color-gold-dark: #a8842c;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-gray-100: #f5f5f5;
+  --color-gray-300: #d4d4d4;
 
   /* ── KSDL shadow scale — 11_Design_Tokens.md ── */
   --shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.12);
@@ -75,6 +85,22 @@
 }
 
 :root {
+  /* ── Global design tokens (plain aliases for use in inline styles /
+     JS, e.g. style={{ color: "var(--gold-primary)" }}). Keep these in
+     sync with the --color-* tokens above. ── */
+  --gold-primary: var(--color-gold-primary);
+  --gold-light: var(--color-gold-light);
+  --gold-dark: var(--color-gold-dark);
+  --black: var(--color-black);
+  --white: var(--color-white);
+  --gray-100: var(--color-gray-100);
+  --gray-300: var(--color-gray-300);
+
+  /* RGB triplets for use inside rgba(...) with variable opacity. */
+  --gold-primary-rgb: 212, 175, 55;
+  --black-rgb: 0, 0, 0;
+  --white-rgb: 255, 255, 255;
+
   /* ── Shadcn/ui semantic tokens, remapped to the KSDL brand palette ──
      (Midnight Black / Charcoal / Graphite / Royal Gold / Royal Purple)
      instead of the generic purple/pink defaults. Any shadcn primitive
@@ -120,7 +146,7 @@
   --space-10: 160px;
 
   /* ── KSDL glow tokens — 08_Shadow_Glow_System.md ── */
-  --glow-gold: 0 0 24px rgba(212, 175, 55, 0.28);
+  --glow-gold: 0 0 24px rgba(var(--gold-primary-rgb), 0.28);
   --glow-gold-hover: 0 0 42px rgba(244, 197, 66, 0.38);
   --glow-purple: 0 0 30px rgba(109, 62, 255, 0.22);
   --glow-champagne: 0 0 28px rgba(247, 231, 161, 0.25);
@@ -214,7 +240,7 @@
   /* ── KSDL glow drop-shadow (for SVG/icon elements using filter,
      where box-shadow tokens don't apply) — 08_Shadow_Glow_System.md ── */
   .drop-glow-gold {
-    filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.25));
+    filter: drop-shadow(0 0 16px rgba(var(--gold-primary-rgb), 0.25));
   }
 
   .noise::before {
@@ -228,7 +254,7 @@
 }
 
 /* ── KSDL box-shadow glow utilities — 08_Shadow_Glow_System.md ──
-   Use instead of one-off shadow-[0_0_Npx_rgba(212,175,55,x)] literals. */
+   Use instead of one-off shadow-[0_0_Npx_rgba(var(--gold-primary-rgb),x)] literals. */
 @utility shadow-glow-gold {
   box-shadow: var(--glow-gold);
 }
@@ -253,7 +279,7 @@ html {
 /* Applies a gold outline to all focusable custom elements    */
 /* that don't already define their own focus-visible style.  */
 :focus-visible {
-  outline: 2px solid #d4af37;
+  outline: 2px solid var(--gold-primary);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -270,7 +296,7 @@ html {
   left: 1rem;
   z-index: 9999;
   padding: 0.5rem 1rem;
-  background: #d4af37;
+  background: var(--gold-primary);
   color: #080808;
   font-weight: 700;
   font-size: 0.875rem;
@@ -317,8 +343,8 @@ img {
 
 /* Selection color */
 ::selection {
-  background: rgba(212, 175, 55, 0.25);
-  color: #fff;
+  background: rgba(var(--gold-primary-rgb), 0.25);
+  color: var(--white);
 }
 
 /* Minimal custom scrollbar */
@@ -334,7 +360,7 @@ img {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.35);
+  background: rgba(var(--gold-primary-rgb), 0.35);
 }
 
 /* Hide scrollbar helper */
@@ -351,7 +377,7 @@ img {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.03) 0%,
-    rgba(212, 175, 55, 0.07)  40%,
+    rgba(var(--gold-primary-rgb), 0.07)  40%,
     rgba(255, 255, 255, 0.03) 60%,
     rgba(255, 255, 255, 0.01) 100%
   );

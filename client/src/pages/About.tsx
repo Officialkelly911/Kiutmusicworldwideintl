@@ -432,7 +432,7 @@ export default function About() {
         {/* Cinematic overlay — top · mid · bottom per brief */}
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.60) 100%)" }}
+          style={{ background: "linear-gradient(to bottom, rgba(var(--black-rgb),0.25) 0%, rgba(var(--black-rgb),0.35) 50%, rgba(var(--black-rgb),0.60) 100%)" }}
           aria-hidden="true"
         />
         {/* Left-weighted readability gradient */}
@@ -677,7 +677,7 @@ export default function About() {
                   {/* Glowing node */}
                   <motion.div
                     whileHover={{ scale: 1.4 }}
-                    className="w-[14px] h-[14px] rounded-full bg-gold shadow-[0_0_16px_4px_rgba(212,175,55,0.5)] mb-10 cursor-pointer transition-shadow duration-normal group-hover:shadow-[0_0_28px_8px_rgba(212,175,55,0.7)]"
+                    className="w-[14px] h-[14px] rounded-full bg-gold shadow-[0_0_16px_4px_rgba(var(--gold-primary-rgb),0.5)] mb-10 cursor-pointer transition-shadow duration-normal group-hover:shadow-[0_0_28px_8px_rgba(var(--gold-primary-rgb),0.7)]"
                   />
 
                   {/* Card */}
@@ -708,7 +708,7 @@ export default function About() {
                   className="relative group"
                 >
                   {/* Node */}
-                  <div className="absolute -left-[29px] top-5 w-[14px] h-[14px] rounded-full bg-gold shadow-[0_0_12px_4px_rgba(212,175,55,0.5)]" />
+                  <div className="absolute -left-[29px] top-5 w-[14px] h-[14px] rounded-full bg-gold shadow-[0_0_12px_4px_rgba(var(--gold-primary-rgb),0.5)]" />
 
                   <motion.div
                     whileHover={{ x: 4 }}
@@ -751,13 +751,13 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="group relative p-8 rounded-md bg-white/[0.03] border border-white/10 hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(212,175,55,0.08)] transition-all duration-medium overflow-hidden"
+                  className="group relative p-8 rounded-md bg-white/[0.03] border border-white/10 hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.08)] transition-all duration-medium overflow-hidden"
                 >
                   {/* Subtle glow behind icon */}
                   <div className="absolute top-0 left-0 w-32 h-32 bg-gold/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-gold/10 transition-colors duration-slow" />
 
                   <div className="relative z-10">
-                    <div className="w-14 h-14 rounded-xl bg-black border border-white/10 group-hover:border-gold/40 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-normal shadow-[0_0_0_rgba(212,175,55,0)] group-hover:shadow-glow-gold">
+                    <div className="w-14 h-14 rounded-xl bg-black border border-white/10 group-hover:border-gold/40 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-normal shadow-[0_0_0_rgba(var(--gold-primary-rgb),0)] group-hover:shadow-glow-gold">
                       <Icon className="w-7 h-7 text-gold" />
                     </div>
                     <h3 className="font-display text-xl font-bold text-white mb-3 uppercase tracking-wide">
@@ -778,7 +778,7 @@ export default function About() {
       <section id="moments" className="relative py-28 md:py-36 z-10 border-t border-white/[0.04] overflow-hidden">
 
         {/* Ambient gold glow at top */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_top,rgba(212,175,55,0.07),transparent_65%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(ellipse_at_top,rgba(var(--gold-primary-rgb),0.07),transparent_65%)]" />
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
 
@@ -821,7 +821,7 @@ export default function About() {
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative px-5 py-7 rounded-md border border-white/[0.08] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-slow text-center overflow-hidden"
               >
-                <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05),transparent_70%)] transition-opacity duration-slow" />
+                <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
                 <p className="font-display text-3xl md:text-4xl font-bold text-gold tracking-tight mb-1 relative">{stat.value}</p>
                 <p className="text-white text-xs font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
                 <p className="text-white/30 text-xs font-light tracking-wide uppercase relative">{stat.sub}</p>
@@ -905,7 +905,7 @@ export default function About() {
             </div>
 
             {/* Hover gold ring */}
-            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.2)] transition-opacity duration-slow pointer-events-none" />
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.2)] transition-opacity duration-slow pointer-events-none" />
           </motion.figure>
 
           {/* ── Story Chapters — Memory Mode ────────────────────────────── */}
@@ -998,7 +998,7 @@ export default function About() {
                         </div>
 
                         {/* Gold hover ring */}
-                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.16),inset_0_-60px_40px_-20px_rgba(212,175,55,0.04)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.16),inset_0_-60px_40px_-20px_rgba(var(--gold-primary-rgb),0.04)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1027,7 +1027,7 @@ export default function About() {
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setShowExtended(true)}
-                  className="inline-flex items-center gap-3 px-9 py-4 rounded-full border border-gold/30 text-gold font-bold uppercase tracking-widest text-xs hover:bg-gold/[0.07] hover:border-gold/55 hover:shadow-[0_0_32px_rgba(212,175,55,0.18)] transition-all duration-medium"
+                  className="inline-flex items-center gap-3 px-9 py-4 rounded-full border border-gold/30 text-gold font-bold uppercase tracking-widest text-xs hover:bg-gold/[0.07] hover:border-gold/55 hover:shadow-[0_0_32px_rgba(var(--gold-primary-rgb),0.18)] transition-all duration-medium"
                 >
                   ✦ View Complete Journey
                 </motion.button>
@@ -1089,7 +1089,7 @@ export default function About() {
                             </span>
                           </div>
                         )}
-                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.14)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.14)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1125,7 +1125,7 @@ export default function About() {
                               {String(imgIdx + 1).padStart(3, "0")}
                             </span>
                           </div>
-                          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] transition-opacity duration-medium pointer-events-none" />
+                          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.12)] transition-opacity duration-medium pointer-events-none" />
                         </motion.figure>
                       );
                     })}
@@ -1195,7 +1195,7 @@ export default function About() {
             onTouchEnd={handleLightboxTouchEnd}
           >
             {/* Cinematic vignette */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.6)_100%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(var(--black-rgb),0.6)_100%)]" />
 
             {/* Header bar */}
             <div
@@ -1312,7 +1312,7 @@ export default function About() {
       {/* ─── 6. STREAMING CTA ───────────────────────────────────────────── */}
       <section className="py-28 md:py-36 relative z-10 border-t border-white/[0.04] overflow-hidden">
         {/* Background glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.06),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.06),transparent_65%)]" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
           <motion.div
@@ -1408,7 +1408,7 @@ export default function About() {
       {/* ─── 7. STORE CTA ───────────────────────────────────────────────── */}
       <section className="py-28 md:py-36 relative z-10 border-t border-white/[0.04] overflow-hidden">
         {/* Radial gold glow */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(212,175,55,0.07),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(var(--gold-primary-rgb),0.07),transparent_60%)]" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <motion.div
@@ -1455,7 +1455,7 @@ export default function About() {
                   whileHover={{ y: -4, scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(212,175,55,0.16)] transition-[border-color,box-shadow] duration-normal"
+                  className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(var(--gold-primary-rgb),0.16)] transition-[border-color,box-shadow] duration-normal"
                   style={{ background: "#0d0d0f" }}
                 >
                   <img

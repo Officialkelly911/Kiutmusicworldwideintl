@@ -141,7 +141,7 @@ const PLATFORMS = [
 // ─── Badge style ───────────────────────────────────────────────────────────────
 function getBadgeStyle(type: string) {
   const t = type.toLowerCase();
-  if (t.includes("lyric"))    return { text: "text-gold",  border: "border-gold/30",  bg: "bg-gold/10",  glow: "shadow-[0_0_8px_rgba(212,175,55,0.25)]"  };
+  if (t.includes("lyric"))    return { text: "text-gold",  border: "border-gold/30",  bg: "bg-gold/10",  glow: "shadow-[0_0_8px_rgba(var(--gold-primary-rgb),0.25)]"  };
   if (t.includes("music"))    return { text: "text-[#c084fc]",  border: "border-[#c084fc]/30",  bg: "bg-[#c084fc]/10",  glow: "shadow-[0_0_8px_rgba(192,132,252,0.20)]" };
   if (t.includes("visual"))   return { text: "text-[#60a5fa]",  border: "border-[#60a5fa]/30",  bg: "bg-[#60a5fa]/10",  glow: "shadow-[0_0_8px_rgba(96,165,250,0.20)]"  };
   if (t.includes("live"))     return { text: "text-[#f97316]",  border: "border-[#f97316]/30",  bg: "bg-[#f97316]/10",  glow: "shadow-[0_0_8px_rgba(249,115,22,0.20)]"  };
@@ -159,17 +159,17 @@ function ThumbnailFallback({ onRetry }: { onRetry?: () => void }) {
     >
       <div
         className="w-12 h-12 rounded-full flex items-center justify-center"
-        style={{ background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.18)" }}
+        style={{ background: "rgba(var(--gold-primary-rgb),0.10)", border: "1px solid rgba(var(--gold-primary-rgb),0.18)" }}
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <polygon points="6,4 16,10 6,16" fill="var(--color-gold)" opacity="0.65" />
         </svg>
       </div>
       <div className="flex flex-col items-center gap-0.5">
-        <span style={{ color: "rgba(212,175,55,0.55)", fontSize: 9, fontWeight: 800, letterSpacing: "0.22em", textTransform: "uppercase" }}>
+        <span style={{ color: "rgba(var(--gold-primary-rgb),0.55)", fontSize: 9, fontWeight: 800, letterSpacing: "0.22em", textTransform: "uppercase" }}>
           Kiut Music
         </span>
-        <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+        <span style={{ color: "rgba(var(--white-rgb),0.2)", fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase" }}>
           {onRetry ? "Tap to retry" : "Preview unavailable"}
         </span>
       </div>
@@ -199,7 +199,7 @@ function SharePopup({
   const text    = encodeURIComponent(`Watch "${title}" on Kiut Music Worldwide`);
 
   const socials = [
-    { label: "X / Twitter",  href: `https://twitter.com/intent/tweet?url=${encoded}&text=${text}`,             color: "#fff" },
+    { label: "X / Twitter",  href: `https://twitter.com/intent/tweet?url=${encoded}&text=${text}`,             color: "var(--white)" },
     { label: "WhatsApp",     href: `https://wa.me/?text=${text}%20${encoded}`,                                  color: "#25D366" },
     { label: "Facebook",     href: `https://www.facebook.com/sharer/sharer.php?u=${encoded}`,                   color: "#1877F2" },
     { label: "Telegram",     href: `https://t.me/share/url?url=${encoded}&text=${text}`,                        color: "#26A5E4" },
@@ -604,7 +604,7 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       className="group relative px-5 py-5 rounded-md border border-white/[0.07] bg-white/[0.025] hover:border-gold/22 hover:bg-white/[0.04] transition-all duration-slow text-center overflow-hidden"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05),transparent_70%)] transition-opacity duration-slow" />
+      <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
       <p className="font-display text-2xl md:text-3xl font-bold text-gold tracking-tight mb-0.5 relative">{value}</p>
       <p className="text-white text-xs font-bold uppercase tracking-[0.22em] mb-0.5 relative">{label}</p>
       <p className="text-white/28 text-xs uppercase tracking-wide relative">{sub}</p>
@@ -706,7 +706,7 @@ export default function Videos() {
         {/* Multi-layer gradient for depth */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/15" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(212,175,55,0.06),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(var(--gold-primary-rgb),0.06),transparent_55%)]" />
 
         {/* Top-right archive badge */}
         <motion.div
@@ -714,7 +714,7 @@ export default function Videos() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="absolute top-8 right-6 md:right-10 z-10 flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md"
-          style={{ background: "rgba(0,0,0,0.4)" }}
+          style={{ background: "rgba(var(--black-rgb),0.4)" }}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
           <span className="text-white/60 text-xs font-bold uppercase tracking-[0.3em]">{videos.length} Official Visuals</span>
@@ -750,7 +750,7 @@ export default function Videos() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-gold/35 transition-all duration-normal text-xs font-bold uppercase tracking-widest backdrop-blur-sm"
-                style={{ background: "rgba(0,0,0,0.35)" }}
+                style={{ background: "rgba(var(--black-rgb),0.35)" }}
                 data-testid="link-hero-youtube-channel"
               >
                 <Youtube size={12} /> Subscribe on YouTube
@@ -818,7 +818,7 @@ export default function Videos() {
                   className="flex items-center gap-2 mb-3"
                 >
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gold/25 text-gold text-xs font-bold uppercase tracking-[0.3em]"
-                    style={{ background: "rgba(212,175,55,0.07)" }}>
+                    style={{ background: "rgba(var(--gold-primary-rgb),0.07)" }}>
                     <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                     Now Playing
                   </span>
@@ -1100,9 +1100,9 @@ export default function Videos() {
 
       <style>{`
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(212,175,55,0.4); }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(var(--white-rgb),0.02); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(var(--white-rgb),0.08); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(var(--gold-primary-rgb),0.4); }
       `}</style>
 
       <SiteFooter />

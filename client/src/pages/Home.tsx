@@ -824,7 +824,7 @@ export default function Home() {
                   </span>
                 </h1>
                 
-                <p className="text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed">
+                <p className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed">
                   {slides[currentSlide].description}
                 </p>
                 

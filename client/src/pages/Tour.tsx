@@ -262,7 +262,7 @@ export default function Tour() {
               <span className="text-gold">Kiut Live</span>
             </h1>
 
-            <p className="text-white/55 text-lg font-light max-w-md leading-relaxed mb-4">
+            <p className="font-editorial italic text-white/55 text-lg font-light max-w-md leading-relaxed mb-4">
               There are currently no announced live performances.
             </p>
             <p className="text-white/35 text-sm font-light max-w-lg leading-relaxed mb-10">

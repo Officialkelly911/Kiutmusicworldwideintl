@@ -394,17 +394,18 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      className={`group relative flex items-center gap-4 p-5 rounded-md border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-lg transition-all duration-normal`}
+      className={`card-surface group relative bg-gradient-to-br ${link.color}`}
     >
-      <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-fast flex-shrink-0`}>
-        <Icon size={20} />
+      <div className="card-body flex-row items-center gap-4 !p-5">
+        <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-fast flex-shrink-0`}>
+          <Icon size={20} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="card-title !normal-case !text-white/75 group-hover:!text-white transition-colors duration-fast truncate">{link.label}</h3>
+          <p className="card-desc !text-white/28 !mt-0 truncate">{link.sub}</p>
+        </div>
+        <ArrowRight size={13} className="ml-auto text-white/15 group-hover:text-white/40 transition-colors duration-fast flex-shrink-0" />
       </div>
-      <div className="min-w-0">
-        <p className="text-white/75 text-sm font-semibold group-hover:text-white transition-colors duration-fast truncate">{link.label}</p>
-        <p className="text-white/28 text-xs truncate">{link.sub}</p>
-      </div>
-      <ArrowRight size={13} className="ml-auto text-white/15 group-hover:text-white/40 transition-colors duration-fast flex-shrink-0" />
     </motion.a>
   );
 }

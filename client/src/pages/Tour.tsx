@@ -160,18 +160,17 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -6 }}
-      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-midnight-black hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.10)] transition-all duration-normal cursor-pointer"
+      className="card-surface group flex flex-col cursor-pointer"
     >
       {/* Thumbnail */}
-      <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
+      <div className="card-media relative aspect-video flex-shrink-0 bg-midnight">
         {!imgFailed ? (
           <img
             src={`https://i.ytimg.com/vi/${perf.youtubeId}/hqdefault.jpg`}
             alt={perf.title}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
+            className="card-media-img object-cover"
             onError={() => setImgFailed(true)}
           />
         ) : (
@@ -209,8 +208,8 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
       </div>
 
       {/* Info row */}
-      <div className="px-4 py-3.5 flex items-center justify-between">
-        <p className="text-white/80 text-sm font-medium group-hover:text-gold transition-colors duration-fast truncate pr-3">
+      <div className="card-body px-4 py-3.5 flex items-center justify-between">
+        <p className="card-title text-sm font-medium group-hover:text-gold transition-colors duration-fast truncate pr-3 !mb-0">
           {perf.title}
         </p>
         <ArrowRight size={13} className="text-white/20 group-hover:text-gold transition-colors duration-fast flex-shrink-0" />

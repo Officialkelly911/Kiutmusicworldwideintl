@@ -185,40 +185,22 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => setIsHovered(v => !v)}
     >
-      {/* Gradient border wrapper */}
+      {/* Album Card Surface */}
       <motion.div
         animate={{
           scale: isHovered ? 1.03 : 1,
         }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="relative rounded-xl p-[1px]"
-        style={{
-          background: isHovered
-            ? "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.7) 0%, rgba(var(--gold-primary-rgb),0.15) 50%, rgba(var(--gold-primary-rgb),0.5) 100%)"
-            : "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.15) 0%, rgba(var(--white-rgb),0.05) 50%, rgba(var(--gold-primary-rgb),0.08) 100%)",
-        }}
+        className="card-surface"
       >
-        {/* Glass inner */}
-        <div
-          className="relative rounded-[calc(1rem-1px)] overflow-hidden"
-          style={{
-            background: "rgba(var(--midnight-black-rgb),0.92)",
-            boxShadow: isHovered
-              ? "0 30px 70px -12px rgba(var(--gold-primary-rgb),0.30)"
-              : "0 20px 50px -12px rgba(var(--black-rgb),0.80)",
-          }}
-        >
-          {/* Album art */}
-          <div className="overflow-hidden">
-            <motion.img
-              src={album.image}
-              alt={album.title}
-              className="w-full aspect-square object-cover"
-              loading="lazy"
-              animate={{ scale: isHovered ? 1.06 : 1 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </div>
+        {/* Album art */}
+        <div className="card-media card-media--square">
+          <img
+            src={album.image}
+            alt={album.title}
+            className="card-media-img"
+            loading="lazy"
+          />
 
           {/* Hover overlay */}
           <AnimatePresence>
@@ -253,13 +235,13 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
 
-          {/* Glass info bar at bottom */}
-          <div className="px-4 py-3 border-t border-white/[0.05]" style={{ background: "rgba(var(--white-rgb),0.02)" }}>
-            <div className="flex items-center justify-between">
-              <span className="text-gold text-xs font-black uppercase tracking-[0.22em]">Official Release</span>
-              <span className="text-white/30 text-xs font-mono">{album.tracks} tracks · {album.yearShort}</span>
-            </div>
+        {/* Info bar at bottom */}
+        <div className="card-body py-3 border-t border-white/[0.05]" style={{ background: "rgba(var(--white-rgb),0.02)" }}>
+          <div className="flex items-center justify-between">
+            <span className="text-gold text-xs font-black uppercase tracking-[0.22em]">Official Release</span>
+            <span className="text-white/30 text-xs font-mono">{album.tracks} tracks · {album.yearShort}</span>
           </div>
         </div>
       </motion.div>
@@ -395,13 +377,8 @@ function MusicDiscovery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
           >
-            <a href={to.link} target="_blank" rel="noopener noreferrer">
-              <motion.div
-                whileHover={{ y: -6, boxShadow: "0 20px 50px rgba(var(--gold-primary-rgb),0.10)" }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="group rounded-md overflow-hidden border border-white/[0.06] hover:border-gold/25 transition-colors duration-normal"
-                style={{ background: "var(--color-midnight)" }}
-              >
+            <a href={to.link} target="_blank" rel="noopener noreferrer" className="block">
+              <div className="card-surface group">
                 {/* "Enjoyed X" label */}
                 <div className="px-4 pt-4 pb-2">
                   <p className="text-white/25 text-xs font-light tracking-widest uppercase">
@@ -410,12 +387,12 @@ function MusicDiscovery() {
                 </div>
 
                 {/* Album artwork */}
-                <div className="relative mx-4 mb-3 rounded-xl overflow-hidden aspect-square">
+                <div className="card-media card-media--square mx-4 mb-3 rounded-xl overflow-hidden">
                   <img
                     src={to.image}
                     alt={to.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.06]"
+                    className="card-media-img"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal">
@@ -426,14 +403,14 @@ function MusicDiscovery() {
                 </div>
 
                 {/* Info */}
-                <div className="px-4 pb-4">
+                <div className="card-body px-4 pb-4">
                   <span className="inline-block px-2 py-0.5 rounded-full bg-gold/10 border border-gold/22 text-gold text-xs font-bold uppercase tracking-widest mb-2">
                     {to.type}
                   </span>
-                  <h3 className="font-display text-sm font-bold text-white uppercase tracking-wider leading-tight mb-0.5">
+                  <h3 className="card-title font-display text-sm font-bold text-white uppercase tracking-wider leading-tight mb-0.5">
                     {to.title}
                   </h3>
-                  <p className="text-white/28 text-xs font-light">{to.genre} · {to.yearShort}</p>
+                  <p className="card-desc text-white/28 text-xs font-light">{to.genre} · {to.yearShort}</p>
 
                   <div className="mt-3 flex items-center gap-1.5 text-gold/60 hover:text-gold transition-colors text-xs font-bold uppercase tracking-widest">
                     <Play size={9} fill="currentColor" />
@@ -441,7 +418,7 @@ function MusicDiscovery() {
                     <ExternalLink size={9} />
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </a>
           </motion.div>
         ))}

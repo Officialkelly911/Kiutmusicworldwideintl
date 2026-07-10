@@ -441,24 +441,22 @@ function RecCard({
   return (
     <motion.div
       onClick={onClick}
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "group cursor-pointer flex flex-col w-full rounded-md overflow-hidden transition-all duration-normal",
+        "card-surface group cursor-pointer flex flex-col w-full",
         isFirst
-          ? "bg-charcoal border border-gold/22 hover:border-gold/50 hover:shadow-glow-gold-hover"
-          : "bg-charcoal border border-white/[0.06] hover:border-gold/22 hover:shadow-glow-gold"
+          ? "bg-charcoal border-gold/22"
+          : "bg-charcoal border-white/[0.06]"
       )}
     >
       {/* Thumbnail */}
-      <div className={cn("relative w-full overflow-hidden bg-midnight flex-shrink-0", isFirst ? "aspect-[4/3] sm:aspect-video" : "aspect-video")}>
+      <div className={cn("card-media bg-midnight flex-shrink-0 w-full", isFirst ? "aspect-[4/3] sm:aspect-video" : "aspect-video")}>
         {!imgFailed ? (
           <>
             <img
               src={video.thumbnail}
               alt={video.title}
               loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
+              className="card-media-img"
               onError={() => setImgFailed(true)}
             />
             {/* Skeleton shimmer while image is loading */}
@@ -507,11 +505,11 @@ function RecCard({
       </div>
 
       {/* Text */}
-      <div className={cn("flex flex-col flex-1", isFirst ? "p-5" : "p-4")}>
-        <h4 className={cn("font-bold leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-fast", isFirst ? "text-sm mb-2" : "text-xs mb-1.5")}>
+      <div className={cn("card-body flex flex-col flex-1", isFirst ? "p-5" : "p-4")}>
+        <h4 className={cn("card-title line-clamp-2 group-hover:text-gold transition-colors duration-fast", isFirst ? "text-sm mb-2" : "text-xs mb-1.5")}>
           {video.title}
         </h4>
-        <p className="text-white/40 text-xs font-medium truncate mb-3">{video.artist}</p>
+        <p className="card-desc text-xs font-medium truncate mb-3">{video.artist}</p>
         <div className="flex items-center gap-1.5 text-xs text-white/22 flex-wrap mt-auto pt-1 border-t border-white/[0.04]">
           <span>{video.date}</span>
           <span className="text-white/15">·</span>
@@ -537,10 +535,9 @@ function VideoCard({
   return (
     <motion.div
       onClick={onClick}
-      whileHover={{ scale: 1.015, x: 3 }}
       className={cn(
-        "group relative flex gap-3.5 p-3 rounded-xl cursor-pointer transition-all duration-normal",
-        isActive ? "bg-gold/[0.07] border border-gold/25" : "hover:bg-white/[0.04] border border-transparent hover:border-white/[0.06]"
+        "card-surface group relative flex gap-3.5 p-3 cursor-pointer",
+        isActive ? "bg-gold/[0.07] border-gold/25" : "border-transparent"
       )}
       data-testid={`video-card-${video.id}`}
     >
@@ -554,11 +551,11 @@ function VideoCard({
           transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
         />
       )}
-      <div className="relative w-36 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-black/50 shadow-md">
+      <div className="card-media relative w-36 aspect-video flex-shrink-0 bg-black/50">
         <img
           src={video.thumbnail}
           alt={video.title}
-          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-slow"
+          className="card-media-img opacity-90 group-hover:opacity-100"
           loading="lazy"
         />
         {isActive ? (
@@ -583,11 +580,11 @@ function VideoCard({
         )}
       </div>
 
-      <div className="flex flex-col justify-center py-0.5 flex-1 min-w-0">
-        <h4 className={cn("font-semibold text-xs line-clamp-2 leading-snug mb-1 transition-colors", isActive ? "text-gold" : "text-white group-hover:text-gold")}>
+      <div className="card-body flex flex-col justify-center py-0.5 flex-1 min-w-0">
+        <h4 className={cn("card-title font-semibold text-xs line-clamp-2 leading-snug mb-1 transition-colors", isActive ? "text-gold" : "group-hover:text-gold")}>
           {video.title}
         </h4>
-        <p className="text-white/45 text-xs truncate">{video.artist}</p>
+        <p className="card-desc text-xs truncate">{video.artist}</p>
         <p className="text-white/28 text-xs mt-1">{video.date} · YouTube</p>
       </div>
     </motion.div>

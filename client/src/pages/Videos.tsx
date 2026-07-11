@@ -278,7 +278,7 @@ function PremiumStreamingLinks() {
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: i * 0.07 }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="group relative flex items-center gap-3.5 p-4 rounded-md overflow-hidden transition-all duration-medium"
+            className="group relative flex items-center gap-3.5 p-4 rounded-xl overflow-hidden transition-all duration-medium"
             style={{
               background: p.bg,
               border: `1px solid ${p.border}`,
@@ -286,7 +286,7 @@ function PremiumStreamingLinks() {
           >
             {/* Glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none rounded-md"
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none rounded-xl"
               style={{ boxShadow: `inset 0 0 0 1px ${p.border}, 0 0 24px ${p.glow}` }}
             />
 
@@ -381,12 +381,12 @@ function KiutUniverse() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.08 }}
-              whileHover={{ y: -3, transition: { duration: 0.22 } }}
-              className="group relative flex items-center gap-4 p-4 rounded-md border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.14] transition-all duration-medium cursor-pointer overflow-hidden"
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="group relative flex items-center gap-4 p-4 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.14] transition-all duration-medium cursor-pointer overflow-hidden"
             >
               {/* Ambient glow */}
               <div
-                className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none"
+                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none"
                 style={{ background: `radial-gradient(ellipse at 30% 50%, ${card.color}0a, transparent 70%)` }}
               />
 
@@ -444,10 +444,10 @@ function RecCard({
       whileHover={{ y: -6 }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "group cursor-pointer flex flex-col w-full rounded-md overflow-hidden transition-all duration-normal",
+        "group cursor-pointer flex flex-col w-full rounded-xl overflow-hidden transition-all duration-normal",
         isFirst
           ? "bg-charcoal border border-gold/22 hover:border-gold/50 hover:shadow-glow-gold-hover"
-          : "bg-charcoal border border-white/[0.06] hover:border-gold/22 hover:shadow-glow-gold"
+          : "bg-charcoal border border-white/[0.07] hover:border-gold/22 hover:shadow-glow-gold"
       )}
     >
       {/* Thumbnail */}
@@ -602,9 +602,9 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative px-5 py-5 rounded-md border border-white/[0.07] bg-white/[0.025] hover:border-gold/22 hover:bg-white/[0.04] transition-all duration-slow text-center overflow-hidden"
+      className="group relative px-5 py-5 rounded-xl border border-white/[0.07] bg-white/[0.025] hover:border-gold/22 hover:bg-white/[0.04] transition-all duration-slow text-center overflow-hidden"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
+      <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
       <p className="font-display text-2xl md:text-3xl font-bold text-gold tracking-tight mb-0.5 relative">{value}</p>
       <p className="text-white text-xs font-bold uppercase tracking-[0.22em] mb-0.5 relative">{label}</p>
       <p className="text-white/28 text-xs uppercase tracking-wide relative">{sub}</p>
@@ -782,7 +782,7 @@ export default function Videos() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 px-5 py-4 rounded-md border border-white/[0.06] bg-white/[0.02] flex items-center gap-5"
+            className="mt-4 px-5 py-4 rounded-xl border border-white/[0.07] bg-white/[0.02] flex items-center gap-5"
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-2">
@@ -835,7 +835,7 @@ export default function Videos() {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.45, ease: "easeOut" }}
-                  className="group w-full aspect-video bg-black rounded-md overflow-hidden shadow-xl border border-gold/15 hover:border-gold/30 transition-colors duration-slow relative"
+                  className="group w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl border border-gold/15 hover:border-gold/30 transition-colors duration-slow relative"
                 >
                   <iframe
                     src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}?autoplay=1`}
@@ -936,7 +936,7 @@ export default function Videos() {
                 </div>
 
                 {/* Description */}
-                <div className="bg-white/[0.04] rounded-md p-5 border border-white/[0.05] hover:bg-white/[0.07] transition-colors duration-normal mb-0">
+                <div className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.07] hover:bg-white/[0.06] transition-colors duration-normal mb-0">
                   <p className="text-white/65 leading-relaxed font-light text-sm md:text-sm">
                     {featuredVideo.description}
                   </p>

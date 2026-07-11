@@ -161,7 +161,7 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group flex flex-col rounded-md overflow-hidden border border-white/[0.06] bg-midnight-black hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.10)] transition-all duration-normal cursor-pointer"
+      className="group flex flex-col rounded-xl overflow-hidden border border-white/[0.07] bg-midnight-black hover:border-gold/28 hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.10)] transition-all duration-normal cursor-pointer"
     >
       {/* Thumbnail */}
       <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
@@ -511,7 +511,7 @@ export default function Tour() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    className="p-6 rounded-md border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-gold/[0.03] transition-all duration-normal group"
+                    className="p-6 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-gold/[0.03] transition-all duration-normal group"
                   >
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 border border-gold/20 group-hover:border-gold/40 transition-colors duration-normal"
@@ -774,7 +774,7 @@ export default function Tour() {
 
                   {/* Content card */}
                   <div className={`flex-1 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"} pl-0 md:pl-0`}>
-                    <div className="inline-block px-6 py-5 rounded-md border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 hover:bg-gold/[0.025] transition-all duration-normal group">
+                    <div className="inline-block px-6 py-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 hover:bg-gold/[0.025] transition-all duration-normal group">
                       <h3 className="font-display text-lg font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-fast">
                         {step.label}
                       </h3>

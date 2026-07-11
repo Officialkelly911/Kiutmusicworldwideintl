@@ -689,7 +689,7 @@ export default function About() {
                   <motion.div
                     whileHover={{ y: -8 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="w-full p-6 rounded-md bg-white/5 border border-white/10 group-hover:border-gold/40 group-hover:shadow-glow-gold transition-all duration-normal"
+                    className="w-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.07] group-hover:border-gold/40 group-hover:shadow-glow-gold transition-all duration-normal"
                   >
                     <span className="text-white font-semibold text-sm uppercase tracking-widest block mb-3">{m.title}</span>
                     <p className="text-white/55 text-sm font-light leading-relaxed">{m.description}</p>
@@ -717,7 +717,7 @@ export default function About() {
 
                   <motion.div
                     whileHover={{ x: 4 }}
-                    className="p-6 rounded-md bg-white/5 border border-white/10 group-hover:border-gold/40 transition-all duration-normal"
+                    className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.07] group-hover:border-gold/40 transition-all duration-normal"
                   >
                     <span className="font-display text-xl font-bold text-gold/70 group-hover:text-gold transition-colors duration-normal block mb-1">{m.year}</span>
                     <span className="text-white font-semibold text-sm uppercase tracking-widest block mb-3">{m.title}</span>
@@ -756,7 +756,7 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="group relative p-8 rounded-md bg-white/[0.03] border border-white/10 hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.08)] transition-all duration-medium overflow-hidden"
+                  className="group relative p-8 rounded-xl bg-white/[0.03] border border-white/[0.07] hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.08)] transition-all duration-medium overflow-hidden"
                 >
                   {/* Subtle glow behind icon */}
                   <div className="absolute top-0 left-0 w-32 h-32 bg-gold/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-gold/10 transition-colors duration-slow" />
@@ -824,9 +824,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative px-5 py-7 rounded-md border border-white/[0.08] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-slow text-center overflow-hidden"
+                className="group relative px-5 py-7 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-slow text-center overflow-hidden"
               >
-                <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
+                <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
                 <p className="font-display text-3xl md:text-4xl font-bold text-gold tracking-tight mb-1 relative">{stat.value}</p>
                 <p className="text-white text-xs font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
                 <p className="text-white/30 text-xs font-light tracking-wide uppercase relative">{stat.sub}</p>
@@ -963,7 +963,7 @@ export default function About() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                         className={cn(
-                          "group relative overflow-hidden rounded-md cursor-zoom-in",
+                          "group relative overflow-hidden rounded-xl cursor-zoom-in",
                           "border border-white/[0.07] bg-midnight",
                           "shadow-md",
                           "hover:border-gold/28 hover:shadow-xl",
@@ -1003,7 +1003,7 @@ export default function About() {
                         </div>
 
                         {/* Gold hover ring */}
-                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.16),inset_0_-60px_40px_-20px_rgba(var(--gold-primary-rgb),0.04)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.16),inset_0_-60px_40px_-20px_rgba(var(--gold-primary-rgb),0.04)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1068,8 +1068,8 @@ export default function About() {
                         viewport={{ once: true, margin: "-30px" }}
                         transition={{ duration: 0.6, delay: (imgIdx % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
                         className={cn(
-                          "group relative overflow-hidden rounded-md cursor-zoom-in",
-                          "border border-white/[0.06] bg-midnight",
+                          "group relative overflow-hidden rounded-xl cursor-zoom-in",
+                          "border border-white/[0.07] bg-midnight",
                           "shadow-md",
                           "hover:border-gold/22 hover:shadow-lg transition-all duration-slow",
                           isHero ? "sm:col-span-2 lg:col-span-2 h-[280px]" : "h-[230px]"
@@ -1094,7 +1094,7 @@ export default function About() {
                             </span>
                           </div>
                         )}
-                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.14)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.14)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1261,7 +1261,7 @@ export default function About() {
                     animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
                     exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 1.01, y: -10 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden rounded-md border border-white/10 shadow-xl max-w-[90vw] max-h-[80vh]"
+                    className="overflow-hidden rounded-xl border border-white/[0.07] shadow-xl max-w-[90vw] max-h-[80vh]"
                   >
                     <img
                       src={selectedJourneyImage ?? ""}

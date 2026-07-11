@@ -395,7 +395,7 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -5, scale: 1.02 }}
-      className={`group relative flex items-center gap-4 p-5 rounded-md border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-lg transition-all duration-normal`}
+      className={`group relative flex items-center gap-4 p-5 rounded-xl border border-white/[0.07] bg-gradient-to-br ${link.color} ${link.border} hover:shadow-lg transition-all duration-normal`}
     >
       <div className={`w-11 h-11 rounded-xl flex items-center justify-center bg-white/[0.04] border border-white/[0.07] text-white/45 ${link.iconColor} transition-colors duration-fast flex-shrink-0`}>
         <Icon size={20} />
@@ -529,7 +529,7 @@ export default function Contact() {
                     return (
                       <div
                         key={card.title}
-                        className="group flex items-start gap-4 p-5 rounded-md border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.03] transition-all duration-normal"
+                        className="group flex items-start gap-4 p-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.03] transition-all duration-normal"
                       >
                         <div
                           className="w-10 h-10 rounded-xl flex items-center justify-center border border-gold/18 flex-shrink-0 group-hover:border-gold/35 transition-colors duration-fast"
@@ -550,7 +550,7 @@ export default function Contact() {
               </div>
 
               {/* Response time card */}
-              <div className="p-6 rounded-md border border-gold/15 bg-gold/[0.04]">
+              <div className="p-6 rounded-xl border border-gold/15 bg-gold/[0.04]">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-60" />

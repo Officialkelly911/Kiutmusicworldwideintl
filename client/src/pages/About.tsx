@@ -755,19 +755,20 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="card-surface group relative bg-white/[0.03] hover:bg-white/[0.06]"
+                  whileHover={{ y: -6 }}
+                  className="group relative p-8 rounded-md bg-white/[0.03] border border-white/10 hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.08)] transition-all duration-medium overflow-hidden"
                 >
                   {/* Subtle glow behind icon */}
-                  <div className="absolute top-0 left-0 w-32 h-32 bg-gold/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-gold/10 transition-colors duration-slow z-0" />
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-gold/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-gold/10 transition-colors duration-slow" />
 
-                  <div className="card-body relative z-10 p-8">
+                  <div className="relative z-10">
                     <div className="w-14 h-14 rounded-xl bg-black border border-white/10 group-hover:border-gold/40 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-normal shadow-[0_0_0_rgba(var(--gold-primary-rgb),0)] group-hover:shadow-glow-gold">
                       <Icon className="w-7 h-7 text-gold" />
                     </div>
-                    <h3 className="card-title font-display text-xl font-bold text-white mb-3 uppercase tracking-wide">
+                    <h3 className="font-display text-xl font-bold text-white mb-3 uppercase tracking-wide">
                       {s.title}
                     </h3>
-                    <p className="card-desc text-white/55 font-light leading-relaxed text-base">
+                    <p className="text-white/55 font-light leading-relaxed text-base">
                       {s.description}
                     </p>
                   </div>
@@ -823,14 +824,12 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="card-surface group relative bg-white/[0.02] hover:bg-white/[0.03] text-center"
+                className="group relative px-5 py-7 rounded-md border border-white/[0.08] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-slow text-center overflow-hidden"
               >
-                <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
-                <div className="card-body px-5 py-7">
-                  <p className="font-display text-3xl md:text-4xl font-bold text-gold tracking-tight mb-1 relative">{stat.value}</p>
-                  <p className="text-white text-xs font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
-                  <p className="text-white/30 text-xs font-light tracking-wide uppercase relative">{stat.sub}</p>
-                </div>
+                <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
+                <p className="font-display text-3xl md:text-4xl font-bold text-gold tracking-tight mb-1 relative">{stat.value}</p>
+                <p className="text-white text-xs font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
+                <p className="text-white/30 text-xs font-light tracking-wide uppercase relative">{stat.sub}</p>
               </motion.div>
             ))}
           </div>
@@ -872,24 +871,22 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="card-surface group relative h-[460px] md:h-[600px] lg:h-[700px] cursor-zoom-in mb-5"
+            className="group relative h-[460px] md:h-[600px] lg:h-[700px] rounded-xl overflow-hidden cursor-zoom-in mb-5 border border-white/[0.08] shadow-xl hover:shadow-xl transition-shadow duration-cinematic"
             onClick={() => setSelectedJourneyIndex(0)}
             role="button"
             aria-label="Open featured image — The Good Life Era"
           >
-            <div className="card-media h-full">
-              <img
-                src={FEATURED_HERO_SRC}
-                alt="The Good Life Era — Kiut"
-                loading="eager" fetchPriority="high"
-                className="card-media-img object-top"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none z-10" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-transparent pointer-events-none z-10" />
+            <img
+              src={FEATURED_HERO_SRC}
+              alt="The Good Life Era — Kiut"
+              loading="eager" fetchPriority="high"
+              className="absolute inset-0 w-full h-full object-cover object-top [transition:transform_1200ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-transparent" />
 
             {/* Hero overlay content */}
-            <div className="absolute bottom-0 left-0 right-0 p-7 md:p-12 z-20">
+            <div className="absolute bottom-0 left-0 right-0 p-7 md:p-12">
               <div className="flex items-center gap-3 mb-4">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-glow-gold-hover">
                   ✦ Featured
@@ -911,6 +908,9 @@ export default function About() {
                 Explore Story <ArrowRight className="w-3 h-3" />
               </button>
             </div>
+
+            {/* Hover gold ring */}
+            <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.2)] transition-opacity duration-slow pointer-events-none" />
           </motion.figure>
 
           {/* ── Story Chapters — Memory Mode ────────────────────────────── */}
@@ -963,7 +963,11 @@ export default function About() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                         className={cn(
-                          "card-surface group relative cursor-zoom-in bg-midnight",
+                          "group relative overflow-hidden rounded-md cursor-zoom-in",
+                          "border border-white/[0.07] bg-midnight",
+                          "shadow-md",
+                          "hover:border-gold/28 hover:shadow-xl",
+                          "transition-[border-color,box-shadow] duration-slow",
                           isHero
                             ? "sm:col-span-2 lg:col-span-2 h-[290px] sm:h-[340px]"
                             : "h-[240px] sm:h-[280px]"
@@ -972,20 +976,18 @@ export default function About() {
                         role="button"
                         aria-label={`Open ${img.alt} in fullscreen viewer`}
                       >
-                        <div className="card-media h-full">
-                          <img
-                            src={img.src}
-                            alt={`${img.alt} — Kiut`}
-                            loading="lazy" decoding="async"
-                            className="card-media-img"
-                            style={{ objectPosition: img.objectPos ?? "center" }}
-                          />
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none z-10" />
+                        <img
+                          src={img.src}
+                          alt={`${img.alt} — Kiut`}
+                          loading="lazy" decoding="async"
+                          className="absolute inset-0 w-full h-full object-cover [transition:transform_650ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                          style={{ objectPosition: img.objectPos ?? "center" }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
 
                         {/* Badge pill */}
                         {img.badge && (
-                          <div className="absolute bottom-0 left-0 right-0 px-3.5 pb-3.5 z-20">
+                          <div className="absolute bottom-0 left-0 right-0 px-3.5 pb-3.5">
                             <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-gold bg-black/65 backdrop-blur-md px-3 py-1.5 rounded-full border border-gold/20">
                               <span className="w-1 h-1 rounded-full bg-gold/70 inline-block" />
                               {img.badge}
@@ -994,11 +996,14 @@ export default function About() {
                         )}
 
                         {/* Frame counter (hover) */}
-                        <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none z-20">
+                        <div className="absolute top-3 right-3.5 opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none">
                           <span className="text-xs font-mono text-white/22 tabular-nums tracking-widest">
                             {String(globalIdx + 1).padStart(3, "0")}
                           </span>
                         </div>
+
+                        {/* Gold hover ring */}
+                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.16),inset_0_-60px_40px_-20px_rgba(var(--gold-primary-rgb),0.04)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1063,31 +1068,33 @@ export default function About() {
                         viewport={{ once: true, margin: "-30px" }}
                         transition={{ duration: 0.6, delay: (imgIdx % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
                         className={cn(
-                          "card-surface group relative cursor-zoom-in bg-midnight",
+                          "group relative overflow-hidden rounded-md cursor-zoom-in",
+                          "border border-white/[0.06] bg-midnight",
+                          "shadow-md",
+                          "hover:border-gold/22 hover:shadow-lg transition-all duration-slow",
                           isHero ? "sm:col-span-2 lg:col-span-2 h-[280px]" : "h-[230px]"
                         )}
                         onClick={() => setSelectedJourneyIndex(globalIdx)}
                         role="button"
                         aria-label="Open archive image in fullscreen"
                       >
-                        <div className="card-media h-full">
-                          <img
-                            src={img.src}
-                            alt={`${img.alt} — Kiut`}
-                            loading="lazy" decoding="async"
-                            className="card-media-img"
-                            style={{ objectPosition: img.objectPos ?? "center" }}
-                          />
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-10" />
+                        <img
+                          src={img.src}
+                          alt={`${img.alt} — Kiut`}
+                          loading="lazy" decoding="async"
+                          className="absolute inset-0 w-full h-full object-cover [transition:transform_650ms_ease] group-hover:scale-[1.04]"
+                          style={{ objectPosition: img.objectPos ?? "center" }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                         {img.badge && (
-                          <div className="absolute bottom-0 left-0 right-0 px-3 pb-3 z-20">
+                          <div className="absolute bottom-0 left-0 right-0 px-3 pb-3">
                             <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold bg-black/65 backdrop-blur-md px-2.5 py-1 rounded-full border border-gold/18">
                               <span className="w-0.5 h-0.5 rounded-full bg-gold/60 inline-block" />
                               {img.badge}
                             </span>
                           </div>
                         )}
+                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.14)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1106,25 +1113,24 @@ export default function About() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: "-20px" }}
                           transition={{ duration: 0.5, delay: (imgIdx % 4) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                          className="card-surface group relative h-[170px] sm:h-[200px] cursor-zoom-in bg-midnight"
+                          className="group relative h-[170px] sm:h-[200px] overflow-hidden rounded-xl cursor-zoom-in border border-white/[0.06] bg-midnight hover:border-gold/18 hover:shadow-md transition-all duration-medium"
                           onClick={() => setSelectedJourneyIndex(globalIdx)}
                           role="button"
                           aria-label={`Open journey moment ${imgIdx + 1} in fullscreen`}
                         >
-                          <div className="card-media h-full">
-                            <img
-                              src={src}
-                              alt={`Journey moment ${imgIdx + 1} — Kiut`}
-                              loading="lazy" decoding="async"
-                              className="card-media-img object-center"
-                            />
-                          </div>
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-10" />
-                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-normal pointer-events-none z-20">
+                          <img
+                            src={src}
+                            alt={`Journey moment ${imgIdx + 1} — Kiut`}
+                            loading="lazy" decoding="async"
+                            className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_600ms_ease] group-hover:scale-[1.05]"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-normal pointer-events-none">
                             <span className="text-xs font-mono text-white/20 tabular-nums">
                               {String(imgIdx + 1).padStart(3, "0")}
                             </span>
                           </div>
+                          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.12)] transition-opacity duration-medium pointer-events-none" />
                         </motion.figure>
                       );
                     })}
@@ -1451,22 +1457,21 @@ export default function About() {
                   href="https://dreamplanet.org/store-profile/61"
                   target="_blank"
                   rel="noopener noreferrer"
+                  whileHover={{ y: -4, scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="card-surface group relative aspect-square block"
+                  className="group relative aspect-square rounded-xl overflow-hidden border border-white/[0.08] hover:border-gold/38 hover:shadow-[0_8px_28px_rgba(var(--gold-primary-rgb),0.16)] transition-[border-color,box-shadow] duration-normal"
                   style={{ background: "var(--midnight-black)" }}
                 >
-                  <div className="card-media h-full">
-                    <img
-                      src={item.img}
-                      alt={item.name}
-                      loading="lazy"
-                      decoding="async"
-                      className={`card-media-img ${item.cover ? "object-top" : "object-contain p-2.5"}`}
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none z-10" />
-                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-xs font-bold text-white/80 uppercase tracking-wide px-1 line-clamp-1 z-20">{item.name}</p>
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={`w-full h-full ${item.cover ? "object-cover object-top" : "object-contain p-2.5"} group-hover:scale-[1.06] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)]`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
+                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-xs font-bold text-white/80 uppercase tracking-wide px-1 line-clamp-1">{item.name}</p>
                 </motion.a>
               ))}
             </div>

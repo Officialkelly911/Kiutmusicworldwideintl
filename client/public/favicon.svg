@@ -1,9 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <title>KIUT.</title>
-  <!-- Dark background square -->
-  <rect width="100" height="100" fill="#0A0A0C"/>
-  <!-- K Mark in gold -->
-  <rect x="10" y="8" width="14" height="84" rx="1" fill="#D4AF37"/>
-  <polygon points="24,47 24,30 84,8 84,25" fill="#D4AF37"/>
-  <polygon points="24,53 24,70 84,75 84,92" fill="#D4AF37"/>
+  <title>KIUT Music</title>
+  <!-- Dark background -->
+  <rect width="100" height="100" rx="18" fill="#0A0A0C"/>
+  <!-- Crown mark scaled to fit 100×100 with 8px padding each side -->
+  <defs>
+    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#F7E070"/>
+      <stop offset="35%"  stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#8A6B10"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(8,6) scale(0.42)">
+    <polygon points="54,4  64,22  32,210  14,210  44,22"       fill="url(#fg)"/>
+    <polygon points="146,4  136,22  168,210  186,210  156,22"  fill="url(#fg)"/>
+    <polygon points="78,6  85,19  159,208  147,208  70,19"     fill="url(#fg)"/>
+    <polygon points="122,6  130,19  53,208  41,208  115,19"    fill="url(#fg)"/>
+    <polygon points="100,0  111,28  100,40  89,28"             fill="url(#fg)"/>
+    <polygon points="100,78  116,106  100,132  84,106"         fill="url(#fg)"/>
+  </g>
 </svg>

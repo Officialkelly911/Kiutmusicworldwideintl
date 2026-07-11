@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
-import { KiutMark } from "../components/KiutMark";
+import { KiutMark, KiutFullLogo } from "../components/KiutMark";
+import { staggerContainer, staggerItem, T, DUR } from "@/lib/motion";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
@@ -45,16 +46,18 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
   return (
     <Link href="/videos">
       <motion.div
-        className="card-surface group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink snap-start"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-xl overflow-hidden bg-charcoal border border-white/[0.07] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-300 snap-start"
       >
         {/* Thumbnail */}
-        <div className="card-media">
+        <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
           {!failed ? (
             <img
               src={video.thumbnail}
               alt={video.title}
               loading="lazy"
-              className="card-media-img"
+              className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
               onError={() => setFailed(true)}
             />
           ) : (
@@ -86,11 +89,11 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
           </div>
         </div>
         {/* Text */}
-        <div className="card-body p-3.5 gap-1">
-          <h4 className="card-title text-xs leading-snug line-clamp-2">
+        <div className="p-3.5 flex flex-col gap-1">
+          <h4 className="font-bold text-xs leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-fast">
             {video.title}
           </h4>
-          <div className="card-desc flex items-center gap-1.5 text-xs mt-0.5">
+          <div className="flex items-center gap-1.5 text-xs text-white/25 mt-0.5">
             <span>Kiut</span>
             <span className="text-white/15">·</span>
             <span>{video.date}</span>
@@ -138,36 +141,25 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
-        {/* K Brand Mark */}
+        {/* Crown mark — Phase 8: 94px (+7% vs old 88px), full logo with MUSIC */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: DUR.cinematic, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 relative"
         >
-          <KiutMark
-            size={88}
-            color="var(--color-gold)"
+          <KiutFullLogo
+            markSize={94}
+            variant="gold"
             className="drop-glow-gold"
-            label="KIUT."
           />
         </motion.div>
-
-        {/* Logo wordmark */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-5xl md:text-7xl font-bold text-white tracking-[0.22em] uppercase mb-2"
-        >
-          Kiut<span style={{ color: "var(--color-gold)" }}>.</span>
-        </motion.h1>
 
         {/* Accent line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
+          transition={{ duration: DUR.slow, delay: 0.9, ease: "easeInOut" }}
           className="w-24 md:w-48 h-[2px] mb-7 origin-center"
           style={{ background: "var(--color-gold)", boxShadow: "var(--glow-gold)" }}
         />
@@ -418,13 +410,11 @@ function MilestoneGallery() {
               duration: 1.8,
               ease: [0.22, 1, 0.36, 1], // Premium cinematic easing
             }}
-            className="card-surface absolute w-[65%] md:w-[55%] aspect-[4/5] transform-gpu"
+            className="absolute w-[65%] md:w-[55%] aspect-[4/5] rounded-xl overflow-hidden shadow-xl border border-white/10 bg-midnight transform-gpu"
             style={{ transformStyle: 'preserve-3d' }}
           >
-            <div className="card-media">
-              <img src={img} alt="Milestone Gallery" loading="lazy" decoding="async" className="card-media-img" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
-            </div>
+            <img src={img} alt="Milestone Gallery" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             
             <AnimatePresence>
               {isActive && (
@@ -807,62 +797,75 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content (Left) */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-12 lg:pt-0 order-2 lg:order-1 min-h-[400px] justify-center">
+            {/* Phase 7: staggered hero entrance — badge → headline → subtitle → CTA */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`text-${currentSlide}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.6 }}
+                variants={staggerContainer(0.12, 0.1)}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, y: -16, transition: T.fast }}
                 className="flex flex-col items-center lg:items-start"
               >
-                <div className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
+                {/* 1 — Badge label */}
+                <motion.div variants={staggerItem} className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
                   <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase">
                     {slides[currentSlide].badge}
                   </span>
-                </div>
-                
-                <h1 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase">
+                </motion.div>
+
+                {/* 2 — Headline fades upward */}
+                <motion.h1
+                  variants={staggerItem}
+                  className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase"
+                >
                   {slides[currentSlide].title.split(' ')[0]}<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">
                     {slides[currentSlide].title.split(' ').slice(1).join(' ')}
                   </span>
-                </h1>
-                
-                <p className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed">
+                </motion.h1>
+
+                {/* 3 — Subtitle fades upward */}
+                <motion.p
+                  variants={staggerItem}
+                  className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed"
+                >
                   {slides[currentSlide].description}
-                </p>
-                
-                {slides[currentSlide].isExternal ? (
-                  <a 
-                    href={slides[currentSlide].ctaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-block"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="btn-base btn-primary relative overflow-hidden"
+                </motion.p>
+
+                {/* 4 — CTA button appears last */}
+                <motion.div variants={staggerItem}>
+                  {slides[currentSlide].isExternal ? (
+                    <a
+                      href={slides[currentSlide].ctaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-block"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </a>
-                ) : (
-                  <Link href={slides[currentSlide].ctaLink}>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="btn-base btn-primary relative overflow-hidden"
-                    >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </Link>
-                )}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn-base btn-primary relative overflow-hidden"
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </motion.button>
+                    </a>
+                  ) : (
+                    <Link href={slides[currentSlide].ctaLink}>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn-base btn-primary relative overflow-hidden"
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </motion.button>
+                    </Link>
+                  )}
+                </motion.div>
               </motion.div>
             </AnimatePresence>
 
@@ -1161,28 +1164,24 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="card-surface group cursor-pointer aspect-video"
+              className="relative aspect-video rounded-xl overflow-hidden shadow-xl border border-white/10 group cursor-pointer"
             >
-              <div className="card-media">
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  poster={videoGalleryCover}
-                  className="card-media-img"
-                >
-                  <source src={portfolioVideo} type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-105"
+              >
+                <source src={portfolioVideo} type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-slow gap-3">
-                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                    <ExternalLink size={32} />
-                  </div>
-                  <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-slow gap-3">
+                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
+                  <ExternalLink size={32} />
                 </div>
+                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
               </div>
             </motion.div>
           </a>
@@ -1381,10 +1380,11 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                      className={`card-surface group relative flex flex-col cursor-pointer ${
+                      whileHover={{ y: -7, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
+                      className={`group relative flex flex-col rounded-md overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-slow ${
                         isSpotlit || isFeatured
-                          ? "!border-gold/42 !shadow-glow-gold-hover"
-                          : ""
+                          ? "border border-gold/42 shadow-glow-gold-hover"
+                          : "border border-white/[0.07] shadow-sm hover:border-gold/32 hover:shadow-glow-gold-hover"
                       }`}
                       style={{ background: "var(--midnight-black)" }}
                     >
@@ -1413,13 +1413,13 @@ export default function Home() {
                       </div>
 
                       {/* Image — 80% of card, featured item slightly taller */}
-                      <div className={`card-media flex-shrink-0 bg-charcoal ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
+                      <div className={`relative overflow-hidden bg-charcoal flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
                         <img
                           src={product.img}
                           alt={`${product.name} — KiutRaba`}
                           loading="lazy"
                           decoding="async"
-                          className={`card-media-img ${product.isCover ? "object-top" : "card-media-img--contain p-3"}`}
+                          className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]`}
                         />
                         {(isSpotlit || isFeatured) && (
                           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.07),transparent_68%)] pointer-events-none" />
@@ -1429,10 +1429,10 @@ export default function Home() {
                       </div>
 
                       {/* Card footer */}
-                      <div className="card-body flex-1 justify-between p-3.5 bg-midnight border-t border-white/[0.05]">
+                      <div className="flex flex-col flex-1 justify-between p-3.5 bg-midnight border-t border-white/[0.05]">
                         <div className="mb-2.5">
-                          <h3 className="card-title font-display text-xs md:text-xs uppercase mb-1">{product.name}</h3>
-                          <p className="card-desc text-xs hidden sm:block">{product.desc}</p>
+                          <h3 className="font-display text-xs md:text-xs font-bold text-white uppercase tracking-tight leading-tight mb-1">{product.name}</h3>
+                          <p className="text-white/35 text-xs font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
                         </div>
                         <div className="flex items-center justify-between gap-2">
                           <span className="inline-flex items-center gap-1 text-white/18 text-xs font-light tracking-wide">
@@ -1492,19 +1492,19 @@ export default function Home() {
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
                   <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
-                    <div className="card-surface group relative flex-shrink-0 w-[168px] cursor-pointer">
-                      <div className="card-media h-[142px] bg-charcoal">
+                    <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
+                      <div className="h-[142px] w-full bg-charcoal">
                         <img
                           src={p.img}
                           alt={p.name}
                           loading="lazy"
                           decoding="async"
-                          className={`card-media-img ${p.cover ? "object-top" : "card-media-img--contain p-2.5"}`}
+                          className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.09]`}
                         />
                       </div>
-                      <div className="card-body px-3 py-2.5 bg-midnight border-t border-white/[0.05]">
-                        <p className="card-title text-xs uppercase mb-0.5">{p.name}</p>
-                        <p className="card-desc text-xs tracking-widest">$ –</p>
+                      <div className="px-3 py-2.5 bg-midnight border-t border-white/[0.05]">
+                        <p className="text-xs font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
+                        <p className="text-white/22 text-xs font-light tracking-widest">$ –</p>
                       </div>
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.18)] rounded-md transition-opacity duration-medium pointer-events-none" />
                     </div>
@@ -1570,36 +1570,34 @@ export default function Home() {
             className="mb-6 md:mb-8"
           >
             <Link href="/videos">
-              <div className="card-surface group relative w-full cursor-pointer aspect-video md:aspect-[21/9]">
-                <div className="card-media">
-                  <video
-                    className="card-media-img"
-                    poster={videoGalleryCover}
-                    muted loop playsInline
-                    onMouseOver={e => (e.target as HTMLVideoElement).play()}
-                    onMouseOut={e => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
-                  >
-                    <source src={goodLifeVideo} type="video/mp4" />
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/45 to-transparent pointer-events-none" />
+              <div className="group relative w-full rounded-md overflow-hidden cursor-pointer border border-white/8 hover:border-gold/30 transition-all duration-slow hover:shadow-glow-gold-hover aspect-video md:aspect-[21/9]">
+                <video
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.04]"
+                  poster={videoGalleryCover}
+                  muted loop playsInline
+                  onMouseOver={e => (e.target as HTMLVideoElement).play()}
+                  onMouseOut={e => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
+                >
+                  <source src={goodLifeVideo} type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/45 to-transparent pointer-events-none" />
 
-                  {/* Content overlay */}
-                  <div className="absolute inset-0 flex items-end p-6 md:p-10">
-                    <div className="flex items-end justify-between w-full gap-6">
-                      <div>
-                        <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-xs font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
-                          Official Video
-                        </span>
-                        <h3 className="card-title font-display text-2xl md:text-4xl mb-2 leading-tight">Good Life</h3>
-                        <p className="card-desc text-sm">Kiut · 2025</p>
+                {/* Content overlay */}
+                <div className="absolute inset-0 flex items-end p-6 md:p-10">
+                  <div className="flex items-end justify-between w-full gap-6">
+                    <div>
+                      <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-xs font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
+                        Official Video
+                      </span>
+                      <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-2 leading-tight">Good Life</h3>
+                      <p className="text-white/50 text-sm font-light">Kiut · 2025</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 shrink-0">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-glow-gold group-hover:scale-110 group-hover:shadow-glow-gold-hover transition-all duration-normal">
+                        <Play size={20} className="text-midnight" />
                       </div>
-                      <div className="flex flex-col items-center gap-2 shrink-0">
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-glow-gold group-hover:scale-110 group-hover:shadow-glow-gold-hover transition-all duration-normal">
-                          <Play size={20} className="text-midnight" />
-                        </div>
-                        <span className="text-white/45 text-xs font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
-                      </div>
+                      <span className="text-white/45 text-xs font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
                     </div>
                   </div>
                 </div>

@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <title>KIUT. — Brand Mark (Black)</title>
-  <rect width="100" height="100" fill="#FFFFFF"/>
-  <rect x="10" y="8" width="14" height="84" rx="1" fill="#0A0A0C"/>
-  <polygon points="24,47 24,30 84,8 84,25" fill="#0A0A0C"/>
-  <polygon points="24,53 24,70 84,75 84,92" fill="#0A0A0C"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 215" fill="none">
+  <title>KIUT Music — Crown Mark (Black)</title>
+  <polygon points="54,4  64,22  32,210  14,210  44,22"       fill="#0A0A0C"/>
+  <polygon points="146,4  136,22  168,210  186,210  156,22"  fill="#0A0A0C"/>
+  <polygon points="78,6  85,19  159,208  147,208  70,19"     fill="#0A0A0C"/>
+  <polygon points="122,6  130,19  53,208  41,208  115,19"    fill="#0A0A0C"/>
+  <polygon points="100,0  111,28  100,40  89,28"             fill="#0A0A0C"/>
+  <polygon points="100,78  116,106  100,132  84,106"         fill="#0A0A0C"/>
 </svg>

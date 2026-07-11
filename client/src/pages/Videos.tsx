@@ -13,6 +13,9 @@ import {
   Youtube,
   SlidersHorizontal,
   ExternalLink,
+} from "lucide-react";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import {
   Copy,
   Check,
   ChevronRight,
@@ -892,21 +895,17 @@ export default function Videos() {
 
                   {/* Action buttons */}
                   <div className="flex flex-wrap items-center gap-3 shrink-0">
-                    <a
+                    <PremiumCTAButton
+                      as="a"
                       href={featuredVideoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Watch on YouTube"
+                      size="sm"
+                      icon={<Youtube size={15} />}
                     >
-                      <motion.div
-                        whileHover={{ scale: 1.04, y: -2 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="btn-base btn-primary btn-sm"
-                      >
-                        <Youtube size={15} />
-                        Watch on YouTube
-                      </motion.div>
-                    </a>
+                      Watch on YouTube
+                    </PremiumCTAButton>
 
                     <div className="relative">
                       <motion.button
@@ -1075,14 +1074,16 @@ export default function Videos() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-2 py-2 rounded-full border border-white/12 bg-black/80 backdrop-blur-xl shadow-lg"
           >
-            <a
+            <PremiumCTAButton
+              as="a"
               href={featuredVideoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-base btn-primary btn-sm"
+              size="sm"
+              icon={<Youtube className="w-3.5 h-3.5" />}
             >
-              <Youtube className="w-3.5 h-3.5" /> Watch on YouTube
-            </a>
+              Watch on YouTube
+            </PremiumCTAButton>
             <a
               href="https://open.spotify.com/artist/7yc6EAIFaY5TO7G1JBWgng"
               target="_blank"

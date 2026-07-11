@@ -2,6 +2,7 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Play, Pause, ExternalLink } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { usePlayer } from "@/context/PlayerContext";
 import { ALL_TRACKS, TRACK_GROUPS, type Track } from "@/data/tracks";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
@@ -583,17 +584,17 @@ export default function Music() {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
-                  <motion.button
-                    whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.55)" }}
-                    whileTap={{ scale: 0.96 }}
+                  <PremiumCTAButton
+                    as="button"
                     onClick={() => playTrack(currentTrack ?? featuredTrack)}
-                    className="btn-base btn-primary"
-                  >
-                    {currentTrack && isPlaying
-                      ? <><Pause size={15} fill="currentColor" /> Pause</>
-                      : <><Play  size={15} fill="currentColor" className="ml-0.5" /> Listen Now</>
+                    icon={
+                      currentTrack && isPlaying
+                        ? <Pause size={15} fill="currentColor" />
+                        : <Play size={15} fill="currentColor" className="ml-0.5" />
                     }
-                  </motion.button>
+                  >
+                    {currentTrack && isPlaying ? "Pause" : "Listen Now"}
+                  </PremiumCTAButton>
 
                   {!currentTrack && (
                     <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
@@ -745,16 +746,16 @@ export default function Music() {
 
                 {/* CTA buttons */}
                 <div className={`flex flex-wrap gap-3 ${i % 2 === 0 ? "justify-center md:justify-start" : "justify-center md:justify-end"}`}>
-                  <a href={album.link} target="_blank" rel="noopener noreferrer">
-                    <motion.button
-                      whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.38)" }}
-                      whileTap={{ scale: 0.96 }}
-                      className="btn-base btn-primary"
-                      data-testid={`button-listen-${album.id}`}
-                    >
-                      <Play size={13} fill="currentColor" className="ml-0.5" /> Listen Now
-                    </motion.button>
-                  </a>
+                  <PremiumCTAButton
+                    as="a"
+                    href={album.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`button-listen-${album.id}`}
+                    icon={<Play size={13} fill="currentColor" className="ml-0.5" />}
+                  >
+                    Listen Now
+                  </PremiumCTAButton>
                   <a href={album.link} target="_blank" rel="noopener noreferrer">
                     <motion.button
                       whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
@@ -868,16 +869,16 @@ export default function Music() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
-                <motion.button
-                  data-testid="button-stream-all"
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
-                  whileTap={{ scale: 0.97 }}
-                  className="btn-base btn-primary"
-                >
-                  <ExternalLink size={13} /> Stream the Latest EP
-                </motion.button>
-              </a>
+              <PremiumCTAButton
+                as="a"
+                href="https://linktr.ee/kiut_goodlife"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="button-stream-all"
+                icon={<ExternalLink size={13} />}
+              >
+                Stream the Latest EP
+              </PremiumCTAButton>
               <a href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer">
                 <motion.button
                   data-testid="button-all-links"

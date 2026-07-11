@@ -9,21 +9,8 @@ import {
   SiInstagram, SiYoutube, SiLinktree,
 } from "react-icons/si";
 import { useState, useRef, useEffect } from "react";
-import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
-
-const MotionLink = motion.create(Link) as unknown as React.FC<
-  React.ComponentProps<typeof Link> & {
-    className?: string;
-    whileHover?: object;
-    whileTap?: object;
-    initial?: object;
-    animate?: object;
-    exit?: object;
-    transition?: object;
-    variants?: object;
-  }
->;
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
 const enquiryTypes = [
@@ -318,25 +305,25 @@ function ContactForm() {
                 )}
 
                 {/* Submit */}
-                <motion.button
+                <PremiumCTAButton
+                  as="button"
                   type="submit"
                   disabled={loading}
-                  whileHover={loading ? {} : { scale: 1.02, y: -2 }}
-                  whileTap={loading ? {} : { scale: 0.97 }}
-                  className="btn-base btn-primary w-full !rounded-xl"
-                >
-                  {loading ? (
-                    <>
+                  className="w-full"
+                  iconPosition="right"
+                  icon={
+                    loading ? (
                       <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                       </svg>
-                      Sending…
-                    </>
-                  ) : (
-                    <>Send Message <Send size={13} /></>
-                  )}
-                </motion.button>
+                    ) : (
+                      <Send size={13} />
+                    )
+                  }
+                >
+                  {loading ? "Sending…" : "Send Message"}
+                </PremiumCTAButton>
 
                 <p className="text-center text-white/20 text-xs tracking-[0.2em] uppercase">
                   Every message is read personally
@@ -628,14 +615,9 @@ export default function Contact() {
                 <p className="text-white/40 text-sm leading-relaxed mb-8 flex-1">
                   New music, exclusive drops, tour announcements, and behind-the-scenes content — before anyone else.
                 </p>
-                <MotionLink
-                  href="/newsletter"
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="btn-base btn-primary self-start"
-                >
-                  Subscribe Free <ArrowRight size={13} />
-                </MotionLink>
+                <PremiumCTAButton as="link" href="/newsletter" className="self-start" icon={<ArrowRight size={13} />} iconPosition="right">
+                  Subscribe Free
+                </PremiumCTAButton>
               </div>
             </motion.div>
 

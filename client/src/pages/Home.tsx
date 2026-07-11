@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
 import { KiutMark, KiutFullLogo } from "../components/KiutMark";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { staggerContainer, staggerItem, T, DUR } from "@/lib/motion";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
@@ -632,14 +633,16 @@ function KiutEmbedSection() {
                 </div>
 
                 {/* Primary CTA */}
-                <a
+                <PremiumCTAButton
+                  as="a"
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-base btn-primary"
+                  icon={<ExternalLink size={16} />}
+                  iconPosition="right"
                 >
-                  Explore All Links <ExternalLink size={16} />
-                </a>
+                  Explore All Links
+                </PremiumCTAButton>
 
                 {/* Mobile open link */}
                 <a
@@ -836,34 +839,25 @@ export default function Home() {
                 {/* 4 — CTA button appears last */}
                 <motion.div variants={staggerItem}>
                   {slides[currentSlide].isExternal ? (
-                    <a
+                    <PremiumCTAButton
+                      as="a"
                       href={slides[currentSlide].ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-block"
+                      icon={<ArrowRight size={18} />}
+                      iconPosition="right"
                     >
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="btn-base btn-primary relative overflow-hidden"
-                      >
-                        <span className="relative z-10 flex items-center gap-2">
-                          {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                        </span>
-                      </motion.button>
-                    </a>
+                      {slides[currentSlide].ctaText}
+                    </PremiumCTAButton>
                   ) : (
-                    <Link href={slides[currentSlide].ctaLink}>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="btn-base btn-primary relative overflow-hidden"
-                      >
-                        <span className="relative z-10 flex items-center gap-2">
-                          {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                        </span>
-                      </motion.button>
-                    </Link>
+                    <PremiumCTAButton
+                      as="link"
+                      href={slides[currentSlide].ctaLink}
+                      icon={<ArrowRight size={18} />}
+                      iconPosition="right"
+                    >
+                      {slides[currentSlide].ctaText}
+                    </PremiumCTAButton>
                   )}
                 </motion.div>
               </motion.div>
@@ -1112,19 +1106,9 @@ export default function Home() {
                 A defining moment in Kiut's discography. Good Life EP brings together infectious rhythms, soulful melodies, and a vibrant celebration of culture.
               </p>
 
-              <a 
-                href="https://linktr.ee/kiut_goodlife"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
-                  whileTap={{ scale: 0.97 }}
-                  className="btn-base btn-primary"
-                >
-                  Listen Now
-                </motion.button>
-              </a>
+              <PremiumCTAButton as="a" href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+                Listen Now
+              </PremiumCTAButton>
 
               <div className="flex items-center gap-6 mt-8 text-white/40">
                 <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Music2 size={24} /><span className="text-xs font-medium uppercase tracking-wider">Spotify</span></div>
@@ -1338,11 +1322,18 @@ export default function Home() {
                       </div>
 
                       {/* CTA */}
-                      <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="Explore KiutRaba's collection on Dream Planet Store">
-                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="btn-base btn-primary w-full mb-2">
-                          <span className="text-xs">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
-                        </motion.button>
-                      </a>
+                      <PremiumCTAButton
+                        as="a"
+                        href={STORE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Explore KiutRaba's collection on Dream Planet Store"
+                        icon={<ExternalLink className="w-3.5 h-3.5" />}
+                        iconPosition="right"
+                        className="w-full mb-2"
+                      >
+                        Explore Collection
+                      </PremiumCTAButton>
                       <p className="text-center text-white/18 text-xs font-light tracking-[0.25em]">Secure checkout via Dream Planet</p>
                     </div>
                   </div>
@@ -1684,16 +1675,16 @@ export default function Home() {
               {/* Right — CTA */}
               <div className="flex flex-col items-center md:items-end gap-6">
                 <div className="flex flex-col gap-3 w-full md:w-auto">
-                  <Link href="/tour">
-                    <motion.button
-                      data-testid="button-concert-notify"
-                      whileHover={{ y: -3, scale: 1.02 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="btn-base btn-primary w-full md:w-auto"
-                    >
-                      View Tour Dates <ArrowRight size={14} />
-                    </motion.button>
-                  </Link>
+                  <PremiumCTAButton
+                    as="link"
+                    href="/tour"
+                    data-testid="button-concert-notify"
+                    icon={<ArrowRight size={14} />}
+                    iconPosition="right"
+                    className="w-full md:w-auto"
+                  >
+                    View Tour Dates
+                  </PremiumCTAButton>
                   <p className="text-center text-white/18 text-xs font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
                 </div>
               </div>
@@ -1893,16 +1884,9 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/newsletter">
-                  <motion.button
-                    data-testid="button-fan-premium"
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="btn-base btn-primary w-full"
-                  >
-                    Apply for Fan Card
-                  </motion.button>
-                </Link>
+                <PremiumCTAButton as="link" href="/newsletter" data-testid="button-fan-premium" className="w-full">
+                  Apply for Fan Card
+                </PremiumCTAButton>
               </div>
             </motion.div>
           </div>

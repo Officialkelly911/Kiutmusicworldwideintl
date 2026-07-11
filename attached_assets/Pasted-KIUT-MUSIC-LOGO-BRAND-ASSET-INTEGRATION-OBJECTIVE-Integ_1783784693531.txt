@@ -1,0 +1,499 @@
+KIUT MUSIC LOGO & BRAND ASSET INTEGRATION
+
+OBJECTIVE
+
+Integrate the official KIUT Music branding throughout the website.
+
+This phase is NOT a redesign.
+
+Do NOT create a new logo.
+
+Do NOT redraw any logo.
+
+Do NOT reinterpret the logo.
+
+Do NOT simplify the logo.
+
+Do NOT generate AI replacements.
+
+Use the uploaded logo assets exactly as provided.
+
+The website must treat these uploaded assets as the official master brand.
+
+⸻
+
+Official Brand Assets
+
+There are two official logo assets.
+
+Asset A
+
+KIUT Monogram
+
+(The crown/diamond symbol only.)
+
+This is the official Brand Mark.
+
+Use it wherever a compact icon is needed.
+
+Never alter proportions.
+
+Never redraw.
+
+Never simplify.
+
+Never regenerate.
+
+Always preserve the original artwork.
+
+⸻
+
+Asset B
+
+KIUT Music Full Lockup
+
+(Monogram + KIUT + MUSIC)
+
+This is the official Primary Logo.
+
+It represents the company identity.
+
+Never redraw.
+
+Never regenerate.
+
+Never replace.
+
+Always preserve exact spacing and proportions.
+
+⸻
+
+Brand Hierarchy
+
+Use the logos according to the following hierarchy.
+
+Primary Brand Logo
+
+Use the Full Lockup for:
+
+* Homepage Hero
+* About Hero
+* Contact Hero
+* Newsletter Hero
+* Press Kit
+* Footer
+* Artist Pages
+* Business Documents
+* Email Signature
+* Investor Deck
+* Brand Guidelines
+* Official Marketing Material
+* Posters
+* Promotional Banners
+
+⸻
+
+Brand Mark
+
+Use the Monogram for:
+
+* Navigation Logo
+* Mobile Navigation
+* Browser Tab
+* Favicon
+* Apple Touch Icon
+* Android App Icon
+* PWA Icon
+* Loading Screen
+* Audio Player
+* Music Player
+* Floating Decorative Elements
+* Section Watermarks
+* Scroll-to-top Button
+* Gallery Watermarks
+* Merchandise Labels
+* Video Intro
+* Video Outro
+* Album Corner Branding
+* Social Profile Images
+
+⸻
+
+Navigation
+
+Desktop Navigation
+
+Use:
+
+Monogram
+
+KIUT wordmark
+
+NOT the full stacked logo.
+
+Keep navigation elegant and minimal.
+
+⸻
+
+Mobile Navigation
+
+Use only:
+
+Monogram
+
+Position top-left.
+
+⸻
+
+Hero Section
+
+Use the Full Logo.
+
+Large.
+
+Centered.
+
+Luxury spacing.
+
+The hero should feel cinematic.
+
+Do not shrink the logo excessively.
+
+⸻
+
+Footer
+
+Use the Full Logo.
+
+Below it display:
+
+Afro-Caribbean Sound.
+Global Energy.
+
+Then social icons.
+
+⸻
+
+Loading Screen
+
+Build a cinematic loading sequence.
+
+Sequence:
+
+Black background appears.
+
+Soft ambient gold glow begins.
+
+The Monogram fades into view.
+
+The Monogram draws itself using animated stroke paths.
+
+The gold diamonds illuminate.
+
+Glow subtly increases.
+
+“KIUT”
+
+fades upward.
+
+“MUSIC”
+
+appears below.
+
+A thin gold line sweeps across the screen.
+
+The loading bar completes.
+
+Hero page fades in.
+
+Total duration:
+
+2–3 seconds.
+
+Animation must feel luxurious.
+
+Never flashy.
+
+CTA Hover Animation
+
+Desktop
+
+Hover:
+
+Button slightly lifts.
+
+Gold shimmer travels left to right.
+
+Glow intensifies.
+
+Shadow increases.
+
+Scale:
+
+1.03
+
+Transition:
+
+300–450ms
+
+⸻
+
+Click Animation
+
+Button compresses slightly.
+
+Glow briefly brightens.
+
+Returns smoothly.
+
+⸻
+
+Mobile
+
+Touch feedback only.
+
+No hover animation.
+
+Ensure animations never interfere with touch interactions.
+
+⸻
+
+Logo Animations
+
+The Monogram should be animated throughout the website.
+
+Use subtle animations only.
+
+Examples:
+
+Slow floating
+
+Very slow rotation (less than 1°)
+
+Soft breathing glow
+
+Opacity pulse
+
+Parallax movement
+
+Never overanimate.
+
+Luxury brands move slowly.
+
+⸻
+
+Decorative Watermarks
+
+Use the Monogram as a background watermark in selected sections.
+
+Examples:
+
+About
+
+Artist Showcase
+
+Music Catalog
+
+Newsletter
+
+Contact
+
+Watermarks should be:
+
+5–10% opacity
+
+Blurred slightly
+
+Large
+
+Centered
+
+Never compete with content.
+
+⸻
+
+Audio Player
+
+Place the Monogram beside the waveform.
+
+Waveform should animate while audio plays.
+
+Gold accents.
+
+Luxury glass styling.
+
+⸻
+
+Social Icons
+
+Generate profile images using only the Monogram.
+
+Use:
+
+Instagram
+
+Facebook
+
+TikTok
+
+YouTube
+
+Spotify
+
+Apple Music
+
+X
+
+Threads
+
+Never use the full logo as profile icons.
+
+⸻
+
+Favicon
+
+Generate:
+
+16x16
+
+32x32
+
+48x48
+
+64x64
+
+128x128
+
+180x180
+
+192x192
+
+512x512
+
+All generated exclusively from the Monogram.
+
+⸻
+
+Watermark System
+
+Create watermark variants:
+
+Gold
+
+White
+
+Black
+
+5%
+
+10%
+
+15%
+
+20%
+
+Opacity
+
+⸻
+
+Logo Usage Rules
+
+Never stretch.
+
+Never rotate.
+
+Never skew.
+
+Never recolor.
+
+Never regenerate.
+
+Never crop.
+
+Never recreate.
+
+Never replace.
+
+Always use the uploaded master assets.
+
+⸻
+
+Website Hierarchy
+
+Navigation
+
+↓
+
+Hero
+
+↓
+
+Featured Release
+
+↓
+
+Latest Music
+
+↓
+
+Featured Artists
+
+↓
+
+Streaming Platforms
+
+↓
+
+About KIUT Music
+
+↓
+
+Newsletter
+
+↓
+
+Contact
+
+↓
+
+Footer
+
+The Monogram should appear subtly throughout these sections as a recurring visual motif, while the Full Logo is reserved for key branding moments such as the Hero, Footer, and major page headers.
+
+⸻
+
+Performance
+
+Use SVG whenever possible.
+
+Lazy-load large assets.
+
+Preload navigation logos.
+
+Optimize PNG fallbacks.
+
+Avoid layout shifts.
+
+Maintain crisp rendering on Retina displays.
+
+All animations must run at 60 FPS.
+
+Respect prefers-reduced-motion by reducing or disabling non-essential animations.
+
+⸻
+
+Final Acceptance Criteria
+
+The implementation is complete only when:
+
+* The uploaded Monogram is used exactly as the official Brand Mark.
+* The uploaded Full Lockup is used exactly as the Primary Logo.
+* No AI-generated or recreated logos exist anywhere in the project.
+* Navigation, hero, footer, and mobile layouts follow the defined hierarchy.
+* The cinematic loading animation is implemented.
+* Premium gold CTA buttons with hover and touch interactions are applied consistently.
+* Monogram watermarks appear tastefully throughout the site.
+* Favicons, app icons, and social profile assets are generated from the Monogram.
+* All branding is visually consistent, responsive, accessible, and optimized for performance.
+
+The end result should feel comparable to the digital experience of a luxury fashion house or premium music label: refined, restrained, elegant, and unmistakably KIUT Music.

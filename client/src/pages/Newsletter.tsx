@@ -2,6 +2,7 @@ import { motion, AnimatePresence, useInView, type TargetAndTransition } from "fr
 import { Mail, Bell, Gift, Sparkles, Check, ArrowRight, ShieldCheck, Lock, Music2 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import SiteFooter from "../components/SiteFooter";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 
 /* ── Count-up hook ────────────────────────────────────────────── */
 function useCountUp(target: number, duration = 2000) {
@@ -453,35 +454,16 @@ export default function Newsletter() {
 
                         {/* CTA button */}
                         <div className="pt-2">
-                          <motion.button
+                          <PremiumCTAButton
+                            as="button"
                             type="submit"
                             disabled={submitting}
-                            whileHover={submitting ? {} : { scale: 1.03, y: -2 }}
-                            whileTap={submitting ? {} : { scale: 0.97 }}
-                            className="relative w-full flex items-center justify-center gap-3 px-6 py-4 rounded-xl font-bold uppercase tracking-widest text-black overflow-hidden group disabled:opacity-60 disabled:pointer-events-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold cursor-pointer"
-                            style={{
-                              background: "linear-gradient(90deg, var(--royal-gold), var(--champagne-gold), var(--dark-gold), var(--royal-gold))",
-                              backgroundSize: "250% auto",
-                            }}
+                            className="w-full"
+                            iconPosition="right"
+                            icon={<ArrowRight className="w-5 h-5" />}
                           >
-                            {/* Shimmer overlay */}
-                            <motion.span
-                              animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
-                              transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                              className="absolute inset-0 pointer-events-none"
-                              style={{
-                                background: "linear-gradient(90deg, transparent 0%, rgba(var(--white-rgb),0.25) 50%, transparent 100%)",
-                                backgroundSize: "200% 100%",
-                              }}
-                            />
-                            <span className="relative z-10 drop-shadow-sm">
-                              {submitting ? "Joining..." : "Join the Rhythm"}
-                            </span>
-                            <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-
-                            {/* Hover glow */}
-                            <span className="absolute -inset-1 rounded-xl bg-gold/0 group-hover:bg-gold/20 blur-xl transition-all duration-normal pointer-events-none" />
-                          </motion.button>
+                            {submitting ? "Joining..." : "Join the Rhythm"}
+                          </PremiumCTAButton>
 
                           {/* Urgent microcopy */}
                           <p className="text-center text-white/30 text-xs uppercase tracking-widest mt-3 font-medium">
@@ -546,12 +528,13 @@ export default function Newsletter() {
             exit={{ y: 100, opacity: 0 }}
             className="fixed bottom-0 left-0 w-full p-4 bg-black/85 backdrop-blur-lg border-t border-white/8 z-50 lg:hidden flex justify-center"
           >
-            <button
+            <PremiumCTAButton
+              as="button"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="btn-base btn-primary w-full max-w-sm"
+              className="w-full max-w-sm"
             >
               Join the Inner Circle
-            </button>
+            </PremiumCTAButton>
           </motion.div>
         )}
       </AnimatePresence>

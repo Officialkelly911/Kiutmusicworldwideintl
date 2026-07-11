@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 import { Music, Globe, Heart, Zap, ArrowRight, ExternalLink, Film, Headphones, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
 
@@ -493,15 +494,9 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="flex flex-wrap gap-4"
           >
-            <Link href="/music">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-base btn-primary"
-              >
-                Listen Now
-              </motion.button>
-            </Link>
+            <PremiumCTAButton as="link" href="/music">
+              Listen Now
+            </PremiumCTAButton>
             <Link href="/videos">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -1167,16 +1162,9 @@ export default function About() {
                   <Film className="w-3.5 h-3.5" /> Watch Latest Visual
                 </motion.button>
               </Link>
-              <Link href="/music">
-                <motion.button
-                  type="button"
-                  whileHover={{ y: -3, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="btn-base btn-primary w-full sm:w-auto"
-                >
-                  <Headphones className="w-3.5 h-3.5" /> Listen Now
-                </motion.button>
-              </Link>
+              <PremiumCTAButton as="link" href="/music" className="w-full sm:w-auto" icon={<Headphones className="w-3.5 h-3.5" />}>
+                Listen Now
+              </PremiumCTAButton>
             </div>
           </motion.div>
 
@@ -1484,17 +1472,17 @@ export default function About() {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.a
+              <PremiumCTAButton
+                as="a"
                 href="https://dreamplanet.org/store-profile/61"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
                 data-testid="link-store-shop"
-                className="btn-base btn-primary w-full sm:w-auto"
+                className="w-full sm:w-auto"
+                icon={<Music className="w-3.5 h-3.5" />}
               >
-                <Music className="w-3.5 h-3.5" /> Shop Now
-              </motion.a>
+                Shop Now
+              </PremiumCTAButton>
               <Link href="/music">
                 <motion.button
                   type="button"

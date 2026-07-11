@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { useRef, useState, useEffect } from "react";
 
 // Single interactive element — avoids nesting <a> inside <button>
@@ -275,14 +276,9 @@ export default function Tour() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
-              <MotionLink
-                href="/newsletter"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-base btn-primary"
-              >
-                Notify Me <Mail size={13} />
-              </MotionLink>
+              <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
+                Notify Me
+              </PremiumCTAButton>
               <motion.button
                 onClick={scrollToFeatured}
                 whileHover={{ y: -3, scale: 1.02 }}
@@ -398,14 +394,9 @@ export default function Tour() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.45 }}
               >
-                <MotionLink
-                  href="/newsletter"
-                  whileHover={{ y: -3, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="btn-base btn-primary"
-                >
-                  Join the Mailing List <Mail size={13} />
-                </MotionLink>
+                <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
+                  Join the Mailing List
+                </PremiumCTAButton>
               </motion.div>
 
               {/* Subtle animated dots */}
@@ -490,14 +481,9 @@ export default function Tour() {
               <p className="text-white/30 text-sm leading-relaxed mb-10 max-w-md">
                 Register your interest now and you'll receive exclusive notifications, priority access, and opportunities that general admission never sees.
               </p>
-              <MotionLink
-                href="/newsletter"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-base btn-primary"
-              >
-                Register VIP Interest <ChevronRight size={14} />
-              </MotionLink>
+              <PremiumCTAButton as="link" href="/newsletter" icon={<ChevronRight size={14} />} iconPosition="right">
+                Register VIP Interest
+              </PremiumCTAButton>
             </motion.div>
 
             {/* Right — perks grid */}
@@ -616,18 +602,26 @@ export default function Tour() {
                   </ul>
 
                   {/* CTA */}
-                  <MotionLink
-                    href="/newsletter"
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.97 }}
-                    className={`btn-base w-full ${
-                      tier.isPremium
-                        ? "btn-primary"
-                        : "bg-white/[0.05] text-white border border-white/12 hover:bg-white/[0.09] hover:border-white/20"
-                    }`}
-                  >
-                    {tier.cta} <ArrowRight size={12} className="inline ml-1 mb-0.5" />
-                  </MotionLink>
+                  {tier.isPremium ? (
+                    <PremiumCTAButton
+                      as="link"
+                      href="/newsletter"
+                      className="w-full"
+                      icon={<ArrowRight size={12} />}
+                      iconPosition="right"
+                    >
+                      {tier.cta}
+                    </PremiumCTAButton>
+                  ) : (
+                    <MotionLink
+                      href="/newsletter"
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="btn-base w-full bg-white/[0.05] text-white border border-white/12 hover:bg-white/[0.09] hover:border-white/20"
+                    >
+                      {tier.cta} <ArrowRight size={12} className="inline ml-1 mb-0.5" />
+                    </MotionLink>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -826,14 +820,9 @@ export default function Tour() {
               <p className="text-white/40 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
                 Tour announcements, presale codes, and VIP drops — first to your inbox, before anywhere else.
               </p>
-              <MotionLink
-                href="/newsletter"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-base btn-primary"
-              >
-                Subscribe to Newsletter <Mail size={13} />
-              </MotionLink>
+              <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
+                Subscribe to Newsletter
+              </PremiumCTAButton>
               <p className="text-white/18 text-[10px] font-light tracking-[0.22em] mt-5">
                 Free · No spam · Unsubscribe anytime
               </p>

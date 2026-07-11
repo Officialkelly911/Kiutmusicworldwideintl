@@ -1,0 +1,394 @@
+Universal Hero Image Optimization & Tour Hero Implementation
+
+Objective
+
+Implement the new Tour page hero image while creating a single universal responsive image system that automatically serves optimized hero images across the entire Kiut Music website.
+
+This is not a Tour page-only implementation.
+
+It must become the image architecture used by every page throughout the website.
+
+⸻
+
+Hero Image System
+
+Create a reusable <HeroSection /> component that supports:
+
+* responsive image loading
+* optimized image variants
+* focal point positioning
+* lazy loading
+* preload for above-the-fold heroes
+* automatic format selection
+* future image replacement without changing layout
+
+The component should accept:
+
+* image
+* mobileImage
+* alt
+* overlay strength
+* hero height
+* focal point
+* CTA content
+* title
+* subtitle
+
+Every page should reuse this exact component.
+
+⸻
+
+Responsive Image Variants
+
+For EVERY hero image on the website generate optimized exports.
+
+Do not rely on CSS resizing.
+
+Create dedicated assets.
+
+Desktop Hero
+
+2560 × 1440
+
+Primary image.
+
+Used for:
+
+* Home
+* Music
+* Videos
+* About
+* Tour
+* Contact
+* Newsletter
+* Merchandise
+* Future pages
+
+⸻
+
+Large Desktop
+
+1920 × 1080
+
+Used on laptops and smaller desktop monitors.
+
+⸻
+
+Tablet
+
+1600 × 1200
+
+Landscape tablets.
+
+⸻
+
+Mobile Portrait
+
+1080 × 1920
+
+Designed specifically for vertical phones.
+
+Do NOT crop automatically.
+
+Recompose each image individually.
+
+⸻
+
+Mobile Landscape
+
+1600 × 900
+
+Landscape mobile devices.
+
+⸻
+
+The responsive implementation should use:
+
+* srcset
+* sizes
+* picture element
+* AVIF
+* WebP
+* JPEG fallback
+
+to minimize bandwidth.
+
+⸻
+
+Universal Image Rules
+
+Every hero image throughout the website should follow the exact same optimization pipeline.
+
+Including:
+
+Home Hero
+
+Music Hero
+
+Videos Hero
+
+About Hero
+
+Tour Hero
+
+Newsletter Hero
+
+Contact Hero
+
+Merchandise Hero
+
+Future pages
+
+Every hero should have:
+
+• desktop version
+
+• laptop version
+
+• tablet version
+
+• portrait mobile version
+
+• landscape mobile version
+
+⸻
+
+Automatic Image Pipeline
+
+Every uploaded hero image should automatically:
+
+Generate all responsive variants.
+
+Compress without visible quality loss.
+
+Generate:
+
+AVIF
+
+WebP
+
+JPEG
+
+Produce preload assets.
+
+Generate blur placeholders.
+
+Generate low-quality placeholders.
+
+Maintain color consistency.
+
+Preserve highlight details.
+
+Preserve shadows.
+
+Maintain luxury contrast.
+
+⸻
+
+Tour Hero Image
+
+Use the newly approved rooftop artist image.
+
+Do NOT add typography.
+
+Do NOT add logos.
+
+Do NOT add overlays burned into the artwork.
+
+The image itself remains completely clean.
+
+All website content overlays dynamically through HTML.
+
+⸻
+
+Tour Hero Composition
+
+Maintain generous negative space.
+
+Keep the artist positioned to the right side.
+
+The left side should remain visually open for:
+
+Headline
+
+Tour description
+
+Buttons
+
+Never crop:
+
+Head
+
+Hands
+
+Jewelry
+
+Legs
+
+Reflection
+
+⸻
+
+Mobile Composition
+
+Instead of shrinking the desktop image:
+
+Recompose.
+
+Center the artist naturally.
+
+Preserve facial visibility.
+
+Preserve skyline.
+
+Avoid cutting off the body.
+
+Maintain breathing room around the subject.
+
+⸻
+
+Overlay
+
+Instead of darkening the entire image:
+
+Use a subtle premium gradient.
+
+Left side:
+
+Dark transparent overlay.
+
+Right side:
+
+Minimal overlay.
+
+This improves text readability while preserving the photography.
+
+⸻
+
+Image Quality
+
+Increase:
+
+Dynamic range
+
+Highlight recovery
+
+Skin tone richness
+
+Building clarity
+
+Window reflections
+
+Jewelry sparkle
+
+Fabric texture
+
+Sky smoothness
+
+Maintain a cinematic luxury aesthetic.
+
+Avoid:
+
+Over sharpening
+
+Artificial HDR
+
+Excessive saturation
+
+Harsh contrast
+
+⸻
+
+Loading Performance
+
+Hero images should:
+
+Lazy load below-the-fold images.
+
+Preload only the current page hero.
+
+Decode asynchronously.
+
+Use fetchpriority=“high”
+
+Prevent layout shift.
+
+Reserve image dimensions before loading.
+
+Target Lighthouse scores above 95.
+
+⸻
+
+Accessibility
+
+Every hero image requires meaningful alt text.
+
+Decorative overlays should be ignored by screen readers.
+
+Maintain WCAG contrast for overlaid text.
+
+⸻
+
+Reusable Architecture
+
+This responsive hero system should become the standard for every page.
+
+Future hero images should only require replacing the source image.
+
+Everything else should automatically generate and function without additional coding.
+
+⸻
+
+Maintain Existing Website Design
+
+This implementation must NOT alter:
+
+Navigation
+
+Header
+
+Footer
+
+Animations
+
+Premium CTA button component
+
+Page layouts
+
+Typography
+
+Spacing
+
+Logo system
+
+Brand assets
+
+Glassmorphism
+
+Gold accents
+
+Lighting effects
+
+Section animations
+
+The reusable premium CTA buttons previously implemented must remain exactly as they are, including their styling, animation, hover effects, glow, transitions, and interactions. This hero image optimization work must not modify, replace, or regress those components in any way.
+
+⸻
+
+Expected Result
+
+The Kiut Music website should have a world-class, responsive hero image system that:
+
+• delivers razor-sharp imagery on every device
+
+• avoids awkward cropping
+
+• improves loading speed
+
+• enhances SEO and Core Web Vitals
+
+• preserves luxury visual quality
+
+• provides a reusable foundation for every current and future page
+
+The new Tour page hero should feel cinematic, premium, immersive, and seamlessly integrated with the existing Kiut Music design system while leaving all existing premium interface components untouched.

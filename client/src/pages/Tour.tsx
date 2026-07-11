@@ -1,7 +1,7 @@
 import React from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import {
-  ArrowRight, MapPin, Calendar, Star, Ticket, Users, Shield,
+  ArrowRight, Calendar, Star, Ticket, Users, Shield,
   ChevronRight, Mail, Play, Globe, Clock, Mic2, Film, Tv2,
 } from "lucide-react";
 import { Link } from "wouter";
@@ -66,30 +66,6 @@ const featuredPerformances = [
     type: "Visualizer",
     year: "2023",
     typeIcon: Film,
-  },
-];
-
-// ─── Past Shows archive ───────────────────────────────────────────────────────
-const pastShows: { year: string; events: { city: string; country: string; venue: string; date: string }[] }[] = [
-  {
-    year: "2025",
-    events: [
-      { city: "London",    country: "UK", venue: "Jazz Café",           date: "Nov 14" },
-      { city: "Lagos",     country: "NG", venue: "Terra Kulture",        date: "Sep 28" },
-      { city: "New York",  country: "US", venue: "SOB's",                date: "Aug 03" },
-      { city: "Toronto",   country: "CA", venue: "Monarch Tavern",       date: "Jun 19" },
-      { city: "Amsterdam", country: "NL", venue: "Bitterzoet",           date: "Apr 11" },
-      { city: "Accra",     country: "GH", venue: "Kempinski Hotel",      date: "Feb 07" },
-    ],
-  },
-  {
-    year: "2024",
-    events: [
-      { city: "London",    country: "UK", venue: "Servant Jazz Quarters", date: "Dec 05" },
-      { city: "Lagos",     country: "NG", venue: "Quilox",                date: "Oct 19" },
-      { city: "Paris",     country: "FR", venue: "New Morning",           date: "Aug 22" },
-      { city: "New York",  country: "US", venue: "Baby's All Right",      date: "May 30" },
-    ],
   },
 ];
 
@@ -227,7 +203,6 @@ export default function Tour() {
     return () => { document.title = "Kiut Music Worldwide"; };
   }, []);
 
-  const [showAllPast, setShowAllPast] = useState(false);
   const featuredRef = useRef<HTMLElement>(null);
 
   function scrollToFeatured() {
@@ -626,92 +601,6 @@ export default function Tour() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── PAST SHOWS ────────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/[0.05]">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="mb-14"
-          >
-            <p className="text-white/28 text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Archive</p>
-            <h2 className="font-display text-4xl font-bold uppercase tracking-tight text-white">
-              Past <span className="text-gold">Shows</span>
-            </h2>
-            <p className="text-white/35 text-sm mt-3 max-w-md leading-relaxed">
-              A record of where Kiut has taken the stage.
-            </p>
-          </motion.div>
-
-          <div className="space-y-10">
-            {pastShows.slice(0, showAllPast ? pastShows.length : 1).map((group, gi) => (
-              <motion.div
-                key={group.year}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: gi * 0.1 }}
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="font-display text-3xl font-bold text-white/12">{group.year}</span>
-                  <div className="flex-1 h-px bg-white/[0.05]" />
-                  <span className="text-white/20 text-[10px] font-medium tracking-widest uppercase">{group.events.length} shows</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {group.events.map((ev, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: i * 0.05 }}
-                      className="flex items-center gap-4 px-5 py-4 rounded-xl border border-white/[0.05] bg-white/[0.015] hover:border-white/[0.09] hover:bg-white/[0.03] transition-all duration-250 group"
-                    >
-                      {/* Date pill */}
-                      <div className="flex-shrink-0 w-11 text-center">
-                        <span className="text-white/22 text-[10px] font-medium tracking-wide leading-none">{ev.date}</span>
-                      </div>
-                      <div className="w-px h-8 bg-white/[0.06] flex-shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-white/70 text-sm font-medium group-hover:text-white transition-colors duration-fast truncate">
-                          {ev.city}
-                          <span className="text-white/28 text-xs font-normal ml-1.5">{ev.country}</span>
-                        </p>
-                        <p className="text-white/22 text-xs mt-0.5 flex items-center gap-1 truncate">
-                          <MapPin size={9} className="flex-shrink-0" /> {ev.venue}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <AnimatePresence>
-            {!showAllPast && pastShows.length > 1 && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="mt-8 text-center"
-              >
-                <motion.button
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => setShowAllPast(true)}
-                  className="btn-base btn-secondary btn-sm !border-white/[0.09] !text-white/35"
-                >
-                  Show All Years <ChevronRight size={13} />
-                </motion.button>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </section>
 

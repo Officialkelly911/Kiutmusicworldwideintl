@@ -1,0 +1,135 @@
+KIUT Music Logo Replacement — STRICT IMPLEMENTATION
+
+The uploaded logo is the official approved Kiut Music Master Logo.
+
+This is not a design task.
+
+It is an implementation task.
+
+Critical Instructions
+
+Do NOT:
+
+* redesign the logo
+* recreate the logo
+* simplify the logo
+* modernize the logo
+* vectorize the logo
+* trace the logo
+* generate a new logo
+* create an interpretation
+* replace it with a different crown mark
+* replace it with another monogram
+* use AI-generated artwork
+* modify typography
+* change spacing
+* recolor the logo
+* crop the logo
+* stretch the logo
+* alter proportions
+* sharpen or stylize it
+
+The uploaded logo is final.
+
+Treat it as a locked brand asset.
+
+Required Action
+
+Use the exact uploaded image file throughout the website.
+
+Replace every previous logo with this uploaded asset.
+
+This includes:
+
+* Navigation logo
+* Hero logo
+* Loading screen
+* Footer
+* Mobile navigation
+* SEO image
+* Open Graph image (where applicable)
+* Social preview image
+* Newsletter branding
+* Contact page
+* About page
+* Favicon source asset
+* Any remaining placeholder logos
+
+File Handling
+
+Import the uploaded logo once into:
+
+assets/brand/logo/
+
+Reference this single file everywhere.
+
+Do not duplicate the logo into multiple edited versions.
+
+Every component must point to the same source asset.
+
+Rendering
+
+Maintain:
+
+* Original proportions
+* Original colors
+* Original transparency
+* Original spacing
+
+Use:
+
+object-fit: contain;
+
+Never crop the artwork.
+
+Never distort the aspect ratio.
+
+Responsiveness
+
+Desktop:
+
+Display the logo at an appropriate size while preserving its proportions.
+
+Tablet:
+
+Scale proportionally.
+
+Mobile:
+
+Scale proportionally.
+
+Never substitute another logo for smaller screens.
+
+Performance
+
+Optimize loading only.
+
+Compression is allowed only if it produces no visible quality loss.
+
+Do not modify the artwork itself.
+
+Existing Incorrect Logos
+
+Search the entire project.
+
+Delete every AI-generated logo, crown mark, monogram, placeholder icon, or recreated version.
+
+Replace all of them with the uploaded official logo.
+
+There must be exactly one official Kiut Music logo used throughout the project.
+
+Final Validation
+
+Before completing the task verify:
+
+✓ Every page uses the uploaded logo.
+
+✓ No generated logos remain.
+
+✓ No recreated crown marks remain.
+
+✓ No traced versions remain.
+
+✓ The uploaded logo is displayed exactly as provided.
+
+This is a strict asset replacement task, not a branding or logo generation task.

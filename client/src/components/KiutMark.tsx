@@ -1,211 +1,118 @@
 /**
- * KiutMark — The official KIUT Music crown monogram.
+ * KiutMark — Official KIUT Music brand mark components.
  *
- * Crown geometry: five upward spires (outer-left, inner-left, center-diamond,
- * inner-right, outer-right) formed by two outer wing strokes + two crossing
- * diagonal arms (X pattern through the body) + an explicit center body
- * diamond at the crossing point + a center top diamond jewel.
+ * Uses the locked brand asset: /brand/logo/kiut-master-logo.png
+ * The PNG is square (black background + crown monogram + KIUT MUSIC wordmark).
+ * mix-blend-mode: screen makes the pure-black background transparent on
+ * dark surfaces while preserving the gold artwork — display-layer compositing
+ * only; the source file is never modified.
  *
- * Use `variant` to switch between gold gradient, white, black, and ivory.
- * All brand assets in client/public/brand/ are derived from this master shape.
- *
- * Phase 8 refinements applied:
- *   • True vector gold gradient (4-stop linear, light→deep)
- *   • Monogram is ~6% larger relative to its frame vs. the old geometric K
- *   • KiutLogo gap increased from gap-3 → gap-[14px] (~17%)
- *   • "MUSIC" secondary text uses tracking-[0.42em] (+5% vs. prior 0.40em)
+ * Do NOT replace, re-draw, trace, or substitute this asset. See brand brief.
  */
+
 import React from "react";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-export type KiutVariant = "gold" | "white" | "black" | "ivory";
+// ── Single source of truth ────────────────────────────────────────────────────
+const LOGO_SRC = "/brand/logo/kiut-master-logo.png";
 
-const FLAT_FILL: Record<KiutVariant, string> = {
-  gold:  "#D4AF37",
-  white: "#FFFFFF",
-  black: "#0A0A0C",
-  ivory: "#F5F0DC",
-};
-
-// ── KiutMark ─────────────────────────────────────────────────────────────────
-interface KiutMarkProps {
+// ── KiutMark — the brand mark at a given square pixel size ───────────────────
+export interface KiutMarkProps {
   /** Rendered size in px (square). Default 40. */
   size?: number;
-  /** Color variant. "gold" renders the vector gold gradient. Default "gold". */
-  variant?: KiutVariant;
-  /** aria-label; omit for decorative use. */
+  /** aria-label for accessible contexts; omit for purely decorative use. */
   label?: string;
   className?: string;
-  /**
-   * @deprecated Legacy compat — pass `variant` instead.
-   * If provided, overrides `variant` with a flat CSS color.
-   */
+  /** @deprecated Legacy prop — ignored; variant is derived from the PNG asset. */
+  variant?: string;
+  /** @deprecated Legacy prop — ignored. */
   color?: string;
 }
 
+export type KiutVariant = "gold" | "white" | "black" | "ivory";
+
 export function KiutMark({
   size = 40,
-  variant = "gold",
   label,
   className,
-  color,
 }: KiutMarkProps) {
-  const useGradient = !color && variant === "gold";
-  const flatFill    = color ?? FLAT_FILL[variant];
-
-  // Stable gradient ID — same for all instances; gradients are identical.
-  const gradId = "kiutCrownGold";
-
   return (
-    <svg
+    <img
+      src={LOGO_SRC}
       width={size}
       height={size}
-      viewBox="0 0 200 215"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      alt={label ?? ""}
       aria-hidden={label ? undefined : "true"}
-      aria-label={label}
       role={label ? "img" : undefined}
-    >
-      {useGradient && (
-        <defs>
-          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stopColor="#F7E070" />
-            <stop offset="30%"  stopColor="#D4AF37" />
-            <stop offset="65%"  stopColor="#C49A26" />
-            <stop offset="100%" stopColor="#8A6B10" />
-          </linearGradient>
-        </defs>
-      )}
-
-      {/* Left outer wing — left spike to bottom-left foot */}
-      <polygon
-        points="54,4  64,22  32,210  14,210  44,22"
-        fill={useGradient ? `url(#${gradId})` : flatFill}
-      />
-      {/* Right outer wing — right spike to bottom-right foot (mirror) */}
-      <polygon
-        points="146,4  136,22  168,210  186,210  156,22"
-        fill={useGradient ? `url(#${gradId})` : flatFill}
-      />
-      {/* "\" crossing arm — inner-left tip, diagonally to bottom-right */}
-      <polygon
-        points="78,6  85,19  159,208  147,208  70,19"
-        fill={useGradient ? `url(#${gradId})` : flatFill}
-      />
-      {/* "/" crossing arm — inner-right tip, diagonally to bottom-left (mirror) */}
-      <polygon
-        points="122,6  130,19  53,208  41,208  115,19"
-        fill={useGradient ? `url(#${gradId})` : flatFill}
-      />
-      {/* Center top diamond — crown jewel at the apex */}
-      <polygon
-        points="100,0  111,28  100,40  89,28"
-        fill={useGradient ? `url(#${gradId})` : flatFill}
-      />
-      {/* Center body diamond — fills the X-crossing intersection point */}
-      <polygon
-        points="100,78  116,106  100,132  84,106"
-        fill={useGradient ? `url(#${gradId})` : flatFill}
-      />
-    </svg>
+      draggable={false}
+      className={["object-contain select-none", className ?? ""].join(" ").trim()}
+      style={{ mixBlendMode: "screen", display: "block" }}
+    />
   );
 }
 
-// ── KiutLogo — horizontal lockup: mark + "KIUT." wordmark ────────────────────
-interface KiutLogoProps {
-  variant?: KiutVariant;
+// ── KiutLogo — horizontal-context logo (same PNG; size controls height) ───────
+export interface KiutLogoProps {
+  /** Controls rendered height in px; width auto. Default 48. */
+  markSize?: number;
+  /** Alias for markSize via legacy size-name system. */
   size?: "sm" | "md" | "lg";
   className?: string;
-  /** @deprecated Use variant instead. */
+  /** @deprecated */
+  variant?: string;
+  /** @deprecated */
   markColor?: string;
-  /** @deprecated Unused — text color follows variant. */
+  /** @deprecated */
   textColor?: string;
-  /** @deprecated Unused — dot color follows variant. */
+  /** @deprecated */
   dotColor?: string;
 }
 
-const LOGO_SIZE = {
-  sm: { mark: 30,  text: "text-sm",  tracking: "tracking-[0.28em]" },
-  md: { mark: 38,  text: "text-xl",  tracking: "tracking-[0.3em]"  },
-  lg: { mark: 55,  text: "text-3xl", tracking: "tracking-[0.32em]" },
-} as const;
+const LOGO_SIZES = { sm: 40, md: 56, lg: 80 } as const;
 
 export function KiutLogo({
-  variant = "gold",
+  markSize,
   size = "md",
   className,
-  markColor,
 }: KiutLogoProps) {
-  const s = LOGO_SIZE[size];
-  const textCol = variant === "black" ? "text-black" : "text-white/90";
-  const dotCol  = variant === "black" ? "#0A0A0C"    : "var(--color-gold)";
-
+  const h = markSize ?? LOGO_SIZES[size];
   return (
-    <span className={`flex items-center gap-[14px] ${className ?? ""}`}>
-      <KiutMark
-        size={s.mark}
-        variant={markColor ? undefined : variant}
-        color={markColor}
-      />
-      <span
-        className={`font-display font-light uppercase ${s.text} ${s.tracking} leading-none ${textCol}`}
-      >
-        KIUT<span style={{ color: dotCol }}>.</span>
-      </span>
-    </span>
+    <img
+      src={LOGO_SRC}
+      height={h}
+      width={h}
+      alt="KIUT Music"
+      draggable={false}
+      className={["object-contain select-none", className ?? ""].join(" ").trim()}
+      style={{ mixBlendMode: "screen", display: "block" }}
+    />
   );
 }
 
-// ── KiutFullLogo — vertical lockup: mark + "KIUT" + "MUSIC" ──────────────────
-interface KiutFullLogoProps {
-  variant?: KiutVariant;
+// ── KiutFullLogo — full vertical lockup (mark + KIUT + MUSIC in the PNG) ─────
+export interface KiutFullLogoProps {
+  /**
+   * Controls the rendered size of the PNG.
+   * The PNG is square, so height == width. Default 160.
+   */
   markSize?: number;
   className?: string;
+  /** @deprecated */
+  variant?: string;
 }
 
 export function KiutFullLogo({
-  variant = "gold",
-  markSize = 80,
+  markSize = 160,
   className,
 }: KiutFullLogoProps) {
-  const isGold  = variant === "gold";
-  const isDark  = variant === "black";
-  const fill    = isGold ? "var(--color-gold)" : isDark ? "#0A0A0C" : "#FFFFFF";
-
   return (
-    <div className={`flex flex-col items-center gap-4 ${className ?? ""}`}>
-      <KiutMark size={markSize} variant={variant} />
-
-      {/* Divider */}
-      <div
-        className="w-12 h-px opacity-50"
-        style={{ background: fill }}
-        aria-hidden="true"
-      />
-
-      {/* Wordmark */}
-      <div className="flex flex-col items-center gap-0.5">
-        <span
-          className="font-display font-light uppercase tracking-[0.32em] leading-none"
-          style={{ color: fill, fontSize: `${Math.round(markSize * 0.36)}px` }}
-        >
-          KIUT
-        </span>
-        {/* Phase 8 refinement: MUSIC tracking +5% (0.40em → 0.42em) */}
-        <span
-          className="font-display font-light uppercase leading-none"
-          style={{
-            color: fill,
-            fontSize:       `${Math.round(markSize * 0.165)}px`,
-            letterSpacing:  "0.42em",
-            opacity:        0.8,
-          }}
-        >
-          MUSIC
-        </span>
-      </div>
-    </div>
+    <img
+      src={LOGO_SRC}
+      width={markSize}
+      height={markSize}
+      alt="KIUT Music"
+      draggable={false}
+      className={["object-contain select-none", className ?? ""].join(" ").trim()}
+      style={{ mixBlendMode: "screen", display: "block" }}
+    />
   );
 }

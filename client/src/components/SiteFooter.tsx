@@ -56,7 +56,13 @@ const navLinks = [
 export default function SiteFooter() {
   const [, navigate] = useLocation();
   return (
-    <footer className="bg-midnight border-t border-white/[0.07] relative overflow-hidden">
+    <motion.footer
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-midnight border-t border-white/[0.07] relative overflow-hidden"
+    >
       {/* Ambient glows */}
       <div className="absolute top-0 right-0 w-[520px] h-[400px] bg-gold/4 blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-amber-500/4 blur-[120px] rounded-full pointer-events-none" />
@@ -67,14 +73,16 @@ export default function SiteFooter() {
           <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em]">Available on all platforms</p>
           <div className="flex items-center gap-6">
             {streamingLinks.map(({ label, Icon, href }) => (
-              <a
+              <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={label}
                 aria-label={label}
-                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-all duration-normal group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-colors duration-normal group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
               >
                 <Icon
                   size={14}
@@ -82,7 +90,7 @@ export default function SiteFooter() {
                   className="group-hover:scale-110 transition-transform duration-normal"
                 />
                 <span className="text-[10px] font-medium hidden sm:block">{label}</span>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -151,30 +159,36 @@ export default function SiteFooter() {
 
               {/* Official brand icon buttons */}
               {connectLinks.map(({ label, Icon, href }) => (
-                <a
+                <motion.a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   title={label}
                   aria-label={label}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                   className="btn-icon"
                 >
                   <Icon size={18} aria-hidden="true" />
-                </a>
+                </motion.a>
               ))}
 
               {/* DreamPlanet — custom platform, PNG icon */}
-              <a
+              <motion.a
                 href="https://dreamplanet.org/user/61"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="DreamPlanet"
                 aria-label="DreamPlanet"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                 className="btn-icon overflow-hidden"
               >
                 <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
-              </a>
+              </motion.a>
 
             </div>
             <p className="mt-4 text-white/20 text-[9px] uppercase tracking-[0.25em]">@kiut_rababag</p>
@@ -215,6 +229,6 @@ export default function SiteFooter() {
           <span className="text-white/30">{DESIGNER.name}</span>
         </p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

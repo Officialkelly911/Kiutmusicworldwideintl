@@ -11,6 +11,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import KiutWatermark from "@/components/KiutWatermark";
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
 const enquiryTypes = [
@@ -556,7 +557,8 @@ export default function Contact() {
       </section>
 
       {/* ── SOCIAL LINKS ─────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--color-midnight)" }}>
+      <section className="py-24 border-t border-white/[0.05] relative overflow-hidden" style={{ background: "var(--color-midnight)" }}>
+        <KiutWatermark size={720} />
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

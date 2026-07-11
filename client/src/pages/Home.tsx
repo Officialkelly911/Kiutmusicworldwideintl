@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
-import { KiutMark } from "../components/KiutMark";
+import { KiutMark, KiutFullLogo } from "../components/KiutMark";
+import { staggerContainer, staggerItem, T, DUR } from "@/lib/motion";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
@@ -140,36 +141,25 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
-        {/* K Brand Mark */}
+        {/* Crown mark — Phase 8: 94px (+7% vs old 88px), full logo with MUSIC */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: DUR.cinematic, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 relative"
         >
-          <KiutMark
-            size={88}
-            color="var(--color-gold)"
+          <KiutFullLogo
+            markSize={94}
+            variant="gold"
             className="drop-glow-gold"
-            label="KIUT."
           />
         </motion.div>
-
-        {/* Logo wordmark */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-5xl md:text-7xl font-bold text-white tracking-[0.22em] uppercase mb-2"
-        >
-          Kiut<span style={{ color: "var(--color-gold)" }}>.</span>
-        </motion.h1>
 
         {/* Accent line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
+          transition={{ duration: DUR.slow, delay: 0.9, ease: "easeInOut" }}
           className="w-24 md:w-48 h-[2px] mb-7 origin-center"
           style={{ background: "var(--color-gold)", boxShadow: "var(--glow-gold)" }}
         />
@@ -807,62 +797,75 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content (Left) */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-12 lg:pt-0 order-2 lg:order-1 min-h-[400px] justify-center">
+            {/* Phase 7: staggered hero entrance — badge → headline → subtitle → CTA */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`text-${currentSlide}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.6 }}
+                variants={staggerContainer(0.12, 0.1)}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, y: -16, transition: T.fast }}
                 className="flex flex-col items-center lg:items-start"
               >
-                <div className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
+                {/* 1 — Badge label */}
+                <motion.div variants={staggerItem} className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
                   <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase">
                     {slides[currentSlide].badge}
                   </span>
-                </div>
-                
-                <h1 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase">
+                </motion.div>
+
+                {/* 2 — Headline fades upward */}
+                <motion.h1
+                  variants={staggerItem}
+                  className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase"
+                >
                   {slides[currentSlide].title.split(' ')[0]}<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">
                     {slides[currentSlide].title.split(' ').slice(1).join(' ')}
                   </span>
-                </h1>
-                
-                <p className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed">
+                </motion.h1>
+
+                {/* 3 — Subtitle fades upward */}
+                <motion.p
+                  variants={staggerItem}
+                  className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed"
+                >
                   {slides[currentSlide].description}
-                </p>
-                
-                {slides[currentSlide].isExternal ? (
-                  <a 
-                    href={slides[currentSlide].ctaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-block"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="btn-base btn-primary relative overflow-hidden"
+                </motion.p>
+
+                {/* 4 — CTA button appears last */}
+                <motion.div variants={staggerItem}>
+                  {slides[currentSlide].isExternal ? (
+                    <a
+                      href={slides[currentSlide].ctaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-block"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </a>
-                ) : (
-                  <Link href={slides[currentSlide].ctaLink}>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="btn-base btn-primary relative overflow-hidden"
-                    >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </Link>
-                )}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn-base btn-primary relative overflow-hidden"
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </motion.button>
+                    </a>
+                  ) : (
+                    <Link href={slides[currentSlide].ctaLink}>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn-base btn-primary relative overflow-hidden"
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </motion.button>
+                    </Link>
+                  )}
+                </motion.div>
               </motion.div>
             </AnimatePresence>
 

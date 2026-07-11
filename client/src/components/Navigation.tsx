@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Music, Video, Home, Info, Mail, Menu, X, Ticket, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { KiutMark } from "./KiutMark";
+import { DUR, EASE_ENTER, EASE_INOUT } from "@/lib/motion";
 
 const navItems = [
   { href: "/",        label: "Home",    icon: Home          },
@@ -21,7 +22,7 @@ export function Navigation() {
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: DUR.slow, ease: EASE_ENTER }}
       className="fixed top-0 left-0 right-0 z-50 glass"
       aria-label="Main navigation"
     >
@@ -36,9 +37,10 @@ export function Navigation() {
               whileTap={{ scale: 0.98 }}
             >
               <KiutMark
-                size={32}
-                color="var(--color-gold)"
+                size={35}
+                variant="gold"
                 className="transition-all duration-normal group-hover:drop-glow-gold"
+                label="KIUT Music"
               />
               <span className="font-display text-base font-light tracking-[0.28em] uppercase text-white/90 group-hover:text-white transition-colors duration-normal">
                 KIUT<span style={{ color: "var(--color-gold)" }}>.</span>
@@ -67,7 +69,7 @@ export function Navigation() {
                         <motion.div
                           layoutId="nav-active"
                           className="absolute inset-0 bg-gold/10 rounded-md border border-gold/22 shadow-glow-gold"
-                          transition={{ type: "spring", bounce: 0.18, duration: 0.5 }}
+                          transition={{ duration: DUR.normal, ease: EASE_INOUT }}
                         />
                       )}
                       <span className={`relative z-10 font-medium text-sm tracking-wide transition-colors duration-fast ${isActive ? "text-gold" : ""}`}>
@@ -77,7 +79,7 @@ export function Navigation() {
                         <motion.div
                           layoutId="nav-underline"
                           className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-gold rounded-full"
-                          transition={{ type: "spring", bounce: 0.18, duration: 0.5 }}
+                          transition={{ duration: DUR.normal, ease: EASE_INOUT }}
                         />
                       )}
                     </motion.div>

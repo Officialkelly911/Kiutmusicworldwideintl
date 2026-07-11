@@ -95,7 +95,7 @@ export default function SiteFooter() {
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="flex flex-col items-center lg:items-start gap-3 mb-3">
-              <KiutMark size={48} color="var(--color-gold)" className="drop-glow-gold" />
+              <KiutMark size={51} variant="gold" className="drop-glow-gold" label="KIUT Music official logo" />
               <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase">
                 KIUT<span className="text-gold">.</span>
               </h3>

@@ -7,7 +7,7 @@ const DESIGNER = {
   url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
 } as const;
 import { motion } from "framer-motion";
-import { KiutMark } from "./KiutMark";
+import { KiutFullLogo } from "./KiutMark";
 import {
   SiSpotify,
   SiApplemusic,
@@ -102,11 +102,11 @@ export default function SiteFooter() {
 
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <div className="flex flex-col items-center lg:items-start gap-3 mb-3">
-              <KiutMark size={51} variant="gold" className="drop-glow-gold" label="KIUT Music official logo" />
-              <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase">
-                KIUT<span className="text-gold">.</span>
-              </h3>
+            <div className="flex flex-col items-center lg:items-start gap-4 mb-4">
+              <KiutFullLogo markSize={110} variant="gold" className="drop-glow-gold" />
+              <p className="text-white/50 text-xs font-light tracking-[0.25em] uppercase">
+                Afro-Caribbean Sound. <span className="text-white/70">Global Energy.</span>
+              </p>
             </div>
             <p className="text-white/45 text-base mb-8 font-light max-w-sm leading-relaxed">
               Join the inner circle for exclusive updates, early releases, and behind-the-scenes access.

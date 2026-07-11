@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, SkipBack, SkipForward, X } from "lucide-react";
 import { usePlayer } from "@/context/PlayerContext";
+import { KiutMark } from "@/components/KiutMark";
 
 function fmt(s: number) {
   const m = Math.floor(s / 60);
@@ -46,6 +47,9 @@ export default function MiniPlayer() {
           </div>
 
           <div className="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center gap-4">
+            {/* Brand mark */}
+            <KiutMark size={16} variant="gold" className="hidden sm:block flex-shrink-0 opacity-80" />
+
             {/* Album art */}
             <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 shadow-sm">
               <img src={currentTrack.albumArt} alt={currentTrack.title} className="w-full h-full object-cover" />

@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
 import { PlayerProvider, usePlayer } from "@/context/PlayerContext";
 import MiniPlayer from "@/components/MiniPlayer";
+import ScrollToTop from "@/components/ScrollToTop";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { pageVariants } from "@/lib/motion";
 import { lazy, Suspense } from "react";
@@ -95,6 +96,7 @@ function App() {
               <AnimatedRouter />
             </main>
             <MiniPlayer />
+            <ScrollToTop />
           </PlayerProvider>
         </MotionConfig>
       </TooltipProvider>

@@ -3,6 +3,7 @@ import { Mail, Bell, Gift, Sparkles, Check, ArrowRight, ShieldCheck, Lock, Music
 import { useState, useEffect, useRef } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import KiutWatermark from "@/components/KiutWatermark";
 
 /* ── Count-up hook ────────────────────────────────────────────── */
 function useCountUp(target: number, duration = 2000) {
@@ -153,6 +154,7 @@ export default function Newsletter() {
       transition={{ duration: 0.7, ease: "easeOut" }}
       className="min-h-screen pt-24 pb-16 text-white relative overflow-hidden"
     >
+      <KiutWatermark size={820} className="z-[1]" />
 
       {/* ── Cinematic beach background ────────────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none">

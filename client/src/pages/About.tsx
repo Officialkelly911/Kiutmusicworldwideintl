@@ -3,6 +3,7 @@ import { Music, Globe, Heart, Zap, ArrowRight, ExternalLink, Film, Headphones, C
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import KiutWatermark from "@/components/KiutWatermark";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
 
@@ -517,6 +518,7 @@ export default function About() {
 
       {/* ─── 2. THE STORY ───────────────────────────────────────────────── */}
       <section className="py-28 md:py-36 relative z-10">
+        <KiutWatermark size={780} />
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 

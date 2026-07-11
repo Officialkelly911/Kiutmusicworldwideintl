@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Music, Video, Home, Info, Mail, Menu, X, Ticket, MessageSquare } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { KiutMark } from "./KiutMark";
 
 const navItems = [
@@ -16,16 +16,24 @@ const navItems = [
 export function Navigation() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 40);
+    handler();
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 glass"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-slow ${scrolled ? "glass-scrolled" : "glass"}`}
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className={`max-w-7xl mx-auto px-6 transition-[padding] duration-slow ${scrolled ? "py-2.5" : "py-4"}`}>
         <div className="flex items-center justify-between">
 
           {/* Logo */}

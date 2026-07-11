@@ -89,9 +89,9 @@
      duration-cinematic) per 07_Animation_Motion_System.md — use these
      instead of arbitrary duration-[Nms] values. */
   --duration-fast: 180ms;
-  --duration-normal: 250ms;
-  --duration-medium: 350ms;
-  --duration-slow: 500ms;
+  --duration-normal: 280ms;
+  --duration-medium: 450ms;
+  --duration-slow: 600ms;
   --duration-cinematic: 800ms;
 
   /* ── Unified button system — KIUT Brand Integration Phase 4.
@@ -271,10 +271,18 @@
   }
   
   .glass {
-    background: rgba(var(--midnight-black-rgb), 0.85);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: rgba(var(--midnight-black-rgb), 0.82);
+    backdrop-filter: blur(24px) saturate(1.2);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
     border-bottom: 1px solid rgba(var(--white-rgb), 0.06);
+  }
+
+  .glass-scrolled {
+    background: rgba(var(--midnight-black-rgb), 0.94);
+    backdrop-filter: blur(44px) saturate(1.5);
+    -webkit-backdrop-filter: blur(44px) saturate(1.5);
+    border-bottom: 1px solid rgba(var(--white-rgb), 0.09);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.28);
   }
   
   /* ── Unified interactive control system — KIUT Brand Integration

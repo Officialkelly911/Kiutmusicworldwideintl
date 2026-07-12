@@ -8,6 +8,7 @@ import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
 import { StatCounter } from "@/components/StatCounter";
+import { SocialIconGroup } from "@/components/SocialIconGroup";
 import { FEATURED_UPDATES } from "@/data/updates";
 import { upcomingShows } from "@/pages/Tour";
 import { videos } from "@/pages/Videos";
@@ -884,6 +885,35 @@ export default function Newsletter() {
               </motion.div>
             ))}
           </div>
+        </section>
+
+        {/* ── SOCIAL COMMUNITY ──────────────────────────────────── */}
+        <section className="pt-20 pb-16 border-t border-white/[0.06]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-10"
+          >
+            <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Community</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4">
+              Follow Every <span className="text-gold">Platform</span>
+            </h2>
+            <p className="text-white/35 text-sm max-w-md mx-auto leading-relaxed">
+              Stream, follow, and stay connected — every Kiut Music channel in one place.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="flex justify-center"
+          >
+            <SocialIconGroup className="justify-center gap-4" />
+          </motion.div>
         </section>
       </div>
 

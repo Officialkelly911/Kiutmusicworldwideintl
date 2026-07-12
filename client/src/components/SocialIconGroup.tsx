@@ -19,6 +19,11 @@ import {
   APPLE_MUSIC_ARTIST_URL,
   AUDIOMACK_URL,
   BOOMPLAY_URL,
+  TIKTOK_URL,
+  FACEBOOK_URL,
+  SOUNDCLOUD_URL,
+  X_URL,
+  THREADS_URL,
 } from "@/data/social";
 
 // react-icons/si has no Boomplay glyph — use the same minimal inline mark
@@ -43,16 +48,16 @@ export interface SocialLink {
 
 export const SOCIAL_LINKS: SocialLink[] = [
   { label: "Instagram",   Icon: SiInstagram,  href: INSTAGRAM_URL },
-  { label: "TikTok",      Icon: SiTiktok,     href: "" },
-  { label: "Facebook",    Icon: SiFacebook,   href: "" },
+  { label: "TikTok",      Icon: SiTiktok,     href: TIKTOK_URL },
+  { label: "Facebook",    Icon: SiFacebook,   href: FACEBOOK_URL },
   { label: "YouTube",     Icon: SiYoutube,    href: YOUTUBE_URL },
   { label: "Spotify",     Icon: SiSpotify,    href: SPOTIFY_ARTIST_URL },
   { label: "Apple Music", Icon: SiApplemusic, href: APPLE_MUSIC_ARTIST_URL },
   { label: "Audiomack",   Icon: SiAudiomack,  href: AUDIOMACK_URL },
   { label: "Boomplay",    Icon: SiBoomplay,   href: BOOMPLAY_URL },
-  { label: "SoundCloud",  Icon: SiSoundcloud, href: "" },
-  { label: "X",           Icon: SiX,          href: "" },
-  { label: "Threads",     Icon: SiThreads,    href: "" },
+  { label: "SoundCloud",  Icon: SiSoundcloud, href: SOUNDCLOUD_URL },
+  { label: "X",           Icon: SiX,          href: X_URL },
+  { label: "Threads",     Icon: SiThreads,    href: THREADS_URL },
 ];
 
 export function SocialIconGroup({ className = "" }: { className?: string }) {

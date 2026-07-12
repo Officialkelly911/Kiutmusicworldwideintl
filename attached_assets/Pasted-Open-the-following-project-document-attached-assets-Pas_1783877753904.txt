@@ -1,0 +1,37 @@
+Open the following project document:
+
+attached_assets/Pasted-Below-is-Part-4-of-the-Phase-9-Master-Implementation-fo_1783874910691.txt
+
+Read the document in its entirety and treat it as the implementation specification.
+
+Next, perform a comprehensive audit of the entire project against this specification.
+
+Review the current codebase, components, pages, services, UI, and functionality to determine which tasks have already been completed and which have not.
+
+Use the Git commit history beginning from commit:
+
+087d55cd52a889ce59e669c2f0a862501ab165d7
+
+to understand what has already been implemented and avoid duplicating existing work.
+
+Your responsibilities are to:
+
+* Compare every requirement in the specification against the current implementation.
+* Identify any missing, incomplete, partially implemented, or inconsistent features.
+* Implement every outstanding requirement exactly as defined in the specification.
+* Finish any partially completed functionality.
+* Refactor where necessary to align with the approved architecture without changing the existing design language.
+* Reuse existing shared components wherever possible instead of creating duplicates.
+* Preserve all previously approved branding, navigation, typography, spacing, animations, responsive behavior, reusable CTA components, hero systems, and logo integrations.
+* Do not redesign any existing UI unless the specification explicitly requires it.
+* Ensure all implementations are production-ready, responsive, accessible, scalable, and optimized for performance.
+
+When implementation is complete, provide a detailed completion report containing:
+
+1. A list of requirements that were already implemented.
+2. A list of newly implemented or completed requirements.
+3. Any bugs or inconsistencies that were fixed.
+4. Any requirements that could not be completed and the reason why.
+5. Any external dependencies, API keys, credentials, or assets still required before those remaining items can be finalized.
+
+Do not stop after identifying missing tasks. Continue until every implementable requirement from the specification has been completed and verified.

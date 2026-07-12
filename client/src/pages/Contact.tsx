@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, BOOMPLAY_URL,
   INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL,
+  TIKTOK_URL, FACEBOOK_URL, SOUNDCLOUD_URL, X_URL, THREADS_URL,
 } from "@/data/social";
 import {
   CONTACT_CHANNELS, BOOKING_CATEGORIES, LOCATION_INFO, LOCATION_MAP_QUERY, CONTACT_FAQ,
@@ -16,6 +17,7 @@ import {
 import {
   SiSpotify, SiApplemusic, SiAudiomack,
   SiInstagram, SiYoutube, SiLinktree,
+  SiTiktok, SiFacebook, SiSoundcloud, SiX, SiThreads,
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
@@ -147,6 +149,51 @@ const socialLinks = [
     color: "from-gold/10 to-amber-500/10",
     border: "hover:border-gold/30",
     iconColor: "group-hover:text-gold",
+  },
+  {
+    label: "TikTok",
+    sub: "@kiutmusic",
+    icon: SiTiktok,
+    href: TIKTOK_URL,
+    color: "from-white/5 to-slate-700/10",
+    border: "hover:border-white/20",
+    iconColor: "group-hover:text-white",
+  },
+  {
+    label: "Facebook",
+    sub: "Kiut Music",
+    icon: SiFacebook,
+    href: FACEBOOK_URL,
+    color: "from-blue-600/10 to-blue-800/10",
+    border: "hover:border-blue-500/30",
+    iconColor: "group-hover:text-blue-400",
+  },
+  {
+    label: "SoundCloud",
+    sub: "Kiut",
+    icon: SiSoundcloud,
+    href: SOUNDCLOUD_URL,
+    color: "from-orange-500/10 to-orange-700/10",
+    border: "hover:border-orange-500/30",
+    iconColor: "group-hover:text-orange-400",
+  },
+  {
+    label: "X",
+    sub: "@kiutmusic",
+    icon: SiX,
+    href: X_URL,
+    color: "from-white/5 to-slate-700/10",
+    border: "hover:border-white/20",
+    iconColor: "group-hover:text-white",
+  },
+  {
+    label: "Threads",
+    sub: "@kiutmusic",
+    icon: SiThreads,
+    href: THREADS_URL,
+    color: "from-white/5 to-slate-700/10",
+    border: "hover:border-white/20",
+    iconColor: "group-hover:text-white",
   },
 ];
 
@@ -668,10 +715,10 @@ export default function Contact() {
               <span className="text-gold text-xs font-bold tracking-[0.35em] uppercase">Contact & Community</span>
             </div>
             <h1 className="font-display text-[clamp(3rem,10vw,7rem)] font-bold uppercase tracking-tight leading-[0.92] text-white mb-6">
-              Let's <span className="text-gold">Connect</span>
+              Contact <span className="text-gold">Kiut Music</span>
             </h1>
             <p className="font-editorial italic text-white/45 text-lg font-light max-w-lg leading-relaxed">
-              Whether you're booking a show, pitching a story, or just reaching out as a fan — the door is open.
+              Book performances, request collaborations, connect with management, or simply get in touch.
             </p>
           </motion.div>
 

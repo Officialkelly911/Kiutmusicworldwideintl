@@ -1,0 +1,949 @@
+FOUNDATION & GLOBAL ARCHITECTURE
+
+KIUT MUSIC WORLDWIDE INTERNATIONAL
+
+Master Replit Implementation Specification
+
+⸻
+
+PROJECT OBJECTIVE
+
+This phase begins the completion of the Kiut Music Worldwide International website.
+
+The goal is not to redesign the website.
+
+The visual identity has already been approved.
+
+The navigation has already been approved.
+
+The logo hierarchy has already been approved.
+
+The reusable CTA system has already been approved.
+
+The responsive hero image system has already been approved.
+
+The purpose of this phase is to establish a production-ready architectural foundation that every remaining page will inherit.
+
+Every future implementation must reference this architecture.
+
+No page should feel visually different from another.
+
+The website should feel like one complete premium digital experience.
+
+⸻
+
+DEVELOPMENT OBJECTIVES
+
+Throughout this phase the website should become:
+
+• Cleaner
+
+• Faster
+
+• More maintainable
+
+• Easier to scale
+
+• Easier to update
+
+• Component driven
+
+• Fully responsive
+
+• Luxury focused
+
+• Brand consistent
+
+⸻
+
+DO NOT REDESIGN
+
+The following systems are considered approved.
+
+Do NOT redesign them.
+
+Do NOT replace them.
+
+Do NOT regenerate them.
+
+Do NOT introduce alternative versions.
+
+⸻
+
+Approved Systems
+
+Navigation
+
+Header
+
+Footer
+
+Logo hierarchy
+
+Premium CTA component
+
+Typography hierarchy
+
+Glassmorphism styling
+
+Gold visual language
+
+Hover animations
+
+Section spacing
+
+Grid system
+
+Dark luxury theme
+
+Hero image strategy
+
+Responsive image architecture
+
+Brand colors
+
+Animation language
+
+⸻
+
+EXISTING CTA COMPONENT
+
+Critical.
+
+The reusable premium CTA component implemented during previous phases is protected.
+
+It must remain visually identical.
+
+Maintain:
+
+Gold finish
+
+Glass styling
+
+Glow
+
+Hover animation
+
+Shimmer
+
+Transition timing
+
+Border radius
+
+Typography
+
+Padding
+
+Focus state
+
+Responsive behaviour
+
+Accessibility
+
+Future pages must reuse this existing component.
+
+Never create another primary CTA style.
+
+⸻
+
+LOGO SYSTEM
+
+Use only approved uploaded artwork.
+
+Never recreate the logo.
+
+Never vectorize.
+
+Never regenerate.
+
+Never replace.
+
+Logo hierarchy:
+
+Primary Logo
+
+Secondary Logo
+
+Brand Mark
+
+Monogram
+
+Website Header Logo
+
+Every page must reference these approved assets.
+
+⸻
+
+WEBSITE ARCHITECTURE
+
+The website should now follow one consistent architecture.
+
+Home
+
+↓
+
+Music
+
+↓
+
+Videos
+
+↓
+
+Discover
+
+About
+
+Tour
+
+↓
+
+Connect
+
+Contact
+
+Newsletter
+
+↓
+
+Store
+
+↓
+
+Footer
+
+Every page must inherit the same layout system.
+
+⸻
+
+GLOBAL PAGE STRUCTURE
+
+Every page should follow:
+
+Navigation
+
+↓
+
+Hero
+
+↓
+
+Primary Content
+
+↓
+
+Featured Section
+
+↓
+
+Supporting Content
+
+↓
+
+Call To Action
+
+↓
+
+Footer
+
+Maintain consistent spacing throughout.
+
+⸻
+
+PAGE WIDTHS
+
+Maximum content width:
+
+1440px
+
+Reading width:
+
+760px
+
+Section padding:
+
+Desktop
+
+140px
+
+Tablet
+
+96px
+
+Mobile
+
+48px
+
+Maintain these values throughout the website.
+
+⸻
+
+SPACING SYSTEM
+
+Use an 8-point spacing system.
+
+Examples
+
+8
+
+16
+
+24
+
+32
+
+48
+
+64
+
+80
+
+96
+
+120
+
+160
+
+Avoid arbitrary spacing.
+
+Maintain rhythm.
+
+⸻
+
+GRID SYSTEM
+
+Desktop
+
+12-column grid
+
+Laptop
+
+12-column grid
+
+Tablet
+
+8-column grid
+
+Mobile
+
+4-column grid
+
+Never break alignment.
+
+⸻
+
+BORDER RADIUS
+
+Use one consistent system.
+
+Cards
+
+24px
+
+Buttons
+
+999px
+
+Images
+
+24px
+
+Glass Panels
+
+28px
+
+Input Fields
+
+18px
+
+Consistency is critical.
+
+⸻
+
+SHADOW SYSTEM
+
+Maintain subtle luxury shadows.
+
+Avoid heavy drop shadows.
+
+Prefer:
+
+Soft ambient shadows
+
+Glass highlights
+
+Gold glow
+
+Light bloom
+
+Everything should feel elegant.
+
+⸻
+
+GLASSMORPHISM
+
+Continue using the approved glass style.
+
+Maintain:
+
+Soft blur
+
+Subtle transparency
+
+Thin gold border
+
+Luxury reflections
+
+Low noise
+
+Never introduce frosted panels that feel overly bright.
+
+⸻
+
+COLOR SYSTEM
+
+Maintain the approved palette.
+
+Primary
+
+Luxury Gold
+
+Secondary
+
+Champagne Gold
+
+Background
+
+Deep Black
+
+Surface
+
+Charcoal
+
+Text
+
+White
+
+Muted Text
+
+Soft Gray
+
+No new accent colors should be introduced without approval.
+
+⸻
+
+TYPOGRAPHY
+
+Preserve the existing typography hierarchy.
+
+Maintain consistent:
+
+Heading sizes
+
+Paragraph spacing
+
+Letter spacing
+
+Line height
+
+Weights
+
+Text alignment
+
+Never introduce decorative fonts.
+
+⸻
+
+ICONOGRAPHY
+
+Icons should remain:
+
+Minimal
+
+Luxury
+
+Thin
+
+Modern
+
+Rounded
+
+Consistent sizing
+
+No filled icon packs mixed with outlined icons.
+
+⸻
+
+UNIVERSAL HERO COMPONENT
+
+Every hero should use the existing reusable Hero component.
+
+Every Hero should support:
+
+Responsive images
+
+Headline
+
+Subheading
+
+CTA
+
+Secondary CTA
+
+Overlay
+
+Background image
+
+Gradient
+
+Content alignment
+
+Image focal point
+
+⸻
+
+HERO IMAGE STANDARDS
+
+Maintain the responsive image architecture.
+
+Every Hero image should include:
+
+Desktop Hero
+
+2560×1440
+
+Large Desktop
+
+1920×1080
+
+Tablet
+
+1600×1200
+
+Mobile Portrait
+
+1080×1920
+
+Mobile Landscape
+
+1600×900
+
+Never rely on CSS scaling alone.
+
+Each variant should be optimized individually.
+
+⸻
+
+HERO OVERLAYS
+
+Use subtle overlays.
+
+Never darken the image excessively.
+
+Maintain:
+
+Black gradient
+
+Luxury vignette
+
+Soft gold bloom
+
+Readable typography
+
+Preserve photography.
+
+⸻
+
+IMAGE QUALITY
+
+All hero images should follow:
+
+Luxury color grading
+
+Recovered highlights
+
+Rich shadows
+
+Natural skin tones
+
+Sharp subject
+
+Smooth skies
+
+No excessive HDR
+
+No oversaturation
+
+No artificial sharpening
+
+⸻
+
+RESPONSIVE IMAGE PIPELINE
+
+Use:
+
+<picture>
+
+srcset
+
+sizes
+
+AVIF
+
+WebP
+
+JPEG fallback
+
+Lazy loading for below-the-fold imagery.
+
+Preload only the active hero.
+
+⸻
+
+CONTENT COMPONENTS
+
+Build reusable components.
+
+Examples
+
+Hero
+
+Section Heading
+
+CTA
+
+Card
+
+Media Card
+
+Music Card
+
+Video Card
+
+Artist Card
+
+Gallery
+
+Timeline
+
+Quote Block
+
+Newsletter
+
+Booking Card
+
+Footer
+
+Every page should reuse these components.
+
+Avoid duplicates.
+
+⸻
+
+ANIMATION SYSTEM
+
+Maintain one motion language.
+
+Entrance
+
+Fade
+
+Slide
+
+Scale
+
+Hover
+
+Glow
+
+Lift
+
+Shimmer
+
+Parallax
+
+Very subtle
+
+Motion should feel calm.
+
+Luxury brands do not animate aggressively.
+
+⸻
+
+SCROLL ANIMATIONS
+
+Sections should reveal gently.
+
+Duration
+
+500–700ms
+
+Ease
+
+ease-out
+
+No bouncing.
+
+No exaggerated movement.
+
+⸻
+
+PAGE TRANSITIONS
+
+Maintain consistency.
+
+Fade
+
+Opacity
+
+Small translate
+
+Maximum duration
+
+500ms
+
+Avoid flashy transitions.
+
+⸻
+
+PERFORMANCE TARGETS
+
+Maintain:
+
+Lighthouse
+
+95+
+
+Performance
+
+95+
+
+Accessibility
+
+100
+
+Best Practices
+
+100
+
+SEO
+
+95+
+
+⸻
+
+IMAGE OPTIMIZATION
+
+Compress all images.
+
+Maintain visual quality.
+
+Serve:
+
+AVIF
+
+WebP
+
+JPEG
+
+Generate:
+
+Blur placeholders
+
+Responsive sizes
+
+Preload Hero
+
+Lazy load galleries
+
+⸻
+
+CODE QUALITY
+
+Prefer reusable components.
+
+Avoid duplicate layouts.
+
+Avoid repeated CSS.
+
+Keep files modular.
+
+Maintain clean folder structure.
+
+⸻
+
+FOLDER STRUCTURE
+
+/pages
+
+/components
+
+/assets
+
+/assets/brand
+
+/assets/images
+
+/assets/heroes
+
+/assets/gallery
+
+/assets/icons
+
+/styles
+
+/hooks
+
+/utils
+
+Keep assets organized.
+
+⸻
+
+ACCESSIBILITY
+
+Maintain WCAG compliance.
+
+Provide:
+
+Alt text
+
+ARIA labels
+
+Keyboard navigation
+
+Visible focus states
+
+Reduced motion support
+
+Semantic HTML
+
+⸻
+
+SEO PREPARATION
+
+Prepare every page for Phase 12.
+
+Include placeholders for:
+
+Meta Title
+
+Meta Description
+
+OG Image
+
+Twitter Card
+
+Canonical URL
+
+Structured Data
+
+Do not hardcode placeholder values into production.
+
+⸻
+
+CONTENT MANAGEMENT READINESS
+
+Prepare every page so content can be updated from centralized data rather than hardcoded into components.
+
+Future updates such as:
+
+Music releases
+
+Tour dates
+
+Videos
+
+Gallery images
+
+Merchandise
+
+Announcements
+
+News
+
+should require updating data sources, not rebuilding layouts.
+
+⸻
+
+DEVELOPER RESTRICTIONS
+
+Do NOT:
+
+Redesign UI
+
+Replace branding
+
+Alter CTA animations
+
+Generate new logos
+
+Invent new color palettes
+
+Modify navigation
+
+Change typography hierarchy
+
+Replace approved components
+
+Break responsiveness
+
+Duplicate components
+
+Hardcode repeated layouts
+
+⸻
+
+QUALITY CONTROL
+
+Every implementation should be evaluated against:
+
+Brand consistency
+
+Component consistency
+
+Performance
+
+Responsiveness
+
+Accessibility
+
+Animation quality
+
+Visual hierarchy
+
+Spacing consistency
+
+Maintainability
+
+Scalability
+
+⸻
+
+PHASE 9 FOUNDATION ACCEPTANCE CHECKLIST
+
+This part is complete only when:
+
+✓ Existing design system remains unchanged.
+
+✓ Navigation is preserved.
+
+✓ Premium CTA component is untouched.
+
+✓ Logo hierarchy is respected.
+
+✓ Universal Hero component is the standard across all pages.
+
+✓ Responsive image architecture is implemented globally.
+
+✓ Shared reusable components are established.
+
+✓ Grid, spacing, typography, and color systems remain consistent.
+
+✓ Performance and accessibility standards are maintained.
+
+✓ Folder structure supports future scalability.
+
+✓ Content architecture is prepared for seamless integration in subsequent parts.
+
+This Foundation & Global Architecture document is the governing specification for every remaining Phase 9 implementation. All subsequent parts (Tour & Music, Videos & About, Contact & Newsletter, and Final Integration) must adhere to these standards without exception.

@@ -4,14 +4,14 @@ import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { usePlayer } from "@/context/PlayerContext";
-import { ALL_TRACKS, TRACK_GROUPS, type Track } from "@/data/tracks";
+import {
+  ALL_TRACKS, TRACK_GROUPS, ALBUMS, type Track, type AlbumMeta,
+  getAlbumPreviewAudio, getTrackStreamingUrl,
+  GOOD_LIFE_EP_ART, SOFA_EP_ART, ANNOUNCE_ART, ELIGIBLE_EP_ART,
+} from "@/data/tracks";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
-// ─── Image + audio constants ──────────────────────────────────────────────────
-const goodLifeEP  = "/assets/images/Good_Life_EP_1767961904057.webp";
-const sofaEP      = "/assets/images/SOFA_EP_1767961904056.webp";
-const announceImg = "/assets/images/announce-cover.webp";
-const eligibleEP  = "/assets/images/KIUT_ELIGIBLE_EP_1767961904056.webp";
+// Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
 type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay";
@@ -64,68 +64,14 @@ const PLATFORMS: Record<PlatformId, { label: string; color: string; icon: React.
   },
 };
 
-// ─── Album discography cards data ─────────────────────────────────────────────
-const albums = [
-  {
-    id: 1,
-    title: "Good Life EP",
-    year: "Oct 30, 2025",
-    yearShort: "2025",
-    type: "EP",
-    image: goodLifeEP,
-    link: "https://linktr.ee/kiut_goodlife?utm_source=linktree_profile_share&ltsid=bc67a3d6-887d-4ad8-ad3d-5fe5b92dd484",
-    previewAudio: "/audio/makosa.m4a",
-    tracks: 6,
-    genre: "Afrobeats / Caribbean",
-    platforms: ["spotify", "apple", "audiomack", "youtube", "boomplay"] as PlatformId[],
-  },
-  {
-    id: 2,
-    title: "S.O.F.A (Songs From Archive)",
-    year: "Nov 24, 2023",
-    yearShort: "2023",
-    type: "EP",
-    image: sofaEP,
-    link: "https://bit.ly/m/KiutmusicSofaEP",
-    previewAudio: "/audio/aje.mp3",
-    tracks: 7,
-    genre: "Afrobeats / R&B",
-    platforms: ["spotify", "apple", "audiomack", "youtube"] as PlatformId[],
-  },
-  {
-    id: 3,
-    title: "Announce",
-    year: "May 15, 2021",
-    yearShort: "2021",
-    type: "Project",
-    image: announceImg,
-    link: "https://bit.ly/m/Kiutmusicannounce",
-    previewAudio: "/audio/samsa.mp3",
-    tracks: 5,
-    genre: "Afrobeats",
-    platforms: ["spotify", "apple", "audiomack"] as PlatformId[],
-  },
-  {
-    id: 4,
-    title: "Eligible EP",
-    year: "May 20, 2022",
-    yearShort: "2022",
-    type: "EP",
-    image: eligibleEP,
-    link: "https://bit.ly/m/KiutmusicELIGIBLE",
-    previewAudio: "/audio/amin.mp3",
-    tracks: 6,
-    genre: "Afrobeats / Pop",
-    platforms: ["spotify", "apple", "audiomack", "youtube"] as PlatformId[],
-  },
-];
+// Albums are now sourced from tracks.ts — see ALBUMS export.
 
 const timelineEvents = [
-  { year: "2019", title: "Debut Era",   type: "Singles",  image: eligibleEP  },
-  { year: "2021", title: "Announce",    type: "Project",  image: announceImg },
-  { year: "2022", title: "Eligible EP", type: "EP",       image: eligibleEP  },
-  { year: "2023", title: "S.O.F.A EP",  type: "EP",       image: sofaEP      },
-  { year: "2025", title: "Good Life EP",type: "EP",       image: goodLifeEP  },
+  { year: "2019", title: "Debut Era",   type: "Singles",  image: ELIGIBLE_EP_ART  },
+  { year: "2021", title: "Announce",    type: "Project",  image: ANNOUNCE_ART    },
+  { year: "2022", title: "Eligible EP", type: "EP",       image: ELIGIBLE_EP_ART  },
+  { year: "2023", title: "S.O.F.A EP",  type: "EP",       image: SOFA_EP_ART     },
+  { year: "2025", title: "Good Life EP",type: "EP",       image: GOOD_LIFE_EP_ART },
 ];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -166,18 +112,18 @@ function PlatformBadge({ id }: { id: PlatformId }) {
   );
 }
 
-const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
+const AlbumCard = ({ album, previewAudio }: { album: AlbumMeta; previewAudio: string | null }) => {
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (isHovered && album.previewAudio) {
+    if (isHovered && previewAudio) {
       audioRef.current?.play().catch(() => {});
     } else {
       audioRef.current?.pause();
       if (audioRef.current) audioRef.current.currentTime = 0;
     }
-  }, [isHovered, album.previewAudio]);
+  }, [isHovered, previewAudio]);
 
   return (
     <div
@@ -241,7 +187,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
                 >
                   <Play size={32} className="ml-1.5" fill="currentColor" />
                 </motion.div>
-                {album.previewAudio && (
+                {previewAudio && (
                   <motion.span
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -259,7 +205,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
           <div className="px-4 py-3 border-t border-white/[0.05]" style={{ background: "rgba(var(--white-rgb),0.02)" }}>
             <div className="flex items-center justify-between">
               <span className="text-gold text-xs font-black uppercase tracking-[0.22em]">Official Release</span>
-              <span className="text-white/30 text-xs font-mono">{album.tracks} tracks · {album.yearShort}</span>
+              <span className="text-white/30 text-xs font-mono">{album.trackCount} tracks · {album.yearShort}</span>
             </div>
           </div>
         </div>
@@ -274,7 +220,7 @@ const AlbumCard = ({ album }: { album: typeof albums[0] }) => {
         }}
       />
 
-      {album.previewAudio && <audio ref={audioRef} src={album.previewAudio} preload="none" loop />}
+      {previewAudio && <audio ref={audioRef} src={previewAudio} preload="none" loop />}
     </div>
   );
 };
@@ -363,9 +309,9 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
 
 function MusicDiscovery() {
   const pairs = [
-    { from: albums[0], to: albums[1] },
-    { from: albums[1], to: albums[3] },
-    { from: albums[2], to: albums[0] },
+    { from: ALBUMS[0], to: ALBUMS[1] },
+    { from: ALBUMS[1], to: ALBUMS[3] },
+    { from: ALBUMS[2], to: ALBUMS[0] },
   ];
 
   return (
@@ -705,7 +651,7 @@ export default function Music() {
 
         {/* ── Albums ─────────────────────────────────────────────────── */}
         <div className="space-y-28 mb-32">
-          {albums.map((album, i) => (
+          {ALBUMS.map((album, i) => (
             <motion.div
               key={album.id}
               initial={{ opacity: 0, y: 40 }}
@@ -715,7 +661,7 @@ export default function Music() {
               className={`flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12 md:gap-20`}
               data-testid={`album-row-${album.id}`}
             >
-              <div className="w-full md:w-1/2"><AlbumCard album={album} /></div>
+              <div className="w-full md:w-1/2"><AlbumCard album={album} previewAudio={getAlbumPreviewAudio(album.id)} /></div>
 
               <div className={`w-full md:w-1/2 text-center ${i % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
                 {/* Type badge */}
@@ -732,7 +678,7 @@ export default function Music() {
                 <div className={`flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-2 mb-6 text-white/30 text-xs font-light ${i % 2 === 0 ? "justify-center md:justify-start" : "justify-center md:justify-end"}`}>
                   <span>Released {album.year}</span>
                   <span className="text-white/12">·</span>
-                  <span>{album.tracks} tracks</span>
+                  <span>{album.trackCount} tracks</span>
                   <span className="text-white/12">·</span>
                   <span>{album.genre}</span>
                 </div>

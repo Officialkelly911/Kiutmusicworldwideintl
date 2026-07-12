@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { HeroSection } from "@/components/HeroSection";
 import {
   Copy,
   Check,
@@ -32,7 +33,6 @@ import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
-const videosHeroBg = "/assets/images/IMG_1254_1774433277988.webp";
 const STORE_URL     = "https://dreamplanet.org/store-profile/61";
 const WATCHED_KEY   = "kiut_watched_videos";
 
@@ -709,67 +709,71 @@ export default function Videos() {
       </div>
 
       {/* ── HERO ── */}
-      <section className="relative h-[92vh] min-h-[600px] flex items-end pb-20 overflow-hidden">
-        <img src={videosHeroBg} alt="Kiut Videos" className="absolute inset-0 w-full h-full object-cover object-center scale-[1.04]" loading="eager" />
-        {/* Multi-layer gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/15" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(var(--gold-primary-rgb),0.06),transparent_55%)]" />
-
-        {/* Top-right archive badge */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute top-8 right-6 md:right-10 z-10 flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md"
-          style={{ background: "rgba(var(--black-rgb),0.4)" }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span className="text-white/60 text-xs font-bold uppercase tracking-[0.3em]">{videos.length} Official Visuals</span>
-        </motion.div>
-
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 md:px-6">
+      <HeroSection
+        slug="videos"
+        alt="Kiut Videos"
+        className="h-[92vh] min-h-[600px] flex items-end pb-20"
+        priority
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/15" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(var(--gold-primary-rgb),0.06),transparent_55%)]" aria-hidden="true" />
+            {/* Bottom gold hairline */}
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden="true" />
+          </>
+        }
+        contentClassName="relative z-10 w-full max-w-[1600px] mx-auto px-4 md:px-6"
+        sectionChildren={
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-8 right-6 md:right-10 z-10 flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md"
+            style={{ background: "rgba(var(--black-rgb),0.4)" }}
           >
-            <motion.p
-              initial={{ opacity: 0, letterSpacing: "0.55em" }}
-              animate={{ opacity: 1, letterSpacing: "0.35em" }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
-            >
-              Official Visuals · Kiut Raba TV
-            </motion.p>
-            <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
-              Watch<br /><span className="text-gold">Kiut</span>
-            </h1>
-            <p className="font-editorial italic text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
-              Every frame, every story. Cinematic visuals from the world of Kiut Music Worldwide.
-            </p>
-            <div className="flex flex-wrap items-center gap-6">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-px bg-gold/70" />
-                <span className="text-white/35 text-xs uppercase tracking-[0.25em]">Scroll to explore</span>
-              </div>
-              <a
-                href="https://www.youtube.com/@kiutrabatv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-base btn-sm border border-white/15 text-white/60 hover:border-gold/35 hover:text-white backdrop-blur-sm"
-                style={{ background: "rgba(var(--black-rgb),0.35)" }}
-                data-testid="link-hero-youtube-channel"
-              >
-                <Youtube size={12} /> Subscribe on YouTube
-              </a>
-            </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-white/60 text-xs font-bold uppercase tracking-[0.3em]">{videos.length} Official Visuals</span>
           </motion.div>
-        </div>
-
-        {/* Bottom gold hairline */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-      </section>
+        }
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.55em" }}
+            animate={{ opacity: 1, letterSpacing: "0.35em" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
+          >
+            Official Visuals · Kiut Raba TV
+          </motion.p>
+          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
+            Watch<br /><span className="text-gold">Kiut</span>
+          </h1>
+          <p className="font-editorial italic text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
+            Every frame, every story. Cinematic visuals from the world of Kiut Music Worldwide.
+          </p>
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-px bg-gold/70" />
+              <span className="text-white/35 text-xs uppercase tracking-[0.25em]">Scroll to explore</span>
+            </div>
+            <a
+              href="https://www.youtube.com/@kiutrabatv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-base btn-sm border border-white/15 text-white/60 hover:border-gold/35 hover:text-white backdrop-blur-sm"
+              style={{ background: "rgba(var(--black-rgb),0.35)" }}
+              data-testid="link-hero-youtube-channel"
+            >
+              <Youtube size={12} /> Subscribe on YouTube
+            </a>
+          </div>
+        </motion.div>
+      </HeroSection>
 
       {/* ── STATS STRIP ── */}
       <div className="max-w-[1600px] mx-auto px-4 md:px-6 pt-14 pb-4 relative z-10">

@@ -7,6 +7,7 @@ import {
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { HeroSection } from "@/components/HeroSection";
 import { useRef, useState, useEffect } from "react";
 
 // Single interactive element — avoids nesting <a> inside <button>
@@ -213,68 +214,66 @@ export default function Tour() {
     <div className="min-h-screen bg-midnight text-white">
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[80vh] flex items-end pb-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/assets/images/Hero1_1767873472478.webp"
-            alt="Kiut Live Performance"
-            className="w-full h-full object-cover object-top"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-midnight" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/25" />
-          <div className="absolute bottom-0 left-0 w-[700px] h-[350px] bg-gold/7 blur-[130px] rounded-full pointer-events-none" />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-36 w-full">
+      <HeroSection
+        slug="tour"
+        alt="Kiut on a rooftop overlooking the city skyline at golden hour"
+        className="min-h-[80vh] flex items-end pb-24"
+        priority
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-midnight" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/25" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-[700px] h-[350px] bg-gold/7 blur-[130px] rounded-full pointer-events-none" aria-hidden="true" />
+          </>
+        }
+        contentClassName="relative z-10 max-w-7xl mx-auto px-6 pt-36 w-full"
+        sectionChildren={
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute bottom-8 right-8 flex flex-col items-center gap-1 opacity-35"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/[0.07] backdrop-blur-sm mb-7">
-              <Globe size={11} className="text-gold" />
-              <span className="text-gold text-[10px] font-bold tracking-[0.35em] uppercase">Live Experiences</span>
-            </div>
-
-            <h1 className="font-display text-[clamp(3rem,10vw,7rem)] font-bold uppercase tracking-tight leading-[0.92] text-white mb-6">
-              Experience<br />
-              <span className="text-gold">Kiut Live</span>
-            </h1>
-
-            <p className="font-editorial italic text-white/55 text-lg font-light max-w-md leading-relaxed mb-4">
-              There are currently no announced live performances.
-            </p>
-            <p className="text-white/35 text-sm font-light max-w-lg leading-relaxed mb-10">
-              Join the Kiut community to receive exclusive updates about future concerts, special appearances, and unforgettable live experiences.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
-                Notify Me
-              </PremiumCTAButton>
-              <motion.button
-                onClick={scrollToFeatured}
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-base btn-secondary !border-white/15 !text-white"
-              >
-                Watch Live Performances <Play size={13} />
-              </motion.button>
-            </div>
+            <div className="w-px h-10 bg-gradient-to-b from-gold to-transparent" />
           </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
+        }
+      >
         <motion.div
-          className="absolute bottom-8 right-8 flex flex-col items-center gap-1 opacity-35"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="w-px h-10 bg-gradient-to-b from-gold to-transparent" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/[0.07] backdrop-blur-sm mb-7">
+            <Globe size={11} className="text-gold" />
+            <span className="text-gold text-[10px] font-bold tracking-[0.35em] uppercase">Live Experiences</span>
+          </div>
+
+          <h1 className="font-display text-[clamp(3rem,10vw,7rem)] font-bold uppercase tracking-tight leading-[0.92] text-white mb-6">
+            Experience<br />
+            <span className="text-gold">Kiut Live</span>
+          </h1>
+
+          <p className="font-editorial italic text-white/55 text-lg font-light max-w-md leading-relaxed mb-4">
+            There are currently no announced live performances.
+          </p>
+          <p className="text-white/35 text-sm font-light max-w-lg leading-relaxed mb-10">
+            Join the Kiut community to receive exclusive updates about future concerts, special appearances, and unforgettable live experiences.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4">
+            <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
+              Notify Me
+            </PremiumCTAButton>
+            <motion.button
+              onClick={scrollToFeatured}
+              whileHover={{ y: -3, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-base btn-secondary !border-white/15 !text-white"
+            >
+              Watch Live Performances <Play size={13} />
+            </motion.button>
+          </div>
         </motion.div>
-      </section>
+      </HeroSection>
 
       {/* ── UPCOMING SHOWS — Premium Empty State ──────────────────────────── */}
       <section id="shows" className="py-24 md:py-32 border-t border-white/[0.05]">

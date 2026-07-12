@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Play, Pause, ExternalLink, Music2 } from "lucide-react";
+import { Play, Pause, ExternalLink, Music2, Star } from "lucide-react";
 import { HeroSection } from "@/components/HeroSection";
 import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
@@ -15,7 +15,7 @@ import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
-type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay";
+type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay" | "amazon" | "soundcloud" | "deezer";
 
 const PLATFORMS: Record<PlatformId, { label: string; color: string; icon: React.ReactNode }> = {
   spotify: {
@@ -60,6 +60,33 @@ const PLATFORMS: Record<PlatformId, { label: string; color: string; icon: React.
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 14.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm0-7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+      </svg>
+    ),
+  },
+  amazon: {
+    label: "Amazon Music",
+    color: "#00A8E1",
+    icon: (
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm4.85 13.5c-2.7 2.02-6.6 2.19-9.7.42a.45.45 0 01.44-.78c2.77 1.56 6.2 1.4 8.55-.38a.45.45 0 11.71.55v.19zM17.5 13.9c-.16.18-.4.2-.6.07-1.66-1.02-3.75-1.25-6.25-.68a.5.5 0 01-.22-.98c2.75-.62 5.11-.35 7.02.83.24.15.28.5.05.76zM17.6 11.6c-2-1.19-5.28-1.3-7.18-.72a.6.6 0 01-.35-1.15c2.18-.66 5.83-.53 8.13.83a.6.6 0 01-.6 1.04z"/>
+      </svg>
+    ),
+  },
+  soundcloud: {
+    label: "SoundCloud",
+    color: "#FF7700",
+    icon: (
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17 9.5a4 4 0 013.9 3.15 2.6 2.6 0 11-.28 5.17H9.6a.6.6 0 01-.6-.6V8.2a.4.4 0 01.25-.37c.75-.3 1.55-.46 2.4-.46 2.4 0 4.42 1.62 5.03 3.83A4 4 0 0117 9.5zM7.8 8.6v8.6a.6.6 0 01-1.2 0V8.6a.6.6 0 011.2 0zM5.6 10v7.2a.6.6 0 01-1.2 0V10a.6.6 0 011.2 0zM3.4 11.4v5.8a.6.6 0 01-1.2 0v-5.8a.6.6 0 011.2 0z"/>
+      </svg>
+    ),
+  },
+  deezer: {
+    label: "Deezer",
+    color: "#A238FF",
+    icon: (
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M2 17.2h3.6V19H2v-1.8zm4.9-2.6h3.6v4.4H6.9v-4.4zm4.9-2.6h3.6v7h-3.6v-7zM16.7 9h3.6v10h-3.6V9zm4.9-4.4H22v14.4h-.4V4.6z"/>
       </svg>
     ),
   },
@@ -408,6 +435,13 @@ export default function Music() {
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
   const featuredTrack = ALL_TRACKS[0];
+  const featuredAlbum = ALBUMS.find((a) => a.id === "good-life-ep") ?? ALBUMS[0];
+  const playlistSeconds = ALL_TRACKS.reduce((sum, t) => {
+    const [m, s] = t.duration.split(":").map(Number);
+    return sum + m * 60 + s;
+  }, 0);
+  const playlistDuration = `${Math.floor(playlistSeconds / 60)} Min`;
+  const [playlistSaved, setPlaylistSaved] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
   const timelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
 
@@ -528,11 +562,16 @@ export default function Music() {
                 <h2 className="font-display text-3xl md:text-5xl font-bold text-white leading-tight mb-2 uppercase tracking-wider">
                   {currentTrack ? currentTrack.title : "Good Life EP"}
                 </h2>
-                <p className="text-white/40 text-sm mb-8">
+                <p className="text-white/40 text-sm mb-2">
                   {currentTrack
                     ? `${currentTrack.artist} · ${currentTrack.album}`
-                    : "Kiut · Oct 30, 2025 · Available everywhere"}
+                    : `Kiut · ${featuredAlbum.released} · Available everywhere`}
                 </p>
+                {!currentTrack && (
+                  <p className="text-white/25 text-xs mb-8">
+                    {featuredAlbum.genre} · {featuredAlbum.trackCount} Tracks
+                  </p>
+                )}
 
                 <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
                   <PremiumCTAButton
@@ -559,6 +598,14 @@ export default function Music() {
                     </a>
                   )}
                 </div>
+
+                {!currentTrack && (
+                  <div className="flex flex-wrap items-center gap-2 justify-center md:justify-start mt-6">
+                    {(["spotify", "apple", "youtube", "audiomack", "boomplay", "amazon", "deezer", "soundcloud"] as PlatformId[]).map((id) => (
+                      <PlatformBadge key={id} id={id} />
+                    ))}
+                  </div>
+                )}
 
                 {currentTrack && (
                   <div className="mt-6 w-full max-w-xs">
@@ -733,6 +780,67 @@ export default function Music() {
               ))}
             </div>
           </div>
+        </motion.div>
+
+        {/* ── Discography Grid ─────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-32"
+        >
+          <div className="text-center mb-12">
+            <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Full Catalogue</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white uppercase">
+              Discography <span className="text-gold">Grid</span>
+            </h2>
+          </div>
+
+          <motion.div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 md:gap-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            variants={staggerContainer(0.06)}
+          >
+            {ALBUMS.map((album) => (
+              <motion.a
+                key={album.id}
+                href={album.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                variants={staggerItem}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative rounded-lg overflow-hidden border border-white/[0.07] bg-white/[0.02] hover:border-gold/30 transition-colors duration-normal"
+                data-testid={`grid-album-${album.id}`}
+                aria-label={`${album.title} — listen now`}
+              >
+                <div className="relative aspect-square overflow-hidden">
+                  <img
+                    src={album.image}
+                    alt={album.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-normal group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-normal" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-normal" style={{ boxShadow: "inset 0 0 40px rgba(var(--gold-primary-rgb),0.25)" }} />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-normal scale-75 group-hover:scale-100">
+                    <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center shadow-glow-gold">
+                      <Play size={14} fill="var(--midnight-black)" className="text-midnight ml-0.5" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <h3 className="text-white text-xs font-bold uppercase tracking-wide truncate group-hover:text-gold transition-colors duration-fast">
+                    {album.title}
+                  </h3>
+                  <p className="text-white/30 text-[11px] truncate">{album.yearShort} · {album.genre}</p>
+                </div>
+              </motion.a>
+            ))}
+          </motion.div>
         </motion.div>
 
         {/* ── Albums ─────────────────────────────────────────────────── */}
@@ -947,7 +1055,7 @@ export default function Music() {
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="w-44 h-44 md:w-52 md:h-52 flex-shrink-0 rounded-xl overflow-hidden border border-white/[0.09] shadow-xl"
+                className="relative w-44 h-44 md:w-52 md:h-52 flex-shrink-0 rounded-xl overflow-hidden border border-white/[0.09] shadow-xl"
               >
                 <img
                   src={GOOD_LIFE_EP_ART}
@@ -955,6 +1063,9 @@ export default function Music() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
+                <div className="absolute bottom-2 right-2 flex items-center justify-center w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
+                  <PlayingBars />
+                </div>
               </motion.div>
 
               {/* Content */}
@@ -965,9 +1076,10 @@ export default function Music() {
                 <h2 className="font-display text-3xl md:text-4xl font-bold text-white uppercase tracking-wider leading-tight mb-3">
                   Kiut <span className="text-gold">Essentials</span>
                 </h2>
-                <p className="text-white/40 text-sm leading-relaxed max-w-md mb-8">
+                <p className="text-white/40 text-sm leading-relaxed max-w-md mb-4">
                   The definitive Kiut Music listening experience. From debut singles to the latest EP — a curated journey through the sound, start to finish.
                 </p>
+                <p className="text-white/25 text-xs mb-8">{ALL_TRACKS.length} Tracks · {playlistDuration}</p>
                 <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
                   <PremiumCTAButton
                     as="a"
@@ -978,6 +1090,16 @@ export default function Music() {
                   >
                     Listen Now
                   </PremiumCTAButton>
+                  <motion.button
+                    onClick={() => setPlaylistSaved((v) => !v)}
+                    whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
+                    whileTap={{ scale: 0.97 }}
+                    aria-pressed={playlistSaved}
+                    className="btn-base btn-secondary"
+                  >
+                    <Star size={13} fill={playlistSaved ? "currentColor" : "none"} />
+                    {playlistSaved ? "Saved" : "Save Playlist"}
+                  </motion.button>
                   <a href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer">
                     <motion.button
                       whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}

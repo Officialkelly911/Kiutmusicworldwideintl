@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Calendar, Star, Ticket, Users, Shield,
   ChevronRight, ChevronDown, Mail, Play, Globe, Clock, Mic2, Film, Tv2,
@@ -79,13 +79,7 @@ const vipPerks = [
   { icon: Star,   title: "Private Fan Experiences",     desc: "Access to invitation-only events, studio sessions, and special appearances." },
 ];
 
-// ─── "Next Live Chapter" timeline ────────────────────────────────────────────
-const roadmapSteps = [
-  { label: "Tour Planning",          sub: "Mapping cities and venues worldwide"        },
-  { label: "Festival Bookings",      sub: "Curating the right stages and experiences"  },
-  { label: "Special Appearances",    sub: "Intimate shows and collaborative events"     },
-  { label: "Future Live Experiences",sub: "The full Kiut live era — coming soon"        },
-];
+// ─── "Next Live Chapter" interactive timeline — built from real tour-stop data ─
 
 // ─── Fan Card tiers ───────────────────────────────────────────────────────────
 const fanCardTiers = [
@@ -235,6 +229,7 @@ const STATUS_CONFIG: Record<ShowStatus, { label: string; color: string; bg: stri
 };
 function TourCard({ show, index }: { show: typeof upcomingShows[0]; index: number }) {
   const cfg = STATUS_CONFIG[show.status];
+  const [detailsOpen, setDetailsOpen] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -298,13 +293,57 @@ function TourCard({ show, index }: { show: typeof upcomingShows[0]; index: numbe
             </a>
           )}
           <button
-            className="btn-base btn-sm border border-white/[0.07] text-white/30 hover:text-white/60 hover:border-white/20"
-            aria-label="Event details coming soon"
-            disabled
+            onClick={() => setDetailsOpen((v) => !v)}
+            className="btn-base btn-sm border border-white/[0.07] text-white/40 hover:text-gold hover:border-gold/25 gap-1"
+            aria-expanded={detailsOpen}
+            aria-controls={`event-details-${show.id}`}
+            aria-label={detailsOpen ? "Hide event details" : "View event details"}
           >
-            <ChevronRight size={12} />
+            <motion.span
+              className="flex items-center"
+              animate={{ rotate: detailsOpen ? 90 : 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <ChevronRight size={12} />
+            </motion.span>
           </button>
         </div>
+
+        {/* Expanded event details */}
+        <AnimatePresence initial={false}>
+          {detailsOpen && (
+            <motion.div
+              id={`event-details-${show.id}`}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="mt-5 pt-5 border-t border-white/[0.06] space-y-3">
+                <p className="text-white/45 text-xs leading-relaxed">{show.description}</p>
+                <div className="grid grid-cols-2 gap-3 text-[11px]">
+                  <div>
+                    <p className="text-white/20 uppercase tracking-widest text-[9px] font-bold mb-1">Venue</p>
+                    <p className="text-white/55">{show.venue}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/20 uppercase tracking-widest text-[9px] font-bold mb-1">Doors</p>
+                    <p className="text-white/55">{show.time}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/20 uppercase tracking-widest text-[9px] font-bold mb-1">Region</p>
+                    <p className="text-white/55">{show.region}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/20 uppercase tracking-widest text-[9px] font-bold mb-1">Status</p>
+                    <p style={{ color: cfg.color }}>{cfg.label}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
@@ -438,6 +477,112 @@ function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]
         <ArrowRight size={13} className="text-white/20 group-hover:text-gold transition-colors duration-fast flex-shrink-0" />
       </div>
     </motion.a>
+  );
+}
+
+// ─── Featured Event Countdown ─────────────────────────────────────────────────
+function FeaturedEventCountdown({ targetDate }: { targetDate: Date }) {
+  const calc = () => {
+    const diff = targetDate.getTime() - Date.now();
+    const clamped = Math.max(diff, 0);
+    return {
+      days: Math.floor(clamped / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((clamped / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((clamped / (1000 * 60)) % 60),
+      seconds: Math.floor((clamped / 1000) % 60),
+      expired: diff <= 0,
+    };
+  };
+  const [time, setTime] = useState(calc);
+
+  useEffect(() => {
+    setTime(calc());
+    const id = setInterval(() => setTime(calc()), 1000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetDate.getTime()]);
+
+  const units = [
+    { label: "Days", value: time.days },
+    { label: "Hrs", value: time.hours },
+    { label: "Min", value: time.minutes },
+    { label: "Sec", value: time.seconds },
+  ];
+
+  return (
+    <div className="flex-shrink-0 flex flex-col items-center md:items-end gap-3" role="timer" aria-live="polite">
+      <span className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em]">
+        {time.expired ? "Doors Are Open" : "Countdown"}
+      </span>
+      <div className="flex items-center gap-2">
+        {units.map((u) => (
+          <div
+            key={u.label}
+            className="flex flex-col items-center justify-center w-16 h-16 md:w-[68px] md:h-[68px] rounded-xl border border-gold/25 bg-black/40 backdrop-blur-sm"
+          >
+            <span className="font-display text-xl md:text-2xl font-bold text-gold tabular-nums leading-none">
+              {String(u.value).padStart(2, "0")}
+            </span>
+            <span className="text-white/30 text-[8px] font-bold uppercase tracking-widest mt-1">{u.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Tour FAQ Accordion ────────────────────────────────────────────────────────
+function TourFAQAccordion() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <div className="space-y-3">
+      {tourFAQ.map((item, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <motion.div
+            key={item.q}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-xl border border-white/[0.07] bg-white/[0.02] overflow-hidden hover:border-gold/20 transition-colors duration-normal"
+          >
+            <button
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+              aria-expanded={isOpen}
+              aria-controls={`tour-faq-panel-${i}`}
+            >
+              <span className={`font-display text-sm md:text-base font-bold uppercase tracking-tight transition-colors duration-fast ${isOpen ? "text-gold" : "text-white"}`}>
+                {item.q}
+              </span>
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center border ${isOpen ? "border-gold/40 text-gold" : "border-white/15 text-white/40"}`}
+              >
+                <ChevronDown size={13} />
+              </motion.span>
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  id={`tour-faq-panel-${i}`}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <p className="px-6 pb-6 text-white/40 text-sm leading-relaxed">{item.a}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        );
+      })}
+    </div>
   );
 }
 
@@ -1034,11 +1179,11 @@ export default function Tour() {
               The Next<br /><span className="text-gold">Live Chapter</span>
             </h2>
             <p className="text-white/35 text-sm leading-relaxed max-w-md mx-auto">
-              The stage is being set. Here's what's in motion.
+              Every confirmed and in-motion stop on the Kiut live calendar, in order.
             </p>
           </motion.div>
 
-          {/* Timeline */}
+          {/* Interactive Tour Timeline — one node per real tour stop */}
           <div className="relative">
             {/* Vertical line */}
             <motion.div
@@ -1050,9 +1195,11 @@ export default function Tour() {
             />
 
             <div className="space-y-10 md:space-y-12">
-              {roadmapSteps.map((step, i) => (
+              {upcomingShows.map((show, i) => {
+                const cfg = STATUS_CONFIG[show.status];
+                return (
                 <motion.div
-                  key={step.label}
+                  key={show.id}
                   initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -1072,15 +1219,25 @@ export default function Tour() {
 
                   {/* Content card */}
                   <div className={`flex-1 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"} pl-0 md:pl-0`}>
-                    <div className="inline-block px-6 py-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 hover:bg-gold/[0.025] transition-all duration-normal group">
+                    <div className={`inline-block px-6 py-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 hover:bg-gold/[0.025] transition-all duration-normal group text-left ${i % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
+                      <div className={`flex items-center gap-2 mb-2 ${i % 2 === 0 ? "md:justify-end" : ""}`}>
+                        <span
+                          className="px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-widest"
+                          style={{ color: cfg.color, background: cfg.bg }}
+                        >
+                          {cfg.label}
+                        </span>
+                        <span className="text-white/20 text-[10px] font-mono">{show.region}</span>
+                      </div>
                       <h3 className="font-display text-lg font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-fast">
-                        {step.label}
+                        {show.city}, <span className="text-white/50">{show.country}</span>
                       </h3>
-                      <p className="text-white/35 text-sm leading-relaxed">{step.sub}</p>
+                      <p className="text-white/35 text-sm leading-relaxed">{show.venue} · {show.date}</p>
                     </div>
                   </div>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

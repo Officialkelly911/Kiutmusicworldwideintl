@@ -2,7 +2,7 @@ import React from "react";
 import { motion, useInView } from "framer-motion";
 import {
   ArrowRight, Calendar, Star, Ticket, Users, Shield,
-  ChevronRight, Mail, Play, Globe, Clock, Mic2, Film, Tv2,
+  ChevronRight, ChevronDown, Mail, Play, Globe, Clock, Mic2, Film, Tv2,
   X, MapPin,
 } from "lucide-react";
 import { Link } from "wouter";
@@ -171,6 +171,144 @@ const tourCities = [
   { city: "Dubai",    country: "UAE",     region: "Middle East",   x: 65.4, y: 43.5 },
   { city: "Nairobi",  country: "Kenya",   region: "East Africa",   x: 60.2, y: 55.0 },
 ];
+
+// ─── Upcoming shows (Coming Soon — no confirmed dates yet) ───────────────────
+type ShowStatus = "available" | "limited" | "sold_out" | "coming_soon" | "announced";
+const upcomingShows: {
+  id: string; city: string; country: string; venue: string;
+  date: string; time: string; region: string; status: ShowStatus; description: string;
+}[] = [
+  { id: "sh-1", city: "Lagos",    country: "Nigeria",        venue: "Eko Convention Centre",   date: "Dec 31, 2026", time: "10:00 PM", region: "West Africa",   status: "announced",   description: "Kiut closes out 2026 with a landmark Lagos performance." },
+  { id: "sh-2", city: "London",   country: "United Kingdom", venue: "To Be Announced",          date: "2026",         time: "TBA",      region: "Europe",        status: "coming_soon", description: "UK debut — afrobeats meets London vibes." },
+  { id: "sh-3", city: "Accra",    country: "Ghana",          venue: "To Be Announced",          date: "2026",         time: "TBA",      region: "West Africa",   status: "coming_soon", description: "Pan-African energy in the heart of Accra." },
+  { id: "sh-4", city: "New York", country: "USA",            venue: "To Be Announced",          date: "2027",         time: "TBA",      region: "North America", status: "coming_soon", description: "North American debut is on the horizon." },
+  { id: "sh-5", city: "Dubai",    country: "UAE",            venue: "To Be Announced",          date: "2027",         time: "TBA",      region: "Middle East",   status: "coming_soon", description: "Middle East debut for the Kiut Music experience." },
+  { id: "sh-6", city: "Toronto",  country: "Canada",         venue: "To Be Announced",          date: "2027",         time: "TBA",      region: "North America", status: "coming_soon", description: "Canada stage — Kiut brings the sound north." },
+];
+
+// ─── Tour FAQ ─────────────────────────────────────────────────────────────────
+const tourFAQ = [
+  { q: "How can I book Kiut for an event?", a: "Submit a booking enquiry via the contact form or click 'Book Kiut' above. Our management team reviews all enquiries and responds within 48 hours with availability and pricing details." },
+  { q: "What is included in the VIP Fan Card package?", a: "The VIP Fan Card includes early ticket access, meet-and-greet opportunities, exclusive merchandise drops, access to pre-show soundcheck, and priority seating at all Kiut Music events worldwide." },
+  { q: "How long is a typical Kiut live performance?", a: "Standard headline shows run 60–90 minutes covering material from all EPs plus fan favourites. Festival sets run 30–45 minutes. Full headline tours may extend to 2 hours with encore." },
+  { q: "Does Kiut travel internationally for performances?", a: "Yes. Kiut Music performs internationally across Africa, Europe, North America, and the Middle East. Travel, accommodation, and all logistics are coordinated through our management team." },
+  { q: "What are the technical requirements for a Kiut live show?", a: "Our full technical rider covers sound specifications, lighting design, stage dimensions, backline, and hospitality. Riders are provided to confirmed venues upon booking completion." },
+  { q: "Is media or press access available at Kiut shows?", a: "Yes. Press and media accreditation is available for confirmed Kiut Music events. Contact the team in advance to request press passes, photo pit access, and interview opportunities." },
+];
+
+// ─── Tour Statistics ──────────────────────────────────────────────────────────
+const tourStatData = [
+  { value: 8,  suffix: "+", label: "Countries",         sub: "Global reach"       },
+  { value: 15, suffix: "+", label: "Live Performances", sub: "And counting"       },
+  { value: 10, suffix: "K+", label: "Fans Reached",     sub: "Across the world"  },
+  { value: 6,  suffix: "+", label: "Years Performing",  sub: "Since 2018"        },
+  { value: 3,  suffix: "",  label: "Continents",        sub: "Africa · EU · N.AM" },
+];
+
+// ─── Animated counter ─────────────────────────────────────────────────────────
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [count, setCount] = React.useState(0);
+  React.useEffect(() => {
+    if (!inView) return;
+    const duration = 1400;
+    const start = performance.now();
+    const frame = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(ease * value));
+      if (progress < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }, [inView, value]);
+  return <span ref={ref}>{count}{suffix}</span>;
+}
+
+// ─── Tour Card ────────────────────────────────────────────────────────────────
+const STATUS_CONFIG: Record<ShowStatus, { label: string; color: string; bg: string }> = {
+  available:   { label: "Available",   color: "#4ade80", bg: "rgba(74,222,128,0.10)"  },
+  limited:     { label: "Limited",     color: "#f59e0b", bg: "rgba(245,158,11,0.10)"  },
+  sold_out:    { label: "Sold Out",    color: "#f87171", bg: "rgba(248,113,113,0.10)" },
+  coming_soon: { label: "Coming Soon", color: "var(--color-gold)", bg: "rgba(var(--gold-primary-rgb),0.10)" },
+  announced:   { label: "Announced",  color: "#a78bfa", bg: "rgba(167,139,250,0.10)" },
+};
+function TourCard({ show, index }: { show: typeof upcomingShows[0]; index: number }) {
+  const cfg = STATUS_CONFIG[show.status];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.015] transition-all duration-normal overflow-hidden"
+    >
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
+      <div className="p-6">
+        {/* Status badge */}
+        <div className="flex items-center justify-between mb-4">
+          <span
+            className="px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest"
+            style={{ color: cfg.color, background: cfg.bg }}
+          >
+            {cfg.label}
+          </span>
+          <span className="text-white/20 text-xs font-mono">{show.region}</span>
+        </div>
+
+        {/* City */}
+        <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white group-hover:text-gold transition-colors duration-fast mb-0.5">
+          {show.city}
+        </h3>
+        <p className="text-white/40 text-sm mb-4">{show.country}</p>
+
+        {/* Details */}
+        <div className="space-y-2 mb-5">
+          <div className="flex items-center gap-2 text-white/35 text-xs">
+            <MapPin size={10} className="text-gold/40 flex-shrink-0" />
+            <span>{show.venue}</span>
+          </div>
+          <div className="flex items-center gap-2 text-white/35 text-xs">
+            <Calendar size={10} className="text-gold/40 flex-shrink-0" />
+            <span>{show.date}{show.time !== "TBA" ? ` · ${show.time}` : ""}</span>
+          </div>
+        </div>
+
+        <p className="text-white/25 text-xs leading-relaxed mb-6 line-clamp-2">{show.description}</p>
+
+        {/* Buttons */}
+        <div className="flex items-center gap-2">
+          {show.status === "available" || show.status === "limited" || show.status === "announced" ? (
+            <a
+              href="https://linktr.ee/kiutmusic"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-base btn-sm flex-1 text-center justify-center"
+              style={{ background: "rgba(var(--gold-primary-rgb),0.12)", color: "var(--color-gold)", border: "1px solid rgba(var(--gold-primary-rgb),0.3)" }}
+            >
+              <Ticket size={10} /> Buy Tickets
+            </a>
+          ) : (
+            <a
+              href="/newsletter"
+              className="btn-base btn-sm flex-1 text-center justify-center"
+              style={{ border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}
+            >
+              <Mail size={10} /> Notify Me
+            </a>
+          )}
+          <button
+            className="btn-base btn-sm border border-white/[0.07] text-white/30 hover:text-white/60 hover:border-white/20"
+            aria-label="Event details coming soon"
+            disabled
+          >
+            <ChevronRight size={12} />
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 // ─── Gallery Lightbox ─────────────────────────────────────────────────────────
 function GalleryLightbox({ item, onClose }: { item: typeof galleryItems[0]; onClose: () => void }) {
@@ -360,29 +498,37 @@ export default function Tour() {
           </h1>
 
           <p className="font-editorial italic text-white/55 text-lg font-light max-w-md leading-relaxed mb-4">
-            There are currently no announced live performances.
+            The stage is set. Tour dates coming soon.
           </p>
           <p className="text-white/35 text-sm font-light max-w-lg leading-relaxed mb-10">
-            Join the Kiut community to receive exclusive updates about future concerts, special appearances, and unforgettable live experiences.
+            Be the first to experience Kiut live — from intimate club performances to international festival stages.
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
-              Notify Me
+            <PremiumCTAButton as="a" href="#shows" icon={<Calendar size={13} />} iconPosition="right">
+              View Upcoming Shows
             </PremiumCTAButton>
-            <motion.button
-              onClick={scrollToFeatured}
+            <motion.a
+              href="/contact"
               whileHover={{ y: -3, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               className="btn-base btn-secondary !border-white/15 !text-white"
             >
-              Watch Live Performances <Play size={13} />
-            </motion.button>
+              Book Kiut <Globe size={13} />
+            </motion.a>
+            <motion.a
+              href="#vip"
+              whileHover={{ y: -3, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-base btn-secondary !border-gold/25 !text-gold"
+            >
+              VIP Experience <Shield size={13} />
+            </motion.a>
           </div>
         </motion.div>
       </HeroSection>
 
-      {/* ── UPCOMING SHOWS — Premium Empty State ──────────────────────────── */}
+      {/* ── UPCOMING SHOWS ───────────────────────────────────────────────────── */}
       <section id="shows" className="py-24 md:py-32 border-t border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
@@ -398,104 +544,87 @@ export default function Tour() {
             <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
               Live <span className="text-gold">Dates</span>
             </h2>
+            <p className="text-white/35 text-sm mt-2">
+              New dates being announced — subscribe to be first in line for tickets.
+            </p>
           </motion.div>
 
-          {/* Empty state */}
+          {/* Featured event — highlighted card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative rounded-xl border border-white/[0.07] overflow-hidden"
-            style={{ background: "var(--midnight-black)" }}
+            className="relative rounded-xl overflow-hidden border border-gold/20 mb-10"
+            style={{ background: "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.07) 0%, var(--midnight-black) 60%, rgba(var(--gold-primary-rgb),0.04) 100%)" }}
           >
-            {/* Animated background orbs */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-gold/[0.04] blur-[80px]"
-                animate={{ scale: [1, 1.08, 1], opacity: [0.6, 1, 0.6] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="absolute top-0 right-0 w-[300px] h-[200px] rounded-full bg-gold/[0.03] blur-[60px]"
-                animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-              />
-            </div>
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+            <div className="absolute top-0 right-0 w-72 h-72 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.09)" }} />
 
-            {/* Decorative top border */}
-            <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gold/25 to-transparent" />
+            <div className="relative z-10 p-8 md:p-12">
+              <div className="flex flex-wrap items-start justify-between gap-6">
+                <div className="flex-1 min-w-0">
+                  {/* Badges */}
+                  <div className="flex flex-wrap items-center gap-2 mb-5">
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest" style={{ color: "#a78bfa", background: "rgba(167,139,250,0.12)" }}>
+                      Announced
+                    </span>
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest border border-gold/25 text-gold bg-gold/[0.08]">
+                      VIP Available
+                    </span>
+                  </div>
 
-            <div className="relative z-10 py-20 md:py-28 px-8 flex flex-col items-center text-center">
-              {/* Icon */}
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="w-20 h-20 rounded-md flex items-center justify-center mb-8 border border-gold/20"
-                style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}
-              >
-                <Ticket className="w-9 h-9 text-gold/60" />
-              </motion.div>
+                  <h3 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tight text-white leading-tight mb-1">
+                    Lagos
+                  </h3>
+                  <p className="text-gold text-sm font-medium mb-1">Nigeria · West Africa</p>
+                  <div className="flex flex-wrap items-center gap-4 text-white/35 text-xs mt-3">
+                    <span className="flex items-center gap-1.5"><MapPin size={10} className="text-gold/40" /> Eko Convention Centre</span>
+                    <span className="flex items-center gap-1.5"><Calendar size={10} className="text-gold/40" /> Dec 31, 2026</span>
+                    <span className="flex items-center gap-1.5"><Clock size={10} className="text-gold/40" /> 10:00 PM</span>
+                  </div>
+                  <p className="text-white/35 text-sm leading-relaxed mt-4 max-w-md">
+                    Kiut closes out 2026 with a landmark Lagos homecoming performance. An unforgettable night of live music, dancing, and luxury vibes.
+                  </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4"
-              >
-                Stay Tuned
-              </motion.p>
+                  <div className="flex flex-wrap items-center gap-3 mt-8">
+                    <PremiumCTAButton as="a" href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer" icon={<Ticket size={13} />} iconPosition="right">
+                      Get Tickets
+                    </PremiumCTAButton>
+                    <a href="#vip">
+                      <motion.button
+                        whileHover={{ y: -2, scale: 1.02 }}
+                        whileTap={{ scale: 0.97 }}
+                        className="btn-base btn-secondary !border-gold/25 !text-gold"
+                      >
+                        VIP Packages <Shield size={13} />
+                      </motion.button>
+                    </a>
+                  </div>
+                </div>
 
-              <motion.h3
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.35 }}
-                className="font-display text-2xl md:text-3xl font-bold uppercase tracking-tight text-white mb-4"
-              >
-                No Live Dates Announced
-              </motion.h3>
-
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-white/40 text-sm leading-relaxed max-w-md mb-10"
-              >
-                New performances are currently being planned. Join the mailing list to receive priority access as soon as new events are announced.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.45 }}
-              >
-                <PremiumCTAButton as="link" href="/newsletter" icon={<Mail size={13} />} iconPosition="right">
-                  Join the Mailing List
-                </PremiumCTAButton>
-              </motion.div>
-
-              {/* Subtle animated dots */}
-              <div className="flex items-center gap-3 mt-12">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <motion.div
-                    key={i}
-                    className="rounded-full bg-gold/20"
-                    style={{ width: i === 2 ? 24 : 6, height: 6 }}
-                    animate={{ opacity: [0.25, 0.7, 0.25] }}
-                    transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
-                  />
-                ))}
+                {/* Countdown */}
+                <FeaturedEventCountdown targetDate={new Date("2026-12-31T22:00:00")} />
               </div>
             </div>
-
-            <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
           </motion.div>
+
+          {/* Tour date grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {upcomingShows.map((show, i) => (
+              <TourCard key={show.id} show={show} index={i} />
+            ))}
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-white/20 text-xs text-center mt-8"
+          >
+            More dates to be announced. <Link href="/newsletter" className="text-gold/50 hover:text-gold underline underline-offset-2 transition-colors">Subscribe for priority access.</Link>
+          </motion.p>
         </div>
       </section>
 
@@ -620,7 +749,7 @@ export default function Tour() {
       </section>
 
       {/* ── VIP EXPERIENCE ────────────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/[0.05]">
+      <section id="vip" className="py-24 border-t border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -850,6 +979,46 @@ export default function Tour() {
         </div>
       </section>
 
+      {/* ── TOUR STATISTICS ─────────────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-14"
+          >
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> By The Numbers
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+              Tour <span className="text-gold">Impact</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {tourStatData.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="relative p-6 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 transition-all duration-normal text-center group"
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+                <div className="font-display text-4xl md:text-5xl font-bold text-gold leading-none mb-2">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </div>
+                <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">{stat.label}</p>
+                <p className="text-white/25 text-xs">{stat.sub}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── NEXT LIVE CHAPTER — Animated timeline ─────────────────────────── */}
       <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
         <div className="max-w-4xl mx-auto px-6">
@@ -1072,6 +1241,28 @@ export default function Tour() {
               ))}
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ── TOUR FAQ ────────────────────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05]">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-14"
+          >
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> FAQs
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+              Tour <span className="text-gold">Questions</span>
+            </h2>
+          </motion.div>
+
+          <TourFAQAccordion />
         </div>
       </section>
 

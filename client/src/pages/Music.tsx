@@ -621,6 +621,55 @@ export default function Music() {
           </div>
         </motion.div>
 
+        {/* ── Lyrics Highlight ─────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative mb-28 py-20 px-8 md:px-16 rounded-xl overflow-hidden text-center"
+          style={{ background: "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.04) 0%, var(--midnight-black) 50%, rgba(var(--gold-primary-rgb),0.03) 100%)", border: "1px solid rgba(var(--gold-primary-rgb),0.10)" }}
+        >
+          {/* Decorative quote marks */}
+          <div className="absolute top-6 left-8 font-display text-[7rem] leading-none font-bold text-gold opacity-[0.06] select-none pointer-events-none" aria-hidden="true">
+            &ldquo;
+          </div>
+          <div className="absolute bottom-0 right-8 font-display text-[7rem] leading-none font-bold text-gold opacity-[0.06] select-none pointer-events-none rotate-180" aria-hidden="true">
+            &ldquo;
+          </div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[160px] blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.05)" }} />
+
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-8 flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> Featured Lyrics
+            </p>
+            <motion.blockquote
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.2 }}
+              className="font-editorial italic text-white/70 text-xl md:text-3xl leading-relaxed font-light"
+            >
+              "Living the good life, every night feels right — the world is mine when the beat drops right."
+            </motion.blockquote>
+            <div className="mt-8 flex items-center justify-center gap-3">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold/40" />
+              <span className="text-white/30 text-xs uppercase tracking-widest">Good Life EP · Kiut Music</span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold/40" />
+            </div>
+            <div className="mt-6">
+              <a
+                href="https://linktr.ee/kiut_goodlife"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-gold/60 text-xs hover:text-gold transition-colors duration-fast uppercase tracking-widest"
+              >
+                <Play size={9} fill="currentColor" /> Stream Good Life EP
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
         {/* ── Discography Timeline ──────────────────────────────────── */}
         <motion.div
           ref={timelineRef}
@@ -945,6 +994,186 @@ export default function Music() {
         </motion.div>
 
         {/* ── Music Discovery ──────────────────────────────────────── */}
+        {/* ── Behind The Music ─────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16"
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent mb-16" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left: editorial copy */}
+            <div>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> Behind The Music
+              </p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-5 leading-[1.1]">
+                The Story<br /><span className="text-gold">Behind The Sound</span>
+              </h2>
+              <p className="text-white/45 text-sm leading-relaxed mb-4">
+                Kiut's music is rooted in lived experience — the energy of Lagos streets, the late-night studio sessions, the journey of an artist building something global from the ground up.
+              </p>
+              <p className="text-white/28 text-sm leading-relaxed mb-4">
+                Every EP is a chapter: from the raw ambition of early singles to the refined, cinematic production of the Good Life EP. The sound evolves, but the authenticity never changes.
+              </p>
+              <p className="text-white/28 text-sm leading-relaxed mb-8">
+                Inspired by afrobeats, R&B, and the intersection of African and global music culture — Kiut crafts music that feels both local and universal, intimate and expansive.
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {["Afrobeats", "R&B", "Afro-Pop", "World Music", "Soul"].map(tag => (
+                  <span key={tag} className="px-3 py-1.5 rounded-full text-xs font-medium border border-white/[0.09] text-white/40 bg-white/[0.02]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: process cards */}
+            <div className="space-y-4">
+              {([
+                { icon: "✦", title: "Lagos Roots",        desc: "Born from the vibrant Afrobeats scene — every track carries the DNA of Lagos culture and street energy." },
+                { icon: "◈", title: "Studio Process",     desc: "Weeks of late-night sessions, layered production, and meticulous vocal arrangements bring each track to life." },
+                { icon: "◉", title: "Global Vision",      desc: "From West Africa to Europe and North America — the music is made to travel, connect, and move." },
+              ] as const).map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex gap-4 p-5 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-gold/15 transition-all duration-normal group"
+                >
+                  <span className="text-gold/50 text-lg leading-none pt-0.5 group-hover:text-gold transition-colors duration-fast flex-shrink-0" aria-hidden="true">{item.icon}</span>
+                  <div>
+                    <p className="text-white/70 text-sm font-bold mb-1 group-hover:text-white transition-colors duration-fast">{item.title}</p>
+                    <p className="text-white/30 text-xs leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Music Videos Preview ──────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
+        >
+          <div className="flex items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> Videos
+              </p>
+              <h2 className="font-display text-3xl font-bold uppercase tracking-tight text-white">
+                Music <span className="text-gold">Videos</span>
+              </h2>
+            </div>
+            <a
+              href="https://www.youtube.com/@kiutrabatv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-base btn-sm border border-white/12 text-white/40 hover:text-gold hover:border-gold/30 flex-shrink-0"
+            >
+              Watch All
+            </a>
+          </div>
+
+          {/* Horizontal snap-scroll */}
+          <div
+            className="flex gap-4 overflow-x-auto pb-3"
+            style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none" } as React.CSSProperties}
+          >
+            {([
+              { youtubeId: "WRIWMkPvfEo", title: "Good Life — Official Video", year: "2025", duration: "3:42" },
+              { youtubeId: "6mU3m1p-Dkk", title: "Twerk Instructor",           year: "2024", duration: "3:18" },
+              { youtubeId: "T2mXpK8BLNk", title: "Eligible EP — Highlight",    year: "2024", duration: "4:05" },
+              { youtubeId: "_2EMhX0wbWk", title: "Chikito — Glitch Session",   year: "2022", duration: "2:58" },
+              { youtubeId: "oqJVcQoWDzw", title: "SOFA — Behind The Scenes",   year: "2023", duration: "5:12" },
+            ] as const).map((vid, i) => (
+              <motion.a
+                key={vid.youtubeId}
+                href={`https://www.youtube.com/watch?v=${vid.youtubeId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.06 }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                className="flex-shrink-0 w-[220px] md:w-[260px] rounded-xl overflow-hidden border border-white/[0.07] hover:border-gold/28 hover:shadow-[0_10px_35px_rgba(var(--gold-primary-rgb),0.09)] group transition-all duration-normal"
+                style={{ scrollSnapAlign: "start" }}
+                aria-label={`Watch ${vid.title}`}
+              >
+                <div className="relative aspect-video overflow-hidden bg-black">
+                  <img
+                    src={`https://i.ytimg.com/vi/${vid.youtubeId}/hqdefault.jpg`}
+                    alt={vid.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.06]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style={{ background: "rgba(var(--gold-primary-rgb),0.90)" }}>
+                      <Play className="w-4 h-4 text-black ml-0.5" fill="currentColor" />
+                    </div>
+                  </div>
+                  <span className="absolute bottom-2 right-2 bg-black/70 text-white/70 text-[9px] font-mono px-1.5 py-0.5 rounded backdrop-blur-sm">
+                    {vid.duration}
+                  </span>
+                </div>
+                <div className="px-3 py-2.5" style={{ background: "var(--midnight-black)" }}>
+                  <p className="text-white/65 text-xs font-medium group-hover:text-gold transition-colors duration-fast truncate">{vid.title}</p>
+                  <p className="text-white/25 text-[9px] mt-0.5">{vid.year}</p>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── Newsletter CTA ────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16"
+        >
+          <div
+            className="relative rounded-xl border border-gold/15 overflow-hidden text-center p-12 md:p-16"
+            style={{ background: "linear-gradient(160deg, rgba(var(--gold-primary-rgb),0.05) 0%, var(--midnight-black) 50%, rgba(var(--gold-primary-rgb),0.03) 100%)" }}
+          >
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[160px] blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }} />
+            <div className="relative z-10">
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-5">Stay Connected</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold uppercase tracking-tight text-white mb-4 leading-[1.1]">
+                New Music<br /><span className="text-gold">First to You</span>
+              </h2>
+              <p className="text-white/40 text-sm leading-relaxed mb-4 max-w-sm mx-auto">
+                New releases, exclusive previews, behind-the-scenes access, and early drops — delivered before anywhere else.
+              </p>
+              <ul className="flex flex-wrap items-center justify-center gap-4 text-white/25 text-xs mb-8">
+                {["New releases", "Exclusive previews", "Behind the scenes", "Early access"].map(item => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-gold/40" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <PremiumCTAButton as="link" href="/newsletter" icon={<Music2 size={13} />} iconPosition="right">
+                Join the Music List
+              </PremiumCTAButton>
+              <p className="text-white/18 text-[10px] font-light tracking-[0.22em] mt-5">Free · No spam · Unsubscribe anytime</p>
+            </div>
+          </div>
+        </motion.div>
+
         <MusicDiscovery />
 
       </div>

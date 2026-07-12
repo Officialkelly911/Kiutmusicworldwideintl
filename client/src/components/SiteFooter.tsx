@@ -1,11 +1,4 @@
 import { Link, useLocation } from "wouter";
-
-// ── Designer credit ────────────────────────────────────────────────────────────
-// Change name or url here to update the credit across the entire site.
-const DESIGNER = {
-  name: "Kelly",
-  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
-} as const;
 import { motion } from "framer-motion";
 import { KiutFullLogo } from "./KiutMark";
 import {
@@ -17,30 +10,29 @@ import {
   SiYoutube,
   SiLinktree,
 } from "react-icons/si";
+import {
+  SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, YOUTUBE_MUSIC_URL,
+  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL, DREAMPLANET_URL,
+} from "@/data/social";
+
+// ── Designer credit ────────────────────────────────────────────────────────────
+// Change name or url here to update the credit across the entire site.
+const DESIGNER = {
+  name: "Kelly",
+  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
+} as const;
 
 const streamingLinks = [
-  { label: "Spotify",       Icon: SiSpotify,      href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ" },
-  { label: "Apple Music",   Icon: SiApplemusic,   href: "https://music.apple.com/artist/kiut" },
-  { label: "Audiomack",     Icon: SiAudiomack,    href: "https://audiomack.com/kiutrabatv" },
-  { label: "YouTube Music", Icon: SiYoutubemusic, href: "https://music.youtube.com/channel/UCKiutRababag" },
+  { label: "Spotify",       Icon: SiSpotify,      href: SPOTIFY_ARTIST_URL },
+  { label: "Apple Music",   Icon: SiApplemusic,   href: APPLE_MUSIC_ARTIST_URL },
+  { label: "Audiomack",     Icon: SiAudiomack,    href: AUDIOMACK_URL },
+  { label: "YouTube Music", Icon: SiYoutubemusic, href: YOUTUBE_MUSIC_URL },
 ];
 
 const connectLinks = [
-  {
-    label:     "Instagram",
-    Icon:      SiInstagram,
-    href:      "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-  },
-  {
-    label:     "YouTube",
-    Icon:      SiYoutube,
-    href:      "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
-  },
-  {
-    label:     "Linktree",
-    Icon:      SiLinktree,
-    href:      "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
-  },
+  { label: "Instagram", Icon: SiInstagram, href: INSTAGRAM_URL },
+  { label: "YouTube",   Icon: SiYoutube,   href: YOUTUBE_URL   },
+  { label: "Linktree",  Icon: SiLinktree,  href: LINKTREE_URL  },
 ];
 
 const navLinks = [
@@ -177,7 +169,7 @@ export default function SiteFooter() {
 
               {/* DreamPlanet — custom platform, PNG icon */}
               <motion.a
-                href="https://dreamplanet.org/user/61"
+                href={DREAMPLANET_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="DreamPlanet"

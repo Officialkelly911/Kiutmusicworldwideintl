@@ -1,6 +1,10 @@
 import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
+  SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL,
+  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL,
+} from "@/data/social";
+import {
   Mail, Send, MessageSquare, Mic2, Newspaper, Briefcase,
   ArrowRight, CheckCircle2, Globe, Users, Heart, ChevronRight,
 } from "lucide-react";
@@ -51,7 +55,7 @@ const socialLinks = [
     label: "Instagram",
     sub: "@kiut_rababag",
     icon: SiInstagram,
-    href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    href: INSTAGRAM_URL,
     color: "from-pink-500/10 to-rose-600/10",
     border: "hover:border-pink-500/30",
     iconColor: "group-hover:text-pink-400",
@@ -60,7 +64,7 @@ const socialLinks = [
     label: "YouTube",
     sub: "@kiutrabatv",
     icon: SiYoutube,
-    href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
+    href: YOUTUBE_URL,
     color: "from-red-500/10 to-red-700/10",
     border: "hover:border-red-500/30",
     iconColor: "group-hover:text-red-400",
@@ -69,7 +73,7 @@ const socialLinks = [
     label: "Spotify",
     sub: "Kiut Music",
     icon: SiSpotify,
-    href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ",
+    href: SPOTIFY_ARTIST_URL,
     color: "from-green-500/10 to-emerald-700/10",
     border: "hover:border-green-500/30",
     iconColor: "group-hover:text-green-400",
@@ -78,16 +82,16 @@ const socialLinks = [
     label: "Apple Music",
     sub: "Kiut",
     icon: SiApplemusic,
-    href: "https://music.apple.com/artist/kiut",
+    href: APPLE_MUSIC_ARTIST_URL,
     color: "from-rose-400/10 to-pink-600/10",
     border: "hover:border-rose-400/30",
     iconColor: "group-hover:text-rose-300",
   },
   {
     label: "Audiomack",
-    sub: "@kiutrabatv",
+    sub: "@kiutraba",
     icon: SiAudiomack,
-    href: "https://audiomack.com/kiutrabatv",
+    href: AUDIOMACK_URL,
     color: "from-orange-500/10 to-amber-600/10",
     border: "hover:border-orange-500/30",
     iconColor: "group-hover:text-orange-400",
@@ -96,7 +100,7 @@ const socialLinks = [
     label: "Linktree",
     sub: "@kiutmusic",
     icon: SiLinktree,
-    href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
+    href: LINKTREE_URL,
     color: "from-green-400/10 to-lime-600/10",
     border: "hover:border-green-400/30",
     iconColor: "group-hover:text-green-300",
@@ -650,9 +654,9 @@ export default function Contact() {
                 {/* Mini social row */}
                 <div className="flex items-center gap-3 flex-wrap">
                   {[
-                    { href: "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", Icon: SiInstagram, label: "Instagram" },
-                    { href: "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo", Icon: SiYoutube, label: "YouTube" },
-                    { href: "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb", Icon: SiLinktree, label: "Linktree" },
+                    { href: INSTAGRAM_URL, Icon: SiInstagram, label: "Instagram" },
+                    { href: YOUTUBE_URL,   Icon: SiYoutube,   label: "YouTube"   },
+                    { href: LINKTREE_URL,  Icon: SiLinktree,  label: "Linktree"  },
                   ].map(({ href, Icon, label }) => (
                     <motion.a
                       key={label}

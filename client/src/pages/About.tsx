@@ -3,6 +3,7 @@ import { Music, Globe, Heart, Zap, ArrowRight, ExternalLink, Film, Headphones, C
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { HeroSection } from "@/components/HeroSection";
 import KiutWatermark from "@/components/KiutWatermark";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
@@ -317,7 +318,6 @@ export default function About() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // Page-level scroll for the documentary darkness effect:
@@ -414,53 +414,39 @@ export default function About() {
       />
 
       {/* ─── 1. CINEMATIC HERO ──────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative h-[67vh] md:h-[80vh] lg:h-screen md:min-h-[560px] flex items-end pb-20 overflow-hidden">
-        {/* Parallax background — cinematic beach portrait */}
-        <motion.div
-          style={{ y: heroY }}
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0 w-full h-[120%] -top-[10%]"
-        >
-          <picture className="absolute inset-0 block w-full h-full">
-            <source media="(max-width: 767px)"  srcSet="/assets/images/about-hero-beach-768.webp"  type="image/webp" />
-            <source media="(max-width: 1279px)" srcSet="/assets/images/about-hero-beach-1280.webp" type="image/webp" />
-            <img
-              src="/assets/images/about-hero-beach.webp"
-              alt="Kiut on a quiet beach at golden hour, reflecting the emotional storytelling behind his music."
-              className="absolute inset-0 w-full h-full object-cover object-[50%_15%] md:object-center lg:object-[55%_center]"
-              fetchPriority="high"
-              decoding="async"
+      <HeroSection
+        ref={heroRef}
+        slug="about"
+        alt="Kiut on a quiet beach at golden hour, reflecting the emotional storytelling behind his music."
+        className="h-[67vh] md:h-[80vh] lg:h-screen md:min-h-[560px] flex items-end pb-20"
+        priority
+        overlay={
+          <>
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to bottom, rgba(var(--black-rgb),0.25) 0%, rgba(var(--black-rgb),0.35) 50%, rgba(var(--black-rgb),0.60) 100%)" }}
+              aria-hidden="true"
             />
-          </picture>
-        </motion.div>
-
-        {/* Cinematic overlay — top · mid · bottom per brief */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(var(--black-rgb),0.25) 0%, rgba(var(--black-rgb),0.35) 50%, rgba(var(--black-rgb),0.60) 100%)" }}
-          aria-hidden="true"
-        />
-        {/* Left-weighted readability gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" aria-hidden="true" />
-
-        {/* Top-right archive badge */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="absolute top-6 right-6 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/50 border border-gold/25 backdrop-blur-sm"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span className="text-white/55 text-xs font-bold uppercase tracking-[0.32em]">About · Kiut Raba</span>
-        </motion.div>
-
-        {/* Content */}
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-10 max-w-7xl mx-auto px-6 w-full"
-        >
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" aria-hidden="true" />
+            {/* Bottom fade — blends hero into the fixed video layer */}
+            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/80 to-transparent" aria-hidden="true" />
+            {/* Gold hairline at section boundary */}
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent" aria-hidden="true" />
+          </>
+        }
+        sectionChildren={
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="absolute top-6 right-6 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/50 border border-gold/25 backdrop-blur-sm"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-white/55 text-xs font-bold uppercase tracking-[0.32em]">About · Kiut Raba</span>
+          </motion.div>
+        }
+      >
+        <motion.div style={{ opacity: heroOpacity }}>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -509,12 +495,7 @@ export default function About() {
             </Link>
           </motion.div>
         </motion.div>
-
-        {/* Bottom fade — blends hero into the fixed video layer */}
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/80 to-transparent" />
-        {/* Gold hairline at section boundary */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
-      </section>
+      </HeroSection>
 
       {/* ─── 2. THE STORY ───────────────────────────────────────────────── */}
       <section className="py-28 md:py-36 relative z-10">

@@ -1,0 +1,166 @@
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { heroImageMeta } from "@/data/heroImages";
+
+/**
+ * HeroSection — Universal Hero Image System
+ * ---------------------------------------------------------------------------
+ * Single reusable component for every full-bleed photographic hero on the
+ * site. Handles the "boring but critical" responsive-image plumbing so page
+ * files only need to supply their (already-approved) headline/CTA content as
+ * children — no visual/behavioral change to typography, CTAs, or animations.
+ *
+ * What it centralizes:
+ *  - Art-directed <picture> markup: a dedicated, individually-cropped image
+ *    variant per breakpoint (mobile portrait / mobile landscape / tablet /
+ *    laptop / desktop), each served as AVIF -> WebP -> JPEG.
+ *  - Blur-up placeholder (LQIP) sourced from the generation pipeline's
+ *    metadata, so the hero never pops in on a blank background.
+ *  - Subtle scroll parallax (same easing/range as the previous per-page
+ *    hand-rolled implementation) with a per-hero opt-out.
+ *  - Priority loading controls (eager + fetchPriority for the current page's
+ *    hero; lazy + async decode otherwise).
+ *
+ * What it deliberately does NOT centralize: overlay treatment. Every existing
+ * hero has a slightly different gradient/glow recipe tuned to its own photo.
+ * Forcing one shared overlay would change pixels on pages that already
+ * shipped. Pass `overlay` with the page's existing gradient markup verbatim;
+ * omit it to get a sensible default (dark-left / minimal-right + bottom
+ * fade — the same treatment used on Tour).
+ *
+ * To add a new hero image elsewhere on the site:
+ *   1. node scripts/generate-hero-images.mjs --src <photo> --slug <name>
+ *   2. Add the returned blurDataURL to client/src/data/heroImages.ts
+ *   3. <HeroSection slug="name" alt="..."> ...page content... </HeroSection>
+ */
+
+export interface HeroSectionProps {
+  /** Resolves image variants at /images/hero/<slug>/<slug>-<variant>.<ext> */
+  slug: string;
+  alt: string;
+  /** Merged onto the <section> — controls height/layout, e.g. "min-h-[80vh] flex items-end pb-24" */
+  className?: string;
+  /** Extra classes appended to the <img> (default: "w-full h-full object-cover object-center") */
+  imageClassName?: string;
+  /** Full custom overlay markup (gradients, glow blobs). Omit for the default cinematic treatment. */
+  overlay?: React.ReactNode;
+  /** Rendered inside the z-10 content wrapper — the page's existing headline/subtitle/CTA JSX. */
+  children?: React.ReactNode;
+  /** Classes for the content wrapper (default: "relative z-10 max-w-7xl mx-auto px-6 w-full") */
+  contentClassName?: string;
+  /**
+   * Elements positioned relative to the full <section> rather than the
+   * (width-constrained) content wrapper — e.g. an absolutely-positioned
+   * scroll indicator pinned to the section's own corner.
+   */
+  sectionChildren?: React.ReactNode;
+  /** True for the current page's own hero — eager decode + high fetch priority. Default false (lazy). */
+  priority?: boolean;
+  /** Subtle scroll parallax on the image layer. Default true. */
+  parallax?: boolean;
+  /** [start, end] translateY for the parallax layer across the hero's scroll range. Default ["0%","30%"]. */
+  parallaxRange?: [string, string];
+  id?: string;
+}
+
+const DEFAULT_OVERLAY = (
+  <>
+    <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/35 to-midnight" aria-hidden="true" />
+    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/25" aria-hidden="true" />
+  </>
+);
+
+export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(function HeroSection(
+  {
+    slug,
+    alt,
+    className = "",
+    imageClassName = "",
+    overlay,
+    children,
+    contentClassName = "relative z-10 max-w-7xl mx-auto px-6 w-full",
+    sectionChildren,
+    priority = false,
+    parallax = true,
+    parallaxRange = ["0%", "30%"],
+    id,
+  }: HeroSectionProps,
+  forwardedRef
+) {
+  const internalRef = useRef<HTMLElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  const { scrollYProgress } = useScroll({
+    target: internalRef,
+    offset: ["start start", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], parallaxRange);
+
+  const base = `/images/hero/${slug}/${slug}`;
+  const blurDataURL = heroImageMeta[slug]?.blurDataURL;
+
+  return (
+    <section
+      ref={(node: HTMLElement | null) => {
+        (internalRef as React.MutableRefObject<HTMLElement | null>).current = node;
+        if (typeof forwardedRef === "function") forwardedRef(node);
+        else if (forwardedRef) (forwardedRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
+      id={id}
+      className={`relative overflow-hidden ${className}`}
+    >
+      <motion.div
+        style={parallax ? { y: parallaxY } : undefined}
+        initial={{ opacity: 0, scale: 1.03 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className={parallax ? "absolute inset-0 w-full h-[120%] -top-[10%]" : "absolute inset-0 w-full h-full"}
+      >
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-slow"
+          style={{
+            backgroundImage: blurDataURL ? `url(${blurDataURL})` : undefined,
+            backgroundColor: "var(--midnight-black)",
+            opacity: loaded ? 0 : 1,
+          }}
+          aria-hidden="true"
+        />
+        <picture className="absolute inset-0 block w-full h-full">
+          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />
+          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.webp`} type="image/webp" />
+          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.jpg`} type="image/jpeg" />
+
+          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.avif`} type="image/avif" />
+          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.webp`} type="image/webp" />
+          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.jpg`} type="image/jpeg" />
+
+          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.avif`} type="image/avif" />
+          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.webp`} type="image/webp" />
+          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.jpg`} type="image/jpeg" />
+
+          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.avif`} type="image/avif" />
+          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.webp`} type="image/webp" />
+          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.jpg`} type="image/jpeg" />
+
+          <source srcSet={`${base}-desktop.avif`} type="image/avif" />
+          <source srcSet={`${base}-desktop.webp`} type="image/webp" />
+          <img
+            src={`${base}-desktop.jpg`}
+            alt={alt}
+            className={imageClassName || "w-full h-full object-cover object-center"}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={priority ? "high" : "auto"}
+            onLoad={() => setLoaded(true)}
+          />
+        </picture>
+      </motion.div>
+
+      {overlay ?? DEFAULT_OVERLAY}
+
+      {children && <div className={contentClassName}>{children}</div>}
+      {sectionChildren}
+    </section>
+  );
+});
+
+export default HeroSection;

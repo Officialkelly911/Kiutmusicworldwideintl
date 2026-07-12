@@ -89,6 +89,8 @@ export async function registerRoutes(
         sendContactNotification({
           name:        data.name ?? "",
           email:       data.email,
+          phone:       data.phone || undefined,
+          country:     data.country || undefined,
           subject:     data.subject,
           enquiryType: data.enquiryType ?? "general",
           message:     data.message,

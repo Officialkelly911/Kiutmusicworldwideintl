@@ -67,8 +67,11 @@ export class DbStorage implements IStorage {
     const [subscriber] = await db
       .insert(newsletterSubscribers)
       .values({
-        email: insertSubscriber.email,
-        name: insertSubscriber.name || null,
+        email:            insertSubscriber.email,
+        name:             insertSubscriber.name || null,
+        country:          insertSubscriber.country || null,
+        favoritePlatform: insertSubscriber.favoritePlatform || null,
+        preferences:      insertSubscriber.preferences ?? null,
       })
       .returning();
     return subscriber;
@@ -82,9 +85,12 @@ export class DbStorage implements IStorage {
       .values({
         name:        data.name || null,
         email:       data.email,
+        phone:       data.phone || null,
+        country:     data.country || null,
         subject:     data.subject,
         enquiryType: data.enquiryType ?? "general",
         message:     data.message,
+        consent:     data.consent ?? true,
         ipAddress:   data.ipAddress ?? null,
         userAgent:   data.userAgent ?? null,
       })

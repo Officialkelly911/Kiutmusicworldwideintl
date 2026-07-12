@@ -1,0 +1,499 @@
+Phase 10 should focus exclusively on turning the Connect and Newsletter pages into fully functional systems without redesigning the premium UI that already exists. The visual language has already reached a luxury standard. This phase is about functionality, automation, integrations, validation, and production readiness. Human beings love rebuilding things that already work. Resist that urge.
+
+⸻
+
+PHASE 10 — CONNECT & NEWSLETTER FUNCTIONALITY
+
+MASTER REPLIT IMPLEMENTATION PROMPT
+
+Objective
+
+Implement the complete backend and frontend functionality for the Connect and Newsletter sections of the Kiut Music website.
+
+This phase is functionality only.
+
+Do NOT redesign the interface.
+
+Do NOT change spacing, typography, colors, animations, button styling, layout, or premium visual appearance.
+
+Everything should look exactly as it does now.
+
+Only make it fully operational.
+
+⸻
+
+PART 1
+
+CONNECT PAGE
+
+Implement a production-ready contact experience.
+
+The Connect page should include:
+
+Artist Booking
+
+Fields
+
+* Full Name
+* Company
+* Organization
+* Email
+* Phone Number
+* Country
+* Event Type
+* Event Date
+* Venue
+* Estimated Audience
+* Budget Range
+* Message
+
+⸻
+
+General Contact
+
+Fields
+
+* Name
+* Email
+* Subject
+* Message
+
+⸻
+
+Business Inquiry
+
+Fields
+
+* Name
+* Company
+* Email
+* Industry
+* Message
+
+⸻
+
+Media / Press
+
+Fields
+
+* Publication
+* Journalist
+* Email
+* Interview Request
+* Deadline
+* Message
+
+⸻
+
+Every form must include
+
+* Required field validation
+* Email validation
+* Spam protection
+* Loading state
+* Success animation
+* Error handling
+* Confirmation message
+
+⸻
+
+PART 2
+
+EMAIL DELIVERY
+
+Integrate a production email provider.
+
+Preferred order
+
+1. Resend
+2. SendGrid
+3. EmailJS
+
+Every submission should automatically send to
+
+artistmanagement@kiutmusic.com
+
+(or whichever email is configured later.)
+
+No hardcoded emails.
+
+Use environment variables.
+
+⸻
+
+PART 3
+
+NEWSLETTER SYSTEM
+
+Connect the Newsletter page to a real mailing platform.
+
+Preferred order
+
+1. Mailchimp
+2. ConvertKit
+3. Beehiiv
+
+Features
+
+Subscribe
+
+Double opt-in
+
+Welcome email
+
+Success confirmation
+
+Duplicate email detection
+
+Loading state
+
+Error handling
+
+GDPR consent checkbox
+
+Privacy acknowledgement
+
+⸻
+
+PART 4
+
+NEWSLETTER CMS
+
+Store subscriber information in one reusable service.
+
+Create
+
+newsletterService.ts
+
+Features
+
+subscribe()
+
+unsubscribe()
+
+checkDuplicate()
+
+syncProvider()
+
+No duplicated logic.
+
+⸻
+
+PART 5
+
+CONTACT SERVICE
+
+Create
+
+contactService.ts
+
+Used by
+
+Booking
+
+General Contact
+
+Business
+
+Press
+
+Functions
+
+submitBooking()
+
+submitGeneral()
+
+submitBusiness()
+
+submitPress()
+
+Every request
+
+Validates
+
+Sanitizes
+
+Returns success/error
+
+Uses async handling
+
+⸻
+
+PART 6
+
+FORM COMPONENT SYSTEM
+
+Create reusable components.
+
+Input
+
+Textarea
+
+Dropdown
+
+Phone Input
+
+Checkbox
+
+Submit Button
+
+Validation Message
+
+Loading Spinner
+
+Success Banner
+
+Error Banner
+
+Everything reusable.
+
+⸻
+
+PART 7
+
+BUTTON BEHAVIOR
+
+Do NOT redesign buttons.
+
+Keep the premium animated CTA system already implemented.
+
+Continue using the reusable CTA component.
+
+The following buttons must retain their existing animation and styling:
+
+* Listen Now
+* Latest Release
+* Join Newsletter
+* Book Kiut
+* Shop Merchandise
+* Watch Official Video
+* Become a Member
+* Contact
+
+No CSS changes.
+
+No visual regressions.
+
+⸻
+
+PART 8
+
+SUCCESS EXPERIENCE
+
+After successful submission
+
+Animate checkmark
+
+Fade success card
+
+Display
+
+“Thank you.
+Your message has been received.
+Our team will respond shortly.”
+
+Newsletter
+
+Display
+
+“Welcome to Kiut Music.”
+
+Small gold success animation.
+
+Auto dismiss after several seconds.
+
+⸻
+
+PART 9
+
+ERROR HANDLING
+
+Display friendly messages
+
+Examples
+
+Please enter a valid email.
+
+Required fields are missing.
+
+Network connection lost.
+
+Something went wrong.
+
+Please try again.
+
+Never expose server errors.
+
+⸻
+
+PART 10
+
+LOADING STATES
+
+Every form must
+
+Disable submit button
+
+Show spinner
+
+Prevent duplicate submissions
+
+Restore button afterward
+
+⸻
+
+PART 11
+
+SECURITY
+
+Implement
+
+Rate limiting
+
+Server-side validation
+
+Input sanitization
+
+CSRF protection where applicable
+
+Spam prevention
+
+Honeypot field
+
+Environment variables
+
+No exposed API keys
+
+⸻
+
+PART 12
+
+SEO
+
+Newsletter page
+
+Meta Title
+
+Join the Kiut Music Newsletter
+
+Meta Description
+
+Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.
+
+Connect page
+
+Meta Title
+
+Contact Kiut Music
+
+Meta Description
+
+Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.
+
+⸻
+
+PART 13
+
+ANALYTICS
+
+Track
+
+Newsletter signup
+
+Booking request
+
+Contact submission
+
+Business inquiry
+
+Press inquiry
+
+CTA clicks
+
+Use the site’s centralized analytics implementation.
+
+⸻
+
+PART 14
+
+ACCESSIBILITY
+
+Every form
+
+Keyboard accessible
+
+ARIA labels
+
+Visible focus states
+
+Screen-reader friendly
+
+Proper tab order
+
+Accessible validation
+
+⸻
+
+PART 15
+
+MOBILE
+
+Forms must be optimized for
+
+Desktop
+
+Tablet
+
+Mobile
+
+No overflow
+
+No clipped fields
+
+No horizontal scrolling
+
+Comfortable touch targets
+
+Responsive spacing
+
+⸻
+
+PART 16
+
+PERFORMANCE
+
+Lazy-load only where appropriate
+
+Minimize JavaScript
+
+Avoid duplicate requests
+
+Use code splitting where beneficial
+
+Maintain Lighthouse performance scores established in previous phases
+
+⸻
+
+PART 17
+
+ACCEPTANCE CHECKLIST
+
+Phase 10 is complete only when:
+
+* All Connect forms submit successfully.
+* Newsletter subscriptions work with the selected provider.
+* Double opt-in functions correctly.
+* Welcome emails are delivered.
+* Contact emails are delivered.
+* Loading, success, and error states work correctly.
+* Spam protection is active.
+* Validation works on both client and server.
+* Environment variables are used for all secrets.
+* Existing premium UI remains unchanged.
+* Existing CTA animations remain untouched.
+* Responsive layouts function correctly across desktop, tablet, and mobile.
+* Accessibility requirements are met.
+* No console errors or failed network requests remain.
+* The implementation integrates cleanly with the shared architecture created in Phase 9.
+
+Implementation rule: This is a functionality upgrade, not a redesign. The existing luxury aesthetic, animations, branding, spacing, typography, responsive hero system, reusable CTA components, and overall user experience established in previous phases must remain visually identical while the Connect and Newsletter features become fully production-ready.

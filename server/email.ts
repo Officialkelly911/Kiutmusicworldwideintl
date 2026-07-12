@@ -22,6 +22,8 @@ interface ContactPayload {
   subject:     string;
   enquiryType: string;
   message:     string;
+  /** JSON string of inquiry-type-specific fields (e.g. booking details). */
+  metadata?:   string;
   ipAddress?:  string;
   userAgent?:  string;
   timestamp:   string;
@@ -56,6 +58,7 @@ export async function sendContactNotification(p: ContactPayload) {
         <p style="margin:0 0 8px;font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.2em;">Message</p>
         <p style="margin:0;font-size:14px;color:#ccc;line-height:1.7;white-space:pre-wrap;">${escHtml(p.message)}</p>
       </div>
+      ${p.metadata ? renderMetadata(p.metadata) : ""}
     </td></tr>
     <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.05);">
       <p style="margin:0;font-size:11px;color:#444;text-align:center;">KIUT. MUSIC — kiutmusic.com</p>
@@ -115,6 +118,26 @@ export async function sendContactConfirmation(p: Pick<ContactPayload, "name" | "
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────
+function renderMetadata(raw: string): string {
+  try {
+    const meta = JSON.parse(raw) as Record<string, string | undefined>;
+    const entries = Object.entries(meta).filter(([, v]) => v);
+    if (!entries.length) return "";
+    const rows = entries
+      .map(([k, v]) => row(k.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase()), v!))
+      .join("");
+    return `
+    <tr><td colspan="2" style="padding-top:20px;">
+      <div style="background:rgba(212,175,55,0.04);border:1px solid rgba(212,175,55,0.12);border-radius:8px;padding:16px 20px;">
+        <p style="margin:0 0 10px;font-size:11px;color:#D4AF37;text-transform:uppercase;letter-spacing:0.2em;">Booking Details</p>
+        <table width="100%" cellpadding="0" cellspacing="0">${rows}</table>
+      </div>
+    </td></tr>`;
+  } catch {
+    return "";
+  }
+}
+
 function row(label: string, value: string) {
   return `
   <tr>

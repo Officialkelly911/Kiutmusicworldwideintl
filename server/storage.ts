@@ -26,9 +26,14 @@ export interface IStorage {
   createNewsletterSubscriber(
     subscriber: InsertNewsletterSubscriber,
   ): Promise<NewsletterSubscriber>;
+  deleteNewsletterSubscriber(email: string): Promise<void>;
 
   createContactSubmission(
-    data: InsertContactSubmission & { ipAddress?: string; userAgent?: string },
+    data: InsertContactSubmission & {
+      ipAddress?: string;
+      userAgent?: string;
+      metadata?: string;
+    },
   ): Promise<ContactSubmission>;
 }
 
@@ -78,8 +83,18 @@ export class DbStorage implements IStorage {
     return subscriber;
   }
 
+  async deleteNewsletterSubscriber(email: string): Promise<void> {
+    await db
+      .delete(newsletterSubscribers)
+      .where(eq(newsletterSubscribers.email, email.toLowerCase().trim()));
+  }
+
   async createContactSubmission(
-    data: InsertContactSubmission & { ipAddress?: string; userAgent?: string },
+    data: InsertContactSubmission & {
+      ipAddress?: string;
+      userAgent?: string;
+      metadata?: string;
+    },
   ): Promise<ContactSubmission> {
     const [submission] = await db
       .insert(contactSubmissions)
@@ -92,6 +107,7 @@ export class DbStorage implements IStorage {
         subject:     data.subject,
         enquiryType: data.enquiryType ?? "general",
         message:     data.message,
+        metadata:    data.metadata ?? null,
         consent:     data.consent ?? true,
         ipAddress:   data.ipAddress ?? null,
         userAgent:   data.userAgent ?? null,

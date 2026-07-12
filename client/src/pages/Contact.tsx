@@ -29,6 +29,8 @@ const SiBoomplay: IconType = ({ size = "1em", ...props }: any) => (
   </svg>
 );
 import { useState, useRef, useEffect } from "react";
+import { COUNTRIES } from "@/lib/countries";
+import { track } from "@/lib/analytics";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
@@ -251,23 +253,27 @@ function FloatingField({ id, label, type = "text", value, onChange, onBlur, requ
   );
 }
 
-type FormErrors = Partial<Record<"firstName" | "email" | "subject" | "message" | "consent", string>>;
+type FormErrors = Partial<Record<"firstName" | "lastName" | "email" | "country" | "subject" | "message" | "consent", string>>;
 
 function validateField(field: keyof FormErrors, value: string | boolean): string | null {
   switch (field) {
     case "firstName":
-      return (value as string).trim().length > 0 ? null : "First name is required.";
+      return (value as string).trim().length > 0 ? null : "Please enter your first name.";
+    case "lastName":
+      return (value as string).trim().length > 0 ? null : "Please enter your last name.";
     case "email": {
       const v = (value as string).trim();
-      if (!v) return "Email is required.";
+      if (!v) return "Email address is required.";
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "Please enter a valid email address.";
     }
+    case "country":
+      return (value as string).trim().length > 0 ? null : "Please select your country.";
     case "subject":
       return (value as string).trim().length >= 2 ? null : "Subject is required.";
     case "message":
       return (value as string).trim().length >= 10 ? null : "Message must be at least 10 characters.";
     case "consent":
-      return value === true ? null : "Please confirm you agree before submitting.";
+      return value === true ? null : "Please accept the privacy policy before submitting.";
     default:
       return null;
   }
@@ -289,6 +295,16 @@ function ContactForm() {
   const [loading, setLoading]     = useState(false);
   const [errorMsg, setErrorMsg]   = useState<string | null>(null);
 
+  // ── Honeypot (spam protection — stays empty for real users) ──────────────────
+  const [website, setWebsite] = useState("");
+  // ── Booking-specific fields ──────────────────────────────────────────────────
+  const [company,           setCompany]           = useState("");
+  const [eventType,         setEventType]         = useState("");
+  const [eventDate,         setEventDate]         = useState("");
+  const [venue,             setVenue]             = useState("");
+  const [estimatedAudience, setEstimatedAudience] = useState("");
+  const [budgetRange,       setBudgetRange]       = useState("");
+
   const active = enquiryTypes.find(t => t.id === activeType)!;
   const Icon   = active.icon;
 
@@ -301,15 +317,34 @@ function ContactForm() {
     if (loading) return;
     setErrorMsg(null);
 
+    // Honeypot — bot filled the invisible field; fake success silently
+    if (website) { setSubmitted(true); return; }
+
     const nextErrors: FormErrors = {
       firstName: validateField("firstName", firstName) ?? undefined,
-      email:     validateField("email", email) ?? undefined,
-      subject:   validateField("subject", subject) ?? undefined,
-      message:   validateField("message", message) ?? undefined,
-      consent:   validateField("consent", consent) ?? undefined,
+      lastName:  validateField("lastName",  lastName)  ?? undefined,
+      email:     validateField("email",     email)     ?? undefined,
+      country:   validateField("country",   country)   ?? undefined,
+      subject:   validateField("subject",   subject)   ?? undefined,
+      message:   validateField("message",   message)   ?? undefined,
+      consent:   validateField("consent",   consent)   ?? undefined,
     };
     setErrors(nextErrors);
     if (Object.values(nextErrors).some(Boolean)) return;
+
+    // Serialize booking-specific fields into metadata JSON
+    const metadata =
+      activeType === "booking" &&
+      (company || eventType || eventDate || venue || estimatedAudience || budgetRange)
+        ? JSON.stringify({
+            ...(company           ? { company:           company.trim()           } : {}),
+            ...(eventType         ? { eventType                                   } : {}),
+            ...(eventDate         ? { eventDate                                   } : {}),
+            ...(venue             ? { venue:             venue.trim()             } : {}),
+            ...(estimatedAudience ? { estimatedAudience                           } : {}),
+            ...(budgetRange       ? { budgetRange                                 } : {}),
+          })
+        : undefined;
 
     setLoading(true);
     try {
@@ -318,21 +353,30 @@ function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName:   firstName.trim(),
-          lastName:    lastName.trim() || undefined,
+          lastName:    lastName.trim(),
           email:       email.trim(),
           phone:       phone.trim() || undefined,
-          country:     country.trim() || undefined,
+          country,
           subject:     subject.trim() || active.label,
           enquiryType: activeType,
           message:     message.trim(),
           consent,
+          ...(metadata ? { metadata } : {}),
         }),
       });
       const body = await res.json();
       if (!res.ok) throw new Error(body.message || "Something went wrong.");
       setSubmitted(true);
+      track(
+        activeType === "booking"  ? "booking_request"   :
+        activeType === "press"    ? "press_inquiry"      :
+        activeType === "business" ? "business_inquiry"   :
+        "contact_submission",
+        { enquiryType: activeType, country }
+      );
     } catch (err: any) {
       setErrorMsg(err.message ?? "We couldn't send your message. Please try again shortly.");
+      track("form_error", { label: "contact", enquiryType: activeType });
     } finally {
       setLoading(false);
     }
@@ -343,6 +387,9 @@ function ContactForm() {
     setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setCountry("");
     setSubject(""); setMessage(""); setConsent(false);
     setActiveType("general"); setErrorMsg(null); setErrors({});
+    // Booking fields
+    setCompany(""); setEventType(""); setEventDate(""); setVenue("");
+    setEstimatedAudience(""); setBudgetRange(""); setWebsite("");
   }
 
   return (
@@ -405,7 +452,7 @@ function ContactForm() {
                 {/* First + Last name */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <FloatingField id="firstName" label="First Name" value={firstName} onChange={setFirstName} onBlur={() => touch("firstName", firstName)} required error={errors.firstName} maxLength={80} autoComplete="given-name" />
-                  <FloatingField id="lastName" label="Last Name" value={lastName} onChange={setLastName} maxLength={80} autoComplete="family-name" />
+                  <FloatingField id="lastName" label="Last Name" value={lastName} onChange={setLastName} onBlur={() => touch("lastName", lastName)} required error={errors.lastName} maxLength={80} autoComplete="family-name" />
                 </div>
 
                 {/* Email + Phone */}
@@ -414,8 +461,126 @@ function ContactForm() {
                   <FloatingField id="phone" label="Phone (optional)" type="tel" value={phone} onChange={setPhone} maxLength={30} autoComplete="tel" />
                 </div>
 
-                {/* Country */}
-                <FloatingField id="country" label="Country (optional)" value={country} onChange={setCountry} maxLength={100} autoComplete="country-name" />
+                {/* Country — dropdown */}
+                <div className="relative">
+                  <select
+                    id="country"
+                    value={country}
+                    onChange={(e) => { setCountry(e.target.value); touch("country", e.target.value); }}
+                    onBlur={() => touch("country", country)}
+                    required
+                    aria-required="true"
+                    aria-invalid={!!errors.country}
+                    aria-describedby={errors.country ? "country-error" : undefined}
+                    className={`block w-full px-5 py-4 text-sm bg-white/[0.04] border rounded-xl appearance-none focus:outline-none focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal ${
+                      country ? "text-white" : "text-white/35"
+                    } ${errors.country ? "border-red-500/50 focus:border-red-500/60" : "border-white/[0.08] focus:border-gold/50"}`}
+                  >
+                    <option value="" className="bg-midnight text-white/35">Country *</option>
+                    {COUNTRIES.map((c) => (
+                      <option key={c} value={c} className="bg-midnight text-white">{c}</option>
+                    ))}
+                  </select>
+                  <ChevronRight size={13} className="absolute right-4 top-1/2 -translate-y-1/2 -rotate-90 text-white/30 pointer-events-none" aria-hidden="true" />
+                  {errors.country && <p id="country-error" className="text-red-400/80 text-xs mt-1.5 px-1">{errors.country}</p>}
+                </div>
+
+                {/* Booking-specific details — shown only for booking inquiry type */}
+                <AnimatePresence>
+                  {activeType === "booking" && (
+                    <motion.div
+                      key="booking-details"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="space-y-5 p-5 rounded-xl border border-gold/[0.14] bg-gold/[0.025] mt-0">
+                        <p className="text-gold text-[11px] font-bold tracking-[0.3em] uppercase flex items-center gap-1.5">
+                          <Mic2 size={10} aria-hidden="true" /> Booking Details
+                        </p>
+
+                        {/* Company / Organization */}
+                        <FloatingField id="bk-company" label="Company / Organization" value={company} onChange={setCompany} maxLength={150} />
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                          {/* Event Type */}
+                          <div className="relative">
+                            <select
+                              id="bk-eventType"
+                              value={eventType}
+                              onChange={(e) => setEventType(e.target.value)}
+                              aria-label="Event Type"
+                              className={`block w-full px-5 py-4 text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] transition-all duration-normal ${eventType ? "text-white" : "text-white/35"}`}
+                            >
+                              <option value="" className="bg-midnight">Event Type</option>
+                              {["Concert / Festival", "Corporate Event", "Private Show", "Club Performance", "International Tour", "Brand Appearance", "Music Licensing", "Film & TV / Commercial", "Other"].map((t) => (
+                                <option key={t} value={t} className="bg-midnight text-white">{t}</option>
+                              ))}
+                            </select>
+                            <ChevronRight size={13} className="absolute right-4 top-1/2 -translate-y-1/2 -rotate-90 text-white/30 pointer-events-none" aria-hidden="true" />
+                          </div>
+
+                          {/* Event Date */}
+                          <div className="relative group">
+                            <input
+                              type="date"
+                              id="bk-eventDate"
+                              value={eventDate}
+                              onChange={(e) => setEventDate(e.target.value)}
+                              aria-label="Event Date"
+                              style={{ colorScheme: "dark" }}
+                              className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:bg-white/[0.06] focus:border-gold/50 focus:shadow-glow-gold transition-all duration-normal"
+                            />
+                            <label htmlFor="bk-eventDate" className="absolute text-white/35 text-xs top-2 left-5 pointer-events-none">
+                              Event Date
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                          {/* Venue */}
+                          <FloatingField id="bk-venue" label="Venue" value={venue} onChange={setVenue} maxLength={200} />
+
+                          {/* Estimated Audience */}
+                          <div className="relative">
+                            <select
+                              id="bk-audience"
+                              value={estimatedAudience}
+                              onChange={(e) => setEstimatedAudience(e.target.value)}
+                              aria-label="Estimated Audience"
+                              className={`block w-full px-5 py-4 text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] transition-all duration-normal ${estimatedAudience ? "text-white" : "text-white/35"}`}
+                            >
+                              <option value="" className="bg-midnight">Estimated Audience</option>
+                              {["Under 100", "100–500", "500–1,000", "1,000–5,000", "5,000–20,000", "20,000+"].map((a) => (
+                                <option key={a} value={a} className="bg-midnight text-white">{a}</option>
+                              ))}
+                            </select>
+                            <ChevronRight size={13} className="absolute right-4 top-1/2 -translate-y-1/2 -rotate-90 text-white/30 pointer-events-none" aria-hidden="true" />
+                          </div>
+                        </div>
+
+                        {/* Budget Range */}
+                        <div className="relative">
+                          <select
+                            id="bk-budget"
+                            value={budgetRange}
+                            onChange={(e) => setBudgetRange(e.target.value)}
+                            aria-label="Budget Range"
+                            className={`block w-full px-5 py-4 text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] transition-all duration-normal ${budgetRange ? "text-white" : "text-white/35"}`}
+                          >
+                            <option value="" className="bg-midnight">Budget Range</option>
+                            {["Under $5,000", "$5,000–$15,000", "$15,000–$50,000", "$50,000–$100,000", "Over $100,000", "Open to Negotiation"].map((b) => (
+                              <option key={b} value={b} className="bg-midnight text-white">{b}</option>
+                            ))}
+                          </select>
+                          <ChevronRight size={13} className="absolute right-4 top-1/2 -translate-y-1/2 -rotate-90 text-white/30 pointer-events-none" aria-hidden="true" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Subject */}
                 <FloatingField id="subject" label="Subject" value={subject} onChange={setSubject} onBlur={() => touch("subject", subject)} required error={errors.subject} maxLength={200} />
@@ -456,6 +621,20 @@ function ContactForm() {
                   </AnimatePresence>
                   <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
                   {errors.message && <p id="message-error" className="text-red-400/80 text-xs mt-1.5 px-1">{errors.message}</p>}
+                </div>
+
+                {/* Honeypot — invisible to humans, filled by bots */}
+                <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+                  <label htmlFor="cf-website">Website</label>
+                  <input
+                    type="text"
+                    id="cf-website"
+                    name="website"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                 </div>
 
                 {/* Consent */}
@@ -682,8 +861,27 @@ function LocationMap() {
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Contact() {
   useEffect(() => {
-    document.title = "Contact | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
+    const TITLE = "Contact Kiut Music";
+    const DESC  = "Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.";
+    const origTitle   = document.title;
+    const metaDesc    = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const ogTitle     = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
+    const ogDesc      = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    const origDesc    = metaDesc?.content;
+    const origOgTitle = ogTitle?.content;
+    const origOgDesc  = ogDesc?.content;
+
+    document.title = TITLE;
+    metaDesc?.setAttribute("content", DESC);
+    ogTitle?.setAttribute("content", TITLE);
+    ogDesc?.setAttribute("content", DESC);
+
+    return () => {
+      document.title = origTitle;
+      if (origDesc    !== undefined && metaDesc) metaDesc.setAttribute("content", origDesc);
+      if (origOgTitle !== undefined && ogTitle)  ogTitle.setAttribute("content", origOgTitle);
+      if (origOgDesc  !== undefined && ogDesc)   ogDesc.setAttribute("content", origOgDesc);
+    };
   }, []);
 
   return (

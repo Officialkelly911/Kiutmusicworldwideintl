@@ -68,6 +68,8 @@ export const contactSubmissions = pgTable("contact_submissions", {
   subject:     text("subject").notNull(),
   enquiryType: text("enquiry_type").notNull().default("general"),
   message:     text("message").notNull(),
+  /** JSON string — stores inquiry-type-specific fields (booking details, etc.) */
+  metadata:    text("metadata"),
   consent:     boolean("consent").notNull().default(true),
   status:      contactStatusEnum("status").notNull().default("pending"),
   ipAddress:   text("ip_address"),
@@ -83,14 +85,16 @@ export const insertContactSubmissionSchema = createInsertSchema(contactSubmissio
   .pick({ firstName: true, lastName: true, email: true, phone: true, country: true, subject: true, enquiryType: true, message: true })
   .extend({
     firstName:   z.string().trim().min(1, "First name is required").max(80),
-    lastName:    z.string().trim().max(80).optional().or(z.literal("")),
+    lastName:    z.string().trim().min(1, "Last name is required").max(80),
     email:       z.string().email("Please enter a valid email address"),
     phone:       z.string().trim().max(30).optional().or(z.literal("")),
-    country:     z.string().trim().max(100).optional().or(z.literal("")),
+    country:     z.string().trim().min(1, "Country is required").max(100),
     subject:     z.string().trim().min(2, "Subject is required").max(200),
     enquiryType: z.enum(CONTACT_ENQUIRY_TYPES).default("general"),
     message:     z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message is too long"),
     consent:     z.boolean().refine((v) => v === true, "Please confirm you agree before submitting."),
+    /** Optional JSON metadata for inquiry-type-specific fields (booking details, etc.) */
+    metadata:    z.string().max(2000).optional(),
   });
 
 export type InsertContactSubmission = z.infer<typeof insertContactSubmissionSchema>;

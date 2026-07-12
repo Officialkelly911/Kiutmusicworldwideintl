@@ -9,6 +9,7 @@ import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
 import { StatCounter } from "@/components/StatCounter";
 import { SocialIconGroup } from "@/components/SocialIconGroup";
+import { track } from "@/lib/analytics";
 import { FEATURED_UPDATES } from "@/data/updates";
 import { upcomingShows } from "@/pages/Tour";
 import { videos } from "@/pages/Videos";
@@ -168,8 +169,27 @@ const UPDATE_ICONS = { release: Music2, tour: Calendar, video: Bell, member: Cro
 
 export default function Newsletter() {
   useEffect(() => {
-    document.title = "Newsletter | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
+    const TITLE = "Join the Kiut Music Newsletter";
+    const DESC  = "Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.";
+    const origTitle   = document.title;
+    const metaDesc    = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const ogTitle     = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
+    const ogDesc      = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
+    const origDesc    = metaDesc?.content;
+    const origOgTitle = ogTitle?.content;
+    const origOgDesc  = ogDesc?.content;
+
+    document.title = TITLE;
+    metaDesc?.setAttribute("content", DESC);
+    ogTitle?.setAttribute("content", TITLE);
+    ogDesc?.setAttribute("content", DESC);
+
+    return () => {
+      document.title = origTitle;
+      if (origDesc    !== undefined && metaDesc) metaDesc.setAttribute("content", origDesc);
+      if (origOgTitle !== undefined && ogTitle)  ogTitle.setAttribute("content", origOgTitle);
+      if (origOgDesc  !== undefined && ogDesc)   ogDesc.setAttribute("content", origOgDesc);
+    };
   }, []);
 
   const [email, setEmail] = useState("");
@@ -183,6 +203,8 @@ export default function Newsletter() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Honeypot — stays empty for real users
+  const [nlWebsite, setNlWebsite] = useState("");
   const [showSticky, setShowSticky] = useState(false);
   const { count, ref: countRef } = useCountUp(50000);
 
@@ -200,8 +222,11 @@ export default function Newsletter() {
     e.preventDefault();
     if (!email || submitting) return;
 
+    // Honeypot — bot filled invisible field
+    if (nlWebsite) { setSubmitted(true); return; }
+
     if (!consent) {
-      setConsentError("Please confirm you agree before subscribing.");
+      setConsentError("Please accept the privacy policy before subscribing.");
       return;
     }
     setConsentError(null);
@@ -231,8 +256,10 @@ export default function Newsletter() {
       }
 
       setSubmitted(true);
+      track("newsletter_signup", { country: country.trim() || undefined, platform: favoritePlatform || undefined });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      track("form_error", { label: "newsletter" });
     } finally {
       setSubmitting(false);
     }
@@ -241,7 +268,7 @@ export default function Newsletter() {
   function resetForm() {
     setSubmitted(false);
     setEmail(""); setFirstName(""); setLastName(""); setCountry("");
-    setFavoritePlatform(""); setPreferences([]); setConsent(false);
+    setFavoritePlatform(""); setPreferences([]); setConsent(false); setNlWebsite("");
   }
 
   const formatCount = (n: number) =>
@@ -624,6 +651,20 @@ export default function Newsletter() {
                             })}
                           </div>
                         </fieldset>
+
+                        {/* Honeypot — invisible to real users, visible to bots */}
+                        <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+                          <label htmlFor="nl-website">Website</label>
+                          <input
+                            type="text"
+                            id="nl-website"
+                            name="website"
+                            value={nlWebsite}
+                            onChange={(e) => setNlWebsite(e.target.value)}
+                            tabIndex={-1}
+                            autoComplete="off"
+                          />
+                        </div>
 
                         {/* Consent */}
                         <label className="flex items-start gap-3 cursor-pointer select-none">

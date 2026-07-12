@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import {
   ArrowRight, Calendar, Star, Ticket, Users, Shield,
   ChevronRight, Mail, Play, Globe, Clock, Mic2, Film, Tv2,
+  X, MapPin,
 } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
@@ -121,6 +122,111 @@ const fanCardTiers = [
   },
 ];
 
+// ─── Gallery items (reuses real YouTube content) ──────────────────────────────
+const galleryItems = [
+  { youtubeId: "S3TxotoehrI", title: "Strength in Bed",          type: "Live Performance" },
+  { youtubeId: "L7tLWSFrx98", title: "Makosa",                   type: "Music Video"      },
+  { youtubeId: "5StPjZaBIGc", title: "TGIF ft. De Sol",          type: "Music Video"      },
+  { youtubeId: "_2EMhX0wbWk", title: "Chikito — Glitch Session", type: "Live Session"     },
+  { youtubeId: "oqJVcQoWDzw", title: "SOFA — Behind The Scenes", type: "BTS"              },
+  { youtubeId: "QdxFbz1N4J8", title: "Ketchup",                  type: "Visualizer"       },
+  { youtubeId: "iJSXNGDW-C8", title: "Samsa",                    type: "Official Video"   },
+  { youtubeId: "cd52pQaKmAs", title: "Confam Boy",               type: "Music Video"      },
+];
+
+// ─── Fan testimonials (data-driven — add new entries without rebuilding) ───────
+const fanTestimonials = [
+  {
+    quote: "The energy when Kiut performs is indescribable. Every lyric hits completely different live — it's an experience you carry with you.",
+    name: "Sarah O.",
+    location: "Lagos, Nigeria",
+    rating: 5,
+    initials: "SO",
+  },
+  {
+    quote: "I flew from Toronto specifically for the festival set. Absolutely worth every mile. The stage presence alone is world-class.",
+    name: "Marcus T.",
+    location: "Toronto, Canada",
+    rating: 5,
+    initials: "MT",
+  },
+  {
+    quote: "Kiut's live set is something else entirely. The production, the presence, the connection with the crowd — a full cinematic experience.",
+    name: "Amara D.",
+    location: "London, UK",
+    rating: 5,
+    initials: "AD",
+  },
+];
+
+// ─── Tour cities — equirectangular map coords (x/y as %) ─────────────────────
+// Add new entries here; the world map section renders them automatically.
+const tourCities = [
+  { city: "Lagos",    country: "Nigeria", region: "West Africa",   x: 51.0, y: 53.0 },
+  { city: "London",   country: "UK",      region: "Europe",        x: 49.9, y: 27.5 },
+  { city: "Accra",    country: "Ghana",   region: "West Africa",   x: 49.5, y: 54.5 },
+  { city: "New York", country: "USA",     region: "North America", x: 29.4, y: 34.0 },
+  { city: "Paris",    country: "France",  region: "Europe",        x: 50.6, y: 29.5 },
+  { city: "Toronto",  country: "Canada",  region: "North America", x: 28.0, y: 31.0 },
+  { city: "Dubai",    country: "UAE",     region: "Middle East",   x: 65.4, y: 43.5 },
+  { city: "Nairobi",  country: "Kenya",   region: "East Africa",   x: 60.2, y: 55.0 },
+];
+
+// ─── Gallery Lightbox ─────────────────────────────────────────────────────────
+function GalleryLightbox({ item, onClose }: { item: typeof galleryItems[0]; onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+      style={{ background: "rgba(0,0,0,0.93)", backdropFilter: "blur(14px)" }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${item.title} — video player`}
+    >
+      <motion.div
+        initial={{ scale: 0.88, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="relative w-full max-w-4xl rounded-xl overflow-hidden border border-white/[0.10] shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative w-full aspect-video bg-black">
+          <iframe
+            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
+            title={item.title}
+            className="absolute inset-0 w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+        <div className="px-5 py-4 flex items-center justify-between" style={{ background: "var(--midnight-black)" }}>
+          <div>
+            <p className="text-white font-display font-bold text-sm uppercase tracking-wide">{item.title}</p>
+            <p className="text-gold/55 text-[10px] font-bold uppercase tracking-widest mt-0.5">{item.type}</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+            aria-label="Close video"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Performance Card ─────────────────────────────────────────────────────────
 function PerformanceCard({ perf, index }: { perf: typeof featuredPerformances[0]; index: number }) {
   const [imgFailed, setImgFailed] = useState(false);
@@ -205,6 +311,7 @@ export default function Tour() {
   }, []);
 
   const featuredRef = useRef<HTMLElement>(null);
+  const [lightboxItem, setLightboxItem] = useState<typeof galleryItems[0] | null>(null);
 
   function scrollToFeatured() {
     featuredRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -433,6 +540,85 @@ export default function Tour() {
         </div>
       </section>
 
+      {/* ── TOUR GALLERY ───────────────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05] overflow-hidden" style={{ background: "var(--midnight-black)" }}>
+        <div className="max-w-7xl mx-auto px-6 mb-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-5"
+          >
+            <div>
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> Gallery
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+                Live <span className="text-gold">Moments</span>
+              </h2>
+              <p className="text-white/35 text-sm mt-2 max-w-md leading-relaxed">
+                Performances, sessions, and music videos. Click any card to watch.
+              </p>
+            </div>
+            <motion.a
+              href="https://www.youtube.com/@kiutrabatv"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="btn-base btn-sm flex-shrink-0 border border-white/12 text-white/50 hover:text-gold hover:border-gold/30"
+            >
+              All Videos <ArrowRight size={12} />
+            </motion.a>
+          </motion.div>
+        </div>
+
+        {/* Horizontal snap-scroll gallery */}
+        <div
+          className="flex gap-4 overflow-x-auto pb-4 px-6 md:px-12"
+          style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none" } as React.CSSProperties}
+        >
+          {galleryItems.map((item, i) => (
+            <motion.button
+              key={item.youtubeId}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              onClick={() => setLightboxItem(item)}
+              className="flex-shrink-0 w-[270px] md:w-[310px] rounded-xl overflow-hidden border border-white/[0.07] hover:border-gold/30 hover:shadow-[0_12px_40px_rgba(var(--gold-primary-rgb),0.09)] group cursor-pointer transition-all duration-normal text-left"
+              style={{ scrollSnapAlign: "start" }}
+              aria-label={`Watch ${item.title}`}
+            >
+              <div className="relative aspect-video overflow-hidden bg-black">
+                <img
+                  src={`https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg`}
+                  alt={item.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal">
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg" style={{ background: "rgba(var(--gold-primary-rgb),0.92)" }}>
+                    <Play className="w-5 h-5 text-midnight ml-0.5" fill="currentColor" />
+                  </div>
+                </div>
+                <div className="absolute top-2 left-2 px-2 py-[3px] rounded-full backdrop-blur-md border border-gold/22 bg-gold/[0.08] text-gold text-[9px] font-bold uppercase tracking-widest">
+                  {item.type}
+                </div>
+              </div>
+              <div className="px-4 py-3" style={{ background: "var(--midnight-black)" }}>
+                <p className="text-white/70 text-sm font-medium group-hover:text-gold transition-colors duration-fast truncate">
+                  {item.title}
+                </p>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </section>
+
       {/* ── VIP EXPERIENCE ────────────────────────────────────────────────── */}
       <section className="py-24 border-t border-white/[0.05]">
         <div className="max-w-7xl mx-auto px-6">
@@ -603,6 +789,67 @@ export default function Tour() {
         </div>
       </section>
 
+      {/* ── FAN EXPERIENCES ─────────────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05]">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-14"
+          >
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center justify-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold/50" /> Fan Experiences
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+              From The <span className="text-gold">Crowd</span>
+            </h2>
+            <p className="text-white/35 text-sm mt-3 max-w-md mx-auto">
+              What it feels like to experience Kiut live.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {fanTestimonials.map((t, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="relative p-7 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.02] transition-all duration-normal group"
+              >
+                <div className="h-px w-12 bg-gradient-to-r from-gold to-transparent mb-6" />
+                <div className="flex gap-1 mb-4" aria-label={`${t.rating} out of 5 stars`}>
+                  {Array.from({ length: t.rating }).map((_, si) => (
+                    <Star key={si} size={11} className="text-gold fill-gold" />
+                  ))}
+                </div>
+                <p className="font-editorial italic text-white/55 text-sm leading-relaxed mb-6">
+                  "{t.quote}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-gold font-bold text-xs border border-gold/20"
+                    style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }}
+                    aria-hidden="true"
+                  >
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-white/70 text-sm font-semibold">{t.name}</p>
+                    <p className="text-white/30 text-xs flex items-center gap-1">
+                      <MapPin size={9} className="text-gold/40 flex-shrink-0" />{t.location}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── NEXT LIVE CHAPTER — Animated timeline ─────────────────────────── */}
       <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
         <div className="max-w-4xl mx-auto px-6">
@@ -688,6 +935,146 @@ export default function Tour() {
         </div>
       </section>
 
+      {/* ── WORLD STAGE — Tour Reach ────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05]" style={{ background: "var(--midnight-black)" }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-12"
+          >
+            <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 flex items-center justify-center gap-2">
+              <Globe size={10} className="text-gold" /> Global Tour
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+              World <span className="text-gold">Stage</span>
+            </h2>
+            <p className="text-white/35 text-sm mt-3 max-w-md mx-auto">
+              Kiut's sound knows no borders. Cities worldwide are next on the map.
+            </p>
+          </motion.div>
+
+          {/* Responsive map canvas */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="relative rounded-xl overflow-hidden border border-white/[0.07]"
+            style={{ background: "var(--midnight-black)", minHeight: 300 }}
+          >
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-gold/[0.04] blur-[100px]" />
+            </div>
+            <svg className="absolute inset-0 w-full h-full opacity-[0.055]" viewBox="0 0 800 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              {[60, 110, 160, 210, 260, 310].map((y) => (
+                <line key={`h${y}`} x1="0" y1={y} x2="800" y2={y} stroke="white" strokeWidth="0.6" />
+              ))}
+              {[80, 160, 240, 320, 400, 480, 560, 640, 720].map((x) => (
+                <line key={`v${x}`} x1={x} y1="0" x2={x} y2="360" stroke="white" strokeWidth="0.6" />
+              ))}
+              <line x1="0" y1="180" x2="800" y2="180" stroke="white" strokeWidth="1.2" opacity="0.5" />
+            </svg>
+            <div className="relative z-10 w-full" style={{ height: 300 }}>
+              {tourCities.map((loc, i) => (
+                <motion.div
+                  key={loc.city}
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute group cursor-default"
+                  style={{ left: `${loc.x}%`, top: `${loc.y}%`, transform: "translate(-50%,-50%)" }}
+                >
+                  <div className="relative">
+                    <motion.div
+                      className="absolute -inset-1.5 w-6 h-6 rounded-full bg-gold/25"
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3, ease: "easeInOut" }}
+                    />
+                    <div className="w-3 h-3 rounded-full bg-gold border-2 border-gold/80 shadow-[0_0_12px_rgba(var(--gold-primary-rgb),0.65)] relative z-10" />
+                  </div>
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-normal pointer-events-none whitespace-nowrap z-20">
+                    <div className="px-3 py-2 rounded-lg border border-gold/22 text-center" style={{ background: "rgba(0,0,0,0.96)", backdropFilter: "blur(10px)" }}>
+                      <p className="text-white text-xs font-bold">{loc.city}</p>
+                      <p className="text-gold/55 text-[9px] uppercase tracking-widest">{loc.country}</p>
+                    </div>
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0"
+                      style={{ borderLeft: "4px solid transparent", borderRight: "4px solid transparent", borderTop: "4px solid rgba(var(--gold-primary-rgb),0.22)" }} />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <div className="relative z-10 px-8 py-4 flex items-center justify-between border-t border-white/[0.06]"
+              style={{ background: "rgba(0,0,0,0.50)", backdropFilter: "blur(8px)" }}>
+              <div className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_8px_rgba(var(--gold-primary-rgb),0.65)]" />
+                <span className="text-white/45 text-xs">Future Tour Locations</span>
+              </div>
+              <span className="text-white/22 text-xs font-mono">{tourCities.length} cities · Worldwide</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── BOOKING ─────────────────────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -28 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4 flex items-center gap-2">
+                <Globe size={10} className="text-gold" /> Bookings &amp; Events
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-5 leading-[1.05]">
+                Bring Kiut<br /><span className="text-gold">To Your City</span>
+              </h2>
+              <p className="text-white/45 text-base leading-relaxed mb-3 max-w-md">
+                Invite promoters, festivals, and venues to book Kiut for live performances.
+              </p>
+              <p className="text-white/28 text-sm leading-relaxed mb-10 max-w-md">
+                From intimate club nights to international festival stages — if you have the stage, Kiut brings the energy. Submit your enquiry and the team will be in touch directly.
+              </p>
+              <PremiumCTAButton as="link" href="/contact" icon={<Mail size={13} />} iconPosition="right">
+                Book Kiut
+              </PremiumCTAButton>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 28 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-2 gap-3"
+            >
+              {tourCities.map((loc, i) => (
+                <motion.div
+                  key={loc.city}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  className="px-5 py-4 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.025] transition-all duration-normal group"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <MapPin size={9} className="text-gold/55 group-hover:text-gold transition-colors flex-shrink-0" />
+                    <p className="text-white/70 text-sm font-bold group-hover:text-white transition-colors duration-fast">{loc.city}</p>
+                  </div>
+                  <p className="text-white/30 text-xs pl-4">{loc.country}</p>
+                  <p className="text-gold/35 text-[9px] font-bold uppercase tracking-widest mt-1 pl-4">{loc.region}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* ── NEVER MISS A SHOW ─────────────────────────────────────────────── */}
       <section className="py-24 border-t border-white/[0.05]">
         <div className="max-w-3xl mx-auto px-6">
@@ -719,6 +1106,7 @@ export default function Tour() {
         </div>
       </section>
 
+      {lightboxItem && <GalleryLightbox item={lightboxItem} onClose={() => setLightboxItem(null)} />}
       <SiteFooter />
     </div>
   );

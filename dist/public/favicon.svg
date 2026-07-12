@@ -1,9 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <title>KIUT.</title>
-  <!-- Dark background square -->
-  <rect width="100" height="100" fill="#0A0A0C"/>
-  <!-- K Mark in gold -->
-  <rect x="10" y="8" width="14" height="84" rx="1" fill="#D4AF37"/>
-  <polygon points="24,47 24,30 84,8 84,25" fill="#D4AF37"/>
-  <polygon points="24,53 24,70 84,75 84,92" fill="#D4AF37"/>
+  <title>KIUT Music</title>
+  <rect width="100" height="100" rx="18" fill="#0A0A0C"/>
+  <image href="/brand/icons/icon-128.png" x="17" y="17" width="66" height="66" preserveAspectRatio="xMidYMid meet"/>
 </svg>

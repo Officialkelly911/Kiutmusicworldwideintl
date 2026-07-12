@@ -1,5 +1,6 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Play, Pause, ExternalLink } from "lucide-react";
+import { Play, Pause, ExternalLink, Music2 } from "lucide-react";
+import { HeroSection } from "@/components/HeroSection";
 import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
@@ -411,7 +412,7 @@ export default function Music() {
   const timelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
 
   return (
-    <div className="min-h-screen bg-black pt-24 pb-16 relative overflow-x-hidden">
+    <div className="min-h-screen bg-black pb-16 relative overflow-x-hidden">
       {/* ── Ambient background ──────────────────────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <motion.div
@@ -434,60 +435,64 @@ export default function Music() {
         />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
-
-        {/* ── Page Hero ───────────────────────────────────────────── */}
+      {/* ── Universal Hero ──────────────────────────────────────────── */}
+      <HeroSection
+        slug="about"
+        alt="Kiut — Afro-Caribbean sound, global energy"
+        className="min-h-[80vh] flex items-end pb-24"
+        priority
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-transparent to-black/20" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[320px] bg-gold/[0.06] blur-[120px] rounded-full pointer-events-none" aria-hidden="true" />
+          </>
+        }
+        contentClassName="relative z-10 max-w-7xl mx-auto px-6 pt-36 w-full"
+      >
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-24 pt-6"
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.p
-            initial={{ opacity: 0, letterSpacing: "0.6em" }}
-            animate={{ opacity: 1, letterSpacing: "0.48em" }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-5"
-          >
-            Kiut Music Worldwide
-          </motion.p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/[0.07] backdrop-blur-sm mb-7">
+            <Music2 size={11} className="text-gold" />
+            <span className="text-gold text-[10px] font-bold tracking-[0.35em] uppercase">Latest Releases</span>
+          </div>
 
-          <h1 className="font-display text-6xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
-            The<br /><span className="text-gold">Music</span>
+          <h1 className="font-display text-[clamp(3rem,10vw,7rem)] font-bold uppercase tracking-tight leading-[0.92] text-white mb-6">
+            Discover<br />
+            <span className="text-gold">The Sound</span>
           </h1>
 
-          <p className="font-editorial italic text-white/35 text-base font-light max-w-md mx-auto leading-relaxed mb-10">
-            Four EPs. Dozens of tracks. One cinematic sound shaped by two continents.
+          <p className="text-white/55 text-lg font-light max-w-md leading-relaxed mb-10">
+            Explore Kiut Music across singles, albums, collaborations, and exclusive releases.
           </p>
 
-          {/* Animated waveform accent — decorative, hidden from screen readers */}
-          <div className="flex items-end justify-center gap-[4px] h-6 mb-10" aria-hidden="true">
-            {[0.5, 0.8, 1.2, 1.6, 1.0, 1.4, 0.9, 1.5, 1.1, 0.7, 1.3, 0.6].map((h, i) => (
-              <motion.div
-                key={i}
-                className="w-[3px] rounded-full bg-gold/40"
-                animate={{ height: [`${h * 6}px`, `${h * 18}px`, `${h * 6}px`] }}
-                transition={{ repeat: Infinity, duration: 1.4 + i * 0.08, ease: "easeInOut", delay: i * 0.06 }}
-              />
-            ))}
-          </div>
-
-          {/* Stats strip */}
-          <div className="inline-flex items-center gap-8 px-8 py-4 rounded-full border border-white/[0.07]"
-            style={{ background: "rgba(var(--white-rgb),0.02)" }}>
-            {[
-              { value: "4", label: "EPs" },
-              { value: "24+", label: "Tracks" },
-              { value: "5", label: "Platforms" },
-              { value: "6+", label: "Years" },
-            ].map(({ value, label }, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <span className="font-display text-xl font-bold text-gold leading-none">{value}</span>
-                <span className="text-white/30 text-xs uppercase tracking-[0.3em] mt-0.5">{label}</span>
-              </div>
-            ))}
+          <div className="flex flex-wrap items-center gap-4">
+            <PremiumCTAButton
+              as="a"
+              href="https://linktr.ee/kiut_goodlife"
+              target="_blank"
+              rel="noopener noreferrer"
+              icon={<Play size={13} fill="currentColor" className="ml-0.5" />}
+            >
+              Listen Now
+            </PremiumCTAButton>
+            <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+              <motion.button
+                whileHover={{ y: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="btn-base btn-secondary !border-white/15 !text-white"
+              >
+                Latest Release <ExternalLink size={13} />
+              </motion.button>
+            </a>
           </div>
         </motion.div>
+      </HeroSection>
+
+      <div className="max-w-5xl mx-auto px-6 relative z-10 pt-12">
 
         {/* ── Featured Track Hero ──────────────────────────────────── */}
         <motion.div
@@ -581,6 +586,38 @@ export default function Music() {
                 )}
               </div>
             </div>
+          </div>
+        </motion.div>
+
+        {/* ── Music Statistics ─────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-28"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {([
+              { value: "4",   label: "EPs Released",   sub: "2021 – 2025"       },
+              { value: "24+", label: "Total Tracks",    sub: "Full catalogue"    },
+              { value: "5+",  label: "Platforms",       sub: "Streaming globally" },
+              { value: "6+",  label: "Years",           sub: "Creating music"    },
+            ] as const).map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="relative p-6 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/20 transition-all duration-normal text-center group"
+              >
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+                <span className="font-display text-4xl md:text-5xl font-bold text-gold leading-none block mb-2">{stat.value}</span>
+                <p className="text-white/60 text-xs font-bold uppercase tracking-wider mb-1">{stat.label}</p>
+                <p className="text-white/25 text-xs">{stat.sub}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
@@ -835,6 +872,74 @@ export default function Music() {
                   All Music Links
                 </motion.button>
               </a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ── Featured Playlist ────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-24 mb-12"
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent mb-20" />
+
+          <div
+            className="relative rounded-xl border border-gold/15 overflow-hidden"
+            style={{ background: "linear-gradient(135deg, rgba(var(--gold-primary-rgb),0.04) 0%, var(--midnight-black) 60%, rgba(var(--gold-primary-rgb),0.02) 100%)" }}
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 blur-[100px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }} />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 p-8 md:p-12">
+              {/* Artwork */}
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="w-44 h-44 md:w-52 md:h-52 flex-shrink-0 rounded-xl overflow-hidden border border-white/[0.09] shadow-xl"
+              >
+                <img
+                  src={GOOD_LIFE_EP_ART}
+                  alt="Kiut Essentials Playlist"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </motion.div>
+
+              {/* Content */}
+              <div className="text-center md:text-left">
+                <span className="inline-block px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-bold uppercase tracking-widest mb-4">
+                  Featured Playlist
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-white uppercase tracking-wider leading-tight mb-3">
+                  Kiut <span className="text-gold">Essentials</span>
+                </h2>
+                <p className="text-white/40 text-sm leading-relaxed max-w-md mb-8">
+                  The definitive Kiut Music listening experience. From debut singles to the latest EP — a curated journey through the sound, start to finish.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
+                  <PremiumCTAButton
+                    as="a"
+                    href="https://linktr.ee/kiutmusic"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    icon={<Play size={13} fill="currentColor" className="ml-0.5" />}
+                  >
+                    Listen Now
+                  </PremiumCTAButton>
+                  <a href="https://linktr.ee/kiutmusic" target="_blank" rel="noopener noreferrer">
+                    <motion.button
+                      whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
+                      whileTap={{ scale: 0.97 }}
+                      className="btn-base btn-secondary"
+                    >
+                      <ExternalLink size={13} /> All Music Links
+                    </motion.button>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>

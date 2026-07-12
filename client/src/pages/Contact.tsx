@@ -1,53 +1,78 @@
 import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
-  SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL,
+  SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, BOOMPLAY_URL,
   INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL,
 } from "@/data/social";
 import {
-  Mail, Send, MessageSquare, Mic2, Newspaper, Briefcase,
-  ArrowRight, CheckCircle2, Globe, Users, Heart, ChevronRight,
+  CONTACT_CHANNELS, BOOKING_CATEGORIES, LOCATION_INFO, LOCATION_MAP_QUERY, CONTACT_FAQ,
+} from "@/data/contact";
+import { CONTACT_ENQUIRY_TYPES } from "@shared/schema";
+import {
+  Mail, Send, MessageSquare, Mic2, Newspaper, Briefcase, Handshake, FileSignature,
+  ArrowRight, CheckCircle2, Globe, Users, Heart, ChevronRight, Copy, Check,
+  MapPin, Clock, Share2, Phone, HelpCircle,
 } from "lucide-react";
 import {
   SiSpotify, SiApplemusic, SiAudiomack,
   SiInstagram, SiYoutube, SiLinktree,
 } from "react-icons/si";
+import type { IconType } from "react-icons";
+
+// react-icons/si has no Boomplay glyph — reuse the same minimal inline mark
+// already established in Music.tsx rather than a mismatched substitute.
+const SiBoomplay: IconType = ({ size = "1em", ...props }: any) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 14.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm0-7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" />
+  </svg>
+);
 import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
+import { FAQAccordion } from "@/components/FAQAccordion";
+import { SocialIconGroup } from "@/components/SocialIconGroup";
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
-const enquiryTypes = [
-  {
-    id: "booking",
+const ENQUIRY_META: Record<(typeof CONTACT_ENQUIRY_TYPES)[number], { icon: typeof Mic2; label: string; desc: string; placeholder: string }> = {
+  booking: {
     icon: Mic2,
     label: "Booking",
     desc: "Live performances, concerts, festivals",
     placeholder: "Tell us about the event — date, venue, audience size, and any specific requirements.",
   },
-  {
-    id: "press",
+  press: {
     icon: Newspaper,
-    label: "Press & Media",
+    label: "Press",
     desc: "Interviews, editorial features, press kits",
     placeholder: "Describe your publication or media outlet and what you'd like to cover.",
   },
-  {
-    id: "business",
+  collaboration: {
+    icon: Handshake,
+    label: "Collaboration",
+    desc: "Artist features, remixes, creative projects",
+    placeholder: "Share a link to your work and describe the collaboration you have in mind.",
+  },
+  licensing: {
+    icon: FileSignature,
+    label: "Licensing",
+    desc: "Sync licensing for film, TV & advertising",
+    placeholder: "Describe the project, territory, and intended use for the music.",
+  },
+  business: {
     icon: Briefcase,
     label: "Business",
-    desc: "Partnerships, sync licensing, label enquiries",
+    desc: "Partnerships, brand deals, label enquiries",
     placeholder: "Outline the nature of the business opportunity and how you see collaboration working.",
   },
-  {
-    id: "general",
+  general: {
     icon: MessageSquare,
     label: "General",
     desc: "Anything else — fan messages welcome",
     placeholder: "Send your message — every word is read.",
   },
-];
+};
+const enquiryTypes = CONTACT_ENQUIRY_TYPES.map((id) => ({ id, ...ENQUIRY_META[id] }));
 
 // ─── Social platform links ────────────────────────────────────────────────────
 const socialLinks = [
@@ -97,6 +122,15 @@ const socialLinks = [
     iconColor: "group-hover:text-orange-400",
   },
   {
+    label: "Boomplay",
+    sub: "Kiut",
+    icon: SiBoomplay,
+    href: BOOMPLAY_URL,
+    color: "from-purple-500/10 to-indigo-600/10",
+    border: "hover:border-purple-500/30",
+    iconColor: "group-hover:text-purple-300",
+  },
+  {
     label: "Linktree",
     sub: "@kiutmusic",
     icon: SiLinktree,
@@ -123,34 +157,128 @@ const communityStats = [
   { label: "Years Creating Music", value: "10+" },
 ];
 
+// ─── Floating-label input ──────────────────────────────────────────────────────
+interface FieldProps {
+  id: string;
+  label: string;
+  type?: string;
+  value: string;
+  onChange: (v: string) => void;
+  onBlur?: () => void;
+  required?: boolean;
+  error?: string | null;
+  maxLength?: number;
+  autoComplete?: string;
+}
+function FloatingField({ id, label, type = "text", value, onChange, onBlur, required, error, maxLength, autoComplete }: FieldProps) {
+  return (
+    <div className="relative group">
+      <input
+        id={id}
+        name={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        required={required}
+        maxLength={maxLength}
+        autoComplete={autoComplete}
+        placeholder=" "
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className={`block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border rounded-xl appearance-none focus:outline-none focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent ${
+          error ? "border-red-500/50 focus:border-red-500/60" : "border-white/[0.08] focus:border-gold/50"
+        }`}
+      />
+      <label
+        htmlFor={id}
+        className="absolute text-white/35 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
+      >
+        {label}{required && " *"}
+      </label>
+      <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
+      {error && (
+        <p id={`${id}-error`} className="text-red-400/80 text-xs mt-1.5 px-1">{error}</p>
+      )}
+    </div>
+  );
+}
+
+type FormErrors = Partial<Record<"firstName" | "email" | "subject" | "message" | "consent", string>>;
+
+function validateField(field: keyof FormErrors, value: string | boolean): string | null {
+  switch (field) {
+    case "firstName":
+      return (value as string).trim().length > 0 ? null : "First name is required.";
+    case "email": {
+      const v = (value as string).trim();
+      if (!v) return "Email is required.";
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "Please enter a valid email address.";
+    }
+    case "subject":
+      return (value as string).trim().length >= 2 ? null : "Subject is required.";
+    case "message":
+      return (value as string).trim().length >= 10 ? null : "Message must be at least 10 characters.";
+    case "consent":
+      return value === true ? null : "Please confirm you agree before submitting.";
+    default:
+      return null;
+  }
+}
+
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 function ContactForm() {
-  const [activeType, setActiveType] = useState("general");
-  const [name, setName]       = useState("");
-  const [email, setEmail]     = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [submitted, setSubmitted]   = useState(false);
-  const [loading, setLoading]       = useState(false);
-  const [errorMsg, setErrorMsg]     = useState<string | null>(null);
+  const [activeType, setActiveType] = useState<(typeof CONTACT_ENQUIRY_TYPES)[number]>("general");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName]   = useState("");
+  const [email, setEmail]         = useState("");
+  const [phone, setPhone]         = useState("");
+  const [country, setCountry]     = useState("");
+  const [subject, setSubject]     = useState("");
+  const [message, setMessage]     = useState("");
+  const [consent, setConsent]     = useState(false);
+  const [errors, setErrors]       = useState<FormErrors>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [errorMsg, setErrorMsg]   = useState<string | null>(null);
 
   const active = enquiryTypes.find(t => t.id === activeType)!;
   const Icon   = active.icon;
 
+  function touch(field: keyof FormErrors, value: string | boolean) {
+    setErrors((prev) => ({ ...prev, [field]: validateField(field, value) ?? undefined }));
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setErrorMsg(null);
+
+    const nextErrors: FormErrors = {
+      firstName: validateField("firstName", firstName) ?? undefined,
+      email:     validateField("email", email) ?? undefined,
+      subject:   validateField("subject", subject) ?? undefined,
+      message:   validateField("message", message) ?? undefined,
+      consent:   validateField("consent", consent) ?? undefined,
+    };
+    setErrors(nextErrors);
+    if (Object.values(nextErrors).some(Boolean)) return;
+
     setLoading(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name:        name.trim() || undefined,
+          firstName:   firstName.trim(),
+          lastName:    lastName.trim() || undefined,
           email:       email.trim(),
+          phone:       phone.trim() || undefined,
+          country:     country.trim() || undefined,
           subject:     subject.trim() || active.label,
           enquiryType: activeType,
           message:     message.trim(),
+          consent,
         }),
       });
       const body = await res.json();
@@ -162,6 +290,13 @@ function ContactForm() {
       setLoading(false);
     }
   };
+
+  function resetForm() {
+    setSubmitted(false);
+    setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setCountry("");
+    setSubject(""); setMessage(""); setConsent(false);
+    setActiveType("general"); setErrorMsg(null); setErrors({});
+  }
 
   return (
     <div className="rounded-xl border border-white/[0.07] overflow-hidden" style={{ background: "var(--color-midnight)" }}>
@@ -177,10 +312,10 @@ function ContactForm() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, y: -10 }}
             >
-              {/* Enquiry type tabs */}
+              {/* Enquiry type selector */}
               <div className="mb-8">
-                <p className="text-white/35 text-xs font-bold tracking-[0.35em] uppercase mb-4">Enquiry Type</p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <p className="text-white/35 text-xs font-bold tracking-[0.35em] uppercase mb-4" id="enquiry-type-label">Inquiry Type</p>
+                <div role="radiogroup" aria-labelledby="enquiry-type-label" className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {enquiryTypes.map((type) => {
                     const TIcon = type.icon;
                     const isActive = activeType === type.id;
@@ -188,10 +323,12 @@ function ContactForm() {
                       <motion.button
                         key={type.id}
                         type="button"
+                        role="radio"
+                        aria-checked={isActive}
                         onClick={() => setActiveType(type.id)}
                         whileHover={{ y: -1 }}
                         whileTap={{ scale: 0.97 }}
-                        className={`flex flex-col items-center gap-2 p-3.5 rounded-xl border text-center transition-all duration-fast ${
+                        className={`flex flex-col items-center gap-2 p-3.5 rounded-xl border text-center transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${
                           isActive
                             ? "border-gold/40 bg-gold/[0.08] text-gold shadow-glow-gold"
                             : "border-white/[0.06] bg-transparent text-white/35 hover:text-white/60 hover:border-white/12"
@@ -217,54 +354,24 @@ function ContactForm() {
                 </AnimatePresence>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name + Email row */}
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                {/* First + Last name */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {[
-                    { id: "name",  label: "Your Name",    type: "text",  value: name,  set: setName,  required: false },
-                    { id: "email", label: "Email Address", type: "email", value: email, set: setEmail, required: true  },
-                  ].map((field) => (
-                    <div key={field.id} className="relative group">
-                      <input
-                        id={field.id}
-                        type={field.type}
-                        value={field.value}
-                        onChange={(e) => field.set(e.target.value)}
-                        required={field.required}
-                        placeholder=" "
-                        className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
-                      />
-                      <label
-                        htmlFor={field.id}
-                        className="absolute text-white/35 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
-                      >
-                        {field.label}{field.required && " *"}
-                      </label>
-                      <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
-                    </div>
-                  ))}
+                  <FloatingField id="firstName" label="First Name" value={firstName} onChange={setFirstName} onBlur={() => touch("firstName", firstName)} required error={errors.firstName} maxLength={80} autoComplete="given-name" />
+                  <FloatingField id="lastName" label="Last Name" value={lastName} onChange={setLastName} maxLength={80} autoComplete="family-name" />
                 </div>
 
-                {/* Subject */}
-                <div className="relative group">
-                  <input
-                    id="subject"
-                    type="text"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    required
-                    placeholder=" "
-                    maxLength={200}
-                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
-                  />
-                  <label
-                    htmlFor="subject"
-                    className="absolute text-white/35 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold/70 pointer-events-none text-sm"
-                  >
-                    Subject *
-                  </label>
-                  <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
+                {/* Email + Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <FloatingField id="email" label="Email Address" type="email" value={email} onChange={setEmail} onBlur={() => touch("email", email)} required error={errors.email} autoComplete="email" />
+                  <FloatingField id="phone" label="Phone (optional)" type="tel" value={phone} onChange={setPhone} maxLength={30} autoComplete="tel" />
                 </div>
+
+                {/* Country */}
+                <FloatingField id="country" label="Country (optional)" value={country} onChange={setCountry} maxLength={100} autoComplete="country-name" />
+
+                {/* Subject */}
+                <FloatingField id="subject" label="Subject" value={subject} onChange={setSubject} onBlur={() => touch("subject", subject)} required error={errors.subject} maxLength={200} />
 
                 {/* Message */}
                 <div className="relative group">
@@ -272,10 +379,15 @@ function ContactForm() {
                     id="message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onBlur={() => touch("message", message)}
                     required
                     rows={5}
                     placeholder=" "
-                    className="block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border border-white/[0.08] rounded-xl appearance-none focus:outline-none focus:border-gold/50 focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent resize-none leading-relaxed"
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                    className={`block w-full px-5 pb-3 pt-6 text-white text-sm bg-white/[0.04] border rounded-xl appearance-none focus:outline-none focus:bg-white/[0.06] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent resize-none leading-relaxed ${
+                      errors.message ? "border-red-500/50 focus:border-red-500/60" : "border-white/[0.08] focus:border-gold/50"
+                    }`}
                   />
                   <label
                     htmlFor="message"
@@ -296,13 +408,32 @@ function ContactForm() {
                     )}
                   </AnimatePresence>
                   <div className="absolute bottom-0 left-3 right-3 h-[1px] w-0 bg-gradient-to-r from-gold/60 to-gold/30 rounded-b-xl group-focus-within:w-[calc(100%-24px)] transition-all duration-slow" />
+                  {errors.message && <p id="message-error" className="text-red-400/80 text-xs mt-1.5 px-1">{errors.message}</p>}
                 </div>
+
+                {/* Consent */}
+                <label className="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => { setConsent(e.target.checked); touch("consent", e.target.checked); }}
+                    aria-invalid={!!errors.consent}
+                    aria-describedby={errors.consent ? "consent-error" : undefined}
+                    className="mt-0.5 w-4 h-4 rounded border-white/20 bg-white/[0.04] text-gold accent-[#D4AF37] focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+                  />
+                  <span className="text-white/45 text-xs leading-relaxed">
+                    I agree to be contacted about my enquiry and consent to Kiut Music storing my information in line with the{" "}
+                    <a href="/legal" className="text-gold/70 hover:text-gold underline underline-offset-2">Privacy Policy</a>. *
+                  </span>
+                </label>
+                {errors.consent && <p id="consent-error" className="text-red-400/80 text-xs -mt-3 px-1">{errors.consent}</p>}
 
                 {/* Error message */}
                 {errorMsg && (
                   <motion.p
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
+                    role="alert"
                     className="text-red-400/80 text-xs text-center leading-relaxed px-2"
                   >
                     {errorMsg}
@@ -357,7 +488,7 @@ function ContactForm() {
                 Your message has been received. You'll hear back within 48–72 hours.
               </p>
               <button
-                onClick={() => { setSubmitted(false); setName(""); setEmail(""); setSubject(""); setMessage(""); setActiveType("general"); setErrorMsg(null); }}
+                onClick={resetForm}
                 className="text-white/30 hover:text-white/60 text-xs uppercase tracking-widest transition-colors duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold rounded"
               >
                 Send Another Message
@@ -367,6 +498,80 @@ function ContactForm() {
         </AnimatePresence>
       </div>
     </div>
+  );
+}
+
+// ─── Contact info card (click-to-copy / click-to-call / click-to-map) ─────────
+const CHANNEL_ICONS = { management: Users, booking: Mic2, mail: Mail, press: Newspaper, social: Share2, location: MapPin, clock: Clock } as const;
+
+function ContactInfoCard({ channel }: { channel: (typeof CONTACT_CHANNELS)[0] }) {
+  const [copied, setCopied] = useState(false);
+  const Icon = CHANNEL_ICONS[channel.icon];
+
+  async function handleClick() {
+    if (channel.kind === "text") return;
+    if (channel.kind === "email") {
+      try {
+        await navigator.clipboard.writeText(channel.value);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1800);
+      } catch {
+        // clipboard unavailable — mailto below still opens
+      }
+      if (channel.href) window.location.href = channel.href;
+      return;
+    }
+    if (channel.href) window.open(channel.href, "_blank", "noopener,noreferrer");
+  }
+
+  const interactive = channel.kind !== "text";
+
+  return (
+    <motion.div
+      role={interactive ? "button" : undefined}
+      tabIndex={interactive ? 0 : undefined}
+      onClick={interactive ? handleClick : undefined}
+      onKeyDown={interactive ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleClick(); } } : undefined}
+      whileHover={interactive ? { y: -3 } : undefined}
+      className={`group flex items-start gap-4 p-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.03] transition-all duration-normal ${interactive ? "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold" : ""}`}
+      aria-label={interactive ? `${channel.label}: ${channel.value} — click to ${channel.kind === "email" ? "copy" : "open"}` : undefined}
+    >
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center border border-gold/18 flex-shrink-0 group-hover:border-gold/35 transition-colors duration-fast"
+        style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}
+      >
+        <Icon size={16} className="text-gold" />
+      </div>
+      <div className="flex-1 min-w-0">
+        <h3 className="font-display text-sm font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-fast">
+          {channel.label}
+        </h3>
+        <p className="text-white/35 text-xs leading-relaxed mb-1">{channel.description}</p>
+        <p className="text-white/25 text-[11px] truncate">{channel.value}</p>
+      </div>
+      {channel.kind === "email" && (
+        <span className="flex-shrink-0 text-white/20 group-hover:text-gold/60 transition-colors duration-fast" aria-hidden="true">
+          {copied ? <Check size={13} className="text-gold" /> : <Copy size={13} />}
+        </span>
+      )}
+    </motion.div>
+  );
+}
+
+// ─── Booking category card ─────────────────────────────────────────────────────
+function BookingCategoryCard({ category, index }: { category: (typeof BOOKING_CATEGORIES)[0]; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.5, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -4, scale: 1.015 }}
+      className="p-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-gold/[0.03] transition-all duration-normal"
+    >
+      <p className="font-display text-sm font-bold uppercase tracking-tight text-white mb-1.5">{category.label}</p>
+      <p className="text-white/32 text-xs leading-relaxed">{category.description}</p>
+    </motion.div>
   );
 }
 
@@ -398,6 +603,32 @@ function SocialCard({ link, index }: { link: typeof socialLinks[0]; index: numbe
       </div>
       <ArrowRight size={13} className="ml-auto text-white/15 group-hover:text-white/40 transition-colors duration-fast flex-shrink-0" />
     </motion.a>
+  );
+}
+
+// ─── Lazy-loaded location map ──────────────────────────────────────────────────
+function LocationMap() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "200px" });
+  const src = `https://www.google.com/maps?q=${encodeURIComponent(LOCATION_MAP_QUERY)}&output=embed`;
+
+  return (
+    <div ref={ref} className="relative w-full aspect-[16/10] sm:aspect-[16/8] rounded-xl overflow-hidden border border-white/[0.08] bg-white/[0.02]">
+      {inView ? (
+        <iframe
+          title="Kiut Music — artist region map"
+          src={src}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="absolute inset-0 w-full h-full grayscale-[0.4] contrast-[1.05] opacity-90"
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center gap-2 text-white/25 text-xs uppercase tracking-widest">
+          <MapPin size={14} /> Loading map…
+        </div>
+      )}
+      <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-white/[0.06] rounded-xl" />
+    </div>
   );
 }
 
@@ -486,58 +717,20 @@ export default function Contact() {
               <ContactForm />
             </motion.div>
 
-            {/* RIGHT — Business Enquiries + Response info */}
+            {/* RIGHT — Contact channels + Response info */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="space-y-6 lg:sticky lg:top-28"
             >
-              {/* Business Enquiries */}
+              {/* Contact channels */}
               <div>
-                <p className="text-white/35 text-xs font-bold tracking-[0.4em] uppercase mb-4">Business Enquiries</p>
+                <p className="text-white/35 text-xs font-bold tracking-[0.4em] uppercase mb-4">Artist Contact Information</p>
                 <div className="space-y-3">
-                  {[
-                    {
-                      icon: Mic2,
-                      title: "Booking",
-                      desc: "Concert bookings, festival appearances, and live event requests.",
-                      cta: "Book Kiut",
-                    },
-                    {
-                      icon: Newspaper,
-                      title: "Press & Media",
-                      desc: "Interview requests, editorial coverage, and press kit access.",
-                      cta: "Press Enquiry",
-                    },
-                    {
-                      icon: Briefcase,
-                      title: "Business",
-                      desc: "Brand partnerships, sync licensing, and industry enquiries.",
-                      cta: "Discuss Partnership",
-                    },
-                  ].map((card) => {
-                    const Icon = card.icon;
-                    return (
-                      <div
-                        key={card.title}
-                        className="group flex items-start gap-4 p-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/22 hover:bg-gold/[0.03] transition-all duration-normal"
-                      >
-                        <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center border border-gold/18 flex-shrink-0 group-hover:border-gold/35 transition-colors duration-fast"
-                          style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}
-                        >
-                          <Icon size={16} className="text-gold" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-display text-sm font-bold uppercase tracking-tight text-white mb-1 group-hover:text-gold transition-colors duration-fast">
-                            {card.title}
-                          </h3>
-                          <p className="text-white/35 text-xs leading-relaxed">{card.desc}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {CONTACT_CHANNELS.map((channel) => (
+                    <ContactInfoCard key={channel.id} channel={channel} />
+                  ))}
                 </div>
               </div>
 
@@ -555,6 +748,72 @@ export default function Contact() {
                   <span className="text-white/75 font-medium">48–72 hours</span> on business days.
                 </p>
               </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOOKING ──────────────────────────────────────────────────────── */}
+      <section className="py-20 border-t border-white/[0.05]">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="mb-10"
+          >
+            <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
+              <Mic2 size={11} className="text-gold" /> Book Kiut
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+              Available <span className="text-gold">For</span>
+            </h2>
+            <p className="text-white/35 text-sm mt-3 max-w-lg leading-relaxed">
+              From intimate private shows to international festival stages — every booking is coordinated directly through management.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {BOOKING_CATEGORIES.map((category, i) => (
+              <BookingCategoryCard key={category.id} category={category} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── LOCATION ─────────────────────────────────────────────────────── */}
+      <section className="py-20 border-t border-white/[0.05]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
+                <MapPin size={11} className="text-gold" /> Location
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-6">
+                Where To <span className="text-gold">Find Kiut</span>
+              </h2>
+              <div className="space-y-4">
+                {LOCATION_INFO.map((item) => (
+                  <div key={item.label} className="flex items-start justify-between gap-4 py-3 border-b border-white/[0.06]">
+                    <span className="text-white/35 text-xs uppercase tracking-widest font-medium flex-shrink-0">{item.label}</span>
+                    <span className="text-white/70 text-sm text-right">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <LocationMap />
             </motion.div>
           </div>
         </div>
@@ -589,6 +848,27 @@ export default function Contact() {
               <SocialCard key={link.label} link={link} index={i} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────────────────── */}
+      <section className="py-24 border-t border-white/[0.05]">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-10"
+          >
+            <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center justify-center gap-2">
+              <HelpCircle size={11} className="text-gold" /> FAQ
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+              Common <span className="text-gold">Questions</span>
+            </h2>
+          </motion.div>
+          <FAQAccordion items={CONTACT_FAQ} idPrefix="contact-faq" />
         </div>
       </section>
 
@@ -651,28 +931,11 @@ export default function Contact() {
                   From the studio to the stage — follow along on social media for the real-time story of Kiut's creative journey.
                 </p>
 
-                {/* Mini social row */}
+                {/* Social icon row */}
                 <div className="flex items-center gap-3 flex-wrap">
-                  {[
-                    { href: INSTAGRAM_URL, Icon: SiInstagram, label: "Instagram" },
-                    { href: YOUTUBE_URL,   Icon: SiYoutube,   label: "YouTube"   },
-                    { href: LINKTREE_URL,  Icon: SiLinktree,  label: "Linktree"  },
-                  ].map(({ href, Icon, label }) => (
-                    <motion.a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                      whileHover={{ y: -2, scale: 1.08 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-11 h-11 rounded-xl flex items-center justify-center border border-white/[0.08] bg-white/[0.03] text-white/40 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-glow-gold transition-all duration-normal"
-                    >
-                      <Icon size={18} aria-hidden="true" />
-                    </motion.a>
-                  ))}
+                  <SocialIconGroup />
                   <motion.a
-                    href="https://linktr.ee/kiutmusic"
+                    href={LINKTREE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ x: 2 }}

@@ -17,6 +17,8 @@ const TO     = process.env.CONTACT_EMAIL      ?? "contact@kiutmusic.com";
 interface ContactPayload {
   name:        string;
   email:       string;
+  phone?:      string;
+  country?:    string;
   subject:     string;
   enquiryType: string;
   message:     string;
@@ -44,6 +46,8 @@ export async function sendContactNotification(p: ContactPayload) {
       <table width="100%" cellpadding="0" cellspacing="0">
         ${row("Name",    p.name || "—")}
         ${row("Email",   `<a href="mailto:${p.email}" style="color:#D4AF37;">${p.email}</a>`)}
+        ${p.phone ? row("Phone", p.phone) : ""}
+        ${p.country ? row("Country", p.country) : ""}
         ${row("Subject", p.subject)}
         ${row("Time",    p.timestamp)}
         ${p.ipAddress ? row("IP Address", p.ipAddress) : ""}

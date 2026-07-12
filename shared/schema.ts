@@ -20,7 +20,8 @@ export type User = typeof users.$inferSelect;
 export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   email: text("email").notNull().unique(),
-  name: text("name"),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
   country: text("country"),
   favoritePlatform: text("favorite_platform"),
   preferences: text("preferences").array(),
@@ -33,14 +34,16 @@ export const insertNewsletterSubscriberSchema = createInsertSchema(
 )
   .pick({
     email: true,
-    name: true,
+    firstName: true,
+    lastName: true,
     country: true,
     favoritePlatform: true,
     preferences: true,
   })
   .extend({
     email: z.string().email(),
-    name: z.string().trim().min(1).optional().or(z.literal("")),
+    firstName: z.string().trim().min(1).max(80).optional().or(z.literal("")),
+    lastName: z.string().trim().min(1).max(80).optional().or(z.literal("")),
     country: z.string().trim().max(100).optional().or(z.literal("")),
     favoritePlatform: z.string().trim().max(50).optional().or(z.literal("")),
     preferences: z.array(z.string()).optional(),
@@ -57,7 +60,8 @@ export const contactStatusEnum = pgEnum("contact_status", ["pending", "read", "r
 
 export const contactSubmissions = pgTable("contact_submissions", {
   id:          varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name:        text("name"),
+  firstName:   text("first_name"),
+  lastName:    text("last_name"),
   email:       text("email").notNull(),
   phone:       text("phone"),
   country:     text("country"),
@@ -71,15 +75,20 @@ export const contactSubmissions = pgTable("contact_submissions", {
   createdAt:   timestamp("created_at").notNull().defaultNow(),
 });
 
+// Kept in one place so the form dropdown, backend validation, and email
+// subject-tagging can never drift out of sync — add a new enquiry type here only.
+export const CONTACT_ENQUIRY_TYPES = ["booking", "press", "collaboration", "licensing", "business", "general"] as const;
+
 export const insertContactSubmissionSchema = createInsertSchema(contactSubmissions)
-  .pick({ name: true, email: true, phone: true, country: true, subject: true, enquiryType: true, message: true })
+  .pick({ firstName: true, lastName: true, email: true, phone: true, country: true, subject: true, enquiryType: true, message: true })
   .extend({
-    name:        z.string().trim().max(100).optional().or(z.literal("")),
+    firstName:   z.string().trim().min(1, "First name is required").max(80),
+    lastName:    z.string().trim().max(80).optional().or(z.literal("")),
     email:       z.string().email("Please enter a valid email address"),
     phone:       z.string().trim().max(30).optional().or(z.literal("")),
     country:     z.string().trim().max(100).optional().or(z.literal("")),
     subject:     z.string().trim().min(2, "Subject is required").max(200),
-    enquiryType: z.enum(["booking", "press", "business", "general"]).default("general"),
+    enquiryType: z.enum(CONTACT_ENQUIRY_TYPES).default("general"),
     message:     z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message is too long"),
     consent:     z.boolean().refine((v) => v === true, "Please confirm you agree before submitting."),
   });

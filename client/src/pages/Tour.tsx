@@ -167,8 +167,10 @@ const tourCities = [
 ];
 
 // ─── Upcoming shows (Coming Soon — no confirmed dates yet) ───────────────────
-type ShowStatus = "available" | "limited" | "sold_out" | "coming_soon" | "announced";
-const upcomingShows: {
+// Exported so other pages (e.g. Newsletter's "Featured Updates") can reference
+// the same tour catalogue instead of duplicating show data.
+export type ShowStatus = "available" | "limited" | "sold_out" | "coming_soon" | "announced";
+export const upcomingShows: {
   id: string; city: string; country: string; venue: string;
   date: string; time: string; region: string; status: ShowStatus; description: string;
 }[] = [

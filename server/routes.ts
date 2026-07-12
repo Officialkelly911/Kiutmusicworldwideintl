@@ -49,9 +49,9 @@ export async function registerRoutes(
 
       // Mailchimp + welcome email — fire concurrently, never block the response
       Promise.allSettled([
-        addMailchimpSubscriber({ email: data.email, name: data.name ?? undefined, source })
+        addMailchimpSubscriber({ email: data.email, firstName: data.firstName ?? undefined, lastName: data.lastName ?? undefined, source })
           .then(() => tagMailchimpSubscriber(data.email, source)),
-        sendWelcomeEmail({ email: data.email, name: data.name ?? undefined }),
+        sendWelcomeEmail({ email: data.email, firstName: data.firstName ?? undefined }),
       ]).then((results) => {
         results.forEach((r, i) => {
           if (r.status === "rejected") {
@@ -85,9 +85,11 @@ export async function registerRoutes(
 
       await storage.createContactSubmission({ ...data, ipAddress, userAgent });
 
+      const fullName = [data.firstName, data.lastName].filter(Boolean).join(" ").trim();
+
       const emailResults = await Promise.allSettled([
         sendContactNotification({
-          name:        data.name ?? "",
+          name:        fullName,
           email:       data.email,
           phone:       data.phone || undefined,
           country:     data.country || undefined,
@@ -98,7 +100,7 @@ export async function registerRoutes(
           userAgent,
           timestamp,
         }),
-        sendContactConfirmation({ name: data.name ?? "", email: data.email }),
+        sendContactConfirmation({ name: fullName, email: data.email }),
       ]);
 
       emailResults.forEach((r, i) => {

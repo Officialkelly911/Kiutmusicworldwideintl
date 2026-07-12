@@ -37,7 +37,9 @@ const STORE_URL     = "https://dreamplanet.org/store-profile/61";
 const WATCHED_KEY   = "kiut_watched_videos";
 
 // ─── Video Data ────────────────────────────────────────────────────────────────
-const videos = [
+// Exported so other pages (e.g. Newsletter's "Featured Updates") can reference
+// the same catalogue instead of duplicating video metadata.
+export const videos = [
   { id:  1, title: "Kiut - Makosa",                                      artist: "Kiut", views: "—",   duration: "—", date: "2025", thumbnail: "https://i.ytimg.com/vi/L7tLWSFrx98/hqdefault.jpg",  type: "Music Video",       youtubeId: "L7tLWSFrx98",  description: "Makosa — the infectious Afro-Caribbean anthem from Kiut's 'Good Life EP'. Directed by Kiut Raba TV, featuring vibrant visuals that capture the spirit of the record." },
   { id:  2, title: "Kiut ft. De Sol - TGIF (Official Video)",             artist: "Kiut", views: "—",   duration: "—", date: "2024", thumbnail: "https://i.ytimg.com/vi/5StPjZaBIGc/hqdefault.jpg",  type: "Music Video",       youtubeId: "5StPjZaBIGc",  description: "TGIF — a collaborative record between Kiut and De Sol. The official music video captures the vibrant energy of the record. Directed by Kiut Raba TV." },
   { id:  3, title: "Kiut x De Sol - TGIF (Lyrics Video)",                 artist: "Kiut", views: "—",   duration: "—", date: "2024", thumbnail: "https://i.ytimg.com/vi/3fZZW2g6a-k/hqdefault.jpg",  type: "Lyric Video",       youtubeId: "3fZZW2g6a-k",  description: "TGIF lyrics visual — follow every word of this Kiut x De Sol collaboration in a sleek animated lyric video from Kiut Raba TV." },

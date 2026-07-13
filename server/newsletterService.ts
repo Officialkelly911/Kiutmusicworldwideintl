@@ -22,6 +22,47 @@ export interface SubscribeResult {
 }
 
 export const newsletterService = {
+  /**
+   * Validate subscriber input fields server-side.
+   * Returns `{ valid: true }` or `{ valid: false, errors }`.
+   */
+  validateSubscriber(
+    data: Partial<InsertNewsletterSubscriber>,
+  ): { valid: true } | { valid: false; errors: Record<string, string> } {
+    const errors: Record<string, string> = {};
+    const email = (data.email ?? "").trim().toLowerCase();
+    if (!email) {
+      errors.email = "Email address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (data.firstName !== undefined && data.firstName !== "") {
+      const fn = (data.firstName ?? "").trim();
+      if (fn.length < 2) errors.firstName = "First name must be at least 2 characters.";
+      if (fn.length > 80) errors.firstName = "First name is too long.";
+    }
+    if (Object.keys(errors).length > 0) return { valid: false, errors };
+    return { valid: true };
+  },
+
+  /**
+   * Normalise and sanitise raw subscriber input before storage.
+   * Trims strings, lowercases email, removes empty optional fields.
+   */
+  preparePayload(opts: SubscribeOptions): InsertNewsletterSubscriber & { source?: string } {
+    return {
+      email: (opts.email ?? "").trim().toLowerCase(),
+      firstName:        opts.firstName?.trim()        || undefined,
+      lastName:         opts.lastName?.trim()         || undefined,
+      country:          opts.country?.trim()          || undefined,
+      favoritePlatform: opts.favoritePlatform?.trim() || undefined,
+      favoriteGenre:    (opts as any).favoriteGenre?.trim() || undefined,
+      preferences:      opts.preferences?.length ? opts.preferences : undefined,
+      consent:          opts.consent ?? true,
+      source:           opts.source ?? "Newsletter Page",
+    };
+  },
+
   /** Returns true when the email is already in the database. */
   async checkDuplicate(email: string): Promise<boolean> {
     const existing = await storage.getNewsletterSubscriberByEmail(

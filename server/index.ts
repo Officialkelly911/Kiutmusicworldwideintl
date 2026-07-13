@@ -120,12 +120,28 @@ app.use((req, res, next) => {
 (async () => {
   await registerRoutes(httpServer, app);
 
+  // ── 404 handler for unmatched API routes ──────────────────────────────────
+  // Must sit after registerRoutes (real routes) and before the SPA/Vite
+  // catch-all, so unknown /api/* paths get a clean JSON 404 instead of falling
+  // through to the HTML shell.
+  app.use("/api", (_req: Request, res: Response) => {
+    res.status(404).json({ message: "Not found." });
+  });
+
+  // ── Global error handler ───────────────────────────────────────────────────
+  // Client-facing messages are always generic for 5xx failures — real detail
+  // (stack, error object) is logged server-side only, never sent in the
+  // response. 4xx errors are assumed to carry an intentional, safe-to-show
+  // message (e.g. Zod validation) set by the route/service that threw them.
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+    const message =
+      status >= 500
+        ? "Something went wrong. Please try again."
+        : err.message || "Unable to complete your request.";
 
-    res.status(status).json({ message });
     console.error(err);
+    res.status(status).json({ message });
   });
 
   // importantly only setup vite in development and after

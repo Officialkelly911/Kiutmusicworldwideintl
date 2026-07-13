@@ -14,6 +14,7 @@ import { FEATURED_UPDATES } from "@/data/updates";
 import { upcomingShows } from "@/pages/Tour";
 import { videos } from "@/pages/Videos";
 import { ALBUMS } from "@/data/tracks";
+import { useSEO } from "@/lib/useSEO";
 import {
   NewsletterForm,
   NewsletterSuccess,
@@ -176,29 +177,11 @@ const UPDATE_ICONS = {
 export default function Newsletter() {
 
   // ── SEO ───────────────────────────────────────────────────────
-  useEffect(() => {
-    const TITLE = "Join the Kiut Music Newsletter";
-    const DESC  = "Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.";
-    const origTitle   = document.title;
-    const metaDesc    = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    const ogTitle     = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
-    const ogDesc      = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
-    const origDesc    = metaDesc?.content;
-    const origOgTitle = ogTitle?.content;
-    const origOgDesc  = ogDesc?.content;
-
-    document.title = TITLE;
-    metaDesc?.setAttribute("content", DESC);
-    ogTitle?.setAttribute("content", TITLE);
-    ogDesc?.setAttribute("content", DESC);
-
-    return () => {
-      document.title = origTitle;
-      if (origDesc    !== undefined && metaDesc) metaDesc.setAttribute("content", origDesc);
-      if (origOgTitle !== undefined && ogTitle)  ogTitle.setAttribute("content", origOgTitle);
-      if (origOgDesc  !== undefined && ogDesc)   ogDesc.setAttribute("content", origOgDesc);
-    };
-  }, []);
+  useSEO({
+    title: "Join the Kiut Music Newsletter",
+    description: "Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.",
+    canonical: "https://kiutmusic.com/newsletter",
+  });
 
   // ── Form panel state ─────────────────────────────────────────
   const [submitted,          setSubmitted]          = useState(false);

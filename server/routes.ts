@@ -42,7 +42,10 @@ export async function registerRoutes(
       const result = await newsletterService.subscribe({ ...data, source });
 
       if (result.duplicate) {
-        return res.status(200).json({ message: "You're already subscribed." });
+        return res.status(200).json({
+          message: "You're already subscribed.",
+          duplicate: true,
+        });
       }
 
       return res.status(201).json({ message: "Subscribed successfully." });

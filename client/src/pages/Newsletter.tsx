@@ -1,7 +1,8 @@
 import { motion, AnimatePresence, useInView, type TargetAndTransition } from "framer-motion";
 import {
-  Mail, Bell, Gift, Sparkles, Check, ArrowRight, ShieldCheck, Lock, Music2,
-  Ticket, ShoppingBag, Headphones, Crown, MessageCircle, Calendar, Star,
+  Mail, Bell, Gift, Sparkles, Crown,
+  Ticket, ShoppingBag, Headphones, Music2,
+  MessageCircle, Calendar, Star, Lock,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import SiteFooter from "../components/SiteFooter";
@@ -9,11 +10,15 @@ import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
 import { StatCounter } from "@/components/StatCounter";
 import { SocialIconGroup } from "@/components/SocialIconGroup";
-import { track } from "@/lib/analytics";
 import { FEATURED_UPDATES } from "@/data/updates";
 import { upcomingShows } from "@/pages/Tour";
 import { videos } from "@/pages/Videos";
 import { ALBUMS } from "@/data/tracks";
+import {
+  NewsletterForm,
+  NewsletterSuccess,
+  NewsletterBenefitsCard,
+} from "@/components/newsletter";
 
 /* ── Count-up hook ────────────────────────────────────────────── */
 function useCountUp(target: number, duration = 2000) {
@@ -60,8 +65,7 @@ function Particle({ x, y, delay }: { x: string; y: string; delay: number }) {
   );
 }
 
-// First 3 shown inline in the hero; the full list (10) is rendered in the
-// "Every Membership Perk" section below so the hero itself stays untouched.
+// ── Hero benefit cards (3 shown in left column) ───────────────────────────────
 const benefits = [
   {
     icon: Bell,
@@ -80,6 +84,7 @@ const benefits = [
   },
 ];
 
+// ── All 10 perks for the "Every Membership Perk" grid ────────────────────────
 const allBenefits = [
   ...benefits,
   {
@@ -146,28 +151,31 @@ const avatarGradients = [
   "from-cyan-400 to-blue-700",
 ];
 
-const PREFERENCE_OPTIONS = [
-  { id: "releases", label: "New Releases" },
-  { id: "tour",     label: "Tour & Show Announcements" },
-  { id: "merch",    label: "Merch & Drops" },
-  { id: "bts",      label: "Behind-the-Scenes Content" },
-];
-
-const PLATFORM_OPTIONS = ["Spotify", "Apple Music", "Audiomack", "YouTube Music", "Boomplay", "Other"];
-
 // Derived directly from real data — never hardcoded facts.
 const communityStats = [
-  { label: "Subscribers",        value: 50000, suffix: "+" },
-  { label: "Countries Listening", value: 20,    suffix: "+" },
-  { label: "Years Creating Music", value: 10,   suffix: "+" },
-  { label: "Shows Announced",    value: upcomingShows.length, suffix: "" },
-  { label: "Videos Released",    value: videos.length, suffix: "+" },
+  { label: "Subscribers",         value: 50000,                suffix: "+" },
+  { label: "Countries Listening", value: 20,                   suffix: "+" },
+  { label: "Years Creating Music",value: 10,                   suffix: "+" },
+  { label: "Shows Announced",     value: upcomingShows.length, suffix: "" },
+  { label: "Videos Released",     value: videos.length,        suffix: "+" },
 ];
 
 /* ── Update kind icon map ────────────────────────────────────── */
-const UPDATE_ICONS = { release: Music2, tour: Calendar, video: Bell, member: Crown, merch: ShoppingBag, event: Ticket } as const;
+const UPDATE_ICONS = {
+  release: Music2,
+  tour: Calendar,
+  video: Bell,
+  member: Crown,
+  merch: ShoppingBag,
+  event: Ticket,
+} as const;
 
+/* ═══════════════════════════════════════════════════════════════
+   Page component
+═══════════════════════════════════════════════════════════════ */
 export default function Newsletter() {
+
+  // ── SEO ───────────────────────────────────────────────────────
   useEffect(() => {
     const TITLE = "Join the Kiut Music Newsletter";
     const DESC  = "Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.";
@@ -192,88 +200,42 @@ export default function Newsletter() {
     };
   }, []);
 
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [country, setCountry] = useState("");
-  const [favoritePlatform, setFavoritePlatform] = useState("");
-  const [preferences, setPreferences] = useState<string[]>([]);
-  const [consent, setConsent] = useState(false);
-  const [consentError, setConsentError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  // Honeypot — stays empty for real users
-  const [nlWebsite, setNlWebsite] = useState("");
-  const [showSticky, setShowSticky] = useState(false);
-  const { count, ref: countRef } = useCountUp(50000);
+  // ── Form panel state ─────────────────────────────────────────
+  const [submitted,          setSubmitted]          = useState(false);
+  const [isDuplicate,        setIsDuplicate]        = useState(false);
+  const [submittedFirstName, setSubmittedFirstName] = useState("");
 
+  function handleSuccess(firstName: string, _email: string) {
+    setSubmittedFirstName(firstName);
+    setIsDuplicate(false);
+    setSubmitted(true);
+  }
+
+  function handleDuplicate(_email: string) {
+    setIsDuplicate(true);
+    setSubmitted(true);
+  }
+
+  function handleReset() {
+    setSubmitted(false);
+    setIsDuplicate(false);
+    setSubmittedFirstName("");
+  }
+
+  // ── Sticky mobile CTA ────────────────────────────────────────
+  const [showSticky, setShowSticky] = useState(false);
   useEffect(() => {
-    const handleScroll = () => setShowSticky(window.scrollY > window.innerHeight / 2);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setShowSticky(window.scrollY > window.innerHeight / 2);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  function togglePreference(id: string) {
-    setPreferences((prev) => (prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]));
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || submitting) return;
-
-    // Honeypot — bot filled invisible field
-    if (nlWebsite) { setSubmitted(true); return; }
-
-    if (!consent) {
-      setConsentError("Please accept the privacy policy before subscribing.");
-      return;
-    }
-    setConsentError(null);
-    setSubmitting(true);
-    setError(null);
-
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          firstName: firstName.trim() || undefined,
-          lastName: lastName.trim() || undefined,
-          country: country.trim() || undefined,
-          favoritePlatform: favoritePlatform || undefined,
-          preferences: preferences.length ? preferences : undefined,
-          consent,
-          source: "Newsletter Page",
-        }),
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok) {
-        throw new Error(data.message || "Something went wrong. Please try again.");
-      }
-
-      setSubmitted(true);
-      track("newsletter_signup", { country: country.trim() || undefined, platform: favoritePlatform || undefined });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
-      track("form_error", { label: "newsletter" });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  function resetForm() {
-    setSubmitted(false);
-    setEmail(""); setFirstName(""); setLastName(""); setCountry("");
-    setFavoritePlatform(""); setPreferences([]); setConsent(false); setNlWebsite("");
-  }
-
+  // ── Subscriber count animation ───────────────────────────────
+  const { count, ref: countRef } = useCountUp(50000);
   const formatCount = (n: number) =>
     n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "K" : n.toString();
 
+  /* ── Render ─────────────────────────────────────────────────── */
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -287,14 +249,8 @@ export default function Newsletter() {
       {/* ── Cinematic beach background ────────────────────────── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <picture>
-          <source
-            media="(max-width: 767px)"
-            srcSet="/assets/newsletter/beach-hero-768.webp"
-          />
-          <source
-            media="(max-width: 1279px)"
-            srcSet="/assets/newsletter/beach-hero-1280.webp"
-          />
+          <source media="(max-width: 767px)"  srcSet="/assets/newsletter/beach-hero-768.webp" />
+          <source media="(max-width: 1279px)" srcSet="/assets/newsletter/beach-hero-1280.webp" />
           <source srcSet="/assets/newsletter/beach-hero-1920.webp" />
           <img
             src="/assets/newsletter/beach-hero-1920.jpg"
@@ -305,7 +261,6 @@ export default function Newsletter() {
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
         </picture>
-        {/* Luxury cinematic overlay */}
         <div
           className="absolute inset-0"
           style={{
@@ -313,7 +268,6 @@ export default function Newsletter() {
               "linear-gradient(180deg, rgba(var(--black-rgb),0.45), rgba(var(--black-rgb),0.55), rgba(var(--black-rgb),0.68))",
           }}
         />
-        {/* Subtle brand-color sweep for cohesion (kept light so the beach stays visible) */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-midnight-black/10 to-black/20 mix-blend-multiply" />
 
         {/* Gold orb — top left */}
@@ -325,7 +279,6 @@ export default function Newsletter() {
           }}
           animate={{ scale: [1, 1.25, 1], opacity: [0.6, 1, 0.6] }}
         />
-
         {/* Purple orb — bottom right */}
         <Orb
           style={{
@@ -335,7 +288,6 @@ export default function Newsletter() {
           }}
           animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0.9, 0.5] }}
         />
-
         {/* Centre gold pulse */}
         <Orb
           style={{
@@ -345,8 +297,6 @@ export default function Newsletter() {
           }}
           animate={{ scale: [1, 1.6, 1], opacity: [0.3, 0.6, 0.3] }}
         />
-
-        {/* Floating particles */}
         {particles.map((p, i) => <Particle key={i} {...p} />)}
       </div>
 
@@ -366,7 +316,6 @@ export default function Newsletter() {
               transition={{ delay: 0.1 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-gold/30 mb-10 backdrop-blur-sm"
             >
-              {/* Pulsing dot */}
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
@@ -386,16 +335,13 @@ export default function Newsletter() {
               >
                 Stay in the
               </motion.p>
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
               >
                 <motion.span
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
+                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                   className="font-display text-[clamp(3.5rem,10vw,8rem)] font-bold tracking-tight uppercase leading-none block"
                   style={{
@@ -422,35 +368,18 @@ export default function Newsletter() {
               and private updates delivered straight from the studio.
             </motion.p>
 
-            {/* Benefit cards */}
-            <div className="space-y-5 mb-12">
-              {benefits.map((benefit, i) => {
-                const Icon = benefit.icon;
-                return (
-                  <motion.div
-                    key={benefit.title}
-                    initial={{ opacity: 0, x: -24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + i * 0.12 }}
-                    whileHover={{ scale: 1.03, x: 4 }}
-                    className="group flex items-start gap-5 p-5 rounded-xl bg-white/[0.02] border border-white/[0.07] hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-glow-gold transition-all duration-normal backdrop-blur-sm cursor-default"
-                  >
-                    <motion.div
-                      whileHover={{ rotate: 8, scale: 1.15 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                      className="w-12 h-12 rounded-xl bg-black/60 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-gold/50 group-hover:shadow-glow-gold transition-all duration-normal"
-                    >
-                      <Icon className="w-5 h-5 text-gold" />
-                    </motion.div>
-                    <div>
-                      <h3 className="font-display text-base font-bold mb-1 tracking-wide uppercase group-hover:text-gold transition-colors duration-normal">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-white/55 font-light text-sm leading-relaxed">{benefit.description}</p>
-                    </div>
-                  </motion.div>
-                );
-              })}
+            {/* Hero benefit cards */}
+            <div className="space-y-5 mb-12" aria-label="Subscriber benefits">
+              {benefits.map((benefit, i) => (
+                <NewsletterBenefitsCard
+                  key={benefit.title}
+                  icon={benefit.icon}
+                  title={benefit.title}
+                  description={benefit.description}
+                  index={i}
+                  variant="hero"
+                />
+              ))}
             </div>
 
             {/* Social proof */}
@@ -460,7 +389,7 @@ export default function Newsletter() {
               transition={{ delay: 0.85 }}
               className="flex items-center gap-4"
             >
-              <div className="flex -space-x-3">
+              <div className="flex -space-x-3" aria-hidden="true">
                 {avatarGradients.map((g, i) => (
                   <div
                     key={i}
@@ -480,7 +409,7 @@ export default function Newsletter() {
             </motion.div>
           </motion.div>
 
-          {/* ── RIGHT COLUMN ────────────────────────────────────── */}
+          {/* ── RIGHT COLUMN — form card ─────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -500,7 +429,7 @@ export default function Newsletter() {
                 </div>
                 <span className="text-purple-300 text-xs font-bold tracking-[0.3em] uppercase">Private Fan Access</span>
               </div>
-              <ul className="space-y-1.5">
+              <ul className="space-y-1.5" aria-label="Exclusive access perks">
                 {exclusivePerks.map((perk, i) => (
                   <motion.li
                     key={perk}
@@ -509,7 +438,7 @@ export default function Newsletter() {
                     transition={{ delay: 0.5 + i * 0.08 }}
                     className="flex items-center gap-2 text-white/70 text-sm font-light"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" aria-hidden="true" />
                     {perk}
                   </motion.li>
                 ))}
@@ -524,230 +453,18 @@ export default function Newsletter() {
               <div className="relative p-8 md:p-10 rounded-xl bg-midnight/75 backdrop-blur-2xl border border-white/[0.08] shadow-xl">
                 <AnimatePresence mode="wait">
                   {!submitted ? (
-                    <motion.div
+                    <NewsletterForm
                       key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                    >
-                      <h2 className="font-display text-2xl font-bold mb-7 uppercase tracking-wide text-center">
-                        Unlock <span className="text-gold">Access</span>
-                      </h2>
-
-                      <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                        {/* First + Last name */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                          <div className="relative group">
-                            <input
-                              type="text"
-                              id="nl-firstName"
-                              value={firstName}
-                              onChange={(e) => setFirstName(e.target.value)}
-                              autoComplete="given-name"
-                              maxLength={80}
-                              className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
-                              placeholder=" "
-                            />
-                            <label htmlFor="nl-firstName" className="absolute text-white/40 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold pointer-events-none">
-                              First Name
-                            </label>
-                            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-slow" />
-                          </div>
-                          <div className="relative group">
-                            <input
-                              type="text"
-                              id="nl-lastName"
-                              value={lastName}
-                              onChange={(e) => setLastName(e.target.value)}
-                              autoComplete="family-name"
-                              maxLength={80}
-                              className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
-                              placeholder=" "
-                            />
-                            <label htmlFor="nl-lastName" className="absolute text-white/40 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold pointer-events-none">
-                              Last Name
-                            </label>
-                            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-slow" />
-                          </div>
-                        </div>
-
-                        {/* Email input */}
-                        <div className="relative group">
-                          <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            autoComplete="email"
-                            className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
-                            placeholder=" "
-                            required
-                          />
-                          <label
-                            htmlFor="email"
-                            className="absolute text-white/40 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold pointer-events-none"
-                          >
-                            Email Address *
-                          </label>
-                          {/* Bottom border animation */}
-                          <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-slow" />
-                        </div>
-
-                        {/* Country + Favorite platform */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                          <div className="relative group">
-                            <input
-                              type="text"
-                              id="nl-country"
-                              value={country}
-                              onChange={(e) => setCountry(e.target.value)}
-                              autoComplete="country-name"
-                              maxLength={100}
-                              className="block w-full px-5 pb-3 pt-6 text-white bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:ring-0 focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal peer placeholder-transparent"
-                              placeholder=" "
-                            />
-                            <label htmlFor="nl-country" className="absolute text-white/40 duration-normal transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-gold pointer-events-none">
-                              Country
-                            </label>
-                            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-gold to-purple-500 rounded-b-xl group-focus-within:w-full transition-all duration-slow" />
-                          </div>
-                          <div className="relative">
-                            <select
-                              id="nl-platform"
-                              value={favoritePlatform}
-                              onChange={(e) => setFavoritePlatform(e.target.value)}
-                              className="block w-full px-5 py-4 text-white text-sm bg-white/5 border border-white/10 rounded-xl appearance-none focus:outline-none focus:border-gold focus:bg-white/[0.07] focus:shadow-glow-gold transition-all duration-normal"
-                            >
-                              <option value="" className="bg-midnight">Favorite Platform</option>
-                              {PLATFORM_OPTIONS.map((p) => (
-                                <option key={p} value={p} className="bg-midnight">{p}</option>
-                              ))}
-                            </select>
-                          </div>
-                        </div>
-
-                        {/* Preferences */}
-                        <fieldset>
-                          <legend className="text-white/40 text-xs font-bold uppercase tracking-widest mb-3">What would you like to hear about?</legend>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            {PREFERENCE_OPTIONS.map((opt) => {
-                              const checked = preferences.includes(opt.id);
-                              return (
-                                <label
-                                  key={opt.id}
-                                  className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg border text-xs cursor-pointer transition-colors duration-fast ${
-                                    checked ? "border-gold/40 bg-gold/[0.08] text-gold" : "border-white/10 bg-white/[0.02] text-white/55 hover:border-white/20"
-                                  }`}
-                                >
-                                  <input
-                                    type="checkbox"
-                                    checked={checked}
-                                    onChange={() => togglePreference(opt.id)}
-                                    className="w-3.5 h-3.5 rounded border-white/20 bg-white/[0.04] text-gold accent-[#D4AF37] focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
-                                  />
-                                  {opt.label}
-                                </label>
-                              );
-                            })}
-                          </div>
-                        </fieldset>
-
-                        {/* Honeypot — invisible to real users, visible to bots */}
-                        <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
-                          <label htmlFor="nl-website">Website</label>
-                          <input
-                            type="text"
-                            id="nl-website"
-                            name="website"
-                            value={nlWebsite}
-                            onChange={(e) => setNlWebsite(e.target.value)}
-                            tabIndex={-1}
-                            autoComplete="off"
-                          />
-                        </div>
-
-                        {/* Consent */}
-                        <label className="flex items-start gap-3 cursor-pointer select-none">
-                          <input
-                            type="checkbox"
-                            checked={consent}
-                            onChange={(e) => { setConsent(e.target.checked); if (e.target.checked) setConsentError(null); }}
-                            aria-invalid={!!consentError}
-                            aria-describedby={consentError ? "nl-consent-error" : undefined}
-                            className="mt-0.5 w-4 h-4 rounded border-white/20 bg-white/[0.04] text-gold accent-[#D4AF37] focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
-                          />
-                          <span className="text-white/45 text-xs leading-relaxed">
-                            I agree to receive emails from Kiut Music and consent to having my information stored in line with the{" "}
-                            <a href="/legal" className="text-gold/70 hover:text-gold underline underline-offset-2">Privacy Policy</a>. *
-                          </span>
-                        </label>
-                        {consentError && <p id="nl-consent-error" role="alert" className="text-red-400 text-xs -mt-3">{consentError}</p>}
-
-                        {/* Error message */}
-                        {error && (
-                          <p role="alert" className="text-red-400 text-sm font-light -mb-1">
-                            {error}
-                          </p>
-                        )}
-
-                        {/* CTA button */}
-                        <div className="pt-2">
-                          <PremiumCTAButton
-                            as="button"
-                            type="submit"
-                            disabled={submitting}
-                            className="w-full"
-                            iconPosition="right"
-                            icon={<ArrowRight className="w-5 h-5" />}
-                          >
-                            {submitting ? "Joining..." : "Join the Rhythm"}
-                          </PremiumCTAButton>
-
-                          {/* Urgent microcopy */}
-                          <p className="text-center text-white/30 text-xs uppercase tracking-widest mt-3 font-medium">
-                            Limited access&nbsp;•&nbsp;Inner circle only
-                          </p>
-                        </div>
-                      </form>
-
-                      {/* Trust row */}
-                      <div className="mt-7 pt-6 border-t border-white/8 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-white/35 uppercase tracking-wider font-medium">
-                        <div className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-gold" /> No spam</div>
-                        <span className="hidden sm:inline text-white/15">•</span>
-                        <div className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5 text-gold" /> Private list</div>
-                        <span className="hidden sm:inline text-white/15">•</span>
-                        <div className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-gold" /> Unsubscribe anytime</div>
-                      </div>
-                    </motion.div>
+                      onSuccess={handleSuccess}
+                      onDuplicate={handleDuplicate}
+                    />
                   ) : (
-                    <motion.div
+                    <NewsletterSuccess
                       key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                      className="text-center py-12"
-                    >
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 250, delay: 0.1 }}
-                        className="w-20 h-20 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto mb-8 shadow-glow-gold-hover"
-                      >
-                        <Check className="w-10 h-10 text-gold" />
-                      </motion.div>
-                      <h2 className="font-display text-3xl font-bold mb-4 uppercase text-gold">
-                        You're in the Rhythm.
-                      </h2>
-                      <p className="text-white/55 mb-8 font-light max-w-xs mx-auto leading-relaxed text-sm">
-                        Welcome to the inner circle. Your exclusive access begins now. Check your inbox for confirmation.
-                      </p>
-                      <button
-                        onClick={resetForm}
-                        className="text-gold font-medium hover:text-white uppercase tracking-widest text-xs transition-colors"
-                      >
-                        Subscribe another email
-                      </button>
-                    </motion.div>
+                      firstName={submittedFirstName}
+                      isDuplicate={isDuplicate}
+                      onReset={handleReset}
+                    />
                   )}
                 </AnimatePresence>
               </div>
@@ -757,7 +474,7 @@ export default function Newsletter() {
         </div>
 
         {/* ── EVERY MEMBERSHIP PERK ─────────────────────────────── */}
-        <section className="pt-28 pb-8">
+        <section className="pt-28 pb-8" aria-labelledby="perks-heading">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -766,9 +483,9 @@ export default function Newsletter() {
             className="mb-10"
           >
             <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
-              <Crown size={11} className="text-gold" /> Membership
+              <Crown size={11} className="text-gold" aria-hidden="true" /> Membership
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+            <h2 id="perks-heading" className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
               Every <span className="text-gold">Perk</span>
             </h2>
             <p className="text-white/35 text-sm mt-3 max-w-lg leading-relaxed">
@@ -777,31 +494,21 @@ export default function Newsletter() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {allBenefits.map((benefit, i) => {
-              const Icon = benefit.icon;
-              return (
-                <motion.div
-                  key={benefit.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-20px" }}
-                  transition={{ duration: 0.5, delay: (i % 5) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -3 }}
-                  className="p-5 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-gold/[0.03] transition-all duration-normal"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-black/40 border border-white/10 flex items-center justify-center mb-3">
-                    <Icon className="w-4 h-4 text-gold" />
-                  </div>
-                  <h3 className="font-display text-xs font-bold uppercase tracking-tight text-white mb-1.5">{benefit.title}</h3>
-                  <p className="text-white/32 text-xs leading-relaxed">{benefit.description}</p>
-                </motion.div>
-              );
-            })}
+            {allBenefits.map((benefit, i) => (
+              <NewsletterBenefitsCard
+                key={benefit.title}
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+                index={i}
+                variant="grid"
+              />
+            ))}
           </div>
         </section>
 
         {/* ── FEATURED UPDATES ──────────────────────────────────── */}
-        <section className="pt-20 pb-8 border-t border-white/[0.06]">
+        <section className="pt-20 pb-8 border-t border-white/[0.06]" aria-labelledby="updates-heading">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -810,9 +517,9 @@ export default function Newsletter() {
             className="mb-10"
           >
             <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3 flex items-center gap-2">
-              <Bell size={11} className="text-gold" /> What's Happening
+              <Bell size={11} className="text-gold" aria-hidden="true" /> What's Happening
             </p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+            <h2 id="updates-heading" className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
               Featured <span className="text-gold">Updates</span>
             </h2>
           </motion.div>
@@ -828,7 +535,7 @@ export default function Newsletter() {
                     </div>
                   )}
                   <div className="flex items-center gap-2 mb-2">
-                    <Icon size={13} className="text-gold" />
+                    <Icon size={13} className="text-gold" aria-hidden="true" />
                     <span className="text-gold text-[10px] font-bold uppercase tracking-[0.25em]">{update.label}</span>
                   </div>
                   <h3 className="font-display text-base font-bold uppercase tracking-tight text-white mb-1.5">{update.title}</h3>
@@ -879,7 +586,10 @@ export default function Newsletter() {
           >
             <div className="absolute inset-0 pointer-events-none opacity-40" style={{ backdropFilter: "blur(2px)" }} />
             <div className="relative z-10 flex flex-col items-center">
-              <div className="w-14 h-14 rounded-full border border-gold/30 flex items-center justify-center mb-6" style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }}>
+              <div
+                className="w-14 h-14 rounded-full border border-gold/30 flex items-center justify-center mb-6"
+                style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }}
+              >
                 <Lock className="w-6 h-6 text-gold" />
               </div>
               <p className="text-gold text-xs font-bold tracking-[0.35em] uppercase mb-3">Exclusive Preview</p>
@@ -895,7 +605,7 @@ export default function Newsletter() {
         </section>
 
         {/* ── BY THE NUMBERS ────────────────────────────────────── */}
-        <section className="pt-20 pb-16 border-t border-white/[0.06]">
+        <section className="pt-20 pb-16 border-t border-white/[0.06]" aria-labelledby="numbers-heading">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -904,7 +614,7 @@ export default function Newsletter() {
             className="mb-10 text-center"
           >
             <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">The Community</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
+            <h2 id="numbers-heading" className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">
               By The <span className="text-gold">Numbers</span>
             </h2>
           </motion.div>
@@ -929,7 +639,7 @@ export default function Newsletter() {
         </section>
 
         {/* ── SOCIAL COMMUNITY ──────────────────────────────────── */}
-        <section className="pt-20 pb-16 border-t border-white/[0.06]">
+        <section className="pt-20 pb-16 border-t border-white/[0.06]" aria-labelledby="social-heading">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -938,14 +648,13 @@ export default function Newsletter() {
             className="text-center mb-10"
           >
             <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Community</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4">
+            <h2 id="social-heading" className="font-display text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4">
               Follow Every <span className="text-gold">Platform</span>
             </h2>
             <p className="text-white/35 text-sm max-w-md mx-auto leading-relaxed">
               Stream, follow, and stay connected — every Kiut Music channel in one place.
             </p>
           </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -977,6 +686,7 @@ export default function Newsletter() {
           </motion.div>
         )}
       </AnimatePresence>
+
       <SiteFooter />
     </motion.div>
   );

@@ -24,6 +24,7 @@ export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   lastName: text("last_name"),
   country: text("country"),
   favoritePlatform: text("favorite_platform"),
+  favoriteGenre: text("favorite_genre"),
   preferences: text("preferences").array(),
   consent: boolean("consent").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -38,6 +39,7 @@ export const insertNewsletterSubscriberSchema = createInsertSchema(
     lastName: true,
     country: true,
     favoritePlatform: true,
+    favoriteGenre: true,
     preferences: true,
   })
   .extend({
@@ -46,6 +48,7 @@ export const insertNewsletterSubscriberSchema = createInsertSchema(
     lastName: z.string().trim().min(1).max(80).optional().or(z.literal("")),
     country: z.string().trim().max(100).optional().or(z.literal("")),
     favoritePlatform: z.string().trim().max(50).optional().or(z.literal("")),
+    favoriteGenre: z.string().trim().max(80).optional().or(z.literal("")),
     preferences: z.array(z.string()).optional(),
     consent: z.boolean().refine((v) => v === true, "Consent is required to subscribe."),
   });

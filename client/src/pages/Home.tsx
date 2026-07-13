@@ -7,6 +7,8 @@ import { MERCH_HIGHLIGHTS } from "@/data/merch";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";

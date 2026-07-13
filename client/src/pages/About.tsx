@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/HeroSection";
 import KiutWatermark from "@/components/KiutWatermark";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
+import { useSEO } from "@/lib/useSEO";
 
 const artistPhoto    = "/assets/images/IMG_2452_1772753968062.webp";
 const aboutHeroVideo = "/assets/videos/portfolio-optimized.mp4";

@@ -1,86 +1,152 @@
 /**
- * KiutMark — the geometric K brand mark.
+ * KiutMark — The official KIUT Music crown monogram.
  *
- * The mark is formed from three flat-vector parallelogram shapes:
- *   1. A vertical stem (left bar)
- *   2. Upper arm — wing angled upper-right (movement / stage light)
- *   3. Lower arm — wing angled lower-right (mirror symmetry)
+ * This renders the OFFICIAL uploaded master artwork (client/public/brand/kiut-monogram.png)
+ * directly. The monogram is never redrawn, vectorized, or recreated — this component only
+ * resizes and (for non-gold variants) recolors the master raster via CSS filters, which does
+ * not alter the underlying artwork.
  *
- * Pass `color` to switch between gold, white, ivory, or black.
- * All shapes share the same fill so single-color rendering is always correct.
+ * `KiutFullLogo` renders the second official master asset (kiut-full-logo.png) — the
+ * Monogram + "KIUT" + "MUSIC" lockup — as a single, un-split image, per brand guidelines
+ * ("never separate the artwork").
  */
+import React from "react";
 
+// ── Types ─────────────────────────────────────────────────────────────────────
+export type KiutVariant = "gold" | "white" | "black" | "ivory";
+
+const MONOGRAM_SRC  = "/brand/kiut-monogram.png";
+const FULL_LOGO_SRC = "/brand/kiut-full-logo.png";
+
+// Master monogram artwork aspect ratio (trimmed to its true bounding box).
+const MONOGRAM_ASPECT = 1604 / 1910; // width / height
+const FULL_LOGO_ASPECT = 1435 / 1600;
+
+/**
+ * CSS filters approximate alternate finishes from the single official gold master file.
+ * These are technical recolors of the same artwork (like print separations), never a redraw.
+ */
+const VARIANT_FILTER: Record<KiutVariant, string | undefined> = {
+  gold:  undefined,
+  white: "brightness(0) invert(1)",
+  black: "brightness(0)",
+  ivory: "brightness(0) invert(1) sepia(25%) saturate(140%) brightness(0.97)",
+};
+
+// ── KiutMark ─────────────────────────────────────────────────────────────────
 interface KiutMarkProps {
-  /** Fill color for all three shapes. Defaults to the brand gold token. */
-  color?: string;
-  /** Rendered size in px (square). Defaults to 40. */
+  /** Rendered height in px. Width follows the master artwork's aspect ratio. Default 40. */
   size?: number;
-  /** Optional className for the <svg> element. */
-  className?: string;
-  /** aria-label override. Hidden by default (decorative). */
+  /** Color variant. "gold" renders the untouched official master. Default "gold". */
+  variant?: KiutVariant;
+  /** aria-label; omit for decorative use. */
   label?: string;
+  className?: string;
+  /** @deprecated Legacy compat — no longer supported for the raster mark; use `variant`. */
+  color?: string;
 }
 
 export function KiutMark({
-  color = "var(--color-gold)",
   size = 40,
-  className,
+  variant = "gold",
   label,
+  className,
 }: KiutMarkProps) {
+  const width = Math.round(size * MONOGRAM_ASPECT);
+
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 100 100"
-      fill={color}
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
+    <img
+      src={MONOGRAM_SRC}
+      alt={label ?? ""}
       aria-hidden={label ? undefined : "true"}
-      aria-label={label}
       role={label ? "img" : undefined}
-    >
-      {/* Stem — vertical left bar */}
-      <rect x="10" y="8" width="14" height="84" rx="1" />
-      {/* Upper arm — parallelogram angled upper-right */}
-      <polygon points="24,47 24,30 84,8 84,25" />
-      {/* Lower arm — parallelogram angled lower-right */}
-      <polygon points="24,53 24,70 84,75 84,92" />
-    </svg>
+      width={width}
+      height={size}
+      className={className}
+      style={{
+        width,
+        height: size,
+        objectFit: "contain",
+        filter: VARIANT_FILTER[variant],
+        display: "inline-block",
+      }}
+      draggable={false}
+    />
   );
 }
 
-/** Horizontal lockup: mark + "KIUT." wordmark side-by-side. */
+// ── KiutLogo — horizontal lockup: mark + "KIUT." wordmark ────────────────────
 interface KiutLogoProps {
-  markColor?: string;
-  textColor?: string;
-  dotColor?: string;
+  variant?: KiutVariant;
   size?: "sm" | "md" | "lg";
   className?: string;
+  /** @deprecated Unused for the raster mark. */
+  markColor?: string;
+  /** @deprecated Unused — text color follows variant. */
+  textColor?: string;
+  /** @deprecated Unused — dot color follows variant. */
+  dotColor?: string;
 }
 
-const sizeMap = {
-  sm: { mark: 28, text: "text-sm",  tracking: "tracking-[0.28em]" },
-  md: { mark: 36, text: "text-xl",  tracking: "tracking-[0.3em]"  },
-  lg: { mark: 52, text: "text-3xl", tracking: "tracking-[0.32em]" },
-};
+const LOGO_SIZE = {
+  sm: { mark: 30,  text: "text-sm",  tracking: "tracking-[0.28em]" },
+  md: { mark: 38,  text: "text-xl",  tracking: "tracking-[0.3em]"  },
+  lg: { mark: 55,  text: "text-3xl", tracking: "tracking-[0.32em]" },
+} as const;
 
 export function KiutLogo({
-  markColor = "var(--color-gold)",
-  textColor = "var(--color-heading)",
-  dotColor = "var(--color-gold)",
+  variant = "gold",
   size = "md",
   className,
 }: KiutLogoProps) {
-  const s = sizeMap[size];
+  const s = LOGO_SIZE[size];
+  const textCol = variant === "black" ? "text-black" : "text-white/90";
+  const dotCol  = variant === "black" ? "#0A0A0C"    : "var(--color-gold)";
+
   return (
-    <span className={`flex items-center gap-2.5 ${className ?? ""}`}>
-      <KiutMark size={s.mark} color={markColor} />
+    <span className={`flex items-center gap-[14px] ${className ?? ""}`}>
+      <KiutMark size={s.mark} variant={variant} />
       <span
-        className={`font-display font-light uppercase ${s.text} ${s.tracking} leading-none`}
-        style={{ color: textColor }}
+        className={`font-display font-light uppercase ${s.text} ${s.tracking} leading-none ${textCol}`}
       >
-        KIUT<span style={{ color: dotColor }}>.</span>
+        KIUT<span style={{ color: dotCol }}>.</span>
       </span>
     </span>
+  );
+}
+
+// ── KiutFullLogo — official Monogram + "KIUT" + "MUSIC" lockup ───────────────
+// Renders the single master lockup file as-is. Never recomposed from separate
+// mark + typography — the artwork is never split apart.
+interface KiutFullLogoProps {
+  variant?: KiutVariant;
+  /** Rendered height in px. Width follows the master artwork's aspect ratio. Default 220. */
+  markSize?: number;
+  className?: string;
+}
+
+export function KiutFullLogo({
+  variant = "gold",
+  markSize = 220,
+  className,
+}: KiutFullLogoProps) {
+  const width = Math.round(markSize * FULL_LOGO_ASPECT);
+
+  return (
+    <img
+      src={FULL_LOGO_SRC}
+      alt="KIUT Music"
+      width={width}
+      height={markSize}
+      className={className}
+      style={{
+        width,
+        height: markSize,
+        objectFit: "contain",
+        filter: VARIANT_FILTER[variant],
+        display: "inline-block",
+      }}
+      draggable={false}
+    />
   );
 }

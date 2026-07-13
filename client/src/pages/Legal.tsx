@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Shield, FileText, Mail } from "lucide-react";
 import SiteFooter from "../components/SiteFooter";
+import { useSEO } from "@/lib/useSEO";
 
 // ── Last updated ──────────────────────────────────────────────────────────────
 const LAST_UPDATED = "July 9, 2025";
@@ -38,7 +39,7 @@ function TableOfContents({ active }: { active: string }) {
             <button
               key={id}
               onClick={() => scrollTo(id)}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 ${
+              className={`btn-base btn-sm ${
                 active === id
                   ? "bg-gold text-midnight shadow-glow-gold"
                   : "text-white/40 hover:text-white/80 hover:bg-white/[0.06]"
@@ -156,6 +157,12 @@ function Divider() {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function Legal() {
+  useSEO({
+    title: "Legal | Kiut Music Worldwide",
+    description: "Privacy policy and terms of service for Kiut Music Worldwide.",
+    canonical: "https://kiutmusic.com/legal",
+  });
+
   const [activeSection, setActiveSection] = useState("privacy");
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 

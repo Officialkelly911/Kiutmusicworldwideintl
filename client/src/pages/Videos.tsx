@@ -13,6 +13,10 @@ import {
   Youtube,
   SlidersHorizontal,
   ExternalLink,
+} from "lucide-react";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { HeroSection } from "@/components/HeroSection";
+import {
   Copy,
   Check,
   ChevronRight,
@@ -27,14 +31,17 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
-const videosHeroBg = "/assets/images/IMG_1254_1774433277988.webp";
 const STORE_URL     = "https://dreamplanet.org/store-profile/61";
 const WATCHED_KEY   = "kiut_watched_videos";
 
 // ─── Video Data ────────────────────────────────────────────────────────────────
-const videos = [
+// Exported so other pages (e.g. Newsletter's "Featured Updates") can reference
+// the same catalogue instead of duplicating video metadata.
+export const videos = [
   { id:  1, title: "Kiut - Makosa",                                      artist: "Kiut", views: "—",   duration: "—", date: "2025", thumbnail: "https://i.ytimg.com/vi/L7tLWSFrx98/hqdefault.jpg",  type: "Music Video",       youtubeId: "L7tLWSFrx98",  description: "Makosa — the infectious Afro-Caribbean anthem from Kiut's 'Good Life EP'. Directed by Kiut Raba TV, featuring vibrant visuals that capture the spirit of the record." },
   { id:  2, title: "Kiut ft. De Sol - TGIF (Official Video)",             artist: "Kiut", views: "—",   duration: "—", date: "2024", thumbnail: "https://i.ytimg.com/vi/5StPjZaBIGc/hqdefault.jpg",  type: "Music Video",       youtubeId: "5StPjZaBIGc",  description: "TGIF — a collaborative record between Kiut and De Sol. The official music video captures the vibrant energy of the record. Directed by Kiut Raba TV." },
   { id:  3, title: "Kiut x De Sol - TGIF (Lyrics Video)",                 artist: "Kiut", views: "—",   duration: "—", date: "2024", thumbnail: "https://i.ytimg.com/vi/3fZZW2g6a-k/hqdefault.jpg",  type: "Lyric Video",       youtubeId: "3fZZW2g6a-k",  description: "TGIF lyrics visual — follow every word of this Kiut x De Sol collaboration in a sleek animated lyric video from Kiut Raba TV." },
@@ -220,7 +227,7 @@ function SharePopup({
           type="button"
           onClick={onClose}
           aria-label="Close share panel"
-          className="w-6 h-6 rounded-full flex items-center justify-center text-white/40 hover:text-white transition-colors"
+          className="btn-icon btn-icon-sm !w-6 !h-6"
         >
           <X className="w-3 h-3" aria-hidden="true" />
         </button>
@@ -278,7 +285,7 @@ function PremiumStreamingLinks() {
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: i * 0.07 }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="group relative flex items-center gap-3.5 p-4 rounded-md overflow-hidden transition-all duration-medium"
+            className="group relative flex items-center gap-3.5 p-4 rounded-xl overflow-hidden transition-all duration-medium"
             style={{
               background: p.bg,
               border: `1px solid ${p.border}`,
@@ -286,7 +293,7 @@ function PremiumStreamingLinks() {
           >
             {/* Glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none rounded-md"
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none rounded-xl"
               style={{ boxShadow: `inset 0 0 0 1px ${p.border}, 0 0 24px ${p.glow}` }}
             />
 
@@ -381,12 +388,12 @@ function KiutUniverse() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.08 }}
-              whileHover={{ y: -3, transition: { duration: 0.22 } }}
-              className="group relative flex items-center gap-4 p-4 rounded-md border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.14] transition-all duration-medium cursor-pointer overflow-hidden"
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="group relative flex items-center gap-4 p-4 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.14] transition-all duration-medium cursor-pointer overflow-hidden"
             >
               {/* Ambient glow */}
               <div
-                className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none"
+                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-medium pointer-events-none"
                 style={{ background: `radial-gradient(ellipse at 30% 50%, ${card.color}0a, transparent 70%)` }}
               />
 
@@ -412,10 +419,12 @@ function KiutUniverse() {
             </motion.div>
           );
 
+          const handleCardClick = () => track(card.href === STORE_URL ? "store_click" : "cta_click", { label: card.title, destination: card.href });
+
           return card.external ? (
-            <a key={card.title} href={card.href} target="_blank" rel="noopener noreferrer">{inner}</a>
+            <a key={card.title} href={card.href} target="_blank" rel="noopener noreferrer" onClick={handleCardClick}>{inner}</a>
           ) : (
-            <Link key={card.title} href={card.href}>{inner}</Link>
+            <Link key={card.title} href={card.href} onClick={handleCardClick}>{inner}</Link>
           );
         })}
       </div>
@@ -444,10 +453,10 @@ function RecCard({
       whileHover={{ y: -6 }}
       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "group cursor-pointer flex flex-col w-full rounded-md overflow-hidden transition-all duration-normal",
+        "group cursor-pointer flex flex-col w-full rounded-xl overflow-hidden transition-all duration-normal",
         isFirst
           ? "bg-charcoal border border-gold/22 hover:border-gold/50 hover:shadow-glow-gold-hover"
-          : "bg-charcoal border border-white/[0.06] hover:border-gold/22 hover:shadow-glow-gold"
+          : "bg-charcoal border border-white/[0.07] hover:border-gold/22 hover:shadow-glow-gold"
       )}
     >
       {/* Thumbnail */}
@@ -602,9 +611,9 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative px-5 py-5 rounded-md border border-white/[0.07] bg-white/[0.025] hover:border-gold/22 hover:bg-white/[0.04] transition-all duration-slow text-center overflow-hidden"
+      className="group relative px-5 py-5 rounded-xl border border-white/[0.07] bg-white/[0.025] hover:border-gold/22 hover:bg-white/[0.04] transition-all duration-slow text-center overflow-hidden"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
+      <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
       <p className="font-display text-2xl md:text-3xl font-bold text-gold tracking-tight mb-0.5 relative">{value}</p>
       <p className="text-white text-xs font-bold uppercase tracking-[0.22em] mb-0.5 relative">{label}</p>
       <p className="text-white/28 text-xs uppercase tracking-wide relative">{sub}</p>
@@ -614,6 +623,12 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
 
 // ─── Main component ────────────────────────────────────────────────────────────
 export default function Videos() {
+  useSEO({
+    title: "Videos | Kiut Music Worldwide",
+    description: "Watch official music videos, behind-the-scenes footage, and live performances from Nigerian-American artist Kiut.",
+    canonical: "https://kiutmusic.com/videos",
+  });
+
   const [featuredVideo, setFeaturedVideo]   = useState(videos[0]);
   const [activeType, setActiveType]         = useState("All");
   const [showShare, setShowShare]           = useState(false);
@@ -659,9 +674,11 @@ export default function Videos() {
     }
   }, [activeType]);
 
-  // Mark first video watched on mount
+  // Mark first video watched on mount, and fire a video_play event whenever the
+  // featured (auto-playing) video changes.
   useEffect(() => {
     markWatched(featuredVideo.id);
+    track("video_play", { title: featuredVideo.title, videoId: String(featuredVideo.youtubeId), videoType: featuredVideo.type });
   }, [featuredVideo.id]);
 
   const handleShare = useCallback(async () => {
@@ -701,67 +718,71 @@ export default function Videos() {
       </div>
 
       {/* ── HERO ── */}
-      <section className="relative h-[92vh] min-h-[600px] flex items-end pb-20 overflow-hidden">
-        <img src={videosHeroBg} alt="Kiut Videos" className="absolute inset-0 w-full h-full object-cover object-center scale-[1.04]" loading="eager" />
-        {/* Multi-layer gradient for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/15" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(var(--gold-primary-rgb),0.06),transparent_55%)]" />
-
-        {/* Top-right archive badge */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute top-8 right-6 md:right-10 z-10 flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md"
-          style={{ background: "rgba(var(--black-rgb),0.4)" }}
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span className="text-white/60 text-xs font-bold uppercase tracking-[0.3em]">{videos.length} Official Visuals</span>
-        </motion.div>
-
-        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 md:px-6">
+      <HeroSection
+        slug="videos"
+        alt="Kiut Videos"
+        className="h-[92vh] min-h-[600px] flex items-end pb-20"
+        priority
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/15" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/20 to-transparent" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_80%,rgba(var(--gold-primary-rgb),0.06),transparent_55%)]" aria-hidden="true" />
+            {/* Bottom gold hairline */}
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" aria-hidden="true" />
+          </>
+        }
+        contentClassName="relative z-10 w-full max-w-[1600px] mx-auto px-4 md:px-6"
+        sectionChildren={
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-8 right-6 md:right-10 z-10 flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md"
+            style={{ background: "rgba(var(--black-rgb),0.4)" }}
           >
-            <motion.p
-              initial={{ opacity: 0, letterSpacing: "0.55em" }}
-              animate={{ opacity: 1, letterSpacing: "0.35em" }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
-            >
-              Official Visuals · Kiut Raba TV
-            </motion.p>
-            <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
-              Watch<br /><span className="text-gold">Kiut</span>
-            </h1>
-            <p className="font-editorial italic text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
-              Every frame, every story. Cinematic visuals from the world of Kiut Music Worldwide.
-            </p>
-            <div className="flex flex-wrap items-center gap-6">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-px bg-gold/70" />
-                <span className="text-white/35 text-xs uppercase tracking-[0.25em]">Scroll to explore</span>
-              </div>
-              <a
-                href="https://www.youtube.com/@kiutrabatv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 hover:text-white hover:border-gold/35 transition-all duration-normal text-xs font-bold uppercase tracking-widest backdrop-blur-sm"
-                style={{ background: "rgba(var(--black-rgb),0.35)" }}
-                data-testid="link-hero-youtube-channel"
-              >
-                <Youtube size={12} /> Subscribe on YouTube
-              </a>
-            </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-white/60 text-xs font-bold uppercase tracking-[0.3em]">{videos.length} Official Visuals</span>
           </motion.div>
-        </div>
-
-        {/* Bottom gold hairline */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-      </section>
+        }
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: "0.55em" }}
+            animate={{ opacity: 1, letterSpacing: "0.35em" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
+          >
+            Official Visuals · Kiut Raba TV
+          </motion.p>
+          <h1 className="font-display text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white uppercase leading-none mb-6">
+            Watch<br /><span className="text-gold">Kiut</span>
+          </h1>
+          <p className="font-editorial italic text-white/55 text-base md:text-lg font-light max-w-lg mb-10 leading-relaxed">
+            Every frame, every story. Cinematic visuals from the world of Kiut Music Worldwide.
+          </p>
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-px bg-gold/70" />
+              <span className="text-white/35 text-xs uppercase tracking-[0.25em]">Scroll to explore</span>
+            </div>
+            <a
+              href="https://www.youtube.com/@kiutrabatv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-base btn-sm border border-white/15 text-white/60 hover:border-gold/35 hover:text-white backdrop-blur-sm"
+              style={{ background: "rgba(var(--black-rgb),0.35)" }}
+              data-testid="link-hero-youtube-channel"
+            >
+              <Youtube size={12} /> Subscribe on YouTube
+            </a>
+          </div>
+        </motion.div>
+      </HeroSection>
 
       {/* ── STATS STRIP ── */}
       <div className="max-w-[1600px] mx-auto px-4 md:px-6 pt-14 pb-4 relative z-10">
@@ -777,7 +798,7 @@ export default function Videos() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 px-5 py-4 rounded-md border border-white/[0.06] bg-white/[0.02] flex items-center gap-5"
+            className="mt-4 px-5 py-4 rounded-xl border border-white/[0.07] bg-white/[0.02] flex items-center gap-5"
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-2">
@@ -830,7 +851,7 @@ export default function Videos() {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.45, ease: "easeOut" }}
-                  className="group w-full aspect-video bg-black rounded-md overflow-hidden shadow-xl border border-gold/15 hover:border-gold/30 transition-colors duration-slow relative"
+                  className="group w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl border border-gold/15 hover:border-gold/30 transition-colors duration-slow relative"
                 >
                   <iframe
                     src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}?autoplay=1`}
@@ -887,21 +908,17 @@ export default function Videos() {
 
                   {/* Action buttons */}
                   <div className="flex flex-wrap items-center gap-3 shrink-0">
-                    <a
+                    <PremiumCTAButton
+                      as="a"
                       href={featuredVideoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Watch on YouTube"
+                      size="sm"
+                      icon={<Youtube size={15} />}
                     >
-                      <motion.div
-                        whileHover={{ scale: 1.04, y: -2 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-midnight shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal cursor-pointer"
-                      >
-                        <Youtube size={15} />
-                        Watch on YouTube
-                      </motion.div>
-                    </a>
+                      Watch on YouTube
+                    </PremiumCTAButton>
 
                     <div className="relative">
                       <motion.button
@@ -912,7 +929,7 @@ export default function Videos() {
                         aria-label={`Share ${featuredVideo.title}`}
                         aria-expanded={showShare}
                         aria-haspopup="dialog"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.05] px-5 py-3 text-xs font-semibold text-white/75 hover:border-gold/35 hover:text-white transition-all duration-fast"
+                        className="btn-base btn-secondary btn-sm !border-white/12 !text-white/75 hover:!text-midnight"
                       >
                         <Share2 size={14} aria-hidden="true" />
                         Share
@@ -931,7 +948,7 @@ export default function Videos() {
                 </div>
 
                 {/* Description */}
-                <div className="bg-white/[0.04] rounded-md p-5 border border-white/[0.05] hover:bg-white/[0.07] transition-colors duration-normal mb-0">
+                <div className="bg-white/[0.03] rounded-xl p-5 border border-white/[0.07] hover:bg-white/[0.06] transition-colors duration-normal mb-0">
                   <p className="text-white/65 leading-relaxed font-light text-sm md:text-sm">
                     {featuredVideo.description}
                   </p>
@@ -1070,19 +1087,21 @@ export default function Videos() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-2 py-2 rounded-full border border-white/12 bg-black/80 backdrop-blur-xl shadow-lg"
           >
-            <a
+            <PremiumCTAButton
+              as="a"
               href={featuredVideoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-gold text-midnight text-xs font-bold uppercase tracking-widest hover:shadow-glow-gold transition-shadow"
+              size="sm"
+              icon={<Youtube className="w-3.5 h-3.5" />}
             >
-              <Youtube className="w-3.5 h-3.5" /> Watch on YouTube
-            </a>
+              Watch on YouTube
+            </PremiumCTAButton>
             <a
               href="https://open.spotify.com/artist/7yc6EAIFaY5TO7G1JBWgng"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/12 text-white/70 text-xs font-bold uppercase tracking-widest hover:border-[#1DB954]/40 hover:text-white transition-all"
+              className="btn-base btn-secondary btn-sm !border-white/12 !text-white/70 hover:!text-midnight"
             >
               <Music2 className="w-3.5 h-3.5" /> Listen
             </a>
@@ -1090,7 +1109,7 @@ export default function Videos() {
               type="button"
               onClick={handleShare}
               aria-label="Share this video"
-              className="flex items-center justify-center w-9 h-9 rounded-full border border-white/12 text-white/55 hover:border-gold/35 hover:text-white transition-all"
+              className="btn-icon btn-icon-sm !border-white/12"
             >
               <Share2 className="w-3.5 h-3.5" aria-hidden="true" />
             </button>

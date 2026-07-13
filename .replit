@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "nix", "postgresql-16", "python-base-3.13"]
+modules = ["nodejs-20", "web", "nix"]
 [agent]
 expertMode = true
 stack = "FULLSTACK_JS"
@@ -22,21 +22,17 @@ args = "Start application"
 name = "Start application"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
 
-[workflows.workflow.metadata]
-outputType = "webview"
-
 [[ports]]
 localPort = 5000
 externalPort = 80
-
-[[ports]]
-localPort = 5001
-externalPort = 3001
 
 [[ports]]
 localPort = 23636
@@ -52,3 +48,5 @@ build = ["npm", "run", "build"]
 [userenv.shared]
 CONTACT_EMAIL = "contact@kiutmusic.com"
 CONTACT_FROM_EMAIL = "Kiut Music <onboarding@resend.dev>"
+MAILCHIMP_AUDIENCE_ID = "de146c236a"
+MAILCHIMP_SERVER_PREFIX = "us2"

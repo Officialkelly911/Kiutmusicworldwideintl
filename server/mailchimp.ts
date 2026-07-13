@@ -47,15 +47,16 @@ const SITE_TAGS = [
  */
 export async function addMailchimpSubscriber(params: {
   email: string;
-  name?: string;
+  firstName?: string;
+  lastName?: string;
   source?: string;
 }) {
   const { apiKey, serverPrefix, audienceId } = cfg();
   const hash = subscriberHash(params.email);
   const url  = `${baseUrl(serverPrefix)}/lists/${audienceId}/members/${hash}`;
 
-  const [firstName, ...rest] = (params.name ?? "").trim().split(" ");
-  const lastName = rest.join(" ");
+  const firstName = (params.firstName ?? "").trim();
+  const lastName  = (params.lastName ?? "").trim();
 
   const body = {
     email_address: params.email.toLowerCase().trim(),

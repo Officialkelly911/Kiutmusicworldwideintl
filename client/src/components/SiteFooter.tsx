@@ -1,13 +1,6 @@
 import { Link, useLocation } from "wouter";
-
-// ── Designer credit ────────────────────────────────────────────────────────────
-// Change name or url here to update the credit across the entire site.
-const DESIGNER = {
-  name: "Kelly",
-  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
-} as const;
 import { motion } from "framer-motion";
-import { KiutMark } from "./KiutMark";
+import { KiutFullLogo } from "./KiutMark";
 import {
   SiSpotify,
   SiApplemusic,
@@ -17,30 +10,29 @@ import {
   SiYoutube,
   SiLinktree,
 } from "react-icons/si";
+import {
+  SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, YOUTUBE_MUSIC_URL,
+  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL, DREAMPLANET_URL,
+} from "@/data/social";
+
+// ── Designer credit ────────────────────────────────────────────────────────────
+// Change name or url here to update the credit across the entire site.
+const DESIGNER = {
+  name: "Kelly",
+  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
+} as const;
 
 const streamingLinks = [
-  { label: "Spotify",       Icon: SiSpotify,      href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ" },
-  { label: "Apple Music",   Icon: SiApplemusic,   href: "https://music.apple.com/artist/kiut" },
-  { label: "Audiomack",     Icon: SiAudiomack,    href: "https://audiomack.com/kiutrabatv" },
-  { label: "YouTube Music", Icon: SiYoutubemusic, href: "https://music.youtube.com/channel/UCKiutRababag" },
+  { label: "Spotify",       Icon: SiSpotify,      href: SPOTIFY_ARTIST_URL },
+  { label: "Apple Music",   Icon: SiApplemusic,   href: APPLE_MUSIC_ARTIST_URL },
+  { label: "Audiomack",     Icon: SiAudiomack,    href: AUDIOMACK_URL },
+  { label: "YouTube Music", Icon: SiYoutubemusic, href: YOUTUBE_MUSIC_URL },
 ];
 
 const connectLinks = [
-  {
-    label:     "Instagram",
-    Icon:      SiInstagram,
-    href:      "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-  },
-  {
-    label:     "YouTube",
-    Icon:      SiYoutube,
-    href:      "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
-  },
-  {
-    label:     "Linktree",
-    Icon:      SiLinktree,
-    href:      "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
-  },
+  { label: "Instagram", Icon: SiInstagram, href: INSTAGRAM_URL },
+  { label: "YouTube",   Icon: SiYoutube,   href: YOUTUBE_URL   },
+  { label: "Linktree",  Icon: SiLinktree,  href: LINKTREE_URL  },
 ];
 
 const navLinks = [
@@ -56,7 +48,13 @@ const navLinks = [
 export default function SiteFooter() {
   const [, navigate] = useLocation();
   return (
-    <footer className="bg-midnight border-t border-white/[0.07] relative overflow-hidden">
+    <motion.footer
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-midnight border-t border-white/[0.07] relative overflow-hidden"
+    >
       {/* Ambient glows */}
       <div className="absolute top-0 right-0 w-[520px] h-[400px] bg-gold/4 blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-amber-500/4 blur-[120px] rounded-full pointer-events-none" />
@@ -67,14 +65,16 @@ export default function SiteFooter() {
           <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em]">Available on all platforms</p>
           <div className="flex items-center gap-6">
             {streamingLinks.map(({ label, Icon, href }) => (
-              <a
+              <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={label}
                 aria-label={label}
-                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-all duration-normal group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-colors duration-normal group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
               >
                 <Icon
                   size={14}
@@ -82,7 +82,7 @@ export default function SiteFooter() {
                   className="group-hover:scale-110 transition-transform duration-normal"
                 />
                 <span className="text-[10px] font-medium hidden sm:block">{label}</span>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -94,11 +94,11 @@ export default function SiteFooter() {
 
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <div className="flex flex-col items-center lg:items-start gap-3 mb-3">
-              <KiutMark size={48} color="var(--color-gold)" className="drop-glow-gold" />
-              <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase">
-                KIUT<span className="text-gold">.</span>
-              </h3>
+            <div className="flex flex-col items-center lg:items-start gap-4 mb-4">
+              <KiutFullLogo markSize={110} variant="gold" className="drop-glow-gold" />
+              <p className="text-white/50 text-xs font-light tracking-[0.25em] uppercase">
+                Afro-Caribbean Sound. <span className="text-white/70">Global Energy.</span>
+              </p>
             </div>
             <p className="text-white/45 text-base mb-8 font-light max-w-sm leading-relaxed">
               Join the inner circle for exclusive updates, early releases, and behind-the-scenes access.
@@ -116,7 +116,7 @@ export default function SiteFooter() {
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-colors"
+                className="btn-base btn-primary btn-sm absolute right-1.5 top-1.5 bottom-1.5"
               >
                 Join
               </button>
@@ -151,30 +151,36 @@ export default function SiteFooter() {
 
               {/* Official brand icon buttons */}
               {connectLinks.map(({ label, Icon, href }) => (
-                <a
+                <motion.a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   title={label}
                   aria-label={label}
-                  className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-glow-gold-hover hover:scale-[1.1] transition-all duration-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  className="btn-icon"
                 >
                   <Icon size={18} aria-hidden="true" />
-                </a>
+                </motion.a>
               ))}
 
               {/* DreamPlanet — custom platform, PNG icon */}
-              <a
-                href="https://dreamplanet.org/user/61"
+              <motion.a
+                href={DREAMPLANET_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="DreamPlanet"
                 aria-label="DreamPlanet"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-glow-gold-hover hover:scale-[1.1] transition-all duration-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="btn-icon overflow-hidden"
               >
                 <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
-              </a>
+              </motion.a>
 
             </div>
             <p className="mt-4 text-white/20 text-[9px] uppercase tracking-[0.25em]">@kiut_rababag</p>
@@ -189,7 +195,7 @@ export default function SiteFooter() {
           <div className="flex gap-8 text-xs tracking-widest uppercase font-medium">
             <a
               href="/legal"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-gold/40 text-gold/80 hover:text-midnight hover:bg-gold hover:border-gold transition-all duration-fast focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="btn-base btn-secondary btn-sm !border-gold/40 text-gold/80"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -215,6 +221,6 @@ export default function SiteFooter() {
           <span className="text-white/30">{DESIGNER.name}</span>
         </p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

@@ -26,9 +26,14 @@ export interface IStorage {
   createNewsletterSubscriber(
     subscriber: InsertNewsletterSubscriber,
   ): Promise<NewsletterSubscriber>;
+  deleteNewsletterSubscriber(email: string): Promise<void>;
 
   createContactSubmission(
-    data: InsertContactSubmission & { ipAddress?: string; userAgent?: string },
+    data: InsertContactSubmission & {
+      ipAddress?: string;
+      userAgent?: string;
+      metadata?: string;
+    },
   ): Promise<ContactSubmission>;
 }
 
@@ -67,24 +72,43 @@ export class DbStorage implements IStorage {
     const [subscriber] = await db
       .insert(newsletterSubscribers)
       .values({
-        email: insertSubscriber.email,
-        name: insertSubscriber.name || null,
+        email:            insertSubscriber.email,
+        firstName:        insertSubscriber.firstName || null,
+        lastName:         insertSubscriber.lastName || null,
+        country:          insertSubscriber.country || null,
+        favoritePlatform: insertSubscriber.favoritePlatform || null,
+        preferences:      insertSubscriber.preferences ?? null,
       })
       .returning();
     return subscriber;
   }
 
+  async deleteNewsletterSubscriber(email: string): Promise<void> {
+    await db
+      .delete(newsletterSubscribers)
+      .where(eq(newsletterSubscribers.email, email.toLowerCase().trim()));
+  }
+
   async createContactSubmission(
-    data: InsertContactSubmission & { ipAddress?: string; userAgent?: string },
+    data: InsertContactSubmission & {
+      ipAddress?: string;
+      userAgent?: string;
+      metadata?: string;
+    },
   ): Promise<ContactSubmission> {
     const [submission] = await db
       .insert(contactSubmissions)
       .values({
-        name:        data.name || null,
+        firstName:   data.firstName || null,
+        lastName:    data.lastName || null,
         email:       data.email,
+        phone:       data.phone || null,
+        country:     data.country || null,
         subject:     data.subject,
         enquiryType: data.enquiryType ?? "general",
         message:     data.message,
+        metadata:    data.metadata ?? null,
+        consent:     data.consent ?? true,
         ipAddress:   data.ipAddress ?? null,
         userAgent:   data.userAgent ?? null,
       })

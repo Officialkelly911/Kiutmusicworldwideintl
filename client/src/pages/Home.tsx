@@ -1,9 +1,14 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
-import { KiutMark } from "../components/KiutMark";
+import { KiutMark, KiutFullLogo } from "../components/KiutMark";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { staggerContainer, staggerItem, T, DUR } from "@/lib/motion";
+import { MERCH_HIGHLIGHTS } from "@/data/merch";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -45,9 +50,9 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
   return (
     <Link href="/videos">
       <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-md overflow-hidden bg-charcoal border border-white/[0.06] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-normal snap-start"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-xl overflow-hidden bg-charcoal border border-white/[0.07] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-300 snap-start"
       >
         {/* Thumbnail */}
         <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
@@ -140,36 +145,25 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
-        {/* K Brand Mark */}
+        {/* Crown mark — Phase 8: 94px (+7% vs old 88px), full logo with MUSIC */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: DUR.cinematic, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 relative"
         >
-          <KiutMark
-            size={88}
-            color="var(--color-gold)"
+          <KiutFullLogo
+            markSize={94}
+            variant="gold"
             className="drop-glow-gold"
-            label="KIUT."
           />
         </motion.div>
-
-        {/* Logo wordmark */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-5xl md:text-7xl font-bold text-white tracking-[0.22em] uppercase mb-2"
-        >
-          Kiut<span style={{ color: "var(--color-gold)" }}>.</span>
-        </motion.h1>
 
         {/* Accent line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
+          transition={{ duration: DUR.slow, delay: 0.9, ease: "easeInOut" }}
           className="w-24 md:w-48 h-[2px] mb-7 origin-center"
           style={{ background: "var(--color-gold)", boxShadow: "var(--glow-gold)" }}
         />
@@ -642,14 +636,16 @@ function KiutEmbedSection() {
                 </div>
 
                 {/* Primary CTA */}
-                <a
+                <PremiumCTAButton
+                  as="a"
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-normal shadow-glow-gold"
+                  icon={<ExternalLink size={16} />}
+                  iconPosition="right"
                 >
-                  Explore All Links <ExternalLink size={16} />
-                </a>
+                  Explore All Links
+                </PremiumCTAButton>
 
                 {/* Mobile open link */}
                 <a
@@ -691,6 +687,12 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
+  useSEO({
+    title: "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.",
+    description: "Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut — Afro-Caribbean sound with global energy.",
+    canonical: "https://kiutmusic.com/",
+  });
+
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");
   });
@@ -802,62 +804,66 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content (Left) */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-12 lg:pt-0 order-2 lg:order-1 min-h-[400px] justify-center">
+            {/* Phase 7: staggered hero entrance — badge → headline → subtitle → CTA */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`text-${currentSlide}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.6 }}
+                variants={staggerContainer(0.12, 0.1)}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, y: -16, transition: T.fast }}
                 className="flex flex-col items-center lg:items-start"
               >
-                <div className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
+                {/* 1 — Badge label */}
+                <motion.div variants={staggerItem} className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
                   <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase">
                     {slides[currentSlide].badge}
                   </span>
-                </div>
-                
-                <h1 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase">
+                </motion.div>
+
+                {/* 2 — Headline fades upward */}
+                <motion.h1
+                  variants={staggerItem}
+                  className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase"
+                >
                   {slides[currentSlide].title.split(' ')[0]}<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">
                     {slides[currentSlide].title.split(' ').slice(1).join(' ')}
                   </span>
-                </h1>
-                
-                <p className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed">
+                </motion.h1>
+
+                {/* 3 — Subtitle fades upward */}
+                <motion.p
+                  variants={staggerItem}
+                  className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed"
+                >
                   {slides[currentSlide].description}
-                </p>
-                
-                {slides[currentSlide].isExternal ? (
-                  <a 
-                    href={slides[currentSlide].ctaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-block"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-gold to-yellow-600 text-midnight font-bold uppercase tracking-widest shadow-glow-gold group-hover:shadow-glow-gold-hover transition-all duration-normal"
+                </motion.p>
+
+                {/* 4 — CTA button appears last */}
+                <motion.div variants={staggerItem}>
+                  {slides[currentSlide].isExternal ? (
+                    <PremiumCTAButton
+                      as="a"
+                      href={slides[currentSlide].ctaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      icon={<ArrowRight size={18} />}
+                      iconPosition="right"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </a>
-                ) : (
-                  <Link href={slides[currentSlide].ctaLink}>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-bold uppercase tracking-widest shadow-lg group-hover:shadow-xl transition-all duration-normal"
+                      {slides[currentSlide].ctaText}
+                    </PremiumCTAButton>
+                  ) : (
+                    <PremiumCTAButton
+                      as="link"
+                      href={slides[currentSlide].ctaLink}
+                      icon={<ArrowRight size={18} />}
+                      iconPosition="right"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </Link>
-                )}
+                      {slides[currentSlide].ctaText}
+                    </PremiumCTAButton>
+                  )}
+                </motion.div>
               </motion.div>
             </AnimatePresence>
 
@@ -914,9 +920,10 @@ export default function Home() {
 
             {/* Slider Controls */}
             <div className="flex items-center gap-6 mt-8">
-              <button 
+              <button
                 onClick={prevSlide}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                aria-label="Previous slide"
+                className="btn-icon"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -933,9 +940,10 @@ export default function Home() {
                 ))}
               </div>
 
-              <button 
+              <button
                 onClick={nextSlide}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                aria-label="Next slide"
+                className="btn-icon"
               >
                 <ChevronRight size={24} />
               </button>
@@ -1028,7 +1036,7 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-charcoal hover:bg-graphite text-white hover:text-gold border border-white/10 hover:border-gold rounded-full transition-all duration-normal font-bold tracking-wider text-sm shadow-none hover:shadow-glow-gold"
+                      className="btn-base btn-secondary group w-full"
                     >
                       <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-normal" />
                       SEE MORE
@@ -1102,19 +1110,9 @@ export default function Home() {
                 A defining moment in Kiut's discography. Good Life EP brings together infectious rhythms, soulful melodies, and a vibrant celebration of culture.
               </p>
 
-              <a 
-                href="https://linktr.ee/kiut_goodlife"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(var(--gold-primary-rgb),0.4)" }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-normal shadow-glow-gold"
-                >
-                  Listen Now
-                </motion.button>
-              </a>
+              <PremiumCTAButton as="a" href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+                Listen Now
+              </PremiumCTAButton>
 
               <div className="flex items-center gap-6 mt-8 text-white/40">
                 <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Music2 size={24} /><span className="text-xs font-medium uppercase tracking-wider">Spotify</span></div>
@@ -1190,7 +1188,7 @@ export default function Home() {
               <motion.button
                 whileHover={{ scale: 1.04, borderColor: "var(--color-gold)", color: "var(--color-gold)" }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-gold hover:text-gold transition-all duration-normal flex items-center gap-2 mx-auto"
+                className="btn-base btn-secondary mx-auto"
               >
                 Explore Portfolio <ExternalLink size={14} />
               </motion.button>
@@ -1236,16 +1234,7 @@ export default function Home() {
 
           {/* ── 1. Featured Collection Banner (6-item cycling hero) ── */}
           {(() => {
-            const bannerItems = [
-              { img: "/assets/images/merch-hoodie.webp",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
-              { img: "/assets/images/merch-outfit-red.webp",  imgCls: "object-contain p-6",     badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
-              { img: "/assets/images/merch-shirt.webp",       imgCls: "object-contain p-4",     badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
-              { img: "/assets/images/merch-collection.webp",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
-              { img: "/assets/images/merch-cap-vintage.webp", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
-              { img: "/assets/images/merch-cd.webp",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
-              { img: "/assets/images/merch-baggy-jeans.webp", imgCls: "object-contain p-4",     badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
-              { img: "/assets/images/merch-goodlife-ep.webp", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
-            ];
+            const bannerItems = MERCH_HIGHLIGHTS;
             const active = bannerItems[activeStoreIdx];
             const total = bannerItems.length;
             return (
@@ -1291,10 +1280,10 @@ export default function Home() {
                     </div>
 
                     {/* Prev / Next */}
-                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="btn-icon btn-icon-sm absolute left-4 top-1/2 -translate-y-1/2 z-10 !bg-black/45">
                       <ChevronLeft className="w-4 h-4 text-white/55" />
                     </button>
-                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="btn-icon btn-icon-sm absolute right-4 top-1/2 -translate-y-1/2 z-10 !bg-black/45">
                       <ChevronRight className="w-4 h-4 text-white/55" />
                     </button>
 
@@ -1328,11 +1317,19 @@ export default function Home() {
                       </div>
 
                       {/* CTA */}
-                      <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="Explore KiutRaba's collection on Dream Planet Store">
-                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal mb-2">
-                          <span className="text-xs">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
-                        </motion.button>
-                      </a>
+                      <PremiumCTAButton
+                        as="a"
+                        href={STORE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Explore KiutRaba's collection on Dream Planet Store"
+                        icon={<ExternalLink className="w-3.5 h-3.5" />}
+                        iconPosition="right"
+                        className="w-full mb-2"
+                        analyticsEvent="store_click"
+                      >
+                        Explore Collection
+                      </PremiumCTAButton>
                       <p className="text-center text-white/18 text-xs font-light tracking-[0.25em]">Secure checkout via Dream Planet</p>
                     </div>
                   </div>
@@ -1366,6 +1363,7 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Shop ${product.name} on Dream Planet Store`}
+                      onClick={() => track("store_click", { label: product.name })}
                       initial={{ opacity: 0, y: 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -1448,7 +1446,7 @@ export default function Home() {
                 <p className="text-gold text-xs font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
                 <p className="text-white/25 text-xs font-light tracking-wide">More From KiutRaba</p>
               </div>
-              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
+              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store" onClick={() => track("store_click", { label: "View All" })}>
                 <span className="text-white/28 text-xs font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-fast cursor-pointer">
                   View All ↗
                 </span>
@@ -1481,7 +1479,7 @@ export default function Home() {
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
-                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
+                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`} onClick={() => track("store_click", { label: p.name })}>
                     <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
                       <div className="h-[142px] w-full bg-charcoal">
                         <img
@@ -1513,11 +1511,11 @@ export default function Home() {
             className="mt-14 text-center"
           >
             <div className="h-px bg-gradient-to-r from-transparent via-gold/12 to-transparent mb-10" />
-            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store">
+            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store" onClick={() => track("store_click", { label: "Full Collection" })}>
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-gold/32 text-gold font-bold uppercase tracking-widest text-xs hover:bg-gold/[0.07] hover:border-gold/60 hover:shadow-glow-gold-hover transition-all duration-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+                className="btn-base btn-secondary"
               >
                 <span>✦</span> View Full Collection <ExternalLink className="w-4 h-4" />
               </motion.button>
@@ -1674,16 +1672,16 @@ export default function Home() {
               {/* Right — CTA */}
               <div className="flex flex-col items-center md:items-end gap-6">
                 <div className="flex flex-col gap-3 w-full md:w-auto">
-                  <Link href="/tour">
-                    <motion.button
-                      data-testid="button-concert-notify"
-                      whileHover={{ y: -3, scale: 1.02 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
-                    >
-                      View Tour Dates <ArrowRight size={14} />
-                    </motion.button>
-                  </Link>
+                  <PremiumCTAButton
+                    as="link"
+                    href="/tour"
+                    data-testid="button-concert-notify"
+                    icon={<ArrowRight size={14} />}
+                    iconPosition="right"
+                    className="w-full md:w-auto"
+                  >
+                    View Tour Dates
+                  </PremiumCTAButton>
                   <p className="text-center text-white/18 text-xs font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
                 </div>
               </div>
@@ -1840,7 +1838,7 @@ export default function Home() {
                     data-testid="button-fan-standard"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full border border-white/15 text-white/70 hover:text-white hover:border-white/30 font-bold uppercase tracking-widest text-xs transition-all duration-normal"
+                    className="btn-base btn-secondary w-full !border-white/15 !text-white/70 hover:!border-gold hover:!text-midnight"
                   >
                     Join Free
                   </motion.button>
@@ -1883,16 +1881,9 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/newsletter">
-                  <motion.button
-                    data-testid="button-fan-premium"
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
-                  >
-                    Apply for Fan Card
-                  </motion.button>
-                </Link>
+                <PremiumCTAButton as="link" href="/newsletter" data-testid="button-fan-premium" className="w-full">
+                  Apply for Fan Card
+                </PremiumCTAButton>
               </div>
             </motion.div>
           </div>
@@ -1962,7 +1953,7 @@ export default function Home() {
                 type="submit"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-xs transition-colors duration-fast"
+                className="btn-base btn-primary btn-sm absolute right-1.5 top-1.5 bottom-1.5"
               >
                 Subscribe
               </motion.button>

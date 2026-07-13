@@ -1,0 +1,774 @@
+PHASE 9 — PART 2
+
+TOUR & MUSIC PAGES
+
+KIUT MUSIC WORLDWIDE INTERNATIONAL
+
+Master Replit Implementation Specification
+
+⸻
+
+OBJECTIVE
+
+This phase completes the Tour and Music pages using the approved Kiut Music design system established in previous phases.
+
+This is an implementation phase, not a redesign phase.
+
+The existing visual identity, navigation, reusable CTA buttons, branding, typography, hero system, spacing, animations, and component library are considered final and must remain unchanged.
+
+Every new section should reuse existing components wherever possible.
+
+The completed pages should feel like they belong to one continuous premium digital experience.
+
+⸻
+
+GLOBAL REQUIREMENTS
+
+Before implementing any section:
+
+* Preserve the existing navigation.
+* Preserve the premium CTA button component exactly as implemented.
+* Preserve the header and footer.
+* Preserve the approved logo system.
+* Preserve the universal Hero component.
+* Preserve responsive image architecture.
+* Preserve the existing animation language.
+* Preserve all previously approved spacing, typography, and color systems.
+
+No redesigns are permitted.
+
+⸻
+
+TOUR PAGE
+
+Objective
+
+Create a world-class artist tour experience that feels cinematic, premium, and editorial.
+
+The page should inspire visitors to attend performances while reinforcing the Kiut Music brand.
+
+⸻
+
+Tour Hero
+
+Use the approved rooftop hero image.
+
+The image should:
+
+• remain clean
+
+• contain no embedded typography
+
+• contain no embedded logos
+
+• preserve the artist completely
+
+• maintain the approved focal point
+
+Use the Universal Hero Component.
+
+⸻
+
+Hero Content
+
+Eyebrow
+
+LIVE PERFORMANCES
+
+Headline
+
+Experience Kiut Live
+
+Subheading
+
+From intimate showcases to international festival stages, experience the energy of Kiut Music live around the world.
+
+Primary CTA
+
+View Tour Dates
+
+Secondary CTA
+
+Book Kiut
+
+Reuse the existing premium CTA component.
+
+Do not create new button styles.
+
+⸻
+
+Hero Behaviour
+
+Desktop
+
+Image positioned slightly right.
+
+Left side reserved for content.
+
+Tablet
+
+Maintain composition.
+
+Mobile
+
+Use optimized portrait hero.
+
+Never crop:
+
+Head
+
+Hands
+
+Jewelry
+
+Face
+
+⸻
+
+Upcoming Tour Dates
+
+Create premium event cards.
+
+Each card should contain:
+
+Date
+
+Venue
+
+City
+
+Country
+
+Event artwork
+
+Status
+
+Available
+
+Sold Out
+
+Coming Soon
+
+Primary CTA
+
+Get Tickets
+
+Hover
+
+Soft elevation
+
+Luxury glow
+
+Glass panel effect
+
+⸻
+
+Featured Tour
+
+Below the event grid create a premium editorial section.
+
+Include:
+
+Large photography
+
+Headline
+
+Event description
+
+Featured venue
+
+Featured city
+
+CTA
+
+Reserve Tickets
+
+⸻
+
+Tour Timeline
+
+Create a chronological timeline.
+
+Month
+
+City
+
+Venue
+
+Country
+
+Status
+
+Timeline should animate subtly on scroll.
+
+⸻
+
+Interactive World Map
+
+Create a responsive tour map.
+
+Features
+
+Highlighted tour locations
+
+Hover city names
+
+Future scalability
+
+Ability to add new locations later
+
+Do not clutter the interface.
+
+⸻
+
+Tour Gallery
+
+Horizontal premium gallery.
+
+Features
+
+Snap scrolling
+
+Lightbox
+
+Keyboard support
+
+Lazy loading
+
+Responsive layout
+
+Gallery cards
+
+Rounded corners
+
+Luxury shadows
+
+Glass hover effect
+
+⸻
+
+Fan Experiences
+
+Create testimonial cards.
+
+Include:
+
+Fan image
+
+Quote
+
+Location
+
+Star rating (optional)
+
+Cards should match the existing design language.
+
+⸻
+
+Booking Section
+
+Headline
+
+Bring Kiut To Your City
+
+Paragraph
+
+Invite promoters, festivals, and venues to book Kiut for live performances.
+
+Primary CTA
+
+Book Kiut
+
+Reuse existing CTA.
+
+⸻
+
+Newsletter CTA
+
+Conclude the Tour page with a premium newsletter section.
+
+Reuse the existing Newsletter component.
+
+Do not create a new layout.
+
+⸻
+
+MUSIC PAGE
+
+Objective
+
+Create a premium streaming experience that showcases Kiut Music’s catalogue while encouraging listening across major platforms.
+
+⸻
+
+Music Hero
+
+Reuse the Universal Hero Component.
+
+Hero imagery should maintain:
+
+Luxury photography
+
+Minimal overlays
+
+Consistent typography
+
+Responsive image variants
+
+Premium spacing
+
+⸻
+
+Hero Copy
+
+Eyebrow
+
+LATEST RELEASES
+
+Headline
+
+Discover The Sound
+
+Subheading
+
+Explore Kiut Music across singles, albums, collaborations, and exclusive releases.
+
+Primary CTA
+
+Listen Now
+
+Secondary CTA
+
+Latest Release
+
+Reuse existing CTA components.
+
+⸻
+
+Featured Release
+
+Create a premium editorial section.
+
+Include
+
+Album artwork
+
+Song title
+
+Release date
+
+Description
+
+Streaming buttons
+
+Spotify
+
+Apple Music
+
+YouTube Music
+
+Amazon Music
+
+Audiomack
+
+Boomplay
+
+These buttons should follow the site’s secondary button styling.
+
+⸻
+
+Latest Singles
+
+Premium card layout.
+
+Each card should display:
+
+Artwork
+
+Song title
+
+Release year
+
+Duration
+
+Genre
+
+Hover animation
+
+Streaming CTA
+
+⸻
+
+Albums & EPs
+
+Create separate sections for:
+
+Albums
+
+EPs
+
+Future Releases
+
+Maintain consistent card spacing.
+
+⸻
+
+Music Library Grid
+
+Responsive masonry grid.
+
+Cards should support:
+
+Artwork
+
+Hover animation
+
+Release information
+
+Play icon
+
+Link to streaming platform
+
+⸻
+
+Audio Preview Player
+
+Create a premium embedded player.
+
+Features
+
+Artwork
+
+Track title
+
+Artist
+
+Play/Pause
+
+Progress bar
+
+Volume
+
+Current time
+
+Duration
+
+Responsive controls
+
+Modern minimal design
+
+Do not autoplay.
+
+⸻
+
+Streaming Platforms
+
+Create a dedicated section.
+
+Include official links to:
+
+Spotify
+
+Apple Music
+
+YouTube Music
+
+Audiomack
+
+Boomplay
+
+Amazon Music
+
+Deezer
+
+Tidal
+
+Display recognizable platform icons while matching the Kiut Music visual identity.
+
+⸻
+
+Music Statistics
+
+Optional premium cards.
+
+Examples
+
+Monthly listeners
+
+Streams
+
+Countries reached
+
+Songs released
+
+Awards
+
+Cards should reuse the existing design language.
+
+⸻
+
+Lyrics Section (Optional)
+
+Create expandable lyrics panels.
+
+Collapsed by default.
+
+Smooth expand animation.
+
+Responsive.
+
+⸻
+
+Featured Playlist
+
+Editorial playlist section.
+
+Large artwork.
+
+Description.
+
+Listen CTA.
+
+Reuse existing button.
+
+⸻
+
+Recommended Listening
+
+Display related releases.
+
+Carousel layout.
+
+Responsive.
+
+Hover animations.
+
+Glass cards.
+
+⸻
+
+Artist Collaborations
+
+Future-ready section.
+
+Grid layout.
+
+Featured artist cards.
+
+Expandable.
+
+⸻
+
+Video Integration
+
+Allow selected releases to link directly to official music videos.
+
+Do not duplicate the Videos page.
+
+Provide only contextual links.
+
+⸻
+
+Universal Card System
+
+Tour cards and Music cards should share:
+
+Border radius
+
+Spacing
+
+Typography
+
+Hover behaviour
+
+Animation timing
+
+Glass styling
+
+Shadows
+
+Responsive scaling
+
+Do not create inconsistent card styles.
+
+⸻
+
+Responsive Behaviour
+
+Desktop
+
+Multi-column layouts.
+
+Laptop
+
+Maintain hierarchy.
+
+Tablet
+
+Reduce columns gracefully.
+
+Mobile
+
+Single-column layouts.
+
+Maintain generous spacing.
+
+No horizontal scrolling.
+
+⸻
+
+Animations
+
+Maintain the approved motion language.
+
+Fade
+
+Lift
+
+Glow
+
+Scale
+
+Opacity
+
+Duration
+
+400–700ms
+
+Ease
+
+ease-out
+
+Avoid excessive motion.
+
+⸻
+
+Image Standards
+
+Every image should:
+
+Use responsive variants.
+
+Lazy load below the fold.
+
+Preserve aspect ratio.
+
+Maintain luxury color grading.
+
+Avoid stretching or distortion.
+
+⸻
+
+Accessibility
+
+Provide:
+
+Alt text
+
+Keyboard navigation
+
+Focus states
+
+ARIA labels where required
+
+High contrast text
+
+Reduced motion support
+
+⸻
+
+Performance
+
+Use:
+
+Lazy loading
+
+Code splitting where appropriate
+
+Responsive images
+
+SVG icons
+
+Optimized assets
+
+Avoid unnecessary JavaScript.
+
+⸻
+
+Future Scalability
+
+Both pages should support adding:
+
+New tour dates
+
+New cities
+
+Future festivals
+
+New singles
+
+Albums
+
+EPs
+
+Streaming platforms
+
+Gallery images
+
+Testimonials
+
+without rebuilding layouts.
+
+Use reusable data-driven components wherever possible.
+
+⸻
+
+DEVELOPER RESTRICTIONS
+
+Do NOT:
+
+Redesign navigation.
+
+Modify the premium CTA button component.
+
+Replace logos.
+
+Create new button styles.
+
+Change typography.
+
+Change spacing.
+
+Invent new animations.
+
+Break responsiveness.
+
+Duplicate components.
+
+⸻
+
+PHASE 9 PART 2 ACCEPTANCE CHECKLIST
+
+This phase is complete only when:
+
+✓ Tour page is fully implemented using the approved cinematic design.
+
+✓ Music page is fully implemented using reusable components.
+
+✓ All hero sections use the Universal Hero component.
+
+✓ Existing premium CTA buttons remain unchanged.
+
+✓ Shared card components are reused consistently.
+
+✓ Responsive layouts work flawlessly across desktop, tablet, and mobile.
+
+✓ Images use the approved responsive optimization system.
+
+✓ Animations match the established Kiut Music motion language.
+
+✓ Accessibility and performance standards from Part 1 are maintained.
+
+✓ Both pages are content-ready, scalable, and visually consistent with the rest of the Kiut Music website.
+
+This document builds directly upon Part 1 (Foundation & Global Architecture) and must not override any standards established there. Every implementation decision should reinforce the premium, luxury, editorial identity of the Kiut Music Worldwide International website.

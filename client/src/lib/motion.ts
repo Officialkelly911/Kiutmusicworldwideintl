@@ -113,17 +113,45 @@ export const staggerItemLeft: Variants = {
 
 // ── Page transition ───────────────────────────────────────────────────────────
 // Used in App.tsx AnimatedRouter via AnimatePresence mode="wait"
+// Subtle vertical drift — premium crossfade feel without distracting movement.
 export const pageVariants: Variants = {
-  initial: { opacity: 0, y: 14 },
+  initial: { opacity: 0, y: 6 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: DUR.normal, ease: EASE_ENTER },
+    transition: { duration: DUR.medium, ease: EASE_ENTER },
   },
   exit: {
     opacity: 0,
-    y: -8,
+    y: -4,
     transition: { duration: DUR.fast, ease: EASE_EXIT },
+  },
+};
+
+// ── Hero-specific variants ────────────────────────────────────────────────────
+// For staggered hero entrances: background → overlay → headline → sub → CTA
+
+/** Hero headline — slow cinematic rise */
+export const heroFadeUp: Variants = {
+  hidden:  { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0,  transition: { duration: DUR.cinematic, ease: EASE_ENTER } },
+};
+
+/** Hero subtitle — slightly faster, delayed */
+export const heroFadeSub: Variants = {
+  hidden:  { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.7, ease: EASE_ENTER, delay: 0.18 },
+  },
+};
+
+/** Hero CTA group — appears last */
+export const heroFadeCTA: Variants = {
+  hidden:  { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.55, ease: EASE_ENTER, delay: 0.36 },
   },
 };
 

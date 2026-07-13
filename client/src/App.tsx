@@ -1,14 +1,15 @@
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
 import { PlayerProvider, usePlayer } from "@/context/PlayerContext";
 import MiniPlayer from "@/components/MiniPlayer";
+import ScrollToTop from "@/components/ScrollToTop";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { pageVariants } from "@/lib/motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { track } from "@/lib/analytics";
 
 // ── Route-level code splitting ────────────────────────────────────────────────
 // Each page is loaded only when navigated to. Vite will emit a separate chunk
@@ -43,6 +44,13 @@ function PageFallback() {
 function AnimatedRouter() {
   const [location] = useLocation();
   const { showPlayer } = usePlayer();
+
+  // ── Page view analytics ───────────────────────────────────────────────────
+  // Fires on every client-side route change. Provider adapters in analytics.ts
+  // forward this to GA4 / GTM / Meta Pixel / TikTok Pixel as appropriate.
+  useEffect(() => {
+    track("page_view", { path: location });
+  }, [location]);
 
   return (
     <div className={showPlayer ? "pb-[72px]" : ""}>
@@ -88,13 +96,13 @@ function App() {
         */}
         <MotionConfig reducedMotion="user">
           <PlayerProvider>
-            <Toaster />
             <a href="#main-content" className="skip-link">Skip to content</a>
             <Navigation />
             <main id="main-content">
               <AnimatedRouter />
             </main>
             <MiniPlayer />
+            <ScrollToTop />
           </PlayerProvider>
         </MotionConfig>
       </TooltipProvider>

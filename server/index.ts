@@ -1,18 +1,48 @@
 import express, { type Request, Response, NextFunction } from "express";
 import compression from "compression";
+import helmet from "helmet";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
 
+// ── Environment validation ────────────────────────────────────────────────────
+// Warn at startup for any missing critical variables so issues surface in logs
+// immediately rather than silently failing at the first request.
+(function validateEnv() {
+  const required: Record<string, string> = {
+    RESEND_API_KEY:          "email delivery (welcome + contact notifications)",
+    CONTACT_FROM_EMAIL:      "the From address on outbound emails",
+    MAILCHIMP_API_KEY:       "Mailchimp list sync",
+    MAILCHIMP_SERVER_PREFIX: "Mailchimp API region routing",
+    MAILCHIMP_AUDIENCE_ID:   "Mailchimp target audience",
+    DATABASE_URL:            "PostgreSQL database connection",
+  };
+  const missing = Object.entries(required).filter(([key]) => !process.env[key]);
+  if (missing.length > 0) {
+    for (const [key, purpose] of missing) {
+      console.warn(`[env] WARNING: ${key} is not set — ${purpose} will be unavailable.`);
+    }
+  }
+})();
+
 const app = express();
 const httpServer = createServer(app);
 
-// ── Security headers ──────────────────────────────────────────────────────────
-// Applied to every response (HTML, API, assets) for Lighthouse Best Practices.
+// ── Security headers (Helmet) ─────────────────────────────────────────────────
+// Helmet sets X-Content-Type-Options, X-Frame-Options, Referrer-Policy,
+// X-DNS-Prefetch-Control, X-Download-Options, X-Permitted-Cross-Domain-Policies,
+// Origin-Agent-Cluster, Cross-Origin-*-Policy, and HSTS in production.
+// CSP is disabled here — the SPA embeds YouTube iframes, Google Fonts, and
+// inline Framer Motion styles that require a carefully tuned allowlist. A
+// dedicated CSP pass is recommended before deployment to a hardened environment.
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false, // required for YouTube iframe embeds
+  }),
+);
+// Permissions-Policy is not set by Helmet — add it explicitly.
 app.use((_req, res, next) => {
-  res.setHeader("X-Content-Type-Options", "nosniff");
-  res.setHeader("X-Frame-Options", "SAMEORIGIN");
-  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), payment=()");
   next();
 });
@@ -90,12 +120,28 @@ app.use((req, res, next) => {
 (async () => {
   await registerRoutes(httpServer, app);
 
+  // ── 404 handler for unmatched API routes ──────────────────────────────────
+  // Must sit after registerRoutes (real routes) and before the SPA/Vite
+  // catch-all, so unknown /api/* paths get a clean JSON 404 instead of falling
+  // through to the HTML shell.
+  app.use("/api", (_req: Request, res: Response) => {
+    res.status(404).json({ message: "Not found." });
+  });
+
+  // ── Global error handler ───────────────────────────────────────────────────
+  // Client-facing messages are always generic for 5xx failures — real detail
+  // (stack, error object) is logged server-side only, never sent in the
+  // response. 4xx errors are assumed to carry an intentional, safe-to-show
+  // message (e.g. Zod validation) set by the route/service that threw them.
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+    const message =
+      status >= 500
+        ? "Something went wrong. Please try again."
+        : err.message || "Unable to complete your request.";
 
-    res.status(status).json({ message });
     console.error(err);
+    res.status(status).json({ message });
   });
 
   // importantly only setup vite in development and after

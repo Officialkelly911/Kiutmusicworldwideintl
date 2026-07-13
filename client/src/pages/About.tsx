@@ -2,8 +2,13 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 import { Music, Globe, Heart, Zap, ArrowRight, ExternalLink, Film, Headphones, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { HeroSection } from "@/components/HeroSection";
+import KiutWatermark from "@/components/KiutWatermark";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 
 const artistPhoto    = "/assets/images/IMG_2452_1772753968062.webp";
 const aboutHeroVideo = "/assets/videos/portfolio-optimized.mp4";
@@ -297,6 +302,12 @@ function AudiomackIcon() {
 }
 
 export default function About() {
+  useSEO({
+    title: "About | Kiut Music Worldwide",
+    description: "Nigerian-American artist Kiut bridges Lagos and the world — discover his story, journey, and the sound behind Kiut Music Worldwide.",
+    canonical: "https://kiutmusic.com/about",
+  });
+
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
   const closeLightboxBtnRef = useRef<HTMLButtonElement>(null);
@@ -310,7 +321,6 @@ export default function About() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // Page-level scroll for the documentary darkness effect:
@@ -407,53 +417,39 @@ export default function About() {
       />
 
       {/* ─── 1. CINEMATIC HERO ──────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative h-[67vh] md:h-[80vh] lg:h-screen md:min-h-[560px] flex items-end pb-20 overflow-hidden">
-        {/* Parallax background — cinematic beach portrait */}
-        <motion.div
-          style={{ y: heroY }}
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0 w-full h-[120%] -top-[10%]"
-        >
-          <picture className="absolute inset-0 block w-full h-full">
-            <source media="(max-width: 767px)"  srcSet="/assets/images/about-hero-beach-768.webp"  type="image/webp" />
-            <source media="(max-width: 1279px)" srcSet="/assets/images/about-hero-beach-1280.webp" type="image/webp" />
-            <img
-              src="/assets/images/about-hero-beach.webp"
-              alt="Kiut on a quiet beach at golden hour, reflecting the emotional storytelling behind his music."
-              className="absolute inset-0 w-full h-full object-cover object-[50%_15%] md:object-center lg:object-[55%_center]"
-              fetchPriority="high"
-              decoding="async"
+      <HeroSection
+        ref={heroRef}
+        slug="about"
+        alt="Kiut on a quiet beach at golden hour, reflecting the emotional storytelling behind his music."
+        className="h-[67vh] md:h-[80vh] lg:h-screen md:min-h-[560px] flex items-end pb-20"
+        priority
+        overlay={
+          <>
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to bottom, rgba(var(--black-rgb),0.25) 0%, rgba(var(--black-rgb),0.35) 50%, rgba(var(--black-rgb),0.60) 100%)" }}
+              aria-hidden="true"
             />
-          </picture>
-        </motion.div>
-
-        {/* Cinematic overlay — top · mid · bottom per brief */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, rgba(var(--black-rgb),0.25) 0%, rgba(var(--black-rgb),0.35) 50%, rgba(var(--black-rgb),0.60) 100%)" }}
-          aria-hidden="true"
-        />
-        {/* Left-weighted readability gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" aria-hidden="true" />
-
-        {/* Top-right archive badge */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="absolute top-6 right-6 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/50 border border-gold/25 backdrop-blur-sm"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span className="text-white/55 text-xs font-bold uppercase tracking-[0.32em]">About · Kiut Raba</span>
-        </motion.div>
-
-        {/* Content */}
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-10 max-w-7xl mx-auto px-6 w-full"
-        >
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" aria-hidden="true" />
+            {/* Bottom fade — blends hero into the fixed video layer */}
+            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/80 to-transparent" aria-hidden="true" />
+            {/* Gold hairline at section boundary */}
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent" aria-hidden="true" />
+          </>
+        }
+        sectionChildren={
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="absolute top-6 right-6 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/50 border border-gold/25 backdrop-blur-sm"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-white/55 text-xs font-bold uppercase tracking-[0.32em]">About · Kiut Raba</span>
+          </motion.div>
+        }
+      >
+        <motion.div style={{ opacity: heroOpacity }}>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -488,35 +484,25 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="flex flex-wrap gap-4"
           >
-            <Link href="/music">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-sm shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal"
-              >
-                Listen Now
-              </motion.button>
-            </Link>
+            <PremiumCTAButton as="link" href="/music">
+              Listen Now
+            </PremiumCTAButton>
             <Link href="/videos">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-4 rounded-full border border-white/30 text-white font-bold uppercase tracking-widest text-sm hover:border-white/70 hover:bg-white/10 transition-all duration-normal backdrop-blur-sm"
+                className="btn-base btn-secondary"
               >
                 Watch Videos
               </motion.button>
             </Link>
           </motion.div>
         </motion.div>
-
-        {/* Bottom fade — blends hero into the fixed video layer */}
-        <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/80 to-transparent" />
-        {/* Gold hairline at section boundary */}
-        <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
-      </section>
+      </HeroSection>
 
       {/* ─── 2. THE STORY ───────────────────────────────────────────────── */}
       <section className="py-28 md:py-36 relative z-10">
+        <KiutWatermark size={780} />
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -684,7 +670,7 @@ export default function About() {
                   <motion.div
                     whileHover={{ y: -8 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="w-full p-6 rounded-md bg-white/5 border border-white/10 group-hover:border-gold/40 group-hover:shadow-glow-gold transition-all duration-normal"
+                    className="w-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.07] group-hover:border-gold/40 group-hover:shadow-glow-gold transition-all duration-normal"
                   >
                     <span className="text-white font-semibold text-sm uppercase tracking-widest block mb-3">{m.title}</span>
                     <p className="text-white/55 text-sm font-light leading-relaxed">{m.description}</p>
@@ -712,7 +698,7 @@ export default function About() {
 
                   <motion.div
                     whileHover={{ x: 4 }}
-                    className="p-6 rounded-md bg-white/5 border border-white/10 group-hover:border-gold/40 transition-all duration-normal"
+                    className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.07] group-hover:border-gold/40 transition-all duration-normal"
                   >
                     <span className="font-display text-xl font-bold text-gold/70 group-hover:text-gold transition-colors duration-normal block mb-1">{m.year}</span>
                     <span className="text-white font-semibold text-sm uppercase tracking-widest block mb-3">{m.title}</span>
@@ -751,7 +737,7 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="group relative p-8 rounded-md bg-white/[0.03] border border-white/10 hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.08)] transition-all duration-medium overflow-hidden"
+                  className="group relative p-8 rounded-xl bg-white/[0.03] border border-white/[0.07] hover:border-gold/35 hover:bg-white/[0.06] hover:shadow-[0_16px_48px_rgba(var(--gold-primary-rgb),0.08)] transition-all duration-medium overflow-hidden"
                 >
                   {/* Subtle glow behind icon */}
                   <div className="absolute top-0 left-0 w-32 h-32 bg-gold/5 blur-[60px] rounded-full -translate-x-1/2 -translate-y-1/2 group-hover:bg-gold/10 transition-colors duration-slow" />
@@ -819,9 +805,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative px-5 py-7 rounded-md border border-white/[0.08] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-slow text-center overflow-hidden"
+                className="group relative px-5 py-7 rounded-xl border border-white/[0.07] bg-white/[0.02] hover:border-gold/25 hover:bg-white/[0.03] transition-all duration-slow text-center overflow-hidden"
               >
-                <div className="pointer-events-none absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
+                <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.05),transparent_70%)] transition-opacity duration-slow" />
                 <p className="font-display text-3xl md:text-4xl font-bold text-gold tracking-tight mb-1 relative">{stat.value}</p>
                 <p className="text-white text-xs font-bold uppercase tracking-[0.25em] mb-0.5 relative">{stat.label}</p>
                 <p className="text-white/30 text-xs font-light tracking-wide uppercase relative">{stat.sub}</p>
@@ -897,7 +883,7 @@ export default function About() {
               </p>
               <button
                 type="button"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/22 text-white text-xs font-bold uppercase tracking-[0.22em] hover:border-gold/50 hover:text-gold transition-all duration-normal backdrop-blur-sm"
+                className="btn-base btn-sm btn-secondary !border-white/22 !text-white hover:!border-gold/50 hover:!text-gold"
                 onClick={(e) => { e.stopPropagation(); setSelectedJourneyIndex(0); }}
               >
                 Explore Story <ArrowRight className="w-3 h-3" />
@@ -958,7 +944,7 @@ export default function About() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                         className={cn(
-                          "group relative overflow-hidden rounded-md cursor-zoom-in",
+                          "group relative overflow-hidden rounded-xl cursor-zoom-in",
                           "border border-white/[0.07] bg-midnight",
                           "shadow-md",
                           "hover:border-gold/28 hover:shadow-xl",
@@ -998,7 +984,7 @@ export default function About() {
                         </div>
 
                         {/* Gold hover ring */}
-                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.16),inset_0_-60px_40px_-20px_rgba(var(--gold-primary-rgb),0.04)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.16),inset_0_-60px_40px_-20px_rgba(var(--gold-primary-rgb),0.04)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1027,7 +1013,7 @@ export default function About() {
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setShowExtended(true)}
-                  className="inline-flex items-center gap-3 px-9 py-4 rounded-full border border-gold/30 text-gold font-bold uppercase tracking-widest text-xs hover:bg-gold/[0.07] hover:border-gold/55 hover:shadow-[0_0_32px_rgba(var(--gold-primary-rgb),0.18)] transition-all duration-medium"
+                  className="btn-base btn-secondary"
                 >
                   ✦ View Complete Journey
                 </motion.button>
@@ -1063,8 +1049,8 @@ export default function About() {
                         viewport={{ once: true, margin: "-30px" }}
                         transition={{ duration: 0.6, delay: (imgIdx % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}
                         className={cn(
-                          "group relative overflow-hidden rounded-md cursor-zoom-in",
-                          "border border-white/[0.06] bg-midnight",
+                          "group relative overflow-hidden rounded-xl cursor-zoom-in",
+                          "border border-white/[0.07] bg-midnight",
                           "shadow-md",
                           "hover:border-gold/22 hover:shadow-lg transition-all duration-slow",
                           isHero ? "sm:col-span-2 lg:col-span-2 h-[280px]" : "h-[230px]"
@@ -1089,7 +1075,7 @@ export default function About() {
                             </span>
                           </div>
                         )}
-                        <div className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.14)] transition-opacity duration-medium pointer-events-none" />
+                        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.14)] transition-opacity duration-medium pointer-events-none" />
                       </motion.figure>
                     );
                   })}
@@ -1157,21 +1143,14 @@ export default function About() {
                   type="button"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-xs hover:border-gold/40 hover:text-gold hover:bg-white/[0.03] transition-all duration-medium w-full sm:w-auto"
+                  className="btn-base btn-secondary w-full sm:w-auto"
                 >
                   <Film className="w-3.5 h-3.5" /> Watch Latest Visual
                 </motion.button>
               </Link>
-              <Link href="/music">
-                <motion.button
-                  type="button"
-                  whileHover={{ y: -3, scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center justify-center gap-2.5 px-9 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-medium w-full sm:w-auto"
-                >
-                  <Headphones className="w-3.5 h-3.5" /> Listen Now
-                </motion.button>
-              </Link>
+              <PremiumCTAButton as="link" href="/music" className="w-full sm:w-auto" icon={<Headphones className="w-3.5 h-3.5" />}>
+                Listen Now
+              </PremiumCTAButton>
             </div>
           </motion.div>
 
@@ -1225,7 +1204,7 @@ export default function About() {
                   type="button"
                   onClick={(e) => { e.stopPropagation(); closeJourneyLightbox(); }}
                   aria-label="Close photo gallery"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 hover:border-gold/40 hover:text-white hover:bg-white/10 transition-all duration-fast"
+                  className="btn-icon btn-icon-sm"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -1242,7 +1221,7 @@ export default function About() {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showPreviousJourneyImage(); }}
                 aria-label="Previous image"
-                className="absolute left-3 sm:left-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-fast"
+                className="btn-icon absolute left-3 sm:left-5 z-10 !bg-black/50"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -1256,7 +1235,7 @@ export default function About() {
                     animate={prefersReducedMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
                     exit={prefersReducedMotion ? undefined : { opacity: 0, scale: 1.01, y: -10 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden rounded-md border border-white/10 shadow-xl max-w-[90vw] max-h-[80vh]"
+                    className="overflow-hidden rounded-xl border border-white/[0.07] shadow-xl max-w-[90vw] max-h-[80vh]"
                   >
                     <img
                       src={selectedJourneyImage ?? ""}
@@ -1273,7 +1252,7 @@ export default function About() {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); showNextJourneyImage(); }}
                 aria-label="Next image"
-                className="absolute right-3 sm:right-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white/60 hover:border-gold/40 hover:text-white hover:bg-black/80 transition-all duration-fast"
+                className="btn-icon absolute right-3 sm:right-5 z-10 !bg-black/50"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -1359,7 +1338,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/15 hover:border-[#1DB954]/50 hover:bg-[#1DB954]/10 hover:shadow-[0_0_30px_rgba(29,185,84,0.2)] transition-all duration-normal w-full sm:w-auto justify-center"
+                className="btn-base group bg-white/5 border border-white/15 text-white hover:border-[#1DB954]/50 hover:bg-[#1DB954]/10 hover:shadow-[0_0_30px_rgba(29,185,84,0.2)] w-full sm:w-auto"
               >
                 <span className="text-[#1DB954] group-hover:scale-110 transition-transform duration-normal">
                   <SpotifyIcon />
@@ -1375,7 +1354,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/15 hover:border-[#fc3c44]/50 hover:bg-[#fc3c44]/10 hover:shadow-[0_0_30px_rgba(252,60,68,0.2)] transition-all duration-normal w-full sm:w-auto justify-center"
+                className="btn-base group bg-white/5 border border-white/15 text-white hover:border-[#fc3c44]/50 hover:bg-[#fc3c44]/10 hover:shadow-[0_0_30px_rgba(252,60,68,0.2)] w-full sm:w-auto"
               >
                 <span className="text-[#fc3c44] group-hover:scale-110 transition-transform duration-normal">
                   <AppleMusicIcon />
@@ -1391,7 +1370,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="group flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/15 hover:border-[#ffa200]/50 hover:bg-[#ffa200]/10 hover:shadow-[0_0_30px_rgba(255,162,0,0.2)] transition-all duration-normal w-full sm:w-auto justify-center"
+                className="btn-base group bg-white/5 border border-white/15 text-white hover:border-[#ffa200]/50 hover:bg-[#ffa200]/10 hover:shadow-[0_0_30px_rgba(255,162,0,0.2)] w-full sm:w-auto"
               >
                 <span className="text-[#ffa200] group-hover:scale-110 transition-transform duration-normal">
                   <AudiomackIcon />
@@ -1452,6 +1431,7 @@ export default function About() {
                   href="https://dreamplanet.org/store-profile/61"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track("store_click", { label: item.name })}
                   whileHover={{ y: -4, scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
@@ -1479,24 +1459,25 @@ export default function About() {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <motion.a
+              <PremiumCTAButton
+                as="a"
                 href="https://dreamplanet.org/store-profile/61"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
                 data-testid="link-store-shop"
-                className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-xs shadow-glow-gold hover:shadow-glow-gold-hover transition-shadow duration-normal w-full sm:w-auto justify-center"
+                className="w-full sm:w-auto"
+                icon={<Music className="w-3.5 h-3.5" />}
+                analyticsEvent="store_click"
               >
-                <Music className="w-3.5 h-3.5" /> Shop Now
-              </motion.a>
+                Shop Now
+              </PremiumCTAButton>
               <Link href="/music">
                 <motion.button
                   type="button"
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   data-testid="button-store-listen"
-                  className="inline-flex items-center gap-2.5 px-10 py-4 rounded-full border border-white/18 text-white font-bold uppercase tracking-widest text-xs hover:border-gold/40 hover:text-gold hover:bg-white/[0.03] transition-all duration-normal w-full sm:w-auto justify-center"
+                  className="btn-base btn-secondary w-full sm:w-auto"
                 >
                   <Headphones className="w-3.5 h-3.5" /> Stream the Music
                 </motion.button>

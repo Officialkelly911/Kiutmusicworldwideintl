@@ -7,6 +7,7 @@
  */
 import { storage } from "./storage";
 import { sendContactNotification, sendContactConfirmation } from "./email";
+import { sanitizeFields } from "./sanitize";
 import type { InsertContactSubmission } from "@shared/schema";
 
 export interface SubmissionMeta {
@@ -26,6 +27,10 @@ async function submit(
   meta: SubmissionMeta,
 ): Promise<SubmitResult> {
   const timestamp = new Date().toUTCString();
+
+  // Defense-in-depth: strip any HTML/script markup from free-text fields
+  // before they're persisted or emailed, beyond what zod validation already enforces.
+  data = sanitizeFields(data, ["firstName", "lastName", "subject", "message"]);
 
   const submission = await storage.createContactSubmission({
     ...data,

@@ -687,10 +687,11 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.",
+    description: "Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut — Afro-Caribbean sound with global energy.",
+    canonical: "https://kiutmusic.com/",
+  });
 
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");
@@ -1325,6 +1326,7 @@ export default function Home() {
                         icon={<ExternalLink className="w-3.5 h-3.5" />}
                         iconPosition="right"
                         className="w-full mb-2"
+                        analyticsEvent="store_click"
                       >
                         Explore Collection
                       </PremiumCTAButton>
@@ -1361,6 +1363,7 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Shop ${product.name} on Dream Planet Store`}
+                      onClick={() => track("store_click", { label: product.name })}
                       initial={{ opacity: 0, y: 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -1443,7 +1446,7 @@ export default function Home() {
                 <p className="text-gold text-xs font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
                 <p className="text-white/25 text-xs font-light tracking-wide">More From KiutRaba</p>
               </div>
-              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
+              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store" onClick={() => track("store_click", { label: "View All" })}>
                 <span className="text-white/28 text-xs font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-fast cursor-pointer">
                   View All ↗
                 </span>
@@ -1476,7 +1479,7 @@ export default function Home() {
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
-                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
+                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`} onClick={() => track("store_click", { label: p.name })}>
                     <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
                       <div className="h-[142px] w-full bg-charcoal">
                         <img
@@ -1508,7 +1511,7 @@ export default function Home() {
             className="mt-14 text-center"
           >
             <div className="h-px bg-gradient-to-r from-transparent via-gold/12 to-transparent mb-10" />
-            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store">
+            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store" onClick={() => track("store_click", { label: "Full Collection" })}>
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}

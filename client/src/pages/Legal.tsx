@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Shield, FileText, Mail } from "lucide-react";
 import SiteFooter from "../components/SiteFooter";
+import { useSEO } from "@/lib/useSEO";
 
 // ── Last updated ──────────────────────────────────────────────────────────────
 const LAST_UPDATED = "July 9, 2025";
@@ -156,10 +157,11 @@ function Divider() {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function Legal() {
-  useEffect(() => {
-    document.title = "Legal | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Legal | Kiut Music Worldwide",
+    description: "Privacy policy and terms of service for Kiut Music Worldwide.",
+    canonical: "https://kiutmusic.com/legal",
+  });
 
   const [activeSection, setActiveSection] = useState("privacy");
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});

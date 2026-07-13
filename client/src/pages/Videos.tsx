@@ -31,6 +31,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 const STORE_URL     = "https://dreamplanet.org/store-profile/61";
@@ -417,10 +419,12 @@ function KiutUniverse() {
             </motion.div>
           );
 
+          const handleCardClick = () => track(card.href === STORE_URL ? "store_click" : "cta_click", { label: card.title, destination: card.href });
+
           return card.external ? (
-            <a key={card.title} href={card.href} target="_blank" rel="noopener noreferrer">{inner}</a>
+            <a key={card.title} href={card.href} target="_blank" rel="noopener noreferrer" onClick={handleCardClick}>{inner}</a>
           ) : (
-            <Link key={card.title} href={card.href}>{inner}</Link>
+            <Link key={card.title} href={card.href} onClick={handleCardClick}>{inner}</Link>
           );
         })}
       </div>
@@ -619,10 +623,11 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
 
 // ─── Main component ────────────────────────────────────────────────────────────
 export default function Videos() {
-  useEffect(() => {
-    document.title = "Videos | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Videos | Kiut Music Worldwide",
+    description: "Watch official music videos, behind-the-scenes footage, and live performances from Nigerian-American artist Kiut.",
+    canonical: "https://kiutmusic.com/videos",
+  });
 
   const [featuredVideo, setFeaturedVideo]   = useState(videos[0]);
   const [activeType, setActiveType]         = useState("All");
@@ -669,9 +674,11 @@ export default function Videos() {
     }
   }, [activeType]);
 
-  // Mark first video watched on mount
+  // Mark first video watched on mount, and fire a video_play event whenever the
+  // featured (auto-playing) video changes.
   useEffect(() => {
     markWatched(featuredVideo.id);
+    track("video_play", { title: featuredVideo.title, videoId: String(featuredVideo.youtubeId), videoType: featuredVideo.type });
   }, [featuredVideo.id]);
 
   const handleShare = useCallback(async () => {

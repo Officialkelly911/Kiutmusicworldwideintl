@@ -1,0 +1,479 @@
+PHASE 10D — PRODUCTION HARDENING, ANALYTICS & LAUNCH READINESS
+
+OBJECTIVE
+
+Complete the final production configuration for the Kiut Music website.
+
+Do NOT redesign any UI.
+
+Do NOT change layouts, spacing, colors, typography, animations, CTA components, navigation, or branding.
+
+This phase focuses exclusively on performance, reliability, SEO, analytics, accessibility, monitoring, security, and launch preparation.
+
+--------------------------------------------------
+1. ENVIRONMENT VALIDATION
+--------------------------------------------------
+
+Verify all environment variables.
+
+Confirm graceful handling if any variable is missing.
+
+Validate:
+
+RESEND_API_KEY
+
+CONTACT_FROM_EMAIL
+
+MAILCHIMP_API_KEY
+
+MAILCHIMP_SERVER_PREFIX
+
+MAILCHIMP_AUDIENCE_ID
+
+DATABASE_URL
+
+Never expose secrets on either client or API responses.
+
+--------------------------------------------------
+2. PRODUCTION ERROR HANDLING
+--------------------------------------------------
+
+Replace generic server errors with friendly responses.
+
+Examples:
+
+"Something went wrong."
+
+"Please try again."
+
+"Unable to complete your request."
+
+Log detailed server errors internally only.
+
+Never expose stack traces.
+
+--------------------------------------------------
+3. GLOBAL LOADING STATES
+--------------------------------------------------
+
+Every async action should include loading feedback.
+
+Including:
+
+Newsletter subscribe
+
+Contact form
+
+Music loading
+
+Video loading
+
+Store redirects
+
+Booking requests
+
+Disable duplicate submissions.
+
+--------------------------------------------------
+4. SUCCESS & ERROR FEEDBACK
+--------------------------------------------------
+
+Standardize all notifications.
+
+Success
+
+Gold accent
+
+Checkmark icon
+
+Fade animation
+
+Error
+
+Soft red
+
+Warning icon
+
+Accessible
+
+Info
+
+Neutral
+
+Consistent animation
+
+One notification component everywhere.
+
+--------------------------------------------------
+5. ACCESSIBILITY REVIEW
+--------------------------------------------------
+
+Verify:
+
+Keyboard navigation
+
+Visible focus states
+
+ARIA labels
+
+Screen reader support
+
+Image alt text
+
+Button labels
+
+Color contrast
+
+Skip-to-content link
+
+Proper heading hierarchy
+
+Semantic HTML
+
+--------------------------------------------------
+6. IMAGE OPTIMIZATION
+--------------------------------------------------
+
+Verify every image uses:
+
+Responsive srcset
+
+Correct sizing
+
+Lazy loading where appropriate
+
+WebP
+
+AVIF when supported
+
+Optimized hero variants
+
+Desktop
+
+Large Desktop
+
+Tablet
+
+Mobile Portrait
+
+Mobile Landscape
+
+Maintain existing composition.
+
+No awkward crops.
+
+--------------------------------------------------
+7. PERFORMANCE OPTIMIZATION
+--------------------------------------------------
+
+Audit:
+
+JavaScript bundle size
+
+CSS size
+
+Unused assets
+
+Unused fonts
+
+Duplicate components
+
+Optimize:
+
+Code splitting
+
+Lazy imports
+
+Caching
+
+Compression
+
+Preloading
+
+Prefetching
+
+--------------------------------------------------
+8. SEO VALIDATION
+--------------------------------------------------
+
+Verify every page includes:
+
+Unique title
+
+Meta description
+
+Canonical URL
+
+Open Graph tags
+
+Twitter cards
+
+Structured data
+
+Robots directives
+
+XML sitemap
+
+Favicon
+
+Apple icons
+
+Theme color
+
+--------------------------------------------------
+9. SOCIAL SHARE PREVIEW
+--------------------------------------------------
+
+Confirm every page displays correctly when shared.
+
+Facebook
+
+X
+
+WhatsApp
+
+Telegram
+
+LinkedIn
+
+Discord
+
+Use:
+
+Correct logo
+
+Correct preview image
+
+Correct page title
+
+Correct description
+
+No outdated cache references.
+
+--------------------------------------------------
+10. ANALYTICS PREPARATION
+--------------------------------------------------
+
+Create centralized analytics hooks.
+
+Support:
+
+Google Analytics
+
+Google Tag Manager
+
+Meta Pixel
+
+TikTok Pixel
+
+Future integrations
+
+Track:
+
+Page views
+
+CTA clicks
+
+Newsletter submissions
+
+Contact submissions
+
+Music plays
+
+Video plays
+
+Store clicks
+
+Tour bookings
+
+External streaming clicks
+
+Implement only the architecture.
+
+Do not hardcode tracking IDs.
+
+--------------------------------------------------
+11. SECURITY REVIEW
+--------------------------------------------------
+
+Confirm:
+
+Rate limiting
+
+Server-side validation
+
+Input sanitization
+
+Spam protection
+
+Helmet security headers
+
+CORS configuration
+
+CSRF protection where applicable
+
+Secure cookies
+
+--------------------------------------------------
+12. RESPONSIVE QA
+--------------------------------------------------
+
+Test every page:
+
+Home
+
+Music
+
+Videos
+
+Tour
+
+About
+
+Store
+
+Contact
+
+Newsletter
+
+Desktop
+
+Laptop
+
+Tablet
+
+Large phones
+
+Small phones
+
+Landscape
+
+Portrait
+
+No layout shifts.
+
+No overflow.
+
+No clipping.
+
+--------------------------------------------------
+13. CROSS-BROWSER QA
+--------------------------------------------------
+
+Verify compatibility:
+
+Chrome
+
+Safari
+
+Firefox
+
+Edge
+
+Mobile Safari
+
+Chrome Android
+
+--------------------------------------------------
+14. FINAL CONTENT VALIDATION
+--------------------------------------------------
+
+Confirm:
+
+No placeholder text
+
+No Lorem Ipsum
+
+No broken links
+
+No missing images
+
+No missing videos
+
+No missing music artwork
+
+No missing icons
+
+No duplicate sections
+
+No dead buttons
+
+--------------------------------------------------
+15. BUILD CLEANUP
+--------------------------------------------------
+
+Remove:
+
+Unused components
+
+Unused CSS
+
+Console.log statements
+
+Development comments
+
+Temporary assets
+
+Debug utilities
+
+Unused imports
+
+--------------------------------------------------
+16. FINAL ACCEPTANCE CHECKLIST
+--------------------------------------------------
+
+Confirm:
+
+✓ Navigation complete
+
+✓ Connect page functional
+
+✓ Newsletter functional
+
+✓ Contact form operational
+
+✓ Music player operational
+
+✓ Streaming links working
+
+✓ Tour page complete
+
+✓ Store complete
+
+✓ Videos page complete
+
+✓ About page complete
+
+✓ Responsive everywhere
+
+✓ Performance optimized
+
+✓ Accessibility compliant
+
+✓ SEO complete
+
+✓ Analytics ready
+
+✓ Production ready
+
+--------------------------------------------------
+DELIVERABLE
+--------------------------------------------------
+
+Provide a final production report containing:
+
+• Completed tasks
+
+• Optimizations performed
+
+• Files modified
+
+• Any remaining optional recommendations
+
+Do NOT introduce any new visual designs.
+
+Do NOT modify branding.
+
+Do NOT redesign the UI.
+
+Treat this as the final production hardening pass before launch.

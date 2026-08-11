@@ -128,7 +128,21 @@ export function useSEO(meta: SEOMeta) {
     setMeta("twitter:image",       ogImage);
     setMeta("twitter:card",        "summary_large_image");
 
-    if (jsonLd) setJsonLd(jsonLd);
+    // Every route gets a valid WebPage entity even when a page does not need
+    // richer domain-specific schema. Callers can supply a custom JSON-LD object
+    // for music albums, events, or other page-specific entities.
+    setJsonLd(jsonLd ?? {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: title,
+      description,
+      url: canonical,
+      isPartOf: {
+        "@type": "WebSite",
+        name: "Kiut Music Worldwide",
+        url: "https://kiutmusic.com/",
+      },
+    });
 
     // ── Restore originals on unmount ─────────────────────────────────────────
     return () => {

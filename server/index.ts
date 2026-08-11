@@ -72,13 +72,14 @@ declare module "http" {
 
 app.use(
   express.json({
+    limit: "100kb",
     verify: (req, _res, buf) => {
       req.rawBody = buf;
     },
   }),
 );
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false, limit: "100kb" }));
 
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
@@ -120,12 +121,22 @@ app.use((req, res, next) => {
 (async () => {
   await registerRoutes(httpServer, app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
+    const requestedStatus = Number(err?.status || err?.statusCode);
+    const status = requestedStatus >= 400 && requestedStatus < 500 ? requestedStatus : 500;
+    const message = status === 500
+      ? "Something went wrong. Please try again."
+      : (typeof err?.message === "string" ? err.message : "Unable to complete your request.");
 
-    res.status(status).json({ message });
-    console.error(err);
+    // Detailed error objects stay in server logs only; never send stack traces
+    // or provider/database messages to clients.
+    console.error("[http-error]", {
+      method: req.method,
+      path: req.path,
+      status,
+      error: err?.stack || err,
+    });
+    if (!res.headersSent) res.status(status).json({ message });
   });
 
   // importantly only setup vite in development and after
@@ -158,4 +169,17 @@ app.use((req, res, next) => {
   httpServer.listen(listenOptions, () => {
     log(`serving on port ${port}`);
   });
+
+  const shutdown = (signal: string) => {
+    log(`${signal} received; shutting down gracefully`, "server");
+    httpServer.close((error) => {
+      if (error) {
+        console.error("[server] graceful shutdown failed:", error);
+        process.exitCode = 1;
+      }
+      process.exit();
+    });
+  };
+  process.once("SIGTERM", () => shutdown("SIGTERM"));
+  process.once("SIGINT", () => shutdown("SIGINT"));
 })();

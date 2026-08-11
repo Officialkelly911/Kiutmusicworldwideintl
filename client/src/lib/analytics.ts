@@ -169,6 +169,48 @@ function wireProviders(cfg: NonNullable<Window["__KIUT_ANALYTICS__"]>) {
   });
 }
 
+function classifyClick(anchor: HTMLAnchorElement, label: string): AnalyticsEvent | null {
+  const href = anchor.href.toLowerCase();
+  if (/dreamplanet\.org\/store|shop|merch/.test(href)) return "store_click";
+  if (/spotify|music\.apple|audiomack|boomplay|soundcloud|deezer|music\.youtube|youtube\.com/.test(href)) {
+    return "streaming_click";
+  }
+  if (/ticket|eventbrite|bandsintown|songkick|book/i.test(`${href} ${label}`)) return "tour_booking";
+  return null;
+}
+
+/**
+ * Track outbound links and high-intent buttons through event delegation. This
+ * keeps analytics coverage complete without adding handlers that could change
+ * the approved component markup or interaction behavior.
+ */
+function wireInteractionTracking() {
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const element = target?.closest("a,button") as HTMLAnchorElement | HTMLButtonElement | null;
+    if (!element || element.dataset.analyticsIgnore === "true") return;
+
+    const label = (element.textContent ?? element.getAttribute("aria-label") ?? "").trim().slice(0, 120);
+    if (element instanceof HTMLAnchorElement) {
+      const classified = classifyClick(element, label);
+      if (classified) {
+        track(classified, {
+          label,
+          destination: element.href,
+          platform: classified === "streaming_click" ? new URL(element.href).hostname : undefined,
+        });
+        return;
+      }
+    }
+
+    if (/\b(book|reserve|ticket|concert|tour)\b/i.test(label)) {
+      track("tour_booking", { label, destination: element instanceof HTMLAnchorElement ? element.href : undefined });
+    } else if (label) {
+      track("cta_click", { label, destination: element instanceof HTMLAnchorElement ? element.href : undefined });
+    }
+  });
+}
+
 /**
  * Inject provider scripts and wire event listeners.
  *
@@ -246,6 +288,7 @@ export function initAnalytics(): void {
 
     // Wire all provider listeners once IDs are known
     wireProviders(cfg);
+    wireInteractionTracking();
 
   } catch {
     // Initialization errors must never break the app

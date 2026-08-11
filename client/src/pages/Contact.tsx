@@ -36,6 +36,7 @@ import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { SocialIconGroup } from "@/components/SocialIconGroup";
+import { useSEO } from "@/lib/useSEO";
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
 const ENQUIRY_META: Record<(typeof CONTACT_ENQUIRY_TYPES)[number], { icon: typeof Mic2; label: string; desc: string; placeholder: string }> = {
@@ -860,29 +861,11 @@ function LocationMap() {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Contact() {
-  useEffect(() => {
-    const TITLE = "Contact Kiut Music";
-    const DESC  = "Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.";
-    const origTitle   = document.title;
-    const metaDesc    = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    const ogTitle     = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
-    const ogDesc      = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
-    const origDesc    = metaDesc?.content;
-    const origOgTitle = ogTitle?.content;
-    const origOgDesc  = ogDesc?.content;
-
-    document.title = TITLE;
-    metaDesc?.setAttribute("content", DESC);
-    ogTitle?.setAttribute("content", TITLE);
-    ogDesc?.setAttribute("content", DESC);
-
-    return () => {
-      document.title = origTitle;
-      if (origDesc    !== undefined && metaDesc) metaDesc.setAttribute("content", origDesc);
-      if (origOgTitle !== undefined && ogTitle)  ogTitle.setAttribute("content", origOgTitle);
-      if (origOgDesc  !== undefined && ogDesc)   ogDesc.setAttribute("content", origOgDesc);
-    };
-  }, []);
+  useSEO({
+    title: "Contact Kiut Music",
+    description: "Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.",
+    canonical: "https://kiutmusic.com/contact",
+  });
 
   return (
     <div className="min-h-screen bg-midnight text-white">

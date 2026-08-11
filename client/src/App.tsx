@@ -9,7 +9,8 @@ import MiniPlayer from "@/components/MiniPlayer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { pageVariants } from "@/lib/motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { track } from "@/lib/analytics";
 
 // ── Route-level code splitting ────────────────────────────────────────────────
 // Each page is loaded only when navigated to. Vite will emit a separate chunk
@@ -44,6 +45,13 @@ function PageFallback() {
 function AnimatedRouter() {
   const [location] = useLocation();
   const { showPlayer } = usePlayer();
+
+  // ── Page view analytics ───────────────────────────────────────────────────
+  // Fires on every client-side route change. Provider adapters in analytics.ts
+  // forward this to GA4 / GTM / Meta Pixel / TikTok Pixel as appropriate.
+  useEffect(() => {
+    track("page_view", { path: location });
+  }, [location]);
 
   return (
     <div className={showPlayer ? "pb-[72px]" : ""}>

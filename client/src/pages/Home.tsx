@@ -3,9 +3,12 @@ import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, Chevr
 import { KiutMark, KiutFullLogo } from "../components/KiutMark";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { staggerContainer, staggerItem, T, DUR } from "@/lib/motion";
+import { MERCH_HIGHLIGHTS } from "@/data/merch";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -684,10 +687,11 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.",
+    description: "Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut — Afro-Caribbean sound with global energy.",
+    canonical: "https://kiutmusic.com/",
+  });
 
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");
@@ -1230,16 +1234,7 @@ export default function Home() {
 
           {/* ── 1. Featured Collection Banner (6-item cycling hero) ── */}
           {(() => {
-            const bannerItems = [
-              { img: "/assets/images/merch-hoodie.webp",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
-              { img: "/assets/images/merch-outfit-red.webp",  imgCls: "object-contain p-6",     badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
-              { img: "/assets/images/merch-shirt.webp",       imgCls: "object-contain p-4",     badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
-              { img: "/assets/images/merch-collection.webp",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
-              { img: "/assets/images/merch-cap-vintage.webp", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
-              { img: "/assets/images/merch-cd.webp",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
-              { img: "/assets/images/merch-baggy-jeans.webp", imgCls: "object-contain p-4",     badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
-              { img: "/assets/images/merch-goodlife-ep.webp", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
-            ];
+            const bannerItems = MERCH_HIGHLIGHTS;
             const active = bannerItems[activeStoreIdx];
             const total = bannerItems.length;
             return (
@@ -1331,6 +1326,7 @@ export default function Home() {
                         icon={<ExternalLink className="w-3.5 h-3.5" />}
                         iconPosition="right"
                         className="w-full mb-2"
+                        analyticsEvent="store_click"
                       >
                         Explore Collection
                       </PremiumCTAButton>
@@ -1367,6 +1363,7 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Shop ${product.name} on Dream Planet Store`}
+                      onClick={() => track("store_click", { label: product.name })}
                       initial={{ opacity: 0, y: 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -1449,7 +1446,7 @@ export default function Home() {
                 <p className="text-gold text-xs font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
                 <p className="text-white/25 text-xs font-light tracking-wide">More From KiutRaba</p>
               </div>
-              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
+              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store" onClick={() => track("store_click", { label: "View All" })}>
                 <span className="text-white/28 text-xs font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-fast cursor-pointer">
                   View All ↗
                 </span>
@@ -1482,7 +1479,7 @@ export default function Home() {
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
-                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
+                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`} onClick={() => track("store_click", { label: p.name })}>
                     <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
                       <div className="h-[142px] w-full bg-charcoal">
                         <img
@@ -1514,7 +1511,7 @@ export default function Home() {
             className="mt-14 text-center"
           >
             <div className="h-px bg-gradient-to-r from-transparent via-gold/12 to-transparent mb-10" />
-            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store">
+            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store" onClick={() => track("store_click", { label: "Full Collection" })}>
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}

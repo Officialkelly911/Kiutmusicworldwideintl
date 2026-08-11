@@ -10,6 +10,7 @@ import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { HeroSection } from "@/components/HeroSection";
 import { useRef, useState, useEffect } from "react";
+import { useSEO } from "@/lib/useSEO";
 
 // Single interactive element — avoids nesting <a> inside <button>
 const MotionLink = motion.create(Link) as unknown as React.FC<
@@ -167,8 +168,10 @@ const tourCities = [
 ];
 
 // ─── Upcoming shows (Coming Soon — no confirmed dates yet) ───────────────────
-type ShowStatus = "available" | "limited" | "sold_out" | "coming_soon" | "announced";
-const upcomingShows: {
+// Exported so other pages (e.g. Newsletter's "Featured Updates") can reference
+// the same tour catalogue instead of duplicating show data.
+export type ShowStatus = "available" | "limited" | "sold_out" | "coming_soon" | "announced";
+export const upcomingShows: {
   id: string; city: string; country: string; venue: string;
   date: string; time: string; region: string; status: ShowStatus; description: string;
 }[] = [
@@ -588,10 +591,11 @@ function TourFAQAccordion() {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Tour() {
-  useEffect(() => {
-    document.title = "Tour | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Tour | Kiut Music Worldwide",
+    description: "See upcoming tour dates and live shows from Nigerian-American artist Kiut, and book Kiut for your city, festival, or venue.",
+    canonical: "https://kiutmusic.com/tour",
+  });
 
   const featuredRef = useRef<HTMLElement>(null);
   const [lightboxItem, setLightboxItem] = useState<typeof galleryItems[0] | null>(null);
@@ -1367,7 +1371,7 @@ export default function Tour() {
               <p className="text-white/28 text-sm leading-relaxed mb-10 max-w-md">
                 From intimate club nights to international festival stages — if you have the stage, Kiut brings the energy. Submit your enquiry and the team will be in touch directly.
               </p>
-              <PremiumCTAButton as="link" href="/contact" icon={<Mail size={13} />} iconPosition="right">
+              <PremiumCTAButton as="link" href="/contact" icon={<Mail size={13} />} iconPosition="right" analyticsEvent="tour_booking">
                 Book Kiut
               </PremiumCTAButton>
             </motion.div>

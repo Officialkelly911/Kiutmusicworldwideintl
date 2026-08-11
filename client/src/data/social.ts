@@ -17,6 +17,14 @@ export const YOUTUBE_URL     = "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq8
 export const LINKTREE_URL    = "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb";
 export const DREAMPLANET_URL = "https://dreamplanet.org/user/61";
 
+// ── Platforms not yet confirmed — link to Linktree hub in the interim.
+// Swap these for the real profile URLs the moment handles are confirmed.
+export const TIKTOK_URL     = LINKTREE_URL;
+export const FACEBOOK_URL   = LINKTREE_URL;
+export const SOUNDCLOUD_URL = LINKTREE_URL;
+export const X_URL          = LINKTREE_URL;
+export const THREADS_URL    = LINKTREE_URL;
+
 // ── Smart / short links ────────────────────────────────────────────────────────
 export const GOOD_LIFE_EP_LINK = "https://linktr.ee/kiut_goodlife?utm_source=linktree_profile_share&ltsid=bc67a3d6-887d-4ad8-ad3d-5fe5b92dd484";
 export const SOFA_EP_LINK      = "https://bit.ly/m/KiutmusicSofaEP";

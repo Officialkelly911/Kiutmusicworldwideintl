@@ -7,6 +7,8 @@ import { HeroSection } from "@/components/HeroSection";
 import KiutWatermark from "@/components/KiutWatermark";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 
 const artistPhoto    = "/assets/images/IMG_2452_1772753968062.webp";
 const aboutHeroVideo = "/assets/videos/portfolio-optimized.mp4";
@@ -300,10 +302,11 @@ function AudiomackIcon() {
 }
 
 export default function About() {
-  useEffect(() => {
-    document.title = "About | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "About | Kiut Music Worldwide",
+    description: "Nigerian-American artist Kiut bridges Lagos and the world — discover his story, journey, and the sound behind Kiut Music Worldwide.",
+    canonical: "https://kiutmusic.com/about",
+  });
 
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
@@ -1428,6 +1431,7 @@ export default function About() {
                   href="https://dreamplanet.org/store-profile/61"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track("store_click", { label: item.name })}
                   whileHover={{ y: -4, scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
@@ -1463,6 +1467,7 @@ export default function About() {
                 data-testid="link-store-shop"
                 className="w-full sm:w-auto"
                 icon={<Music className="w-3.5 h-3.5" />}
+                analyticsEvent="store_click"
               >
                 Shop Now
               </PremiumCTAButton>

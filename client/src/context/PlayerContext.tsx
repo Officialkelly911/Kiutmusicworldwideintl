@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useRef, useEffect, useCallback, type ReactNode } from "react";
 import { ALL_TRACKS, type Track, getTrackStreamingUrl } from "@/data/tracks";
+import { track } from "@/lib/analytics";
 
 interface PlayerContextValue {
   currentTrack: Track | null;
@@ -75,16 +76,19 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     return () => audio.removeEventListener("ended", onEnded);
   }, [playingId]);
 
-  const playTrack = useCallback((track: Track) => {
+  const playTrack = useCallback((trackToPlay: Track) => {
     const audio = audioRef.current;
     if (!audio) return;
     // No local file — open the best available streaming link in a new tab
-    if (!track.url) {
-      const streamUrl = getTrackStreamingUrl(track);
-      if (streamUrl) window.open(streamUrl, "_blank", "noopener,noreferrer");
+    if (!trackToPlay.url) {
+      const streamUrl = getTrackStreamingUrl(trackToPlay);
+      if (streamUrl) {
+        track("streaming_click", { title: trackToPlay.title, album: trackToPlay.album });
+        window.open(streamUrl, "_blank", "noopener,noreferrer");
+      }
       return;
     }
-    if (playingId === track.id) {
+    if (playingId === trackToPlay.id) {
       if (isPlaying) {
         audio.pause();
         setIsPlaying(false);
@@ -93,13 +97,14 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         setIsPlaying(true);
       }
     } else {
-      audio.src = track.url;
+      audio.src = trackToPlay.url;
       audio.play().catch(() => {});
-      setPlayingId(track.id);
+      setPlayingId(trackToPlay.id);
       setIsPlaying(true);
       setShowPlayer(true);
       setCurrentTime(0);
       setDuration(0);
+      track("music_play", { title: trackToPlay.title, album: trackToPlay.album });
     }
   }, [playingId, isPlaying]);
 

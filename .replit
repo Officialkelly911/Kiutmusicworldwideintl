@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "nix", "python-base-3.13"]
+modules = ["nodejs-20", "web", "nix"]
 [agent]
 expertMode = true
 stack = "FULLSTACK_JS"
@@ -48,3 +48,5 @@ build = ["npm", "run", "build"]
 [userenv.shared]
 CONTACT_EMAIL = "contact@kiutmusic.com"
 CONTACT_FROM_EMAIL = "Kiut Music <onboarding@resend.dev>"
+MAILCHIMP_AUDIENCE_ID = "de146c236a"
+MAILCHIMP_SERVER_PREFIX = "us2"

@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
 import { ReleasedMusicCarousel } from "@/components/ReleasedMusicCarousel";
+import { CREATIVE_PORTFOLIO_SLIDES } from "@/data/creativePortfolio";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -1134,7 +1135,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <ReleasedMusicCarousel />
+            <ReleasedMusicCarousel slides={CREATIVE_PORTFOLIO_SLIDES} />
           </motion.div>
 
           <motion.div

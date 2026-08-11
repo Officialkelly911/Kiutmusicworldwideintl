@@ -1003,11 +1003,11 @@ export default function Home() {
               className="space-y-8"
             >
               <p className="text-sm text-gold uppercase tracking-[0.2em]">
-                Joseph Uzochukwu
+                JOSEPH UZOCHUKWU
               </p>
 
-              <p className="text-xl text-white/90 font-light leading-relaxed">
-                We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
+              <p className="max-w-2xl text-xl text-white/90 font-light leading-relaxed">
+                “It is a proud and deeply meaningful moment to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>. Watching his journey unfold, from the dedication behind the scenes to the creativity he continues to bring to his craft, has been truly inspiring. This achievement represents more than graduation. It is a reflection of his <span className="text-white font-medium">passion, persistence, and commitment</span> to turning his vision into reality.”
               </p>
 
               <div className="pt-8 border-t border-white/10 flex flex-col items-center md:items-start">

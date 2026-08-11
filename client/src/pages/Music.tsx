@@ -474,8 +474,8 @@ export default function Music() {
 
       {/* ── Universal Hero ──────────────────────────────────────────── */}
       <HeroSection
-        slug="about"
-        alt="Kiut — Afro-Caribbean sound, global energy"
+        slug="creative-portfolio"
+        alt="Kiut seated in white with KIUT MUSIC typography"
         className="min-h-[80vh] flex items-end pb-24"
         priority
         overlay={

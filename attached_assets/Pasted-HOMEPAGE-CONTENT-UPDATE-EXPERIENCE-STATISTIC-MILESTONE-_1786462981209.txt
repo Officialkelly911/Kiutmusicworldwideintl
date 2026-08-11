@@ -1,0 +1,279 @@
+HOMEPAGE CONTENT UPDATE — EXPERIENCE STATISTIC & MILESTONE TESTIMONIAL
+
+OBJECTIVE
+
+Make two targeted content updates to the existing Kiut Music homepage.
+
+UPDATE 1
+
+Change the homepage experience statistic:
+
+CURRENT:
+
+4+ YEARS CREATING
+
+NEW:
+
+20+ YEARS CREATING
+
+UPDATE 2
+
+Update the existing MILESTONE ACHIEVEMENT section by replacing the current graduation-related text with a testimonial from Joseph Uzochukwu.
+
+This is a content update only.
+
+Do NOT redesign the homepage or modify unrelated components.
+
+⸻
+
+1. HOMEPAGE EXPERIENCE STATISTIC
+
+Locate the statistics/credentials section directly following the homepage Hero section.
+
+The section currently contains:
+
+* 20+ Music Videos
+* 15+ Singles & EPs
+* 5 Platforms Worldwide
+* 4+ Years Creating
+
+Change ONLY the final statistic.
+
+Replace:
+
+4+
+
+YEARS CREATING
+
+With:
+
+20+
+
+YEARS CREATING
+
+Everything else in this statistics section must remain unchanged.
+
+Preserve:
+
+* Existing typography
+* Gold/black color treatment
+* Font sizes
+* Letter spacing
+* Layout
+* Alignment
+* Animation
+* Responsive behavior
+* Spacing
+* Background
+* Section height
+
+Do not modify the other statistics.
+
+⸻
+
+2. MILESTONE ACHIEVEMENT SECTION
+
+Locate the existing homepage section titled:
+
+MILESTONE ACHIEVEMENT
+
+The current text is a personal announcement about a brother graduating from the Los Angeles Film School.
+
+Replace that entire message with a professional testimonial from:
+
+Joseph Uzochukwu
+
+The section should continue to use the existing Milestone Achievement layout and styling.
+
+Do not redesign the section.
+
+⸻
+
+3. NEW TESTIMONIAL CONTENT
+
+Replace the current paragraph with the following testimonial:
+
+“Kiut’s journey is a powerful example of what happens when talent, consistency, creativity, and vision are allowed to grow over time. Watching the evolution of the music, the visual identity, and the global direction of the brand has been genuinely inspiring. Kiut is not simply creating music; he is building an artistic legacy that continues to expand with every project.”
+
+Then add the attribution:
+
+— Joseph Uzochukwu
+
+If the existing section supports a smaller attribution/subtitle line, use:
+
+Joseph Uzochukwu
+Testimonial
+
+Do not add unnecessary biography information.
+
+⸻
+
+4. TESTIMONIAL PRESENTATION
+
+The testimonial should feel like an intentional editorial statement rather than a generic block of text.
+
+Preserve the existing visual hierarchy.
+
+Recommended structure:
+
+Section Label
+
+MILESTONE ACHIEVEMENT
+
+Testimonial
+
+“Kiut’s journey is a powerful example of what happens when talent, consistency, creativity, and vision are allowed to grow over time. Watching the evolution of the music, the visual identity, and the global direction of the brand has been genuinely inspiring. Kiut is not simply creating music; he is building an artistic legacy that continues to expand with every project.”
+
+Attribution
+
+— Joseph Uzochukwu
+
+The testimonial should remain visually prominent while the attribution remains secondary.
+
+⸻
+
+5. RESPONSIVE BEHAVIOR
+
+The new testimonial must work correctly across:
+
+* Desktop
+* Large desktop
+* Tablet
+* Mobile portrait
+* Mobile landscape
+
+Do not allow the longer testimonial to cause:
+
+* Text overflow
+* Horizontal scrolling
+* Broken section height
+* Overlapping elements
+* Excessive line compression
+* Poor readability
+
+Allow the text container to grow naturally as necessary.
+
+On mobile, maintain comfortable horizontal padding and readable line height.
+
+⸻
+
+6. ANIMATION
+
+If the existing Milestone Achievement section has an entrance animation or scroll-triggered animation, preserve it.
+
+Do not introduce a new animation system.
+
+The testimonial should animate exactly as the existing content did.
+
+⸻
+
+7. DESIGN PRESERVATION
+
+Do NOT change:
+
+* Homepage Hero
+* Hero image
+* Navigation
+* Header
+* Footer
+* CTA components
+* CTA animations
+* Typography system
+* Color palette
+* Global spacing system
+* Existing animations
+* Music sections
+* Creative Portfolio
+* Store
+* Tour
+* Videos
+* About
+* Contact
+* Newsletter
+* Email functionality
+* Analytics
+* SEO
+
+This task is strictly limited to the two specified homepage content changes.
+
+⸻
+
+8. DATA / CODE IMPLEMENTATION
+
+First locate where these values are currently defined.
+
+If they are stored in centralized homepage data, update the source of truth rather than hard-coding duplicate values inside the component.
+
+For example:
+
+Homepage Data
+├── statistics
+│   ├── musicVideos: 20+
+│   ├── singlesEPs: 15+
+│   ├── platforms: 5
+│   └── yearsCreating: 20+
+│
+└── milestoneAchievement
+    ├── title
+    ├── testimonial
+    └── attribution
+
+Reuse the existing architecture.
+
+Do not create duplicate homepage components.
+
+⸻
+
+9. VERIFICATION
+
+After implementation, verify:
+
+Experience Statistics
+
+* “4+” has been replaced with “20+”
+* “YEARS CREATING” remains unchanged
+* 20+ Music Videos remains unchanged
+* 15+ Singles & EPs remains unchanged
+* 5 Platforms Worldwide remains unchanged
+* Existing visual styling remains intact
+
+Milestone Achievement
+
+* Previous graduation text has been completely removed
+* New Joseph Uzochukwu testimonial appears correctly
+* Attribution appears correctly
+* Typography remains consistent
+* Section animation remains functional
+* Desktop layout is correct
+* Mobile layout is correct
+* No text overflow occurs
+
+Regression Check
+
+Confirm that no other homepage sections or global components were unintentionally modified.
+
+Check the browser console for errors.
+
+⸻
+
+10. FINAL ACCEPTANCE CRITERIA
+
+The implementation is complete when:
+
+1. The homepage displays 20+ YEARS CREATING instead of 4+ YEARS CREATING.
+2. The other homepage statistics remain unchanged.
+3. The Milestone Achievement section now displays the Joseph Uzochukwu testimonial.
+4. The existing Milestone Achievement design remains intact.
+5. The testimonial is responsive and readable on all supported screen sizes.
+6. Existing animations remain functional.
+7. No existing CTA, navigation, branding, or layout systems are affected.
+8. No unrelated files or components are unnecessarily modified.
+9. No console errors or layout regressions are introduced.
+
+After completion, provide a short report listing:
+
+* Files modified
+* Statistics update completed
+* Milestone testimonial update completed
+* Responsive verification performed
+* Confirmation that no unrelated UI was changed

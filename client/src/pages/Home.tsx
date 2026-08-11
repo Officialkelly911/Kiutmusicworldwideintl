@@ -9,6 +9,7 @@ import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
+import { ReleasedMusicCarousel } from "@/components/ReleasedMusicCarousel";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -25,7 +26,6 @@ const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
 const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
-const portfolioVideo = "/assets/videos/portfolio-optimized.mp4";
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -1142,37 +1142,14 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <a
-            href="https://dreamplanet.org/user/61"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative aspect-video rounded-xl overflow-hidden shadow-xl border border-white/10 group cursor-pointer"
-            >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-105"
-              >
-                <source src={portfolioVideo} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-slow gap-3">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                  <ExternalLink size={32} />
-                </div>
-                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
-              </div>
-            </motion.div>
-          </a>
+            <ReleasedMusicCarousel />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}

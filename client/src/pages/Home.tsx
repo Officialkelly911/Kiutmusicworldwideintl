@@ -1002,6 +1002,10 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8"
             >
+              <p className="text-sm text-gold uppercase tracking-[0.2em]">
+                Joseph Uzochukwu
+              </p>
+
               <p className="text-xl text-white/90 font-light leading-relaxed">
                 We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
               </p>

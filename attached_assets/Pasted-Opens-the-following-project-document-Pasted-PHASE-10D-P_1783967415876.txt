@@ -1,0 +1,199 @@
+Opens the following project document:
+
+Pasted-PHASE-10D-PRODUCTION-HARDENING-ANALYTICS-LAUNCH-READINE_1783962380615.txt
+
+Read the document in its entirety and treat it as the authoritative implementation specification for the project.
+
+Next, perform a comprehensive production audit of the entire Kiut Music website against both this specification and the current production codebase.
+
+Review every page, component, service, API route, reusable component, asset, configuration, environment integration, responsive layout, accessibility implementation, SEO configuration, performance optimization, analytics architecture, and overall user experience to determine which requirements have already been completed and which still require implementation.
+
+Before making any changes, review the Git commit history beginning from commit:
+
+33710d6ee46438e838a1a965f76238b9f1d18974
+
+to understand what has already been implemented and to avoid duplicating or overwriting completed work.
+
+Your responsibilities are to:
+
+1. Comprehensive Project Audit
+
+* Compare every requirement in the specification against the current implementation.
+* Identify anything that is missing, incomplete, partially implemented, inconsistent, or not production-ready.
+* Verify that all previous Phase 9 and Phase 10 implementations remain intact.
+
+2. Complete Outstanding Implementation
+
+Implement every remaining production-ready requirement that can be completed without requiring external credentials.
+
+This includes, where applicable:
+
+* Production error handling
+* Global loading states
+* Unified success/error notification system
+* Accessibility improvements (ARIA, keyboard navigation, focus states, semantic HTML, screen readers)
+* Responsive optimization
+* Cross-browser compatibility improvements
+* Performance optimization
+* Image optimization
+* Responsive hero image variants
+* Code cleanup
+* Build optimization
+* SEO validation
+* Open Graph metadata
+* Twitter Cards
+* Structured data
+* Canonical URLs
+* Sitemap verification
+* Robots configuration
+* Analytics architecture
+* Security improvements
+* Form validation improvements
+* Production logging
+* Rate limiting where applicable
+* API validation
+* Input sanitization
+* Spam protection
+* Final QA fixes
+
+3. Preserve Existing Design System
+
+Do not redesign any part of the website.
+
+Preserve all previously approved:
+
+* Branding
+* Logo integrations
+* Color palette
+* Typography
+* Layout hierarchy
+* Navigation structure
+* Responsive behavior
+* Universal Hero system
+* Hero image implementations
+* CTA button system
+* Premium reusable CTA animations
+* Scroll animations
+* Micro-interactions
+* Page transitions
+* Existing UI components
+* Existing design language
+
+Reuse existing shared components wherever possible instead of creating duplicates.
+
+Refactor only where necessary to improve maintainability, scalability, performance, or consistency.
+
+4. Production Readiness Verification
+
+Verify that every page is production-ready, including:
+
+* Home
+* Music
+* Videos
+* Tour
+* About
+* Store
+* Contact
+* Newsletter
+
+Confirm that:
+
+* Navigation is fully functional.
+* Internal routing is correct.
+* External links work.
+* Music playback works correctly.
+* Streaming links work.
+* Contact functionality is operational.
+* Newsletter functionality remains operational.
+* Store redirects work correctly.
+* Hero images are responsive.
+* All reusable components function consistently.
+
+5. Environment & External Dependency Review
+
+Verify all environment-variable integrations.
+
+Confirm correct implementation for:
+
+* RESEND_API_KEY
+* CONTACT_FROM_EMAIL
+* MAILCHIMP_API_KEY
+* MAILCHIMP_SERVER_PREFIX
+* MAILCHIMP_AUDIENCE_ID
+* Database configuration
+* Analytics placeholders
+
+Do not hardcode secrets.
+
+Gracefully handle missing environment variables.
+
+6. Final Production Optimization
+
+Perform a complete production optimization pass.
+
+This includes:
+
+* Removing unused code
+* Removing unused assets
+* Removing duplicate components
+* Removing development artifacts
+* Removing console logs
+* Removing dead CSS
+* Removing unused imports
+* Optimizing bundle size
+* Lazy loading where appropriate
+* Code splitting
+* Asset compression
+* Font optimization
+* Image optimization
+* Cache optimization
+
+7. Final Acceptance Verification
+
+Before concluding, verify that the project satisfies the Phase 10D production standard.
+
+Do not stop after identifying missing tasks.
+
+Continue implementing until every implementable requirement from the specification has been completed, tested, and verified.
+
+If any requirement cannot be completed because it depends on external services, credentials, API keys, production domains, or assets, clearly document it without blocking completion of all remaining work.
+
+⸻
+
+Final Completion Report
+
+When implementation is complete, provide a comprehensive production report containing:
+
+Already Completed
+
+* List every requirement that was already implemented before this audit.
+
+Newly Completed
+
+* List every requirement implemented during this Phase 10D audit.
+
+Bugs Fixed
+
+* Document every bug, inconsistency, optimization, or production issue that was corrected.
+
+Performance Improvements
+
+* Summarize all optimizations made for speed, responsiveness, maintainability, accessibility, and scalability.
+
+Remaining External Requirements
+
+List anything still requiring external resources before final launch, including:
+
+* Production Resend domain verification
+* Mailchimp production configuration
+* Analytics IDs
+* Tracking pixels
+* Custom domain configuration
+* DNS changes
+* SSL verification
+* Third-party credentials
+* Any remaining production assets
+
+Production Readiness Score
+
+Conclude with an overall production readiness assessment expressed as a percentage (0-100%), together with a concise explanation of what remains before the Kiut Music website is fully launch-ready.

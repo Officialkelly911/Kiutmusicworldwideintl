@@ -5,6 +5,8 @@ import { useState, useRef, useEffect } from "react";
 import SiteFooter from "../components/SiteFooter";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { usePlayer } from "@/context/PlayerContext";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
 import {
   ALL_TRACKS, TRACK_GROUPS, ALBUMS, type Track, type AlbumMeta,
   getAlbumPreviewAudio, getTrackStreamingUrl,
@@ -428,10 +430,11 @@ function MusicDiscovery() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Music() {
-  useEffect(() => {
-    document.title = "Music | Kiut Music Worldwide";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Music | Kiut Music Worldwide",
+    description: "Stream all albums and singles from Nigerian-American artist Kiut — Afro-Caribbean sound available on Spotify, Apple Music, Audiomack, and everywhere.",
+    canonical: "https://kiutmusic.com/music",
+  });
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
   const featuredTrack = ALL_TRACKS[0];
@@ -471,8 +474,8 @@ export default function Music() {
 
       {/* ── Universal Hero ──────────────────────────────────────────── */}
       <HeroSection
-        slug="about"
-        alt="Kiut — Afro-Caribbean sound, global energy"
+        slug="creative-portfolio"
+        alt="Kiut seated in white with KIUT MUSIC typography"
         className="min-h-[80vh] flex items-end pb-24"
         priority
         overlay={
@@ -755,7 +758,7 @@ export default function Music() {
                       <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-charcoal border-b border-r border-gold/22 transform rotate-45" />
                       <img src={event.image} alt={event.title} className="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy" />
                       <div className="text-center">
-                        <h4 className="text-white font-bold text-sm mb-1">{event.title}</h4>
+                        <h3 className="text-white font-bold text-sm mb-1">{event.title}</h3>
                         <span className="inline-block px-2 py-0.5 rounded-full text-xs uppercase tracking-widest font-bold"
                           style={{ background: "rgba(var(--gold-primary-rgb),0.12)", border: "1px solid rgba(var(--gold-primary-rgb),0.28)", color: "var(--color-gold)" }}>
                           {event.type}

@@ -7,6 +7,9 @@ import { MERCH_HIGHLIGHTS } from "@/data/merch";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
+import { ReleasedMusicCarousel } from "@/components/ReleasedMusicCarousel";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -23,7 +26,6 @@ const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
 const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
-const portfolioVideo = "/assets/videos/portfolio-optimized.mp4";
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -229,7 +231,7 @@ function HomeStatsStrip() {
     { value: 20, suffix: "+", label: "Music Videos" },
     { value: 15, suffix: "+", label: "Singles & EPs" },
     { value: 5,  suffix: "",  label: "Platforms Worldwide" },
-    { value: 4,  suffix: "+", label: "Years Creating" },
+    { value: 20, suffix: "+", label: "Years Creating" },
   ];
 
   useEffect(() => {
@@ -685,10 +687,11 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
-  useEffect(() => {
-    document.title = "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.";
-    return () => { document.title = "Kiut Music Worldwide"; };
-  }, []);
+  useSEO({
+    title: "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.",
+    description: "Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut — Afro-Caribbean sound with global energy.",
+    canonical: "https://kiutmusic.com/",
+  });
 
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");
@@ -999,27 +1002,14 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              <p className="text-xl text-white/90 font-light leading-relaxed">
-                We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
-              </p>
-
               <blockquote className="border-l-2 border-gold pl-6 my-8">
                 <p className="text-2xl font-editorial italic text-white/80 leading-snug">
-                  "His journey is a powerful reminder that with faith, belief, and relentless hard work, dreams truly become reality."
+                  “Kiut’s journey is a powerful example of what happens when talent, consistency, creativity, and vision are allowed to grow over time. Watching the evolution of the music, the visual identity, and the global direction of the brand has been genuinely inspiring. Kiut is not simply creating music; he is building an artistic legacy that continues to expand with every project.”
                 </p>
+                <footer className="mt-6 text-sm text-gold not-italic uppercase tracking-[0.2em]">
+                  — Joseph Uzochukwu
+                </footer>
               </blockquote>
-
-              <p className="text-lg text-white/60 leading-relaxed font-light">
-                From humble beginnings in Nigeria to pursuing his passion in Hollywood, California, his story reflects courage, perseverance, and unwavering determination. What once seemed like a distant dream is now his lived reality.
-              </p>
-              
-              <p className="text-lg text-white/60 leading-relaxed font-light mb-8">
-                This achievement stands as an inspiration to dream boldly, trust God’s timing, and never give up.
-              </p>
-
-              <p className="text-xl font-editorial italic text-gold">
-                Congratulations on this well-deserved accomplishment and the bright future ahead!
-              </p>
 
               <div className="pt-8 border-t border-white/10 flex flex-col items-center md:items-start">
                 <p className="text-sm text-white/40 uppercase tracking-widest mb-6">Recent Highlights</p>
@@ -1139,37 +1129,14 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <a
-            href="https://dreamplanet.org/user/61"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative aspect-video rounded-xl overflow-hidden shadow-xl border border-white/10 group cursor-pointer"
-            >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-105"
-              >
-                <source src={portfolioVideo} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-slow gap-3">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                  <ExternalLink size={32} />
-                </div>
-                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
-              </div>
-            </motion.div>
-          </a>
+            <ReleasedMusicCarousel />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -1323,6 +1290,7 @@ export default function Home() {
                         icon={<ExternalLink className="w-3.5 h-3.5" />}
                         iconPosition="right"
                         className="w-full mb-2"
+                        analyticsEvent="store_click"
                       >
                         Explore Collection
                       </PremiumCTAButton>
@@ -1359,6 +1327,7 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Shop ${product.name} on Dream Planet Store`}
+                      onClick={() => track("store_click", { label: product.name })}
                       initial={{ opacity: 0, y: 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -1441,7 +1410,7 @@ export default function Home() {
                 <p className="text-gold text-xs font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
                 <p className="text-white/25 text-xs font-light tracking-wide">More From KiutRaba</p>
               </div>
-              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
+              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store" onClick={() => track("store_click", { label: "View All" })}>
                 <span className="text-white/28 text-xs font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-fast cursor-pointer">
                   View All ↗
                 </span>
@@ -1474,7 +1443,7 @@ export default function Home() {
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
-                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
+                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`} onClick={() => track("store_click", { label: p.name })}>
                     <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
                       <div className="h-[142px] w-full bg-charcoal">
                         <img
@@ -1506,7 +1475,7 @@ export default function Home() {
             className="mt-14 text-center"
           >
             <div className="h-px bg-gradient-to-r from-transparent via-gold/12 to-transparent mb-10" />
-            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store">
+            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store" onClick={() => track("store_click", { label: "Full Collection" })}>
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}

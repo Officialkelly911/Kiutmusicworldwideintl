@@ -2,6 +2,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
+import { track, type AnalyticsEvent } from "@/lib/analytics";
 
 /**
  * PremiumCTAButton — KIUT Brand Integration.
@@ -76,6 +77,15 @@ export interface PremiumCTAButtonProps {
   size?: "default" | "sm";
   className?: string;
   children: React.ReactNode;
+  /**
+   * Analytics event fired on click via the centralized `track()` module.
+   * Defaults to "cta_click" — override for specific conversions
+   * (e.g. "tour_booking", "store_click").
+   */
+  analyticsEvent?: AnalyticsEvent;
+  /** Optional analytics label override (defaults to the button's visible text). */
+  analyticsLabel?: string;
+  onClick?: (e: React.SyntheticEvent) => void;
   [key: string]: unknown;
 }
 
@@ -86,6 +96,10 @@ export function PremiumCTAButton({
   size = "default",
   className,
   children,
+  analyticsEvent = "cta_click",
+  analyticsLabel,
+  onClick,
+  href,
   ...props
 }: PremiumCTAButtonProps) {
   const Comp = (as === "link" ? MotionRouterLink : as === "a" ? motion.a : motion.button) as React.ElementType;
@@ -94,6 +108,14 @@ export function PremiumCTAButton({
       {icon}
     </motion.span>
   ) : null;
+
+  const handleClick = (e: React.SyntheticEvent) => {
+    track(analyticsEvent, {
+      label: analyticsLabel ?? (typeof children === "string" ? children : undefined),
+      destination: href,
+    });
+    onClick?.(e);
+  };
 
   return (
     <Comp
@@ -104,6 +126,8 @@ export function PremiumCTAButton({
       whileTap="tap"
       variants={buttonVariants}
       transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+      href={href}
+      onClick={handleClick}
       {...props}
     >
       <span className="premium-cta-sweep" aria-hidden="true" />

@@ -1002,14 +1002,9 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              <blockquote className="border-l-2 border-gold pl-6 my-8">
-                <p className="text-2xl font-editorial italic text-white/80 leading-snug">
-                  “Kiut’s journey is a powerful example of what happens when talent, consistency, creativity, and vision are allowed to grow over time. Watching the evolution of the music, the visual identity, and the global direction of the brand has been genuinely inspiring. Kiut is not simply creating music; he is building an artistic legacy that continues to expand with every project.”
-                </p>
-                <footer className="mt-6 text-sm text-gold not-italic uppercase tracking-[0.2em]">
-                  — Joseph Uzochukwu
-                </footer>
-              </blockquote>
+              <p className="text-xl text-white/90 font-light leading-relaxed">
+                We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
+              </p>
 
               <div className="pt-8 border-t border-white/10 flex flex-col items-center md:items-start">
                 <p className="text-sm text-white/40 uppercase tracking-widest mb-6">Recent Highlights</p>

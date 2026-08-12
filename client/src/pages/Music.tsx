@@ -15,6 +15,8 @@ import {
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
+const musicHeroVideo = "/assets/videos/creative-portfolio-optimized.mp4";
+const musicHeroPoster = "/images/hero/creative-portfolio/creative-portfolio-desktop.jpg";
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
 type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay" | "amazon" | "soundcloud" | "deezer";
@@ -477,6 +479,10 @@ export default function Music() {
         slug="creative-portfolio"
         alt="Kiut seated in white with KIUT MUSIC typography"
         className="min-h-[80vh] flex items-end pb-24"
+        parallax={false}
+        videoSrc={musicHeroVideo}
+        videoPoster={musicHeroPoster}
+        videoClassName="object-contain lg:object-cover object-center"
         priority
         overlay={
           <>

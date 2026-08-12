@@ -175,8 +175,6 @@ const UPDATE_ICONS = {
    Page component
 ═══════════════════════════════════════════════════════════════ */
 export default function Newsletter() {
-
-  // ── SEO ───────────────────────────────────────────────────────
   useSEO({
     title: "Join the Kiut Music Newsletter",
     description: "Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.",

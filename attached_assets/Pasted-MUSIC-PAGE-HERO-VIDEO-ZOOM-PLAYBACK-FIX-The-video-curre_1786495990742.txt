@@ -1,0 +1,194 @@
+MUSIC PAGE HERO VIDEO — ZOOM & PLAYBACK FIX
+
+The video currently being used as the Music page Hero background/hero visual is too heavily zoomed in, causing important portions of the video content to be cropped.
+
+Additionally, the video is currently not playing correctly.
+
+Please fix both issues without redesigning the Music page Hero.
+
+1. Reduce the Video Zoom
+
+Adjust the existing Music page Hero video so that the framing is slightly more zoomed out and more of the original video composition is visible.
+
+The objective is to:
+
+* Reveal more of the original video content.
+* Keep the main subject/focal point clearly visible.
+* Prevent unnecessary cropping.
+* Preserve the video’s original aspect ratio.
+* Avoid stretching or distortion.
+* Maintain the cinematic Hero presentation.
+
+Inspect the current implementation first and determine whether the excessive zoom is being caused by:
+
+* object-fit: cover
+* Container dimensions
+* Fixed Hero height
+* object-position
+* CSS transforms
+* Scale animations
+* Responsive breakpoint rules
+* Another component-level styling rule
+
+Fix the actual cause rather than applying an arbitrary workaround.
+
+2. Do Not Over-Zoom on Different Devices
+
+Ensure the improved framing works across:
+
+* Large desktop
+* Desktop
+* Tablet
+* Mobile portrait
+* Mobile landscape
+
+The video should not look appropriately framed on desktop but become excessively zoomed on mobile.
+
+Use responsive positioning and sizing where necessary.
+
+If object-position needs to be adjusted, use an intentional focal-point position rather than arbitrary pixel offsets.
+
+3. Restore Reliable Video Playback
+
+Ensure the Music page Hero video actually plays when the page loads.
+
+The intended behavior should be:
+
+* Autoplay
+* Muted
+* Loop
+* Plays inline
+* No browser controls unless explicitly required by the existing design
+* No unexpected audio
+* Works on supported desktop and mobile browsers
+
+Use the correct HTML/video attributes, including where appropriate:
+
+autoplay
+muted
+loop
+playsinline
+
+If the project uses React/Next.js, ensure the video implementation correctly handles browser autoplay restrictions.
+
+Do not rely on JavaScript alone to force autoplay if the browser requires the video to be muted.
+
+4. Check the Video Source
+
+Verify that:
+
+* The correct video file is being referenced.
+* The file path is valid.
+* The video format is browser-compatible.
+* The video actually loads successfully.
+* There are no 404 or failed network requests.
+* The browser can decode the video.
+* The video is not being prevented from playing by another component or overlay.
+
+If a poster image is being displayed indefinitely because the video fails to load or play, identify and fix the underlying issue.
+
+5. Preserve Existing Hero Design
+
+Do NOT redesign the Music page Hero.
+
+Preserve:
+
+* Existing Hero layout
+* Typography
+* Logo
+* Text
+* CTA
+* Premium reusable CTA component
+* CTA animation
+* Navigation
+* Color treatment
+* Overlay
+* Spacing
+* Responsive structure
+* Existing Hero animation system
+
+Only adjust the video framing and playback behavior.
+
+6. Preserve Video Quality
+
+Do not unnecessarily compress, resize, or re-encode the video.
+
+Maintain:
+
+* Original visual quality
+* Correct aspect ratio
+* Frame rate
+* Audio state
+* Color treatment
+
+The goal is to change the presentation/framing, not degrade the source asset.
+
+7. Performance
+
+Ensure the video remains optimized for web delivery.
+
+Use the existing project video-loading architecture where possible.
+
+Do not create duplicate video components or unnecessarily load multiple copies of the same video.
+
+If a poster/fallback image is already implemented, preserve it.
+
+8. Responsive QA
+
+Test the Music page Hero at:
+
+* 2560 × 1440
+* 1920 × 1080
+* 1440 × 900
+* 1280 × 800
+* 1024 × 768
+* 768 × 1024
+* 430 × 932
+* 390 × 844
+* 375 × 812
+
+Verify that:
+
+* More of the video is visible.
+* The focal subject remains visible.
+* The video is not excessively zoomed.
+* No distortion occurs.
+* No unwanted cropping occurs.
+* The video actually plays.
+* Autoplay works where supported.
+* Mobile inline playback works.
+* The Hero CTA remains visible and functional.
+
+9. Final Verification
+
+After implementation:
+
+1. Run the website.
+2. Open the Music page.
+3. Confirm the Hero video loads.
+4. Confirm the video begins playing automatically when browser policies allow it.
+5. Confirm it is muted.
+6. Confirm it loops.
+7. Confirm it plays inline on mobile.
+8. Confirm the framing is noticeably more zoomed out.
+9. Confirm important video content is visible.
+10. Check the browser console for errors.
+11. Check the Network tab for failed video requests.
+12. Verify no unrelated components were modified.
+
+Important Constraint
+
+Do not simply reduce the CSS scale and call the task complete.
+
+Determine why the video is currently too zoomed in and why it is not playing, then fix both issues at the appropriate component/CSS/video configuration level.
+
+The final result should be a properly framed, smoothly playing, responsive Music page Hero video that integrates naturally with the existing KIUT Music design.
+
+After completion, provide a concise report explaining:
+
+* What caused the excessive zoom.
+* What was changed to correct the framing.
+* What caused the playback issue.
+* What was changed to restore playback.
+* Which responsive breakpoints were tested.
+* Confirmation that the existing Hero design and CTA system were preserved.

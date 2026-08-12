@@ -15,6 +15,7 @@ import {
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
+const musicHeroImage = "/images/hero/music/music-source.png";
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
 type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay" | "amazon" | "soundcloud" | "deezer";
@@ -311,12 +312,12 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
               track.albumType === "ep" ? "bg-gold/12 text-gold/80" : "bg-white/6 text-white/35"
             }`}>{track.album}</span>
           ) : (
-            <span className="text-white/25 text-xs">{track.released}</span>
+            <span className="text-white/25 text-xs">{track.status === "recently-released" ? "Recently Released" : track.released ?? "—"}</span>
           )}
         </span>
       </div>
 
-      <span className="text-white/25 text-xs font-mono flex-shrink-0 hidden sm:block tabular-nums">{track.duration}</span>
+      <span className="text-white/25 text-xs font-mono flex-shrink-0 hidden sm:block tabular-nums">{track.duration ?? "—"}</span>
 
       <button
         onClick={(e) => { e.stopPropagation(); playTrack(track); }}
@@ -326,7 +327,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
             : "text-white/30 group-hover:text-white group-hover:bg-white/10"
         }`}
         data-testid={`button-play-${track.id}`}
-        aria-label={isActive && isPlaying ? "Pause" : "Play"}
+        aria-label={`${isActive && isPlaying ? "Pause" : "Play"} ${track.title}`}
       >
         {isActive && isPlaying
           ? <Pause size={13} fill="currentColor" />
@@ -437,9 +438,10 @@ export default function Music() {
   });
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
-  const featuredTrack = ALL_TRACKS[0];
-  const featuredAlbum = ALBUMS.find((a) => a.id === "good-life-ep") ?? ALBUMS[0];
+  const featuredTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love") ?? ALL_TRACKS[0];
+  const featuredStreamingUrl = getTrackStreamingUrl(featuredTrack);
   const playlistSeconds = ALL_TRACKS.reduce((sum, t) => {
+    if (!t.duration) return sum;
     const [m, s] = t.duration.split(":").map(Number);
     return sum + m * 60 + s;
   }, 0);
@@ -474,9 +476,12 @@ export default function Music() {
 
       {/* ── Universal Hero ──────────────────────────────────────────── */}
       <HeroSection
-        slug="about"
-        alt="Kiut — Afro-Caribbean sound, global energy"
+        slug="music"
+        imageSrc={musicHeroImage}
+        alt="Kiut reclining on a beach with roses and a teddy bear"
         className="min-h-[80vh] flex items-end pb-24"
+        parallax={false}
+        imageClassName="w-full h-full object-cover object-[center_60%] md:object-[center_58%]"
         priority
         overlay={
           <>
@@ -538,7 +543,9 @@ export default function Music() {
           transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="mb-28"
         >
-          <div className="relative rounded-xl overflow-hidden border border-gold/12 shadow-xl"
+            <div
+              data-testid="featured-release-romantic-love"
+              className="relative rounded-xl overflow-hidden border border-gold/12 shadow-xl"
             style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--midnight-black) 92%, var(--dark-gold) 8%) 0%, var(--color-charcoal) 50%, var(--midnight-black) 100%)" }}>
             <div className="absolute top-0 right-0 w-80 h-80 blur-[110px] rounded-full pointer-events-none" style={{ background: "rgba(var(--gold-primary-rgb),0.08)" }} />
             <div className="absolute bottom-0 left-0 w-56 h-56 blur-[90px] rounded-full pointer-events-none" style={{ background: "rgba(100,50,255,0.04)" }} />
@@ -563,16 +570,18 @@ export default function Music() {
                 </span>
 
                 <h2 className="font-display text-3xl md:text-5xl font-bold text-white leading-tight mb-2 uppercase tracking-wider">
-                  {currentTrack ? currentTrack.title : "Good Life EP"}
+                  {currentTrack ? currentTrack.title : featuredTrack.title}
                 </h2>
                 <p className="text-white/40 text-sm mb-2">
                   {currentTrack
                     ? `${currentTrack.artist} · ${currentTrack.album}`
-                    : `Kiut · ${featuredAlbum.released} · Available everywhere`}
+                     : `Kiut · ${featuredTrack.status === "recently-released" ? "Recently Released" : featuredTrack.released ?? "Available everywhere"}`}
                 </p>
                 {!currentTrack && (
                   <p className="text-white/25 text-xs mb-8">
-                    {featuredAlbum.genre} · {featuredAlbum.trackCount} Tracks
+                    {featuredTrack.status === "recently-released"
+                      ? "Romantic Love · Original Single"
+                      : "Available everywhere"}
                   </p>
                 )}
 
@@ -589,20 +598,25 @@ export default function Music() {
                     {currentTrack && isPlaying ? "Pause" : "Listen Now"}
                   </PremiumCTAButton>
 
-                  {!currentTrack && (
-                    <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+                  {!currentTrack && featuredStreamingUrl && (
+                    <a
+                      href={featuredStreamingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Listen to ${featuredTrack.title} on streaming platforms`}
+                    >
                       <motion.button
                         whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
                         whileTap={{ scale: 0.97 }}
                         className="btn-base btn-secondary"
                       >
-                        <ExternalLink size={13} /> Stream Everywhere
+                        <ExternalLink size={13} /> Listen on Streaming Platforms
                       </motion.button>
                     </a>
                   )}
                 </div>
 
-                {!currentTrack && (
+                {!currentTrack && featuredTrack.status !== "recently-released" && (
                   <div className="flex flex-wrap items-center gap-2 justify-center md:justify-start mt-6">
                     {(["spotify", "apple", "youtube", "audiomack", "boomplay", "amazon", "deezer", "soundcloud"] as PlatformId[]).map((id) => (
                       <PlatformBadge key={id} id={id} />
@@ -630,7 +644,7 @@ export default function Music() {
                     </div>
                     <div className="flex justify-between mt-1.5 text-xs text-white/20 font-mono tabular-nums">
                       <span>{Math.floor(currentTime / 60)}:{String(Math.floor(currentTime % 60)).padStart(2, "0")}</span>
-                      <span>{currentTrack.duration}</span>
+                      <span>{currentTrack.duration ?? "—"}</span>
                     </div>
                   </div>
                 )}
@@ -1216,9 +1230,6 @@ export default function Music() {
             style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none" } as React.CSSProperties}
           >
             {([
-              { youtubeId: "WRIWMkPvfEo", title: "Good Life — Official Video", year: "2025", duration: "3:42" },
-              { youtubeId: "6mU3m1p-Dkk", title: "Twerk Instructor",           year: "2024", duration: "3:18" },
-              { youtubeId: "T2mXpK8BLNk", title: "Eligible EP — Highlight",    year: "2024", duration: "4:05" },
               { youtubeId: "_2EMhX0wbWk", title: "Chikito — Glitch Session",   year: "2022", duration: "2:58" },
               { youtubeId: "oqJVcQoWDzw", title: "SOFA — Behind The Scenes",   year: "2023", duration: "5:12" },
             ] as const).map((vid, i) => (

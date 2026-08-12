@@ -37,11 +37,19 @@ import { heroImageMeta } from "@/data/heroImages";
 export interface HeroSectionProps {
   /** Resolves image variants at /images/hero/<slug>/<slug>-<variant>.<ext> */
   slug: string;
+  /** Optional exact source asset when a supplied hero has no generated variants yet. */
+  imageSrc?: string;
   alt: string;
   /** Merged onto the <section> — controls height/layout, e.g. "min-h-[80vh] flex items-end pb-24" */
   className?: string;
   /** Extra classes appended to the <img> (default: "w-full h-full object-cover object-center") */
   imageClassName?: string;
+  /** Optional muted background video layered above the responsive image fallback. */
+  videoSrc?: string;
+  /** Poster used by the optional background video while it is loading. */
+  videoPoster?: string;
+  /** Extra classes appended to the optional <video>. */
+  videoClassName?: string;
   /** Full custom overlay markup (gradients, glow blobs). Omit for the default cinematic treatment. */
   overlay?: React.ReactNode;
   /** Rendered inside the z-10 content wrapper — the page's existing headline/subtitle/CTA JSX. */
@@ -73,9 +81,13 @@ const DEFAULT_OVERLAY = (
 export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(function HeroSection(
   {
     slug,
+    imageSrc,
     alt,
     className = "",
     imageClassName = "",
+    videoSrc,
+    videoPoster,
+    videoClassName = "",
     overlay,
     children,
     contentClassName = "relative z-10 max-w-7xl mx-auto px-6 w-full",
@@ -88,12 +100,42 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
   forwardedRef
 ) {
   const internalRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const { scrollYProgress } = useScroll({
     target: internalRef,
     offset: ["start start", "end start"],
   });
   const parallaxY = useTransform(scrollYProgress, [0, 1], parallaxRange);
+
+  React.useEffect(() => {
+    if (!videoSrc || !videoRef.current) return;
+
+    const video = videoRef.current;
+    setVideoPlaying(false);
+    setVideoError(false);
+    // Set both properties before loading. Some mobile browsers inspect the
+    // property (not just the React attribute) when deciding whether autoplay
+    // is allowed.
+    video.defaultMuted = true;
+    video.muted = true;
+    const attemptAutoplay = () => {
+      void video.play().catch(() => {
+        // The muted autoplay attributes remain the primary path; some
+        // browsers still require a later user gesture before playback begins.
+      });
+    };
+    // Keep the browser's native autoplay lifecycle intact. Calling load()
+    // here can reset an already-started autoplay on Safari/WebKit, so only
+    // request playback once the source is ready.
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      attemptAutoplay();
+    }
+    video.addEventListener("canplay", attemptAutoplay);
+    return () => video.removeEventListener("canplay", attemptAutoplay);
+  }, [videoSrc]);
 
   const base = `/images/hero/${slug}/${slug}`;
   const blurDataURL = heroImageMeta[slug]?.blurDataURL;
@@ -124,35 +166,81 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
           }}
           aria-hidden="true"
         />
-        <picture className="absolute inset-0 block w-full h-full">
-          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />
-          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.webp`} type="image/webp" />
-          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.jpg`} type="image/jpeg" />
+        <div
+          className="absolute inset-0 block w-full h-full transition-opacity duration-cinematic"
+          style={{ opacity: videoSrc && videoPlaying && !videoError ? 0 : 1 }}
+        >
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={alt}
+              className={imageClassName || "w-full h-full object-cover object-center"}
+              loading={priority ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={priority ? "high" : "auto"}
+              onLoad={() => setLoaded(true)}
+            />
+          ) : (
+            <picture>
+              <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />
+              <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.webp`} type="image/webp" />
+              <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.jpg`} type="image/jpeg" />
 
-          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.avif`} type="image/avif" />
-          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.webp`} type="image/webp" />
-          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.jpg`} type="image/jpeg" />
+              <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.avif`} type="image/avif" />
+              <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.webp`} type="image/webp" />
+              <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.jpg`} type="image/jpeg" />
 
-          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.avif`} type="image/avif" />
-          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.webp`} type="image/webp" />
-          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.jpg`} type="image/jpeg" />
+              <source media="(max-width: 1279px)" srcSet={`${base}-tablet.avif`} type="image/avif" />
+              <source media="(max-width: 1279px)" srcSet={`${base}-tablet.webp`} type="image/webp" />
+              <source media="(max-width: 1279px)" srcSet={`${base}-tablet.jpg`} type="image/jpeg" />
 
-          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.avif`} type="image/avif" />
-          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.webp`} type="image/webp" />
-          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.jpg`} type="image/jpeg" />
+              <source media="(max-width: 1919px)" srcSet={`${base}-laptop.avif`} type="image/avif" />
+              <source media="(max-width: 1919px)" srcSet={`${base}-laptop.webp`} type="image/webp" />
+              <source media="(max-width: 1919px)" srcSet={`${base}-laptop.jpg`} type="image/jpeg" />
 
-          <source srcSet={`${base}-desktop.avif`} type="image/avif" />
-          <source srcSet={`${base}-desktop.webp`} type="image/webp" />
-          <img
-            src={`${base}-desktop.jpg`}
-            alt={alt}
-            className={imageClassName || "w-full h-full object-cover object-center"}
-            loading={priority ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={priority ? "high" : "auto"}
-            onLoad={() => setLoaded(true)}
+              <source srcSet={`${base}-desktop.avif`} type="image/avif" />
+              <source srcSet={`${base}-desktop.webp`} type="image/webp" />
+              <img
+                src={`${base}-desktop.jpg`}
+                alt={alt}
+                className={imageClassName || "w-full h-full object-cover object-center"}
+                loading={priority ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={priority ? "high" : "auto"}
+                onLoad={() => setLoaded(true)}
+              />
+            </picture>
+          )}
+        </div>
+        {videoSrc && !videoError && (
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            poster={videoPoster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload={priority ? "auto" : "metadata"}
+            aria-hidden="true"
+            tabIndex={-1}
+            onLoadedData={() => {
+              const video = videoRef.current;
+              if (video && video.paused) {
+                void video.play().catch(() => {});
+              }
+            }}
+            onPlaying={() => setVideoPlaying(true)}
+            onError={() => {
+              setVideoError(true);
+              setVideoPlaying(false);
+            }}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-cinematic ${
+              videoClassName || "object-cover object-center"
+            }`}
+            style={{ opacity: videoPlaying ? 1 : 0 }}
           />
-        </picture>
+        )}
       </motion.div>
 
       {overlay ?? DEFAULT_OVERLAY}

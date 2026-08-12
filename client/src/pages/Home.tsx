@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
 import { KiutMark, KiutFullLogo } from "../components/KiutMark";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
@@ -9,6 +9,8 @@ import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
+import { DREAMPLANET_URL } from "@/data/social";
+import { ALL_TRACKS, getTrackStreamingUrl } from "@/data/tracks";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -18,6 +20,10 @@ const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
 const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
 const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
 const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
+const creativePortfolioVideo = "/assets/videos/creative-portfolio-optimized.mp4";
+const creativePortfolioPoster = "/assets/images/creative-portfolio/video-poster.jpg";
+const romanticLoveBackground = "/assets/images/romantic-love/background.png";
+const romanticLoveOverlay = "/assets/images/romantic-love/overlay.jpg";
 const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
 const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
 const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
@@ -25,7 +31,7 @@ const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
 const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
-const portfolioVideo = "/assets/videos/portfolio-optimized.mp4";
+const romanticLoveTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love");
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -231,7 +237,7 @@ function HomeStatsStrip() {
     { value: 20, suffix: "+", label: "Music Videos" },
     { value: 15, suffix: "+", label: "Singles & EPs" },
     { value: 5,  suffix: "",  label: "Platforms Worldwide" },
-    { value: 4,  suffix: "+", label: "Years Creating" },
+    { value: 20, suffix: "+", label: "Years Creating" },
   ];
 
   useEffect(() => {
@@ -499,6 +505,70 @@ function HeroSlideMedia({
   );
 }
 
+function CreativePortfolioVideo() {
+  const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion || !videoRef.current) return;
+    videoRef.current.play().catch(() => {});
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative mx-auto max-w-5xl aspect-[16/9] overflow-hidden rounded-2xl border border-white/[0.08] bg-black shadow-2xl shadow-black/40"
+      role="img"
+      aria-label="Kiut creative portfolio video"
+      data-testid="creative-portfolio-video"
+    >
+      <img
+        src={creativePortfolioPoster}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
+        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+        loading="lazy"
+        decoding="async"
+      />
+      {!videoError && (
+        <video
+          ref={videoRef}
+          src={isInView && !prefersReducedMotion ? creativePortfolioVideo : undefined}
+          autoPlay={isInView && !prefersReducedMotion}
+          loop
+          muted
+          playsInline
+          preload={isInView && !prefersReducedMotion ? "metadata" : "none"}
+          poster={creativePortfolioPoster}
+          aria-hidden="true"
+          tabIndex={-1}
+          onCanPlay={() => {
+            videoRef.current?.play().catch(() => {});
+            setVideoReady(true);
+          }}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        />
+      )}
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
+        aria-hidden="true"
+      />
+      {prefersReducedMotion && (
+        <p className="sr-only">
+          Motion is reduced, so the Creative Portfolio video is shown as a still image.
+        </p>
+      )}
+    </div>
+  );
+}
+
 const EMBED_URL = "https://bit.ly/48uAYlZ";
 const EMBED_TITLE = "Kiut Music — All Links";
 
@@ -721,6 +791,18 @@ export default function Home() {
 
   const slides = [
     {
+      id: 2,
+      title: "Romantic Love",
+      description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
+      ctaText: "Listen Now",
+      ctaLink: romanticLoveTrack ? getTrackStreamingUrl(romanticLoveTrack) ?? "/music" : "/music",
+      poster: romanticLoveBackground,
+      badge: "Recent Release",
+      isExternal: true,
+      overlay: romanticLoveOverlay,
+      duration: 6000,
+    },
+    {
       id: 0,
       title: "Good Life EP",
       description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
@@ -741,17 +823,6 @@ export default function Home() {
       poster: goodLifePoster,
       badge: "Featured Music Video",
       isExternal: false,
-      duration: 6000,
-    },
-    {
-      id: 2,
-      title: "Creative Portfolio",
-      description: "A visual journey through performances, behind-the-scenes, and cinematic projects that define Kiut Music.",
-      ctaText: "Explore Portfolio",
-      ctaLink: "https://dreamplanet.org/user/61",
-      poster: gradImage1,
-      badge: "Creative Highlight",
-      isExternal: true,
       duration: 6000,
     }
   ];
@@ -813,6 +884,11 @@ export default function Home() {
                 animate="visible"
                 exit={{ opacity: 0, y: -16, transition: T.fast }}
                 className="flex flex-col items-center lg:items-start"
+                data-testid={
+                  slides[currentSlide].title === "Romantic Love"
+                    ? "hero-slide-romantic-love"
+                    : "hero-slide-content"
+                }
               >
                 {/* 1 — Badge label */}
                 <motion.div variants={staggerItem} className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
@@ -848,6 +924,12 @@ export default function Home() {
                       href={slides[currentSlide].ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Listen to ${slides[currentSlide].title} on streaming platforms`}
+                      data-testid={
+                        slides[currentSlide].title === "Romantic Love"
+                          ? "hero-romantic-love-streaming-cta"
+                          : undefined
+                      }
                       icon={<ArrowRight size={18} />}
                       iconPosition="right"
                     >
@@ -869,7 +951,7 @@ export default function Home() {
 
             {/* Platform Icons (Only show for EP) */}
             <AnimatePresence>
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -887,7 +969,7 @@ export default function Home() {
           {/* Floating EP Card / Controls (Right) */}
           <div className="flex flex-col justify-center lg:justify-end items-center order-1 lg:order-2 h-full">
             <AnimatePresence mode="wait">
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div
                   key="ep-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
@@ -910,6 +992,33 @@ export default function Home() {
                       src={musicImage} 
                       alt="Good Life EP Cover" 
                       className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
+                  </div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {currentSlide === 0 && (
+                <motion.div
+                  key="romantic-love-card"
+                  initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
+                  exit={{ opacity: 0, scale: 0.9, rotate: -5 }}
+                  transition={{
+                    opacity: { duration: 0.8 },
+                    scale: { duration: 0.8 },
+                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="perspective-[1000px] mb-8"
+                >
+                  <div className="relative w-56 sm:w-64 md:w-80 lg:w-96 aspect-square rounded-md overflow-hidden shadow-lg border border-gold/30 transform-gpu rotate-y-[5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-cinematic">
+                    <img
+                      src={romanticLoveOverlay}
+                      alt="Romantic Love single artwork by Kiut"
+                      className="w-full h-full object-cover"
+                      loading="eager"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
                   </div>
@@ -1002,26 +1111,12 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              <p className="text-xl text-white/90 font-light leading-relaxed">
-                We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
+              <p className="text-sm text-gold uppercase tracking-[0.2em]">
+                JOSEPH UZOCHUKWU
               </p>
 
-              <blockquote className="border-l-2 border-gold pl-6 my-8">
-                <p className="text-2xl font-editorial italic text-white/80 leading-snug">
-                  "His journey is a powerful reminder that with faith, belief, and relentless hard work, dreams truly become reality."
-                </p>
-              </blockquote>
-
-              <p className="text-lg text-white/60 leading-relaxed font-light">
-                From humble beginnings in Nigeria to pursuing his passion in Hollywood, California, his story reflects courage, perseverance, and unwavering determination. What once seemed like a distant dream is now his lived reality.
-              </p>
-              
-              <p className="text-lg text-white/60 leading-relaxed font-light mb-8">
-                This achievement stands as an inspiration to dream boldly, trust God’s timing, and never give up.
-              </p>
-
-              <p className="text-xl font-editorial italic text-gold">
-                Congratulations on this well-deserved accomplishment and the bright future ahead!
+              <p className="max-w-2xl text-xl text-white/90 font-light leading-relaxed">
+                “It is a proud and deeply meaningful moment to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>. Watching his journey unfold, from the dedication behind the scenes to the creativity he continues to bring to his craft, has been truly inspiring. This achievement represents more than graduation. It is a reflection of his <span className="text-white font-medium">passion, persistence, and commitment</span> to turning his vision into reality.”
               </p>
 
               <div className="pt-8 border-t border-white/10 flex flex-col items-center md:items-start">
@@ -1142,37 +1237,14 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <a
-            href="https://dreamplanet.org/user/61"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative aspect-video rounded-xl overflow-hidden shadow-xl border border-white/10 group cursor-pointer"
-            >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-105"
-              >
-                <source src={portfolioVideo} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-slow gap-3">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                  <ExternalLink size={32} />
-                </div>
-                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
-              </div>
-            </motion.div>
-          </a>
+            <CreativePortfolioVideo />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -1181,7 +1253,7 @@ export default function Home() {
             className="mt-12"
           >
             <a
-              href="https://dreamplanet.org/user/61"
+              href={DREAMPLANET_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -1424,7 +1496,7 @@ export default function Home() {
                         </div>
                         <div className="flex items-center justify-between gap-2">
                           <span className="inline-flex items-center gap-1 text-white/18 text-xs font-light tracking-wide">
-                            <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
+                            <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
                             Dream Planet
                           </span>
                           <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-xs font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-glow-gold transition-all duration-normal whitespace-nowrap">

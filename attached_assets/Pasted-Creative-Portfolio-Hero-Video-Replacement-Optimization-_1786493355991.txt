@@ -1,0 +1,96 @@
+Creative Portfolio Hero — Video Replacement & Optimization
+
+Replace the current Creative Portfolio section’s static slide/image with the uploaded video clip provided in this task.
+
+Objective
+
+Use the uploaded video as the primary visual for the Creative Portfolio section while preserving the existing section’s approved design, layout, branding, typography, spacing, and overall visual identity.
+
+The video should feel like a deliberate part of the website experience, not simply a raw video file dropped into an image container.
+
+Implementation Requirements
+
+1. Replace the existing Creative Portfolio visual
+    * Locate the current Creative Portfolio slide/image component and replace its visual source with the uploaded video.
+    * Do not remove or redesign the surrounding section.
+    * Preserve the existing content, CTA structure, typography, spacing, and positioning unless a small adjustment is technically necessary for the video.
+2. Optimize the uploaded video for web
+    Inspect the uploaded clip before implementation and make any necessary technical adjustments, including:
+    * Appropriate cropping or positioning.
+    * Aspect-ratio handling.
+    * Resolution optimization.
+    * Compression/encoding for efficient web delivery.
+    * Removal of unnecessary metadata or excessive file size where appropriate.
+    * Ensure the final video remains visually sharp on desktop and mobile.
+    * Do not make destructive edits that reduce the intended visual quality.
+3. Video behavior
+    Implement the video as a polished website hero/feature visual:
+    * Autoplay when supported.
+    * Muted by default.
+    * Loop continuously.
+    * Plays inline on mobile.
+    * No visible browser controls unless the existing design specifically requires them.
+    * Prevent unwanted audio playback.
+    * Ensure the video does not interfere with surrounding page interactions.
+4. Responsive behavior
+    The video must adapt cleanly across:
+    * Desktop
+    * Tablet
+    * Mobile
+    Maintain the visual composition and focal point of the original clip as much as possible.
+    If the source video’s aspect ratio does not match the existing Creative Portfolio container, use appropriate object-fit/positioning or responsive container logic rather than distorting the video.
+5. Visual integration
+    Make any subtle enhancements necessary to integrate the video with the existing KIUT Music visual language, such as:
+    * Appropriate border radius.
+    * Existing gold/black styling.
+    * Subtle overlay if required for readability.
+    * Existing shadows, borders, or glow effects where appropriate.
+    * Smooth entrance/transition behavior consistent with the current website.
+    Do not introduce unnecessary effects, filters, animations, or redesigns.
+6. Performance
+    Ensure the video does not unnecessarily slow down the page:
+    * Use an optimized web-compatible format.
+    * Provide an appropriate poster/fallback image where useful.
+    * Lazy-load the video when appropriate based on its position on the page.
+    * Avoid loading multiple versions unnecessarily.
+    * Ensure the implementation does not create console errors or failed asset requests.
+7. Accessibility
+    * Ensure the video does not create an accessibility barrier.
+    * Keep it muted by default.
+    * Respect reduced-motion preferences where appropriate.
+    * Provide meaningful fallback behavior if the browser cannot play the video.
+8. Preserve existing architecture
+    * Reuse the existing Creative Portfolio component.
+    * Do not create duplicate components unnecessarily.
+    * Follow the project’s existing component, asset, styling, and naming conventions.
+    * Do not modify unrelated sections or pages.
+
+Quality-Control Checklist
+
+After implementation:
+
+* Verify the video renders correctly on the Creative Portfolio section.
+* Verify autoplay, muted playback, looping, and inline playback.
+* Verify desktop, tablet, and mobile layouts.
+* Verify there is no stretching or distortion.
+* Verify the video’s focal point remains visually correct.
+* Verify the section’s existing text and CTA remain intact.
+* Verify the video does not overlap or interfere with other UI elements.
+* Verify page performance and asset loading.
+* Check the browser console for errors.
+* Confirm there are no broken asset paths.
+* Confirm existing Creative Portfolio functionality remains intact.
+
+Important Constraint
+
+This is a visual replacement and enhancement, not a redesign of the Creative Portfolio section.
+
+Preserve the approved KIUT Music website design and only make the adjustments necessary to make the uploaded video function as a polished, responsive, production-ready replacement for the current Creative Portfolio image.
+
+When complete, provide a concise implementation report stating:
+
+1. Where the video was integrated.
+2. What optimization or edits were performed.
+3. Any responsive adjustments made.
+4. Any fallback/poster strategy implemented.
+5. Confirmation that the existing section design and functionality were preserved.

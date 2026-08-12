@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
 import { KiutMark, KiutFullLogo } from "../components/KiutMark";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
@@ -9,8 +9,6 @@ import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
-import { ReleasedMusicCarousel } from "@/components/ReleasedMusicCarousel";
-import { CREATIVE_PORTFOLIO_SLIDES } from "@/data/creativePortfolio";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -20,6 +18,8 @@ const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
 const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
 const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
 const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
+const creativePortfolioVideo = "/assets/videos/creative-portfolio-optimized.mp4";
+const creativePortfolioPoster = "/assets/images/creative-portfolio/video-poster.jpg";
 const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
 const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
 const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
@@ -495,6 +495,70 @@ function HeroSlideMedia({
         >
           <source src={video} type="video/mp4" />
         </video>
+      )}
+    </div>
+  );
+}
+
+function CreativePortfolioVideo() {
+  const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion || !videoRef.current) return;
+    videoRef.current.play().catch(() => {});
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative mx-auto max-w-5xl aspect-[4/3] overflow-hidden rounded-2xl border border-white/[0.08] bg-black shadow-2xl shadow-black/40 sm:aspect-[16/9]"
+      role="img"
+      aria-label="Kiut creative portfolio video"
+      data-testid="creative-portfolio-video"
+    >
+      <img
+        src={creativePortfolioPoster}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-cinematic"
+        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+        loading="lazy"
+        decoding="async"
+      />
+      {!videoError && (
+        <video
+          ref={videoRef}
+          src={isInView && !prefersReducedMotion ? creativePortfolioVideo : undefined}
+          autoPlay={isInView && !prefersReducedMotion}
+          loop
+          muted
+          playsInline
+          preload={isInView && !prefersReducedMotion ? "metadata" : "none"}
+          poster={creativePortfolioPoster}
+          aria-hidden="true"
+          tabIndex={-1}
+          onCanPlay={() => {
+            videoRef.current?.play().catch(() => {});
+            setVideoReady(true);
+          }}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-cinematic"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        />
+      )}
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
+        aria-hidden="true"
+      />
+      {prefersReducedMotion && (
+        <p className="sr-only">
+          Motion is reduced, so the Creative Portfolio video is shown as a still image.
+        </p>
       )}
     </div>
   );
@@ -1135,7 +1199,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <ReleasedMusicCarousel slides={CREATIVE_PORTFOLIO_SLIDES} />
+            <CreativePortfolioVideo />
           </motion.div>
 
           <motion.div

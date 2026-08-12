@@ -439,6 +439,7 @@ export default function Music() {
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
   const featuredTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love") ?? ALL_TRACKS[0];
+  const featuredStreamingUrl = getTrackStreamingUrl(featuredTrack);
   const playlistSeconds = ALL_TRACKS.reduce((sum, t) => {
     if (!t.duration) return sum;
     const [m, s] = t.duration.split(":").map(Number);
@@ -595,14 +596,19 @@ export default function Music() {
                     {currentTrack && isPlaying ? "Pause" : "Listen Now"}
                   </PremiumCTAButton>
 
-                  {!currentTrack && featuredTrack.status !== "recently-released" && (
-                    <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+                  {!currentTrack && featuredStreamingUrl && (
+                    <a
+                      href={featuredStreamingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Listen to ${featuredTrack.title} on streaming platforms`}
+                    >
                       <motion.button
                         whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
                         whileTap={{ scale: 0.97 }}
                         className="btn-base btn-secondary"
                       >
-                        <ExternalLink size={13} /> Stream Everywhere
+                        <ExternalLink size={13} /> Listen on Streaming Platforms
                       </motion.button>
                     </a>
                   )}

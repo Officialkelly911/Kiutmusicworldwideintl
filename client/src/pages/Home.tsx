@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
 import { DREAMPLANET_URL } from "@/data/social";
+import { ALL_TRACKS, getTrackStreamingUrl } from "@/data/tracks";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -30,6 +31,7 @@ const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
 const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
+const romanticLoveTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love");
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -793,10 +795,10 @@ export default function Home() {
       title: "Romantic Love",
       description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
       ctaText: "Listen Now",
-      ctaLink: "/music",
+      ctaLink: romanticLoveTrack ? getTrackStreamingUrl(romanticLoveTrack) ?? "/music" : "/music",
       poster: romanticLoveBackground,
       badge: "Recent Release",
-      isExternal: false,
+      isExternal: true,
       overlay: romanticLoveOverlay,
       duration: 6000,
     },
@@ -917,6 +919,7 @@ export default function Home() {
                       href={slides[currentSlide].ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Listen to Romantic Love on streaming platforms"
                       icon={<ArrowRight size={18} />}
                       iconPosition="right"
                     >

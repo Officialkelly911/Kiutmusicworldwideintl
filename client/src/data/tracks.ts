@@ -26,6 +26,7 @@ import {
   ANNOUNCE_LINK,
   ELIGIBLE_EP_LINK,
   LINKTREE_URL,
+  ROMANTIC_LOVE_STREAMING_URL,
 } from "./social";
 
 // ─── Streaming link map ────────────────────────────────────────────────────────
@@ -65,6 +66,8 @@ export interface Track {
   url:        string | null;
   /** Per-track streaming URLs; falls back to album-level via getTrackStreamingUrl() */
   streaming:  StreamingLinks;
+  /** Canonical release-level smartlink for this track, when one exists */
+  streamingUrl?: string;
   /** YouTube music video / visualizer ID for cross-linking with the Videos page */
   youtubeVideoId?: string;
   lyrics?:    string;
@@ -281,6 +284,7 @@ export const ALL_TRACKS: Track[] = [
     albumArt: ROMANTIC_LOVE_ART, albumType: "single",
     url: "/audio/romantic-love.mp3",
     streaming: {},
+    streamingUrl: ROMANTIC_LOVE_STREAMING_URL,
     isLatest: true,
     status: "recently-released",
   },
@@ -401,10 +405,12 @@ export function getAlbumPreviewAudio(albumId: string): string | null {
 
 /**
  * Returns the best available streaming URL for a track.
- * Checks per-track links first, then falls back to the parent album's links.
+ * Checks a release-level smartlink first, then per-track links, then the
+ * parent album's links.
  * Preference order: Spotify → Apple Music → Audiomack → YouTube → Boomplay.
  */
 export function getTrackStreamingUrl(track: Track): string | null {
+  if (track.streamingUrl) return track.streamingUrl;
   const order: Array<keyof StreamingLinks> = ["spotify", "apple", "audiomack", "youtube", "boomplay"];
   for (const k of order) {
     if (track.streaming[k]) return track.streaming[k]!;

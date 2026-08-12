@@ -1222,9 +1222,6 @@ export default function Music() {
             style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none" } as React.CSSProperties}
           >
             {([
-              { youtubeId: "WRIWMkPvfEo", title: "Good Life — Official Video", year: "2025", duration: "3:42" },
-              { youtubeId: "6mU3m1p-Dkk", title: "Twerk Instructor",           year: "2024", duration: "3:18" },
-              { youtubeId: "T2mXpK8BLNk", title: "Eligible EP — Highlight",    year: "2024", duration: "4:05" },
               { youtubeId: "_2EMhX0wbWk", title: "Chikito — Glitch Session",   year: "2022", duration: "2:58" },
               { youtubeId: "oqJVcQoWDzw", title: "SOFA — Behind The Scenes",   year: "2023", duration: "5:12" },
             ] as const).map((vid, i) => (

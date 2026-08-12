@@ -789,6 +789,18 @@ export default function Home() {
 
   const slides = [
     {
+      id: 2,
+      title: "Romantic Love",
+      description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
+      ctaText: "Listen Now",
+      ctaLink: "/music",
+      poster: romanticLoveBackground,
+      badge: "Recent Release",
+      isExternal: false,
+      overlay: romanticLoveOverlay,
+      duration: 6000,
+    },
+    {
       id: 0,
       title: "Good Life EP",
       description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
@@ -809,18 +821,6 @@ export default function Home() {
       poster: goodLifePoster,
       badge: "Featured Music Video",
       isExternal: false,
-      duration: 6000,
-    },
-    {
-      id: 2,
-      title: "Romantic Love",
-      description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
-      ctaText: "Listen Now",
-      ctaLink: "/music",
-      poster: romanticLoveBackground,
-      badge: "Recent Release",
-      isExternal: false,
-      overlay: romanticLoveOverlay,
       duration: 6000,
     }
   ];
@@ -938,7 +938,7 @@ export default function Home() {
 
             {/* Platform Icons (Only show for EP) */}
             <AnimatePresence>
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -956,7 +956,7 @@ export default function Home() {
           {/* Floating EP Card / Controls (Right) */}
           <div className="flex flex-col justify-center lg:justify-end items-center order-1 lg:order-2 h-full">
             <AnimatePresence mode="wait">
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div
                   key="ep-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
@@ -987,7 +987,7 @@ export default function Home() {
               )}
             </AnimatePresence>
             <AnimatePresence mode="wait">
-              {currentSlide === 2 && (
+              {currentSlide === 0 && (
                 <motion.div
                   key="romantic-love-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: 5 }}

@@ -517,7 +517,7 @@ function CreativePortfolioVideo() {
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto max-w-5xl aspect-[4/3] overflow-hidden rounded-2xl border border-white/[0.08] bg-black shadow-2xl shadow-black/40 sm:aspect-[16/9]"
+      className="relative mx-auto max-w-5xl aspect-[16/9] overflow-hidden rounded-2xl border border-white/[0.08] bg-black shadow-2xl shadow-black/40"
       role="img"
       aria-label="Kiut creative portfolio video"
       data-testid="creative-portfolio-video"
@@ -526,7 +526,7 @@ function CreativePortfolioVideo() {
         src={creativePortfolioPoster}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-cinematic"
+        className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
         style={{ opacity: videoReady && !videoError ? 0 : 1 }}
         loading="lazy"
         decoding="async"
@@ -548,7 +548,7 @@ function CreativePortfolioVideo() {
             setVideoReady(true);
           }}
           onError={() => setVideoError(true)}
-          className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-cinematic"
+          className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
           style={{ opacity: videoReady ? 1 : 0 }}
         />
       )}

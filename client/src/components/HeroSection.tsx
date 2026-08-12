@@ -37,6 +37,8 @@ import { heroImageMeta } from "@/data/heroImages";
 export interface HeroSectionProps {
   /** Resolves image variants at /images/hero/<slug>/<slug>-<variant>.<ext> */
   slug: string;
+  /** Optional exact source asset when a supplied hero has no generated variants yet. */
+  imageSrc?: string;
   alt: string;
   /** Merged onto the <section> — controls height/layout, e.g. "min-h-[80vh] flex items-end pb-24" */
   className?: string;
@@ -79,6 +81,7 @@ const DEFAULT_OVERLAY = (
 export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(function HeroSection(
   {
     slug,
+    imageSrc,
     alt,
     className = "",
     imageClassName = "",
@@ -163,38 +166,52 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
           }}
           aria-hidden="true"
         />
-        <picture
+        <div
           className="absolute inset-0 block w-full h-full transition-opacity duration-cinematic"
           style={{ opacity: videoSrc && videoPlaying && !videoError ? 0 : 1 }}
         >
-          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />
-          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.webp`} type="image/webp" />
-          <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.jpg`} type="image/jpeg" />
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={alt}
+              className={imageClassName || "w-full h-full object-cover object-center"}
+              loading={priority ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={priority ? "high" : "auto"}
+              onLoad={() => setLoaded(true)}
+            />
+          ) : (
+            <picture>
+              <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />
+              <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.webp`} type="image/webp" />
+              <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.jpg`} type="image/jpeg" />
 
-          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.avif`} type="image/avif" />
-          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.webp`} type="image/webp" />
-          <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.jpg`} type="image/jpeg" />
+              <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.avif`} type="image/avif" />
+              <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.webp`} type="image/webp" />
+              <source media="(max-width: 767px)" srcSet={`${base}-mobile-landscape.jpg`} type="image/jpeg" />
 
-          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.avif`} type="image/avif" />
-          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.webp`} type="image/webp" />
-          <source media="(max-width: 1279px)" srcSet={`${base}-tablet.jpg`} type="image/jpeg" />
+              <source media="(max-width: 1279px)" srcSet={`${base}-tablet.avif`} type="image/avif" />
+              <source media="(max-width: 1279px)" srcSet={`${base}-tablet.webp`} type="image/webp" />
+              <source media="(max-width: 1279px)" srcSet={`${base}-tablet.jpg`} type="image/jpeg" />
 
-          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.avif`} type="image/avif" />
-          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.webp`} type="image/webp" />
-          <source media="(max-width: 1919px)" srcSet={`${base}-laptop.jpg`} type="image/jpeg" />
+              <source media="(max-width: 1919px)" srcSet={`${base}-laptop.avif`} type="image/avif" />
+              <source media="(max-width: 1919px)" srcSet={`${base}-laptop.webp`} type="image/webp" />
+              <source media="(max-width: 1919px)" srcSet={`${base}-laptop.jpg`} type="image/jpeg" />
 
-          <source srcSet={`${base}-desktop.avif`} type="image/avif" />
-          <source srcSet={`${base}-desktop.webp`} type="image/webp" />
-          <img
-            src={`${base}-desktop.jpg`}
-            alt={alt}
-            className={imageClassName || "w-full h-full object-cover object-center"}
-            loading={priority ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={priority ? "high" : "auto"}
-            onLoad={() => setLoaded(true)}
-          />
-        </picture>
+              <source srcSet={`${base}-desktop.avif`} type="image/avif" />
+              <source srcSet={`${base}-desktop.webp`} type="image/webp" />
+              <img
+                src={`${base}-desktop.jpg`}
+                alt={alt}
+                className={imageClassName || "w-full h-full object-cover object-center"}
+                loading={priority ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={priority ? "high" : "auto"}
+                onLoad={() => setLoaded(true)}
+              />
+            </picture>
+          )}
+        </div>
         {videoSrc && !videoError && (
           <video
             ref={videoRef}

@@ -145,7 +145,7 @@ export function ReleasedMusicCarousel({ slides: customSlides }: ReleasedMusicCar
                   {activeTrack.title}
                 </h3>
                 <p className="mt-1 text-xs text-white/55 sm:text-sm">
-                  {activeTrack.artist} · {activeTrack.album} · {activeTrack.released}
+                  {activeTrack.artist} · {activeTrack.album} · {"status" in activeTrack && activeTrack.status === "recently-released" ? "Recently Released" : activeTrack.released ?? "—"}
                 </p>
               </div>
               <span className="hidden shrink-0 text-[10px] font-bold uppercase tracking-[0.25em] text-white/45 sm:block">

@@ -15,8 +15,7 @@ import {
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
-const musicHeroVideo = "/assets/videos/creative-portfolio-optimized.mp4";
-const musicHeroPoster = "/images/hero/creative-portfolio/creative-portfolio-desktop.jpg";
+const musicHeroImage = "/images/hero/music/music-source.png";
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
 type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay" | "amazon" | "soundcloud" | "deezer";
@@ -313,12 +312,12 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
               track.albumType === "ep" ? "bg-gold/12 text-gold/80" : "bg-white/6 text-white/35"
             }`}>{track.album}</span>
           ) : (
-            <span className="text-white/25 text-xs">{track.released}</span>
+            <span className="text-white/25 text-xs">{track.status === "recently-released" ? "Recently Released" : track.released ?? "—"}</span>
           )}
         </span>
       </div>
 
-      <span className="text-white/25 text-xs font-mono flex-shrink-0 hidden sm:block tabular-nums">{track.duration}</span>
+      <span className="text-white/25 text-xs font-mono flex-shrink-0 hidden sm:block tabular-nums">{track.duration ?? "—"}</span>
 
       <button
         onClick={(e) => { e.stopPropagation(); playTrack(track); }}
@@ -439,9 +438,9 @@ export default function Music() {
   });
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
-  const featuredTrack = ALL_TRACKS[0];
-  const featuredAlbum = ALBUMS.find((a) => a.id === "good-life-ep") ?? ALBUMS[0];
+  const featuredTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love") ?? ALL_TRACKS[0];
   const playlistSeconds = ALL_TRACKS.reduce((sum, t) => {
+    if (!t.duration) return sum;
     const [m, s] = t.duration.split(":").map(Number);
     return sum + m * 60 + s;
   }, 0);
@@ -476,13 +475,12 @@ export default function Music() {
 
       {/* ── Universal Hero ──────────────────────────────────────────── */}
       <HeroSection
-        slug="creative-portfolio"
-        alt="Kiut seated in white with KIUT MUSIC typography"
+        slug="music"
+        imageSrc={musicHeroImage}
+        alt="Kiut reclining on a beach with roses and a teddy bear"
         className="min-h-[80vh] flex items-end pb-24"
         parallax={false}
-        videoSrc={musicHeroVideo}
-        videoPoster={musicHeroPoster}
-        videoClassName="object-contain object-center"
+        imageClassName="w-full h-full object-cover object-[center_60%] md:object-[center_58%]"
         priority
         overlay={
           <>
@@ -569,16 +567,18 @@ export default function Music() {
                 </span>
 
                 <h2 className="font-display text-3xl md:text-5xl font-bold text-white leading-tight mb-2 uppercase tracking-wider">
-                  {currentTrack ? currentTrack.title : "Good Life EP"}
+                  {currentTrack ? currentTrack.title : featuredTrack.title}
                 </h2>
                 <p className="text-white/40 text-sm mb-2">
                   {currentTrack
                     ? `${currentTrack.artist} · ${currentTrack.album}`
-                    : `Kiut · ${featuredAlbum.released} · Available everywhere`}
+                     : `Kiut · ${featuredTrack.status === "recently-released" ? "Recently Released" : featuredTrack.released ?? "Available everywhere"}`}
                 </p>
                 {!currentTrack && (
                   <p className="text-white/25 text-xs mb-8">
-                    {featuredAlbum.genre} · {featuredAlbum.trackCount} Tracks
+                    {featuredTrack.status === "recently-released"
+                      ? "Romantic Love · Original Single"
+                      : "Available everywhere"}
                   </p>
                 )}
 
@@ -595,7 +595,7 @@ export default function Music() {
                     {currentTrack && isPlaying ? "Pause" : "Listen Now"}
                   </PremiumCTAButton>
 
-                  {!currentTrack && (
+                  {!currentTrack && featuredTrack.status !== "recently-released" && (
                     <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
                       <motion.button
                         whileHover={{ scale: 1.03, borderColor: "rgba(var(--gold-primary-rgb),0.5)", color: "var(--color-gold)" }}
@@ -608,7 +608,7 @@ export default function Music() {
                   )}
                 </div>
 
-                {!currentTrack && (
+                {!currentTrack && featuredTrack.status !== "recently-released" && (
                   <div className="flex flex-wrap items-center gap-2 justify-center md:justify-start mt-6">
                     {(["spotify", "apple", "youtube", "audiomack", "boomplay", "amazon", "deezer", "soundcloud"] as PlatformId[]).map((id) => (
                       <PlatformBadge key={id} id={id} />
@@ -636,7 +636,7 @@ export default function Music() {
                     </div>
                     <div className="flex justify-between mt-1.5 text-xs text-white/20 font-mono tabular-nums">
                       <span>{Math.floor(currentTime / 60)}:{String(Math.floor(currentTime % 60)).padStart(2, "0")}</span>
-                      <span>{currentTrack.duration}</span>
+                      <span>{currentTrack.duration ?? "—"}</span>
                     </div>
                   </div>
                 )}

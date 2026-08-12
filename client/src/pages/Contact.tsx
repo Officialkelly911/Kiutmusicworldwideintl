@@ -2,7 +2,7 @@ import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, BOOMPLAY_URL,
-  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL,
+  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL, DREAMPLANET_URL,
   TIKTOK_URL, FACEBOOK_URL, SOUNDCLOUD_URL, X_URL, THREADS_URL,
 } from "@/data/social";
 import {
@@ -28,6 +28,18 @@ const SiBoomplay: IconType = ({ size = "1em", ...props }: any) => (
     <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 14.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm0-7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" />
   </svg>
 );
+
+const SiDreamPlanet: IconType = ({ size = "1em", className, ...props }: any) => (
+  <img
+    src="/assets/images/dreamplanet-icon.svg"
+    alt=""
+    aria-hidden="true"
+    width={size}
+    height={size}
+    className={`object-contain ${className ?? ""}`}
+    {...props}
+  />
+);
 import { useState, useRef, useEffect } from "react";
 import { COUNTRIES } from "@/lib/countries";
 import { track } from "@/lib/analytics";
@@ -36,6 +48,7 @@ import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import KiutWatermark from "@/components/KiutWatermark";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { SocialIconGroup } from "@/components/SocialIconGroup";
+import { useSEO } from "@/lib/useSEO";
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
 const ENQUIRY_META: Record<(typeof CONTACT_ENQUIRY_TYPES)[number], { icon: typeof Mic2; label: string; desc: string; placeholder: string }> = {
@@ -146,8 +159,8 @@ const socialLinks = [
   {
     label: "DreamPlanet",
     sub: "Store",
-    icon: Globe,
-    href: "https://dreamplanet.org/user/61",
+    icon: SiDreamPlanet,
+    href: DREAMPLANET_URL,
     color: "from-gold/10 to-amber-500/10",
     border: "hover:border-gold/30",
     iconColor: "group-hover:text-gold",
@@ -860,29 +873,11 @@ function LocationMap() {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Contact() {
-  useEffect(() => {
-    const TITLE = "Contact Kiut Music";
-    const DESC  = "Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.";
-    const origTitle   = document.title;
-    const metaDesc    = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    const ogTitle     = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
-    const ogDesc      = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
-    const origDesc    = metaDesc?.content;
-    const origOgTitle = ogTitle?.content;
-    const origOgDesc  = ogDesc?.content;
-
-    document.title = TITLE;
-    metaDesc?.setAttribute("content", DESC);
-    ogTitle?.setAttribute("content", TITLE);
-    ogDesc?.setAttribute("content", DESC);
-
-    return () => {
-      document.title = origTitle;
-      if (origDesc    !== undefined && metaDesc) metaDesc.setAttribute("content", origDesc);
-      if (origOgTitle !== undefined && ogTitle)  ogTitle.setAttribute("content", origOgTitle);
-      if (origOgDesc  !== undefined && ogDesc)   ogDesc.setAttribute("content", origOgDesc);
-    };
-  }, []);
+  useSEO({
+    title: "Contact Kiut Music",
+    description: "Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.",
+    canonical: "https://kiutmusic.com/contact",
+  });
 
   return (
     <div className="min-h-screen bg-midnight text-white">

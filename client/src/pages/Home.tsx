@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
 import { KiutMark, KiutFullLogo } from "../components/KiutMark";
 import { PremiumCTAButton } from "@/components/PremiumCTAButton";
@@ -9,7 +9,7 @@ import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
-import { ReleasedMusicCarousel } from "@/components/ReleasedMusicCarousel";
+import { DREAMPLANET_URL } from "@/data/social";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -19,6 +19,8 @@ const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
 const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
 const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
 const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
+const creativePortfolioVideo = "/assets/videos/creative-portfolio-optimized.mp4";
+const creativePortfolioPoster = "/assets/images/creative-portfolio/video-poster.jpg";
 const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
 const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
 const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
@@ -231,7 +233,7 @@ function HomeStatsStrip() {
     { value: 20, suffix: "+", label: "Music Videos" },
     { value: 15, suffix: "+", label: "Singles & EPs" },
     { value: 5,  suffix: "",  label: "Platforms Worldwide" },
-    { value: 4,  suffix: "+", label: "Years Creating" },
+    { value: 20, suffix: "+", label: "Years Creating" },
   ];
 
   useEffect(() => {
@@ -494,6 +496,70 @@ function HeroSlideMedia({
         >
           <source src={video} type="video/mp4" />
         </video>
+      )}
+    </div>
+  );
+}
+
+function CreativePortfolioVideo() {
+  const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion || !videoRef.current) return;
+    videoRef.current.play().catch(() => {});
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative mx-auto max-w-5xl aspect-[16/9] overflow-hidden rounded-2xl border border-white/[0.08] bg-black shadow-2xl shadow-black/40"
+      role="img"
+      aria-label="Kiut creative portfolio video"
+      data-testid="creative-portfolio-video"
+    >
+      <img
+        src={creativePortfolioPoster}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
+        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+        loading="lazy"
+        decoding="async"
+      />
+      {!videoError && (
+        <video
+          ref={videoRef}
+          src={isInView && !prefersReducedMotion ? creativePortfolioVideo : undefined}
+          autoPlay={isInView && !prefersReducedMotion}
+          loop
+          muted
+          playsInline
+          preload={isInView && !prefersReducedMotion ? "metadata" : "none"}
+          poster={creativePortfolioPoster}
+          aria-hidden="true"
+          tabIndex={-1}
+          onCanPlay={() => {
+            videoRef.current?.play().catch(() => {});
+            setVideoReady(true);
+          }}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        />
+      )}
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
+        aria-hidden="true"
+      />
+      {prefersReducedMotion && (
+        <p className="sr-only">
+          Motion is reduced, so the Creative Portfolio video is shown as a still image.
+        </p>
       )}
     </div>
   );
@@ -1002,26 +1068,12 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              <p className="text-xl text-white/90 font-light leading-relaxed">
-                We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
+              <p className="text-sm text-gold uppercase tracking-[0.2em]">
+                JOSEPH UZOCHUKWU
               </p>
 
-              <blockquote className="border-l-2 border-gold pl-6 my-8">
-                <p className="text-2xl font-editorial italic text-white/80 leading-snug">
-                  "His journey is a powerful reminder that with faith, belief, and relentless hard work, dreams truly become reality."
-                </p>
-              </blockquote>
-
-              <p className="text-lg text-white/60 leading-relaxed font-light">
-                From humble beginnings in Nigeria to pursuing his passion in Hollywood, California, his story reflects courage, perseverance, and unwavering determination. What once seemed like a distant dream is now his lived reality.
-              </p>
-              
-              <p className="text-lg text-white/60 leading-relaxed font-light mb-8">
-                This achievement stands as an inspiration to dream boldly, trust God’s timing, and never give up.
-              </p>
-
-              <p className="text-xl font-editorial italic text-gold">
-                Congratulations on this well-deserved accomplishment and the bright future ahead!
+              <p className="max-w-2xl text-xl text-white/90 font-light leading-relaxed">
+                “It is a proud and deeply meaningful moment to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>. Watching his journey unfold, from the dedication behind the scenes to the creativity he continues to bring to his craft, has been truly inspiring. This achievement represents more than graduation. It is a reflection of his <span className="text-white font-medium">passion, persistence, and commitment</span> to turning his vision into reality.”
               </p>
 
               <div className="pt-8 border-t border-white/10 flex flex-col items-center md:items-start">
@@ -1148,7 +1200,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <ReleasedMusicCarousel />
+            <CreativePortfolioVideo />
           </motion.div>
 
           <motion.div
@@ -1158,7 +1210,7 @@ export default function Home() {
             className="mt-12"
           >
             <a
-              href="https://dreamplanet.org/user/61"
+              href={DREAMPLANET_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -1401,7 +1453,7 @@ export default function Home() {
                         </div>
                         <div className="flex items-center justify-between gap-2">
                           <span className="inline-flex items-center gap-1 text-white/18 text-xs font-light tracking-wide">
-                            <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
+                            <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
                             Dream Planet
                           </span>
                           <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-xs font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-glow-gold transition-all duration-normal whitespace-nowrap">

@@ -78,7 +78,8 @@ export const newsletterService = {
    *   so the HTTP response is never blocked by third-party latency.
    */
   async subscribe(opts: SubscribeOptions): Promise<SubscribeResult> {
-    const { source = "Newsletter Page", ...data } = opts;
+    const prepared = newsletterService.preparePayload(opts);
+    const { source = "Newsletter Page", ...data } = prepared;
 
     const isDuplicate = await this.checkDuplicate(data.email);
     if (isDuplicate) {

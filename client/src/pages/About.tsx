@@ -1453,7 +1453,7 @@ export default function About() {
 
             {/* Dream Planet attribution */}
             <div className="flex items-center justify-center gap-2 mb-8">
-              <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" loading="lazy" className="w-3.5 h-3.5 opacity-35" />
+              <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" loading="lazy" className="w-3.5 h-3.5 opacity-35" />
               <span className="text-white/22 text-xs uppercase tracking-[0.32em] font-medium">Exclusive on Dream Planet</span>
             </div>
 

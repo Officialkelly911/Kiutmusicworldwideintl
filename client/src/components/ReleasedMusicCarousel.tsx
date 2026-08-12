@@ -3,6 +3,15 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Disc3, Pause, Play } from "lucide-react";
 import { ALL_TRACKS } from "@/data/tracks";
 
+interface CarouselSlide {
+  id: number;
+  title: string;
+  artist: string;
+  album: string;
+  released: string;
+  albumArt: string;
+}
+
 const AUTOPLAY_MS = 5000;
 const RESUME_AFTER_INTERACTION_MS = 8000;
 
@@ -13,15 +22,20 @@ const RESUME_AFTER_INTERACTION_MS = 8000;
  * second list of releases. That keeps new released songs visible here as soon
  * as they are added to the catalogue.
  */
-export function ReleasedMusicCarousel() {
+interface ReleasedMusicCarouselProps {
+  slides?: CarouselSlide[];
+}
+
+export function ReleasedMusicCarousel({ slides: customSlides }: ReleasedMusicCarouselProps) {
   const prefersReducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const [autoplayPaused, setAutoplayPaused] = useState(Boolean(prefersReducedMotion));
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pointerStartX = useRef<number | null>(null);
 
-  const activeTrack = ALL_TRACKS[activeIndex] ?? ALL_TRACKS[0];
-  const slideCount = ALL_TRACKS.length;
+  const slides = customSlides ?? ALL_TRACKS;
+  const activeTrack = slides[activeIndex] ?? slides[0];
+  const slideCount = slides.length;
   const transitionDuration = prefersReducedMotion ? 0 : 0.55;
 
   const goTo = useCallback((index: number) => {
@@ -169,7 +183,7 @@ export function ReleasedMusicCarousel() {
           {autoplayPaused ? <Play size={13} aria-hidden="true" /> : <Pause size={13} aria-hidden="true" />}
         </button>
         <div className="flex items-center gap-2" role="tablist" aria-label="Choose released song">
-          {ALL_TRACKS.map((track, index) => (
+          {slides.map((track, index) => (
             <button
               key={track.id}
               type="button"

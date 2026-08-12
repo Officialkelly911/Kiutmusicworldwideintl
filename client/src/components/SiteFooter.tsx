@@ -9,10 +9,14 @@ import {
   SiInstagram,
   SiYoutube,
   SiLinktree,
+  SiSoundcloud,
+  SiX,
+  SiThreads,
 } from "react-icons/si";
 import {
   SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, YOUTUBE_MUSIC_URL,
   INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL, DREAMPLANET_URL,
+  SOUNDCLOUD_URL, X_URL, THREADS_URL,
 } from "@/data/social";
 
 // ── Designer credit ────────────────────────────────────────────────────────────
@@ -30,9 +34,12 @@ const streamingLinks = [
 ];
 
 const connectLinks = [
-  { label: "Instagram", Icon: SiInstagram, href: INSTAGRAM_URL },
-  { label: "YouTube",   Icon: SiYoutube,   href: YOUTUBE_URL   },
-  { label: "Linktree",  Icon: SiLinktree,  href: LINKTREE_URL  },
+  { label: "Instagram",  Icon: SiInstagram,  href: INSTAGRAM_URL  },
+  { label: "YouTube",    Icon: SiYoutube,    href: YOUTUBE_URL    },
+  { label: "Linktree",   Icon: SiLinktree,   href: LINKTREE_URL   },
+  { label: "SoundCloud", Icon: SiSoundcloud, href: SOUNDCLOUD_URL  },
+  { label: "X",          Icon: SiX,          href: X_URL           },
+  { label: "Threads",    Icon: SiThreads,    href: THREADS_URL     },
 ];
 
 const navLinks = [
@@ -167,7 +174,7 @@ export default function SiteFooter() {
                 </motion.a>
               ))}
 
-              {/* DreamPlanet — custom platform, PNG icon */}
+                {/* DreamPlanet — custom platform, vector icon */}
               <motion.a
                 href={DREAMPLANET_URL}
                 target="_blank"
@@ -179,7 +186,7 @@ export default function SiteFooter() {
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                 className="btn-icon overflow-hidden"
               >
-                <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
+                <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
               </motion.a>
 
             </div>

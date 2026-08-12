@@ -21,6 +21,8 @@ const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
 const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
 const creativePortfolioVideo = "/assets/videos/creative-portfolio-optimized.mp4";
 const creativePortfolioPoster = "/assets/images/creative-portfolio/video-poster.jpg";
+const romanticLoveBackground = "/assets/images/romantic-love/background.png";
+const romanticLoveOverlay = "/assets/images/romantic-love/overlay.jpg";
 const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
 const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
 const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
@@ -811,13 +813,14 @@ export default function Home() {
     },
     {
       id: 2,
-      title: "Creative Portfolio",
-      description: "A visual journey through performances, behind-the-scenes, and cinematic projects that define Kiut Music.",
-      ctaText: "Explore Portfolio",
-      ctaLink: "https://dreamplanet.org/user/61",
-      poster: gradImage1,
-      badge: "Creative Highlight",
-      isExternal: true,
+      title: "Romantic Love",
+      description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
+      ctaText: "Listen Now",
+      ctaLink: "/music",
+      poster: romanticLoveBackground,
+      badge: "Recent Release",
+      isExternal: false,
+      overlay: romanticLoveOverlay,
       duration: 6000,
     }
   ];
@@ -976,6 +979,33 @@ export default function Home() {
                       src={musicImage} 
                       alt="Good Life EP Cover" 
                       className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
+                  </div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {currentSlide === 2 && (
+                <motion.div
+                  key="romantic-love-card"
+                  initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
+                  exit={{ opacity: 0, scale: 0.9, rotate: -5 }}
+                  transition={{
+                    opacity: { duration: 0.8 },
+                    scale: { duration: 0.8 },
+                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="perspective-[1000px] mb-8"
+                >
+                  <div className="relative w-56 sm:w-64 md:w-80 lg:w-96 aspect-square rounded-md overflow-hidden shadow-lg border border-gold/30 transform-gpu rotate-y-[5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-cinematic">
+                    <img
+                      src={romanticLoveOverlay}
+                      alt="Romantic Love single artwork by Kiut"
+                      className="w-full h-full object-cover"
+                      loading="eager"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
                   </div>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="dreamPlanetTitle">
+  <title id="dreamPlanetTitle">Dream Planet</title>
+  <defs>
+    <linearGradient id="dreamPlanetOrange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff6a00"/>
+      <stop offset="1" stop-color="#ed4b00"/>
+    </linearGradient>
+    <linearGradient id="dreamPlanetBlack" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050505"/>
+      <stop offset="1" stop-color="#1d1d1f"/>
+    </linearGradient>
+    <mask id="orangeBowl" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400">
+      <rect width="400" height="400" fill="black"/>
+      <circle cx="143" cy="214" r="91" fill="white"/>
+      <circle cx="143" cy="214" r="45" fill="black"/>
+    </mask>
+    <mask id="blackBowl" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400">
+      <rect width="400" height="400" fill="black"/>
+      <circle cx="257" cy="171" r="91" fill="white"/>
+      <circle cx="257" cy="171" r="45" fill="black"/>
+    </mask>
+  </defs>
+
+  <circle cx="143" cy="214" r="91" fill="url(#dreamPlanetOrange)" mask="url(#orangeBowl)"/>
+  <rect x="180" y="104" width="43" height="110" fill="url(#dreamPlanetOrange)"/>
+
+  <rect x="180" y="170" width="43" height="128" fill="url(#dreamPlanetBlack)"/>
+  <circle cx="257" cy="171" r="91" fill="url(#dreamPlanetBlack)" mask="url(#blackBowl)"/>
+</svg>

@@ -14,3 +14,4 @@
 - [Phase 9 Part 3 completion](phase9-part3-tour-music-completion.md) — specs/audit docs can describe intended state, not actual runtime state; always screenshot+console-check a page before trusting docs when resuming checklist work.
 - [Phase 10 form/service architecture](phase10-forms.md) — contactService/newsletterService in server/; analytics in client/src/lib/analytics.ts; countries list in client/src/lib/countries.ts; metadata JSON column on contactSubmissions for booking fields; import.meta.env needs cast `(import.meta as Record<string,any>).env?.DEV` due to missing vite-env.d.ts.
 - [Hero asset pipeline](hero-asset-pipeline.md) — when approved hero art exists only in video, extract a still and use the existing responsive hero generator plus blur registry.
+- [Hero video playback](hero-video-playback.md) — preserve full 16:9 hero composition with contain; avoid mount-time video.load() because it can interrupt muted autoplay on WebKit.

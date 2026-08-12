@@ -482,7 +482,7 @@ export default function Music() {
         parallax={false}
         videoSrc={musicHeroVideo}
         videoPoster={musicHeroPoster}
-        videoClassName="object-contain lg:object-cover object-center"
+        videoClassName="object-contain object-center"
         priority
         overlay={
           <>

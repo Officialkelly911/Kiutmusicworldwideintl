@@ -113,12 +113,25 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
     const video = videoRef.current;
     setVideoPlaying(false);
     setVideoError(false);
+    // Set both properties before loading. Some mobile browsers inspect the
+    // property (not just the React attribute) when deciding whether autoplay
+    // is allowed.
+    video.defaultMuted = true;
     video.muted = true;
-    video.load();
-    video.play().catch(() => {
-      // The muted autoplay attributes remain the primary path; some browsers
-      // still require a later user gesture before playback can begin.
-    });
+    const attemptAutoplay = () => {
+      void video.play().catch(() => {
+        // The muted autoplay attributes remain the primary path; some
+        // browsers still require a later user gesture before playback begins.
+      });
+    };
+    // Keep the browser's native autoplay lifecycle intact. Calling load()
+    // here can reset an already-started autoplay on Safari/WebKit, so only
+    // request playback once the source is ready.
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      attemptAutoplay();
+    }
+    video.addEventListener("canplay", attemptAutoplay);
+    return () => video.removeEventListener("canplay", attemptAutoplay);
   }, [videoSrc]);
 
   const base = `/images/hero/${slug}/${slug}`;
@@ -194,12 +207,18 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
             preload={priority ? "auto" : "metadata"}
             aria-hidden="true"
             tabIndex={-1}
+            onLoadedData={() => {
+              const video = videoRef.current;
+              if (video && video.paused) {
+                void video.play().catch(() => {});
+              }
+            }}
             onPlaying={() => setVideoPlaying(true)}
             onError={() => {
               setVideoError(true);
               setVideoPlaying(false);
             }}
-            className={`absolute inset-0 w-full h-full bg-black transition-opacity duration-cinematic ${
+            className={`absolute inset-0 w-full h-full transition-opacity duration-cinematic ${
               videoClassName || "object-cover object-center"
             }`}
             style={{ opacity: videoPlaying ? 1 : 0 }}

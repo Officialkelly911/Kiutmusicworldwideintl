@@ -327,7 +327,7 @@ function TrackRow({ track, index }: { track: Track; index: number }) {
             : "text-white/30 group-hover:text-white group-hover:bg-white/10"
         }`}
         data-testid={`button-play-${track.id}`}
-        aria-label={isActive && isPlaying ? "Pause" : "Play"}
+        aria-label={`${isActive && isPlaying ? "Pause" : "Play"} ${track.title}`}
       >
         {isActive && isPlaying
           ? <Pause size={13} fill="currentColor" />

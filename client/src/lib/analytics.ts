@@ -172,7 +172,7 @@ function wireProviders(cfg: NonNullable<Window["__KIUT_ANALYTICS__"]>) {
 function classifyClick(anchor: HTMLAnchorElement, label: string): AnalyticsEvent | null {
   const href = anchor.href.toLowerCase();
   if (/dreamplanet\.org\/store|shop|merch/.test(href)) return "store_click";
-  if (/spotify|music\.apple|audiomack|boomplay|soundcloud|deezer|music\.youtube|youtube\.com/.test(href)) {
+  if (/spotify|music\.apple|audiomack|boomplay|soundcloud|deezer|music\.youtube|youtube\.com|bit\.ly\/m\//.test(href)) {
     return "streaming_click";
   }
   if (/ticket|eventbrite|bandsintown|songkick|book/i.test(`${href} ${label}`)) return "tour_booking";

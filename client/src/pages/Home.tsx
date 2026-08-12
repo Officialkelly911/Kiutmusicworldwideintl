@@ -919,7 +919,7 @@ export default function Home() {
                       href={slides[currentSlide].ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Listen to Romantic Love on streaming platforms"
+                      aria-label={`Listen to ${slides[currentSlide].title} on streaming platforms`}
                       icon={<ArrowRight size={18} />}
                       iconPosition="right"
                     >

@@ -1,0 +1,109 @@
+Dream Planet Icon — SVG Creation & Integration
+
+Create a clean, production-ready SVG version of the Dream Planet icon and integrate it into the appropriate location within the existing website.
+
+1. Create the SVG Asset
+
+* Create the Dream Planet icon as a proper vector SVG.
+* Preserve the recognizable shape, proportions, and visual identity of the existing Dream Planet icon.
+* Ensure the SVG has clean paths and does not rely on an embedded raster image.
+* Use a transparent background unless the existing design specifically requires otherwise.
+* Make the SVG scalable without loss of quality.
+* Optimize the SVG markup for web performance by removing unnecessary metadata, excessive path data, and redundant attributes where possible.
+* Follow the project’s existing asset naming and directory conventions.
+
+2. Identify the Correct Existing Location
+
+Before making changes:
+
+1. Search the entire codebase for the existing Dream Planet icon/logo reference.
+2. Determine where the icon is currently being displayed or where the design specification requires it.
+3. Identify whether the existing implementation uses:
+    * PNG/JPG/WebP
+    * CSS background image
+    * Inline SVG
+    * React/Next.js image component
+    * Another asset reference
+
+Do not blindly add the new icon to an arbitrary location.
+
+3. Integrate the New SVG
+
+Replace the appropriate existing Dream Planet icon asset/reference with the newly created SVG.
+
+Preserve:
+
+* Existing positioning
+* Existing dimensions
+* Existing spacing
+* Existing alignment
+* Existing responsive behavior
+* Existing hover/interaction behavior
+* Existing surrounding UI
+
+If the current implementation requires minor sizing or alignment adjustments because SVG dimensions behave differently from the previous raster asset, make those adjustments cleanly.
+
+4. Preserve the Existing Design
+
+Do not redesign the surrounding component.
+
+Do not modify unrelated:
+
+* Sections
+* Pages
+* Navigation
+* Typography
+* Colors
+* Animations
+* Layouts
+* Components
+* Branding
+
+Only make changes necessary to correctly introduce and integrate the Dream Planet SVG icon.
+
+5. Responsive & Accessibility Requirements
+
+Ensure the SVG:
+
+* Scales correctly on desktop, tablet, and mobile.
+* Remains sharp at all sizes.
+* Does not distort.
+* Does not cause layout shifts.
+* Maintains appropriate contrast against its background.
+* Includes appropriate accessibility treatment based on its role.
+
+If it is purely decorative, implement it appropriately as decorative content. If it functions as a meaningful logo or interactive element, provide an appropriate accessible label.
+
+6. Verification
+
+After implementation:
+
+1. Run the website.
+2. Navigate to the location where the Dream Planet icon is displayed.
+3. Confirm the new SVG renders correctly.
+4. Confirm the old icon is no longer being unnecessarily loaded.
+5. Verify desktop and mobile layouts.
+6. Check for broken asset paths.
+7. Check the browser console for errors.
+8. Confirm no unrelated UI has changed.
+
+Acceptance Criteria
+
+The task is complete when:
+
+* A production-ready Dream Planet SVG has been created.
+* The SVG is stored in the appropriate project asset directory.
+* The correct existing Dream Planet icon reference has been replaced.
+* The icon appears in its intended location.
+* The icon remains visually consistent with the existing Dream Planet branding.
+* The SVG is responsive, optimized, and scalable.
+* No unnecessary duplicate assets or components were created.
+* No unrelated website functionality or design has been changed.
+
+Finally, provide a concise implementation report identifying:
+
+1. The SVG asset created.
+2. The location where it was integrated.
+3. The previous asset/reference replaced, if applicable.
+4. Any sizing or responsive adjustments made.
+5. Confirmation that the implementation was tested successfully.

@@ -2,7 +2,7 @@ import React from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, BOOMPLAY_URL,
-  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL,
+  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL, DREAMPLANET_URL,
   TIKTOK_URL, FACEBOOK_URL, SOUNDCLOUD_URL, X_URL, THREADS_URL,
 } from "@/data/social";
 import {
@@ -27,6 +27,18 @@ const SiBoomplay: IconType = ({ size = "1em", ...props }: any) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" {...props}>
     <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 14.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9zm0-7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" />
   </svg>
+);
+
+const SiDreamPlanet: IconType = ({ size = "1em", className, ...props }: any) => (
+  <img
+    src="/assets/images/dreamplanet-icon.svg"
+    alt=""
+    aria-hidden="true"
+    width={size}
+    height={size}
+    className={`object-contain ${className ?? ""}`}
+    {...props}
+  />
 );
 import { useState, useRef, useEffect } from "react";
 import { COUNTRIES } from "@/lib/countries";
@@ -147,8 +159,8 @@ const socialLinks = [
   {
     label: "DreamPlanet",
     sub: "Store",
-    icon: Globe,
-    href: "https://dreamplanet.org/user/61",
+    icon: SiDreamPlanet,
+    href: DREAMPLANET_URL,
     color: "from-gold/10 to-amber-500/10",
     border: "hover:border-gold/30",
     iconColor: "group-hover:text-gold",

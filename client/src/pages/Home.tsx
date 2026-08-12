@@ -9,6 +9,7 @@ import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
+import { DREAMPLANET_URL } from "@/data/social";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -1209,7 +1210,7 @@ export default function Home() {
             className="mt-12"
           >
             <a
-              href="https://dreamplanet.org/user/61"
+              href={DREAMPLANET_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -1452,7 +1453,7 @@ export default function Home() {
                         </div>
                         <div className="flex items-center justify-between gap-2">
                           <span className="inline-flex items-center gap-1 text-white/18 text-xs font-light tracking-wide">
-                            <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
+                            <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
                             Dream Planet
                           </span>
                           <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-xs font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-glow-gold transition-all duration-normal whitespace-nowrap">

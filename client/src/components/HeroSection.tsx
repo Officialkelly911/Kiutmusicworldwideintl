@@ -42,6 +42,12 @@ export interface HeroSectionProps {
   className?: string;
   /** Extra classes appended to the <img> (default: "w-full h-full object-cover object-center") */
   imageClassName?: string;
+  /** Optional muted background video layered above the responsive image fallback. */
+  videoSrc?: string;
+  /** Poster used by the optional background video while it is loading. */
+  videoPoster?: string;
+  /** Extra classes appended to the optional <video>. */
+  videoClassName?: string;
   /** Full custom overlay markup (gradients, glow blobs). Omit for the default cinematic treatment. */
   overlay?: React.ReactNode;
   /** Rendered inside the z-10 content wrapper — the page's existing headline/subtitle/CTA JSX. */
@@ -76,6 +82,9 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
     alt,
     className = "",
     imageClassName = "",
+    videoSrc,
+    videoPoster,
+    videoClassName = "",
     overlay,
     children,
     contentClassName = "relative z-10 max-w-7xl mx-auto px-6 w-full",
@@ -88,12 +97,29 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
   forwardedRef
 ) {
   const internalRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const { scrollYProgress } = useScroll({
     target: internalRef,
     offset: ["start start", "end start"],
   });
   const parallaxY = useTransform(scrollYProgress, [0, 1], parallaxRange);
+
+  React.useEffect(() => {
+    if (!videoSrc || !videoRef.current) return;
+
+    const video = videoRef.current;
+    setVideoPlaying(false);
+    setVideoError(false);
+    video.muted = true;
+    video.load();
+    video.play().catch(() => {
+      // The muted autoplay attributes remain the primary path; some browsers
+      // still require a later user gesture before playback can begin.
+    });
+  }, [videoSrc]);
 
   const base = `/images/hero/${slug}/${slug}`;
   const blurDataURL = heroImageMeta[slug]?.blurDataURL;
@@ -124,7 +150,10 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
           }}
           aria-hidden="true"
         />
-        <picture className="absolute inset-0 block w-full h-full">
+        <picture
+          className="absolute inset-0 block w-full h-full transition-opacity duration-cinematic"
+          style={{ opacity: videoSrc && videoPlaying && !videoError ? 0 : 1 }}
+        >
           <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />
           <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.webp`} type="image/webp" />
           <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.jpg`} type="image/jpeg" />
@@ -153,6 +182,29 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
             onLoad={() => setLoaded(true)}
           />
         </picture>
+        {videoSrc && !videoError && (
+          <video
+            ref={videoRef}
+            src={videoSrc}
+            poster={videoPoster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload={priority ? "auto" : "metadata"}
+            aria-hidden="true"
+            tabIndex={-1}
+            onPlaying={() => setVideoPlaying(true)}
+            onError={() => {
+              setVideoError(true);
+              setVideoPlaying(false);
+            }}
+            className={`absolute inset-0 w-full h-full bg-black transition-opacity duration-cinematic ${
+              videoClassName || "object-cover object-center"
+            }`}
+            style={{ opacity: videoPlaying ? 1 : 0 }}
+          />
+        )}
       </motion.div>
 
       {overlay ?? DEFAULT_OVERLAY}

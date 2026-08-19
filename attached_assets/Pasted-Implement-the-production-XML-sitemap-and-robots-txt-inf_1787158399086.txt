@@ -1,0 +1,71 @@
+Implement the production XML sitemap and robots.txt infrastructure for the KIUT Music website.
+
+Production domain:
+https://kiutmusic.com
+
+The following URL currently does not respond:
+https://kiutmusic.com/sitemap.xml
+
+First audit the existing project architecture, routing system, SEO configuration, and deployment setup.
+
+Then implement a proper production sitemap at:
+
+https://kiutmusic.com/sitemap.xml
+
+Requirements:
+
+1. Inspect the actual application routes and include only legitimate public, indexable pages.
+
+2. Use absolute HTTPS production URLs based on:
+https://kiutmusic.com
+
+3. Do NOT include:
+- Replit preview/development URLs
+- API routes
+- Admin/private routes
+- Authentication routes
+- Duplicate URLs
+- Broken routes
+- Non-indexable pages
+
+4. Preserve the existing website design and functionality. Do not redesign any UI.
+
+5. Use the project's existing framework/architecture for sitemap generation where appropriate rather than creating a duplicate or disconnected system.
+
+6. Ensure the sitemap returns valid XML with the correct Content-Type.
+
+7. Ensure:
+https://kiutmusic.com/sitemap.xml
+returns HTTP 200 in production.
+
+8. Create or update:
+https://kiutmusic.com/robots.txt
+
+Ensure robots.txt does not accidentally block legitimate public pages and includes:
+
+Sitemap: https://kiutmusic.com/sitemap.xml
+
+9. Verify that the sitemap works on the actual production domain after deployment, not merely on the Replit development server.
+
+10. Run the production build and fix any errors introduced by the implementation.
+
+11. Verify the final production endpoints:
+
+https://kiutmusic.com/sitemap.xml
+https://kiutmusic.com/robots.txt
+
+12. Confirm that the sitemap contains the actual current public KIUT Music routes, including the appropriate pages such as Home, Music, Tour, About, Contact, Store, and any other legitimate indexable public routes that exist in the current application.
+
+Do not invent routes that do not exist.
+
+FINAL REPORT:
+
+Provide:
+- Sitemap implementation location
+- Final sitemap URL
+- List of routes included
+- Robots.txt status
+- Production build result
+- Confirmation that /sitemap.xml returns HTTP 200
+- Confirmation that /robots.txt returns HTTP 200
+- Any remaining deployment or DNS issue preventing the endpoints from being accessible

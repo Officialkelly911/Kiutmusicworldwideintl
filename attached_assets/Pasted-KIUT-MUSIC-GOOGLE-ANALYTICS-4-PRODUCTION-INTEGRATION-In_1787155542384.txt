@@ -1,0 +1,358 @@
+KIUT MUSIC — GOOGLE ANALYTICS 4 PRODUCTION INTEGRATION
+
+Integrate Google Analytics 4 into the existing KIUT Music website using the official production Measurement ID:
+
+G-EE9TF1XS08
+
+The production website is:
+
+https://kiutmusic.com
+
+1. AUDIT FIRST
+
+Before making changes, inspect the existing project for:
+
+* Any existing Google Analytics implementation
+* Google Tag Manager
+* Existing analytics utilities/hooks
+* Existing event tracking
+* Existing environment-variable conventions
+* Existing route-change handling
+* Existing consent/privacy implementation
+
+Do not create duplicate analytics systems.
+
+If an existing analytics implementation exists, extend or correct it rather than creating a second one.
+
+⸻
+
+2. CONFIGURE THE MEASUREMENT ID
+
+Add the GA4 Measurement ID through the project’s existing environment-variable system.
+
+For a Vite-based project, use:
+
+VITE_GA4_MEASUREMENT_ID=G-EE9TF1XS08
+
+If the project uses a different framework/environment-variable convention, follow that architecture while keeping the Measurement ID configurable.
+
+Do NOT hardcode the Measurement ID throughout components.
+
+Do NOT commit secrets or credentials.
+
+⸻
+
+3. INITIALIZE GA4
+
+Initialize GA4 exactly once.
+
+The implementation must:
+
+* Load Google Analytics efficiently.
+* Avoid duplicate initialization.
+* Avoid duplicate page-view events.
+* Avoid blocking the initial page render.
+* Work correctly in the production environment.
+* Preserve the existing website performance.
+
+If the website is a SPA, ensure route changes are tracked correctly.
+
+Do not reload the page simply to trigger Analytics.
+
+⸻
+
+4. PAGE VIEW TRACKING
+
+Track page views for the site’s public routes.
+
+Ensure navigation between pages correctly produces Analytics page-view data.
+
+Verify important routes such as:
+
+* /
+* /music
+* /tour
+* /about
+* /contact
+* /store
+
+and any other legitimate public routes currently present in the project.
+
+Do not send private or sensitive data to Analytics.
+
+⸻
+
+5. ROMANTIC LOVE STREAMING EVENT
+
+The website currently uses the official Romantic Love streaming landing page:
+
+https://bit.ly/m/Romanticlove
+
+Track clicks on the Romantic Love streaming CTA.
+
+Use the event:
+
+romantic_love_stream_click
+
+Where appropriate, include non-sensitive event parameters such as:
+
+release: Romantic Love
+destination: streaming_landing_page
+
+Do NOT send:
+
+* Email addresses
+* Names
+* Phone numbers
+* Contact messages
+* Authentication data
+* API keys
+
+to GA4.
+
+The existing CTA design and animation must remain unchanged.
+
+⸻
+
+6. CONTACT FORM EVENT
+
+Track successful Contact form submissions using:
+
+contact_form_submit
+
+Only fire the event after the Contact form has successfully submitted.
+
+Do NOT fire it merely when the user clicks the Submit button.
+
+Do not send the user’s:
+
+* Name
+* Email
+* Phone number
+* Message
+* Other personally identifiable information
+
+to GA4.
+
+⸻
+
+7. NEWSLETTER EVENT
+
+Track successful newsletter subscriptions using:
+
+newsletter_signup
+
+Only fire the event after the subscription has successfully completed.
+
+Do not send the subscriber’s email address or other personally identifiable information to GA4.
+
+⸻
+
+8. MUSIC INTERACTION EVENTS
+
+If the existing Music page contains an internal audio player, implement meaningful engagement tracking where appropriate.
+
+For example:
+
+music_play
+
+and optionally:
+
+music_pause
+
+Include only non-sensitive information such as:
+
+track: Romantic Love
+
+Do not create excessive events for every minor player interaction.
+
+The uploaded Romantic Love audio file must remain the internal audio source.
+
+The external streaming URL must remain separate.
+
+⸻
+
+9. TOUR EVENTS
+
+If the Tour page contains meaningful external ticket/booking CTAs, track appropriate outbound interactions using the existing analytics architecture.
+
+For example:
+
+tour_booking_click
+
+Only implement this if the functionality actually exists.
+
+Do not invent nonexistent booking functionality.
+
+⸻
+
+10. STORE EVENTS
+
+If the Store contains meaningful product or external checkout interactions, track appropriate user actions using the existing analytics architecture.
+
+Do not implement ecommerce tracking unless the existing Store architecture actually supports the required data.
+
+Do not modify the Store UI.
+
+⸻
+
+11. OUTBOUND LINK TRACKING
+
+Google Analytics Enhanced Measurement may already track outbound clicks.
+
+Inspect the existing implementation before adding custom outbound-link tracking.
+
+Do not create duplicate events for the same user interaction.
+
+If Enhanced Measurement already captures an outbound click, do not create another redundant custom event unless there is a clear business reason.
+
+⸻
+
+12. PRODUCTION ENVIRONMENT
+
+The production domain is:
+
+https://kiutmusic.com
+
+Do not configure the website to use the Replit preview URL as the canonical production Analytics context.
+
+Do not introduce development/staging tracking behavior unless the project already has an established environment architecture.
+
+⸻
+
+13. PRIVACY
+
+Do not send personally identifiable information to GA4.
+
+Specifically prohibit sending:
+
+* Email addresses
+* Names
+* Phone numbers
+* Contact form contents
+* Newsletter email addresses
+* Authentication information
+* API keys
+* Resend credentials
+* Mailchimp credentials
+
+Use anonymous event metadata only.
+
+⸻
+
+14. PRESERVE EXISTING WEBSITE
+
+Do NOT redesign or modify:
+
+* Homepage Hero
+* Romantic Love Hero slide
+* Music page Hero
+* Romantic Love release
+* Audio player
+* Premium reusable CTA
+* CTA animations
+* Navigation
+* Store
+* Tour
+* Contact
+* Newsletter
+* Typography
+* Colors
+* Branding
+* Responsive layouts
+
+This is an analytics integration task.
+
+⸻
+
+15. VALIDATION
+
+After implementation:
+
+Build
+
+Run the production build and confirm it succeeds.
+
+Type checking
+
+Run the project’s existing type checker.
+
+Tests
+
+Run the existing test suite.
+
+Browser
+
+Open:
+
+https://kiutmusic.com
+
+Verify that:
+
+* GA4 initializes.
+* No duplicate initialization occurs.
+* No console errors are introduced.
+* Page views are generated.
+* Route changes are tracked.
+* Romantic Love streaming clicks generate the correct event.
+* Contact submissions generate the correct event.
+* Newsletter subscriptions generate the correct event.
+* No PII is sent to GA4.
+
+⸻
+
+16. GOOGLE ANALYTICS REALTIME VERIFICATION
+
+After deployment, verify the integration through Google Analytics:
+
+Reports → Realtime
+
+Open the production website in another browser/device.
+
+Perform several test actions:
+
+1. Visit the homepage.
+2. Navigate to Music.
+3. Open the Romantic Love streaming CTA.
+4. Visit Contact.
+5. Submit a test Contact form if appropriate.
+6. Test Newsletter signup if appropriate.
+
+Confirm that users/events appear in Realtime.
+
+Do not assume Analytics is working merely because the script loads.
+
+⸻
+
+ACCEPTANCE CRITERIA
+
+The implementation is complete when:
+
+* GA4 Measurement ID G-EE9TF1XS08 is correctly configured.
+* GA4 initializes exactly once.
+* Page views work.
+* SPA route changes work where applicable.
+* Romantic Love streaming clicks are tracked.
+* Contact submissions are tracked after successful submission.
+* Newsletter subscriptions are tracked after successful subscription.
+* Relevant Music interactions are tracked without excessive event generation.
+* No personally identifiable information is sent to GA4.
+* No duplicate analytics events are created.
+* Production build succeeds.
+* Existing tests pass.
+* No existing website design or functionality is altered.
+
+FINAL REPORT
+
+After implementation, provide:
+
+1. GA4 integration status.
+2. Measurement ID configuration location.
+3. Analytics initialization location.
+4. Events implemented.
+5. Confirmation that PII is not sent.
+6. Build/test results.
+7. Any existing analytics implementation that was reused.
+8. Any remaining manual verification required in Google Analytics Realtime.
+
+Do not redesign or refactor unrelated website functionality.

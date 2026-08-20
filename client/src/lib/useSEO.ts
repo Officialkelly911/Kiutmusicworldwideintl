@@ -69,14 +69,17 @@ function setLink(rel: string, href: string) {
 }
 
 const LD_SCRIPT_ID = "kiut-structured-data";
+let activeSEOInstance: symbol | undefined;
 
 function setJsonLd(data: Record<string, unknown>) {
-  removeJsonLd();
-  const script = document.createElement("script");
-  script.id = LD_SCRIPT_ID;
-  script.type = "application/ld+json";
+  let script = document.getElementById(LD_SCRIPT_ID) as HTMLScriptElement | null;
+  if (!script) {
+    script = document.createElement("script");
+    script.id = LD_SCRIPT_ID;
+    script.type = "application/ld+json";
+    document.head.appendChild(script);
+  }
   script.textContent = JSON.stringify(data);
-  document.head.appendChild(script);
 }
 
 function removeJsonLd() {
@@ -85,6 +88,12 @@ function removeJsonLd() {
 
 export function useSEO(meta: SEOMeta) {
   useEffect(() => {
+    // Page exit animations can keep an outgoing route mounted after the next
+    // route has applied its own document state. Only the active route may
+    // restore or remove SEO nodes during cleanup.
+    const seoInstance = Symbol("seo-instance");
+    activeSEOInstance = seoInstance;
+
     const {
       title,
       description,
@@ -143,6 +152,8 @@ export function useSEO(meta: SEOMeta) {
 
     // ── Restore originals on unmount ─────────────────────────────────────────
     return () => {
+      if (activeSEOInstance !== seoInstance) return;
+
       document.title = origTitle;
       setLink("canonical", origCanonical);
 
@@ -160,6 +171,7 @@ export function useSEO(meta: SEOMeta) {
       setMeta("twitter:image",       origTwImage);
 
       removeJsonLd();
+      activeSEOInstance = undefined;
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

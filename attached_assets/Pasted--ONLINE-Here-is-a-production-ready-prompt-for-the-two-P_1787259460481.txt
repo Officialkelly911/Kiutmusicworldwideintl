@@ -1,0 +1,243 @@
+Ω ONLINE
+
+Here is a production-ready prompt for the two Phase 11D fixes. It deliberately keeps the scope tight so Replit doesn’t decide that fixing two JSON-LD references is an invitation to remodel the entire website.
+
+⸻
+
+Phase 11D — Final Structured Data Consistency Fixes
+
+Task: Resolve the two remaining Phase 11D structured-data consistency issues identified during the completion review. Do not publish the application yet.
+
+The Phase 11D structured-data implementation is functionally complete and has already passed:
+
+* npm run check
+* npm run build
+* Structured-data production regression tests
+* Server-level 404 regression tests
+* Existing Playwright tests
+* Browser navigation verification
+* Development raw-HTML structured-data verification
+
+The completion review identified two non-blocking metadata consistency issues that must be resolved before Phase 11D is considered fully production-ready.
+
+1. Fix the build-time HTML metadata fallback
+
+The current Vite build process generates:
+
+dist/public/index.html
+
+using the 404 document context rather than the homepage context.
+
+The Express production server correctly resolves route-specific metadata at request time, but the generated static build artifact itself can contain the 404/noindex JSON-LD context.
+
+This must be corrected.
+
+Required behavior
+
+Update the Vite/build-time HTML transformation so that:
+
+* When the build process has no request URL available, it defaults to /.
+* The homepage / receives the homepage metadata and homepage structured-data graph.
+* Development requests continue using their actual request URL.
+* Production Express requests continue using their actual request URL.
+* Route-specific initial HTML metadata remains intact.
+* The existing Phase 11B SEO metadata implementation must not regress.
+* Phase 11C server-level 404 behavior must not regress.
+
+The fallback hierarchy should effectively be:
+
+Actual request URL
+        ↓
+Use that route
+        ↓
+If no request URL exists during static build
+        ↓
+Fall back to "/"
+
+Do not hard-code homepage metadata into every route.
+
+Do not remove the existing request-aware transformation.
+
+2. Resolve the unresolved inAlbum references
+
+The current structured-data graph contains standalone music recordings that reference:
+
+#album-singles
+
+through inAlbum.
+
+However, the corresponding MusicAlbum entity may be excluded from the emitted graph because its aggregate release date is not sufficiently complete.
+
+This creates a JSON-LD reference to an entity that may not actually exist in the same graph.
+
+Required behavior
+
+Review the existing album and recording data and implement a fact-based solution.
+
+Use this decision logic:
+
+If the referenced MusicAlbum has sufficient verified existing data
+    → emit the MusicAlbum entity
+    → retain the MusicRecording.inAlbum reference
+If the MusicAlbum is not emitted
+    → omit the inAlbum property from that MusicRecording
+
+Do not invent:
+
+* release dates
+* album dates
+* track counts
+* album names
+* durations
+* platform information
+* other unsupported metadata
+
+The structured-data graph must never contain an unresolved internal entity reference.
+
+3. Preserve the existing architecture
+
+Do not redesign the structured-data system.
+
+Continue using the existing shared JSON-LD builder/data architecture established during Phase 11D.
+
+Maintain:
+
+* Shared entity IDs
+* MusicGroup
+* WebSite
+* route-specific WebPage
+* supported MusicAlbum
+* supported MusicRecording
+* supported VideoObject
+* supported Event
+* client-side JSON-LD synchronization
+* server-side initial HTML injection
+* Vite/build-time transformation
+* existing 404 JSON-LD behavior
+
+There must remain exactly one structured-data script/graph per document.
+
+Do not introduce duplicate JSON-LD scripts.
+
+4. Preserve Phase 11B and 11C
+
+Explicitly regression-test the previous phases.
+
+Phase 11B
+
+Every public route must continue to expose its own metadata in the initial HTML response before JavaScript executes:
+
+* <title>
+* meta description
+* canonical
+* robots
+* Open Graph title
+* Open Graph description
+* Open Graph URL
+* Open Graph image
+* Twitter title
+* Twitter description
+* Twitter image
+
+Test:
+
+/
+ /music
+ /videos
+ /about
+ /tour
+ /newsletter
+ /contact
+ /legal
+
+Phase 11C
+
+Confirm:
+
+Valid public routes → HTTP 200
+Unknown routes → HTTP 404
+
+Test at minimum:
+
+/this-page-does-not-exist
+/random-invalid-route
+
+Do not modify the existing branded 404 visual design.
+
+5. Required validation
+
+Run:
+
+npm run check
+npm run build
+
+Then run all existing structured-data and 404 regression tests.
+
+Add or update regression assertions specifically covering:
+
+Build artifact
+
+Confirm that the generated:
+
+dist/public/index.html
+
+uses the homepage / context when no request URL exists.
+
+Entity integrity
+
+Confirm:
+
+* Every inAlbum reference points to an emitted MusicAlbum
+* No unresolved internal JSON-LD references remain
+* No duplicate entity IDs exist
+* Exactly one JSON-LD graph is present per document
+
+Route coverage
+
+Verify all eight public routes.
+
+Invalid routes
+
+Verify invalid routes still return HTTP 404 and contain only the appropriate base/404 structured data.
+
+6. Browser verification
+
+Run the existing Playwright/browser suite after the fixes.
+
+Verify:
+
+* Homepage renders normally.
+* Music page renders normally.
+* Videos page renders normally.
+* Tour page renders normally.
+* Client-side navigation still works.
+* Client-side SEO metadata remains synchronized.
+* Client-side JSON-LD replaces the server graph rather than creating duplicates.
+* No visual/UI changes were introduced.
+
+7. Production publishing restriction
+
+Do NOT publish this update yet.
+
+The task is complete only when:
+
+* Both identified issues are fixed.
+* Build passes.
+* Type checking passes.
+* Structured-data tests pass.
+* 404 tests pass.
+* Browser tests pass.
+* Final source/diff review confirms the changes are limited to these two fixes.
+
+After successful verification, provide a completion report containing:
+
+1. What was changed.
+2. How the build-time / fallback was corrected.
+3. How unresolved inAlbum references were eliminated.
+4. Test results.
+5. Confirmation that Phase 11B metadata still works.
+6. Confirmation that Phase 11C 404 handling still works.
+7. Any remaining issues, if any.
+8. Explicitly state that the application has not been published.
+
+Do not make any unrelated changes to UI, branding, content, routing, DNS, sitemap, robots.txt, analytics, performance, accessibility, or other Phase 11 work.

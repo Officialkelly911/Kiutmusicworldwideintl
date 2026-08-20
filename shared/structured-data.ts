@@ -141,7 +141,11 @@ function toRecordings(
   albums: readonly StructuredAlbumInput[],
   pageId: string,
 ) {
-  const knownAlbumIds = new Set(albums.map((album) => album.id));
+  const emittedAlbumIds = new Set(
+    albums
+      .filter((album) => isCompleteDate(album.released, album.releasedAt))
+      .map((album) => album.id),
+  );
 
   return tracks
     .filter((track) => isCompleteDate(track.released, track.releasedAt) && durationToIso(track.duration))
@@ -150,7 +154,7 @@ function toRecordings(
       "@id": recordingId(track.id),
       name: track.title,
       byArtist: { "@id": KIUT_ARTIST_ID },
-      ...(knownAlbumIds.has(track.albumId) ? { inAlbum: { "@id": albumId(track.albumId) } } : {}),
+       ...(emittedAlbumIds.has(track.albumId) ? { inAlbum: { "@id": albumId(track.albumId) } } : {}),
       image: absoluteUrl(track.albumArt),
       datePublished: track.releasedAt,
       duration: durationToIso(track.duration),

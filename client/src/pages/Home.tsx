@@ -33,6 +33,28 @@ const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
 const romanticLoveTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love");
+const milestoneImages = [
+  {
+    src: gradImage1,
+    alt: "Kiut with fellow graduates at the Los Angeles Film School graduation ceremony",
+  },
+  {
+    src: gradImage2,
+    alt: "Kiut and a fellow graduate holding diplomas at the Los Angeles Film School ceremony",
+  },
+  {
+    src: gradImage3,
+    alt: "Kiut in graduation regalia holding his diploma at the Los Angeles Film School",
+  },
+];
+const journeyGalleryImages = [
+  ...milestoneImages,
+  { src: heroImage, alt: "Kiut in a dark studio portrait" },
+  { src: momentImg4, alt: "Kiut in a white suit relaxing in a sunlit lounge" },
+  { src: momentImg5, alt: "Two producers working at a recording studio mixing console" },
+  { src: momentImg6, alt: "Kiut seated in a recording studio beneath production screens" },
+  { src: momentImg7, alt: "Kiut standing in front of illuminated screens in Times Square" },
+];
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -345,23 +367,22 @@ function FeaturedQuote() {
 
 function MilestoneGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const images = [gradImage1, gradImage2, gradImage3];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
+      setActiveIndex((prev) => (prev + 1) % milestoneImages.length);
     }, 4500);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="relative h-[500px] md:h-[700px] w-full flex items-center justify-center perspective-[1500px]">
-      {images.map((img, index) => {
+      {milestoneImages.map((image, index) => {
         const isActive = index === activeIndex;
         // Calculate offset to determine relative position (-1, 0, 1)
         let offset = index - activeIndex;
-        if (offset < -1) offset += images.length;
-        if (offset > 1) offset -= images.length;
+        if (offset < -1) offset += milestoneImages.length;
+        if (offset > 1) offset -= milestoneImages.length;
         
         let x = "0%";
         let y = "0%";
@@ -424,7 +445,7 @@ function MilestoneGallery() {
             className="absolute w-[65%] md:w-[55%] aspect-[4/5] rounded-xl overflow-hidden shadow-xl border border-white/10 bg-midnight transform-gpu"
             style={{ transformStyle: 'preserve-3d' }}
           >
-            <img src={img} alt="Milestone Gallery" className="w-full h-full object-cover" />
+            <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             
             <AnimatePresence>
@@ -491,6 +512,8 @@ function HeroSlideMedia({
           playsInline
           preload={isFirst ? "auto" : "metadata"}
           poster={poster}
+          aria-hidden="true"
+          tabIndex={-1}
           onCanPlay={() => {
             videoRef.current?.play().catch(() => {});
             setVideoReady(true);
@@ -955,9 +978,9 @@ export default function Home() {
                   exit={{ opacity: 0 }}
                   className="flex items-center gap-6 mt-10 text-white/50"
                 >
-                  <div className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><Music2 size={18} /><span className="text-sm font-medium">Spotify</span></div>
-                  <div className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><PlayCircle size={18} /><span className="text-sm font-medium">Apple Music</span></div>
-                  <div className="hidden md:flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><Radio size={18} /><span className="text-sm font-medium">Audiomack</span></div>
+                  <span className="flex items-center gap-2"><Music2 size={18} aria-hidden="true" /><span className="text-sm font-medium">Spotify</span></span>
+                  <span className="flex items-center gap-2"><PlayCircle size={18} aria-hidden="true" /><span className="text-sm font-medium">Apple Music</span></span>
+                  <span className="hidden md:flex items-center gap-2"><Radio size={18} aria-hidden="true" /><span className="text-sm font-medium">Audiomack</span></span>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -1039,6 +1062,8 @@ export default function Home() {
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
+                    aria-label={`Show ${slides[idx].title}`}
+                    aria-current={idx === currentSlide ? "true" : undefined}
                     className={`w-12 h-1 rounded-full transition-all duration-normal ${
                       idx === currentSlide ? "bg-gold" : "bg-white/20 hover:bg-white/40"
                     }`}
@@ -1632,6 +1657,8 @@ export default function Home() {
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.04]"
                   poster={videoGalleryCover}
                   muted loop playsInline
+                  aria-hidden="true"
+                  tabIndex={-1}
                   onMouseOver={e => (e.target as HTMLVideoElement).play()}
                   onMouseOut={e => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                 >
@@ -1809,15 +1836,14 @@ export default function Home() {
         {/* Row 1 — scrolls left */}
         <div className="marquee-track overflow-hidden mb-3">
           <div className="marquee-left inline-flex gap-3 will-change-transform">
-            {[gradImage1, heroImage, gradImage2, gradImage3, momentImg4, momentImg5, momentImg6, momentImg7,
-              gradImage1, heroImage, gradImage2, gradImage3, momentImg4, momentImg5, momentImg6, momentImg7].map((img, i) => (
+            {[...journeyGalleryImages, ...journeyGalleryImages].map((image, i) => (
               <div
                 key={i}
                 className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-md overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-normal cursor-pointer"
               >
                 <img
-                  src={img}
-                  alt="Moments from the Journey"
+                  src={image.src}
+                  alt={image.alt}
                   className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-110"
                   loading="lazy"
                 />
@@ -1831,15 +1857,31 @@ export default function Home() {
         {/* Row 2 — scrolls right */}
         <div className="marquee-track overflow-hidden">
           <div className="marquee-right inline-flex gap-3 will-change-transform">
-            {[momentImg7, momentImg6, gradImage3, momentImg5, gradImage1, momentImg4, heroImage, gradImage2,
-              momentImg7, momentImg6, gradImage3, momentImg5, gradImage1, momentImg4, heroImage, gradImage2].map((img, i) => (
+            {[
+              journeyGalleryImages[7],
+              journeyGalleryImages[6],
+              journeyGalleryImages[2],
+              journeyGalleryImages[5],
+              journeyGalleryImages[0],
+              journeyGalleryImages[4],
+              journeyGalleryImages[3],
+              journeyGalleryImages[1],
+              journeyGalleryImages[7],
+              journeyGalleryImages[6],
+              journeyGalleryImages[2],
+              journeyGalleryImages[5],
+              journeyGalleryImages[0],
+              journeyGalleryImages[4],
+              journeyGalleryImages[3],
+              journeyGalleryImages[1],
+            ].map((image, i) => (
               <div
                 key={i}
                 className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-md overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-normal cursor-pointer"
               >
                 <img
-                  src={img}
-                  alt="Moments from the Journey"
+                  src={image.src}
+                  alt={image.alt}
                   className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-110"
                   loading="lazy"
                 />

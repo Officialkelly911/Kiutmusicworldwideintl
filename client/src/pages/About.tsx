@@ -362,6 +362,14 @@ export default function About() {
     touchStartX.current = null;
   }, [showNextJourneyImage, showPreviousJourneyImage]);
 
+  const handleJourneyImageKeyDown = useCallback((event: React.KeyboardEvent, imageIndex: number) => {
+    if (event.currentTarget !== event.target) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setSelectedJourneyIndex(imageIndex);
+    }
+  }, []);
+
   useEffect(() => {
     if (selectedJourneyIndex === null) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -852,6 +860,8 @@ export default function About() {
             className="group relative h-[460px] md:h-[600px] lg:h-[700px] rounded-xl overflow-hidden cursor-zoom-in mb-5 border border-white/[0.08] shadow-xl hover:shadow-xl transition-shadow duration-cinematic"
             onClick={() => setSelectedJourneyIndex(0)}
             role="button"
+            tabIndex={0}
+            onKeyDown={(event) => handleJourneyImageKeyDown(event, 0)}
             aria-label="Open featured image — The Good Life Era"
           >
             <img
@@ -952,6 +962,8 @@ export default function About() {
                         )}
                         onClick={() => setSelectedJourneyIndex(globalIdx)}
                         role="button"
+                        tabIndex={0}
+                        onKeyDown={(event) => handleJourneyImageKeyDown(event, globalIdx)}
                         aria-label={`Open ${img.alt} in fullscreen viewer`}
                       >
                         <img
@@ -1054,6 +1066,8 @@ export default function About() {
                         )}
                         onClick={() => setSelectedJourneyIndex(globalIdx)}
                         role="button"
+                        tabIndex={0}
+                        onKeyDown={(event) => handleJourneyImageKeyDown(event, globalIdx)}
                         aria-label="Open archive image in fullscreen"
                       >
                         <img
@@ -1094,6 +1108,8 @@ export default function About() {
                           className="group relative h-[170px] sm:h-[200px] overflow-hidden rounded-xl cursor-zoom-in border border-white/[0.06] bg-midnight hover:border-gold/18 hover:shadow-md transition-all duration-medium"
                           onClick={() => setSelectedJourneyIndex(globalIdx)}
                           role="button"
+                          tabIndex={0}
+                          onKeyDown={(event) => handleJourneyImageKeyDown(event, globalIdx)}
                           aria-label={`Open journey moment ${imgIdx + 1} in fullscreen`}
                         >
                           <img

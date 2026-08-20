@@ -371,11 +371,12 @@ function GalleryLightbox({ item, onClose }: { item: typeof galleryItems[0]; onCl
       >
         <div className="relative w-full aspect-video bg-black">
           <iframe
-            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
+            src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?autoplay=1&rel=0`}
             title={item.title}
             className="absolute inset-0 w-full h-full"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
           />
         </div>
         <div className="px-5 py-4 flex items-center justify-between" style={{ background: "var(--midnight-black)" }}>

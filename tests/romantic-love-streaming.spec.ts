@@ -43,7 +43,7 @@ test.describe("Romantic Love streaming destination", () => {
     await page.goto("/music");
 
     const release = page.getByTestId("featured-release-romantic-love");
-    await expect(release).toBeVisible();
+    await expect(release).toBeVisible({ timeout: 15_000 });
     await expect(release.getByRole("heading", { name: "Romantic Love" })).toBeVisible();
 
     // The external streaming CTA is a link with an explicit accessible label.

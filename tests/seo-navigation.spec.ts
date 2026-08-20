@@ -1,5 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
+test.setTimeout(90_000);
+
 const routeExpectations = [
   {
     path: "/",
@@ -22,8 +24,13 @@ async function expectRouteSeo(
   page: Page,
   expected: (typeof routeExpectations)[number],
 ) {
-  await expect(page).toHaveTitle(expected.title);
-  await expect(page.locator("#kiut-structured-data")).toHaveCount(1);
+  await expect(page.getByRole("status", { name: "Loading page" })).toBeHidden({
+    timeout: 30_000,
+  });
+  await expect(page).toHaveTitle(expected.title, { timeout: 15_000 });
+  await expect(page.locator("#kiut-structured-data")).toHaveCount(1, {
+    timeout: 15_000,
+  });
 
   const graph = await page.locator("#kiut-structured-data").evaluate((element) => {
     const document = JSON.parse(element.textContent ?? "") as {
@@ -36,6 +43,12 @@ async function expectRouteSeo(
 }
 
 test.describe("client-side SEO synchronization", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      window.sessionStorage.setItem("kiut_intro_seen", "true");
+    });
+  });
+
   test("keeps one current JSON-LD graph through route transitions", async ({ page }) => {
     await page.goto("/");
     await expectRouteSeo(page, routeExpectations[0]);

@@ -29,6 +29,7 @@ function assertDocumentMeta(
   const title = escapeHtml(expected.title);
   const description = escapeHtml(expected.description);
   const canonical = escapeHtml(expected.canonical);
+  const ogImage = escapeHtml(expected.ogImage);
 
   assert.ok(html.includes(`<title>${title}</title>`), "title should match");
   assert.ok(
@@ -44,8 +45,32 @@ function assertDocumentMeta(
     "robots directive should match",
   );
   assert.ok(
+    html.includes(`<meta property="og:title" content="${title}" />`),
+    "Open Graph title should match",
+  );
+  assert.ok(
+    html.includes(`<meta property="og:description" content="${description}" />`),
+    "Open Graph description should match",
+  );
+  assert.ok(
     html.includes(`<meta property="og:url" content="${canonical}" />`),
     "Open Graph URL should match the canonical",
+  );
+  assert.ok(
+    html.includes(`<meta property="og:image" content="${ogImage}" />`),
+    "Open Graph image should match",
+  );
+  assert.ok(
+    html.includes(`<meta name="twitter:title" content="${title}" />`),
+    "Twitter title should match",
+  );
+  assert.ok(
+    html.includes(`<meta name="twitter:description" content="${description}" />`),
+    "Twitter description should match",
+  );
+  assert.ok(
+    html.includes(`<meta name="twitter:image" content="${ogImage}" />`),
+    "Twitter image should match",
   );
 }
 
@@ -106,6 +131,7 @@ async function main() {
 
   for (const route of [
     "/this-page-does-not-exist",
+    "/random-invalid-route",
     "/music/unreleased",
     "/missing-page?utm_source=test",
   ]) {

@@ -24,7 +24,14 @@ export default defineConfig({
         if (!html.includes(STRUCTURED_DATA_PLACEHOLDER)) {
           throw new Error("Missing structured data placeholder in client/index.html");
         }
-        const requestPath = context.originalUrl ?? context.path;
+        // During a static build Vite may provide `/index.html` as the
+        // transform path without a request URL. That is the build artifact's
+        // homepage, not an invalid browser route.
+        const requestPath = context.originalUrl || (
+          context.path && !/^\/?index\.html(?:[?#].*)?$/.test(context.path)
+            ? context.path
+            : "/"
+        );
         return html.replace(
           ROUTE_SEO_PLACEHOLDER,
           renderRouteSEOTags(resolveRouteSEO(requestPath)),

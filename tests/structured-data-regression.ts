@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
+import { readFile } from "node:fs/promises";
 import { setTimeout as sleep } from "node:timers/promises";
-import { NOT_FOUND_SEO, PUBLIC_ROUTES } from "../shared/seo";
+import {
+  NOT_FOUND_SEO,
+  PUBLIC_ROUTES,
+  ROUTE_SEO,
+  SEO_SITE_NAME,
+} from "../shared/seo";
 
 const port = Number(process.env.KIUT_STRUCTURED_DATA_TEST_PORT ?? 5138);
 const baseUrl = `http://127.0.0.1:${port}`;
@@ -30,6 +36,22 @@ function parseGraph(html: string): JsonLdNode[] {
     .filter((id): id is string => typeof id === "string");
   assert.equal(new Set(ids).size, ids.length, "JSON-LD @id values must not be duplicated");
 
+  const emittedIds = new Set(ids);
+  const assertReferences = (value: unknown) => {
+    if (!value || typeof value !== "object") return;
+    if (Array.isArray(value)) {
+      value.forEach(assertReferences);
+      return;
+    }
+    for (const [key, nestedValue] of Object.entries(value)) {
+      if (key === "@id" && typeof nestedValue === "string" && nestedValue.startsWith("https://kiutmusic.com/")) {
+        assert.ok(emittedIds.has(nestedValue), `JSON-LD reference should resolve: ${nestedValue}`);
+      }
+      assertReferences(nestedValue);
+    }
+  };
+  assertReferences(document["@graph"]);
+
   return document["@graph"];
 }
 
@@ -45,6 +67,58 @@ function assertBaseEntities(graph: JsonLdNode[], expectedPageUrl: string) {
   assert.equal(pages.length, 1, "one route WebPage entity is required");
   assert.equal(pages[0].url, expectedPageUrl, "WebPage URL should use the approved canonical");
   assert.deepEqual(pages[0].about, { "@id": "https://kiutmusic.com/#artist" });
+}
+
+function assertInitialMetadata(html: string, expected: typeof ROUTE_SEO["/"]) {
+  assert.ok(html.includes(`<title>${expected.title}</title>`), "title should match");
+  assert.ok(
+    html.includes(`<meta name="description" content="${expected.description}" />`),
+    "description should match",
+  );
+  assert.ok(
+    html.includes(`<link rel="canonical" href="${expected.canonical}" />`),
+    "canonical should match",
+  );
+  assert.ok(html.includes('<meta name="robots" content="index, follow" />'), "robots should match");
+  assert.ok(
+    html.includes(`<meta property="og:type" content="${expected.ogType}" />`),
+    "Open Graph type should match",
+  );
+  assert.ok(
+    html.includes(`<meta property="og:title" content="${expected.title}" />`),
+    "Open Graph title should match",
+  );
+  assert.ok(
+    html.includes(`<meta property="og:description" content="${expected.description}" />`),
+    "Open Graph description should match",
+  );
+  assert.ok(
+    html.includes(`<meta property="og:url" content="${expected.canonical}" />`),
+    "Open Graph URL should match",
+  );
+  assert.ok(
+    html.includes(`<meta property="og:image" content="${expected.ogImage}" />`),
+    "Open Graph image should match",
+  );
+  assert.ok(html.includes('<meta property="og:image:width" content="1200" />'));
+  assert.ok(html.includes('<meta property="og:image:height" content="630" />'));
+  assert.ok(
+    html.includes(`<meta property="og:site_name" content="${SEO_SITE_NAME}" />`),
+    "Open Graph site name should match",
+  );
+  assert.ok(html.includes('<meta name="twitter:card" content="summary_large_image" />'));
+  assert.ok(
+    html.includes(`<meta name="twitter:title" content="${expected.title}" />`),
+    "Twitter title should match",
+  );
+  assert.ok(
+    html.includes(`<meta name="twitter:description" content="${expected.description}" />`),
+    "Twitter description should match",
+  );
+  assert.ok(
+    html.includes(`<meta name="twitter:image" content="${expected.ogImage}" />`),
+    "Twitter image should match",
+  );
 }
 
 async function waitForServer() {
@@ -71,6 +145,11 @@ async function stopServer() {
 }
 
 async function main() {
+  const buildHtml = await readFile(new URL("../dist/public/index.html", import.meta.url), "utf8");
+  const buildGraph = parseGraph(buildHtml);
+  assertBaseEntities(buildGraph, ROUTE_SEO["/"].canonical);
+  assertInitialMetadata(buildHtml, ROUTE_SEO["/"]);
+
   server = spawn(process.execPath, ["dist/index.cjs"], {
     env: { ...process.env, NODE_ENV: "production", PORT: String(port) },
     stdio: "pipe",

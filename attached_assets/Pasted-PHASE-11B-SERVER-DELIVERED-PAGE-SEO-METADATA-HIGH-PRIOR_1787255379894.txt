@@ -1,0 +1,531 @@
+PHASE 11B — SERVER-DELIVERED PAGE SEO METADATA
+HIGH PRIORITY SEO IMPLEMENTATION
+
+Use the completed Phase 11A SEO audit as the authoritative specification for this phase.
+
+The objective is to eliminate the current production issue where non-homepage routes initially return the homepage's SEO metadata in the raw HTML and only receive their correct metadata after client-side JavaScript executes.
+
+CURRENT ISSUE CONFIRMED BY AUDIT
+
+Direct production requests to:
+
+https://kiutmusic.com/music
+https://kiutmusic.com/videos
+https://kiutmusic.com/about
+https://kiutmusic.com/tour
+https://kiutmusic.com/newsletter
+https://kiutmusic.com/contact
+https://kiutmusic.com/legal
+
+currently return the same initial SPA HTML shell containing:
+
+- Homepage title
+- Homepage meta description
+- Homepage canonical
+- Homepage Open Graph metadata
+- Homepage Twitter metadata
+- Global MusicGroup JSON-LD
+
+The correct route-specific metadata is then applied only after the React application mounts and the existing useSEO() logic executes.
+
+This must be corrected.
+
+==================================================
+1. PRIMARY OBJECTIVE
+==================================================
+
+Ensure every public route has correct SEO metadata available in the INITIAL production HTML response.
+
+Google, social crawlers, link preview systems, and other non-JavaScript consumers must receive the correct metadata without depending on client-side JavaScript execution.
+
+The following must be route-specific in the initial HTML:
+
+- <title>
+- meta description
+- canonical URL
+- robots directive
+- Open Graph title
+- Open Graph description
+- Open Graph URL
+- Open Graph image
+- Open Graph type
+- Twitter card
+- Twitter title
+- Twitter description
+- Twitter image
+
+Do not remove the existing client-side SEO system until the server-delivered solution is confirmed working.
+
+The client-side metadata system may remain as a hydration/runtime fallback if necessary.
+
+==================================================
+2. PUBLIC ROUTES
+==================================================
+
+Implement initial HTML metadata for:
+
+/
+ /music
+ /videos
+ /about
+ /tour
+ /newsletter
+ /contact
+ /legal
+
+Do not create SEO metadata for private, administrative, development, API, or internal routes.
+
+==================================================
+3. PRESERVE EXISTING SEO CONTENT
+==================================================
+
+Use the existing route-specific SEO metadata already defined in the project as the source of truth.
+
+Do NOT invent new marketing copy.
+
+Do NOT unnecessarily rewrite:
+
+- titles
+- descriptions
+- branding language
+- page content
+
+The goal is to change WHEN the metadata is delivered, not arbitrarily change WHAT the metadata says.
+
+Preserve the existing approved KIUT Music brand voice.
+
+==================================================
+4. CANONICAL URL REQUIREMENTS
+==================================================
+
+Every public page must expose its correct canonical URL in the initial HTML.
+
+Use:
+
+https://kiutmusic.com/
+
+Examples:
+
+Homepage:
+https://kiutmusic.com/
+
+Music:
+https://kiutmusic.com/music
+
+Videos:
+https://kiutmusic.com/videos
+
+About:
+https://kiutmusic.com/about
+
+Tour:
+https://kiutmusic.com/tour
+
+Newsletter:
+https://kiutmusic.com/newsletter
+
+Contact:
+https://kiutmusic.com/contact
+
+Legal:
+https://kiutmusic.com/legal
+
+Do NOT emit:
+
+- Replit URLs
+- localhost URLs
+- development URLs
+- www.kiutmusic.com URLs
+
+unless explicitly required by the existing production configuration.
+
+==================================================
+5. QUERY STRING HANDLING
+==================================================
+
+Ensure tracking parameters do not become separate canonical URLs.
+
+For example:
+
+https://kiutmusic.com/music?utm_source=instagram
+
+must still declare:
+
+https://kiutmusic.com/music
+
+as the canonical URL.
+
+Do not remove legitimate query parameters from application functionality.
+
+Only the canonical SEO signal needs to remain clean.
+
+==================================================
+6. OPEN GRAPH
+==================================================
+
+Ensure initial HTML contains:
+
+og:title
+og:description
+og:url
+og:image
+og:type
+
+Use absolute production URLs where appropriate.
+
+For example:
+
+https://kiutmusic.com/og-image.png
+
+rather than relying unnecessarily on root-relative values.
+
+Preserve the existing approved social image unless a page-specific image already exists.
+
+Do NOT redesign or replace social graphics.
+
+==================================================
+7. TWITTER/X METADATA
+==================================================
+
+Ensure initial HTML contains:
+
+twitter:card
+twitter:title
+twitter:description
+twitter:image
+
+Use the same approved metadata values currently defined by the application unless a route-specific value already exists.
+
+Do not invent social account metadata.
+
+==================================================
+8. ROBOTS META
+==================================================
+
+Ensure public pages expose an appropriate robots directive in initial HTML.
+
+Default public pages should remain indexable unless the existing project explicitly defines otherwise.
+
+Do NOT introduce noindex directives.
+
+Do NOT alter robots.txt.
+
+==================================================
+9. STRUCTURED DATA
+==================================================
+
+Do NOT implement the Phase 11D structured-data work yet.
+
+Preserve the existing global MusicGroup JSON-LD.
+
+Do not duplicate or remove existing structured data unnecessarily.
+
+This phase is specifically about initial HTML metadata.
+
+==================================================
+10. ARCHITECTURE
+==================================================
+
+Inspect the current architecture before implementing.
+
+The project currently uses:
+
+- Wouter
+- React
+- SPA routing
+- lazy-loaded route components
+- centralized SEO metadata
+- useSEO()
+
+Choose the smallest production-safe architectural change that allows route-specific metadata to exist in the initial HTML.
+
+Possible approaches may include:
+
+- server-side rendering
+- prerendering
+- static route generation
+- server-side metadata injection
+- another architecture-compatible approach
+
+Do NOT blindly introduce a framework migration.
+
+Do NOT migrate the application to Next.js, Remix, or another framework unless the current architecture genuinely requires it and the migration is explicitly justified.
+
+Prefer the least disruptive solution.
+
+==================================================
+11. PRESERVE CLIENT-SIDE SEO
+==================================================
+
+Do not immediately remove useSEO().
+
+The final implementation should support:
+
+Initial HTML metadata
++
+Client-side hydration consistency
+
+Avoid hydration mismatches.
+
+The server-rendered metadata and client-side metadata must resolve to the same values.
+
+==================================================
+12. RAW HTML VERIFICATION
+==================================================
+
+This is a critical acceptance requirement.
+
+After implementation, make direct HTTP requests to:
+
+https://kiutmusic.com/
+https://kiutmusic.com/music
+https://kiutmusic.com/videos
+https://kiutmusic.com/about
+https://kiutmusic.com/tour
+https://kiutmusic.com/newsletter
+https://kiutmusic.com/contact
+https://kiutmusic.com/legal
+
+Inspect the RAW HTML response.
+
+Do NOT rely only on a browser after JavaScript executes.
+
+For each URL verify that the initial HTML contains:
+
+- correct title
+- correct description
+- correct canonical
+- correct OG title
+- correct OG description
+- correct OG URL
+- correct OG image
+- correct Twitter title
+- correct Twitter description
+- correct Twitter image
+- correct robots directive
+
+The raw HTML must contain route-specific metadata before JavaScript executes.
+
+==================================================
+13. NEGATIVE TEST
+==================================================
+
+Verify that:
+
+https://kiutmusic.com/music
+
+does NOT initially contain:
+
+<title>Kiut Music Worldwide</title>
+
+if that is the homepage-only title.
+
+It must contain the existing Music page title.
+
+Likewise:
+
+/videos must not initially expose homepage metadata.
+
+/about must not initially expose homepage metadata.
+
+/tour must not initially expose homepage metadata.
+
+/newsletter must not initially expose homepage metadata.
+
+/contact must not initially expose homepage metadata.
+
+/legal must not initially expose homepage metadata.
+
+==================================================
+14. SOCIAL CRAWLER VALIDATION
+==================================================
+
+Test raw HTML using a non-JavaScript request.
+
+Confirm that a crawler requesting:
+
+https://kiutmusic.com/music
+
+receives Music-specific:
+
+- title
+- description
+- canonical
+- OG metadata
+
+without executing React.
+
+Repeat for at least:
+
+/music
+/videos
+/tour
+/about
+
+==================================================
+15. GOOGLE COMPATIBILITY
+==================================================
+
+The implementation must remain compatible with:
+
+- Googlebot Smartphone
+- Google Search
+- Google Search Console
+- standard HTTP crawlers
+- social preview crawlers
+
+Do not introduce blocking middleware or authentication.
+
+==================================================
+16. PERFORMANCE
+==================================================
+
+Do not sacrifice existing performance architecture.
+
+Preserve:
+
+- route-level lazy loading
+- compression
+- asset caching
+- modern image formats
+- existing responsive behavior
+
+The metadata solution should add minimal server overhead.
+
+==================================================
+17. DESIGN & FUNCTIONALITY PRESERVATION
+==================================================
+
+DO NOT change:
+
+- visual design
+- colors
+- fonts
+- typography
+- spacing
+- animations
+- hero sections
+- navigation
+- page content
+- music catalogue
+- Romantic Love CTA
+- video catalogue
+- tour content
+- newsletter functionality
+- contact functionality
+- branding
+- logos
+- images
+- audio
+- videos
+
+This is an SEO architecture change only.
+
+==================================================
+18. TESTING
+==================================================
+
+Before considering the task complete, run:
+
+- existing type checks
+- existing build
+- existing tests
+- production build
+- raw HTML route verification
+- canonical verification
+- metadata verification
+- mobile smoke test
+- existing browser tests if available
+
+Do not stop at "build passes."
+
+The raw HTML inspection is mandatory.
+
+==================================================
+19. PRODUCTION VERIFICATION
+==================================================
+
+After implementation, provide a table:
+
+URL | HTTP Status | Initial Title | Initial Canonical | Initial Description | OG | Twitter | Robots | Result
+
+Every route must show PASS.
+
+Also provide examples of the actual initial HTML metadata found for:
+
+/music
+/videos
+/about
+/tour
+
+==================================================
+20. GOOGLE SEARCH CONSOLE IMPACT
+==================================================
+
+Do not claim that this change guarantees indexing.
+
+Instead explain that the implementation removes the confirmed technical inconsistency where non-home routes initially exposed homepage metadata.
+
+The expected result is:
+
+More reliable crawl signals
+More reliable canonical discovery
+More reliable social previews
+Cleaner route identity
+Better JavaScript-independent metadata delivery
+
+==================================================
+21. GIT SAFETY
+==================================================
+
+Before modifying anything:
+
+Inspect the current git status.
+
+Do not overwrite unrelated user work.
+
+Do not modify unrelated files.
+
+Do not resolve unrelated merge conflicts during this task.
+
+Keep this change isolated to the SEO metadata architecture.
+
+==================================================
+22. FINAL REPORT
+==================================================
+
+When complete, provide:
+
+1. Files changed
+2. Why each file changed
+3. Architecture chosen
+4. How initial HTML metadata is now generated
+5. How client-side SEO hydration remains synchronized
+6. Raw HTML verification results
+7. Production route verification results
+8. Build/test results
+9. Any limitations
+10. Any remaining SEO issues from Phase 11A that were intentionally deferred
+
+Explicitly confirm:
+
+"Non-homepage routes no longer expose homepage SEO metadata in their initial HTML response."
+
+==================================================
+IMPORTANT
+==================================================
+
+Do NOT implement:
+
+- Phase 11C soft-404 changes
+- Phase 11D structured data expansion
+- Phase 11E accessibility fixes
+- Phase 11F performance optimization
+
+Those are separate phases.
+
+This phase is ONLY:
+
+INITIAL HTML PAGE-SPECIFIC SEO METADATA.
+
+Do not expand scope.

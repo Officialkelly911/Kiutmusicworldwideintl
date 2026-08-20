@@ -1,0 +1,110 @@
+Ω ONLINE
+
+Yes. The image you’re referring to is the Open Graph (OG) / social sharing image. It is what platforms such as Replit, Facebook, LinkedIn, Discord, WhatsApp, and others may display when someone shares https://kiutmusic.com.
+
+For KIUT, this should ideally be a dedicated 1200 × 630 px branded banner rather than simply using the homepage hero image. Humans invented link previews so that URLs could have tiny billboards attached to them. Naturally, there are rules.
+
+The clean way to update it
+
+Since your Phase 11B implementation already has centralized initial HTML metadata, the safest approach is:
+
+1. Create the new banner
+    * Size: 1200 × 630 px
+    * Format: PNG or JPG
+    * Keep important text/logos inside the central safe area.
+    * Avoid very small text.
+2. Replace the existing OG image asset
+    Your current implementation already uses an OG image, so the agent should identify the existing asset rather than creating a second competing image.
+3. Update the metadata
+    The important tags should ultimately resolve to something like:
+
+<meta property="og:image" content="https://kiutmusic.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+
+And Twitter/X should reference the same or an appropriate equivalent:
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kiutmusic.com/og-image.png">
+
+Important for your KIUT site
+
+Because we already implemented Phase 11B, don’t let Replit Agent simply modify a random page component.
+
+Give Replit this implementation prompt:
+
+Update the KIUT Music website’s social sharing / Open Graph banner image.
+
+First inspect the existing SEO metadata architecture implemented in Phase 11B and locate the current canonical OG/social sharing image asset and its source-of-truth metadata configuration.
+
+I will provide a new banner image for the website link preview.
+
+Replace the existing OG image with the new uploaded image while preserving the current SEO architecture and approved metadata.
+
+Requirements:
+
+1. Use the uploaded image as the new primary social sharing image.
+2. Ensure the final asset is optimized for social sharing at 1200 × 630 px.
+3. Preserve the existing public asset path if possible so unnecessary metadata changes are avoided.
+4. If the image requires resizing, cropping, compression, or format conversion, perform only the necessary optimization while keeping the artwork visually intact.
+5. Ensure the initial HTML response contains the updated:
+
+og:image
+og:image:width
+og:image:height
+og:image:type
+twitter:image
+twitter:card
+
+6. Ensure the canonical production URL is used:
+
+https://kiutmusic.com/
+
+7. Do not use:
+    * Replit URLs
+    * localhost URLs
+    * www.kiutmusic.com
+    * relative URLs for the final OG image
+8. Preserve the existing Phase 11B server-rendered metadata system.
+9. Preserve the existing client-side SEO fallback.
+10. Do not alter page titles, descriptions, canonicals, robots directives, structured data, routing, DNS, analytics, or visual UI.
+11. Do not create duplicate OG images or duplicate metadata systems.
+
+Verification
+
+After implementation:
+
+* Run npm run check
+* Run npm run build
+* Verify the image exists at its production URL.
+* Fetch the raw HTML of:
+
+https://kiutmusic.com/
+
+* Confirm the OG and Twitter image URLs point to the new asset before JavaScript executes.
+* Confirm the image URL returns HTTP 200.
+* Confirm the image has the intended 1200 × 630 dimensions.
+* Confirm no Replit, localhost, or www.kiutmusic.com image URLs are present.
+* Confirm no duplicate OG/Twitter image tags were introduced.
+* Run the existing SEO regression tests.
+
+Do not publish the change until all checks pass.
+
+At the end, report:
+
+* previous OG image
+* new OG image
+* final production image URL
+* dimensions
+* metadata verification
+* test results
+* whether publishing is still pending.
+
+One important distinction
+
+If you’re talking about the image shown when you share kiutmusic.com itself, the above is exactly what you want.
+
+If you’re talking specifically about the image Replit’s own project/deployment interface displays when you share the Replit project URL, that’s a different asset controlled by Replit’s project metadata, not your website’s og:image.
+
+For your public KIUT URL, however, og:image is the one that matters.

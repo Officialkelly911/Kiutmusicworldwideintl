@@ -39,6 +39,8 @@ export interface HeroSectionProps {
   slug: string;
   /** Optional exact source asset when a supplied hero has no generated variants yet. */
   imageSrc?: string;
+  /** Optional responsive alternatives for an exact source asset, in picture-source order. */
+  imageSources?: Array<{ srcSet: string; type: string; media?: string }>;
   alt: string;
   /** Merged onto the <section> — controls height/layout, e.g. "min-h-[80vh] flex items-end pb-24" */
   className?: string;
@@ -82,6 +84,7 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
   {
     slug,
     imageSrc,
+    imageSources,
     alt,
     className = "",
     imageClassName = "",
@@ -171,15 +174,25 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
           style={{ opacity: videoSrc && videoPlaying && !videoError ? 0 : 1 }}
         >
           {imageSrc ? (
-            <img
-              src={imageSrc}
-              alt={alt}
-              className={imageClassName || "w-full h-full object-cover object-center"}
-              loading={priority ? "eager" : "lazy"}
-              decoding="async"
-              fetchPriority={priority ? "high" : "auto"}
-              onLoad={() => setLoaded(true)}
-            />
+            <picture>
+              {imageSources?.map((source) => (
+                <source
+                  key={`${source.media ?? "default"}-${source.type}`}
+                  media={source.media}
+                  srcSet={source.srcSet}
+                  type={source.type}
+                />
+              ))}
+              <img
+                src={imageSrc}
+                alt={alt}
+                className={imageClassName || "w-full h-full object-cover object-center"}
+                loading={priority ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={priority ? "high" : "auto"}
+                onLoad={() => setLoaded(true)}
+              />
+            </picture>
           ) : (
             <picture>
               <source media="(max-width: 767px) and (orientation: portrait)" srcSet={`${base}-mobile-portrait.avif`} type="image/avif" />

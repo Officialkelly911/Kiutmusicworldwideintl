@@ -1,5 +1,6 @@
 export const SEO_SITE_NAME = "Kiut Music Worldwide";
 export const SEO_DEFAULT_IMAGE = "https://kiutmusic.com/og-image.png";
+export const SEO_DEFAULT_IMAGE_TYPE = "image/png";
 export const SEO_ROBOTS = "index, follow";
 export const SEO_NOT_FOUND_ROBOTS = "noindex, follow";
 
@@ -161,6 +162,7 @@ export function renderRouteSEOTags(meta: RouteSEOMeta): string {
     `    <meta property="og:description" content="${description}" />`,
     `    <meta property="og:url" content="${canonical}" />`,
     `    <meta property="og:image" content="${ogImage}" />`,
+    `    <meta property="og:image:type" content="${SEO_DEFAULT_IMAGE_TYPE}" />`,
     '    <meta property="og:image:width" content="1200" />',
     '    <meta property="og:image:height" content="630" />',
     `    <meta property="og:site_name" content="${SEO_SITE_NAME}" />`,

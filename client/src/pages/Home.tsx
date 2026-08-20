@@ -476,20 +476,39 @@ function HeroSlideMedia({
   isFirst: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const [videoReady, setVideoReady] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
-    if (!video) return;
+    if (!video || !shouldLoadVideo) {
+      setVideoReady(false);
+      return;
+    }
     setVideoReady(false);
     setVideoError(false);
     const v = videoRef.current;
     if (!v) return;
-    v.load();
-    // Attempt play immediately after load — muted videos are autoplay-safe in all browsers
     const playPromise = v.play();
     if (playPromise !== undefined) playPromise.catch(() => {});
-  }, [video]);
+  }, [video, shouldLoadVideo]);
+
+  useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+    const saveData = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection?.saveData;
+    const updateVideoPolicy = () => {
+      setShouldLoadVideo(
+        desktopMedia.matches && !prefersReducedMotion && !saveData,
+      );
+    };
+
+    updateVideoPolicy();
+    desktopMedia.addEventListener("change", updateVideoPolicy);
+    return () => desktopMedia.removeEventListener("change", updateVideoPolicy);
+  }, [prefersReducedMotion]);
 
   return (
     <div className="absolute inset-0 w-full h-full">
@@ -499,18 +518,18 @@ function HeroSlideMedia({
         alt=""
         aria-hidden
         className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-cinematic"
-        style={{ opacity: video && videoReady && !videoError ? 0 : 1 }}
+        style={{ opacity: shouldLoadVideo && videoReady && !videoError ? 0 : 1 }}
         fetchPriority={isFirst ? "high" : "low"}
       />
       {/* Video layer — only rendered for slides that supply one */}
-      {video && !videoError && (
+      {video && shouldLoadVideo && !videoError && (
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          preload={isFirst ? "auto" : "metadata"}
+          preload="metadata"
           poster={poster}
           aria-hidden="true"
           tabIndex={-1}

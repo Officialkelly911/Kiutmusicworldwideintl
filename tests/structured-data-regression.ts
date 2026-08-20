@@ -21,6 +21,45 @@ async function fetchDocument(pathname: string) {
   return { response, html: await response.text() };
 }
 
+async function assertCrawlAssets() {
+  const robotsResponse = await fetch(`${baseUrl}/robots.txt`, { redirect: "manual" });
+  assert.equal(robotsResponse.status, 200, "robots.txt should be publicly available");
+  assert.match(
+    robotsResponse.headers.get("content-type") ?? "",
+    /^text\/plain/i,
+    "robots.txt should be plain text",
+  );
+  const robots = await robotsResponse.text();
+  assert.match(robots, /^User-agent:\s*\*/im, "robots.txt should define a crawler policy");
+  assert.match(
+    robots,
+    /^Sitemap:\s*https:\/\/kiutmusic\.com\/sitemap\.xml\s*$/im,
+    "robots.txt should reference the canonical sitemap URL",
+  );
+
+  const sitemapResponse = await fetch(`${baseUrl}/sitemap.xml`, { redirect: "manual" });
+  assert.equal(sitemapResponse.status, 200, "sitemap.xml should be publicly available");
+  assert.match(
+    sitemapResponse.headers.get("content-type") ?? "",
+    /^(application|text)\/xml/i,
+    "sitemap.xml should be XML",
+  );
+  const sitemap = await sitemapResponse.text();
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  const expectedUrls = PUBLIC_ROUTES.map(
+    (route) => `https://kiutmusic.com${route === "/" ? "/" : route}`,
+  );
+
+  assert.deepEqual(
+    [...new Set(sitemapUrls)].sort(),
+    [...expectedUrls].sort(),
+    "sitemap should contain each canonical public route exactly once",
+  );
+  for (const url of sitemapUrls) {
+    assert.equal(new URL(url).origin, "https://kiutmusic.com", "sitemap URLs must use the canonical domain");
+  }
+}
+
 function parseGraph(html: string): JsonLdNode[] {
   const scripts = [...html.matchAll(
     /<script id="kiut-structured-data" type="application\/ld\+json">([\s\S]*?)<\/script>/g,
@@ -100,6 +139,10 @@ function assertInitialMetadata(html: string, expected: typeof ROUTE_SEO["/"]) {
     html.includes(`<meta property="og:image" content="${expected.ogImage}" />`),
     "Open Graph image should match",
   );
+  assert.ok(
+    html.includes('<meta property="og:image:type" content="image/png" />'),
+    "Open Graph image type should be declared",
+  );
   assert.ok(html.includes('<meta property="og:image:width" content="1200" />'));
   assert.ok(html.includes('<meta property="og:image:height" content="630" />'));
   assert.ok(
@@ -158,6 +201,7 @@ async function main() {
   server.stderr.on("data", (chunk) => { serverOutput += chunk.toString(); });
 
   await waitForServer();
+  await assertCrawlAssets();
 
   for (const route of PUBLIC_ROUTES) {
     const { response, html } = await fetchDocument(route);

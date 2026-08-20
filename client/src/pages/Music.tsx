@@ -18,6 +18,14 @@ import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
 const musicHeroImage = "/images/hero/music/music-source.png";
+const musicHeroSources = [
+  { media: "(max-width: 767px)", srcSet: "/images/hero/music/music-640.avif", type: "image/avif" },
+  { media: "(max-width: 767px)", srcSet: "/images/hero/music/music-640.webp", type: "image/webp" },
+  { media: "(max-width: 1279px)", srcSet: "/images/hero/music/music-960.avif", type: "image/avif" },
+  { media: "(max-width: 1279px)", srcSet: "/images/hero/music/music-960.webp", type: "image/webp" },
+  { srcSet: "/images/hero/music/music-1440.avif", type: "image/avif" },
+  { srcSet: "/images/hero/music/music-1440.webp", type: "image/webp" },
+];
 
 // ─── Platform definitions ─────────────────────────────────────────────────────
 type PlatformId = "spotify" | "apple" | "audiomack" | "youtube" | "boomplay" | "amazon" | "soundcloud" | "deezer";
@@ -479,6 +487,7 @@ export default function Music() {
       <HeroSection
         slug="music"
         imageSrc={musicHeroImage}
+        imageSources={musicHeroSources}
         alt="Kiut reclining on a beach with roses and a teddy bear"
         className="min-h-[80vh] flex items-end pb-24"
         parallax={false}

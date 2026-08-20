@@ -16,7 +16,7 @@
  */
 
 import { useEffect } from "react";
-import { ROUTE_SEO, SEO_ROBOTS } from "@shared/seo";
+import { ROUTE_SEO, SEO_DEFAULT_IMAGE_TYPE, SEO_ROBOTS } from "@shared/seo";
 import { buildStructuredData } from "@shared/structured-data";
 
 export interface SEOMeta {
@@ -116,6 +116,7 @@ export function useSEO(meta: SEOMeta) {
     const origOgUrl        = snap("og:url", "property");
     const origOgType       = snap("og:type", "property");
     const origOgImage      = snap("og:image", "property");
+    const origOgImageType  = snap("og:image:type", "property");
     const origTwTitle      = snap("twitter:title");
     const origTwDesc       = snap("twitter:description");
     const origTwImage      = snap("twitter:image");
@@ -132,6 +133,7 @@ export function useSEO(meta: SEOMeta) {
     setMeta("og:url",         canonical,   "property");
     setMeta("og:type",        ogType,      "property");
     setMeta("og:image",       ogImage,     "property");
+    setMeta("og:image:type",  SEO_DEFAULT_IMAGE_TYPE, "property");
 
     setMeta("twitter:title",       title);
     setMeta("twitter:description", description);
@@ -165,6 +167,7 @@ export function useSEO(meta: SEOMeta) {
       setMeta("og:url",         origOgUrl,   "property");
       setMeta("og:type",        origOgType,  "property");
       setMeta("og:image",       origOgImage, "property");
+      setMeta("og:image:type",  origOgImageType, "property");
 
       setMeta("twitter:title",       origTwTitle);
       setMeta("twitter:description", origTwDesc);

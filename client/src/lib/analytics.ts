@@ -27,6 +27,7 @@ export type AnalyticsEvent =
   // Music
   | "music_play"
   | "streaming_click"
+  | "romantic_love_stream_click"
   // Video
   | "video_play"
   // Commerce
@@ -36,6 +37,7 @@ export type AnalyticsEvent =
   // Forms
   | "newsletter_signup"
   | "contact_submission"
+  | "contact_form_submit"
   | "booking_request"
   | "business_inquiry"
   | "press_inquiry"
@@ -103,6 +105,7 @@ declare global {
     fbq?: (...args: unknown[]) => void;
     ttq?: { track: (event: string, data?: unknown) => void; load: (id: string) => void; page: () => void };
     gtag?: (...args: unknown[]) => void;
+    __KIUT_ANALYTICS_INITIALIZED__?: boolean;
   }
 }
 
@@ -147,7 +150,15 @@ function wireProviders(cfg: NonNullable<Window["__KIUT_ANALYTICS__"]>) {
       if (event === "page_view") {
         window.gtag("config", cfg.ga4Id, { page_path: properties.path });
       } else {
-        window.gtag("event", event, properties);
+        const ga4Event =
+          event === "contact_submission"
+            ? "contact_form_submit"
+            : event === "streaming_click" &&
+                (properties.title === "Romantic Love" ||
+                  String(properties.destination ?? "").includes("bit.ly/m/Romanticlove"))
+              ? "romantic_love_stream_click"
+              : event;
+        window.gtag("event", ga4Event, properties);
       }
     }
 
@@ -172,7 +183,7 @@ function wireProviders(cfg: NonNullable<Window["__KIUT_ANALYTICS__"]>) {
 function classifyClick(anchor: HTMLAnchorElement, label: string): AnalyticsEvent | null {
   const href = anchor.href.toLowerCase();
   if (/dreamplanet\.org\/store|shop|merch/.test(href)) return "store_click";
-  if (/spotify|music\.apple|audiomack|boomplay|soundcloud|deezer|music\.youtube|youtube\.com/.test(href)) {
+  if (/spotify|music\.apple|audiomack|boomplay|soundcloud|deezer|music\.youtube|youtube\.com|bit\.ly\/m\//.test(href)) {
     return "streaming_click";
   }
   if (/ticket|eventbrite|bandsintown|songkick|book/i.test(`${href} ${label}`)) return "tour_booking";
@@ -232,7 +243,14 @@ function wireInteractionTracking() {
  */
 export function initAnalytics(): void {
   try {
-    const cfg = window.__KIUT_ANALYTICS__ ?? {};
+    if (window.__KIUT_ANALYTICS_INITIALIZED__) return;
+    window.__KIUT_ANALYTICS_INITIALIZED__ = true;
+
+    const env = (import.meta as Record<string, any>).env ?? {};
+    const cfg = {
+      ...window.__KIUT_ANALYTICS__,
+      ga4Id: window.__KIUT_ANALYTICS__?.ga4Id ?? env.VITE_GA4_MEASUREMENT_ID,
+    };
 
     // ── Google Tag Manager ────────────────────────────────────────────────
     if (cfg.gtmId) {
@@ -252,7 +270,9 @@ export function initAnalytics(): void {
       window.dataLayer = window.dataLayer ?? [];
       window.gtag = function (...args: unknown[]) { window.dataLayer!.push(args); };
       window.gtag("js", new Date());
-      window.gtag("config", cfg.ga4Id);
+      // Route-level page_view events are emitted by App.tsx, so prevent the
+      // gtag bootstrap from sending an additional automatic page view.
+      window.gtag("config", cfg.ga4Id, { send_page_view: false });
     }
 
     // ── Meta Pixel ────────────────────────────────────────────────────────

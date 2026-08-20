@@ -34,6 +34,14 @@ waitForPort = 5000
 localPort = 5000
 externalPort = 80
 
+[[ports]]
+localPort = 5001
+externalPort = 3001
+
+[[ports]]
+localPort = 23636
+externalPort = 3000
+
 [deployment]
 deploymentTarget = "autoscale"
 run = ["node", "./dist/index.cjs"]
@@ -42,7 +50,8 @@ build = ["npm", "run", "build"]
 [userenv]
 
 [userenv.shared]
-CONTACT_EMAIL = "contact@kiutmusic.com"
-CONTACT_FROM_EMAIL = "Kiut Music <onboarding@resend.dev>"
+CONTACT_FROM_EMAIL = "contact@kiutmusic.com"
 MAILCHIMP_AUDIENCE_ID = "de146c236a"
 MAILCHIMP_SERVER_PREFIX = "us2"
+CONTACT_REPLY_TO = "kiutmusicworldwide@gmail.com"
+VITE_GA4_MEASUREMENT_ID = "G-EE9TF1XS08"

@@ -1,0 +1,55 @@
+We have completed a read-only production-domain diagnostic for kiutmusic.com.
+
+The diagnostic confirmed that the apex DNS is already resolving to Replit:
+
+A @ → 34.111.179.208
+
+The Replit verification TXT record is also present.
+
+However, the project currently reports:
+
+isDeployed: false
+hasSuccessfulBuild: false
+No active production deployment
+No active custom-domain attachment
+TLS is therefore not provisioning
+https://kiutmusic.com/
+https://kiutmusic.com/robots.txt
+https://kiutmusic.com/sitemap.xml
+
+are currently unavailable.
+
+Do NOT modify Namecheap DNS records.
+
+Your task now is to restore the production deployment.
+
+1. Audit the current project and deployment configuration.
+2. Identify why the project currently has no active production deployment.
+3. Fix only deployment/configuration issues necessary to produce a valid production build.
+4. Do not redesign or modify the website's UI, content, branding, navigation, analytics implementation, or existing functionality.
+5. Do not remove or alter existing environment secrets.
+6. Build the project and verify that the production build succeeds.
+7. Publish the project to a live Replit production deployment.
+8. Confirm that the generated *.replit.app production URL responds successfully.
+9. Verify that:
+   /robots.txt
+   /sitemap.xml
+   are both served correctly from the production deployment.
+10. Once the deployment is live, inspect Publishing → Domains and determine whether kiutmusic.com is attached to the active deployment.
+11. If the domain attachment is missing, attach/re-add kiutmusic.com through Replit's supported Publishing → Domains workflow.
+12. Do not invent or change DNS values. If Replit generates different DNS values, report them clearly rather than modifying DNS.
+13. Do not configure www unless it is explicitly required by the existing project configuration.
+
+After completion, provide a concise deployment report containing:
+
+- Root cause of the previous unpublished state
+- Changes made
+- Production deployment URL
+- Deployment/build status
+- Custom-domain attachment status
+- robots.txt status
+- sitemap.xml status
+- SSL/TLS status
+- Any remaining action that requires access to Namecheap
+
+Do not claim production is ready until the live deployment has been successfully verified.

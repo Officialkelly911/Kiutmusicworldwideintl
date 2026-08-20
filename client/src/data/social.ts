@@ -26,6 +26,7 @@ export const THREADS_URL    = "https://www.threads.com/@kiut_rababag";
 
 // ── Smart / short links ────────────────────────────────────────────────────────
 export const GOOD_LIFE_EP_LINK = "https://linktr.ee/kiut_goodlife?utm_source=linktree_profile_share&ltsid=bc67a3d6-887d-4ad8-ad3d-5fe5b92dd484";
+export const ROMANTIC_LOVE_STREAMING_URL = "https://bit.ly/m/Romanticlove";
 export const SOFA_EP_LINK      = "https://bit.ly/m/KiutmusicSofaEP";
 export const ANNOUNCE_LINK     = "https://bit.ly/m/Kiutmusicannounce";
 export const ELIGIBLE_EP_LINK  = "https://bit.ly/m/KiutmusicELIGIBLE";

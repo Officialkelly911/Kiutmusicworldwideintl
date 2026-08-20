@@ -10,6 +10,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
 import { DREAMPLANET_URL } from "@/data/social";
+import { ALL_TRACKS, getTrackStreamingUrl } from "@/data/tracks";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -21,6 +22,8 @@ const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
 const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
 const creativePortfolioVideo = "/assets/videos/creative-portfolio-optimized.mp4";
 const creativePortfolioPoster = "/assets/images/creative-portfolio/video-poster.jpg";
+const romanticLoveBackground = "/assets/images/romantic-love/background.png";
+const romanticLoveOverlay = "/assets/images/romantic-love/overlay.jpg";
 const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
 const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
 const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
@@ -28,6 +31,7 @@ const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
 const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
+const romanticLoveTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love");
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -787,6 +791,18 @@ export default function Home() {
 
   const slides = [
     {
+      id: 2,
+      title: "Romantic Love",
+      description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
+      ctaText: "Listen Now",
+      ctaLink: romanticLoveTrack ? getTrackStreamingUrl(romanticLoveTrack) ?? "/music" : "/music",
+      poster: romanticLoveBackground,
+      badge: "Recent Release",
+      isExternal: true,
+      overlay: romanticLoveOverlay,
+      duration: 6000,
+    },
+    {
       id: 0,
       title: "Good Life EP",
       description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
@@ -807,17 +823,6 @@ export default function Home() {
       poster: goodLifePoster,
       badge: "Featured Music Video",
       isExternal: false,
-      duration: 6000,
-    },
-    {
-      id: 2,
-      title: "Creative Portfolio",
-      description: "A visual journey through performances, behind-the-scenes, and cinematic projects that define Kiut Music.",
-      ctaText: "Explore Portfolio",
-      ctaLink: "https://dreamplanet.org/user/61",
-      poster: gradImage1,
-      badge: "Creative Highlight",
-      isExternal: true,
       duration: 6000,
     }
   ];
@@ -879,6 +884,11 @@ export default function Home() {
                 animate="visible"
                 exit={{ opacity: 0, y: -16, transition: T.fast }}
                 className="flex flex-col items-center lg:items-start"
+                data-testid={
+                  slides[currentSlide].title === "Romantic Love"
+                    ? "hero-slide-romantic-love"
+                    : "hero-slide-content"
+                }
               >
                 {/* 1 — Badge label */}
                 <motion.div variants={staggerItem} className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
@@ -914,6 +924,12 @@ export default function Home() {
                       href={slides[currentSlide].ctaLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Listen to ${slides[currentSlide].title} on streaming platforms`}
+                      data-testid={
+                        slides[currentSlide].title === "Romantic Love"
+                          ? "hero-romantic-love-streaming-cta"
+                          : undefined
+                      }
                       icon={<ArrowRight size={18} />}
                       iconPosition="right"
                     >
@@ -935,7 +951,7 @@ export default function Home() {
 
             {/* Platform Icons (Only show for EP) */}
             <AnimatePresence>
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -953,7 +969,7 @@ export default function Home() {
           {/* Floating EP Card / Controls (Right) */}
           <div className="flex flex-col justify-center lg:justify-end items-center order-1 lg:order-2 h-full">
             <AnimatePresence mode="wait">
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div
                   key="ep-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
@@ -976,6 +992,33 @@ export default function Home() {
                       src={musicImage} 
                       alt="Good Life EP Cover" 
                       className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
+                  </div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {currentSlide === 0 && (
+                <motion.div
+                  key="romantic-love-card"
+                  initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
+                  exit={{ opacity: 0, scale: 0.9, rotate: -5 }}
+                  transition={{
+                    opacity: { duration: 0.8 },
+                    scale: { duration: 0.8 },
+                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="perspective-[1000px] mb-8"
+                >
+                  <div className="relative w-56 sm:w-64 md:w-80 lg:w-96 aspect-square rounded-md overflow-hidden shadow-lg border border-gold/30 transform-gpu rotate-y-[5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-cinematic">
+                    <img
+                      src={romanticLoveOverlay}
+                      alt="Romantic Love single artwork by Kiut"
+                      className="w-full h-full object-cover"
+                      loading="eager"
                     />
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
                   </div>

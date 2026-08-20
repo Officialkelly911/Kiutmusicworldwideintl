@@ -1,0 +1,301 @@
+KIUT MUSIC — HERO SLIDE REORDER & MUSIC VIDEO SECTION UPDATE
+
+OBJECTIVE
+
+Make two targeted content updates to the existing KIUT Music website:
+
+1. Move the “Recent Release — Romantic Love” Hero slide from the third position to the first position on the homepage Hero carousel.
+2. Remove three specific videos from the Music Video section of the Music page:
+    * Good Life — Official Video
+    * Twerk Instructor
+    * Eligible EP Highlight
+
+Do not redesign either section. Preserve the existing layout, styling, animations, navigation, responsive behavior, and reusable components.
+
+⸻
+
+PART 1 — HOMEPAGE HERO SLIDE REORDER
+
+1.1 Move Romantic Love to Slide 1
+
+The homepage Hero currently contains three slides.
+
+The slide previously created as:
+
+RECENT RELEASE
+ROMANTIC LOVE
+
+is currently the third slide.
+
+Move this entire slide to the first position.
+
+New Hero order
+
+Slide 1
+
+RECENT RELEASE
+ROMANTIC LOVE
+
+Slide 2
+
+Existing original Slide 1
+
+Slide 3
+
+Existing original Slide 2
+
+The two existing slides should remain exactly as they are, except for their new position in the carousel.
+
+⸻
+
+1.2 Preserve Romantic Love Slide
+
+Do not change the approved Romantic Love Hero composition while moving it.
+
+Preserve:
+
+* Background image
+* Overlay release graphic
+* Release title
+* “Recent Release” label
+* Existing CTA
+* CTA animation
+* Typography
+* Image positioning
+* Responsive behavior
+* Slide transition
+* Existing Hero animation
+
+The slide should simply become the first slide.
+
+Do not recreate the slide from scratch if the existing implementation can be reordered through the existing Hero slide data/configuration.
+
+⸻
+
+PART 2 — HERO CAROUSEL FUNCTIONALITY
+
+After reordering, verify that the Hero carousel still functions correctly.
+
+Preserve:
+
+* Autoplay
+* Slide timing
+* Transition animations
+* Previous/next controls
+* Pagination indicators
+* Touch/swipe interaction
+* Keyboard navigation
+* Responsive behavior
+
+The carousel should now begin with:
+
+Romantic Love
+
+when the homepage loads.
+
+If the existing Hero system uses a centralized slide array/data structure, update the ordering in that source rather than creating duplicate slide definitions.
+
+⸻
+
+PART 3 — MUSIC PAGE: REMOVE SPECIFIC MUSIC VIDEOS
+
+Go to the Music Video section of the Music page.
+
+Remove the following three video entries from the visible Music Video section:
+
+Remove:
+
+1. Good Life — Official Video
+2. Twerk Instructor
+3. Eligible EP Highlight
+
+These videos should no longer appear as cards/items in the Music Video section.
+
+⸻
+
+PART 4 — DO NOT DELETE SOURCE ASSETS UNNECESSARILY
+
+Removing the videos from the Music Video section does not automatically mean deleting the underlying video files from the project.
+
+First determine how the Music Video section is populated.
+
+If the videos are controlled through centralized data, remove/deactivate those entries from the Music Video dataset.
+
+For example, if the project uses:
+
+musicVideos
+
+or:
+
+videoData
+
+or another centralized content source, update the source of truth.
+
+Do not delete source video assets unless they are confirmed to be completely unused elsewhere.
+
+This prevents accidental breakage if any of these videos are referenced by:
+
+* Other pages
+* Individual release pages
+* YouTube links
+* Portfolio sections
+* Future components
+* SEO metadata
+* Other media collections
+
+⸻
+
+PART 5 — MUSIC VIDEO SECTION AFTER REMOVAL
+
+After removing the three specified videos, allow the remaining videos to automatically occupy the available positions.
+
+Do not leave:
+
+* Empty cards
+* Blank spaces
+* Broken thumbnails
+* “Video unavailable” placeholders
+* Broken links
+
+The remaining Music Video section should naturally reflow.
+
+If the existing grid automatically handles dynamic content, preserve that behavior.
+
+⸻
+
+PART 6 — PRESERVE EXISTING DESIGN
+
+Do not redesign the Music Video section.
+
+Preserve:
+
+* Existing section heading
+* Typography
+* Card design
+* Thumbnail treatment
+* Hover animations
+* Play buttons
+* Spacing
+* Grid layout
+* Responsive behavior
+* Existing video links
+* Existing animations
+
+Only remove the three specified video entries.
+
+⸻
+
+PART 7 — RESPONSIVE VERIFICATION
+
+Verify the updated Music Video section on:
+
+Desktop
+
+* 1920px
+* 1440px
+* 1280px
+
+Tablet
+
+* 1024px
+* 768px
+
+Mobile
+
+* 430px
+* 390px
+* 375px
+
+Confirm that the remaining videos reflow correctly and that no empty spaces or layout issues appear.
+
+⸻
+
+PART 8 — REGRESSION PROTECTION
+
+Do not modify:
+
+* Music page Hero
+* Romantic Love release
+* Audio player
+* Music page tracklist
+* Homepage Hero artwork
+* Existing CTA component
+* Header/navigation
+* Footer
+* Store
+* Tour
+* Contact
+* Newsletter
+* Creative Portfolio
+* Resend
+* Mailchimp
+* Analytics
+* SEO
+
+unless a change is strictly required to complete this task.
+
+The previously approved premium reusable CTA component must remain untouched.
+
+⸻
+
+PART 9 — QA CHECKLIST
+
+After implementation:
+
+Homepage Hero
+
+* Romantic Love is now Slide 1.
+* Romantic Love background image remains correct.
+* Romantic Love overlay graphic remains correct.
+* Romantic Love title remains correct.
+* Existing CTA remains functional.
+* Original Slide 1 is now Slide 2.
+* Original Slide 2 is now Slide 3.
+* Carousel autoplay works.
+* Navigation works.
+* Mobile swipe works.
+* No visual regressions occur.
+
+Music Video Section
+
+* Good Life — Official Video is removed.
+* Twerk Instructor is removed.
+* Eligible EP Highlight is removed.
+* Remaining videos display correctly.
+* No empty cards remain.
+* No broken thumbnails remain.
+* No broken video links remain.
+* Responsive grid remains intact.
+
+Global
+
+* No console errors.
+* No broken asset paths.
+* No unrelated components modified.
+* Existing branding remains unchanged.
+* Existing CTA system remains unchanged.
+
+⸻
+
+FINAL ACCEPTANCE CRITERIA
+
+The task is complete when:
+
+1. Romantic Love is the first homepage Hero slide.
+2. The two previous Hero slides follow it in their original relative order.
+3. The Romantic Love slide’s approved visual assets and styling remain unchanged.
+4. Good Life — Official Video, Twerk Instructor, and Eligible EP Highlight no longer appear in the Music Video section.
+5. Remaining Music Videos automatically reflow correctly.
+6. No unused source assets are unnecessarily deleted.
+7. No unrelated website functionality or design is changed.
+8. The implementation works correctly across desktop, tablet, and mobile.
+9. No console errors or broken references are introduced.
+
+After completion, provide a concise implementation report listing:
+
+* Hero slide order before and after
+* Three videos removed
+* Any centralized data source updated
+* Any unused assets intentionally retained
+* QA performed
+* Confirmation that no unrelated components were modified

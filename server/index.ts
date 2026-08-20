@@ -121,6 +121,15 @@ app.use((req, res, next) => {
 (async () => {
   await registerRoutes(httpServer, app);
 
+  // ── 404 handler for unmatched API routes ──────────────────────────────────
+  // Must sit after registerRoutes (real routes) and before the SPA/Vite
+  // catch-all, so unknown /api/* paths get a clean JSON 404 instead of falling
+  // through to the HTML shell.
+  app.use("/api", (_req: Request, res: Response) => {
+    res.status(404).json({ message: "Not found." });
+  });
+
+  // ── Global error handler ───────────────────────────────────────────────────
   app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
     const requestedStatus = Number(err?.status || err?.statusCode);
     const status = requestedStatus >= 400 && requestedStatus < 500 ? requestedStatus : 500;

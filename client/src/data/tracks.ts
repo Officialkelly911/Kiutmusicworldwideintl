@@ -26,6 +26,7 @@ import {
   ANNOUNCE_LINK,
   ELIGIBLE_EP_LINK,
   LINKTREE_URL,
+  ROMANTIC_LOVE_STREAMING_URL,
 } from "./social";
 
 // ─── Streaming link map ────────────────────────────────────────────────────────
@@ -52,11 +53,11 @@ export interface Track {
   albumArt:   string;
   albumType:  "album" | "ep" | "project" | "single" | "deluxe";
   /** Human-readable release date: "Oct 30, 2025" */
-  released:   string;
+  released?:  string;
   /** ISO date for sorting: "2025-10-30" */
-  releasedAt: string;
+  releasedAt?: string;
   /** Duration string: "3:35" */
-  duration:   string;
+  duration?:  string;
   /**
    * Local audio path, e.g. "/audio/makosa.mp3".
    * Drop the file into client/public/audio/ using this exact filename.
@@ -65,6 +66,8 @@ export interface Track {
   url:        string | null;
   /** Per-track streaming URLs; falls back to album-level via getTrackStreamingUrl() */
   streaming:  StreamingLinks;
+  /** Canonical release-level smartlink for this track, when one exists */
+  streamingUrl?: string;
   /** YouTube music video / visualizer ID for cross-linking with the Videos page */
   youtubeVideoId?: string;
   lyrics?:    string;
@@ -72,6 +75,8 @@ export interface Track {
   isExplicit?: boolean;
   /** Marks the newest release for hero/featured highlighting */
   isLatest?:  boolean;
+  /** Editorial state when a release does not yet have public date metadata. */
+  status?: "recently-released";
 }
 
 // ─── Album / EP / Project metadata ────────────────────────────────────────────
@@ -131,6 +136,7 @@ export const CONFAM_BOY_ART      = "/assets/images/confam-boy-cover.webp";
 export const PRAYA_REQUEST_ART   = "/assets/images/praya-request-cover.webp";
 export const CHIKITO_ART         = "/assets/images/chikito-cover.webp";
 export const GOOD_LIFE_COVER_ALT = "/assets/images/Good_Life_EP_cover_1783591396949.webp";
+export const ROMANTIC_LOVE_ART = "/assets/images/romantic-love/cover.jpg";
 
 // ─── Master Track Catalogue ────────────────────────────────────────────────────
 // Replace placeholder entries with the official tracklist as files arrive.
@@ -272,6 +278,16 @@ export const ALL_TRACKS: Track[] = [
     url: "/audio/turn-up.mp3",
     streaming: {},
   },
+  {
+    id: 15, title: "Romantic Love", artist: "Kiut",
+    album: "Single", albumId: "singles",
+    albumArt: ROMANTIC_LOVE_ART, albumType: "single",
+    url: "/audio/romantic-love.mp3",
+    streaming: {},
+    streamingUrl: ROMANTIC_LOVE_STREAMING_URL,
+    isLatest: true,
+    status: "recently-released",
+  },
 ];
 
 // ─── Album / EP / Project Catalogue ──────────────────────────────────────────
@@ -369,7 +385,7 @@ export const ALBUMS: AlbumMeta[] = [
       audiomack: AUDIOMACK_URL,
     },
     platforms: ["spotify", "apple", "audiomack"],
-    trackCount: 4,
+    trackCount: 5,
     previewTrackId: 11,
   },
 ];
@@ -389,10 +405,12 @@ export function getAlbumPreviewAudio(albumId: string): string | null {
 
 /**
  * Returns the best available streaming URL for a track.
- * Checks per-track links first, then falls back to the parent album's links.
+ * Checks a release-level smartlink first, then per-track links, then the
+ * parent album's links.
  * Preference order: Spotify → Apple Music → Audiomack → YouTube → Boomplay.
  */
 export function getTrackStreamingUrl(track: Track): string | null {
+  if (track.streamingUrl) return track.streamingUrl;
   const order: Array<keyof StreamingLinks> = ["spotify", "apple", "audiomack", "youtube", "boomplay"];
   for (const k of order) {
     if (track.streaming[k]) return track.streaming[k]!;

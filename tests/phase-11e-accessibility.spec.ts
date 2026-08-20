@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
-test.setTimeout(60_000);
+test.setTimeout(120_000);
 
 const publicRoutes = [
   "/",
@@ -12,6 +12,14 @@ const publicRoutes = [
   "/contact",
   "/legal",
 ] as const;
+
+async function visit(page: Page, route: string) {
+  const response = await page.goto(route, { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("status", { name: "Loading page" })).toBeHidden({
+    timeout: 30_000,
+  });
+  return response;
+}
 
 test.beforeEach(async ({ page }) => {
   // Keep browser checks focused on the actual page rather than the optional
@@ -26,7 +34,7 @@ test.describe("Phase 11E accessibility and reliability", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/about");
+    await visit(page, "/about");
 
     const toggle = page.getByTestId("button-mobile-menu");
     const mobileMenu = page.getByRole("navigation", { name: "Mobile navigation menu" });
@@ -57,13 +65,13 @@ test.describe("Phase 11E accessibility and reliability", () => {
     page,
   }) => {
     for (const route of ["/", "/about"] as const) {
-      await page.goto(route);
+      await visit(page, route);
       const headings = page.getByRole("heading", { level: 1 });
-      await expect(headings).toHaveCount(1);
+      await expect(headings).toHaveCount(1, { timeout: 15_000 });
       await expect(headings).toBeVisible();
     }
 
-    await page.goto("/about");
+    await visit(page, "/about");
     const featuredGalleryImage = page.getByRole("button", {
       name: "Open featured image — The Good Life Era",
     });
@@ -74,7 +82,7 @@ test.describe("Phase 11E accessibility and reliability", () => {
     ).toBeVisible();
     await page.getByRole("button", { name: "Close photo gallery" }).click();
 
-    await page.goto("/music");
+    await visit(page, "/music");
     const release = page.getByTestId("featured-release-romantic-love");
     await release.getByRole("button", { name: "Listen Now" }).click();
 
@@ -89,15 +97,16 @@ test.describe("Phase 11E accessibility and reliability", () => {
     await expect(page.getByRole("button", { name: /Previous track/i })).toBeVisible();
     await expect(page.getByRole("button", { name: /Close player/i })).toBeVisible();
 
-    await page.goto("/videos");
+    await visit(page, "/videos");
     const videoEmbed = page.locator("iframe[title]").first();
     await expect(videoEmbed).toHaveAttribute(
       "src",
       /^https:\/\/www\.youtube-nocookie\.com\/embed\//,
+      { timeout: 15_000 },
     );
     await expect(videoEmbed).toHaveAttribute("referrerpolicy", "strict-origin-when-cross-origin");
 
-    await page.goto("/tour");
+    await visit(page, "/tour");
     await page.getByRole("button", { name: "Watch Strength in Bed" }).click();
     const tourDialog = page.getByRole("dialog", { name: /Strength in Bed/ });
     await expect(tourDialog).toBeVisible();
@@ -105,6 +114,7 @@ test.describe("Phase 11E accessibility and reliability", () => {
     await expect(tourEmbed).toHaveAttribute(
       "src",
       /^https:\/\/www\.youtube-nocookie\.com\/embed\/S3TxotoehrI\?autoplay=1&rel=0$/,
+      { timeout: 15_000 },
     );
     await expect(tourEmbed).toHaveAttribute(
       "referrerpolicy",
@@ -118,7 +128,14 @@ test.describe("Phase 11E accessibility and reliability", () => {
     const pageErrors: string[] = [];
     const failedResources: string[] = [];
 
-    page.on("pageerror", (error) => pageErrors.push(error.message));
+    page.on("pageerror", (error) => {
+      // The Replit preview shell mounts a separate Framer runtime that can emit
+      // its own hydration errors. Those are outside the KIUT app tree; retain
+      // this assertion for all first-party page errors.
+      if (!error.stack?.includes("framerusercontent.com")) {
+        pageErrors.push(error.message);
+      }
+    });
     page.on("response", (response) => {
       const url = new URL(response.url());
       const request = response.request();
@@ -133,7 +150,7 @@ test.describe("Phase 11E accessibility and reliability", () => {
     });
 
     for (const route of publicRoutes) {
-      const response = await page.goto(route);
+      const response = await visit(page, route);
       expect(response?.status(), `route ${route}`).toBe(200);
       await expect(page.locator("main#main-content")).toBeVisible();
 

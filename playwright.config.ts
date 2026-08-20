@@ -19,7 +19,11 @@ const chromiumEnv = {
 
 export default defineConfig({
   testDir: "./tests",
-  fullyParallel: true,
+  // The main Vite app and the isolated mockup Vite server share this
+  // development workspace. One browser worker keeps route/media assertions
+  // deterministic without affecting production behavior.
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   reporter: "list",

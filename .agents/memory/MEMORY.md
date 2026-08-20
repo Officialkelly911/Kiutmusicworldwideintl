@@ -18,3 +18,4 @@
 - [Server 404 semantics](phase11c-server-404.md) — unknown browser paths keep the branded SPA 404 screen but must return HTTP 404 with noindex /404 metadata; one shared route classifier keeps server and client normalization aligned.
 - [Entity SEO structured data](entity-seo-structured-data.md) — emit one shared JSON-LD graph per route; include music, video, and event facts only when source metadata is complete.
 - [Preview runtime notices](preview-runtime-notices.md) — classify errors by origin: preview-shell/third-party iframe notices are not app regressions; validate first-party page errors and resources separately.
+- [Mockup sandbox dependencies](mockup-sandbox-dependencies.md) — the artifact has its own npm tree; install its lockfile locally before restarting its preview workflow.

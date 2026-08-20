@@ -5,8 +5,8 @@
  * file only assembles the summary cards shown on the Newsletter page.
  */
 import { ALBUMS } from "./tracks";
-import { upcomingShows } from "@/pages/Tour";
-import { videos } from "@/pages/Videos";
+import { upcomingShows } from "./tour";
+import { videos } from "./videos";
 import { MERCH_HIGHLIGHTS } from "./merch";
 
 export interface FeaturedUpdate {

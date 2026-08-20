@@ -10,6 +10,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { pageVariants } from "@/lib/motion";
 import { lazy, Suspense, useEffect } from "react";
 import { track } from "@/lib/analytics";
+import { getPublicRoute } from "@shared/seo";
 
 // ── Route-level code splitting ────────────────────────────────────────────────
 // Each page is loaded only when navigated to. Vite will emit a separate chunk
@@ -44,6 +45,10 @@ function PageFallback() {
 function AnimatedRouter() {
   const [location] = useLocation();
   const { showPlayer } = usePlayer();
+  // The server accepts public routes with trailing slashes and query strings.
+  // Use the same normalized route here so those valid direct loads do not fall
+  // through to the existing NotFound component after hydration.
+  const routeLocation = getPublicRoute(location) ?? location;
 
   // ── Page view analytics ───────────────────────────────────────────────────
   // Fires on every client-side route change. Provider adapters in analytics.ts
@@ -66,7 +71,7 @@ function AnimatedRouter() {
               The spinner is rarely seen after the first visit because the chunk
               is cached by the browser. */}
           <Suspense fallback={<PageFallback />}>
-            <Switch>
+            <Switch location={routeLocation}>
               <Route path="/"           component={Home}       />
               <Route path="/music"      component={Music}      />
               <Route path="/videos"     component={Videos}     />

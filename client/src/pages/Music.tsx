@@ -8,6 +8,7 @@ import { usePlayer } from "@/context/PlayerContext";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
 import { ROUTE_SEO } from "@shared/seo";
+import { buildMusicStructuredData } from "@shared/structured-data";
 import {
   ALL_TRACKS, TRACK_GROUPS, ALBUMS, type Track, type AlbumMeta,
   getAlbumPreviewAudio, getTrackStreamingUrl,
@@ -432,7 +433,10 @@ function MusicDiscovery() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Music() {
-  useSEO(ROUTE_SEO["/music"]);
+  useSEO({
+    ...ROUTE_SEO["/music"],
+    jsonLd: buildMusicStructuredData(ROUTE_SEO["/music"], ALBUMS, ALL_TRACKS),
+  });
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
   const featuredTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love") ?? ALL_TRACKS[0];

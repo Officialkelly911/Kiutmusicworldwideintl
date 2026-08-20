@@ -16,7 +16,8 @@
  */
 
 import { useEffect } from "react";
-import { ROUTE_SEO } from "@shared/seo";
+import { ROUTE_SEO, SEO_ROBOTS } from "@shared/seo";
+import { buildStructuredData } from "@shared/structured-data";
 
 export interface SEOMeta {
   /** Full page title, e.g. "Music | Kiut Music Worldwide" */
@@ -25,6 +26,8 @@ export interface SEOMeta {
   description: string;
   /** Absolute canonical URL for this page */
   canonical: string;
+  /** Search indexing directive. Defaults to the public-route policy. */
+  robots?: string;
   /**
    * Absolute URL for the Open Graph / Twitter preview image.
    * Defaults to the global og-image when omitted.
@@ -65,7 +68,7 @@ function setLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
-const LD_SCRIPT_ID = "kiut-page-ld-json";
+const LD_SCRIPT_ID = "kiut-structured-data";
 
 function setJsonLd(data: Record<string, unknown>) {
   removeJsonLd();
@@ -86,6 +89,7 @@ export function useSEO(meta: SEOMeta) {
       title,
       description,
       canonical,
+      robots = SEO_ROBOTS,
       ogImage = GLOBAL_DEFAULTS.ogImage,
       ogType = "website",
       jsonLd,
@@ -97,6 +101,7 @@ export function useSEO(meta: SEOMeta) {
     const snap = (n: string, a = "name") =>
       document.querySelector<HTMLMetaElement>(`meta[${a}="${n}"]`)?.content ?? "";
     const origDesc         = snap("description");
+    const origRobots       = snap("robots");
     const origOgTitle      = snap("og:title", "property");
     const origOgDesc       = snap("og:description", "property");
     const origOgUrl        = snap("og:url", "property");
@@ -111,6 +116,7 @@ export function useSEO(meta: SEOMeta) {
     setLink("canonical", canonical);
 
     setMeta("description", description);
+    setMeta("robots", robots);
 
     setMeta("og:title",       title,       "property");
     setMeta("og:description", description, "property");
@@ -123,21 +129,17 @@ export function useSEO(meta: SEOMeta) {
     setMeta("twitter:image",       ogImage);
     setMeta("twitter:card",        "summary_large_image");
 
-    // Every route gets a valid WebPage entity even when a page does not need
-    // richer domain-specific schema. Callers can supply a custom JSON-LD object
-    // for music albums, events, or other page-specific entities.
-    setJsonLd(jsonLd ?? {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: title,
+    // The initial HTML includes this same graph. Callers provide richer route
+    // data when it exists; every other page keeps the stable artist, WebSite,
+    // and WebPage entity relationships during client-side navigation.
+    setJsonLd(jsonLd ?? buildStructuredData({
+      title,
       description,
-      url: canonical,
-      isPartOf: {
-        "@type": "WebSite",
-        name: "Kiut Music Worldwide",
-        url: "https://kiutmusic.com/",
-      },
-    });
+      canonical,
+      ogImage,
+      ogType: ogType as "website",
+      robots,
+    }));
 
     // ── Restore originals on unmount ─────────────────────────────────────────
     return () => {
@@ -145,6 +147,7 @@ export function useSEO(meta: SEOMeta) {
       setLink("canonical", origCanonical);
 
       setMeta("description", origDesc);
+      setMeta("robots", origRobots);
 
       setMeta("og:title",       origOgTitle, "property");
       setMeta("og:description", origOgDesc,  "property");

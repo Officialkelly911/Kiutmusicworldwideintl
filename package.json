@@ -10,7 +10,9 @@
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
     "db:push": "drizzle-kit push --config=drizzle.config.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:server-404": "npm run build && tsx tests/server-404-regression.ts",
+    "test:structured-data": "npm run build && tsx tests/structured-data-regression.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -16,6 +16,7 @@
  */
 
 import { useEffect } from "react";
+import { ROUTE_SEO } from "@shared/seo";
 
 export interface SEOMeta {
   /** Full page title, e.g. "Music | Kiut Music Worldwide" */
@@ -42,13 +43,7 @@ export interface SEOMeta {
   jsonLd?: Record<string, any>;
 }
 
-const GLOBAL_DEFAULTS = {
-  title: "Kiut Music Worldwide",
-  description: "Afro-Caribbean Sound. Global Energy. Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut.",
-  canonical: "https://kiutmusic.com/",
-  ogImage: "https://kiutmusic.com/og-image.png",
-  ogType: "website",
-};
+const GLOBAL_DEFAULTS = ROUTE_SEO["/"];
 
 function setMeta(name: string, content: string, attr = "name") {
   let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);

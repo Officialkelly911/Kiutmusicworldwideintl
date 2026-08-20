@@ -7,6 +7,7 @@ import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { usePlayer } from "@/context/PlayerContext";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
+import { ROUTE_SEO } from "@shared/seo";
 import {
   ALL_TRACKS, TRACK_GROUPS, ALBUMS, type Track, type AlbumMeta,
   getAlbumPreviewAudio, getTrackStreamingUrl,
@@ -431,11 +432,7 @@ function MusicDiscovery() {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Music() {
-  useSEO({
-    title: "Music | Kiut Music Worldwide",
-    description: "Stream all albums and singles from Nigerian-American artist Kiut — Afro-Caribbean sound available on Spotify, Apple Music, Audiomack, and everywhere.",
-    canonical: "https://kiutmusic.com/music",
-  });
+  useSEO(ROUTE_SEO["/music"]);
 
   const { currentTrack, isPlaying, playTrack, currentTime, duration, seek } = usePlayer();
   const featuredTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love") ?? ALL_TRACKS[0];

@@ -9,6 +9,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "../lib/utils";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
+import { ROUTE_SEO } from "@shared/seo";
 
 const artistPhoto    = "/assets/images/IMG_2452_1772753968062.webp";
 const aboutHeroVideo = "/assets/videos/portfolio-optimized.mp4";
@@ -302,11 +303,7 @@ function AudiomackIcon() {
 }
 
 export default function About() {
-  useSEO({
-    title: "About | Kiut Music Worldwide",
-    description: "Nigerian-American artist Kiut bridges Lagos and the world — discover his story, journey, and the sound behind Kiut Music Worldwide.",
-    canonical: "https://kiutmusic.com/about",
-  });
+  useSEO(ROUTE_SEO["/about"]);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);

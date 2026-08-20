@@ -33,6 +33,7 @@ import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
+import { ROUTE_SEO } from "@shared/seo";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 const STORE_URL     = "https://dreamplanet.org/store-profile/61";
@@ -623,11 +624,7 @@ function AnimStat({ label, value, sub }: { label: string; value: string; sub: st
 
 // ─── Main component ────────────────────────────────────────────────────────────
 export default function Videos() {
-  useSEO({
-    title: "Videos | Kiut Music Worldwide",
-    description: "Watch official music videos, behind-the-scenes footage, and live performances from Nigerian-American artist Kiut.",
-    canonical: "https://kiutmusic.com/videos",
-  });
+  useSEO(ROUTE_SEO["/videos"]);
 
   const [featuredVideo, setFeaturedVideo]   = useState(videos[0]);
   const [activeType, setActiveType]         = useState("All");

@@ -15,6 +15,7 @@ import { upcomingShows } from "@/pages/Tour";
 import { videos } from "@/pages/Videos";
 import { ALBUMS } from "@/data/tracks";
 import { useSEO } from "@/lib/useSEO";
+import { ROUTE_SEO } from "@shared/seo";
 import {
   NewsletterForm,
   NewsletterSuccess,
@@ -175,11 +176,7 @@ const UPDATE_ICONS = {
    Page component
 ═══════════════════════════════════════════════════════════════ */
 export default function Newsletter() {
-  useSEO({
-    title: "Join the Kiut Music Newsletter",
-    description: "Receive exclusive releases, tour announcements, behind-the-scenes updates, and premium content from Kiut Music.",
-    canonical: "https://kiutmusic.com/newsletter",
-  });
+  useSEO(ROUTE_SEO["/newsletter"]);
 
   // ── Form panel state ─────────────────────────────────────────
   const [submitted,          setSubmitted]          = useState(false);

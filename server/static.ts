@@ -1,6 +1,12 @@
 import express, { type Express, type Request, type Response } from "express";
 import fs from "fs";
 import path from "path";
+import {
+  ROUTE_SEO_END_MARKER,
+  ROUTE_SEO_START_MARKER,
+  renderRouteSEOTags,
+  resolveRouteSEO,
+} from "../shared/seo";
 
 /**
  * Cache-Control strategy for production static assets.
@@ -45,6 +51,22 @@ function setStaticCacheHeaders(req: Request, res: Response, next: () => void) {
   next();
 }
 
+function injectRouteSEO(indexHtml: string, pathname: string): string {
+  const start = indexHtml.indexOf(ROUTE_SEO_START_MARKER);
+  const end = indexHtml.indexOf(ROUTE_SEO_END_MARKER, start);
+
+  if (start === -1 || end === -1) {
+    throw new Error("Could not find the route SEO markers in the built index.html");
+  }
+
+  const endOffset = end + ROUTE_SEO_END_MARKER.length;
+  return [
+    indexHtml.slice(0, start),
+    renderRouteSEOTags(resolveRouteSEO(pathname)),
+    indexHtml.slice(endOffset),
+  ].join("");
+}
+
 export function serveStatic(app: Express) {
   const distPath = path.resolve(__dirname, "public");
   if (!fs.existsSync(distPath)) {
@@ -52,6 +74,12 @@ export function serveStatic(app: Express) {
       `Could not find the build directory: ${distPath}, make sure to build the client first`,
     );
   }
+  const indexPath = path.resolve(distPath, "index.html");
+  const indexHtml = fs.readFileSync(indexPath, "utf-8");
+
+  // Fail at startup rather than serving a generic shell if the build transform
+  // ever stops emitting the route metadata markers.
+  injectRouteSEO(indexHtml, "/");
 
   // Apply cache headers before the static middleware intercepts the request
   app.use(setStaticCacheHeaders);
@@ -61,14 +89,15 @@ export function serveStatic(app: Express) {
       // Disable Express's built-in etag/maxAge in favour of our explicit headers
       etag: true,
       lastModified: true,
+      index: false,
       // Don't set max-age here — handled by setStaticCacheHeaders above
       maxAge: 0,
     }),
   );
 
   // SPA catch-all — send index.html for any unmatched route
-  app.use("*", (_req: Request, res: Response) => {
+  app.use("*", (req: Request, res: Response) => {
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.sendFile(path.resolve(distPath, "index.html"));
+    res.type("html").send(injectRouteSEO(indexHtml, req.originalUrl));
   });
 }

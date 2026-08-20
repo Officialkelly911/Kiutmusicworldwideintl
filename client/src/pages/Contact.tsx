@@ -49,6 +49,7 @@ import KiutWatermark from "@/components/KiutWatermark";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { SocialIconGroup } from "@/components/SocialIconGroup";
 import { useSEO } from "@/lib/useSEO";
+import { ROUTE_SEO } from "@shared/seo";
 
 // ─── Enquiry types ────────────────────────────────────────────────────────────
 const ENQUIRY_META: Record<(typeof CONTACT_ENQUIRY_TYPES)[number], { icon: typeof Mic2; label: string; desc: string; placeholder: string }> = {
@@ -873,11 +874,7 @@ function LocationMap() {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function Contact() {
-  useSEO({
-    title: "Contact Kiut Music",
-    description: "Book Kiut, request interviews, business partnerships, or connect directly with the Kiut Music team.",
-    canonical: "https://kiutmusic.com/contact",
-  });
+  useSEO(ROUTE_SEO["/contact"]);
 
   return (
     <div className="min-h-screen bg-midnight text-white">

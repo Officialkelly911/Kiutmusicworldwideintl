@@ -1,5 +1,7 @@
 {pkgs}: {
   deps = [
+    pkgs.udev
+    pkgs.libgbm
     pkgs.alsa-lib
     pkgs.mesa
     pkgs.xorg.libxshmfence

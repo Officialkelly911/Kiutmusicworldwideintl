@@ -11,6 +11,7 @@ import { useSEO } from "@/lib/useSEO";
 import { track } from "@/lib/analytics";
 import { DREAMPLANET_URL } from "@/data/social";
 import { ALL_TRACKS, getTrackStreamingUrl } from "@/data/tracks";
+import { ROUTE_SEO } from "@shared/seo";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
 const heroReelVideo  = "/assets/videos/hero-reel.mp4";
@@ -757,11 +758,7 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
-  useSEO({
-    title: "Kiut Music Worldwide | Afro-Caribbean Sound. Global Energy.",
-    description: "Stream music, watch videos, and follow the journey of Nigerian-American artist Kiut — Afro-Caribbean sound with global energy.",
-    canonical: "https://kiutmusic.com/",
-  });
+  useSEO(ROUTE_SEO["/"]);
 
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");

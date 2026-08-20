@@ -11,6 +11,7 @@ import { PremiumCTAButton } from "@/components/PremiumCTAButton";
 import { HeroSection } from "@/components/HeroSection";
 import { useRef, useState, useEffect } from "react";
 import { useSEO } from "@/lib/useSEO";
+import { ROUTE_SEO } from "@shared/seo";
 
 // Single interactive element — avoids nesting <a> inside <button>
 const MotionLink = motion.create(Link) as unknown as React.FC<
@@ -591,11 +592,7 @@ function TourFAQAccordion() {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Tour() {
-  useSEO({
-    title: "Tour | Kiut Music Worldwide",
-    description: "See upcoming tour dates and live shows from Nigerian-American artist Kiut, and book Kiut for your city, festival, or venue.",
-    canonical: "https://kiutmusic.com/tour",
-  });
+  useSEO(ROUTE_SEO["/tour"]);
 
   const featuredRef = useRef<HTMLElement>(null);
   const [lightboxItem, setLightboxItem] = useState<typeof galleryItems[0] | null>(null);

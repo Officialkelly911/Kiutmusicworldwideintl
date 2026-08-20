@@ -3,11 +3,28 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { fileURLToPath } from "url";
+import {
+  ROUTE_SEO_PLACEHOLDER,
+  renderRouteSEOTags,
+  resolveRouteSEO,
+} from "./shared/seo";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
+    {
+      name: "kiut-route-seo-shell",
+      transformIndexHtml(html: string, context) {
+        if (!html.includes(ROUTE_SEO_PLACEHOLDER)) {
+          throw new Error("Missing route SEO placeholder in client/index.html");
+        }
+        return html.replace(
+          ROUTE_SEO_PLACEHOLDER,
+          renderRouteSEOTags(resolveRouteSEO(context.originalUrl ?? context.path)),
+        );
+      },
+    },
     react(),
     tailwindcss(),
   ],

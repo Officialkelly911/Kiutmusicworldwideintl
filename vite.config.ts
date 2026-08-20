@@ -8,6 +8,8 @@ import {
   renderRouteSEOTags,
   resolveRouteSEO,
 } from "./shared/seo";
+import { STRUCTURED_DATA_PLACEHOLDER } from "./shared/structured-data";
+import { renderRouteStructuredData } from "./server/structured-data";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -19,9 +21,16 @@ export default defineConfig({
         if (!html.includes(ROUTE_SEO_PLACEHOLDER)) {
           throw new Error("Missing route SEO placeholder in client/index.html");
         }
+        if (!html.includes(STRUCTURED_DATA_PLACEHOLDER)) {
+          throw new Error("Missing structured data placeholder in client/index.html");
+        }
+        const requestPath = context.originalUrl ?? context.path;
         return html.replace(
           ROUTE_SEO_PLACEHOLDER,
-          renderRouteSEOTags(resolveRouteSEO(context.originalUrl ?? context.path)),
+          renderRouteSEOTags(resolveRouteSEO(requestPath)),
+        ).replace(
+          STRUCTURED_DATA_PLACEHOLDER,
+          renderRouteStructuredData(requestPath),
         );
       },
     },

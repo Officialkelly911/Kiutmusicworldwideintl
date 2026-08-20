@@ -1,13 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { useSEO } from "@/lib/useSEO";
+import { NOT_FOUND_SEO } from "@shared/seo";
 
 export default function NotFound() {
-  useSEO({
-    title: "Page Not Found | Kiut Music Worldwide",
-    description: "The Kiut Music page you're looking for could not be found.",
-    canonical: "https://kiutmusic.com/404",
-  });
+  useSEO(NOT_FOUND_SEO);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">

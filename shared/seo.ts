@@ -1,6 +1,7 @@
 export const SEO_SITE_NAME = "Kiut Music Worldwide";
 export const SEO_DEFAULT_IMAGE = "https://kiutmusic.com/og-image.png";
 export const SEO_ROBOTS = "index, follow";
+export const SEO_NOT_FOUND_ROBOTS = "noindex, follow";
 
 export const PUBLIC_ROUTES = [
   "/",
@@ -21,6 +22,7 @@ export interface RouteSEOMeta {
   canonical: string;
   ogImage: string;
   ogType: "website";
+  robots?: string;
 }
 
 export const ROUTE_SEO = {
@@ -82,6 +84,18 @@ export const ROUTE_SEO = {
   },
 } as const satisfies Record<PublicRoute, RouteSEOMeta>;
 
+// Keep the server-delivered document metadata aligned with the existing branded
+// client-side 404 page. The noindex directive prevents arbitrary invalid URLs
+// from being treated as indexable homepage equivalents before React mounts.
+export const NOT_FOUND_SEO = {
+  title: "Page Not Found | Kiut Music Worldwide",
+  description: "The Kiut Music page you're looking for could not be found.",
+  canonical: "https://kiutmusic.com/404",
+  ogImage: SEO_DEFAULT_IMAGE,
+  ogType: "website",
+  robots: SEO_NOT_FOUND_ROBOTS,
+} as const satisfies RouteSEOMeta;
+
 export const ROUTE_SEO_PLACEHOLDER = "<!-- KIUT_ROUTE_SEO -->";
 export const ROUTE_SEO_START_MARKER = "<!-- KIUT_ROUTE_SEO_START -->";
 export const ROUTE_SEO_END_MARKER = "<!-- KIUT_ROUTE_SEO_END -->";
@@ -99,17 +113,33 @@ function escapeHtml(value: string): string {
   });
 }
 
-export function resolveRouteSEO(pathname: string): RouteSEOMeta {
+/**
+ * Strip a request's query/hash components and normalize trailing slashes. This
+ * intentionally does not alter case or internal slashes: those are distinct,
+ * invalid URLs rather than aliases for public pages.
+ */
+export function normalizePublicRoute(pathname = "/"): string {
   const pathWithoutQuery = pathname.split(/[?#]/, 1)[0] || "/";
-  const normalizedPath = pathWithoutQuery === "/"
+  return pathWithoutQuery === "/"
     ? "/"
     : pathWithoutQuery.replace(/\/+$/, "") || "/";
+}
+
+export function getPublicRoute(pathname = "/"): PublicRoute | undefined {
+  const normalizedPath = normalizePublicRoute(pathname);
 
   if (Object.prototype.hasOwnProperty.call(ROUTE_SEO, normalizedPath)) {
-    return ROUTE_SEO[normalizedPath as PublicRoute];
+    return normalizedPath as PublicRoute;
   }
+}
 
-  return ROUTE_SEO["/"];
+export function isPublicRoute(pathname = "/"): boolean {
+  return getPublicRoute(pathname) !== undefined;
+}
+
+export function resolveRouteSEO(pathname = "/"): RouteSEOMeta {
+  const publicRoute = getPublicRoute(pathname);
+  return publicRoute ? ROUTE_SEO[publicRoute] : NOT_FOUND_SEO;
 }
 
 export function renderRouteSEOTags(meta: RouteSEOMeta): string {
@@ -118,13 +148,14 @@ export function renderRouteSEOTags(meta: RouteSEOMeta): string {
   const canonical = escapeHtml(meta.canonical);
   const ogImage = escapeHtml(meta.ogImage);
   const ogType = escapeHtml(meta.ogType);
+  const robots = escapeHtml(meta.robots ?? SEO_ROBOTS);
 
   return [
     ROUTE_SEO_START_MARKER,
     `    <title>${title}</title>`,
     `    <meta name="description" content="${description}" />`,
     `    <link rel="canonical" href="${canonical}" />`,
-    `    <meta name="robots" content="${SEO_ROBOTS}" />`,
+    `    <meta name="robots" content="${robots}" />`,
     `    <meta property="og:type" content="${ogType}" />`,
     `    <meta property="og:title" content="${title}" />`,
     `    <meta property="og:description" content="${description}" />`,

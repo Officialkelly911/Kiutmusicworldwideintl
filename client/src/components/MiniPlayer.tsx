@@ -15,12 +15,9 @@ export default function MiniPlayer() {
     showPlayer, hasPrev, hasNext,
   } = usePlayer();
 
-  const pct = duration > 0 ? (currentTime / duration) * 100 : 0;
-
-  const handleBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    seek((e.clientX - rect.left) / rect.width);
-  };
+  const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
+  const safeCurrentTime = Math.min(Math.max(currentTime, 0), safeDuration);
+  const pct = safeDuration > 0 ? (safeCurrentTime / safeDuration) * 100 : 0;
 
   return (
     <AnimatePresence>
@@ -34,16 +31,25 @@ export default function MiniPlayer() {
           className="fixed bottom-0 inset-x-0 z-[60] bg-charcoal/97 backdrop-blur-2xl border-t border-white/[0.08] shadow-xl"
         >
           {/* Seek bar at top edge */}
-          <div
-            className="h-[3px] bg-white/[0.07] cursor-pointer group/bar relative"
-            onClick={handleBarClick}
-          >
+          <div className="h-[3px] bg-white/[0.07] group/bar relative">
             <div
               className="h-full bg-gradient-to-r from-gold to-gold-hover transition-all duration-fast relative"
               style={{ width: `${pct}%` }}
             >
               <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gold scale-0 group-hover/bar:scale-100 transition-transform shadow-glow-gold" />
             </div>
+            <input
+              type="range"
+              min="0"
+              max={safeDuration}
+              step="1"
+              value={safeCurrentTime}
+              disabled={safeDuration === 0}
+              onChange={(event) => seek(Number(event.currentTarget.value) / safeDuration)}
+              aria-label={`Seek ${currentTrack.title}`}
+              aria-valuetext={`${fmt(safeCurrentTime)} of ${fmt(safeDuration)}`}
+              className="absolute inset-x-0 -top-2 h-7 w-full cursor-pointer appearance-none bg-transparent opacity-0 focus-visible:opacity-100 focus-visible:outline-none disabled:cursor-not-allowed"
+            />
           </div>
 
           <div className="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center gap-4">
@@ -52,7 +58,11 @@ export default function MiniPlayer() {
 
             {/* Album art */}
             <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 shadow-sm">
-              <img src={currentTrack.albumArt} alt={currentTrack.title} className="w-full h-full object-cover" />
+              <img
+                src={currentTrack.albumArt}
+                alt={`Album artwork for ${currentTrack.title} by ${currentTrack.artist}`}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Track info — aria-live announces track changes to screen readers */}

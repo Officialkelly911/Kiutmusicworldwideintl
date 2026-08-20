@@ -825,11 +825,12 @@ export default function Videos() {
                   className="group w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl border border-gold/15 hover:border-gold/30 transition-colors duration-slow relative"
                 >
                   <iframe
-                    src={`https://www.youtube.com/embed/${featuredVideo.youtubeId}?autoplay=1`}
+                    src={`https://www.youtube-nocookie.com/embed/${featuredVideo.youtubeId}?autoplay=1&rel=0`}
                     title={featuredVideo.title}
                     frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
                     className="w-full h-full relative z-10"
                     loading="lazy"
                   />

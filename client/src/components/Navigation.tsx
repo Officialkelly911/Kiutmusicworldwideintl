@@ -12,7 +12,7 @@ import {
   MessageSquare,
   ChevronDown,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { KiutMark } from "./KiutMark";
 import { DUR, EASE_ENTER, EASE_INOUT } from "@/lib/motion";
 
@@ -158,21 +158,25 @@ function DesktopNavDropdown({ group }: { group: NavGroup }) {
               const itemActive = location === item.href;
               const Icon = item.icon;
               return (
-                <Link key={item.href} href={item.href}>
-                  <motion.div
-                    role="menuitem"
-                    data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                    aria-current={itemActive ? "page" : undefined}
-                    onClick={() => setOpen(false)}
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  role="menuitem"
+                  data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  aria-current={itemActive ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={`block rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
+                    itemActive ? "text-gold bg-gold/10" : "text-white/60 hover:text-gold hover:bg-gold/5"
+                  }`}
+                >
+                  <motion.span
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl cursor-pointer transition-colors duration-fast hover:shadow-glow-gold ${
-                      itemActive ? "text-gold bg-gold/10" : "text-white/60 hover:text-gold hover:bg-gold/5"
-                    }`}
+                    className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl transition-colors duration-fast hover:shadow-glow-gold"
                   >
                     <Icon className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                     <span className="font-medium text-sm tracking-wide whitespace-nowrap">{item.label}</span>
-                  </motion.div>
+                  </motion.span>
                 </Link>
               );
             })}
@@ -232,21 +236,21 @@ function MobileNavGroup({ group, delay, onNavigate }: { group: NavGroup; delay: 
                 const Icon = item.icon;
                 const itemActive = location === item.href;
                 return (
-                  <Link key={item.href} href={item.href}>
-                    <div
-                      onClick={onNavigate}
-                      aria-current={itemActive ? "page" : undefined}
-                      data-testid={`mobile-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                      className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer transition-all duration-fast border ${
-                        itemActive
-                          ? "bg-gold/15 text-gold border-gold/20"
-                          : "text-white/60 hover:text-white hover:bg-white/5 border-transparent"
-                      }`}
-                    >
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={onNavigate}
+                    aria-current={itemActive ? "page" : undefined}
+                    data-testid={`mobile-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-fast border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
+                      itemActive
+                        ? "bg-gold/15 text-gold border-gold/20"
+                        : "text-white/60 hover:text-white hover:bg-white/5 border-transparent"
+                    }`}
+                  >
                       <Icon className="w-5 h-5" aria-hidden="true" />
                       <span className="font-medium tracking-wide">{item.label}</span>
                       {itemActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />}
-                    </div>
                   </Link>
                 );
               })}
@@ -262,6 +266,14 @@ export function Navigation() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+
+  const closeMobileMenu = useCallback((restoreFocus = false) => {
+    setMobileOpen(false);
+    if (restoreFocus) {
+      requestAnimationFrame(() => mobileMenuButtonRef.current?.focus());
+    }
+  }, []);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -269,6 +281,24 @@ export function Navigation() {
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMobileMenu(true);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [closeMobileMenu, mobileOpen]);
+
+  useEffect(() => {
+    if (mobileOpen) closeMobileMenu();
+  }, [closeMobileMenu, location]);
 
   return (
     <motion.nav
@@ -306,14 +336,16 @@ export function Navigation() {
               const isActive = location === item.href;
               return (
                 <div key={item.href} role="listitem">
-                  <Link href={item.href}>
-                    <motion.div
-                      data-testid={`nav-${item.label.toLowerCase()}`}
-                      aria-current={isActive ? "page" : undefined}
-                      aria-label={item.label}
-                      className={`relative px-5 py-2.5 rounded-md cursor-pointer transition-colors duration-fast ${
-                        isActive ? "text-white" : "text-white/50 hover:text-white"
-                      }`}
+                  <Link
+                    href={item.href}
+                    data-testid={`nav-${item.label.toLowerCase()}`}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`relative block rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
+                      isActive ? "text-white" : "text-white/50 hover:text-white"
+                    }`}
+                  >
+                    <motion.span
+                      className="relative block px-5 py-2.5 transition-colors duration-fast"
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                     >
@@ -334,7 +366,7 @@ export function Navigation() {
                           transition={{ duration: DUR.normal, ease: EASE_INOUT }}
                         />
                       )}
-                    </motion.div>
+                    </motion.span>
                   </Link>
                 </div>
               );
@@ -349,8 +381,10 @@ export function Navigation() {
 
           {/* Mobile Menu Toggle */}
           <motion.button
+            ref={mobileMenuButtonRef}
+            type="button"
             className="md:hidden p-2 text-white/70 hover:text-white transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => mobileOpen ? closeMobileMenu(true) : setMobileOpen(true)}
             data-testid="button-mobile-menu"
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-menu"
@@ -389,24 +423,28 @@ export function Navigation() {
                 const Icon = item.icon;
                 const isActive = location === item.href;
                 return (
-                  <Link key={item.href} href={item.href}>
-                    <motion.div
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => closeMobileMenu()}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`mb-1 flex items-center gap-3 rounded-xl border px-4 py-3.5 transition-all duration-fast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
+                      isActive
+                        ? "bg-gold/15 text-gold border-gold/20"
+                        : "text-white/60 hover:text-white hover:bg-white/5 border-transparent"
+                    }`}
+                    data-testid={`mobile-nav-${item.label.toLowerCase()}`}
+                  >
+                    <motion.span
                       initial={{ opacity: 0, x: -16 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.06 }}
-                      onClick={() => setMobileOpen(false)}
-                      aria-current={isActive ? "page" : undefined}
-                      className={`flex items-center gap-3 px-4 py-3.5 rounded-xl cursor-pointer mb-1 transition-all duration-fast border ${
-                        isActive
-                          ? "bg-gold/15 text-gold border-gold/20"
-                          : "text-white/60 hover:text-white hover:bg-white/5 border-transparent"
-                      }`}
-                      data-testid={`mobile-nav-${item.label.toLowerCase()}`}
+                      className="flex items-center gap-3"
                     >
                       <Icon className="w-5 h-5" aria-hidden="true" />
                       <span className="font-medium tracking-wide">{item.label}</span>
                       {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-gold" aria-hidden="true" />}
-                    </motion.div>
+                    </motion.span>
                   </Link>
                 );
               })}
@@ -416,7 +454,7 @@ export function Navigation() {
                   key={group.label}
                   group={group}
                   delay={(topLevelItems.length + i) * 0.06}
-                  onNavigate={() => setMobileOpen(false)}
+                  onNavigate={() => closeMobileMenu()}
                 />
               ))}
             </motion.div>

@@ -2,9 +2,12 @@ import express, { type Express, type Request, type Response } from "express";
 import fs from "fs";
 import path from "path";
 import {
+  ROUTE_PRELOAD_END_MARKER,
+  ROUTE_PRELOAD_START_MARKER,
   ROUTE_SEO_END_MARKER,
   ROUTE_SEO_START_MARKER,
   isPublicRoute,
+  renderRoutePreloadTags,
   renderRouteSEOTags,
   resolveRouteSEO,
 } from "../shared/seo";
@@ -89,8 +92,31 @@ function injectRouteStructuredData(indexHtml: string, pathname: string): string 
   ].join("");
 }
 
+function injectRoutePreloads(indexHtml: string, pathname: string): string {
+  const start = indexHtml.indexOf(ROUTE_PRELOAD_START_MARKER);
+  const end = indexHtml.indexOf(ROUTE_PRELOAD_END_MARKER, start);
+
+  if (start === -1 || end === -1) {
+    throw new Error("Could not find the route preload markers in the built index.html");
+  }
+
+  const endOffset = end + ROUTE_PRELOAD_END_MARKER.length;
+  return [
+    indexHtml.slice(0, start),
+    [
+      ROUTE_PRELOAD_START_MARKER,
+      renderRoutePreloadTags(pathname),
+      ROUTE_PRELOAD_END_MARKER,
+    ].filter(Boolean).join("\n"),
+    indexHtml.slice(endOffset),
+  ].join("");
+}
+
 function injectRouteDocument(indexHtml: string, pathname: string): string {
-  return injectRouteStructuredData(injectRouteSEO(indexHtml, pathname), pathname);
+  return injectRouteStructuredData(
+    injectRouteSEO(injectRoutePreloads(indexHtml, pathname), pathname),
+    pathname,
+  );
 }
 
 export function serveStatic(app: Express) {

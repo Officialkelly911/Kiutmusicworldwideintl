@@ -4,7 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { fileURLToPath } from "url";
 import {
+  ROUTE_PRELOAD_END_MARKER,
+  ROUTE_PRELOAD_PLACEHOLDER,
+  ROUTE_PRELOAD_START_MARKER,
   ROUTE_SEO_PLACEHOLDER,
+  renderRoutePreloadTags,
   renderRouteSEOTags,
   resolveRouteSEO,
 } from "./shared/seo";
@@ -24,6 +28,9 @@ export default defineConfig({
         if (!html.includes(STRUCTURED_DATA_PLACEHOLDER)) {
           throw new Error("Missing structured data placeholder in client/index.html");
         }
+        if (!html.includes(ROUTE_PRELOAD_PLACEHOLDER)) {
+          throw new Error("Missing route preload placeholder in client/index.html");
+        }
         // During a static build Vite may provide `/index.html` as the
         // transform path without a request URL. That is the build artifact's
         // homepage, not an invalid browser route.
@@ -38,6 +45,13 @@ export default defineConfig({
         ).replace(
           STRUCTURED_DATA_PLACEHOLDER,
           renderRouteStructuredData(requestPath),
+        ).replace(
+          ROUTE_PRELOAD_PLACEHOLDER,
+          [
+            ROUTE_PRELOAD_START_MARKER,
+            renderRoutePreloadTags(requestPath),
+            ROUTE_PRELOAD_END_MARKER,
+          ].filter(Boolean).join("\n"),
         );
       },
     },

@@ -20,9 +20,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- ── Hero media preloads — above-the-fold, highest priority ────── -->
-    <!-- These are the only resources that block first paint intentionally. -->
-    <link rel="preload" as="image" type="image/webp" href="/assets/images/hero-poster.webp" fetchpriority="high" />
+    <!-- Homepage-only hero media preload; injected per route by the server/build. -->
+    <!-- KIUT_ROUTE_PRELOAD -->
 
     <!-- Replaced from the shared route data during Vite transforms,
          then replaced per request by the production server. -->

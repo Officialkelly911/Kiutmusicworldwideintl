@@ -731,7 +731,7 @@ export default function Music() {
               transition={{ duration: 1.2, delay: 0.2 }}
               className="font-editorial italic text-white/70 text-xl md:text-3xl leading-relaxed font-light"
             >
-              "Living the good life, every night feels right — the world is mine when the beat drops right."
+              "Black is beautiful, you be bad man obsession, You’re my number one temptation, bringing me less sensation, Staking all my love attention.Keeping you my confession."
             </motion.blockquote>
             <div className="mt-8 flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold/40" />

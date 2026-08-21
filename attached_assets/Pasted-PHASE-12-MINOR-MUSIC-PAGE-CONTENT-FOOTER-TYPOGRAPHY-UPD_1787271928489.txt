@@ -1,0 +1,133 @@
+PHASE 12 — MINOR MUSIC PAGE CONTENT & FOOTER TYPOGRAPHY UPDATE
+
+Implement exactly the following two UI/content changes on the KIUT Music website.
+
+IMPORTANT:
+This is a tightly scoped visual/content update. Do not modify SEO architecture, routing, structured data, analytics, DNS, deployment configuration, page layout, branding, or unrelated functionality.
+
+TASK 1 — UPDATE FEATURED LYRICS
+
+Locate the existing “FEATURED LYRICS” section on the Music page.
+
+Current featured lyric:
+
+“Living the good life, every night feels right — the world is mine when the beat drops right.”
+
+Replace it with exactly:
+
+“Black is beautiful, you be bad man obsession, You’re my number one temptation, bringing me less sensation, Staking all my love attention.Keeping you my confession.”
+
+Requirements:
+
+- Preserve the existing “FEATURED LYRICS” heading.
+- Preserve the existing visual styling, typography, spacing, quotation treatment, decorative elements, and animation.
+- Change only the lyric text.
+- Do not rewrite, correct, paraphrase, or alter the supplied lyric.
+- Preserve the existing attribution/release information unless it is directly tied to the replaced lyric.
+- Preserve the existing “STREAM GOOD LIFE EP” CTA and its functionality.
+- Do not change the surrounding Music page sections.
+- Ensure the new lyric remains responsive on mobile, tablet, and desktop.
+- Ensure the longer lyric does not create horizontal overflow or break the existing card/container.
+- Maintain the current visual hierarchy and alignment.
+
+Use the exact supplied text, including punctuation:
+
+Black is beautiful, you be bad man obsession, You’re my number one temptation, bringing me less sensation, Staking all my love attention.Keeping you my confession.
+
+
+TASK 2 — MAKE “DESIGNED & DEVELOPED BY KELLY” SLIGHTLY BOLDER
+
+Locate the existing footer credit:
+
+“Designed & Developed by Kelly”
+
+Increase its font weight slightly so it has a little more visual presence.
+
+Requirements:
+
+- Keep the exact wording unchanged.
+- Do not significantly increase the size.
+- Do not change the font family.
+- Do not change the color.
+- Do not change alignment or positioning.
+- Do not change surrounding footer spacing.
+- Do not make it excessively bold.
+- Use the smallest reasonable font-weight adjustment that achieves a noticeably stronger but still refined appearance.
+- Preserve responsive behavior.
+
+IMPLEMENTATION RULES
+
+Before editing:
+
+1. Locate the actual source component/data responsible for the Featured Lyrics content.
+2. Locate the actual footer credit component/style.
+3. Confirm whether either value is centralized or reused elsewhere.
+4. Modify the existing source of truth rather than creating duplicate overrides.
+5. Do not introduce unnecessary CSS or component duplication.
+
+Do not change:
+
+- SEO metadata
+- Open Graph metadata
+- Twitter metadata
+- JSON-LD
+- sitemap.xml
+- robots.txt
+- 404 handling
+- routing
+- analytics
+- structured data
+- DNS
+- Replit deployment configuration
+- API functionality
+- existing Music catalogue data unless absolutely required by the existing implementation
+- any unrelated visual components
+
+
+VALIDATION
+
+After implementation:
+
+1. Run:
+
+npm run check
+
+2. Run:
+
+npm run build
+
+3. Verify the Music page visually on:
+- desktop
+- tablet
+- mobile
+
+4. Confirm:
+- Featured Lyrics displays the exact new text.
+- No horizontal overflow occurs.
+- Existing styling remains intact.
+- “Designed & Developed by Kelly” is slightly bolder.
+- Footer positioning remains unchanged.
+- Existing Music page functionality remains intact.
+- Existing SEO metadata remains unchanged.
+- No unrelated files or configuration were modified.
+
+5. Run the existing test suite if available.
+
+If tests fail because of an unrelated pre-existing environment issue, do not modify unrelated infrastructure merely to hide the failure. Clearly report the issue.
+
+FINAL REPORT
+
+Return:
+
+- Files changed
+- Featured Lyrics change confirmed
+- Footer typography change confirmed
+- `npm run check` result
+- `npm run build` result
+- Existing test result
+- Responsive verification result
+- Any unrelated issues discovered
+
+Do not publish automatically.
+
+Keep this implementation strictly limited to these two requested changes.

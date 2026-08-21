@@ -1,0 +1,170 @@
+KIUT MUSIC — SECURITY DEPENDENCY REMEDIATION
+
+OBJECTIVE
+
+Resolve the High-severity dependency vulnerabilities currently reported by the Replit Security dashboard for the published KIUT Music project.
+
+CURRENT FINDINGS
+
+The dashboard currently reports 8 High-severity vulnerabilities, including:
+
+- picomatch 4.0.3
+  CVE-2026-33671
+
+- drizzle-orm 0.39.3
+  CVE-2026-39356
+
+- lodash 4.17.23
+  CVE-2026-4800
+  and the related lodash security findings shown by the scanner
+
+- path-to-regexp 0.1.12
+  CVE reported by the Replit security scanner
+
+- nanoid 3.3.11
+  Two High-severity findings reported by the scanner
+
+IMPORTANT:
+This is a SECURITY REMEDIATION task.
+
+Do not make unrelated product, visual, SEO, routing, performance, content, or design changes.
+
+Do not modify:
+- Homepage design
+- Music page design
+- Video page design
+- Navigation
+- Typography
+- Color system
+- SEO metadata
+- JSON-LD architecture
+- Sitemap
+- robots.txt
+- 404 handling
+- Analytics
+- Media assets
+- Existing Phase 11D/11E/11F functionality
+
+PHASE A — READ-ONLY DEPENDENCY AUDIT
+
+Before changing anything:
+
+1. Inspect package.json.
+2. Inspect the lockfile.
+3. Determine whether each vulnerable package is:
+   - a direct dependency,
+   - a dev dependency,
+   - a transitive dependency.
+4. Identify which parent dependency introduces each vulnerable package.
+5. Determine the minimum safe upgrade for each package.
+6. Check whether upgrading the dependency would introduce breaking API changes.
+7. Determine whether any vulnerable package is actually included in the production runtime bundle/server.
+8. Produce a dependency remediation matrix.
+
+The matrix should contain:
+
+Package
+Current version
+Direct/transitive
+Parent dependency
+Vulnerability
+Safe version
+Breaking-change risk
+Production relevance
+Recommended remediation
+
+DO NOT MODIFY FILES DURING PHASE A.
+
+PHASE B — SAFE REMEDIATION
+
+After the audit:
+
+1. Upgrade vulnerable direct dependencies to safe compatible versions.
+2. For transitive dependencies:
+   - prefer upgrading the parent package that legitimately depends on them;
+   - use package-manager overrides/resolutions only when necessary and safe.
+3. Do not use arbitrary forced versions simply to make the scanner disappear.
+4. Do not remove a dependency merely to suppress the vulnerability unless it is genuinely unused.
+5. Preserve the existing package manager and lockfile strategy.
+6. Keep dependency changes as small and targeted as possible.
+
+IMPORTANT COMPATIBILITY RULE:
+
+Before changing drizzle-orm, path-to-regexp, lodash, nanoid, or any parent package:
+
+- inspect how the package is actually used;
+- identify API compatibility;
+- run the application's existing tests;
+- do not introduce a major-version upgrade unless it is demonstrably required and compatible.
+
+PHASE C — VALIDATION
+
+After remediation, run:
+
+1. npm run check
+2. npm run build
+3. Existing test suite
+4. Existing structured-data regression tests
+5. Existing server 404 regression tests
+6. Existing Playwright/browser tests
+7. Production server startup test
+8. Replit security/dependency scan
+
+Also verify:
+
+- homepage loads
+- /music loads
+- /videos loads
+- /about loads
+- /tour loads
+- /newsletter loads
+- /contact loads
+- /legal loads
+- invalid URLs still return the Phase 11C 404 behavior
+- SEO metadata remains unchanged
+- JSON-LD remains unchanged
+- analytics remains functional
+- no new console/runtime errors appear
+
+PHASE D — REGRESSION REVIEW
+
+Compare the final dependency tree against the original one.
+
+Confirm:
+
+- all targeted High vulnerabilities are resolved or have a documented, evidence-based exception;
+- no unrelated dependency churn occurred;
+- no package was upgraded unnecessarily;
+- no production behavior changed outside dependency compatibility requirements.
+
+If any vulnerability cannot safely be upgraded:
+
+DO NOT hide or suppress it.
+
+Instead report:
+
+- vulnerable package
+- why it remains
+- dependency chain
+- exploitability in KIUT's actual architecture
+- available mitigation
+- recommended follow-up
+
+PUBLISHING
+
+Do NOT publish automatically.
+
+Stop after validation and provide a final report containing:
+
+1. Vulnerabilities before remediation
+2. Packages changed
+3. Old → new versions
+4. Direct/transitive status
+5. Vulnerabilities resolved
+6. Any remaining vulnerabilities
+7. Test results
+8. Build result
+9. Security scan result
+10. Confirmation that no unrelated KIUT functionality was changed
+
+The final deployment decision will be made separately after the remediation report is reviewed.

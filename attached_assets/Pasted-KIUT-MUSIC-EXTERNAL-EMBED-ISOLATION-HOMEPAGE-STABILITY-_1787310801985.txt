@@ -1,0 +1,231 @@
+KIUT MUSIC — EXTERNAL EMBED ISOLATION & HOMEPAGE STABILITY
+
+OBJECTIVE
+
+Prevent failures from the external Framer-hosted DreamPlanet embed and other third-party media/resources from degrading the KIUT Music homepage loading experience.
+
+The KIUT homepage must remain visually and functionally stable even when an external resource fails, times out, is blocked, or returns an unexpected response.
+
+IMPORTANT SCOPE
+
+This is a targeted resilience/stability task.
+
+Do NOT redesign the homepage.
+
+Do NOT modify:
+- KIUT branding
+- typography
+- colors
+- layout
+- navigation
+- SEO metadata
+- canonical URLs
+- robots.txt
+- sitemap.xml
+- JSON-LD / structured data
+- routing
+- Phase 11C 404 behavior
+- music catalogue
+- video catalogue
+- analytics architecture
+- existing local media assets
+- DreamPlanet content itself
+
+Do not replace the external DreamPlanet experience unless technically necessary.
+
+PHASE A — READ-ONLY DIAGNOSIS
+
+Before modifying anything:
+
+1. Locate the Framer-hosted DreamPlanet embed/component.
+2. Identify every external resource it requests.
+3. Determine which failed requests are:
+   - image requests
+   - iframe/document requests
+   - JavaScript
+   - CSS
+   - fonts
+   - tracking/analytics
+   - other third-party resources
+4. Identify the exact React warning/error associated with the embed.
+5. Determine whether the warning originates from:
+   - KIUT code
+   - the embedded Framer application
+   - the iframe boundary
+   - an external resource loaded by the embed.
+6. Determine whether the embed is loaded immediately during homepage startup.
+7. Determine whether the embed contributes to:
+   - first contentful paint
+   - largest contentful paint
+   - main-thread work
+   - layout shifts
+   - unnecessary network requests.
+
+Do not modify files during this diagnostic phase.
+
+PHASE B — ISOLATE THE THIRD-PARTY EXPERIENCE
+
+Implement the smallest safe isolation strategy.
+
+Requirements:
+
+1. The external DreamPlanet embed must not block the main KIUT homepage from rendering.
+
+2. Load the external embed only after the primary homepage content is available, unless the current UX requires immediate visibility.
+
+3. If appropriate, use:
+   - lazy loading
+   - deferred initialization
+   - iframe loading="lazy"
+   - IntersectionObserver
+   - a lightweight placeholder
+   - a stable reserved container
+   - timeout/error handling.
+
+4. Reserve the embed's expected dimensions so that delayed loading does not cause major layout shifts.
+
+5. If the external resource fails:
+   - keep the KIUT page fully usable;
+   - prevent a broken external image from producing an ugly visual artifact;
+   - prevent the failure from collapsing the containing section;
+   - display an intentional KIUT-styled fallback if the current UI requires one.
+
+6. Do not expose raw third-party error messages to visitors.
+
+7. Do not allow an external resource failure to trigger:
+   - a React render failure;
+   - a homepage crash;
+   - a page refresh;
+   - an infinite loading state.
+
+8. If the React warning is caused by the external Framer document itself and is isolated inside an iframe, do not rewrite unrelated KIUT React architecture merely to silence a warning that cannot affect the parent application.
+
+9. If the warning originates from KIUT's own wrapper component, fix the wrapper correctly rather than suppressing the warning.
+
+10. Do not globally disable console errors or warnings.
+
+PHASE C — FAILURE RESILIENCE
+
+Test the homepage with the external resource:
+
+1. Available normally.
+2. Slow to respond.
+3. Returning an error.
+4. Returning an invalid image.
+5. Blocked by the browser.
+6. Unavailable due to network failure.
+
+The homepage should remain functional in every case.
+
+The fallback state must preserve the existing KIUT visual system.
+
+PHASE D — PERFORMANCE VALIDATION
+
+Compare before/after homepage behavior.
+
+Measure:
+
+- initial page load
+- FCP
+- LCP
+- network requests
+- external-resource timing
+- main-thread activity where available
+- layout shift
+- mobile behavior.
+
+Test:
+
+- desktop
+- mobile
+- cold cache
+- warm cache
+
+Do not claim a performance improvement unless the measurements support it.
+
+PHASE E — REGRESSION TESTING
+
+Run the existing project checks:
+
+npm run check
+npm run build
+existing test suite
+structured-data regression tests
+server 404 regression tests
+existing Playwright/browser tests
+
+Then verify:
+
+Homepage:
+/
+Music:
+/music
+Videos:
+/videos
+About:
+/about
+Tour:
+/tour
+Newsletter:
+/newsletter
+Contact:
+/contact
+Legal:
+/legal
+
+Confirm:
+
+- all routes load;
+- no routing changes occurred;
+- SEO metadata is unchanged;
+- JSON-LD is unchanged;
+- analytics remains functional;
+- Phase 11C 404 behavior remains intact;
+- the DreamPlanet embed still works when available;
+- the homepage remains usable when the embed fails;
+- no new React runtime errors occur;
+- no new console errors are introduced by KIUT code.
+
+PHASE F — SECURITY / THIRD-PARTY BOUNDARY
+
+Do not expand the external embed's permissions unnecessarily.
+
+Preserve the existing security posture.
+
+Do not add:
+- arbitrary script execution
+- unsafe inline scripts
+- broad CSP exceptions
+- unnecessary iframe permissions
+- new third-party dependencies
+
+If an iframe sandbox or permissions change is necessary, document exactly why.
+
+PUBLISHING
+
+Do NOT publish automatically.
+
+Stop after:
+
+- implementation
+- build/check
+- regression tests
+- browser verification
+- before/after performance comparison.
+
+FINAL REPORT
+
+Provide:
+
+1. Root cause of the external failure.
+2. Exact component/file changed.
+3. External resources isolated.
+4. Loading strategy implemented.
+5. Fallback behavior.
+6. Before/after performance measurements.
+7. Test results.
+8. Confirmation that the DreamPlanet experience still works when available.
+9. Confirmation that KIUT remains fully functional when the external resource fails.
+10. Confirmation that no unrelated functionality was modified.
+
+Do not make any additional visual or architectural improvements outside this scope.

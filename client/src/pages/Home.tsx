@@ -616,11 +616,23 @@ const EMBED_URL = "https://bit.ly/48uAYlZ";
 const EMBED_TITLE = "Kiut Music — All Links";
 
 function KiutEmbedSection() {
+  const embedContainerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [status, setStatus] = useState<"loading" | "loaded" | "fallback">("loading");
+  const shouldLoad = useInView(embedContainerRef, {
+    once: true,
+    amount: 0.1,
+    margin: "0px 0px 200px 0px",
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "loaded" | "fallback">("idle");
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (!shouldLoad) return;
+    setStatus((prev) => (prev === "idle" ? "loading" : prev));
+  }, [shouldLoad]);
+
+  useEffect(() => {
+    if (status !== "loading") return;
     timeoutRef.current = setTimeout(() => {
       setStatus((prev) => {
         if (prev === "loading") {
@@ -635,7 +647,7 @@ function KiutEmbedSection() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, []);
+  }, [status]);
 
   const handleLoad = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -690,7 +702,10 @@ function KiutEmbedSection() {
           </div>
 
           {/* Embed container */}
-          <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-xl bg-charcoal">
+          <div
+            ref={embedContainerRef}
+            className="relative min-h-[520px] md:min-h-[640px] rounded-xl overflow-hidden border border-white/10 shadow-xl bg-charcoal"
+          >
             {/* Glow accents */}
             <div className="absolute top-0 right-0 w-72 h-72 bg-gold/8 blur-[120px] pointer-events-none z-0" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-pink-500/8 blur-[120px] pointer-events-none z-0" />
@@ -704,18 +719,21 @@ function KiutEmbedSection() {
             )}
 
             {/* Iframe embed */}
-            <iframe
-              ref={iframeRef}
-              src={EMBED_URL}
-              title={EMBED_TITLE}
-              onLoad={handleLoad}
-              onError={handleError}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              className={`relative z-10 w-full transition-opacity duration-slow ${
-                status === "loaded" ? "opacity-100" : "opacity-0 absolute inset-0"
-              }`}
-              style={{ height: status === "loaded" ? "640px" : "0px", border: "none" }}
-            />
+            {shouldLoad && status !== "fallback" && (
+              <iframe
+                ref={iframeRef}
+                src={EMBED_URL}
+                title={EMBED_TITLE}
+                loading="lazy"
+                onLoad={handleLoad}
+                onError={handleError}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                className={`relative z-10 w-full transition-opacity duration-slow ${
+                  status === "loaded" ? "opacity-100" : "opacity-0 absolute inset-0"
+                }`}
+                style={{ height: status === "loaded" ? "640px" : "0px", border: "none" }}
+              />
+            )}
 
             {/* Fallback card */}
             {status === "fallback" && (

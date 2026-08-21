@@ -1,0 +1,333 @@
+PHASE 12 — STAGE 2: KIUT MUSIC EXPERIENCE REFINEMENT
+
+Implement Stage 2 of the approved KIUT Music Premium Refinement Roadmap.
+
+This stage is specifically focused on improving the MUSIC PAGE experience while preserving all existing SEO, structured data, routing, analytics, performance safeguards, content, and brand identity.
+
+IMPORTANT:
+This is a focused refinement phase, not a redesign.
+
+Do not modify unrelated pages unless a shared component requires a minimal change.
+Do not begin Stage 3, 4, 5, or 6.
+Do not publish automatically.
+
+==================================================
+1. FIRST: AUDIT THE CURRENT MUSIC PAGE
+==================================================
+
+Before editing anything, inspect the existing Music page implementation and identify:
+
+- Current component hierarchy
+- Release/album data source
+- Image loading behavior
+- Video/media loading behavior
+- Audio/embed behavior
+- Lazy-loading implementation
+- Route-level code splitting
+- Large assets loaded on initial Music page render
+- Streaming CTA implementation
+- Discography timeline
+- Release cards
+- Album artwork
+- Platform links
+- Existing structured-data integration
+- Existing responsive/mobile behavior
+
+Do not assume the current lazy-loading implementation is optimal.
+
+Specifically determine why the Music page can still feel slow or appear to hang on mobile.
+
+Create a concise internal implementation plan before making changes.
+
+==================================================
+2. MUSIC PAGE PERFORMANCE FIRST
+==================================================
+
+Prioritize the actual loading experience.
+
+Reduce unnecessary work during the initial Music page render.
+
+Where appropriate:
+
+- Lazy-load below-the-fold artwork.
+- Lazy-load non-critical media.
+- Avoid loading large media until it is actually needed.
+- Avoid mounting expensive embeds before user interaction.
+- Ensure album/release artwork uses appropriate responsive dimensions.
+- Use width/height or aspect-ratio reservations to prevent layout shifts.
+- Avoid unnecessary re-renders of the release catalogue.
+- Memoize only where profiling or component behavior justifies it.
+- Do not introduce unnecessary dependencies.
+- Do not replace working architecture simply for the sake of optimization.
+
+CRITICAL MOBILE REQUIREMENT:
+
+The initial viewport of /music must become usable quickly.
+
+The page should not appear blank while the rest of the Music catalogue loads.
+
+The first meaningful Music content should render independently from heavier below-the-fold content.
+
+==================================================
+3. RELEASE PRESENTATION
+==================================================
+
+Refine the release/album presentation while preserving the existing KIUT visual language.
+
+Maintain:
+
+- Black/dark foundation
+- Gold accents
+- Existing KIUT typography
+- Existing artwork
+- Existing approved copy
+- Existing streaming destinations
+
+Improve:
+
+- Card hierarchy
+- Artwork framing
+- Release title visibility
+- Artist/release metadata hierarchy
+- Streaming CTA clarity
+- Spacing between releases
+- Mobile card proportions
+- Desktop visual rhythm
+
+Do not over-decorate the cards.
+
+The goal is premium editorial presentation, not animation for animation's sake.
+
+==================================================
+4. DISCOGRAPHY TIMELINE
+==================================================
+
+Refine the existing discography timeline.
+
+Preserve its chronological concept.
+
+Where practical:
+
+- Give timeline nodes stronger visual hierarchy.
+- Incorporate existing release artwork into timeline nodes/cards.
+- Improve spacing between years/releases.
+- Make the timeline easier to scan on mobile.
+- Ensure it does not become excessively tall or heavy.
+- Keep it accessible and usable without relying exclusively on animation.
+
+Do not invent release dates or catalogue information.
+
+Use only existing verified catalogue data.
+
+==================================================
+5. STREAMING EXPERIENCE
+==================================================
+
+Improve the visibility and usability of existing streaming destinations.
+
+Create a stronger "Listen Everywhere" treatment using the platforms already supported by the site.
+
+Potential treatment:
+
+- Spotify
+- Apple Music
+- YouTube
+- Audiomack
+- Other platforms already present in the existing release data
+
+Do not add platforms that are not already supported.
+
+The treatment should feel native to KIUT's visual system.
+
+Avoid turning it into a generic row of third-party badges.
+
+The user should understand quickly:
+
+"Choose where you want to listen."
+
+==================================================
+6. MUSIC PAGE MOBILE EXPERIENCE
+==================================================
+
+Treat mobile as a first-class experience.
+
+Test at narrow mobile widths and confirm:
+
+- No horizontal overflow
+- No clipped artwork
+- No broken cards
+- No excessive whitespace
+- No overlapping CTAs
+- No slow blank state
+- No interaction blocking
+- No layout jumping caused by artwork loading
+- Timeline remains understandable
+- Streaming controls remain easy to tap
+- Navigation remains functional
+
+Do not simply shrink the desktop layout.
+
+Where necessary, deliberately redesign component spacing for mobile while maintaining the same visual system.
+
+==================================================
+7. ACCESSIBILITY
+==================================================
+
+Preserve and improve:
+
+- Semantic headings
+- Keyboard accessibility
+- Focus states
+- Accessible release controls
+- Accessible links/buttons
+- Meaningful image alt text
+- Reduced-motion behavior
+
+Do not add animation that becomes necessary for understanding content.
+
+==================================================
+8. SEO AND STRUCTURED DATA SAFETY
+==================================================
+
+DO NOT BREAK:
+
+- Route-specific initial HTML metadata
+- Canonicals
+- Robots metadata
+- Open Graph metadata
+- Twitter metadata
+- Sitemap
+- robots.txt
+- JSON-LD
+- MusicGroup entity
+- WebSite entity
+- WebPage entity
+- MusicAlbum entities
+- MusicRecording entities
+- Existing conservative structured-data rules
+- 404 behavior
+
+If Music page components are changed, verify that the existing Phase 11B/11C/11D systems remain untouched and functional.
+
+Do not invent structured-data facts.
+
+==================================================
+9. PERFORMANCE ACCEPTANCE CRITERIA
+==================================================
+
+Before declaring completion:
+
+Test /music on desktop and mobile.
+
+Verify that:
+
+1. Initial Music page content appears without waiting for the entire catalogue.
+2. Below-the-fold assets do not unnecessarily block initial rendering.
+3. Heavy media is deferred until needed.
+4. Images reserve their layout space.
+5. No obvious loading crash occurs.
+6. No repeated unnecessary network requests occur.
+7. No new console errors are introduced.
+8. Existing performance improvements remain intact.
+
+If possible, compare before/after loading behavior using the browser's network/performance tooling.
+
+Do not claim a performance improvement unless the result is actually observable.
+
+==================================================
+10. VISUAL ACCEPTANCE CRITERIA
+==================================================
+
+The final Music page should feel:
+
+- Premium
+- Editorial
+- Cinematic
+- Confident
+- Modern
+- Music-industry appropriate
+- Consistent with the KIUT homepage
+
+Avoid:
+
+- Excessive gold
+- Excessive animation
+- Generic SaaS UI
+- Generic streaming-service UI
+- Overcrowded cards
+- Excessive shadows
+- Unnecessary gradients
+- Third-party visual branding dominating KIUT's interface
+
+The existing black-and-gold luxury identity must remain recognizable.
+
+==================================================
+11. VALIDATION
+==================================================
+
+Run:
+
+npm run check
+npm run build
+
+Run all existing relevant regression tests, including:
+
+- Structured-data regression
+- Server 404 regression
+- Existing Playwright/browser tests
+
+Then perform focused browser testing for:
+
+/music
+
+Test:
+
+- Desktop
+- Mobile
+- Initial page load
+- Scrolling
+- Release interactions
+- Streaming CTAs
+- Timeline
+- Navigation
+- Back/forward navigation
+- Refresh on /music
+
+Confirm that client-side navigation still updates metadata correctly.
+
+==================================================
+12. CHANGE CONTROL
+==================================================
+
+Do not modify:
+
+- SEO architecture
+- JSON-LD architecture
+- Sitemap
+- robots.txt
+- Server 404 implementation
+- Analytics architecture
+- Global brand palette
+- Logo
+- Approved content
+- Other roadmap stages
+
+Do not add new third-party libraries unless there is a demonstrated technical requirement.
+
+Do not publish automatically.
+
+At completion, provide:
+
+1. Files/components changed
+2. Performance issues discovered
+3. Performance improvements implemented
+4. Music-page visual refinements
+5. Mobile improvements
+6. Tests executed
+7. Test results
+8. Any remaining issues
+9. Confirmation that Stages 3–6 were not touched
+
+FINAL OBJECTIVE:
+
+Make the KIUT Music page feel substantially faster, cleaner, more premium, and easier to explore, especially on mobile, while preserving the technical SEO and structured-data foundation already completed in Phases 11B–11D and the visual refinement established in Stage 1.

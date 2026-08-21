@@ -107,6 +107,13 @@ const PLATFORMS: Record<PlatformId, { label: string; color: string; icon: React.
   },
 };
 
+// Keep platform presentation grounded in the platforms actually present in
+// the verified release catalogue. This prevents the page from implying
+// destinations that no release currently links to.
+const STREAMING_PLATFORM_IDS = Array.from(
+  new Set(ALBUMS.flatMap((album) => album.platforms)),
+) as PlatformId[];
+
 // Albums are now sourced from tracks.ts — see ALBUMS export.
 
 const timelineEvents = [
@@ -494,24 +501,14 @@ export default function Music() {
   return (
     <div className="min-h-screen bg-black pb-16 relative overflow-x-hidden">
       {/* ── Ambient background ──────────────────────────────────────── */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        <div
           className="absolute top-[10%] left-[5%] w-[500px] h-[500px] rounded-full blur-[140px]"
           style={{ background: "rgba(var(--gold-primary-rgb),0.025)" }}
         />
-        <motion.div
-          animate={{ x: [0, -25, 0], y: [0, 30, 0] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        <div
           className="absolute bottom-[20%] right-[5%] w-[400px] h-[400px] rounded-full blur-[120px]"
           style={{ background: "rgba(var(--gold-primary-rgb),0.02)" }}
-        />
-        <motion.div
-          animate={{ x: [0, 20, -10, 0], y: [0, -15, 20, 0] }}
-          transition={{ duration: 35, repeat: Infinity, ease: "easeInOut", delay: 8 }}
-          className="absolute top-[50%] left-[45%] w-[300px] h-[300px] rounded-full blur-[100px]"
-          style={{ background: "rgba(100,50,255,0.018)" }}
         />
       </div>
 
@@ -666,7 +663,7 @@ export default function Music() {
 
                 {!currentTrack && featuredTrack.status !== "recently-released" && (
                   <div className="flex flex-wrap items-center gap-2 justify-center md:justify-start mt-6">
-                    {(["spotify", "apple", "youtube", "audiomack", "boomplay", "amazon", "deezer", "soundcloud"] as PlatformId[]).map((id) => (
+                    {STREAMING_PLATFORM_IDS.map((id) => (
                       <PlatformBadge key={id} id={id} />
                     ))}
                   </div>
@@ -794,7 +791,7 @@ export default function Music() {
           <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white text-center mb-16 uppercase">
             Discography <span className="text-gold">Timeline</span>
           </h2>
-          <div className="relative py-10 md:py-32 px-0 md:px-6 overflow-visible">
+            <div className="relative py-10 md:py-32 px-0 md:px-6 overflow-visible">
             {/* Animated connecting line */}
             <div className="absolute left-4 top-8 bottom-8 w-px md:left-10 md:right-10 md:top-1/2 md:bottom-auto md:h-px md:w-auto md:-translate-y-1/2 overflow-hidden">
               <motion.div
@@ -830,8 +827,26 @@ export default function Music() {
                   </div>
 
                   {/* Node */}
-                  <div className="w-5 h-5 shrink-0 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-normal group-hover:bg-gold shadow-glow-gold cursor-pointer z-10">
+                  <div
+                    className="w-5 h-5 shrink-0 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-normal group-hover:bg-gold shadow-glow-gold cursor-pointer z-10"
+                    role="img"
+                    aria-label={`${event.year}: ${event.title}`}
+                  >
                     <div className="absolute inset-0 bg-gold rounded-full animate-ping opacity-20 group-hover:opacity-0" />
+                  </div>
+
+                  {/* Mobile artwork keeps the chronological archive scannable
+                      without relying on desktop hover interactions. */}
+                  <div className="flex md:hidden items-center gap-3 min-w-0">
+                    <img
+                      src={event.image}
+                      alt=""
+                      aria-hidden="true"
+                      width={40}
+                      height={40}
+                      loading="lazy"
+                      className="h-10 w-10 shrink-0 rounded-lg object-cover border border-white/10"
+                    />
                   </div>
 
                   {/* Year label */}
@@ -903,10 +918,10 @@ export default function Music() {
                   </div>
                 </div>
                 <div className="p-3">
-                  <h3 className="text-white text-xs font-bold uppercase tracking-wide truncate group-hover:text-gold transition-colors duration-fast">
+                  <h3 className="min-h-[2.1rem] text-white text-xs font-bold uppercase tracking-wide leading-snug line-clamp-2 group-hover:text-gold transition-colors duration-fast">
                     {album.title}
                   </h3>
-                  <p className="text-white/30 text-[11px] truncate">{album.yearShort} · {album.genre}</p>
+                  <p className="mt-1 truncate text-white/30 text-[11px]">{album.yearShort} · {album.genre}</p>
                 </div>
               </motion.a>
             ))}
@@ -922,7 +937,7 @@ export default function Music() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              className={`flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-12 md:gap-20`}
+              className={`flex flex-col ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-9 md:gap-20`}
               data-testid={`album-row-${album.id}`}
             >
               <div className="w-full md:w-1/2"><AlbumCard album={album} previewAudio={getAlbumPreviewAudio(album.id)} /></div>
@@ -1053,7 +1068,9 @@ export default function Music() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(var(--gold-primary-rgb),0.05),transparent_60%)]" />
 
             <div className="relative z-10 flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-10">
-              {(Object.entries(PLATFORMS) as [PlatformId, typeof PLATFORMS[PlatformId]][]).map(([id, p], i) => (
+              {STREAMING_PLATFORM_IDS.map((id, i) => {
+                const p = PLATFORMS[id];
+                return (
                 <motion.div
                   key={id}
                   initial={{ opacity: 0, scale: 0.85 }}
@@ -1075,7 +1092,8 @@ export default function Music() {
                     {p.label}
                   </span>
                 </motion.div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

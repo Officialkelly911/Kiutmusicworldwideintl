@@ -20,3 +20,4 @@
 - [Preview runtime notices](preview-runtime-notices.md) — classify errors by origin: preview-shell/third-party iframe notices are not app regressions; validate first-party page errors and resources separately.
 - [Mockup sandbox dependencies](mockup-sandbox-dependencies.md) — the artifact has its own npm tree; install its lockfile locally before restarting its preview workflow.
 - [Carousel CLS audit constraint](carousel-cls-audit-constraint.md) — automatic mobile hero slides shift layout; changes require explicit design approval.
+- [Workspace dependency drift](workspace-dependency-drift.md) — after dependency restores, validate both the main app workflow and separately registered artifact workflows.

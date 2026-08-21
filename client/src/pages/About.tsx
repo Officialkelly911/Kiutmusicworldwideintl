@@ -268,7 +268,7 @@ const allGalleryImages: GalleryImage[] = [
   ...EXTENDED_GALLERY,
   ...uploadedJourneyImages.map((src, i) => ({
     src,
-    alt: `Journey moment ${i + 1}`,
+    alt: `Kiut Music journey photo ${i + 1}`,
     badge: undefined,
   })),
 ];
@@ -522,7 +522,7 @@ export default function About() {
               <div className="relative aspect-[3/4] rounded-xl overflow-hidden border border-white/10 shadow-xl">
                 <img
                   src={artistPhoto}
-                  alt="Kiut"
+                  alt="Kiut, Nigerian-American artist and founder of Kiut Music Worldwide"
                   className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -1114,7 +1114,7 @@ export default function About() {
                         >
                           <img
                             src={src}
-                            alt={`Journey moment ${imgIdx + 1} — Kiut`}
+                            alt={`Kiut Music journey photo ${imgIdx + 1}`}
                             loading="lazy" decoding="async"
                             className="absolute inset-0 w-full h-full object-cover object-center [transition:transform_600ms_ease] group-hover:scale-[1.05]"
                           />
@@ -1252,7 +1252,7 @@ export default function About() {
                   >
                     <img
                       src={selectedJourneyImage ?? ""}
-                      alt={allGalleryImages[selectedJourneyIndex ?? 0]?.alt ?? `Journey moment ${(selectedJourneyIndex ?? 0) + 1}`}
+                      alt={allGalleryImages[selectedJourneyIndex ?? 0]?.alt ?? `Kiut Music journey photo ${(selectedJourneyIndex ?? 0) + 1}`}
                       className="block max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
                       style={{ display: "block" }}
                     />

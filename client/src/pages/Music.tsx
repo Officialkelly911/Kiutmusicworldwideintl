@@ -14,6 +14,7 @@ import {
   getAlbumPreviewAudio, getTrackStreamingUrl,
   GOOD_LIFE_EP_ART, SOFA_EP_ART, ANNOUNCE_ART, ELIGIBLE_EP_ART,
 } from "@/data/tracks";
+import { GOOD_LIFE_EP_LINK } from "@/data/social";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
@@ -524,14 +525,14 @@ export default function Music() {
           <div className="flex flex-wrap items-center gap-4">
             <PremiumCTAButton
               as="a"
-              href="https://linktr.ee/kiut_goodlife"
+              href={GOOD_LIFE_EP_LINK}
               target="_blank"
               rel="noopener noreferrer"
               icon={<Play size={13} fill="currentColor" className="ml-0.5" />}
             >
               Listen Now
             </PremiumCTAButton>
-            <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+            <a href={GOOD_LIFE_EP_LINK} target="_blank" rel="noopener noreferrer">
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
@@ -592,6 +593,12 @@ export default function Music() {
                     {featuredTrack.status === "recently-released"
                       ? "Romantic Love · Original Single"
                       : "Available everywhere"}
+                  </p>
+                )}
+                {!currentTrack && featuredTrack.title === "Romantic Love" && (
+                  <p className="text-white/40 text-sm leading-relaxed max-w-xl mb-8">
+                    Romantic Love is a recently released original single by Kiut, pairing his
+                    Afro-Caribbean sound with a warm, cinematic love story.
                   </p>
                 )}
 

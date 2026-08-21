@@ -16,6 +16,7 @@ import {
 } from "@/data/tracks";
 import { GOOD_LIFE_EP_LINK } from "@/data/social";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
+import ListenEverywhere from "@/components/ListenEverywhere";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
 const musicHeroImage = "/images/hero/music/music-source.png";
@@ -793,29 +794,28 @@ export default function Music() {
           <h2 className="font-display text-3xl md:text-4xl font-light tracking-[0.2em] text-white text-center mb-16 uppercase">
             Discography <span className="text-gold">Timeline</span>
           </h2>
-          <div className="relative py-32 px-6 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+          <div className="relative py-10 md:py-32 px-0 md:px-6 overflow-visible">
             {/* Animated connecting line */}
-            <div className="absolute top-1/2 left-10 right-10 h-[1px] -translate-y-1/2 overflow-hidden">
+            <div className="absolute left-4 top-8 bottom-8 w-px md:left-10 md:right-10 md:top-1/2 md:bottom-auto md:h-px md:w-auto md:-translate-y-1/2 overflow-hidden">
               <motion.div
-                className="h-full"
-                style={{ background: "linear-gradient(to right, rgba(var(--white-rgb),0.05), rgba(var(--gold-primary-rgb),0.40), rgba(var(--white-rgb),0.05))" }}
-                initial={{ scaleX: 0, originX: 0 }}
-                animate={timelineInView ? { scaleX: 1 } : { scaleX: 0 }}
+                className="h-full w-full md:h-full"
+                style={{ background: "linear-gradient(to bottom, rgba(var(--white-rgb),0.05), rgba(var(--gold-primary-rgb),0.40), rgba(var(--white-rgb),0.05))" }}
+                initial={{ scaleY: 0, originY: 0 }}
+                animate={timelineInView ? { scaleY: 1 } : { scaleY: 0 }}
                 transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               />
             </div>
 
-            <div className="flex justify-between items-center min-w-[800px] max-w-4xl mx-auto relative z-10 px-10">
+            <div className="flex flex-col gap-7 md:flex-row md:justify-between md:items-center max-w-4xl mx-auto relative z-10 md:px-10">
               {timelineEvents.map((event, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={timelineInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
                   transition={{ duration: 0.5, delay: 0.4 + idx * 0.18, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative group flex flex-col items-center"
+                  className="relative group flex items-center gap-4 md:flex-col md:items-center"
                 >
-                  {/* Hover tooltip */}
-                  <div className="absolute bottom-full mb-8 opacity-0 group-hover:opacity-100 transition-all duration-normal translate-y-4 group-hover:translate-y-0 pointer-events-none w-56 z-20">
+                  <div className="hidden md:block absolute bottom-full mb-8 opacity-0 group-hover:opacity-100 transition-all duration-normal translate-y-4 group-hover:translate-y-0 pointer-events-none w-56 z-20">
                     <div className="bg-charcoal border border-gold/22 rounded-md p-4 shadow-xl">
                       <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-charcoal border-b border-r border-gold/22 transform rotate-45" />
                       <img src={event.image} alt={event.title} className="w-full aspect-square object-cover rounded-xl mb-3" loading="lazy" />
@@ -830,17 +830,20 @@ export default function Music() {
                   </div>
 
                   {/* Node */}
-                  <div className="w-5 h-5 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-normal group-hover:bg-gold shadow-glow-gold cursor-pointer z-10">
+                  <div className="w-5 h-5 shrink-0 rounded-full bg-black border-[3px] border-gold relative group-hover:scale-150 transition-transform duration-normal group-hover:bg-gold shadow-glow-gold cursor-pointer z-10">
                     <div className="absolute inset-0 bg-gold rounded-full animate-ping opacity-20 group-hover:opacity-0" />
                   </div>
 
                   {/* Year label */}
-                  <div className="absolute top-full mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal pointer-events-none">
+                  <div className="hidden md:block absolute top-full mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-normal pointer-events-none">
                     <p className="text-gold text-xs font-bold tracking-widest uppercase">{event.year}</p>
                   </div>
 
                   {/* Always-visible year below on mobile */}
-                  <p className="absolute top-full mt-8 text-white/20 text-xs font-mono tracking-widest">{event.year}</p>
+                  <div className="flex items-center gap-3 md:absolute md:top-full md:mt-8">
+                    <p className="text-gold text-xs font-bold tracking-widest">{event.year}</p>
+                    <p className="text-white text-sm font-semibold uppercase tracking-wide md:hidden">{event.title}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -848,6 +851,8 @@ export default function Music() {
         </motion.div>
 
         {/* ── Discography Grid ─────────────────────────────────────── */}
+        <ListenEverywhere className="mb-24" />
+
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

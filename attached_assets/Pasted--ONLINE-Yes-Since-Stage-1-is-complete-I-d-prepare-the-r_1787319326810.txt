@@ -1,0 +1,698 @@
+Ω ONLINE
+
+Yes. Since Stage 1 is complete, I’d prepare the remaining prompts now so the roadmap stays controlled and Replit doesn’t decide that “premium refinement” means rewriting half the website while nobody is looking.
+
+Below are five sequential implementation prompts, one for each remaining stage. They are deliberately isolated so each stage can be implemented, tested, reviewed, and only then followed by the next.
+
+⸻
+
+PHASE 12 — STAGE 2
+
+Music Experience + Mobile Performance
+
+PHASE 12 — STAGE 2: MUSIC EXPERIENCE REFINEMENT
+Implement Stage 2 of the KIUT Music Premium Refinement Roadmap.
+OBJECTIVE
+Make the /music experience substantially faster, smoother, more premium, and easier to explore, especially on mobile.
+This is a focused Music-page refinement and performance phase.
+Do not redesign the entire website.
+Do not modify Stage 3–6 functionality.
+Do not publish automatically.
+==================================================
+1. AUDIT BEFORE EDITING
+==================================================
+Inspect the current /music implementation first.
+Identify:
+- Music page component hierarchy
+- Release/album data sources
+- Artwork loading
+- Media loading
+- Lazy-loading behavior
+- Any embedded players
+- Streaming CTA implementation
+- Discography timeline
+- Route-level code splitting
+- Expensive components
+- Large assets loaded during initial render
+- Re-render sources
+- Mobile-specific behavior
+Determine why /music can still feel slow or appear to hang on mobile.
+Do not guess. Base changes on the actual implementation.
+==================================================
+2. INITIAL LOAD PERFORMANCE
+==================================================
+Prioritize above-the-fold content.
+Ensure:
+- Initial Music content renders quickly.
+- Below-the-fold artwork does not block initial rendering.
+- Heavy media is deferred.
+- Images reserve their layout space.
+- Large assets are not unnecessarily downloaded immediately.
+- Expensive components are mounted only when needed.
+- No unnecessary duplicate requests occur.
+- No unnecessary component re-renders occur.
+Do not introduce a new dependency unless there is a demonstrated need.
+Do not sacrifice image quality unnecessarily.
+==================================================
+3. RELEASE CARDS
+==================================================
+Refine existing release cards.
+Improve:
+- Artwork framing
+- Title hierarchy
+- Metadata hierarchy
+- Streaming CTA visibility
+- Card spacing
+- Desktop rhythm
+- Mobile proportions
+- Touch targets
+Preserve:
+- Existing artwork
+- Existing catalogue data
+- Existing approved copy
+- Existing streaming destinations
+- KIUT black/gold visual identity
+Do not invent release information.
+==================================================
+4. DISCOGRAPHY TIMELINE
+==================================================
+Refine the existing timeline.
+Improve:
+- Year visibility
+- Release hierarchy
+- Artwork integration where existing artwork is available
+- Mobile readability
+- Spacing
+- Scannability
+Do not invent dates.
+Do not make the timeline unnecessarily animated or heavy.
+==================================================
+5. LISTEN EVERYWHERE
+==================================================
+Create a stronger, premium "Listen Everywhere" treatment using only platforms already present in the catalogue.
+Examples may include:
+- Spotify
+- Apple Music
+- YouTube
+- Audiomack
+Do not add unsupported platforms.
+The treatment should feel like KIUT branding, not a collection of third-party advertisements.
+==================================================
+6. MOBILE
+==================================================
+Test /music at mobile widths.
+Verify:
+- No horizontal overflow
+- No blank loading state
+- No broken artwork
+- No clipped cards
+- No overlapping controls
+- No layout jumps
+- No inaccessible buttons
+- No excessive whitespace
+- Timeline remains usable
+- Streaming controls remain easy to tap
+Do not simply shrink desktop styles.
+==================================================
+7. SEO PROTECTION
+==================================================
+Do not break:
+- Initial HTML metadata
+- Canonical
+- Robots
+- Open Graph
+- Twitter metadata
+- JSON-LD
+- MusicGroup
+- WebSite
+- WebPage
+- MusicAlbum
+- MusicRecording
+- Sitemap
+- robots.txt
+- 404 behavior
+- Analytics
+Run the existing structured-data and 404 regression tests.
+==================================================
+8. VALIDATION
+==================================================
+Run:
+npm run check
+npm run build
+Run all relevant existing regression tests.
+Browser-test:
+/music
+Test:
+- Desktop
+- Mobile
+- Direct URL
+- Refresh
+- Client navigation
+- Scrolling
+- Release interactions
+- Streaming links
+Check for new console errors.
+Do not publish automatically.
+FINAL REPORT:
+Provide:
+- Files changed
+- Performance problems found
+- Improvements made
+- Mobile improvements
+- Tests performed
+- Results
+- Remaining issues
+Do not begin Stage 3.
+
+⸻
+
+PHASE 12 — STAGE 3
+
+Video Experience Refinement
+
+Run this only after Stage 2 passes.
+
+PHASE 12 — STAGE 3: VIDEO EXPERIENCE REFINEMENT
+Improve the KIUT Videos experience while preserving the existing video catalogue, SEO architecture, structured data, analytics, routing, and performance safeguards.
+OBJECTIVE
+Make the Videos page feel more cinematic, discoverable, interactive, and premium without turning it into a generic YouTube clone.
+==================================================
+1. AUDIT
+==================================================
+Inspect the existing Videos page before editing.
+Review:
+- Video catalogue
+- Video cards
+- Thumbnail loading
+- YouTube embeds
+- VideoObject JSON-LD
+- Existing progress tracker
+- Current "watched" state
+- Video navigation
+- Mobile layout
+- External embed behavior
+- Loading behavior
+- Error handling
+==================================================
+2. VIDEO DISCOVERY
+==================================================
+Strengthen the existing:
+"1/27 WATCHED — 4%"
+concept.
+Make it more visually intentional and useful.
+The progress indicator should communicate:
+- Total available videos
+- Watched count
+- Progress percentage
+- Current viewing position where appropriate
+Do not fabricate viewing statistics.
+Preserve existing tracking behavior.
+==================================================
+3. VIDEO CARDS
+==================================================
+Refine video cards with:
+- Stronger artwork hierarchy
+- Better title visibility
+- Better metadata
+- Clear play affordance
+- Premium hover/focus behavior
+- Better mobile touch interaction
+Keep animation restrained.
+==================================================
+4. VIDEO LOADING
+==================================================
+Prevent external video providers from blocking page rendering.
+Where appropriate:
+- Load thumbnails first.
+- Load embeds only after interaction.
+- Defer below-the-fold videos.
+- Avoid mounting multiple YouTube iframes simultaneously.
+- Provide graceful fallback states.
+- Prevent third-party failures from degrading the page.
+Do not remove working video functionality.
+==================================================
+5. CINEMATIC PRESENTATION
+==================================================
+Introduce subtle cinematic refinement through:
+- Editorial spacing
+- Controlled transitions
+- Gold accent details
+- Stronger framing
+- Better visual hierarchy
+Avoid:
+- Excessive animation
+- Autoplay overload
+- Heavy background video
+- Generic streaming-service styling
+==================================================
+6. SEO
+==================================================
+Preserve:
+- VideoObject JSON-LD
+- Existing video metadata
+- Canonicals
+- Open Graph
+- Twitter
+- WebPage schema
+- Sitemap
+- robots.txt
+Do not invent:
+- Upload dates
+- Video descriptions
+- View counts
+- Video durations
+- Authors
+- URLs
+Use only verified existing data.
+==================================================
+7. VALIDATION
+==================================================
+Run:
+npm run check
+npm run build
+Run:
+- Structured-data regression
+- 404 regression
+- Existing browser tests
+Browser-test:
+/videos
+Test:
+- Desktop
+- Mobile
+- Direct loading
+- Client navigation
+- Video selection
+- Progress tracking
+- External embed failure behavior
+- Back/forward navigation
+Do not publish automatically.
+Do not begin Stage 4.
+
+⸻
+
+PHASE 12 — STAGE 4
+
+Commerce + Dream Planet Refinement
+
+PHASE 12 — STAGE 4: COMMERCE AND DREAM PLANET REFINEMENT
+Refine KIUT's merchandise and Dream Planet integration without making the website feel like a third-party marketplace.
+OBJECTIVE
+Make commerce feel like a native part of the KIUT brand while preserving the existing external Dream Planet functionality.
+==================================================
+1. AUDIT
+==================================================
+Inspect:
+- Merchandise section
+- Product cards
+- Product images
+- Product titles
+- Shop buttons
+- Dream Planet modal
+- External links
+- Existing product data
+- Mobile commerce layout
+Do not replace existing commerce infrastructure unless necessary.
+==================================================
+2. PRODUCT PRESENTATION
+==================================================
+Correct:
+- Truncated product names
+- Inconsistent image backgrounds
+- Poor product image crops
+- Uneven card heights
+- Inconsistent metadata
+Ensure product names display completely.
+Use responsive typography rather than arbitrary truncation.
+==================================================
+3. PRODUCT IMAGERY
+==================================================
+Where existing product imagery is available:
+- Normalize presentation.
+- Use consistent image containers.
+- Preserve product proportions.
+- Avoid supplier-style presentation where possible.
+- Do not invent replacement product photography.
+If an image is genuinely unsuitable, flag it instead of fabricating a replacement.
+==================================================
+4. DREAM PLANET MODAL
+==================================================
+Restyle the existing "More from Kiut Music — Download Dream Planet" modal.
+It should feel visually native to KIUT.
+Use:
+- Dark foundation
+- KIUT gold accents
+- Existing typography
+- Existing spacing language
+- Subtle borders
+- Refined buttons
+The Apple/Google store buttons may retain their recognizable branding where necessary, but they must not visually dominate the modal.
+Preserve the existing functionality and destinations.
+==================================================
+5. COMMERCE CTA
+==================================================
+Improve:
+"Shop Now"
+"Exclusive on Dream Planet"
+so users understand that the commerce destination is external.
+Do not misrepresent Dream Planet as a native KIUT store.
+==================================================
+6. MOBILE
+==================================================
+Test commerce on mobile.
+Ensure:
+- Product cards remain readable.
+- Product names are not clipped.
+- CTAs are easy to tap.
+- Modal fits correctly.
+- Modal can always be closed.
+- External navigation works.
+- No horizontal overflow occurs.
+==================================================
+7. VALIDATION
+==================================================
+Run:
+npm run check
+npm run build
+Run relevant regression tests.
+Browser-test:
+- Homepage
+- Commerce section
+- Dream Planet modal
+- Mobile
+- Desktop
+- External Shop Now behavior
+Do not alter SEO architecture.
+Do not begin Stage 5.
+Do not publish automatically.
+
+⸻
+
+PHASE 12 — STAGE 5
+
+Booking, Business + Conversion
+
+PHASE 12 — STAGE 5: BOOKING, BUSINESS AND CONVERSION REFINEMENT
+Improve KIUT's business and conversion pathways without making the site feel sales-heavy.
+OBJECTIVE
+Make it easier for legitimate business opportunities, bookings, media inquiries, partnerships, and fans to understand what action to take.
+==================================================
+1. AUDIT
+==================================================
+Inspect the existing:
+- Contact page
+- Booking flow
+- Inquiry types
+- Business/contact CTAs
+- Newsletter
+- Homepage CTA structure
+- Navigation
+- Footer
+- Existing conversion tracking
+Do not create duplicate functionality.
+==================================================
+2. BOOK KIUT / BUSINESS DISCOVERY
+==================================================
+Evaluate whether a clear:
+"Book KIUT"
+or
+"For Business"
+entry point can be surfaced more prominently.
+Use existing contact/booking infrastructure.
+Do not create a new backend unless required.
+==================================================
+3. HOMEPAGE CONVERSION
+==================================================
+Improve CTA hierarchy around:
+- Listen
+- Watch
+- Shop
+- Book
+- Join newsletter
+Avoid presenting every CTA with equal visual weight.
+Create a clear hierarchy.
+The primary action should depend on the section context.
+==================================================
+4. NEWSLETTER
+==================================================
+Reduce unnecessary repetition.
+Ensure the newsletter appears in strong strategic locations without making the website feel like it is repeatedly asking for an email address.
+Preserve existing subscription functionality.
+==================================================
+5. CONTACT EXPERIENCE
+==================================================
+Make the existing inquiry infrastructure feel premium.
+Improve:
+- Inquiry-type visibility
+- Form hierarchy
+- Supporting copy
+- CTA clarity
+- Mobile usability
+Do not change submission behavior unless necessary.
+==================================================
+6. ANALYTICS
+==================================================
+Preserve existing GA4 architecture.
+Verify tracking for existing important conversion actions where supported.
+Do not create duplicate analytics initialization.
+==================================================
+7. VALIDATION
+==================================================
+Run:
+npm run check
+npm run build
+Run:
+- SEO regression
+- Structured-data regression
+- 404 regression
+- Browser tests
+Test:
+- Homepage
+- Contact
+- Booking/business CTA
+- Newsletter
+- Mobile
+- Desktop
+Do not publish automatically.
+Do not begin Stage 6.
+
+⸻
+
+PHASE 12 — STAGE 6
+
+Editorial + Cultural Brand Layer
+
+This should be the last creative stage, because it builds on everything before it.
+
+PHASE 12 — STAGE 6: EDITORIAL AND CULTURAL BRAND LAYER
+Evolve KIUT Music from a polished artist website into a distinctive music-and-culture digital experience.
+OBJECTIVE
+Introduce an editorial layer around KIUT's existing story, culture, lifestyle, journey, and behind-the-scenes material.
+This should strengthen the existing luxury/editorial visual direction without turning KIUT into a generic magazine website.
+==================================================
+1. CONTENT AUDIT
+==================================================
+Before adding anything, inspect existing approved content related to:
+- KIUT's journey
+- Nigeria-to-Hollywood narrative
+- Behind-the-scenes material
+- Music creation
+- Culture
+- Fashion
+- Lifestyle
+- Performances
+- Existing photography
+- Existing videos
+Use only verified or approved content.
+Do not invent facts.
+==================================================
+2. EDITORIAL SYSTEM
+==================================================
+Create a restrained editorial content system.
+Potential formats:
+- Stories
+- Journal entries
+- Behind the Music
+- Culture Notes
+- Visual Diary
+- Behind the Scenes
+Do not implement all formats automatically.
+Select the strongest format based on existing content.
+==================================================
+3. VISUAL LANGUAGE
+==================================================
+Use the established KIUT system:
+- Black/dark foundation
+- Gold accents
+- Editorial typography
+- Strong imagery
+- Generous spacing
+- Controlled motion
+Avoid making every section gold.
+Avoid excessive animation.
+Avoid generic blog styling.
+==================================================
+4. STORYTELLING
+==================================================
+Strengthen the relationship between:
+Music
+Culture
+Identity
+Lifestyle
+Artist journey
+The experience should feel intentional and personal rather than promotional.
+==================================================
+5. NAVIGATION
+==================================================
+Only introduce editorial navigation if there is enough real content to justify it.
+Do not add an empty section to the navigation simply because the roadmap says "editorial."
+==================================================
+6. SEO
+==================================================
+If new crawlable editorial pages are created:
+Implement appropriate:
+- Title
+- Description
+- Canonical
+- Open Graph
+- Twitter metadata
+- WebPage schema
+- BreadcrumbList where appropriate
+Only add Article schema if the content genuinely qualifies.
+Do not invent author/date information.
+Update sitemap only for actual public canonical pages.
+==================================================
+7. PERFORMANCE
+==================================================
+Editorial content must not recreate the performance problems previously addressed.
+Use:
+- Responsive images
+- Lazy loading
+- Proper aspect ratios
+- Deferred media
+- Lightweight interactions
+Do not introduce heavy animation libraries.
+==================================================
+8. VALIDATION
+==================================================
+Run:
+npm run check
+npm run build
+Run all existing:
+- SEO tests
+- Structured-data tests
+- 404 tests
+- Browser tests
+Test:
+- Desktop
+- Mobile
+- Direct URL
+- Client navigation
+- Image loading
+- Editorial navigation
+- Back/forward navigation
+Do not publish automatically.
+==================================================
+FINAL REQUIREMENT
+At the end of Stage 6, provide a complete change report covering:
+- New components
+- Modified components
+- New routes
+- SEO changes
+- Structured-data changes
+- Performance impact
+- Accessibility impact
+- Analytics impact
+- Mobile validation
+- Desktop validation
+- Regression results
+Do not make additional creative changes beyond the approved scope.
+
+⸻
+
+Final phase after Stage 6
+
+I would not immediately call the website finished after Stage 6.
+
+The final phase should be:
+
+Phase 12.7 — Premium Release Audit
+
+A final independent pass covering:
+
+Visual
+
+* Homepage
+* Music
+* Videos
+* About
+* Tour
+* Newsletter
+* Contact
+* Legal
+* Commerce
+
+Technical
+
+* Build
+* Runtime errors
+* Broken resources
+* 404s
+* Redirects
+* Canonicals
+* Sitemap
+* Robots
+* JSON-LD
+
+Performance
+
+* Mobile loading
+* Desktop loading
+* Large assets
+* Third-party embeds
+* Image loading
+* JavaScript execution
+
+SEO
+
+* Initial HTML metadata
+* Structured data
+* Indexability
+* Internal linking
+* Social sharing previews
+
+Accessibility
+
+* Keyboard navigation
+* Focus states
+* headings
+* alt text
+* mobile controls
+* reduced motion
+
+Production
+
+* Custom domain
+* HTTPS
+* Published build
+* No stale deployment
+* No accidental Replit routes
+* No development artifacts
+
+That final audit should be read-only first. Only after its findings are reviewed should we create any final corrective tasks.
+
+That gives us a much cleaner progression:
+
+11B → Initial HTML SEO ✅
+11C → Real 404 handling ✅
+11D → Structured data ✅
+11E → Accessibility/runtime refinement
+11F → Search/performance refinement
+12 Stage 1 → Homepage premium refinement ✅
+12 Stage 2 → Music + mobile performance ← next
+12 Stage 3 → Video experience
+12 Stage 4 → Commerce/Dream Planet
+12 Stage 5 → Booking/conversion
+12 Stage 6 → Editorial/cultural layer
+12.7 → Final production audit
+
+That is the point where KIUT stops being merely “a very nice artist website” and starts behaving like a properly designed digital brand ecosystem.

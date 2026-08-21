@@ -19,6 +19,7 @@
 - [Server 404 semantics](phase11c-server-404.md) — unknown browser paths keep the branded SPA 404 screen but must return HTTP 404 with noindex /404 metadata; one shared route classifier keeps server and client normalization aligned.
 - [Entity SEO structured data](entity-seo-structured-data.md) — emit one shared JSON-LD graph per route; include music, video, and event facts only when source metadata is complete.
 - [Preview runtime notices](preview-runtime-notices.md) — classify errors by origin: preview-shell/third-party iframe notices are not app regressions; validate first-party page errors and resources separately.
+- [Homepage external embed isolation](homepage-external-embed-isolation.md) — keep third-party homepage iframes below the critical path with reserved space, lazy creation, timeout fallback, and removal on failure.
 - [Mockup sandbox dependencies](mockup-sandbox-dependencies.md) — the artifact has its own npm tree; install its lockfile locally before restarting its preview workflow.
 - [Carousel CLS audit constraint](carousel-cls-audit-constraint.md) — automatic mobile hero slides shift layout; changes require explicit design approval.
 - [Workspace dependency drift](workspace-dependency-drift.md) — after dependency restores, validate both the main app workflow and separately registered artifact workflows.

@@ -8,7 +8,7 @@ import MiniPlayer from "@/components/MiniPlayer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { pageVariants } from "@/lib/motion";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, Component, type ErrorInfo, type ReactNode } from "react";
 import { track } from "@/lib/analytics";
 import { getPublicRoute } from "@shared/seo";
 
@@ -24,6 +24,62 @@ const Tour       = lazy(() => import("@/pages/Tour"));
 const Contact    = lazy(() => import("@/pages/Contact"));
 const Legal      = lazy(() => import("@/pages/Legal"));
 const NotFound   = lazy(() => import("@/pages/not-found"));
+
+class MusicRouteErrorBoundary extends Component<
+  { children: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    // Keep route failures diagnosable without exposing chunk or stack details.
+    console.error("[music-route] failed to load", error, info.componentStack);
+  }
+
+  handleRetry = () => {
+    // A user-initiated reload avoids automatic retry loops and can recover from
+    // a transient chunk/network failure or stale browser cache.
+    window.location.reload();
+  };
+
+  render() {
+    if (!this.state.hasError) return this.props.children;
+    return (
+      <div className="min-h-[70vh] bg-midnight flex items-center justify-center px-6">
+        <div className="w-full max-w-md rounded-2xl border border-gold/20 bg-black/60 p-8 text-center shadow-2xl">
+          <p className="text-gold text-[10px] font-bold uppercase tracking-[0.35em] mb-4">
+            Music unavailable
+          </p>
+          <h1 className="font-display text-3xl uppercase tracking-wide text-white mb-3">
+            The sound is taking a moment
+          </h1>
+          <p className="text-white/45 text-sm leading-relaxed mb-7">
+            We couldn’t load this page right now. Try again to continue to the latest releases.
+          </p>
+          <button
+            type="button"
+            onClick={this.handleRetry}
+            className="rounded-full border border-gold/60 px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-black"
+          >
+            Retry Music
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+function MusicRoute() {
+  return (
+    <MusicRouteErrorBoundary>
+      <Music />
+    </MusicRouteErrorBoundary>
+  );
+}
 
 // ── Page loading fallback ─────────────────────────────────────────────────────
 // Shown during the first load of each lazy chunk. Intentionally minimal so
@@ -73,7 +129,7 @@ function AnimatedRouter() {
           <Suspense fallback={<PageFallback />}>
             <Switch location={routeLocation}>
               <Route path="/"           component={Home}       />
-              <Route path="/music"      component={Music}      />
+              <Route path="/music"      component={MusicRoute} />
               <Route path="/videos"     component={Videos}     />
               <Route path="/about"      component={About}      />
               <Route path="/newsletter" component={Newsletter} />

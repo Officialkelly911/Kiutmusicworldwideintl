@@ -41,13 +41,19 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
     const onTimeUpdate  = () => setCurrentTime(audio.currentTime);
     const onMetadata    = () => setDuration(audio.duration || 0);
+    const onError       = () => {
+      setIsPlaying(false);
+      track("music_error", { message: "Audio playback failed" });
+    };
 
     audio.addEventListener("timeupdate",     onTimeUpdate);
     audio.addEventListener("loadedmetadata", onMetadata);
+    audio.addEventListener("error",          onError);
 
     return () => {
       audio.removeEventListener("timeupdate",     onTimeUpdate);
       audio.removeEventListener("loadedmetadata", onMetadata);
+      audio.removeEventListener("error",          onError);
       audio.pause();
       audio.src = "";
     };
@@ -64,7 +70,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       if (nextIdx >= 0) {
         const next = ALL_TRACKS[nextIdx];
         audio.src = next.url!;
-        audio.play().catch(() => {});
+        audio.play().catch(() => setIsPlaying(false));
         setPlayingId(next.id);
         setIsPlaying(true);
       } else {
@@ -93,14 +99,12 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         audio.pause();
         setIsPlaying(false);
       } else {
-        audio.play().catch(() => {});
-        setIsPlaying(true);
+        audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
       }
     } else {
       audio.src = trackToPlay.url;
-      audio.play().catch(() => {});
+      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
       setPlayingId(trackToPlay.id);
-      setIsPlaying(true);
       setShowPlayer(true);
       setCurrentTime(0);
       setDuration(0);
@@ -115,8 +119,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       audio.pause();
       setIsPlaying(false);
     } else {
-      audio.play().catch(() => {});
-      setIsPlaying(true);
+      audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
   }, [isPlaying]);
 

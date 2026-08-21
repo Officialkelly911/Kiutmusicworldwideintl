@@ -105,6 +105,7 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
   const internalRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const { scrollYProgress } = useScroll({
@@ -140,6 +141,14 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
     return () => video.removeEventListener("canplay", attemptAutoplay);
   }, [videoSrc]);
 
+  React.useEffect(() => {
+    if (!priority) return;
+    // A stalled hero must not keep its loading treatment forever. This only
+    // releases the visual fallback; it never blocks the page content.
+    const timeout = window.setTimeout(() => setImageError(true), 8000);
+    return () => window.clearTimeout(timeout);
+  }, [priority]);
+
   const base = `/images/hero/${slug}/${slug}`;
   const blurDataURL = heroImageMeta[slug]?.blurDataURL;
 
@@ -163,9 +172,11 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
         <div
           className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-slow"
           style={{
-            backgroundImage: blurDataURL ? `url(${blurDataURL})` : undefined,
+            backgroundImage: imageError
+              ? "radial-gradient(circle at 28% 45%, rgba(var(--gold-primary-rgb),0.16), transparent 42%), linear-gradient(135deg, var(--midnight-black), var(--color-charcoal))"
+              : blurDataURL ? `url(${blurDataURL})` : undefined,
             backgroundColor: "var(--midnight-black)",
-            opacity: loaded ? 0 : 1,
+            opacity: imageError || !loaded ? 1 : 0,
           }}
           aria-hidden="true"
         />
@@ -190,7 +201,14 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
                 loading={priority ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={priority ? "high" : "auto"}
-                onLoad={() => setLoaded(true)}
+                onLoad={() => {
+                  setImageError(false);
+                  setLoaded(true);
+                }}
+                onError={() => {
+                  setImageError(true);
+                  setLoaded(true);
+                }}
               />
             </picture>
           ) : (
@@ -220,7 +238,14 @@ export const HeroSection = React.forwardRef<HTMLElement, HeroSectionProps>(funct
                 loading={priority ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={priority ? "high" : "auto"}
-                onLoad={() => setLoaded(true)}
+                onLoad={() => {
+                  setImageError(false);
+                  setLoaded(true);
+                }}
+                onError={() => {
+                  setImageError(true);
+                  setLoaded(true);
+                }}
               />
             </picture>
           )}

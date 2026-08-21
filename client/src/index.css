@@ -512,6 +512,29 @@
     opacity: 0.03;
     pointer-events: none;
   }
+
+/* Editorial section framing: a quiet gold trace used where a new chapter
+   begins. It adds rhythm without adding another decorative component. */
+.kiut-section-rule {
+  position: relative;
+}
+
+.kiut-section-rule::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: max(1.5rem, calc((100% - var(--container-lg)) / 2));
+  right: max(1.5rem, calc((100% - var(--container-lg)) / 2));
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--gold-primary-rgb), 0.28) 20%,
+    rgba(var(--white-rgb), 0.08) 50%,
+    rgba(var(--gold-primary-rgb), 0.28) 80%,
+    transparent
+  );
+}
 }
 
 /* ── KSDL box-shadow glow utilities — 08_Shadow_Glow_System.md ──

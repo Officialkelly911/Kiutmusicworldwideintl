@@ -885,7 +885,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Dynamic Hero Slider Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12">
+      <section className="relative min-h-[min(900px,100vh)] flex items-center justify-center overflow-hidden bg-midnight pt-28 pb-16 lg:pt-24 lg:pb-12">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -911,9 +911,9 @@ export default function Home() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           {/* Text Content (Left) */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-12 lg:pt-0 order-2 lg:order-1 min-h-[400px] justify-center">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-8 lg:pt-0 order-2 lg:order-1 min-h-[400px] justify-center">
             {/* Phase 7: staggered hero entrance — badge → headline → subtitle → CTA */}
             <AnimatePresence mode="wait">
               <motion.div
@@ -939,7 +939,7 @@ export default function Home() {
                 {/* 2 — Headline fades upward */}
                 <motion.h1
                   variants={staggerItem}
-                  className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase"
+                  className="max-w-2xl font-display text-[clamp(3.25rem,8vw,6.75rem)] font-bold tracking-[-0.035em] text-white mb-5 leading-[0.92] uppercase"
                 >
                   {slides[currentSlide].title.split(' ')[0]}<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">
@@ -950,7 +950,7 @@ export default function Home() {
                 {/* 3 — Subtitle fades upward */}
                 <motion.p
                   variants={staggerItem}
-                  className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed"
+                  className="font-editorial italic text-lg md:text-xl text-white/70 mt-3 mb-9 max-w-lg font-light leading-[1.55]"
                 >
                   {slides[currentSlide].description}
                 </motion.p>
@@ -1012,17 +1012,11 @@ export default function Home() {
                 <motion.div
                   key="ep-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    rotate: 0,
-                    y: [0, -15, 0] 
-                  }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
                   exit={{ opacity: 0, scale: 0.9, rotate: 5 }}
                   transition={{ 
                     opacity: { duration: 0.8 },
                     scale: { duration: 0.8 },
-                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" }
                   }}
                   className="perspective-[1000px] mb-8"
                 >
@@ -1043,12 +1037,11 @@ export default function Home() {
                 <motion.div
                   key="romantic-love-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
                   exit={{ opacity: 0, scale: 0.9, rotate: -5 }}
                   transition={{
                     opacity: { duration: 0.8 },
                     scale: { duration: 0.8 },
-                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                   }}
                   className="perspective-[1000px] mb-8"
                 >
@@ -1067,7 +1060,7 @@ export default function Home() {
             </AnimatePresence>
 
             {/* Slider Controls */}
-            <div className="flex items-center gap-6 mt-8">
+            <div className="flex items-center gap-5 mt-10" aria-label="Hero carousel controls">
               <button
                 onClick={prevSlide}
                 aria-label="Previous slide"
@@ -1076,7 +1069,7 @@ export default function Home() {
                 <ChevronLeft size={24} />
               </button>
               
-              <div className="flex gap-2">
+              <div className="flex items-center gap-2" role="tablist" aria-label="Choose featured release">
                 {slides.map((_, idx) => (
                   <button
                     key={idx}
@@ -1098,6 +1091,9 @@ export default function Home() {
                 <ChevronRight size={24} />
               </button>
             </div>
+            <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.3em] text-white/35" aria-live="polite">
+              {String(currentSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")} &nbsp; Featured releases
+            </p>
           </div>
         </div>
       </section>
@@ -1106,7 +1102,7 @@ export default function Home() {
       <HomeStatsStrip />
 
       {/* MILESTONE SECTION */}
-      <section className="py-24 md:py-32 relative overflow-hidden bg-midnight">
+      <section className="kiut-section-rule py-24 md:py-32 relative overflow-hidden bg-midnight">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(var(--gold-primary-rgb),0.03),transparent_70%)]" />
         
         <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -1189,7 +1185,7 @@ export default function Home() {
       <FeaturedQuote />
 
       {/* MUSIC SECTION */}
-      <section className="py-24 md:py-32 bg-black border-t border-white/5 relative overflow-hidden">
+      <section className="kiut-section-rule py-24 md:py-32 bg-black border-t border-white/5 relative overflow-hidden">
         {/* Subtle glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-pink-500/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -1262,7 +1258,7 @@ export default function Home() {
       </section>
 
       {/* PORTFOLIO SECTION */}
-      <section className="py-24 md:py-32 bg-midnight relative border-t border-white/5">
+      <section className="kiut-section-rule py-24 md:py-32 bg-midnight relative border-t border-white/5">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

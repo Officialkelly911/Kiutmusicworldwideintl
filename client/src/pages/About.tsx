@@ -1459,7 +1459,7 @@ export default function About() {
                     className={`w-full h-full ${item.cover ? "object-cover object-top" : "object-contain p-2.5"} group-hover:scale-[1.06] [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)]`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
-                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-xs font-bold text-white/80 uppercase tracking-wide px-1 line-clamp-1">{item.name}</p>
+                  <p className="absolute bottom-1.5 left-0 right-0 text-center text-xs font-bold text-white/85 uppercase tracking-wide px-2 leading-tight line-clamp-2">{item.name}</p>
                 </motion.a>
               ))}
             </div>

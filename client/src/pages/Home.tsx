@@ -1789,6 +1789,16 @@ export default function Home() {
                 <div className="flex flex-col gap-3 w-full md:w-auto">
                   <PremiumCTAButton
                     as="link"
+                    href="/contact"
+                    data-testid="button-book-kiut"
+                    icon={<ArrowRight size={14} />}
+                    iconPosition="right"
+                    className="w-full md:w-auto"
+                  >
+                    Book Kiut
+                  </PremiumCTAButton>
+                  <PremiumCTAButton
+                    as="link"
                     href="/tour"
                     data-testid="button-concert-notify"
                     icon={<ArrowRight size={14} />}

@@ -765,18 +765,19 @@ export default function Videos() {
         </div>
 
         {/* Watch progress */}
-        {watchedCount > 0 && (
+        {(
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 px-5 py-4 rounded-xl border border-white/[0.07] bg-white/[0.02] flex items-center gap-5"
+            className="mt-4 px-5 py-4 rounded-xl border border-gold/15 bg-gradient-to-r from-gold/[0.06] via-white/[0.025] to-transparent flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6"
+            aria-label={`${watchedCount} of ${totalCount} videos watched, ${watchPct}% complete`}
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-bold uppercase tracking-[0.28em] text-gold">Your Progress</p>
-                <p className="text-xs font-bold text-white/35">{watchedCount} / {totalCount} watched</p>
+                <p className="text-xs font-bold uppercase tracking-[0.28em] text-gold">Your Watchlist</p>
+                <p className="text-xs font-bold text-white/50"><span className="text-white">{watchedCount}</span> of {totalCount} watched</p>
               </div>
-              <div className="h-1 rounded-full bg-white/[0.07] overflow-hidden">
+              <div className="h-1.5 rounded-full bg-white/[0.07] overflow-hidden">
                 <motion.div
                   className="h-full rounded-full bg-gradient-to-r from-gold to-champagne-gold"
                   initial={{ width: 0 }}
@@ -785,7 +786,10 @@ export default function Videos() {
                 />
               </div>
             </div>
-            <p className="text-2xl font-bold text-gold flex-shrink-0">{watchPct}%</p>
+            <div className="flex items-baseline gap-2 sm:border-l sm:border-white/10 sm:pl-6">
+              <p className="text-2xl font-bold text-gold flex-shrink-0 tabular-nums">{watchPct}%</p>
+              <span className="text-xs uppercase tracking-[0.2em] text-white/30">complete</span>
+            </div>
           </motion.div>
         )}
       </div>

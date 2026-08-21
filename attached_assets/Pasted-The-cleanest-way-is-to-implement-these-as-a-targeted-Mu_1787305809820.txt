@@ -1,0 +1,325 @@
+The cleanest way is to implement these as a targeted Music-page resilience/performance patch, not another broad site-wide optimization. The earlier performance work should stay intact.
+
+Since we’re working in Replit, you can give the Agent a single implementation prompt that tells it exactly what to diagnose, change, and verify.
+
+Implementation prompt
+
+KIUT MUSIC — MUSIC PAGE MOBILE LOADING & RESILIENCE FIX
+The /music page still has a serious mobile loading problem.
+On mobile, the Music page can:
+- take an unusually long time to become usable,
+- remain in a loading state,
+- occasionally fail to open,
+- or appear to crash and refresh.
+Previous Performance & Stability work has already been completed. DO NOT undo or broadly refactor that work.
+This task is specifically to diagnose and fix the remaining /music route loading and failure-resilience problems.
+IMPORTANT:
+- Do not redesign the Music page.
+- Do not change the KIUT visual identity.
+- Do not modify SEO architecture unless a change is strictly necessary to preserve existing behavior.
+- Do not modify Phase 11B, 11C, or 11D functionality.
+- Preserve initial HTML SEO metadata.
+- Preserve route-aware JSON-LD.
+- Preserve the real HTTP 404 behavior.
+- Preserve existing analytics.
+- Preserve existing performance optimizations.
+- Do not add unnecessary dependencies.
+- Do not replace existing assets unless absolutely necessary.
+- Do not mask failures by simply removing loading indicators.
+- Diagnose the actual bottleneck before implementing changes.
+==================================================
+PHASE A — DIAGNOSE FIRST
+==================================================
+Before changing application behavior, inspect the /music route from:
+1. route definition
+2. lazy-loading mechanism
+3. Music page component
+4. hero/media components
+5. release/discography components
+6. merchandise components
+7. timeline components
+8. audio/video/YouTube components
+9. shared navigation/footer components
+10. network/resource loading behavior
+Determine:
+- exact size of the production /music JavaScript chunk
+- which modules are included in that chunk
+- which assets are requested during initial render
+- which requests block or delay meaningful content
+- whether hero media blocks the page
+- whether audio/video initialization blocks rendering
+- whether YouTube embeds initialize too early
+- whether large images are loaded before they are visible
+- whether merchandise assets load before they are visible
+- whether the entire Music page is unnecessarily contained in one lazy-loaded route chunk
+- whether failed dynamic imports can leave the page permanently loading
+- whether hero image failures can leave the page permanently loading
+- whether media errors can propagate into route failure
+- whether React/runtime errors are occurring during mobile initialization
+- whether browser memory pressure or repeated media initialization could cause the apparent crash/reload
+Compare production measurements against development measurements.
+DO NOT use Vite development transfer size as the production performance baseline.
+Create a concise diagnostic summary before implementation.
+==================================================
+PHASE B — MAKE THE LAZY ROUTE FAILURE-RESILIENT
+==================================================
+The Music route is currently lazy-loaded.
+Add proper failure handling around the lazy-loaded Music route.
+Requirements:
+- A failed Music route chunk must never leave the user staring at an indefinite loading state.
+- Catch dynamic-import failures.
+- Show a branded, lightweight recovery state.
+- Provide a clear retry action.
+- If appropriate, provide a page reload/retry mechanism.
+- Do not automatically reload repeatedly.
+- Prevent infinite retry loops.
+- Preserve the existing loading experience when everything works normally.
+- Keep the recovery UI consistent with the KIUT black/gold design.
+The error boundary must be scoped appropriately so a Music-page failure does not take down the entire application.
+==================================================
+PHASE C — MAKE THE HERO FAILURE-RESILIENT
+==================================================
+The Music hero currently relies on successful media/image loading.
+Implement explicit failure handling.
+Requirements:
+- Add an image/media error state.
+- Never leave the hero permanently stuck because an asset failed.
+- If the hero asset fails, allow the rest of the Music page to remain usable.
+- Use an existing lightweight KIUT visual treatment as the fallback.
+- Do not introduce a large new fallback asset.
+- Do not block the main Music content waiting indefinitely for the hero.
+- Preserve existing visual behavior when the asset loads successfully.
+- Preserve reduced-motion behavior.
+If a loading timeout is appropriate, use a conservative timeout and only use it to release the page from an indefinite loading state.
+==================================================
+PHASE D — SPLIT THE MUSIC PAGE INTO LOADING PRIORITIES
+==================================================
+The current Music page appears to behave like one large lazy-loaded experience.
+Refactor only where measurement confirms it is beneficial.
+The page should have clear loading priorities:
+PRIORITY 1 — IMMEDIATE
+Load/render:
+- page shell
+- navigation
+- Music page heading/hero content
+- primary Music CTA
+- first meaningful release/content block
+These must become usable as quickly as possible.
+PRIORITY 2 — DEFERRED
+Load after the initial content is usable:
+- additional releases
+- discography timeline
+- supporting catalogue content
+- secondary interactive elements
+PRIORITY 3 — LAZY / ON-DEMAND
+Load only when approaching or interacting with:
+- YouTube embeds
+- heavy video
+- audio players that are not immediately required
+- merchandise imagery below the fold
+- newsletter sections below the fold
+- other heavy media/content sections
+Use viewport-based lazy loading or interaction-based loading where appropriate.
+Do not lazy-load content that is immediately visible simply for the sake of reducing requests.
+The goal is not "load everything later."
+The goal is:
+SHOW USEFUL CONTENT FIRST → DEFER NON-CRITICAL WORK.
+==================================================
+PHASE E — ISOLATE THIRD-PARTY MEDIA
+==================================================
+Third-party media must not be allowed to block the initial Music page.
+Review:
+- YouTube embeds
+- external streaming embeds
+- external media scripts
+- iframe initialization
+- audio/video initialization
+Requirements:
+- Do not initialize heavy embeds until needed.
+- Use lightweight placeholders where appropriate.
+- Load the actual embed when it enters the viewport or when the user interacts with it.
+- Preserve existing destination URLs.
+- Preserve accessibility.
+- Preserve video titles.
+- Preserve existing privacy-enhanced YouTube behavior where already implemented.
+- A failed third-party embed must not crash the Music route.
+- Third-party errors must be isolated from the main page.
+==================================================
+PHASE F — MEDIA ERROR ISOLATION
+==================================================
+Audit all Music-page media effects and event handlers.
+Current media playback failures appear to be swallowed.
+Improve this behavior so:
+- playback failure does not crash the page,
+- failed media can be retried,
+- unavailable media gracefully falls back,
+- errors are logged appropriately for debugging,
+- the UI does not remain indefinitely in a loading state.
+Do not expose technical error messages to normal visitors.
+==================================================
+PHASE G — MOBILE-FIRST TESTING
+==================================================
+This is critical.
+Test the Music page using realistic mobile conditions.
+At minimum test:
+1. Fast mobile connection
+2. Moderate/slow mobile connection
+3. Cold-cache load
+4. Warm-cache load
+5. Mobile CPU throttling
+6. Direct navigation to /music
+7. Navigation Home → Music
+8. Refresh while on /music
+9. Repeated navigation to/from /music
+10. Failed hero asset
+11. Failed lazy chunk
+12. Failed third-party media
+13. Interrupted network request
+Measure:
+- time until first meaningful Music content
+- time until hero becomes usable
+- time until first release is usable
+- total JavaScript transferred
+- production Music chunk size
+- number of initial requests
+- largest blocking assets
+- long tasks
+- failed requests
+- runtime exceptions
+- memory/CPU anomalies where measurable
+==================================================
+PHASE H — CRASH / REFRESH INVESTIGATION
+==================================================
+The user reports that the Music page sometimes appears to crash and refresh.
+Do not assume this is merely a loading problem.
+Investigate:
+- uncaught React errors
+- dynamic import failures
+- failed chunk execution
+- infinite render loops
+- state update loops
+- media initialization loops
+- repeated event listeners
+- repeated iframe initialization
+- memory pressure
+- browser reload triggers
+- service-worker/cache issues
+- route transition errors
+- mobile-only JavaScript errors
+If an actual crash trigger is identified, fix the root cause.
+Do not simply hide the error.
+==================================================
+PHASE I — SEO REGRESSION PROTECTION
+==================================================
+The following MUST remain unchanged functionally:
+Phase 11B:
+- route-specific initial HTML title
+- description
+- canonical
+- robots
+- Open Graph
+- Twitter metadata
+Phase 11C:
+- invalid URLs return actual HTTP 404
+- no soft-404 regression
+Phase 11D:
+- route-aware JSON-LD
+- MusicAlbum
+- MusicRecording
+- VideoObject
+- Event data where supported
+- no duplicate JSON-LD
+- no unresolved inAlbum references
+After the changes, verify:
+https://kiutmusic.com/music
+using raw HTML before JavaScript execution.
+The initial HTML must still contain the correct Music metadata and structured data.
+==================================================
+PHASE J — VISUAL REGRESSION PROTECTION
+==================================================
+Do not change:
+- KIUT logo
+- black/gold palette
+- approved typography
+- existing Music page layout
+- album artwork
+- existing content
+- navigation architecture
+- brand animations unless required for performance
+- responsive design behavior
+The goal is faster and more resilient loading, not a redesign.
+==================================================
+PHASE K — VALIDATION
+==================================================
+Run the project's existing validation suite.
+At minimum verify:
+- npm run check
+- npm run build
+- existing Playwright tests
+- structured-data regression tests
+- server/404 tests
+- any existing performance tests
+Then perform a dedicated production-style browser test of:
+/
+ /music
+ /videos
+Pay particular attention to Home → Music navigation.
+Test /music on both desktop and mobile.
+Confirm:
+✓ Music page opens reliably
+✓ no indefinite spinner
+✓ no blank page
+✓ no unexpected refresh
+✓ hero failure is recoverable
+✓ lazy chunk failure is recoverable
+✓ third-party media failure does not crash page
+✓ first meaningful content appears quickly
+✓ below-the-fold content remains functional
+✓ no horizontal overflow
+✓ navigation still works
+✓ SEO metadata remains correct
+✓ JSON-LD remains correct
+✓ 404 behavior remains correct
+✓ analytics remains functional
+==================================================
+FINAL REPORT
+==================================================
+Before completing the task, provide:
+1. Root cause(s) discovered
+2. Exact bottlenecks identified
+3. Changes implemented
+4. What was deferred/lazy-loaded
+5. Error-handling improvements
+6. Mobile performance results before vs after
+7. Production Music chunk size before vs after
+8. Initial request/asset changes
+9. Crash/reload cause, if identified
+10. SEO regression results
+11. Test results
+12. Any remaining issues
+IMPORTANT:
+Do not declare the Music page "fixed" merely because it eventually loads.
+The success criterion is:
+THE MUSIC PAGE MUST BECOME USABLE RELIABLY ON MOBILE WITHOUT AN INDEFINITE LOADING STATE, BLANK PAGE, OR UNEXPECTED REFRESH, WHILE PRESERVING THE EXISTING KIUT DESIGN, SEO, STRUCTURED DATA, ROUTING, AND PERFORMANCE WORK.
+
+One important distinction
+
+I would have Replit diagnose first and implement second, exactly as above. Your current symptom, “slow, lazy-loading, sometimes crashes and refreshes,” could be caused by several different things:
+
+large route chunk → slow mobile download → delayed React mount
+
+or
+
+failed chunk → rejected lazy import → no error boundary → apparent hang
+
+or
+
+hero/media failure → loading state never resolves
+
+or
+
+runtime/media error → React route failure → apparent refresh
+
+Those look almost identical to a human staring at an iPhone screen, because naturally the browser provides us with the helpful diagnostic message of nothing happens. Humanity’s finest interface design.
+
+The most important thing is that Replit should report the actual production measurements and root cause before making architectural changes. That prevents us from piling another optimization layer on top of the previous one and making the Music page resemble a performance experiment rather than a website.

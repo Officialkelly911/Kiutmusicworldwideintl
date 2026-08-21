@@ -26,6 +26,7 @@ export type AnalyticsEvent =
   | "page_view"
   // Music
   | "music_play"
+  | "music_error"
   | "streaming_click"
   | "romantic_love_stream_click"
   // Video

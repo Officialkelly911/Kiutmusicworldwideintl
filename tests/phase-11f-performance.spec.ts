@@ -63,6 +63,47 @@ test.describe("Phase 11F performance and measurement", () => {
     await context.close();
   });
 
+  test("keeps Music-only loads focused until the catalogue approaches the viewport", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      isMobile: true,
+      hasTouch: true,
+    });
+    const page = await context.newPage();
+    await skipIntro(page);
+
+    const homeHeroRequests: string[] = [];
+    const audioRequests: string[] = [];
+    page.on("request", (request) => {
+      if (request.url().includes("/assets/images/hero-poster.webp")) {
+        homeHeroRequests.push(request.url());
+      }
+      if (request.resourceType() === "media" && request.url().includes("/audio/")) {
+        audioRequests.push(request.url());
+      }
+    });
+
+    await page.goto("/music", { waitUntil: "domcontentloaded", timeout: 60_000 });
+    await expect(page.getByTestId("featured-release-romantic-love")).toBeVisible({
+      timeout: 30_000,
+    });
+    await expect(page.locator('[data-testid^="track-row-"]')).toHaveCount(0);
+    await expect(page.locator("audio")).toHaveCount(0);
+    expect(homeHeroRequests).toEqual([]);
+    expect(audioRequests).toEqual([]);
+
+    await page.evaluate(() => window.scrollTo(0, 650));
+    await expect
+      .poll(() => page.locator('[data-testid^="track-row-"]').count(), { timeout: 15_000 })
+      .toBe(15);
+    await expect(page.locator("audio")).toHaveCount(5);
+    await expect(page.getByText("Music Discovery", { exact: true })).toBeVisible();
+
+    await context.close();
+  });
+
   test("initializes GA4 once and emits one route-level page view per SPA navigation", async ({
     page,
   }) => {

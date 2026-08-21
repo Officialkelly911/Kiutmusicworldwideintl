@@ -211,6 +211,17 @@ async function main() {
   }
 
   const { html: musicHtml } = await fetchDocument("/music");
+  const { html: homeHtml } = await fetchDocument("/");
+  assert.match(
+    homeHtml,
+    /<link rel="preload" as="image" type="image\/webp" href="\/assets\/images\/hero-poster\.webp" fetchpriority="high" \/>/,
+    "the homepage should retain its priority hero poster preload",
+  );
+  assert.doesNotMatch(
+    musicHtml,
+    /hero-poster\.webp/,
+    "the Music route should not preload homepage-only hero media",
+  );
   const musicGraph = parseGraph(musicHtml);
   const albums = entitiesOfType(musicGraph, "MusicAlbum");
   const recordings = entitiesOfType(musicGraph, "MusicRecording");

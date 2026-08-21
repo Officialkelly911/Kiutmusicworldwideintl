@@ -440,6 +440,36 @@ function MusicDiscovery() {
   );
 }
 
+/**
+ * Keeps expensive catalogue and discovery DOM out of the initial route render.
+ * The content mounts shortly before it can enter the viewport, so the approved
+ * page remains visually identical once a visitor reaches it.
+ */
+function DeferredMusicContent({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const target = ref.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setIsReady(true);
+      observer.disconnect();
+    }, { rootMargin: "250px 0px" });
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} aria-busy={!isReady}>
+      {isReady ? children : null}
+    </div>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Music() {
@@ -671,6 +701,7 @@ export default function Music() {
           </div>
         </motion.div>
 
+        <DeferredMusicContent>
         {/* ── Music Statistics ─────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -1333,6 +1364,7 @@ export default function Music() {
         </motion.div>
 
         <MusicDiscovery />
+        </DeferredMusicContent>
 
       </div>
       <SiteFooter />

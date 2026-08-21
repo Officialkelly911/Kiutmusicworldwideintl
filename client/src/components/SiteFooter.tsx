@@ -223,7 +223,7 @@ export default function SiteFooter() {
         </div>
 
         {/* ── Designer credit ──────────────────────────────────── */}
-        <p className="mt-4 text-center text-[9px] font-light tracking-[0.2em] text-white/20">
+        <p className="mt-4 text-center text-[9px] font-normal tracking-[0.2em] text-white/20">
           Designed &amp; Developed by{" "}
           <span className="text-white/30">{DESIGNER.name}</span>
         </p>

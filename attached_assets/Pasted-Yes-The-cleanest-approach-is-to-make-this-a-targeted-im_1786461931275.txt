@@ -1,0 +1,566 @@
+Yes. The cleanest approach is to make this a targeted implementation prompt that changes only the two requested visual roles:
+
+1. Creative Portfolio hero → released-song cover carousel/slideshow
+2. Music page hero → current Creative Portfolio image
+
+Everything else should remain untouched. Because apparently websites enjoy becoming unstable whenever someone moves one image.
+
+Here is the refined prompt:
+
+MUSIC PAGE + CREATIVE PORTFOLIO HERO UPDATE
+
+Targeted Visual Reassignment & Released-Song Cover Slideshow
+
+OBJECTIVE
+
+Update the existing Kiut Music website so that:
+
+1. The Creative Portfolio section no longer uses its current single hero image.
+2. The Creative Portfolio hero area becomes a premium responsive slideshow/carousel displaying the official cover artwork of all released Kiut songs.
+3. The current Creative Portfolio hero image becomes the new hero image for the Music page.
+4. Preserve the existing Kiut Music visual identity, layout system, animations, navigation, typography, spacing, responsive behavior, reusable CTA components, and existing functionality.
+5. Do not redesign unrelated sections or pages.
+
+This is a targeted visual/content reassignment, not a site-wide redesign.
+
+⸻
+
+1. MUSIC PAGE HERO IMAGE
+
+Replace the current Music page hero image with the image currently being used in the Creative Portfolio section.
+
+The existing Creative Portfolio hero image is the approved Kiut Music visual featuring Kiut seated in a chair wearing white, with the large “KIUT MUSIC” typography integrated into the artwork.
+
+Use that exact existing asset as the source image.
+
+Important
+
+Do NOT recreate, redesign, crop unnecessarily, or alter the artwork.
+
+The objective is simply:
+
+Current Creative Portfolio hero image → Music page hero image
+
+The image should retain its existing visual quality and branding.
+
+Music Hero Requirements
+
+Implement the image through the site’s existing shared/universal Hero system.
+
+Preserve:
+
+* Existing hero typography
+* Existing hero CTA
+* Existing CTA animation
+* Existing overlay behavior
+* Existing navigation behavior
+* Existing spacing
+* Existing section height logic
+* Existing responsive architecture
+* Existing accessibility behavior
+
+Do not introduce a second, duplicate hero component.
+
+Use the existing shared Hero component and assign the Creative Portfolio image as the Music page’s hero media.
+
+⸻
+
+2. CREATIVE PORTFOLIO HERO → RELEASED SONG COVER SLIDESHOW
+
+Replace the current single Creative Portfolio hero image with a premium released-song cover artwork slideshow/carousel.
+
+The slideshow should showcase ALL officially released Kiut songs currently represented in the site’s tracklist/data.
+
+Do not manually hard-code a small selection if the project already contains a centralized track data source.
+
+Use the existing centralized music/track data wherever possible.
+
+⸻
+
+3. SONG COVER DATA
+
+First audit the existing project for:
+
+* Track data
+* Album/single data
+* Existing cover artwork
+* Music metadata
+* Track IDs
+* Release dates
+* Streaming links
+* Existing /audio or media structures
+* Existing image assets
+* Existing music page components
+* Existing track/card components
+
+Reuse existing assets and data structures wherever possible.
+
+Do not create duplicate track definitions.
+
+If the project already contains a centralized tracks.ts, music data file, JSON data source, database model, or equivalent, use that source as the single source of truth.
+
+Each slideshow item should be generated from the released-song dataset.
+
+⸻
+
+4. RELEASED SONG SLIDES
+
+Each slide should primarily feature the official cover artwork.
+
+Recommended visual hierarchy:
+
+Desktop
+
+* Large cover artwork centered within the hero area
+* Artwork should feel premium and cinematic
+* Rounded corners consistent with the existing Kiut Music visual language
+* Subtle depth/shadow
+* Minimal surrounding UI
+* Song title and relevant metadata positioned elegantly without competing with the artwork
+
+Mobile
+
+* Cover artwork remains the dominant visual element
+* Preserve the artwork’s intended composition
+* Avoid aggressive cropping
+* Maintain readable metadata
+* Ensure controls remain comfortably tappable
+
+Do not overload the hero with unnecessary text.
+
+The artwork should remain the primary focus.
+
+⸻
+
+5. SLIDESHOW BEHAVIOR
+
+Implement a polished, production-quality carousel.
+
+Recommended behavior
+
+* Smooth horizontal or cinematic crossfade transition
+* Automatic progression
+* Approximately 4–6 seconds per slide
+* Pause autoplay when the user interacts with the carousel
+* Resume intelligently after interaction
+* Previous/next controls
+* Pagination indicators
+* Keyboard navigation
+* Touch/swipe support
+* Accessible labels for controls
+* Respect prefers-reduced-motion
+
+Transitions should be subtle and premium.
+
+Avoid:
+
+* Excessive bouncing
+* Aggressive zooming
+* Fast flashing
+* Distracting 3D effects
+* Excessive particle effects
+* Generic template-carousel aesthetics
+
+The result should feel like a premium music artist website rather than a stock web carousel.
+
+⸻
+
+6. SLIDE TRANSITION DESIGN
+
+Use the existing Kiut Music animation language.
+
+Preferred transition:
+
+1. Current artwork gently fades/scales down.
+2. Incoming artwork fades/scales into position.
+3. Metadata transitions smoothly with the artwork.
+4. No abrupt layout shift.
+5. The overall hero container remains stable during transitions.
+
+If the project already has an approved animation utility or motion system, reuse it.
+
+Do not introduce a new animation library unless absolutely necessary.
+
+⸻
+
+7. COVER ARTWORK PRESENTATION
+
+The cover artwork should be treated as an important visual asset.
+
+Use:
+
+* object-fit: cover or contain only where appropriate to the actual artwork
+* Stable aspect-ratio containers
+* Responsive sizing
+* High-quality image rendering
+* Lazy loading for non-active slides where appropriate
+* Preloading of the active/next slide where beneficial
+
+Do not distort artwork.
+
+Do not stretch cover images.
+
+Do not allow images to become pixelated unnecessarily.
+
+⸻
+
+8. RESPONSIVE IMAGE VARIANTS
+
+The site’s existing responsive hero-image strategy must continue to be used.
+
+For the Music page hero image and the Creative Portfolio slideshow artwork, support appropriate responsive image delivery.
+
+Where source assets permit, prepare or use optimized variants for:
+
+* Desktop Hero: 2560 × 1440
+* Large Desktop: 1920 × 1080
+* Tablet: 1600 × 1200
+* Mobile Portrait: 1080 × 1920
+* Mobile Landscape: 1600 × 900
+
+Do not force every image into every aspect ratio if that would damage the artwork.
+
+Instead:
+
+* Use art-directed crops where necessary.
+* Preserve important subjects.
+* Keep faces and focal points visible.
+* Avoid awkward cropping.
+* Use the correct variant at the appropriate breakpoint.
+
+Apply this responsive-image strategy consistently with the existing website-wide Hero/Image architecture.
+
+Do not create a separate image-loading system for this feature.
+
+⸻
+
+9. MUSIC HERO RESPONSIVE TREATMENT
+
+For the transferred Creative Portfolio image now used on the Music page:
+
+Desktop should preserve the cinematic composition.
+
+Tablet should maintain the subject and major visual elements.
+
+Mobile portrait should use an art-directed crop rather than simply allowing CSS to randomly crop the desktop image.
+
+The subject must remain visually prominent.
+
+Do not allow navigation, hero text, or CTA elements to cover the important focal area of the photograph.
+
+⸻
+
+10. CREATIVE PORTFOLIO HERO LAYOUT
+
+The new Creative Portfolio hero should feel like a curated music showcase.
+
+Suggested hierarchy:
+
+Eyebrow / section label
+→ “RELEASED MUSIC” or existing approved Creative Portfolio label
+
+Song Artwork
+→ Large active cover
+
+Track Information
+→ Song title
+→ Optional release information
+
+Carousel Controls
+→ Previous
+→ Next
+→ Pagination
+
+Optional Action
+→ Existing approved CTA component where appropriate
+
+Do not invent unnecessary copy.
+
+If existing Creative Portfolio copy already exists and should remain, preserve it unless it conflicts with the new carousel.
+
+⸻
+
+11. CTA PROTECTION REQUIREMENT
+
+CRITICAL
+
+Do NOT modify, replace, redesign, restyle, duplicate, or remove the existing premium reusable CTA button component.
+
+The previously approved reusable CTA animation and styling must remain completely intact.
+
+This specifically includes the CTA implementation previously applied to:
+
+* Hero section “Listen Now”
+* “Latest Release”
+* “Join Newsletter”
+* “Book Kiut”
+* “Shop Merchandise”
+* “Watch Official Video”
+* “Become a Member”
+* “Contact”
+
+The carousel implementation must consume the existing CTA component if a CTA is required.
+
+Do not create a separate carousel-specific button style.
+
+Do not overwrite the global CTA component.
+
+Do not alter its:
+
+* Animation
+* Hover behavior
+* Typography
+* Border treatment
+* Glow
+* Spacing
+* Interaction behavior
+* Responsive behavior
+
+⸻
+
+12. NAVIGATION AND PAGE STRUCTURE
+
+Do not modify the current website navigation hierarchy as part of this task.
+
+Preserve the previously approved navigation structure, including the consolidated dropdown approach where already implemented.
+
+Do not create new navigation items for individual songs.
+
+The slideshow should remain part of the existing Creative Portfolio experience.
+
+⸻
+
+13. PERFORMANCE
+
+The implementation must be production-ready.
+
+Optimize:
+
+* Image sizes
+* Image formats
+* Lazy loading
+* Preloading
+* Responsive srcset
+* sizes
+* Browser caching
+* Animation performance
+* DOM complexity
+
+Do not load every extremely large image simultaneously if unnecessary.
+
+A sensible strategy is:
+
+* Load the active slide immediately.
+* Preload the next slide.
+* Lazy-load distant slides.
+* Use optimized image formats where supported.
+
+Avoid unnecessary JavaScript execution.
+
+Animations should remain smooth on mobile devices.
+
+⸻
+
+14. ACCESSIBILITY
+
+The slideshow must be accessible.
+
+Include:
+
+* Meaningful image alt text
+* Accessible previous/next controls
+* Keyboard navigation
+* Visible focus states
+* Appropriate ARIA labels
+* Pause/resume behavior
+* Reduced-motion support
+* Sufficient contrast
+
+Autoplay must not make the content unusable.
+
+⸻
+
+15. DATA ARCHITECTURE
+
+Do not duplicate track data specifically for the carousel.
+
+The carousel should consume the existing centralized music dataset.
+
+Example conceptual structure:
+
+Centralized Track Data
+        ↓
+Music Page
+        ↓
+Creative Portfolio Carousel
+        ↓
+Track Artwork
+Track Title
+Release Metadata
+Streaming Link
+
+If a centralized source does not currently exist, create one using the project’s existing architecture rather than introducing a second independent data structure.
+
+The same track metadata should remain reusable by:
+
+* Music page
+* Released music sections
+* Audio player
+* Track cards
+* Creative Portfolio carousel
+* Streaming links
+* Future music-related features
+
+⸻
+
+16. IMAGE ASSET AUDIT
+
+Before implementing, inspect the existing project assets.
+
+Locate:
+
+* Current Creative Portfolio hero image
+* All released-song cover images
+* Existing Music page images
+* Existing track artwork
+* Existing hero assets
+* Duplicate artwork
+* Unused artwork
+
+Do not assume filenames.
+
+Use the actual project assets.
+
+If multiple versions of the same artwork exist, select the highest-quality approved source and avoid unnecessary duplication.
+
+⸻
+
+17. DO NOT CHANGE EXISTING DESIGN LANGUAGE
+
+This implementation must remain visually consistent with the approved Kiut Music website.
+
+Preserve:
+
+* Black/dark luxury aesthetic
+* Gold accents
+* Existing typography
+* Existing spacing system
+* Existing rounded-corner language
+* Existing glow effects
+* Existing animation language
+* Existing CTA system
+* Existing header/navigation
+* Existing footer
+* Existing responsive behavior
+
+The new carousel should look like it belongs to the website.
+
+It should NOT look like a third-party carousel component was dropped into the page.
+
+⸻
+
+18. DO NOT REDESIGN UNRELATED SECTIONS
+
+Do not modify:
+
+* Store
+* Tour
+* Contact
+* Newsletter
+* About
+* Videos
+* Header
+* Footer
+* Authentication
+* Email functionality
+* Mailchimp integration
+* Resend integration
+* Analytics
+* SEO
+* Existing CTA components
+
+unless a change is strictly required to prevent regression from this implementation.
+
+⸻
+
+19. VERIFICATION
+
+After implementation, verify the following:
+
+Music Page
+
+* Creative Portfolio hero image successfully appears as Music page hero.
+* Image quality is preserved.
+* Responsive crops work correctly.
+* Existing Music page CTA remains functional.
+* Existing Hero component remains intact.
+
+Creative Portfolio
+
+* Old single hero image is removed from the hero position.
+* Released-song cover carousel appears correctly.
+* All released songs are represented.
+* Artwork loads correctly.
+* Slide transitions work.
+* Autoplay works.
+* Previous/next controls work.
+* Pagination works.
+* Touch/swipe works.
+* Keyboard navigation works.
+* Reduced-motion behavior works.
+
+Global Regression
+
+Verify that the following remain unchanged and functional:
+
+* Listen Now
+* Latest Release
+* Join Newsletter
+* Book Kiut
+* Shop Merchandise
+* Watch Official Video
+* Become a Member
+* Contact
+
+Especially verify that the existing premium reusable CTA component and its animation have not been altered.
+
+⸻
+
+20. FINAL ACCEPTANCE CRITERIA
+
+The task is complete only when:
+
+1. The current Creative Portfolio hero image has been successfully reassigned to the Music page Hero.
+2. The Creative Portfolio hero has been replaced with a released-song cover slideshow.
+3. Every officially released Kiut song in the site’s current music dataset is represented.
+4. Existing track data is reused rather than duplicated.
+5. The carousel is responsive across desktop, tablet, and mobile.
+6. Artwork is not distorted or awkwardly cropped.
+7. Responsive image optimization follows the existing website-wide image strategy.
+8. The carousel animation feels premium and consistent with Kiut Music.
+9. Existing CTA components remain untouched.
+10. Existing navigation and website hierarchy remain untouched.
+11. No unrelated pages are redesigned.
+12. Accessibility requirements are satisfied.
+13. Performance is optimized.
+14. No console errors are introduced.
+15. No broken image paths or broken track links remain.
+16. The implementation passes desktop and mobile QA.
+
+FINAL REPORT
+
+After completing the implementation, provide a concise report containing:
+
+* Files/components modified
+* Current Creative Portfolio hero asset reassigned to Music
+* Number of released-song covers integrated
+* Carousel behavior implemented
+* Responsive image variants/strategy implemented
+* Accessibility improvements
+* Performance optimizations
+* Tests performed
+* Any remaining asset/data issues
+* Confirmation that the existing reusable CTA component was not modified
+* Confirmation that no unrelated website sections were redesigned
+
+Do not stop after identifying problems. Implement all technically feasible requirements and verify the result before reporting completion.

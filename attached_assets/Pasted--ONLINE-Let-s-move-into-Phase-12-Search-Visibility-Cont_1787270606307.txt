@@ -1,0 +1,713 @@
+Ω ONLINE
+
+Let’s move into Phase 12: Search Visibility & Content SEO. The technical foundation is now strong enough that we should stop poking the plumbing and start making Google understand why KIUT exists. Humanity survives another SEO phase.
+
+Use this as the master implementation prompt for Replit Agent:
+
+⸻
+
+PHASE 12 — KIUT MUSIC SEARCH VISIBILITY & CONTENT SEO IMPLEMENTATION
+
+Objective
+
+Implement Phase 12 of the KIUT Music SEO roadmap.
+
+The purpose of this phase is to improve search discoverability, semantic relevance, internal linking, music/release discoverability, entity understanding, and content quality while preserving the existing KIUT visual identity and all successfully completed Phase 11 functionality.
+
+This is an SEO/content architecture implementation phase, not a redesign.
+
+⸻
+
+1. REQUIRED PRE-IMPLEMENTATION AUDIT
+
+Before changing anything, inspect the current production implementation and confirm the state of:
+
+* Phase 11B initial HTML metadata
+* Phase 11C HTTP 404 handling
+* Phase 11D JSON-LD structured data
+* Phase 11E accessibility/runtime improvements
+* Phase 11F performance/analytics implementation
+* robots.txt
+* sitemap.xml
+* route configuration
+* centralized SEO metadata
+* centralized music catalogue
+* video catalogue
+* tour data
+* internal linking
+* social metadata
+* streaming CTAs
+* Romantic Love release implementation
+
+Do not modify anything until this audit is complete.
+
+Use the existing source of truth wherever possible.
+
+⸻
+
+2. PUBLIC ROUTES
+
+Audit and optimize these existing public routes:
+
+/
+ /music
+ /videos
+ /about
+ /tour
+ /newsletter
+ /contact
+ /legal
+
+Do not create new SEO pages unless there is a demonstrated architectural requirement.
+
+⸻
+
+3. SEARCH INTENT ARCHITECTURE
+
+Create a lightweight search-intent map around existing KIUT content.
+
+Prioritize legitimate search themes such as:
+
+Artist
+
+* KIUT
+* KIUT Music
+* KIUT Music Worldwide
+* KIUT artist
+* KIUT musician
+
+Music
+
+* KIUT music
+* KIUT songs
+* KIUT releases
+* KIUT albums
+* KIUT EPs
+* KIUT singles
+
+Romantic Love
+
+* KIUT Romantic Love
+* Romantic Love by KIUT
+* KIUT Romantic Love song
+* KIUT Romantic Love music
+
+Do not add keyword-stuffed blocks.
+
+Do not create artificial SEO copy.
+
+Only use terminology supported by the existing website.
+
+⸻
+
+4. PAGE-LEVEL SEO AUDIT
+
+For every public route inspect:
+
+* <title>
+* meta description
+* canonical
+* robots
+* OG title
+* OG description
+* OG image
+* Twitter metadata
+* H1
+* H2 hierarchy
+* introductory content
+* internal links
+* image alt text
+* structured data
+* search intent
+* page uniqueness
+
+Correct genuine issues only.
+
+Preserve approved copy wherever possible.
+
+⸻
+
+5. HOMEPAGE SEO
+
+Strengthen the homepage’s semantic understanding of KIUT.
+
+The page should clearly establish:
+
+* KIUT as the artist/entity
+* KIUT’s music identity
+* current release/discovery path
+* relevant artistic positioning
+* supported geographic/cultural identity
+
+Do this through existing visible content and semantic structure.
+
+Do not add hidden SEO text.
+
+Do not compromise the visual hero experience.
+
+Ensure the homepage has one meaningful, visible <h1> representing the page’s primary topic.
+
+⸻
+
+6. MUSIC PAGE
+
+Treat /music as a major search landing page.
+
+Ensure the page clearly communicates:
+
+* KIUT’s music catalogue
+* releases
+* singles
+* albums/EPs where applicable
+* current featured release
+* streaming destinations
+
+Use the centralized music data source.
+
+Do not duplicate release information manually.
+
+Maintain this relationship:
+
+KIUT
+ ↓
+Music
+ ↓
+Release
+ ↓
+Track
+ ↓
+Streaming destination
+
+⸻
+
+7. ROMANTIC LOVE SEO
+
+Give the current Romantic Love release appropriate prominence.
+
+Verify that:
+
+* Romantic Love appears as crawlable text
+* KIUT is clearly associated with the release
+* the release has meaningful contextual copy
+* artwork has appropriate alt text
+* streaming CTA has descriptive anchor text
+* relevant video/content relationships are maintained
+* existing structured data remains accurate
+
+Critical destination
+
+Preserve the existing Romantic Love smart-link destination exactly:
+
+https://bit.ly/m/Romanticlove
+
+Do not replace it.
+
+Do not redirect it somewhere else.
+
+Do not invent missing release metadata.
+
+⸻
+
+8. VIDEO SEO
+
+Audit /videos.
+
+Improve discoverability through:
+
+* descriptive video titles
+* meaningful surrounding text
+* proper heading hierarchy
+* relevant internal links
+* existing VideoObject structured data
+* relationships between videos and relevant music
+
+Where supported by existing data:
+
+Artist
+ ↓
+Song
+ ↓
+Music Video
+
+Do not invent:
+
+* upload dates
+* directors
+* production credits
+* descriptions
+* view counts
+* awards
+
+⸻
+
+9. TOUR SEO
+
+Audit /tour.
+
+Use Event structured data only when complete event information exists.
+
+Preserve:
+
+* event name
+* date
+* time
+* venue
+* location
+* ticket CTA
+
+Do not generate SEO content around tentative or incomplete events.
+
+⸻
+
+10. ABOUT PAGE
+
+Strengthen /about as the primary artist/entity page.
+
+Ensure it clearly communicates the existing supported information about:
+
+* KIUT
+* artistic identity
+* musical positioning
+* biography
+* geographic/cultural context
+* official website identity
+* official social profiles
+
+Do not rewrite the biography into generic marketing copy.
+
+Do not fabricate accomplishments.
+
+Ensure the page has one meaningful visible <h1>.
+
+⸻
+
+11. INTERNAL LINKING
+
+Improve the existing internal-link architecture.
+
+Prioritize meaningful relationships such as:
+
+Homepage
+ ↓
+Music
+ ↓
+Romantic Love
+ ↓
+Streaming
+Music
+ ↔
+Videos
+About
+ ↔
+Music
+ ↔
+Tour
+Latest Release
+ ↓
+Newsletter
+
+Use descriptive anchor text.
+
+Prefer:
+
+Listen to Romantic Love
+
+over:
+
+Click here
+
+Do not add excessive links simply for SEO.
+
+⸻
+
+12. IMAGE SEO
+
+Audit meaningful image alt text.
+
+Improve generic alternatives such as:
+
+Milestone Gallery
+Journey moment 1
+Journey moment 2
+
+where more accurate descriptions are possible.
+
+Prioritize:
+
+* artist imagery
+* release artwork
+* milestone imagery
+* promotional graphics
+* meaningful gallery images
+
+Preserve empty alt="" for genuinely decorative images.
+
+Do not keyword stuff alt text.
+
+⸻
+
+13. SOCIAL ENTITY CONSISTENCY
+
+Verify that KIUT’s:
+
+* artist name
+* logo
+* website
+* social profiles
+* release names
+* biography
+* imagery
+
+remain consistent across the website.
+
+Do not add unverified social accounts.
+
+⸻
+
+14. STRUCTURED DATA
+
+Extend the existing Phase 11D structured-data architecture only where justified.
+
+Maintain the existing:
+
+* MusicGroup
+* WebSite
+* WebPage
+* MusicAlbum
+* MusicRecording
+* VideoObject
+* Event
+
+relationships.
+
+Do not create a second JSON-LD system.
+
+Do not duplicate entities.
+
+Do not add unsupported properties.
+
+Ensure every structured-data entity represents facts already supported by the site.
+
+⸻
+
+15. MUSIC DATA CONSISTENCY
+
+Audit the centralized music catalogue for:
+
+* release names
+* artist associations
+* album/EP relationships
+* track relationships
+* dates
+* durations
+* streaming links
+* artwork
+
+Resolve genuine inconsistencies where the correct value can be established from existing project data.
+
+Do not guess missing information.
+
+Pay particular attention to the previously identified #album-singles relationship and ensure structured data does not reference an album entity that is not actually emitted.
+
+⸻
+
+16. SEARCH SNIPPET QUALITY
+
+Review titles and descriptions for every public route.
+
+Requirements:
+
+* unique
+* accurate
+* natural
+* search-intent aligned
+* consistent with visible content
+* not keyword stuffed
+
+Do not change approved copy unnecessarily.
+
+⸻
+
+17. FUTURE RELEASE ARCHITECTURE
+
+Make future releases easy to add without duplicating information.
+
+A new release should be able to propagate through the existing architecture:
+
+Central release data
+        ↓
+Music page
+        ↓
+Homepage promotion
+        ↓
+Structured data
+        ↓
+SEO metadata
+        ↓
+Streaming CTA
+        ↓
+Video relationship
+        ↓
+Analytics
+
+Avoid hard-coded copies of release metadata across unrelated components.
+
+⸻
+
+18. SEO REGRESSION TESTS
+
+Add or extend automated tests to verify:
+
+Metadata
+
+Every public route has:
+
+* unique title
+* description
+* canonical
+* robots
+* OG metadata
+* Twitter metadata
+
+Canonicals
+
+No:
+
+www.kiutmusic.com
+localhost
+*.replit.app
+
+URLs appear as canonical URLs.
+
+Structured data
+
+Verify:
+
+* valid JSON-LD
+* no duplicate entity IDs
+* no unresolved inAlbum references
+* correct artist relationship
+* correct release relationships
+* correct video relationships
+* correct event relationships
+
+Internal links
+
+Verify important links resolve correctly.
+
+Romantic Love
+
+Verify:
+
+Romantic Love
+→ https://bit.ly/m/Romanticlove
+
+remains intact.
+
+404
+
+Verify:
+
+/this-page-does-not-exist
+
+continues returning a genuine HTTP 404.
+
+Do not modify Phase 11C routing during this phase unless a regression is discovered.
+
+⸻
+
+19. PERFORMANCE PROTECTION
+
+SEO changes must not introduce:
+
+* render-blocking resources
+* oversized assets
+* duplicate scripts
+* duplicate JSON-LD
+* unnecessary JavaScript
+* layout shifts
+
+Preserve existing Phase 11F performance work.
+
+⸻
+
+20. DESIGN PROTECTION
+
+Do not modify:
+
+* KIUT branding
+* color palette
+* typography
+* logo
+* hero design
+* animations
+* navigation architecture
+* release artwork
+* visual layout
+* responsive breakpoints
+
+unless a change is directly required for semantic/accessibility SEO.
+
+SEO should be largely invisible to the visual design.
+
+⸻
+
+21. REQUIRED VALIDATION
+
+Run:
+
+npm run check
+npm run build
+
+Then run all existing:
+
+* SEO tests
+* structured-data tests
+* server 404 tests
+* accessibility tests
+* Playwright tests
+* performance tests, if available
+
+Test all eight public routes.
+
+Also test:
+
+https://kiutmusic.com/robots.txt
+https://kiutmusic.com/sitemap.xml
+
+Verify:
+
+https://kiutmusic.com/this-page-does-not-exist
+
+still returns HTTP 404.
+
+⸻
+
+22. RAW HTML VERIFICATION
+
+For every public route, inspect the raw HTML before JavaScript executes.
+
+Confirm that the initial HTML contains the correct:
+
+* title
+* description
+* canonical
+* robots
+* OG title
+* OG description
+* OG image
+* Twitter title
+* Twitter description
+* Twitter image
+* JSON-LD
+
+Do not rely exclusively on browser-rendered DOM inspection.
+
+Phase 11B specifically exists to solve that problem.
+
+⸻
+
+23. GOOGLE SEARCH CONSOLE READINESS
+
+Do not make changes directly inside Google Search Console.
+
+Prepare the site so that after deployment:
+
+* sitemap remains valid
+* canonical URLs are consistent
+* public pages are crawlable
+* structured data is valid
+* important pages are internally linked
+* new release content is discoverable
+
+Do not request mass indexing automatically.
+
+Indexing requests should be handled deliberately after the implementation is published.
+
+⸻
+
+24. CHANGE CONTROL
+
+This phase must remain tightly scoped.
+
+Do not:
+
+* modify DNS
+* modify domain configuration
+* modify hosting configuration
+* change analytics architecture
+* change authentication
+* change API endpoints
+* redesign UI
+* remove existing functionality
+* alter approved marketing copy without justification
+
+If an unrelated issue is discovered, document it separately instead of silently fixing it.
+
+⸻
+
+25. REQUIRED COMPLETION REPORT
+
+At the end provide:
+
+Search Architecture
+
+What search intents were mapped and where.
+
+Page SEO
+
+Changes made to each route.
+
+Music SEO
+
+Changes made to the music catalogue.
+
+Romantic Love
+
+Confirmation of its SEO implementation and streaming destination.
+
+Internal Linking
+
+Links added or improved.
+
+Entity SEO
+
+Structured-data/entity changes.
+
+Image SEO
+
+Alt-text improvements.
+
+Technical SEO
+
+Confirmation that Phase 11B–11F functionality remains intact.
+
+Testing
+
+Report every test and result.
+
+Remaining Issues
+
+Separate genuine issues from optional future opportunities.
+
+Publication Status
+
+Do not publish automatically.
+
+Clearly state whether the implementation is:
+
+* ready for review
+* ready to publish
+* blocked by an issue
+
+⸻
+
+FINAL IMPLEMENTATION PRINCIPLE
+
+Make KIUT easier for search engines to understand without making KIUT look like an SEO project.
+
+The website should still feel like an artist’s website first.
+
+Search optimization should improve discovery, context, and entity understanding underneath the experience, not turn the page into a landfill of keywords.
+
+Begin with the audit. Do not make implementation changes until the audit establishes the current state.

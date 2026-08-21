@@ -1,0 +1,589 @@
+KIUT MUSIC — HOMEPAGE HERO SLIDE 3 & RECENT RELEASE IMPLEMENTATION
+
+OBJECTIVE
+
+Make the following coordinated updates to the existing KIUT Music website:
+
+1. Replace the third slide of the homepage Hero carousel, currently labeled “Creative Portfolio”, with a new “Recent Release” slide featuring “Romantic Love”.
+2. Use the uploaded image labeled “background image” as the background visual for the new third Hero slide.
+3. Use the uploaded image labeled “overlay image” as the foreground/overlay release music graphic for the new third Hero slide.
+4. Add the uploaded audio file to the Music page as Kiut’s recently released single, “Romantic Love”.
+5. Use the uploaded image labeled “music page hero image” as the Music page Hero image.
+6. Preserve all previously approved KIUT Music design systems, navigation, CTA components, animations, responsive behavior, branding, and existing functionality.
+
+This is a targeted content and asset integration task, not a redesign of the website.
+
+⸻
+
+PART 1 — HOMEPAGE HERO: REPLACE SLIDE 3
+
+1.1 Locate the Existing Hero Carousel
+
+Inspect the homepage Hero implementation and identify the slide currently labeled:
+
+Creative Portfolio
+
+This is the third Hero slide.
+
+Replace only the content and visual assets of this third slide.
+
+Do not modify the first or second Hero slides unless required to prevent a regression.
+
+⸻
+
+1.2 New Third Slide Identity
+
+The third slide should now represent:
+
+Eyebrow / Category
+
+RECENT RELEASE
+
+Release Title
+
+ROMANTIC LOVE
+
+Use the project’s existing Hero typography hierarchy and styling.
+
+Do not introduce a new typography system.
+
+⸻
+
+PART 2 — THIRD SLIDE BACKGROUND IMAGE
+
+Use the uploaded asset specifically labeled:
+
+background image
+
+as the background image for the third Hero slide.
+
+Requirements
+
+* Use the exact uploaded asset.
+* Do not substitute another image.
+* Do not recreate the artwork.
+* Do not add unrelated imagery.
+* Preserve the image’s intended visual composition.
+* Use the existing Hero background-image architecture where possible.
+
+If the image requires responsive treatment, implement appropriate responsive positioning/cropping.
+
+Do not distort the image.
+
+⸻
+
+PART 3 — THIRD SLIDE OVERLAY RELEASE GRAPHIC
+
+Use the uploaded asset specifically labeled:
+
+overlay image
+
+as the foreground/overlay release-music graphic for the third Hero slide.
+
+The overlay image should sit above the background image and form the primary release artwork/visual treatment.
+
+Layer hierarchy
+
+The intended composition should follow:
+
+Homepage Hero
+│
+├── Background Image
+│   └── uploaded "background image"
+│
+├── Existing Hero Overlay / Gradient
+│   └── preserve if already part of the system
+│
+├── Release Overlay Graphic
+│   └── uploaded "overlay image"
+│
+└── Hero Content
+    ├── RECENT RELEASE
+    ├── ROMANTIC LOVE
+    └── Existing approved CTA
+
+Adjust the positioning and scale of the overlay graphic so it feels intentionally integrated into the Hero rather than appearing as a separate image placed on top.
+
+⸻
+
+PART 4 — RESPONSIVE HERO COMPOSITION
+
+The new third slide must work correctly across:
+
+Desktop
+
+* 2560 × 1440
+* 1920 × 1080
+* 1440 × 900
+* 1280 × 800
+
+Tablet
+
+* 1024 × 768
+* 768 × 1024
+
+Mobile
+
+* 430 × 932
+* 390 × 844
+* 375 × 812
+
+The background and overlay image must adapt independently where necessary.
+
+Desktop
+
+The composition should be cinematic.
+
+The background should fill the Hero without awkward cropping.
+
+The overlay release graphic should remain prominent without covering important background content unnecessarily.
+
+Mobile
+
+Do not simply scale the desktop composition down.
+
+Create responsive positioning rules so:
+
+* The release graphic remains visible.
+* The background focal point remains visible.
+* The title remains readable.
+* The CTA remains accessible.
+* No important artwork is clipped.
+* No horizontal overflow occurs.
+
+If necessary, use responsive object-position, transforms, sizing, or breakpoint-specific positioning.
+
+Do not use arbitrary negative offsets without understanding the visual composition.
+
+⸻
+
+PART 5 — HERO CTA
+
+The new Romantic Love slide should use the existing approved Hero CTA system.
+
+Do NOT create a new CTA component.
+
+Do NOT modify the existing reusable premium CTA component.
+
+Preserve the existing CTA styling and animation already used throughout the website.
+
+If the third slide currently contains an appropriate CTA, update its destination/content only where necessary.
+
+A suitable CTA may be:
+
+LISTEN NOW
+
+or the existing approved equivalent already used by the Hero system.
+
+If an internal Music page route already exists, prefer that route.
+
+Do not invent external streaming URLs.
+
+⸻
+
+PART 6 — MUSIC PAGE: RECENTLY RELEASED SINGLE
+
+Add the uploaded audio file as a new/recently released single on the Music page.
+
+Release information
+
+Title:
+Romantic Love
+
+Status:
+Recently Released
+
+Use the uploaded audio file as the actual audio source.
+
+Do not replace it with a placeholder audio file.
+
+⸻
+
+PART 7 — MUSIC PAGE AUDIO IMPLEMENTATION
+
+First inspect the existing Music page architecture.
+
+Determine whether the project already has:
+
+* Audio player
+* Track component
+* Track data model
+* Release data structure
+* Recently Released section
+* Music library
+* Playlist
+* Centralized music metadata
+
+Reuse the existing architecture.
+
+Do not create a duplicate audio-player system if one already exists.
+
+The new release should be integrated into the existing music data source so it can be reused throughout the website.
+
+⸻
+
+PART 8 — ROMANTIC LOVE TRACK DATA
+
+Add Romantic Love to the centralized music/release dataset.
+
+Use the project’s existing data structure.
+
+Where supported, include:
+
+id
+title
+artist
+audio
+coverImage
+releaseDate
+status
+streamingLinks
+duration
+
+Only populate fields for which valid information/assets exist.
+
+Do not invent:
+
+* Release dates
+* Streaming URLs
+* Track duration
+* Artist credits
+* Copyright information
+* Album information
+
+If a field is unavailable, leave it optional rather than fabricating data.
+
+⸻
+
+PART 9 — MUSIC PAGE COVER ART
+
+If the uploaded overlay image is the official artwork for “Romantic Love”, determine whether it is appropriate to reuse it as the track’s cover artwork.
+
+If it is clearly intended only as a Hero overlay graphic, do not automatically repurpose it.
+
+Use the appropriate uploaded artwork based on its intended role.
+
+Maintain a clear distinction between:
+
+* Homepage Hero background image
+* Homepage Hero overlay graphic
+* Music page Hero image
+* Romantic Love cover artwork
+* Romantic Love audio file
+
+Do not accidentally assign the wrong asset to the wrong location.
+
+⸻
+
+PART 10 — MUSIC PAGE HERO IMAGE
+
+Replace the current Music page Hero image with the uploaded asset labeled:
+
+music page hero image
+
+Use the exact uploaded asset.
+
+Requirements
+
+* Use it as the primary Music page Hero visual.
+* Preserve the existing Music Hero layout.
+* Preserve existing Hero typography.
+* Preserve existing CTA.
+* Preserve existing overlay/gradient system.
+* Preserve existing animations.
+* Preserve existing responsive behavior.
+
+Do not redesign the Music page Hero.
+
+⸻
+
+PART 11 — MUSIC HERO RESPONSIVE IMAGE HANDLING
+
+Ensure the uploaded Music page Hero image is properly optimized for:
+
+* Desktop
+* Large desktop
+* Tablet
+* Mobile portrait
+* Mobile landscape
+
+Do not simply apply a single fixed crop across all devices.
+
+Where necessary, use:
+
+* Responsive image sources
+* Art-directed crops
+* object-position
+* Responsive aspect ratios
+* Existing Hero image utilities
+
+The subject and important visual elements must remain visible.
+
+Do not distort the image.
+
+⸻
+
+PART 12 — WEBSITE-WIDE HERO IMAGE ARCHITECTURE
+
+Use the existing responsive Hero image system already implemented across the website.
+
+Do not create a separate image architecture specifically for this page.
+
+Where the existing system supports optimized variants, follow the established strategy:
+
+* Desktop Hero: 2560 × 1440
+* Large Desktop: 1920 × 1080
+* Tablet: 1600 × 1200
+* Mobile Portrait: 1080 × 1920
+* Mobile Landscape: 1600 × 900
+
+Only generate/use variants where they are appropriate for the source asset.
+
+Preserve important focal points when creating responsive crops.
+
+⸻
+
+PART 13 — HOMEPAGE HERO CAROUSEL BEHAVIOR
+
+The third slide must continue to behave exactly like the existing Hero carousel.
+
+Preserve:
+
+* Autoplay
+* Slide timing
+* Transition animation
+* Navigation
+* Pagination
+* Touch/swipe interaction
+* Keyboard accessibility
+* Responsive behavior
+* Existing Hero controls
+
+Do not modify the behavior of the first and second slides.
+
+The third slide should integrate naturally into the existing carousel.
+
+⸻
+
+PART 14 — ACCESSIBILITY
+
+Ensure the new assets and release are accessible.
+
+Background image
+
+Because it is decorative Hero background imagery, implement it appropriately according to its role.
+
+Overlay image
+
+Provide meaningful alternative text if the graphic communicates information.
+
+Music page Hero
+
+Use appropriate alt text if implemented as an image element.
+
+Audio
+
+Ensure:
+
+* Accessible player controls
+* Keyboard accessibility
+* Clear track title
+* Play/pause state
+* Appropriate focus states
+
+Do not autoplay the audio itself.
+
+The homepage Hero video/image may autoplay where already supported, but the Romantic Love audio must require user interaction to play.
+
+⸻
+
+PART 15 — PERFORMANCE
+
+Optimize the implementation for production.
+
+Homepage
+
+Do not unnecessarily load the Romantic Love audio file on the homepage if it is not required there.
+
+The Hero should load only the visual assets required for the current slide and appropriate preloading strategy.
+
+Music page
+
+Use appropriate audio loading behavior.
+
+Avoid downloading the full audio file before the user interacts with the player unless the existing architecture specifically requires it.
+
+Optimize image loading without reducing visual quality unnecessarily.
+
+⸻
+
+PART 16 — BRANDING PRESERVATION
+
+Do NOT modify the approved KIUT Music brand system.
+
+Preserve:
+
+* Logo
+* Typography
+* Black/dark aesthetic
+* Gold accents
+* Existing Hero design
+* Existing CTA system
+* Existing animations
+* Header/navigation
+* Footer
+* Page hierarchy
+* Responsive behavior
+
+Do not redesign unrelated components.
+
+⸻
+
+PART 17 — EXISTING CTA PROTECTION
+
+The following existing premium reusable CTA implementation must remain untouched:
+
+* Hero Listen Now
+* Latest Release
+* Join Newsletter
+* Book Kiut
+* Shop Merchandise
+* Watch Official Video
+* Become a Member
+* Contact
+
+Do not modify the shared CTA component while implementing this task.
+
+The Romantic Love slide should consume the existing CTA component rather than creating a new button style.
+
+⸻
+
+PART 18 — CONTENT & ROUTING
+
+Ensure the new release can be reached logically from:
+
+Homepage Hero
+→ Recent Release
+→ Romantic Love
+→ Music page / release destination
+
+If the Music page already has a dedicated release/player architecture, integrate with it.
+
+Do not create unnecessary duplicate pages.
+
+⸻
+
+PART 19 — ASSET VERIFICATION
+
+Before completing the task, verify that each uploaded asset has been assigned correctly:
+
+Asset A
+
+background image
+
+→ Homepage Hero Slide 3 background
+
+Asset B
+
+overlay image
+
+→ Homepage Hero Slide 3 release music overlay graphic
+
+Asset C
+
+music page hero image
+
+→ Music page Hero
+
+Asset D
+
+uploaded audio file
+
+→ Music page → Recently Released → Romantic Love
+
+Do not swap these assignments.
+
+⸻
+
+PART 20 — QA CHECKLIST
+
+After implementation, run the website and verify:
+
+Homepage
+
+* Third Hero slide is no longer labeled Creative Portfolio.
+* Third slide is labeled Recent Release.
+* Release title is Romantic Love.
+* Correct background image is displayed.
+* Correct overlay image is displayed.
+* Background and overlay composition looks intentional.
+* Existing Hero CTA remains functional.
+* Existing carousel animation remains intact.
+* First and second slides remain unchanged.
+* Desktop layout is correct.
+* Tablet layout is correct.
+* Mobile layout is correct.
+* No artwork is awkwardly cropped.
+* No horizontal overflow occurs.
+
+Music Page
+
+* Music page Hero uses the uploaded music page hero image.
+* Hero image is responsive.
+* Existing Music page design remains intact.
+* Romantic Love appears as the recently released single.
+* Uploaded audio file is correctly connected.
+* Audio player loads correctly.
+* Play/pause works.
+* Audio does not autoplay unexpectedly.
+* Track title displays correctly.
+* Artwork is correctly associated.
+* No broken audio/image paths exist.
+
+Global Regression
+
+* Navigation works.
+* Existing CTA components remain unchanged.
+* Store remains functional.
+* Tour remains functional.
+* Contact remains functional.
+* Newsletter remains functional.
+* No unrelated page has been redesigned.
+* No console errors are introduced.
+
+⸻
+
+PART 21 — FINAL ACCEPTANCE CRITERIA
+
+The implementation is complete only when:
+
+1. Homepage Hero Slide 3 has been converted from Creative Portfolio to Recent Release — Romantic Love.
+2. The uploaded background image is used as the third slide background.
+3. The uploaded overlay image is used as the third slide release graphic.
+4. The uploaded audio file is integrated as the Romantic Love recently released single.
+5. The uploaded music page hero image is used as the Music page Hero.
+6. All assets are correctly assigned to their intended locations.
+7. Existing Hero and CTA architecture is preserved.
+8. Existing responsive image architecture is reused.
+9. The new release is integrated into the centralized music data structure.
+10. The audio player works correctly.
+11. The new Hero slide works correctly on desktop, tablet, and mobile.
+12. The Music page Hero works correctly on desktop, tablet, and mobile.
+13. No existing approved design or functionality is unnecessarily changed.
+14. No console errors, broken assets, or broken routes are introduced.
+
+FINAL IMPLEMENTATION REPORT
+
+After completing the work, provide a concise report containing:
+
+* Homepage Hero Slide 3 changes
+* Background image integration
+* Overlay graphic integration
+* Romantic Love audio integration
+* Music page Hero image integration
+* Music/release data changes
+* Responsive adjustments
+* Performance optimizations
+* QA performed
+* Any missing metadata or assets still required
+* Confirmation that existing CTA, navigation, branding, and unrelated sections were preserved

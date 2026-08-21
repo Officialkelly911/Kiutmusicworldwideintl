@@ -1,0 +1,158 @@
+PHASE 11F — MUSIC PAGE PERFORMANCE & STABILITY AUDIT
+
+The KIUT Music website’s /music page has a serious production performance issue.
+
+Observed behavior:
+- The Music page loads significantly slower than the other pages.
+- On some mobile loads, the page takes a long time to become usable.
+- Sometimes the Music page fails to open, crashes, or refreshes unexpectedly.
+- This must be treated as a performance/stability investigation, not a visual redesign.
+
+IMPORTANT:
+Do not change the approved visual design, branding, copy, layout, routing, SEO metadata, 404 behavior, or structured-data architecture unless a change is strictly required to resolve a confirmed performance/stability issue.
+
+PHASE 11F-1 — DIAGNOSIS FIRST
+
+Before modifying implementation, perform a read-only performance investigation of /music.
+
+Measure and document:
+
+1. Initial HTML response time.
+2. JavaScript bundle sizes and execution cost.
+3. Total transferred page weight.
+4. Number of network requests.
+5. Largest assets by file size.
+6. Images loaded immediately versus lazily.
+7. Videos loaded immediately versus lazily.
+8. Autoplay/preload behavior.
+9. Third-party scripts, embeds, fonts, analytics, and external resources.
+10. React rendering and re-render behavior.
+11. Long-running JavaScript tasks.
+12. Memory-heavy components or asset initialization.
+13. Dynamic imports and route-loading behavior.
+14. Browser console errors and failed resource requests.
+15. Any crash, reload loop, hydration/rendering failure, or runtime exception.
+16. Mobile-specific failures, especially iOS/Safari behavior.
+17. Core Web Vitals or equivalent performance measurements where available.
+
+Pay particular attention to:
+- Large MP4/video assets.
+- Hero/background media.
+- Album artwork and release artwork.
+- The complete music catalogue being initialized at once.
+- Third-party embeds.
+- Any component that renders or downloads below-the-fold content before it is needed.
+
+Do not assume the cause. Identify evidence.
+
+PHASE 11F-2 — OPTIMIZATION
+
+After identifying the confirmed bottlenecks, implement the smallest safe changes that materially improve performance and stability.
+
+Prioritize:
+
+- Lazy-loading below-the-fold images and media.
+- Preventing unnecessary video downloads.
+- Correct video preload behavior.
+- Poster-first loading for video where appropriate.
+- Responsive image sizing/srcset where supported.
+- Avoiding full-resolution artwork when smaller display dimensions are sufficient.
+- Deferring non-critical third-party resources.
+- Preventing unnecessary React renders.
+- Keeping route-level code splitting intact.
+- Preventing duplicate initialization.
+- Removing only genuinely unused resources/imports.
+- Fixing any confirmed runtime error causing crashes or refreshes.
+
+Do NOT:
+- Remove legitimate music content.
+- Remove albums, tracks, videos, links, or functionality merely to improve metrics.
+- Replace approved visual assets without evidence that they are the performance bottleneck.
+- Redesign the Music page.
+- Change SEO metadata.
+- Change canonical URLs.
+- Change robots.txt.
+- Change sitemap.xml.
+- Change Phase 11C 404 behavior.
+- Remove or weaken Phase 11D JSON-LD.
+- Introduce a new framework or architecture unnecessarily.
+
+PHASE 11F-3 — STABILITY
+
+Specifically reproduce the reported crash/refresh behavior.
+
+Test:
+- Direct navigation to /music.
+- Navigation Home → Music.
+- Browser refresh on /music.
+- Cold load.
+- Repeat load.
+- Mobile viewport.
+- Desktop viewport.
+- Slow network/throttled connection where available.
+- Safari/WebKit-compatible environment where available.
+- Chromium.
+
+Capture any console errors, failed requests, exceptions, or reload triggers.
+
+If the crash cannot be reproduced, do not invent a cause. Document that it could not be reproduced and identify the closest observable performance risks.
+
+PHASE 11F-4 — REGRESSION PROTECTION
+
+After optimization, verify that:
+
+1. /music still renders all approved content.
+2. Music catalogue functionality still works.
+3. Streaming links still work.
+4. Artwork and media still display correctly.
+5. Navigation still works.
+6. Mobile navigation still works.
+7. SEO metadata from Phase 11B remains correct in initial HTML.
+8. Phase 11C invalid URLs still return the correct 404 behavior.
+9. Phase 11D JSON-LD remains valid and contains no duplicate/conflicting graphs.
+10. Client-side SEO/structured-data replacement still works after navigation.
+11. No new console errors are introduced.
+
+Run:
+- npm run check
+- npm run build
+- existing test suite
+- existing structured-data regression tests
+- existing server 404 regression tests
+- Playwright/browser tests where available
+
+PERFORMANCE ACCEPTANCE CRITERIA
+
+The optimized /music route should:
+
+- Become visually usable substantially faster.
+- Avoid unnecessary above-the-fold media downloads.
+- Avoid loading large below-the-fold assets prematurely.
+- Avoid unnecessary duplicate requests.
+- Have no reproducible JavaScript crash or refresh loop.
+- Have no new console errors.
+- Preserve all approved content and functionality.
+- Preserve Phase 11B, 11C, and 11D behavior.
+
+FINAL REPORT
+
+Before considering Phase 11F complete, provide:
+
+1. Root cause(s) identified.
+2. Evidence supporting each root cause.
+3. Files/components changed.
+4. Performance changes implemented.
+5. Before/after measurements where available.
+6. Crash/refresh investigation result.
+7. Test results.
+8. Any remaining risks.
+9. Confirmation that SEO, 404 handling, and structured data remain intact.
+
+Do not publish automatically.
+
+Do not begin Phase 12 work.
+
+Do not make unrelated changes.
+
+The priority is simple:
+MAKE /MUSIC LOAD FASTER AND STOP CRASHING, WHILE PRESERVING THE EXISTING KIUT DESIGN, CONTENT, SEO, 404, AND STRUCTURED-DATA WORK.

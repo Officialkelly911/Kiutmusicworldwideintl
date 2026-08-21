@@ -1,0 +1,195 @@
+PROJECT:
+Kiut Music Website
+
+TASK:
+Upgrade the Videos page into a premium modern artist experience while preserving all existing functionality.
+
+IMPORTANT
+
+DO NOT remove or break:
+
+• Embedded YouTube player
+• Watch on YouTube button
+• Share functionality
+• Spotify links
+• Apple Music links
+• Audiomack links
+• Responsive layouts
+• Existing routing
+• Existing data
+
+These features are core functionality and must remain fully operational.
+
+====================================
+
+STREAMING PLATFORM SECTION
+
+Completely redesign the "Listen On" section into a premium music hub.
+
+Requirements
+
+• Modern glassmorphism cards
+• Rounded corners (20-24px)
+• Soft shadows
+• Subtle gradient borders
+• Platform icons
+• External-link indicator
+• Hover elevation
+• Glow effects
+• Animated arrow
+• Smooth transitions
+
+Maintain the existing Spotify, Apple Music, Audiomack, and future streaming platform URLs.
+
+====================================
+
+VIDEO METADATA
+
+Replace the basic metadata row with a richer information layout.
+
+Display
+
+• Category
+• Runtime
+• Views
+• Platform
+• Release Year
+• Official Video badge
+
+Improve typography hierarchy and spacing.
+
+====================================
+
+WATCH BUTTONS
+
+Keep
+
+Watch on YouTube
+
+Share
+
+Redesign them using premium button styles.
+
+Use
+
+• gradients
+• shadows
+• hover animations
+• click animations
+• ripple effect
+
+====================================
+
+VIDEO DESCRIPTION
+
+Redesign the description card.
+
+Use
+
+• larger border radius
+• softer background
+• glass effect
+• improved typography
+• better spacing
+• responsive sizing
+
+====================================
+
+RECOMMENDED VIDEOS
+
+Upgrade recommended videos.
+
+Each card should include
+
+• larger thumbnail
+• category badge
+• duration badge
+• smoother hover animation
+• image zoom
+• better spacing
+• subtle shadow
+• fade-in animation
+• lazy loading
+• skeleton loader
+
+Do not overlap any other page section.
+
+====================================
+
+MOTION
+
+Use Framer Motion where appropriate.
+
+Add
+
+• fade-in
+• stagger animation
+• scroll reveal
+• hover lift
+• button scaling
+
+Keep animations tasteful and performant.
+
+====================================
+
+BACKGROUND
+
+Add subtle animated background accents.
+
+Examples
+
+• blurred gradient circles
+• slow floating lights
+• ambient glow
+
+Opacity should remain below 5%.
+
+The page should still appear primarily black.
+
+====================================
+
+MOBILE
+
+Ensure
+
+Perfect spacing
+
+No overflow
+
+No clipped buttons
+
+No cropped text
+
+No overlapping cards
+
+Minimum touch target 44px.
+
+====================================
+
+PERFORMANCE
+
+Implement
+
+• lazy loading
+• optimized thumbnails
+• iframe optimization
+• skeleton placeholders
+• graceful fallbacks
+
+====================================
+
+ACCESSIBILITY
+
+Improve
+
+ARIA labels
+
+Keyboard navigation
+
+Semantic HTML
+
+Focus states
+
+Contrast
+
+====================================

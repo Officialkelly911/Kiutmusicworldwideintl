@@ -1,0 +1,408 @@
+# Kiut Studio Design Language (KSDL)
+
+# 11 – Design Tokens
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+Design Tokens are the single source of truth for every reusable visual value across the Kiut Music website.
+
+Instead of hardcoding values inside components, every reusable property should reference a design token.
+
+This guarantees consistency, scalability, and easier maintenance.
+
+---
+
+# Design Philosophy
+
+Define once.
+
+Reuse everywhere.
+
+Never duplicate values.
+
+Tokens should describe purpose rather than appearance.
+
+---
+
+# Token Categories
+
+- Colors
+
+- Typography
+
+- Spacing
+
+- Layout
+
+- Border Radius
+
+- Shadows
+
+- Glows
+
+- Motion
+
+- Icons
+
+- Z-Index
+
+- Opacity
+
+- Breakpoints
+
+---
+
+# Color Tokens
+
+```css
+:root{
+
+--color-background-primary:#080808;
+--color-background-secondary:#121212;
+--color-surface:#1E1E1E;
+
+--color-heading:#FFFFFF;
+--color-body:#D6D6D6;
+--color-muted:#9B9B9B;
+
+--color-gold:#D4AF37;
+--color-gold-hover:#F4C542;
+--color-champagne:#F7E7A1;
+
+--color-purple:#6D3EFF;
+
+--color-success:#34D399;
+--color-warning:#FBBF24;
+--color-error:#EF4444;
+--color-info:#3B82F6;
+
+}
+```
+
+---
+
+# Typography Tokens
+
+```css
+:root{
+
+--font-display:"Space Grotesk",sans-serif;
+--font-body:"Inter",sans-serif;
+
+--font-size-display:72px;
+--font-size-h1:56px;
+--font-size-h2:44px;
+--font-size-h3:34px;
+--font-size-h4:28px;
+--font-size-h5:22px;
+--font-size-h6:18px;
+
+--font-size-body:16px;
+--font-size-small:14px;
+--font-size-caption:12px;
+
+}
+```
+
+---
+
+# Spacing Tokens
+
+```css
+:root{
+
+--space-1:8px;
+--space-2:16px;
+--space-3:24px;
+--space-4:32px;
+--space-5:48px;
+--space-6:64px;
+--space-7:80px;
+--space-8:96px;
+--space-9:128px;
+--space-10:160px;
+
+}
+```
+
+---
+
+# Radius Tokens
+
+```css
+:root{
+
+--radius-sm:8px;
+--radius-md:16px;
+--radius-lg:24px;
+--radius-xl:32px;
+--radius-pill:999px;
+
+}
+```
+
+---
+
+# Shadow Tokens
+
+```css
+:root{
+
+--shadow-xs:0 2px 6px rgba(0,0,0,.12);
+--shadow-sm:0 8px 20px rgba(0,0,0,.20);
+--shadow-md:0 14px 32px rgba(0,0,0,.28);
+--shadow-lg:0 24px 60px rgba(0,0,0,.35);
+--shadow-xl:0 40px 120px rgba(0,0,0,.40);
+
+}
+```
+
+---
+
+# Glow Tokens
+
+```css
+:root{
+
+--glow-gold:0 0 24px rgba(212,175,55,.28);
+--glow-gold-hover:0 0 42px rgba(244,197,66,.38);
+
+--glow-purple:0 0 30px rgba(109,62,255,.22);
+
+--glow-champagne:0 0 28px rgba(247,231,161,.25);
+
+}
+```
+
+---
+
+# Motion Tokens
+
+```css
+:root{
+
+--motion-fast:180ms;
+--motion-normal:250ms;
+--motion-medium:350ms;
+--motion-slow:500ms;
+--motion-cinematic:800ms;
+
+}
+```
+
+---
+
+# Easing Tokens
+
+```css
+:root{
+
+--ease-default:ease-out;
+--ease-enter:cubic-bezier(.22,1,.36,1);
+--ease-exit:ease-in;
+--ease-page:ease-in-out;
+
+}
+```
+
+---
+
+# Icon Tokens
+
+```css
+:root{
+
+--icon-xs:16px;
+--icon-sm:20px;
+--icon-md:24px;
+--icon-lg:32px;
+--icon-xl:48px;
+
+}
+```
+
+---
+
+# Layout Tokens
+
+```css
+:root{
+
+--container-sm:720px;
+--container-md:960px;
+--container-lg:1200px;
+--container-xl:1440px;
+--container-ultra:1600px;
+
+}
+```
+
+---
+
+# Breakpoint Tokens
+
+```css
+:root{
+
+--bp-mobile:480px;
+--bp-tablet:768px;
+--bp-laptop:1024px;
+--bp-desktop:1280px;
+--bp-wide:1440px;
+--bp-ultrawide:1920px;
+
+}
+```
+
+---
+
+# Layer Tokens
+
+```css
+:root{
+
+--z-background:0;
+--z-content:10;
+--z-navigation:100;
+--z-dropdown:500;
+--z-modal:1000;
+--z-toast:1100;
+--z-loader:1200;
+
+}
+```
+
+---
+
+# Opacity Tokens
+
+```css
+:root{
+
+--opacity-disabled:.5;
+--opacity-overlay:.65;
+--opacity-glass:.08;
+--opacity-hover:.92;
+
+}
+```
+
+---
+
+# Naming Rules
+
+✔ Use semantic names.
+
+✔ Never include page names.
+
+✔ Never include component names.
+
+✔ Tokens should describe purpose.
+
+Good
+
+--color-background-primary
+
+Bad
+
+--homepage-black
+
+---
+
+# Token Hierarchy
+
+Foundation
+
+↓
+
+Semantic Tokens
+
+↓
+
+Component Tokens
+
+↓
+
+Page Styles
+
+↓
+
+Content
+
+---
+
+# Usage Rules
+
+Always reference tokens.
+
+Never hardcode values.
+
+Never duplicate spacing.
+
+Never create page-specific tokens.
+
+Keep naming consistent.
+
+---
+
+# Future Expansion
+
+Dark/Light themes
+
+Holiday themes
+
+Album themes
+
+Concert themes
+
+Dynamic branding
+
+---
+
+# Implementation Checklist
+
+□ Uses tokens everywhere
+
+□ No hardcoded colors
+
+□ No duplicate spacing
+
+□ No duplicate shadows
+
+□ Semantic naming maintained
+
+□ Easy to maintain
+
+---
+
+# Related Documents
+
+Color System
+
+Typography System
+
+Spacing System
+
+Motion System
+
+Shadow System
+
+Responsive System
+
+Implementation Standards
+
+---
+
+# Version History
+
+Version 1.0
+
+Initial Design Token System established.

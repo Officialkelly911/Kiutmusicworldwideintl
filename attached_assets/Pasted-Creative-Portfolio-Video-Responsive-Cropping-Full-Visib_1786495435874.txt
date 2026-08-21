@@ -1,0 +1,198 @@
+Creative Portfolio Video — Responsive Cropping & Full-Visibility Fix
+
+The video currently used in the Creative Portfolio section is not being displayed correctly. Important portions of the video content are being cropped, causing parts of the visual composition to be cut off.
+
+Objective
+
+Adjust the Creative Portfolio video implementation so that the entire important visual content of the uploaded video remains properly visible to users across all supported screen sizes.
+
+The goal is to correct the video framing and responsive behavior without redesigning the Creative Portfolio section.
+
+1. Inspect the Source Video
+
+First inspect:
+
+* Original video dimensions
+* Aspect ratio
+* Orientation
+* Focal points
+* Important visual elements
+* Whether the video contains text, logos, faces, or other content near the edges
+
+Determine why the current implementation is cropping the video.
+
+Do not assume the problem can be solved simply by changing the CSS width or height.
+
+2. Correct the Video Fit
+
+Modify the Creative Portfolio video container and video styling so the complete visual composition is appropriately visible.
+
+Prioritize:
+
+* Full visibility of important content
+* Correct aspect ratio
+* No stretching
+* No distortion
+* No unintended clipping
+* No excessive empty space
+* Proper alignment within the existing section
+
+If the video is currently using:
+
+object-fit: cover;
+
+determine whether object-fit: contain or another responsive approach is more appropriate.
+
+Do not automatically switch to contain if that creates an undesirable presentation. Choose the approach that best preserves the video’s intended composition while fitting the existing Creative Portfolio design.
+
+3. Preserve the Existing Section
+
+Do NOT redesign the Creative Portfolio section.
+
+Preserve:
+
+* Existing section layout
+* Typography
+* Text content
+* CTA
+* CTA animation
+* Colors
+* Borders
+* Shadows
+* Spacing
+* Existing animations
+* Navigation
+* Overall KIUT Music visual identity
+
+Only modify the video presentation and the minimum surrounding CSS/layout required to display it correctly.
+
+4. Responsive Video Behavior
+
+The video must display correctly across:
+
+Desktop
+
+* 2560px
+* 1920px
+* 1440px
+* 1280px
+
+Tablet
+
+* 1024px
+* 768px
+
+Mobile
+
+* 430px
+* 390px
+* 375px
+
+Also account for both portrait and landscape orientations.
+
+The video should adapt intelligently to the available viewport rather than applying one fixed crop to every device.
+
+5. Preserve the Video’s Focal Point
+
+If responsive cropping is unavoidable, use an appropriate:
+
+object-position
+
+or equivalent positioning strategy to keep the most important part of the video visible.
+
+Do not allow:
+
+* Faces to be cut off
+* Logos to be cut off
+* Text within the video to be cut off
+* Important objects to disappear
+* Important visual details near the edges to be unintentionally cropped
+
+6. Consider Aspect-Ratio Handling
+
+If the source video’s aspect ratio differs significantly from the Creative Portfolio container, evaluate whether the container itself should be adjusted slightly to accommodate the video.
+
+Prefer preserving the video’s natural aspect ratio rather than aggressively forcing it into the existing container.
+
+If a modest container-height adjustment is required, make it responsive and consistent with the existing website hierarchy.
+
+7. Video Quality
+
+Do not reduce the video quality unnecessarily.
+
+Maintain:
+
+* Sharpness
+* Original proportions
+* Correct frame rate
+* Correct playback behavior
+* Existing autoplay behavior
+* Muted playback
+* Looping
+* Inline playback on mobile
+
+Do not re-encode the video unless necessary to solve a genuine technical issue.
+
+8. Performance
+
+Maintain the existing video performance optimizations.
+
+Do not introduce unnecessary duplicate video files.
+
+Continue using:
+
+* Appropriate video loading behavior
+* Poster/fallback image where applicable
+* Efficient video delivery
+* Responsive layout
+* Hardware-friendly playback
+
+9. Accessibility & Reduced Motion
+
+Preserve the existing accessibility implementation.
+
+Ensure the video:
+
+* Remains muted by default
+* Plays inline where supported
+* Does not interfere with keyboard navigation
+* Respects reduced-motion preferences where applicable
+* Has appropriate fallback behavior
+
+10. QA
+
+After making the changes, test the Creative Portfolio section at the specified desktop, tablet, and mobile sizes.
+
+Verify:
+
+* The entire important video content is visible.
+* No unintended cropping occurs.
+* No stretching occurs.
+* No distortion occurs.
+* No horizontal overflow occurs.
+* The video remains centered/aligned correctly.
+* The existing text remains readable.
+* The CTA remains correctly positioned.
+* The existing animation still works.
+* The video remains responsive during viewport resizing.
+* No console errors are introduced.
+
+Important Constraint
+
+Do not simply make the video smaller.
+
+The objective is to achieve the correct responsive framing and presentation so users can see the video’s intended content clearly while the video still feels visually integrated into the Creative Portfolio section.
+
+If the current container dimensions are the root cause of the cropping, correct the container/video relationship rather than applying arbitrary negative margins or fixed pixel offsets.
+
+Final Report
+
+After implementation, provide a concise report stating:
+
+1. What was causing the cropping.
+2. What changes were made.
+3. Whether the video/container aspect ratio was adjusted.
+4. What responsive behavior was implemented.
+5. Which viewport sizes were tested.
+6. Confirmation that the full important video content is now visible.
+7. Confirmation that no unrelated Creative Portfolio or website components were modified.

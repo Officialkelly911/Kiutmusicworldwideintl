@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+
+    <!-- Replaced from the shared route metadata map during Vite transforms,
+         then replaced per request by the production server. -->
+    <!-- KIUT_ROUTE_SEO -->
+
+    <!-- ── Theme color ────────────────────────────────────────────────── -->
+    <meta name="theme-color" content="#0a0a0c" />
+    <meta name="msapplication-TileColor" content="#0a0a0c" />
+
+    <!-- ── Favicon system ────────────────────────────────────────────── -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Homepage-only hero media preload; injected per route by the server/build. -->
+    <!-- KIUT_ROUTE_PRELOAD -->
+
+    <!-- Replaced from the shared route data during Vite transforms,
+         then replaced per request by the production server. -->
+    <!-- KIUT_STRUCTURED_DATA -->
+
+    <!-- ── Color scheme ──────────────────────────────────────────────── -->
+    <meta name="color-scheme" content="dark" />
+    <!-- Note: preload as="video" is not in the fetch spec; browsers ignore it, so removed to silence the console warning -->
+    <!-- The video is loaded by the <video> element itself with preload="metadata" -->
+
+    <!-- ── Fonts — non-render-blocking ───────────────────────────────── -->
+    <!--
+      Loading strategy: preconnect for DNS + TLS warmup, then load the
+      stylesheet via media="print" so it is fetched at low priority and
+      does not block rendering. The onload handler switches media to "all"
+      once the fonts are ready. The <noscript> fallback serves users with
+      JS disabled.
+
+      font-display=swap in the Google Fonts URL ensures text remains visible
+      in the system font while the web font loads (no invisible text flash).
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@300..700&family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@300..700&family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&display=swap"
+      />
+    </noscript>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

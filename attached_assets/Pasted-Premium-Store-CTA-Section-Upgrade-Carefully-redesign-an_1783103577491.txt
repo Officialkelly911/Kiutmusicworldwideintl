@@ -1,0 +1,187 @@
+Premium Store CTA Section Upgrade
+
+Carefully redesign and refine the Store CTA section on the Home page of the Kiut Music website.
+
+The goal is to transform the section into a premium artist merchandise showcase that feels luxurious, cinematic, modern, and exclusive.
+
+Treat this as a visual enhancement only. Do not alter unrelated sections or existing functionality.
+
+Merchandise Images
+
+* Increase the size of all merchandise images so they occupy approximately 75–85% of each product card.
+* Reduce unnecessary padding around the images.
+* Preserve the original aspect ratio.
+* Prevent image distortion or cropping.
+* Ensure products remain crisp and highly visible.
+
+Product Cards
+
+Redesign all product cards with:
+
+* Consistent heights
+* Rounded corners
+* Thin gold accent borders
+* Soft shadows
+* Premium dark backgrounds
+* Better spacing
+* Responsive sizing
+
+Product Hierarchy
+
+Display:
+
+* Product Badge (where applicable)
+* Large Product Image
+* Product Name
+* Short Description
+* Price
+* CTA Button
+
+Ensure typography hierarchy is clear.
+
+Product Badges
+
+Add elegant optional badges such as:
+
+* NEW
+* LIMITED EDITION
+* EXCLUSIVE
+* BEST SELLER
+* PREMIUM
+
+Style them using subtle gold accents.
+
+Hover Effects
+
+Desktop:
+
+* Slight image zoom
+* Card lift
+* Soft gold glow
+* Enhanced shadow
+* Smooth 300–500ms transitions
+
+Mobile:
+
+Keep interactions subtle and touch-friendly.
+
+CTA Buttons
+
+Upgrade all buttons with:
+
+* Rounded corners
+* Premium gold styling
+* Smooth hover animations
+* Slight upward movement
+* Improved visual prominence
+
+Preferred text:
+
+* Shop Now
+* Explore Collection
+* View Collection
+
+Featured Collection
+
+Create a premium banner above the merchandise cards.
+
+Include:
+
+* Collection title
+* Short description
+* Featured merchandise image
+* CTA button
+
+This banner should introduce the merchandise collection before visitors browse the products.
+
+Layout
+
+Use an editorial-style composition.
+
+Avoid identical card sizes.
+
+Create visual rhythm by combining:
+
+* Featured cards
+* Standard cards
+* Mixed layouts
+
+Maintain consistency across desktop, tablet, and mobile.
+
+Background
+
+Replace flat backgrounds with:
+
+* Dark radial gradients
+* Soft spotlight effects
+* Subtle lighting
+* Premium depth
+
+Maintain the site’s luxury aesthetic.
+
+Scroll Animations
+
+Animate merchandise cards using:
+
+* Fade in
+* Slight upward movement
+* Staggered timing
+
+Keep animations smooth and understated.
+
+Merchandise Spotlight
+
+Implement a subtle spotlight system that periodically highlights one product by:
+
+* Increasing glow
+* Slightly enlarging the card
+* Displaying a small “Featured This Week” badge
+
+Transition smoothly between featured products.
+
+Carousel
+
+Add a horizontal merchandise carousel below the main section.
+
+Possible heading:
+
+“Fans Also Love”
+
+Use smooth horizontal scrolling and responsive controls.
+
+Responsiveness
+
+Ensure:
+
+* Perfect desktop layout
+* Excellent tablet presentation
+* Mobile-first responsiveness
+* No overlapping elements
+* No overflow issues
+* Equal spacing
+* Consistent card heights
+
+Performance
+
+Optimize:
+
+* Lazy loading
+* Image rendering
+* Animation performance
+* Layout stability
+
+Final Goal
+
+The finished Store CTA section should feel like a luxury artist showroom rather than a standard online shop.
+
+It should immediately communicate exclusivity, quality, and premium branding while remaining fast, responsive, and visually consistent with the rest of the Kiut Music website.
+
+After implementation, provide a summary of:
+
+1. Files modified.
+2. Components updated.
+3. Styling improvements.
+4. Animation enhancements.
+5. Responsiveness improvements.
+6. Performance optimizations.
+7. Any areas that may benefit from future refinement.

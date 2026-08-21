@@ -1,0 +1,123 @@
+The "Moments From the Journey" gallery requires a complete image composition and cropping refinement. Your task is to review every gallery image and apply consistent, professional cropping across the entire section without changing the existing design or layout.
+
+OBJECTIVES
+
+1. Audit every gallery image.
+   - Review each image individually.
+   - Identify poor composition.
+   - Identify awkward crops.
+   - Identify inconsistent framing.
+   - Identify images with excessive empty space.
+   - Identify images where important details are cropped out.
+
+2. Re-crop every image for visual consistency.
+   Ensure every image follows the same composition principles.
+
+   Prioritize:
+   • Artist's face
+   • Eyes
+   • Body posture
+   • Hands
+   • Jewelry
+   • Outfit
+   • Musical equipment
+   • Performance moments
+   • Background elements only when they enhance the story
+
+3. Avoid poor cropping.
+   Never crop:
+   • Through the face
+   • Across the eyes
+   • Through hands
+   • Through jewelry
+   • Through instruments
+   • Through microphones
+   • Through important props
+   • Through shoulders unless intentional
+
+4. Maintain consistent framing.
+
+   Portrait images should have:
+   • Similar headroom
+   • Similar shoulder spacing
+   • Consistent subject positioning
+
+   Landscape images should:
+   • Keep the artist as the visual focal point
+   • Preserve natural balance
+   • Avoid excessive empty space
+
+5. Preserve image quality.
+   - Do not stretch images.
+   - Do not distort aspect ratios.
+   - Do not upscale beyond the original resolution.
+   - Maintain sharpness.
+   - Preserve color accuracy.
+
+6. Preserve the existing design.
+   Do NOT modify:
+   - Card layout
+   - Border radius
+   - Shadows
+   - Hover effects
+   - Animations
+   - Typography
+   - Labels
+   - Spacing
+   - Grid layout
+
+7. Improve consistency across the gallery.
+   Every card should feel like part of the same professional photo collection.
+
+   Ensure:
+   • Similar visual weight
+   • Similar subject placement
+   • Consistent margins inside image cards
+   • Consistent object-fit behavior
+
+8. Responsive optimization.
+
+   Verify cropping works correctly on:
+   • Desktop
+   • Laptop
+   • Tablet
+   • Mobile
+
+   Images must remain properly composed at every breakpoint.
+
+9. Technical improvements.
+
+   Use the most appropriate CSS/image techniques, such as:
+   - object-fit: cover
+   - object-position adjustments where necessary
+   - responsive image sizing
+   - optimized loading
+
+   Avoid creating layout shifts.
+
+10. Quality Assurance.
+
+Before finishing, verify:
+
+✓ No awkward crops remain.
+✓ No faces are partially cut off.
+✓ Hands remain visible where intended.
+✓ Jewelry and accessories remain intact.
+✓ Subject positioning is consistent.
+✓ Images remain responsive.
+✓ No stretching or distortion occurs.
+✓ Image quality remains high.
+
+11. Final report.
+
+After completing the work, provide:
+
+- Number of images adjusted.
+- Images requiring custom object-position values.
+- Any images that could not be improved because of source limitations.
+- Files modified.
+- Confirmation that the gallery now has consistent, professional composition across all devices.
+
+IMPORTANT
+
+Do not replace images unless absolutely necessary. The objective is to improve composition and presentation using the existing assets while preserving the premium visual identity of the website. Treat the gallery as if preparing it for the official portfolio of a professional recording artist, ensuring every image feels intentional, balanced, and editorial in quality.

@@ -1,0 +1,514 @@
+# Kiut Studio Design Language (KSDL)
+
+# 09 – Iconography System
+
+Version: 1.0
+
+Status: Active
+
+Last Updated: July 2026
+
+---
+
+# Purpose
+
+The Iconography System defines every icon used throughout the Kiut Music website.
+
+Icons should improve recognition, support navigation, and reinforce the premium visual identity without competing with the content.
+
+Icons are supporting actors, never the main attraction.
+
+---
+
+# Design Philosophy
+
+Icons should be:
+
+- Clean
+
+- Modern
+
+- Minimal
+
+- Consistent
+
+- Instantly recognizable
+
+Every icon should feel like it belongs to the same family.
+
+---
+
+# Preferred Icon Library
+
+Primary Library
+
+Lucide Icons
+
+Reason
+
+Minimal
+
+Modern
+
+Lightweight
+
+Consistent Stroke Width
+
+Open Source
+
+---
+
+# Secondary Icons
+
+Official brand icons may be used for:
+
+Spotify
+
+Apple Music
+
+YouTube
+
+Audiomack
+
+Instagram
+
+TikTok
+
+Facebook
+
+X
+
+Threads
+
+Dream Planet
+
+Always use official brand assets where required.
+
+---
+
+# Stroke Rules
+
+Stroke Width
+
+2px
+
+Stroke Style
+
+Rounded
+
+Corner Style
+
+Rounded
+
+No filled icons unless officially supplied by the platform.
+
+---
+
+# Icon Sizes
+
+XS
+
+16px
+
+Small
+
+20px
+
+Medium
+
+24px
+
+Large
+
+32px
+
+Hero
+
+48px
+
+Feature
+
+64px
+
+---
+
+# Icon Colors
+
+Default
+
+Soft White
+
+Hover
+
+Royal Gold
+
+Disabled
+
+Muted Gray
+
+Active
+
+Warm Gold
+
+Premium
+
+Champagne Gold
+
+Creative
+
+Royal Purple
+
+---
+
+# Icon Spacing
+
+Icon → Text
+
+12px
+
+Between Icons
+
+16px
+
+Inside Buttons
+
+10px
+
+Navigation
+
+20px
+
+Cards
+
+16px
+
+---
+
+# Navigation Icons
+
+Menu
+
+Search
+
+Home
+
+Music
+
+Videos
+
+About
+
+Store
+
+Contact
+
+Back
+
+Forward
+
+---
+
+# Music Icons
+
+Play
+
+Pause
+
+Volume
+
+Headphones
+
+Album
+
+Music Note
+
+Microphone
+
+Equalizer
+
+Streaming
+
+Playlist
+
+---
+
+# Video Icons
+
+Play
+
+Fullscreen
+
+Expand
+
+Share
+
+Download
+
+Captions
+
+Settings
+
+Watch Later
+
+---
+
+# Store Icons
+
+Shopping Bag
+
+Cart
+
+Heart
+
+Gift
+
+Discount
+
+Ticket
+
+Shipping
+
+External Link
+
+---
+
+# Community Icons
+
+Users
+
+Message
+
+Like
+
+Comment
+
+Share
+
+Newsletter
+
+Fan Card
+
+VIP
+
+---
+
+# Utility Icons
+
+Settings
+
+Info
+
+Warning
+
+Success
+
+Error
+
+Calendar
+
+Location
+
+Clock
+
+Phone
+
+Email
+
+---
+
+# Button Icons
+
+Icons should always align vertically.
+
+Maintain equal spacing.
+
+Never stretch icons.
+
+Icons should animate subtly on hover.
+
+---
+
+# Hover Animations
+
+Translate X
+
+2px
+
+Scale
+
+1.05
+
+Rotation
+
+Maximum 5°
+
+Duration
+
+200ms
+
+---
+
+# Accessibility
+
+Icons that perform actions require labels.
+
+Decorative icons should use aria-hidden="true".
+
+Interactive icons must remain keyboard accessible.
+
+Icons should never be the sole indicator of meaning.
+
+---
+
+# Responsive Rules
+
+Desktop
+
+24px
+
+Tablet
+
+22px
+
+Mobile
+
+20px
+
+Floating Actions
+
+32px
+
+---
+
+# Icon Do's
+
+✔ Use one icon style.
+
+✔ Keep stroke widths consistent.
+
+✔ Align icons with text.
+
+✔ Use approved colors.
+
+✔ Animate subtly.
+
+---
+
+# Icon Don'ts
+
+✘ Mix filled and outline styles.
+
+✘ Rotate icons excessively.
+
+✘ Introduce random icon packs.
+
+✘ Use decorative icons without purpose.
+
+✘ Change stroke widths.
+
+---
+
+# CSS Design Tokens
+
+```css
+:root{
+
+--icon-xs:16px;
+--icon-sm:20px;
+--icon-md:24px;
+--icon-lg:32px;
+--icon-xl:48px;
+
+--icon-gap:12px;
+
+--icon-color-default:var(--color-heading);
+--icon-color-hover:var(--color-gold);
+--icon-color-active:var(--color-gold-hover);
+--icon-color-disabled:var(--color-muted);
+
+--icon-transition:200ms;
+
+}
+```
+
+---
+
+# Icon Mapping
+
+Home → House
+
+Music → Disc3
+
+Videos → Clapperboard
+
+About → UserRound
+
+Store → ShoppingBag
+
+Tour → Calendar
+
+Gallery → Images
+
+Contact → Mail
+
+Newsletter → Bell
+
+VIP → Crown
+
+Fan Card → BadgeCheck
+
+Streaming → Headphones
+
+External Link → ArrowUpRight
+
+---
+
+# Performance
+
+Use SVG whenever possible.
+
+Avoid icon fonts.
+
+Tree-shake unused icons.
+
+Optimize SVG paths.
+
+---
+
+# Implementation Checklist
+
+□ Uses Lucide Icons
+
+□ Correct sizing
+
+□ Correct spacing
+
+□ Accessible labels
+
+□ Approved colors
+
+□ Consistent hover animation
+
+□ SVG optimized
+
+---
+
+# Related Documents
+
+Color System
+
+Typography System
+
+Button System
+
+Responsive System
+
+Component Library
+
+Design Tokens
+
+---
+
+# Version History
+
+Version 1.0

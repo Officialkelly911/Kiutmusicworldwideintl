@@ -1,0 +1,74 @@
+The "Moments From the Journey" gallery currently contains duplicate photos and inconsistent image presentation. Your task is to audit, clean up, and refine the entire gallery while preserving the premium aesthetic of the website.
+
+Objectives:
+
+1. Perform a complete audit of every gallery item.
+   - Identify all duplicate or repeated images.
+   - Identify images that are nearly identical (same photo with only minor crop differences).
+   - Identify low-quality or poorly cropped images.
+   - Identify empty placeholders if any exist.
+
+2. Remove duplicate images.
+   - Do not display the same image more than once.
+   - Replace duplicates with unused images from the project's assets if available.
+   - If no replacement exists, remove the duplicate card entirely instead of repeating content.
+
+3. Improve image presentation.
+   - Ensure every image is properly cropped.
+   - Keep the artist as the primary focus.
+   - Avoid awkward crops that cut through the face, hands, jewelry, or important visual elements.
+   - Maintain consistent framing throughout the gallery.
+
+4. Improve gallery balance.
+   - Ensure there is a healthy mix of:
+     • Portraits
+     • Performance photos
+     • Behind-the-scenes moments
+     • Studio sessions
+     • Lifestyle images
+     • Promotional artwork
+   - Avoid clustering similar images together.
+
+5. Verify gallery labels.
+   - Ensure each label accurately matches the image.
+   - Remove labels that no longer make sense after replacing images.
+   - Keep naming concise and professional.
+
+6. Preserve the existing design.
+   - Do not change the layout.
+   - Do not change spacing.
+   - Do not modify animations.
+   - Do not modify hover effects.
+   - Do not change border radius.
+   - Do not alter the premium visual style.
+
+7. Improve responsiveness.
+   - Verify images display correctly on:
+     • Desktop
+     • Tablet
+     • Mobile
+   - Ensure no image appears stretched, squashed, or pixelated.
+
+8. Optimize performance.
+   - Remove unused duplicate assets if they are no longer referenced.
+   - Lazy-load gallery images where appropriate.
+   - Preserve image quality while optimizing loading speed.
+
+9. Quality Assurance.
+   Before finishing, verify:
+   ✓ No duplicate photos remain.
+   ✓ Every gallery card contains a unique image.
+   ✓ Cropping is visually consistent.
+   ✓ Images remain responsive.
+   ✓ No broken image links exist.
+   ✓ No layout shifts occur.
+
+10. After completing the work, provide a summary that includes:
+   - Number of duplicate images removed.
+   - Images replaced.
+   - Any missing assets that prevented replacements.
+   - Files modified.
+   - Confirmation that the gallery now contains only unique, properly presented images.
+
+Important:
+Do not invent or generate new images. Only use existing assets already available in the project. If there are not enough unique assets, remove duplicate entries rather than displaying repeated images. The final gallery should feel intentional, curated, and premium rather than artificially filled.

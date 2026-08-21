@@ -1,0 +1,902 @@
+Ω ONLINE
+
+REPLIT IMPLEMENTATION PROMPT
+
+KIUT MUSIC — PREMIUM DIGITAL ARTIST EXPERIENCE REFINEMENT
+
+ROLE
+
+Act as a senior product designer, creative director, frontend engineer, motion designer, and UX/performance engineer working on the existing KIUT Music production website.
+
+The objective is not to redesign the website from scratch.
+
+The objective is to refine the existing experience so KIUT feels more like a cinematic digital artist universe rather than a conventional artist catalogue, while preserving the established KIUT identity, SEO architecture, performance work, responsive behavior, and existing functionality.
+
+Use the existing production implementation and the supplied website screen recording as visual reference for the current state.
+
+⸻
+
+1. NON-NEGOTIABLE CONSTRAINTS
+
+Before modifying anything:
+
+1. Inspect the existing implementation thoroughly.
+2. Do not rebuild the application from scratch.
+3. Do not replace the existing design system unnecessarily.
+4. Do not alter the approved KIUT logo, brand colors, typography system, or core visual identity unless a specific refinement requires it.
+5. Do not modify:
+    * robots.txt
+    * sitemap.xml
+    * canonical architecture
+    * server-rendered SEO metadata
+    * JSON-LD architecture
+    * 404 behavior
+    * route structure
+    * analytics configuration
+6. Preserve all existing public routes.
+7. Preserve existing music, video, tour, newsletter, contact, legal, and merchandise functionality.
+8. Do not invent artist information, release dates, credits, statistics, tour dates, streaming numbers, or other facts.
+9. Do not introduce unnecessary dependencies.
+10. Do not introduce heavy animation libraries when CSS/native browser APIs can accomplish the same result.
+11. Do not sacrifice mobile performance for visual effects.
+12. Respect prefers-reduced-motion.
+13. Do not add autoplaying media that significantly increases the initial page payload.
+14. Do not introduce scroll-jacking.
+15. Do not create visual clutter.
+16. Do not make every section animated simply because animation exists.
+17. Existing content should be reused wherever possible.
+
+Core principle
+
+Premium must never mean heavier.
+
+The website should feel more cinematic while becoming no slower to load.
+
+⸻
+
+2. CURRENT BRAND DIRECTION
+
+Preserve the established KIUT visual language:
+
+* Black/dark backgrounds
+* Gold accents
+* KIUT monogram
+* Gold serif display typography
+* Clean sans-serif supporting typography
+* Editorial spacing
+* Rounded media surfaces where already established
+* Restrained luxury
+* Cinematic photography/video
+* Minimal UI
+* Strong contrast
+* Controlled motion
+
+The goal is:
+
+Current positioning
+
+Premium artist website
+
+Refined positioning
+
+Cinematic digital artist universe
+
+Do not turn KIUT into a generic Afrobeats website with loud gradients, excessive neon, oversized social-media widgets, or generic music-player aesthetics.
+
+⸻
+
+3. IMPLEMENTATION ORDER
+
+Implement the refinement in controlled stages.
+
+STAGE A — HOMEPAGE HERO EXPERIENCE
+
+Refine the homepage opening so it feels like an intentional cinematic introduction.
+
+Use the existing hero assets and approved release content.
+
+Desired sequence:
+
+1. KIUT monogram/brand mark establishes the frame.
+2. Background visual/video resolves subtly.
+3. Release label appears.
+4. Main release title enters.
+5. Supporting information appears.
+6. CTA becomes visible.
+
+Animation should be approximately 1–1.5 seconds maximum and should not delay interaction.
+
+Use opacity, transform, blur/reveal, and subtle scale transitions rather than complicated animation systems.
+
+Important
+
+Do not block the page from rendering while the animation runs.
+
+The content must remain accessible if animation is disabled.
+
+⸻
+
+4. STAGE B — PREMIUM RELEASE CAROUSEL
+
+Refine the existing release artwork carousel.
+
+Maintain all current functionality.
+
+Improve it toward a physical/editorial archive aesthetic:
+
+* Current artwork prominently displayed.
+* Previous/next artwork subtly visible where screen size permits.
+* Darkened/blurred surrounding artwork where appropriate.
+* Subtle gold emphasis around the active release.
+* Smooth swipe interaction on mobile.
+* Existing arrows remain accessible.
+* Add a refined release counter such as:
+
+01 / 03
+
+or the appropriate number based on actual data.
+
+Use a restrained gold progress indicator.
+
+Do not preload every large image.
+
+Use:
+
+* responsive image sizes
+* lazy loading
+* appropriate srcset
+* existing optimized formats
+* only necessary artwork loaded near the viewport
+
+⸻
+
+5. STAGE C — PERSISTENT MINI AUDIO PLAYER
+
+Investigate the existing music/streaming architecture before implementing.
+
+If technically appropriate, introduce a compact persistent player that appears only after the visitor initiates playback or an audio interaction.
+
+Concept:
+
+KIUT
+ROMANTIC LOVE
+▶ ─────────
+
+Include:
+
+* small artwork
+* play/pause
+* progress
+* track title
+* optional streaming action
+* minimize/expand behavior
+
+Mobile requirements
+
+The player must:
+
+* remain compact
+* respect safe-area insets
+* never cover important CTAs
+* never obstruct navigation
+* never prevent scrolling
+* never force audio playback without user interaction
+
+If the existing architecture does not support reliable in-page playback, do not create a fake player. Preserve the current streaming workflow and improve its presentation instead.
+
+⸻
+
+6. STAGE D — CREATIVE PORTFOLIO
+
+Replace the current Creative Portfolio visual/video treatment with the approved replacement video already intended for this section.
+
+Create a cinematic presentation:
+
+CREATIVE PORTFOLIO
+
+Visual work from the KIUT universe.
+
+Then:
+
+* large cinematic video
+* optimized poster image
+* subtle overlay
+* project title
+* category/year only where supported by existing data
+* VIEW PROJECT CTA where an actual destination exists
+
+Performance requirements
+
+The video must:
+
+* use a lightweight poster first
+* avoid blocking initial page rendering
+* lazy-load when appropriate
+* avoid unnecessary autoplay
+* respect reduced motion
+* avoid loading the full video before it is needed
+
+Do not change the approved replacement video content.
+
+⸻
+
+7. STAGE E — LATEST VISUALS
+
+Refine the Latest Visuals section into an editorial catalogue.
+
+Instead of making it feel like a conventional card grid, establish clearer hierarchy:
+
+01
+Featured visual
+
+Then secondary entries:
+
+02
+03
+
+Use existing video data.
+
+Each visual should have:
+
+* title
+* appropriate metadata
+* thumbnail/poster
+* clear interaction
+* accessible label
+
+Do not invent metadata.
+
+Maintain the existing Videos route.
+
+⸻
+
+8. STAGE F — VIDEO DISCOVERY SYSTEM
+
+The existing:
+
+1/27 WATCHED · 4%
+
+concept is a strong differentiator.
+
+Do not remove it.
+
+Make it more visually intentional.
+
+Possible presentation:
+
+KIUT VISUAL ARCHIVE
+
+01 / 27 WATCHED
+
+████░░░░░░ 4%
+
+The progress should update based on the existing watch-tracking implementation.
+
+Use subtle animation when progress changes.
+
+Do not create fake progress.
+
+Do not require login unless the existing architecture already requires it.
+
+Preserve privacy and existing storage behavior.
+
+⸻
+
+9. STAGE G — STATISTICS REFINEMENT
+
+Refine the statistics section without changing factual values.
+
+When the section enters the viewport:
+
+* numbers can count up subtly
+* labels fade/reveal
+* gold dividers can animate minimally
+
+Example:
+
+0 → 20+
+
+Do not exaggerate or invent statistics.
+
+Use IntersectionObserver or another lightweight browser-native mechanism.
+
+The animation must run once and then remain static.
+
+⸻
+
+10. STAGE H — TOUR ANTICIPATION EXPERIENCE
+
+If there are currently no complete confirmed tour dates, do not fabricate them.
+
+Instead, make the existing upcoming-tour state intentional.
+
+Possible hierarchy:
+
+NEXT CHAPTER
+
+TOUR DATES
+DROPPING SOON
+
+Then provide the existing newsletter/notification pathway.
+
+The section should communicate anticipation rather than looking like an unfinished calendar.
+
+Preserve the existing structured Event data rules from Phase 11D.
+
+⸻
+
+11. STAGE I — BOOK KIUT / BUSINESS ACCESS
+
+Review the current Contact/booking architecture.
+
+If the existing booking infrastructure supports it, make access to business inquiries more discoverable.
+
+Possible navigation treatment:
+
+BOOK KIUT
+
+or
+
+FOR BUSINESS
+
+Do not create a duplicate booking system.
+
+Route users to the existing Contact/booking flow.
+
+Possible categories should only reflect existing functionality:
+
+* live performance
+* private events
+* brand collaborations
+* media/creative work
+* other inquiry
+
+Only use categories supported by the current implementation.
+
+⸻
+
+12. STAGE J — DREAM PLANET TRANSITION
+
+The Dream Planet integration currently creates a visual discontinuity with the KIUT brand.
+
+Do not modify Dream Planet itself.
+
+Instead, create a branded transition experience on the KIUT side.
+
+Possible presentation:
+
+KIUT STORE
+
+Explore exclusive KIUT releases, merchandise and digital experiences.
+
+ENTER THE STORE →
+
+Use:
+
+* KIUT black background
+* KIUT gold
+* existing typography
+* restrained animation
+
+Then send the visitor to the existing Dream Planet destination.
+
+Do not break existing external links.
+
+Do not duplicate the Dream Planet storefront.
+
+⸻
+
+13. STAGE K — MERCHANDISE PRESENTATION
+
+Review the existing merchandise cards.
+
+Correct presentation issues without inventing new products.
+
+Ensure:
+
+* complete product names are visible
+* no mid-word truncation
+* consistent image dimensions
+* consistent image treatment
+* consistent backgrounds
+* no obvious supplier/drop-shipping photography where existing assets can be improved
+* album artwork is not presented as merchandise photography unless it genuinely represents the product
+* buttons remain functional
+* external Dream Planet destination remains intact
+
+Use existing product information.
+
+If a product asset is clearly unsuitable, do not fabricate a replacement. Flag it for asset replacement instead.
+
+⸻
+
+14. STAGE L — FLOATING KIUT CONTROL
+
+Review the existing floating KIUT/monogram control.
+
+If appropriate, refine it into a compact command interface.
+
+Possible states:
+
+Idle
+
+KIUT monogram
+
+Active
+
+Subtle expansion
+
+Expanded
+
+* Listen
+* Watch
+* Book
+
+Only expose actions that already exist.
+
+Requirements:
+
+* keyboard accessible
+* screen-reader accessible
+* mobile-safe
+* does not obscure content
+* does not interfere with navigation
+* does not appear excessively often
+
+⸻
+
+15. STAGE M — TYPOGRAPHY REFINEMENT
+
+Do not replace the KIUT typography system.
+
+Refine hierarchy and spacing.
+
+Use:
+
+Display
+
+Gold serif
+
+Supporting heading
+
+Serif or approved display type at a smaller scale
+
+Eyebrow
+
+Gold uppercase sans-serif
+
+Body
+
+Clean readable sans-serif
+
+CTA
+
+Medium-weight sans-serif
+
+Reduce excessive vertical density on mobile.
+
+Pay particular attention to:
+
+* heading-to-body spacing
+* heading line-height
+* CTA spacing
+* section padding
+* card density
+
+The site should feel spacious without becoming unnecessarily long.
+
+⸻
+
+16. STAGE N — PREMIUM MOTION SYSTEM
+
+Create a small consistent motion vocabulary.
+
+Use motion only for:
+
+* reveal
+* fade
+* scale
+* image transition
+* carousel movement
+* progress changes
+* count-up statistics
+* button interaction
+
+Use consistent durations and easing.
+
+Avoid:
+
+* scroll-jacking
+* aggressive parallax
+* constant floating elements
+* spinning logos
+* excessive particle effects
+* unnecessary 3D
+* animation that delays content
+
+Implement with CSS/native browser APIs whenever possible.
+
+Respect:
+
+prefers-reduced-motion: reduce
+
+⸻
+
+17. STAGE O — EDITORIAL “KIUT WORLD” DIRECTION
+
+Do not necessarily create a new page immediately.
+
+Instead, prepare the architecture for a future KIUT WORLD content layer.
+
+Potential categories:
+
+* Music
+* Visuals
+* Stories
+* Style
+* Journey
+* Culture
+* Collaborations
+* Behind the scenes
+
+Do not implement empty sections merely for the sake of architecture.
+
+Only expose content that actually exists.
+
+⸻
+
+18. STAGE P — RELEASE STORY EXPERIENCE
+
+For major releases where enough verified information exists, prepare a richer storytelling structure.
+
+Example:
+
+ROMANTIC LOVE
+
+THE STORY
+
+Then potentially:
+
+* release artwork
+* story/context
+* approved lyrics excerpt/content
+* visual
+* credits
+* streaming links
+* related videos
+
+Do not invent credits or release information.
+
+This must remain compatible with the existing structured-data system.
+
+⸻
+
+19. STAGE Q — CREDITS
+
+Where verified data exists, make release credits presentable.
+
+Potential fields:
+
+* Artist
+* Producer
+* Writer
+* Director
+* Video
+* Photography
+* Artwork
+
+Only display fields already supported by the application’s data.
+
+Do not create placeholder credits.
+
+⸻
+
+20. STAGE R — CINEMATIC FOOTER
+
+Refine the final website section into a deliberate closing experience.
+
+Potential structure:
+
+KIUT.
+
+Music. Culture. Movement.
+
+Then:
+
+LISTEN
+WATCH
+BOOK
+SHOP
+
+followed by:
+
+* social links
+* newsletter
+* legal
+* existing copyright information
+
+Use a subtle visual fade toward the bottom.
+
+The footer should feel like the closing credits of a film.
+
+⸻
+
+21. PERFORMANCE REQUIREMENTS
+
+This is critical because the Music page has previously experienced mobile loading/lazy-loading problems.
+
+Before and after implementation measure:
+
+* initial page load
+* LCP
+* CLS
+* INP
+* JavaScript bundle size
+* image payload
+* video payload
+* number of network requests
+* third-party requests
+* mobile loading behavior
+
+Do not:
+
+* preload every video
+* preload every album image
+* add large animation libraries
+* add unnecessary third-party embeds
+* load below-the-fold media immediately
+* introduce blocking JavaScript
+* duplicate existing assets
+* duplicate SEO scripts
+
+Prefer:
+
+* poster-first video
+* lazy video loading
+* responsive images
+* srcset
+* sizes
+* IntersectionObserver
+* CSS animation
+* dynamic imports where appropriate
+* existing optimized asset pipeline
+
+⸻
+
+22. SEO PRESERVATION
+
+Phase 11 SEO architecture must remain untouched unless a regression is discovered.
+
+Verify after implementation:
+
+Metadata
+
+* title
+* description
+* canonical
+* robots
+* OG
+* Twitter
+
+Structured data
+
+* MusicGroup
+* WebSite
+* WebPage
+* MusicAlbum
+* MusicRecording
+* VideoObject
+* Event
+
+No duplicate JSON-LD.
+
+No unsupported facts.
+
+No unresolved entity references.
+
+Invalid URLs must continue returning the Phase 11C 404 behavior.
+
+⸻
+
+23. ACCESSIBILITY
+
+Every new interaction must support:
+
+* keyboard navigation
+* focus states
+* screen readers
+* semantic buttons/links
+* meaningful accessible names
+* adequate contrast
+* reduced motion
+* mobile touch targets
+
+Do not use clickable <div> elements when a semantic <button> or <a> is appropriate.
+
+Do not remove meaningful alt text.
+
+Decorative imagery should remain appropriately decorative.
+
+⸻
+
+24. RESPONSIVE DESIGN
+
+Test at minimum:
+
+Mobile
+
+375 × 812
+390 × 844
+430 × 932
+
+Tablet
+
+768 × 1024
+
+Desktop
+
+1440 × 900
+1920 × 1080
+
+Pay particular attention to:
+
+* hero cropping
+* carousel behavior
+* navigation
+* floating controls
+* mini-player
+* video sizing
+* typography
+* footer
+* merch cards
+* CTA accessibility
+
+No horizontal overflow.
+
+No clipped text.
+
+No overlapping controls.
+
+No accidental fixed elements covering content.
+
+⸻
+
+25. THIRD-PARTY CONTENT
+
+Because previous testing identified third-party embed/image failures, isolate third-party content.
+
+Third-party failures must never prevent the KIUT homepage from rendering.
+
+For Dream Planet/YouTube/external media:
+
+* fail gracefully
+* reserve layout space
+* use poster/fallback content
+* avoid blocking rendering
+* prevent external errors from crashing React
+* avoid unnecessary console errors
+
+⸻
+
+26. TESTING REQUIREMENTS
+
+Before declaring completion:
+
+Run:
+
+npm run check
+npm run build
+
+Then run the project’s existing test suite.
+
+Perform browser testing for:
+
+* Home
+* Music
+* Videos
+* About
+* Tour
+* Newsletter
+* Contact
+* Legal
+* invalid URL
+
+Test:
+
+* desktop
+* mobile
+* navigation
+* carousel
+* video loading
+* floating controls
+* merch links
+* booking links
+* newsletter
+* external integrations
+
+Confirm that the replacement Creative Portfolio video works.
+
+Confirm that the homepage still renders if third-party content fails.
+
+⸻
+
+27. REGRESSION CHECKLIST
+
+Before finishing, explicitly confirm:
+
+* Homepage still loads correctly.
+* Music page does not regress in performance.
+* Mobile loading remains stable.
+* No new React errors.
+* No new console errors caused by our changes.
+* Navigation works.
+* Mobile navigation works.
+* Hero works.
+* Release carousel works.
+* Creative Portfolio replacement video works.
+* Videos work.
+* Video progress works.
+* Tour works.
+* Contact/booking works.
+* Newsletter works.
+* Merchandise links work.
+* Dream Planet transition works.
+* Legal works.
+* 404 behavior remains intact.
+* SEO metadata remains intact.
+* JSON-LD remains intact.
+* No duplicate JSON-LD.
+* Sitemap remains unchanged.
+* Robots remains unchanged.
+* Analytics remains functional.
+* No horizontal overflow.
+* Reduced-motion behavior works.
+* Accessibility checks pass.
+
+⸻
+
+28. IMPLEMENTATION DISCIPLINE
+
+Do not implement all visual ideas blindly.
+
+First inspect the existing components and identify which requested improvements can be achieved through small targeted refinements.
+
+For every proposed change:
+
+1. Identify the existing component.
+2. Identify existing data/assets.
+3. Reuse existing functionality.
+4. Make the smallest clean implementation.
+5. Test it.
+6. Check mobile.
+7. Check performance.
+8. Check for regressions.
+
+If an asset is missing, do not fabricate it.
+
+If a requested feature conflicts with the existing architecture, preserve the architecture and implement the closest lightweight equivalent.
+
+⸻
+
+FINAL SUCCESS CRITERIA
+
+The finished KIUT Music experience should feel:
+
+Cinematic.
+Premium.
+Editorial.
+Musical.
+African/cultural without cliché.
+Modern.
+Interactive without being gimmicky.
+Fast.
+Mobile-first.
+Business-ready.
+
+Most importantly:
+
+The visitor should feel like they entered KIUT’s world, not that they opened another generic artist template.
+
+Do not publish automatically.
+
+Complete the implementation, run the full validation suite, report the files/components changed, report performance impact, report any unresolved issues, and stop before publishing.

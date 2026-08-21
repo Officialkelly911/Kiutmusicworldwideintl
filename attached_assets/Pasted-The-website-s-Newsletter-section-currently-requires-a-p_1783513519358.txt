@@ -1,0 +1,257 @@
+The website's Newsletter section currently requires a production-ready backend. Your task is to connect the newsletter signup form to both a secure database and a professional email marketing platform while preserving the existing premium user experience and visual design.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OBJECTIVE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement a complete newsletter subscription system that:
+
+• Validates email addresses
+• Prevents duplicate subscriptions
+• Stores subscribers securely
+• Syncs subscribers with the mailing platform
+• Optionally sends a welcome email
+• Provides a polished user experience
+
+Do not redesign the Newsletter section.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MAILING PLATFORM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use Mailchimp as the primary mailing platform.
+
+If Mailchimp integration is not available, implement the architecture so another provider (Brevo, ConvertKit, etc.) can easily be substituted.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DATABASE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Store every subscriber in the database.
+
+Suggested fields:
+
+• id
+• email
+• subscribedAt
+• status
+• source (Website Newsletter)
+• createdAt
+• updatedAt
+
+Prevent duplicate email addresses.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EMAIL VALIDATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Validate:
+
+• Proper email format
+• Required field
+• Duplicate subscriptions
+
+Reject invalid submissions with clear, user-friendly messages.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUBSCRIPTION FLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Upon successful submission:
+
+1. Validate email.
+2. Check for duplicates.
+3. Save subscriber to the database.
+4. Add subscriber to the Mailchimp audience.
+5. Return a success response.
+6. Display a confirmation message.
+7. Optionally send a welcome email.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WELCOME EMAIL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If enabled, automatically send a welcome email.
+
+Example subject:
+
+Welcome to the Kiut Music Community
+
+Example body:
+
+Thank you for subscribing.
+
+You'll now receive:
+
+• New music releases
+• Exclusive merchandise updates
+• Behind-the-scenes content
+• Future concert announcements
+• Community news
+
+We appreciate your support.
+
+— Kiut Music
+
+Use a clean HTML email template consistent with the website branding.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUCCESS EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After successful subscription:
+
+• Clear the input field
+• Display a smooth confirmation animation
+• Preserve page layout
+• Do not refresh the page
+
+Example message:
+
+"Thank you for subscribing. You're officially part of the Kiut Music community."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ERROR HANDLING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Display friendly messages for:
+
+• Invalid email
+• Already subscribed
+• Server unavailable
+• Network error
+
+Never expose technical details.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECURITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Implement:
+
+• Server-side validation
+• Input sanitization
+• Rate limiting
+• Spam protection
+• Secure API routes
+
+Store all secrets in environment variables.
+
+Never expose API keys.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use environment variables for:
+
+MAILCHIMP_API_KEY=
+MAILCHIMP_SERVER_PREFIX=
+MAILCHIMP_AUDIENCE_ID=
+RESEND_API_KEY=
+NEWSLETTER_FROM_EMAIL=
+NEWSLETTER_REPLY_TO=
+
+Avoid hardcoding credentials.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+USER EXPERIENCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+While processing:
+
+• Disable the Subscribe button
+• Display a loading spinner
+• Prevent duplicate clicks
+
+Maintain the site's existing premium animations and styling.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPONSIVENESS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Verify the newsletter functions correctly on:
+
+• Desktop
+• Tablet
+• Mobile
+
+Maintain the existing responsive layout.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ACCESSIBILITY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ensure:
+
+• Proper labels
+• Keyboard accessibility
+• Screen reader support
+• Visible focus states
+• ARIA attributes where appropriate
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PRESERVE EXISTING DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Do NOT modify:
+
+• Typography
+• Layout
+• Colors
+• Buttons
+• Animations
+• Section spacing
+• Overall visual identity
+
+Only improve functionality.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUALITY ASSURANCE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before completion verify:
+
+✓ Email validation works.
+✓ Duplicate subscriptions are prevented.
+✓ Subscribers are stored in the database.
+✓ Subscribers are added to the Mailchimp audience.
+✓ Welcome email sends successfully (if enabled).
+✓ Success and error messages display correctly.
+✓ Mobile functionality works.
+✓ No console errors exist.
+✓ Existing design remains unchanged.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ADMIN CONSIDERATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Structure the implementation so it can easily support future features such as:
+
+• Subscriber export
+• Subscriber management dashboard
+• Audience segmentation
+• Double opt-in
+• Subscription preferences
+• GDPR consent tracking
+• Unsubscribe handling
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPLETION REPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Provide a report including:
+
+• Files modified
+• Database tables created or updated
+• Mailchimp integration status
+• Environment variables required
+• Welcome email implementation
+• Validation rules
+• Security measures added
+• Testing results
+• Confirmation that the Newsletter system is fully production-ready.
+
+IMPORTANT
+
+The final implementation must be secure, scalable, and maintainable. Preserve the premium Kiut Music design language while ensuring every newsletter signup is safely stored, synchronized with the mailing platform, and ready for future marketing campaigns without requiring additional code changes.

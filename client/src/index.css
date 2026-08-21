@@ -1,0 +1,678 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  /* ── KSDL brand palette — exposed as first-class Tailwind utilities ──
+     (bg-gold, text-champagne, border-graphite, etc.) per Studio Handbook
+     03_Design_System/01_Color_System.md */
+  --color-midnight: var(--color-midnight-black);
+  --color-charcoal: #121212;
+  --color-graphite: #1e1e1e;
+  --color-heading: var(--color-white);
+  --color-body: #d6d6d6;
+  --color-muted-text: var(--color-neutral-gray);
+  --color-gold: var(--color-royal-gold);
+  --color-gold-hover: #f4c542;
+  --color-champagne: var(--color-champagne-gold);
+  --color-purple: #6d3eff;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* ── Global design tokens — the canonical palette. Every component
+     should reference these instead of hard-coded hex/rgba colors. ── */
+  --color-gold-primary: #d4af37;
+  --color-gold-light: #e8c766;
+  --color-gold-dark: #a8842c;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-gray-100: #f5f5f5;
+  --color-gray-300: #d4d4d4;
+
+  /* ── KIUT Brand Integration Phase 3 — official named brand tokens.
+     These are the single source of truth for the brand palette; every
+     button, icon, link, card, background, divider, border, and hover
+     state should reference one of these six colors (or an opacity
+     variant of one) instead of a hard-coded hex/rgba value. ── */
+  --color-royal-gold: #d4af37;      /* Royal Gold — primary brand accent */
+  --color-champagne-gold: #f7e7a1;  /* Champagne Gold — light accent / highlights */
+  --color-dark-gold: #a8842c;       /* Dark Gold — pressed/active states, deep accents */
+  --color-midnight-black: #080808;  /* Midnight Black — primary background */
+  --color-neutral-gray: #9b9b9b;    /* Neutral Gray — secondary/muted text, icons */
+
+  /* ── KSDL shadow scale — 11_Design_Tokens.md ── */
+  --shadow-xs: 0 2px 6px rgba(var(--black-rgb), 0.12);
+  --shadow-sm: 0 8px 20px rgba(var(--black-rgb), 0.2);
+  --shadow-md: 0 14px 32px rgba(var(--black-rgb), 0.28);
+  --shadow-lg: 0 24px 60px rgba(var(--black-rgb), 0.35);
+  --shadow-xl: 0 40px 120px rgba(var(--black-rgb), 0.4);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Cinzel', serif;
+  --font-editorial: 'Cormorant Garamond', serif;
+
+  /* ── KSDL motion durations as first-class Tailwind utilities ──
+     (duration-fast, duration-normal, duration-medium, duration-slow,
+     duration-cinematic) per 07_Animation_Motion_System.md — use these
+     instead of arbitrary duration-[Nms] values. */
+  --duration-fast: 180ms;
+  --duration-normal: 280ms;
+  --duration-medium: 450ms;
+  --duration-slow: 600ms;
+  --duration-cinematic: 800ms;
+
+  /* ── Unified button system — KIUT Brand Integration Phase 4.
+     Every interactive control (CTA, nav pill, form submit, footer/
+     newsletter button, icon button) shares these metrics: radius,
+     font, weight, padding, and transition speed. Primary/secondary
+     only differ in fill vs. outline treatment. ── */
+  --button-radius: var(--radius-full);
+  --button-font: var(--font-sans);
+  --button-weight: 700;
+  --button-padding-y: 0.875rem;
+  --button-padding-x: 1.75rem;
+  --button-padding-y-sm: 0.625rem;
+  --button-padding-x-sm: 1.25rem;
+  --button-transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --button-icon-size: 2.75rem;
+  --button-icon-size-sm: 2.25rem;
+}
+
+:root {
+  /* ── Global design tokens (plain aliases for use in inline styles /
+     JS, e.g. style={{ color: "var(--gold-primary)" }}). Keep these in
+     sync with the --color-* tokens above. ── */
+  --gold-primary: var(--color-gold-primary);
+  --gold-light: var(--color-gold-light);
+  --gold-dark: var(--color-gold-dark);
+  --black: var(--color-black);
+  --white: var(--color-white);
+  --gray-100: var(--color-gray-100);
+  --gray-300: var(--color-gray-300);
+
+  /* Official brand token aliases (Phase 3 naming) — same values as
+     above, exposed under their brand names for use in inline styles,
+     e.g. style={{ color: "var(--royal-gold)" }}. */
+  --royal-gold: var(--color-royal-gold);
+  --champagne-gold: var(--color-champagne-gold);
+  --dark-gold: var(--color-dark-gold);
+  --midnight-black: var(--color-midnight-black);
+  --neutral-gray: var(--color-neutral-gray);
+  --gold-hover: var(--color-gold-hover);
+
+  /* RGB triplets for use inside rgba(...) with variable opacity. */
+  --gold-primary-rgb: 212, 175, 55;
+  --royal-gold-rgb: 212, 175, 55;
+  --champagne-gold-rgb: 247, 231, 161;
+  --dark-gold-rgb: 168, 132, 44;
+  --midnight-black-rgb: 8, 8, 8;
+  --neutral-gray-rgb: 155, 155, 155;
+  --black-rgb: 0, 0, 0;
+  --white-rgb: 255, 255, 255;
+  --gold-hover-rgb: 244, 197, 66;
+  --purple-rgb: 109, 62, 255;
+
+  /* ── Shadcn/ui semantic tokens, remapped to the KSDL brand palette ──
+     (Midnight Black / Charcoal / Graphite / Royal Gold / Royal Purple)
+     instead of the generic purple/pink defaults. Any shadcn primitive
+     using bg-background, bg-primary, bg-accent, etc. now automatically
+     matches the Kiut brand identity instead of an unused placeholder theme. */
+  --background: 0 0% 3%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 100%;
+  --card-border: 0 0% 15%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 46 65% 52%;
+  --primary-foreground: 0 0% 4%;
+  --secondary: 0 0% 7%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 61%;
+  --accent: 255 100% 62%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 46 65% 52%;
+  --chart-1: 46 65% 52%;
+  --chart-2: 255 100% 62%;
+  --chart-3: 217 91% 60%;
+  --chart-4: 158 64% 52%;
+  --chart-5: 43 96% 56%;
+  --radius: 24px;
+
+  /* ── KSDL spacing scale (8-point grid) — 03_Spacing_Layout_System.md ── */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  --space-9: 128px;
+  --space-10: 160px;
+
+  /* ── KSDL glow tokens — 08_Shadow_Glow_System.md ── */
+  --glow-gold: 0 0 24px rgba(var(--gold-primary-rgb), 0.28);
+  --glow-gold-hover: 0 0 42px rgba(var(--gold-hover-rgb), 0.38);
+  --glow-purple: 0 0 30px rgba(var(--purple-rgb), 0.22);
+  --glow-champagne: 0 0 28px rgba(var(--champagne-gold-rgb), 0.25);
+
+  /* ── KSDL motion tokens — 07_Animation_Motion_System.md ── */
+  --motion-fast: 180ms;
+  --motion-normal: 250ms;
+  --motion-medium: 350ms;
+  --motion-slow: 500ms;
+  --motion-cinematic: 800ms;
+  --ease-default: ease-out;
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: ease-in;
+  --ease-page: ease-in-out;
+
+  /* ── KSDL icon sizes — 09_Iconography_System.md ── */
+  --icon-xs: 16px;
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+  --icon-xl: 48px;
+
+  /* ── KSDL layout containers & breakpoints — 10_Responsive_System.md ── */
+  --container-sm: 720px;
+  --container-md: 960px;
+  --container-lg: 1200px;
+  --container-xl: 1440px;
+  --container-ultra: 1600px;
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
+  --bp-desktop: 1280px;
+  --bp-wide: 1440px;
+  --bp-ultrawide: 1920px;
+
+  /* ── KSDL z-index layers — 11_Design_Tokens.md ── */
+  --z-background: 0;
+  --z-content: 10;
+  --z-navigation: 100;
+  --z-dropdown: 500;
+  --z-modal: 1000;
+  --z-toast: 1100;
+  --z-loader: 1200;
+
+  /* ── KSDL opacity tokens — 11_Design_Tokens.md ── */
+  --opacity-disabled: 0.5;
+  --opacity-overlay: 0.65;
+  --opacity-glass: 0.08;
+  --opacity-hover: 0.92;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(280 100% 65%) 0%, hsl(320 100% 60%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glow-primary {
+    box-shadow: 0 0 40px -10px hsl(280 100% 65% / 0.5);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 40px -10px hsl(320 100% 60% / 0.5);
+  }
+  
+  .glass {
+    background: rgba(var(--midnight-black-rgb), 0.82);
+    backdrop-filter: blur(24px) saturate(1.2);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
+    border-bottom: 1px solid rgba(var(--white-rgb), 0.06);
+  }
+
+  .glass-scrolled {
+    background: rgba(var(--midnight-black-rgb), 0.94);
+    backdrop-filter: blur(44px) saturate(1.5);
+    -webkit-backdrop-filter: blur(44px) saturate(1.5);
+    border-bottom: 1px solid rgba(var(--white-rgb), 0.09);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.28);
+  }
+  
+  /* ── Unified interactive control system — KIUT Brand Integration
+     Phase 4. Every button/CTA/icon-button in the app shares radius,
+     font, weight, padding, and transition timing from here. Apply
+     .btn-base plus .btn-primary or .btn-secondary; icon-only controls
+     use .btn-icon (optionally with .btn-icon-sm). ── */
+  .btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--button-radius);
+    font-family: var(--button-font);
+    font-weight: var(--button-weight);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: var(--button-padding-y) var(--button-padding-x);
+    transition: transform var(--button-transition), background-color var(--button-transition),
+      color var(--button-transition), border-color var(--button-transition), box-shadow var(--button-transition);
+    cursor: pointer;
+    user-select: none;
+  }
+  .btn-base.btn-sm {
+    padding: var(--button-padding-y-sm) var(--button-padding-x-sm);
+    font-size: 0.75rem;
+  }
+  .btn-base:focus-visible {
+    outline: 2px solid var(--royal-gold);
+    outline-offset: 2px;
+  }
+  .btn-base:disabled,
+  .btn-base[aria-disabled="true"] {
+    opacity: var(--opacity-disabled);
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .btn-primary {
+    background-color: var(--royal-gold);
+    color: var(--midnight-black);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-primary:hover {
+    background-color: var(--gold-hover, var(--champagne-gold));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--royal-gold);
+    border: 1.5px solid var(--royal-gold);
+  }
+  .btn-secondary:hover {
+    background-color: var(--royal-gold);
+    color: var(--midnight-black);
+  }
+  .btn-secondary:active {
+    background-color: var(--dark-gold);
+    border-color: var(--dark-gold);
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--button-icon-size);
+    height: var(--button-icon-size);
+    border-radius: var(--button-radius);
+    background-color: rgba(var(--white-rgb), 0.05);
+    border: 1px solid rgba(var(--white-rgb), 0.1);
+    color: rgba(var(--white-rgb), 0.55);
+    transition: transform var(--button-transition), background-color var(--button-transition),
+      color var(--button-transition), border-color var(--button-transition);
+    cursor: pointer;
+  }
+  .btn-icon.btn-icon-sm {
+    width: var(--button-icon-size-sm);
+    height: var(--button-icon-size-sm);
+  }
+  .btn-icon:hover {
+    border-color: rgba(var(--royal-gold-rgb), 0.4);
+    color: var(--royal-gold);
+    background-color: rgba(var(--white-rgb), 0.1);
+    transform: translateY(-2px);
+  }
+  .btn-icon:active {
+    transform: translateY(0);
+  }
+  .btn-icon:focus-visible {
+    outline: 2px solid var(--royal-gold);
+    outline-offset: 2px;
+  }
+  .btn-icon:disabled,
+  .btn-icon[aria-disabled="true"] {
+    opacity: var(--opacity-disabled);
+    pointer-events: none;
+    transform: none !important;
+  }
+
+  /* ── Premium CTA button — KIUT Brand Integration.
+     Reserved for major conversion CTAs (hero "Listen Now", "Latest
+     Release", "Join Newsletter", "Book Kiut", "Shop Merchandise",
+     "Watch Official Video", "Become a Member", "Contact"). Full pill,
+     2px Royal Gold border, satin near-black interior, soft gold glow,
+     and a slow gold light sweep across the border every ~5s. Hover/
+     active transforms live on the React component (framer-motion,
+     transform + opacity only); this stylesheet owns shape, color,
+     glow, and the sweep keyframes. ── */
+  .premium-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    isolation: isolate;
+    border-radius: var(--button-radius);
+    font-family: var(--button-font);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: var(--button-padding-y) var(--button-padding-x);
+    color: var(--color-white);
+    background:
+      linear-gradient(180deg, rgba(var(--white-rgb), 0.045), rgba(var(--white-rgb), 0) 55%),
+      var(--midnight-black);
+    border: 2px solid var(--royal-gold);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 16px 0 rgba(var(--royal-gold-rgb), 0.14);
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out,
+      box-shadow 250ms ease-in-out;
+  }
+  .premium-cta.premium-cta-sm {
+    padding: var(--button-padding-y-sm) var(--button-padding-x-sm);
+    font-size: 0.75rem;
+    gap: 0.5rem;
+  }
+  .premium-cta .premium-cta-label {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    color: color-mix(in srgb, var(--color-white) 82%, var(--royal-gold) 18%);
+  }
+  .premium-cta .premium-cta-icon {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    color: var(--royal-gold);
+  }
+  /* Animated gold light sweep — masked to the border ring only, via the
+     "double background + mask-composite: exclude" ring trick. */
+  .premium-cta .premium-cta-sweep {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    padding: 2px;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 35%,
+      rgba(var(--champagne-gold-rgb), 0.95) 50%,
+      transparent 65%
+    );
+    background-size: 260% 100%;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: premium-cta-sweep 5s ease-in-out infinite;
+  }
+  @keyframes premium-cta-sweep {
+    0% { background-position: -130% 0; }
+    40%, 100% { background-position: 130% 0; }
+  }
+  .premium-cta:hover {
+    border-color: var(--champagne-gold);
+    background:
+      linear-gradient(180deg, rgba(var(--white-rgb), 0.07), rgba(var(--white-rgb), 0) 55%),
+      #140f08;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.48), 0 0 26px 2px rgba(var(--royal-gold-rgb), 0.28);
+  }
+  .premium-cta:active {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), 0 0 12px 0 rgba(var(--royal-gold-rgb), 0.2);
+  }
+  .premium-cta:focus-visible {
+    outline: 2px solid var(--royal-gold);
+    outline-offset: 3px;
+  }
+  .premium-cta:disabled,
+  .premium-cta[aria-disabled="true"] {
+    opacity: var(--opacity-disabled);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .premium-cta .premium-cta-sweep {
+      animation: none;
+      opacity: 0.5;
+    }
+  }
+
+  .noise {
+    position: relative;
+  }
+
+  /* ── KSDL glow drop-shadow (for SVG/icon elements using filter,
+     where box-shadow tokens don't apply) — 08_Shadow_Glow_System.md ── */
+  .drop-glow-gold {
+    filter: drop-shadow(0 0 16px rgba(var(--gold-primary-rgb), 0.25));
+  }
+
+  .noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+/* ── KSDL box-shadow glow utilities — 08_Shadow_Glow_System.md ──
+   Use instead of one-off shadow-[0_0_Npx_rgba(var(--gold-primary-rgb),x)] literals. */
+@utility shadow-glow-gold {
+  box-shadow: var(--glow-gold);
+}
+@utility shadow-glow-gold-hover {
+  box-shadow: var(--glow-gold-hover);
+}
+@utility shadow-glow-purple {
+  box-shadow: var(--glow-purple);
+}
+@utility shadow-glow-champagne {
+  box-shadow: var(--glow-champagne);
+}
+
+/* ── Global base refinements ─────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Phase 14: Accessibility — Global focus ring ─────────── */
+/* Applies a gold outline to all focusable custom elements    */
+/* that don't already define their own focus-visible style.  */
+:focus-visible {
+  outline: 2px solid var(--gold-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Suppress focus ring for mouse/touch interactions */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip-to-content link (keyboard only) */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--gold-primary);
+  color: var(--midnight-black);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--midnight-black);
+  outline-offset: 2px;
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Reduced motion — disable all Framer Motion + CSS transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Smooth image cross-fades */
+img {
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(var(--gold-primary-rgb), 0.25);
+  color: var(--white);
+}
+
+/* Minimal custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--white-rgb), 0.08);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--gold-primary-rgb), 0.35);
+}
+
+/* Hide scrollbar helper */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── KSDL Loading shimmer ────────────────────────────────────────────────── */
+@keyframes ksdl-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.ksdl-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--white-rgb), 0.03) 0%,
+    rgba(var(--gold-primary-rgb), 0.07)  40%,
+    rgba(var(--white-rgb), 0.03) 60%,
+    rgba(var(--white-rgb), 0.01) 100%
+  );
+  background-size: 200% 100%;
+  animation: ksdl-shimmer 1.8s ease-in-out infinite;
+}
+
+/* ── KSDL Pulse glow (gold buttons / icons) ─────────────────────────────── */
+@keyframes ksdl-pulse-glow {
+  0%, 100% { box-shadow: var(--glow-gold); }
+  50%       { box-shadow: var(--glow-gold-hover); }
+}
+
+.ksdl-pulse-glow {
+  animation: ksdl-pulse-glow 2.4s ease-in-out infinite;
+}
+
+/* ── Accessibility: prefers-reduced-motion ──────────────────────────────── */
+/* CSS safety net — Framer Motion's MotionConfig reducedMotion="user" handles
+   JS animations; this rule covers all CSS transitions and keyframe animations
+   for users who have requested reduced motion at the OS level. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+
+  /* Keep shimmer visible but static (no movement) */
+  .ksdl-shimmer {
+    animation: none;
+    background: rgba(var(--white-rgb), 0.04);
+  }
+}

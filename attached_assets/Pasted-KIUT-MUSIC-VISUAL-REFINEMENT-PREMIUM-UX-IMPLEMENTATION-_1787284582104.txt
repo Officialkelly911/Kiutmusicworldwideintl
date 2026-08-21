@@ -1,0 +1,304 @@
+KIUT MUSIC — VISUAL REFINEMENT & PREMIUM UX IMPLEMENTATION
+
+Implement the next refinement pass for the KIUT Music website based on the completed visual audit.
+
+IMPORTANT:
+- Performance & Stability work has already been completed. Do NOT undo, replace, or unnecessarily refactor the existing performance optimizations.
+- Do not redesign the entire website.
+- Preserve the existing KIUT black-and-gold visual identity, typography system, spacing language, animations, responsive behavior, SEO implementation, structured data, routing, analytics, and 404 behavior.
+- Do not introduce new frameworks or dependencies unless absolutely necessary.
+- Do not generate or replace imagery unless explicitly required.
+- Reuse existing assets and components wherever possible.
+- Keep the site feeling like a premium music/cultural brand, not a generic SaaS or template website.
+
+OBJECTIVE
+
+Refine the existing KIUT Music experience so the website feels more intentional, cohesive, premium, and culturally distinctive while eliminating the most obvious visual inconsistencies.
+
+IMPLEMENT IN THIS PRIORITY ORDER:
+
+1. DREAM PLANET PROMO MODAL — RESTYLE
+
+The current “More from Kiut Music — Download Dream Planet” promotional modal visually breaks the KIUT design system.
+
+Replace the generic bright white/app-store aesthetic with a KIUT-branded presentation.
+
+Requirements:
+- Dark/black background consistent with the site.
+- Gold KIUT accent treatment.
+- Use the existing KIUT typography system.
+- Restyle Apple App Store and Google Play buttons so they visually integrate with the modal while retaining recognizable platform branding.
+- Use existing KIUT border, radius, shadow, spacing, and button conventions.
+- Make the modal feel like a first-party KIUT feature rather than an external advertisement.
+- Maintain clear hierarchy:
+  headline → short supporting copy → platform buttons → close action.
+- Ensure excellent mobile presentation.
+- Do not alter Dream Planet functionality or destination URLs.
+- Do not change when/how the modal is triggered unless necessary for usability.
+- Verify that the modal does not introduce layout shifts or block normal site navigation unexpectedly.
+
+2. YOUTUBE / VIDEO EMBED EXPERIENCE
+
+Inspect the existing YouTube embed error identified during the audit.
+
+Requirements:
+- Identify the actual cause rather than masking the error.
+- Ensure valid videos render correctly in production.
+- Preserve existing video catalogue behavior and progress tracking.
+- Maintain responsive aspect ratios.
+- Ensure embeds do not overflow mobile layouts.
+- Where appropriate, use privacy-enhanced YouTube embedding.
+- Preserve accessible iframe titles.
+- Do not replace valid video content with placeholders simply to hide errors.
+
+3. STRENGTHEN THE “WATCH” EXPERIENCE
+
+The existing “1/27 watched, 4%” video progress system is one of the site's strongest differentiated UX ideas.
+
+Refine it without changing its underlying tracking logic.
+
+Requirements:
+- Make the progress indicator more visually intentional and discoverable.
+- Keep it consistent with KIUT's black/gold visual system.
+- Improve hierarchy so users understand:
+  watched count → total videos → progress percentage.
+- Ensure it works correctly on desktop and mobile.
+- Do not make it visually overwhelming.
+- Do not introduce fake engagement or alter the actual tracking numbers.
+
+4. PERSISTENT “LISTEN EVERYWHERE” ACCESS
+
+The Music page already contains Spotify, Apple Music, YouTube, Audiomack, and other streaming destinations.
+
+Create a lightweight persistent “Listen Everywhere” component using the existing platform-link system.
+
+Preferred placement:
+- Music page initially.
+- If an existing global footer/utility area is suitable, allow a compact version there.
+
+Requirements:
+- Reuse existing streaming destinations and icons.
+- Do not invent platforms or URLs.
+- Maintain KIUT styling.
+- Make it immediately understandable.
+- Mobile version must remain compact and non-intrusive.
+- Do not create a permanently obstructive floating bar.
+- Ensure all links are accessible and open according to the site's existing link behavior.
+
+5. DISCOGRAPHY TIMELINE REFINEMENT
+
+The existing 2019 → 2021 → later-release timeline is a strong concept but currently feels visually sparse.
+
+Enhance the timeline using existing release artwork.
+
+Requirements:
+- Add album/release artwork thumbnails to appropriate timeline nodes.
+- Preserve chronological ordering.
+- Make the artwork visually subordinate to the release title/year rather than overwhelming the timeline.
+- Improve desktop visual rhythm.
+- Create a clean mobile layout that does not force horizontal scrolling.
+- Use existing album artwork only.
+- Do not fabricate release dates.
+- Keep the existing music data source as the single source of truth.
+
+6. MERCHANDISE GRID CLEANUP
+
+Refine the current merchandise presentation.
+
+Problems to address:
+- Product names are being truncated awkwardly, such as “SIGNATURE…” and “GOODLIFE DIGIT…”.
+- Some product imagery has inconsistent backgrounds.
+- “GOODLIFE DIGIT…” currently appears to use album artwork rather than clearly presenting a merchandise product.
+- Product presentation feels less polished than the rest of the website.
+
+Requirements:
+- Allow full product names to display cleanly.
+- Adjust card typography, width, line-height, or layout rather than aggressively shortening titles.
+- Use ellipsis only when genuinely necessary and never in the middle of a word where avoidable.
+- Preserve responsive card behavior.
+- Ensure product images have consistent visual treatment through framing/container styling.
+- Do not alter source product assets unless explicitly required.
+- Do not invent merchandise.
+- Preserve the existing “EXCLUSIVE ON DREAM PLANET” messaging and destination behavior.
+- Make the external Dream Planet relationship visually intentional rather than making it appear accidental.
+
+7. HOMEPAGE CONTACT / BOOKING DISCOVERY
+
+The existing Contact/booking infrastructure is a genuine strength and should be easier to discover.
+
+Add or refine a clear pathway from the homepage to the existing booking/contact experience.
+
+Preferred treatment:
+“BOOK KIUT”
+or
+“FOR BUSINESS”
+
+Requirements:
+- Use the existing Contact route and booking workflow.
+- Do not create a duplicate contact form.
+- Do not change existing form functionality.
+- Integrate the CTA naturally into the existing homepage hierarchy.
+- Maintain premium visual treatment.
+- Ensure the CTA is visible without competing with the primary music CTA.
+
+8. TYPOGRAPHY POSITIONING REFINEMENT
+
+Do NOT replace the KIUT logo or existing black-and-gold identity.
+
+The current gold serif KIUT wordmark and monogram are working and should remain.
+
+However, review body/UI typography and large section headings such as:
+- DISCOVER THE SOUND
+- WEAR THE CULTURE
+
+Goal:
+Preserve the luxury aesthetic while preventing the site from feeling excessively like a fashion house, spirits brand, or generic luxury template.
+
+Requirements:
+- Keep the established serif display typography where it is structurally important.
+- Improve hierarchy through weight, spacing, scale, and supporting sans-serif usage rather than replacing the entire typography system.
+- Use the existing brand fonts.
+- Keep the result premium but more connected to music/culture.
+- Do not make the site visually louder simply to make it feel “Afrobeats”.
+- Avoid cliché African design motifs or unnecessary decorative elements.
+
+9. NEWSLETTER / REPEATED CONTENT AUDIT
+
+Inspect the current repeated newsletter and promotional sections across Home, Music, Footer, and dedicated Newsletter areas.
+
+Determine whether any repetition is actual duplicated content rather than intentional navigation/conversion placement.
+
+If genuine duplication exists:
+- Keep one strong primary newsletter conversion section.
+- Retain a compact footer/newsletter access point where appropriate.
+- Remove unnecessary repeated blocks.
+- Do not remove useful contextual CTAs simply because they appear on multiple pages.
+
+Goal:
+Every section should feel purposeful rather than padding the page length.
+
+10. EDITORIAL / CULTURAL CONTENT FOUNDATION
+
+Do NOT build a complete editorial platform in this task.
+
+Instead, prepare the existing site architecture so future editorial/lifestyle content can be introduced cleanly.
+
+Review existing:
+- Nigeria → Hollywood story
+- Behind-the-scenes material
+- Journey/gallery content
+- Music culture
+- Fashion/merchandise
+- Travel/lifestyle material
+
+Identify the cleanest existing location for future editorial storytelling without implementing an unnecessary CMS or new content system.
+
+If a small visual refinement can make the existing story content feel more editorial, implement only that refinement.
+
+11. MOBILE QUALITY PASS
+
+After all visual changes, perform a dedicated mobile review.
+
+Check:
+- Navigation
+- Modal behavior
+- Video embeds
+- Music cards
+- Timeline
+- Merchandise cards
+- Contact CTA
+- Newsletter
+- Footer
+- Typography
+- Horizontal overflow
+- Touch target sizes
+- Text wrapping
+- Modal dismissal
+- Sticky/persistent components
+
+Nothing should require horizontal scrolling unless intentionally designed.
+
+12. PRESERVE SEO / TECHNICAL IMPLEMENTATION
+
+Do not regress any completed SEO phases.
+
+Specifically preserve:
+- Initial HTML route-specific metadata from Phase 11B.
+- Proper HTTP 404 behavior from Phase 11C.
+- Route-aware JSON-LD from Phase 11D.
+- Existing robots.txt.
+- Existing sitemap.xml.
+- Existing canonical URLs.
+- Existing structured data.
+- Existing GA4 implementation.
+- Existing client-side SEO fallback.
+- Existing performance/stability improvements from Phase 11F.
+
+If any component changes affect structured data or metadata, update the shared implementation rather than creating duplicate SEO logic.
+
+13. VALIDATION
+
+Before declaring the task complete:
+
+A. Run:
+- npm run check
+- npm run build
+- existing test suite
+- existing structured-data regression tests
+- existing server/404 tests
+
+B. Verify all public routes:
+/
+/music
+/videos
+/about
+/tour
+/newsletter
+/contact
+/legal
+
+C. Verify:
+- no duplicate JSON-LD
+- no metadata regression
+- valid 404 behavior
+- no console-breaking errors introduced
+- no new horizontal overflow
+- no broken internal links
+- no broken streaming links
+- no broken Dream Planet destination
+- no broken YouTube embeds
+- no broken contact/booking flow
+
+D. Test both desktop and mobile layouts.
+
+E. Compare the final implementation against the existing KIUT visual system before completion.
+
+DO NOT:
+- redesign the logo
+- replace the brand palette
+- replace the entire typography system
+- change SEO architecture
+- change routing architecture unnecessarily
+- remove existing music/video content
+- invent metadata
+- invent streaming URLs
+- invent tour information
+- replace existing assets without justification
+- add unnecessary dependencies
+- undo completed performance work
+- publish automatically unless explicitly instructed
+
+FINAL DELIVERABLE
+
+Provide a concise implementation report containing:
+
+1. Changes implemented
+2. Components/pages affected
+3. Bugs fixed
+4. UX refinements
+5. Mobile verification
+6. SEO/structured-data regression status
+7. Tests passed
+8. Any remaining non-blocking recommendations
+
+Keep the implementation focused on refinement, not redesign.

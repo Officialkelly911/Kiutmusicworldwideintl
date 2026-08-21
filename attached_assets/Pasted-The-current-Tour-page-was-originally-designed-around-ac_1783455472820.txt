@@ -1,0 +1,346 @@
+The current Tour page was originally designed around active concert dates. However, Kiut does not currently have any announced tours or concerts. Rather than displaying placeholder or fictional tour dates, I want this page to become a premium Live Experience page that remains valuable year-round while being ready for future tour announcements.
+
+This update should preserve the existing luxury black-and-gold aesthetic, cinematic feel, responsiveness, animations, and design language established throughout the website.
+
+⸻
+
+OBJECTIVES
+
+Do not redesign the page from scratch.
+
+Instead:
+
+* Preserve the overall layout and premium visual identity.
+* Replace temporary or fictional content with meaningful, evergreen content.
+* Improve storytelling.
+* Increase fan engagement.
+* Improve conversion to the Fan Card, merchandise, newsletter, and future events.
+* Structure every section so real tour information can be added later without rebuilding the page.
+
+⸻
+
+SECTION 1
+
+Hero
+
+Replace the current hero content with a more timeless message.
+
+Suggested headline:
+
+Experience Kiut Live
+
+Alternative options:
+
+* The Stage Awaits
+* Live Experiences
+* Every Performance Tells A Story
+
+Supporting copy:
+
+There are currently no announced live performances. Join the Kiut community to receive exclusive updates about future concerts, special appearances, and unforgettable live experiences.
+
+Primary CTA:
+
+Notify Me
+
+Secondary CTA:
+
+Watch Live Performances
+
+The secondary CTA should smoothly scroll to the Featured Performance section.
+
+⸻
+
+SECTION 2
+
+Upcoming Shows
+
+Remove all fictional concert dates.
+
+Instead create a premium Empty State.
+
+Example:
+
+No Live Dates Announced
+
+Supporting text:
+
+New performances are currently being planned. Join the mailing list to receive priority access as soon as new events are announced.
+
+CTA:
+
+Join the Mailing List
+
+Include subtle animations so this section never feels empty.
+
+⸻
+
+SECTION 3
+
+Featured Performances
+
+Replace multiple fake tour cards with a premium performance showcase.
+
+Display:
+
+* Official Music Videos
+* Live Performance Videos
+* Studio Sessions
+* Behind-the-Scenes Content
+* Acoustic Sessions
+* Festival Highlights (when available)
+
+Each card should include:
+
+* Thumbnail
+* Title
+* Duration
+* Watch button
+
+Use embedded YouTube content where available.
+
+⸻
+
+SECTION 4
+
+VIP Experience
+
+Keep this section.
+
+Update the copy to explain that membership benefits apply whenever live events become available.
+
+Example benefits:
+
+* Priority concert access
+* Early ticket notifications
+* Exclusive merchandise
+* VIP Meet & Greet opportunities
+* Private fan experiences
+* Future event invitations
+
+Do not promise events that do not yet exist.
+
+⸻
+
+SECTION 5
+
+Fan Card
+
+Keep this section.
+
+Improve its presentation.
+
+Add subtle glow effects.
+
+Improve spacing.
+
+Improve typography.
+
+Clearly explain the difference between:
+
+Regular Fan Card
+
+Premium VIP Fan Card
+
+Use elegant premium cards.
+
+⸻
+
+SECTION 6
+
+Past Shows
+
+Keep this section.
+
+Improve its appearance.
+
+Include:
+
+Venue
+
+City
+
+Country
+
+Year
+
+Optional gallery preview
+
+Optional highlight image
+
+Future data should be easy to add.
+
+⸻
+
+SECTION 7
+
+Next Live Chapter
+
+Create an entirely new premium section.
+
+Headline:
+
+The Next Live Chapter
+
+Display a simple animated timeline.
+
+Example:
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+Tour Planning
+
+Festival Bookings
+
+Special Appearances
+
+Future Live Experiences
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+This should create anticipation without displaying fake dates.
+
+Use elegant gold accents.
+
+⸻
+
+SECTION 8
+
+Never Miss A Show
+
+Keep this section.
+
+Improve typography.
+
+Improve spacing.
+
+Improve button hierarchy.
+
+Add subtle hover animations.
+
+⸻
+
+SECTION 9
+
+Newsletter
+
+Keep the newsletter section.
+
+Improve visual polish.
+
+Improve input styling.
+
+Improve button animations.
+
+Maintain responsiveness.
+
+⸻
+
+SECTION 10
+
+Footer
+
+Keep existing footer.
+
+Improve spacing.
+
+Improve icon hover effects.
+
+Improve typography consistency.
+
+⸻
+
+REMOVE
+
+Remove:
+
+* Fictional concert dates
+* Fake venues
+* Fake ticket sales
+* Fake countdown timers
+* Fake availability badges
+
+Do not display any information that could mislead visitors.
+
+⸻
+
+GLOBAL DESIGN IMPROVEMENTS
+
+Improve:
+
+* Card shadows
+* Card borders
+* Hover animations
+* Section spacing
+* Typography hierarchy
+* Scroll animations
+* Loading animations
+* Mobile responsiveness
+* Tablet responsiveness
+* Desktop responsiveness
+* Accessibility
+* Performance
+
+Maintain the existing Kiut Studio Design Language.
+
+⸻
+
+FUTURE READY ARCHITECTURE
+
+Build the page so that future concert dates can easily be added.
+
+Create reusable components for:
+
+* Event Cards
+* Tour Timeline
+* Venue Cards
+* Ticket Buttons
+* Featured Events
+
+These components should remain hidden until real tour data becomes available.
+
+⸻
+
+PERFORMANCE
+
+Optimize:
+
+* Lazy loading
+* Image loading
+* Animation performance
+* Mobile rendering
+* Lighthouse performance
+* Accessibility score
+
+⸻
+
+DESIGN RULES
+
+Maintain:
+
+* Premium luxury aesthetic
+* Black and gold color palette
+* Cinematic visual style
+* Smooth micro-interactions
+* Elegant rounded cards
+* Premium typography
+* Consistent spacing
+* Existing navigation
+* Existing routing
+
+Do not introduce bright colors or redesign the site’s established identity.
+
+⸻
+
+FINAL REQUIREMENTS
+
+Before marking this phase complete:
+
+* Verify that no fictional concert information remains.
+* Confirm all CTAs function correctly.
+* Ensure every section is responsive across mobile, tablet, and desktop.
+* Ensure visual consistency with the rest of the Kiut Music website.
+* Preserve all existing functionality unless explicitly replaced.
+* Generate a completion report summarizing all changes, files modified, components updated, performance improvements, and recommendations for future enhancements.
+
+The finished page should feel less like a temporary “no tours” page and more like a premium destination that celebrates Kiut’s live artistry, keeps fans engaged between performances, and can seamlessly transition into a full Tour page whenever official dates are announced.

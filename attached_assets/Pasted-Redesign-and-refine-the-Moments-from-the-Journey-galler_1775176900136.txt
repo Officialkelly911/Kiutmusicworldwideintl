@@ -1,0 +1,267 @@
+Redesign and refine the “Moments from the Journey” gallery on the About page into a hybrid experience that combines two design directions:
+
+1. Memory Vault / Visual Diary
+2. Cinematic Archive / Film Contact Sheet
+
+The final result should feel:
+- premium
+- cinematic
+- editorial
+- emotionally intentional
+- visually distinctive
+- mobile-first
+- aligned with the Kiut Music dark luxury aesthetic
+
+This gallery should not feel like a generic masonry feed or social-media image wall.
+It should feel like a curated visual archive of Kiut’s journey.
+
+OVERALL CREATIVE DIRECTION
+
+The gallery should combine:
+- the warmth, narrative feel, and intimacy of a visual diary
+with
+- the sharp composition, stronger visual rhythm, and editorial confidence of a cinematic archive
+
+Think:
+- curated artist memory system
+- selected frames from a life in motion
+- premium music brand storytelling
+- elegant, not flashy
+- immersive, not cluttered
+
+SECTION TITLE AND INTRO
+
+Keep the section title:
+“Moments from the Journey”
+
+Add or refine a short subtitle below it:
+“A visual archive of milestones, studio sessions, release moments, and the life behind the music.”
+
+The heading area should feel premium and intentional with:
+- more breathing room below the heading
+- strong typography hierarchy
+- clean spacing that introduces the gallery like a curated exhibition
+
+GALLERY LAYOUT DIRECTION
+
+Create a hybrid editorial gallery layout.
+
+Requirements:
+- The first image should be a larger featured card that acts as the emotional entry point
+- After the featured image, use a curated mixed grid
+- Use a rhythm of:
+  - standard cards
+  - occasional taller cards
+  - occasional wider/larger cards
+- The gallery should feel structured and intentional, not repetitive or random
+- Keep the composition elegant and balanced on both desktop and mobile
+
+Mobile behavior:
+- mobile-first layout
+- stacked but varied rhythm
+- first image featured
+- occasional larger card moments for emphasis
+- no awkward overflow or broken masonry behavior
+
+Desktop behavior:
+- editorial-style staggered grid
+- clean balance between dominant and supporting cards
+- enough spacing to breathe, but not so much that it feels loose or empty
+
+VISUAL TREATMENT
+
+Remove the current heavy gold overlay or any blanket tinted treatment on the images.
+
+Do not:
+- apply a strong gold wash across all images
+- let styling overpower the photography
+
+Instead:
+- keep images clear, high-contrast, and image-first
+- use only a very subtle bottom dark gradient if needed for readability
+- use gold only as a premium accent in labels, hover states, edges, or active states
+
+The images should feel:
+- cinematic
+- crisp
+- premium
+- confident
+
+CARD STYLING
+
+Each gallery card should feel like a premium memory tile.
+
+Requirements:
+- consistent border radius aligned with the rest of the site
+- refined shadow treatment
+- subtle depth
+- elegant overflow handling
+- consistent internal styling language with the rest of the Kiut Music site
+
+Do not make all cards feel identical.
+Some cards should feel like “featured memories.”
+Others should feel like supporting frames in an archive.
+
+LABELS / CAPTIONS
+
+Add subtle labels or captions to selected images only, not every image.
+
+Examples:
+- Studio Session
+- On Set
+- Los Angeles
+- Behind the Music
+- Journey Moment
+- Release Era
+- Family & Roots
+- Late Night Session
+
+Label styling:
+- small
+- elegant
+- premium
+- subtle gold or neutral-dark treatment
+- should feel editorial, not loud
+
+Use labels sparingly to create story, not clutter.
+
+INTERACTION DESIGN
+
+The gallery should feel alive and premium.
+
+Add refined hover/tap interactions:
+- slight image zoom
+- subtle shadow enhancement
+- soft gold edge glow or premium accent
+- optional caption/label reveal if elegant
+
+These interactions must be:
+- smooth
+- subtle
+- consistent
+- not flashy
+
+Do not over-animate or over-style the cards.
+
+SCROLL ANIMATION
+
+Add refined scroll reveal animation to the gallery cards.
+
+Preferred motion:
+- cards fade in
+- cards rise slightly
+- optional very subtle image scale on reveal
+- stagger timing between cards
+
+Keep animation:
+- restrained
+- cinematic
+- elegant
+- performant
+
+Avoid:
+- dramatic movement
+- bouncing
+- over-staggering
+- anything that feels template-like or gimmicky
+
+LIGHTBOX / FULLSCREEN EXPERIENCE
+
+Add a premium fullscreen viewer / lightbox for gallery images.
+
+Requirements:
+- clicking or tapping a gallery card opens the image in a clean fullscreen modal
+- dark cinematic backdrop
+- centered image presentation
+- close button
+- next/previous navigation
+- swipe support on mobile if feasible
+- display caption/label elegantly if available
+
+The lightbox should feel:
+- polished
+- immersive
+- premium
+- consistent with the site aesthetic
+
+SPACING AND RHYTHM
+
+Improve spacing throughout the section.
+
+Requirements:
+- more breathing room under the section heading
+- consistent card gaps
+- stronger visual rhythm between larger and smaller cards
+- spacing should support the feeling of a curated visual narrative
+
+The section should feel like:
+- a visual sequence
+- an exhibition wall
+- a memory archive
+not just an image dump
+
+CLOSING CTA BELOW GALLERY
+
+Add a refined CTA block below the gallery to connect the story back into the music platform.
+
+Suggested heading:
+“Experience the Sound”
+
+Suggested buttons:
+- Listen Now
+- Watch Videos
+
+The CTA block should:
+- feel integrated with the gallery
+- not overpower the section
+- create a clean transition to the next action
+- preserve the premium dark Kiut Music style
+
+CONSISTENCY WITH THE REST OF THE SITE
+
+Ensure the gallery redesign remains aligned with the rest of the Kiut Music platform:
+- same border radius language
+- same premium spacing system
+- same typography logic
+- same card sophistication
+- same restrained dark luxury feel
+
+Do not redesign the About page from scratch.
+This is a refinement and elevation of the current section.
+
+IMPORTANT CONSTRAINTS
+
+Do not:
+- turn the gallery into a Pinterest or social-media style grid
+- overuse gold
+- add loud overlays that mute the photography
+- over-animate the section
+- clutter the cards with too much text
+- make the gallery feel generic or templated
+- break mobile responsiveness
+
+Prioritize:
+- identity
+- elegance
+- image quality
+- story
+- rhythm
+- premium interaction
+- cinematic presentation
+
+DELIVERABLES
+
+Please implement:
+1. the hybrid gallery redesign
+2. improved layout hierarchy
+3. refined labels/captions
+4. scroll reveal animation
+5. hover/tap interactions
+6. fullscreen lightbox/modal
+7. closing CTA below the gallery
+
+After implementation, summarize:
+- what changed
+- what components/files were modified
+- any assumptions made
+- any areas I should manually review on mobile and desktop

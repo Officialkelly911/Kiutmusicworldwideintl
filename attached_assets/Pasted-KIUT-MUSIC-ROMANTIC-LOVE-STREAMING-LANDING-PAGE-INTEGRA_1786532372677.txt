@@ -1,0 +1,373 @@
+KIUT MUSIC — ROMANTIC LOVE STREAMING LANDING PAGE INTEGRATION
+
+OBJECTIVE
+
+Integrate the official Romantic Love streaming-platform landing page throughout the KIUT Music website wherever users are presented with an opportunity to listen to, discover, or access the Romantic Love release.
+
+Official Romantic Love Streaming URL
+
+https://bit.ly/m/Romanticlove
+
+Treat this as the canonical external destination for the Romantic Love release.
+
+⸻
+
+1. CENTRALIZE THE URL
+
+First inspect the existing Romantic Love release data and determine where the track/release metadata is stored.
+
+Add the streaming landing page URL to the centralized Romantic Love release data.
+
+For example, if the existing structure supports a field such as:
+
+streamingUrl
+
+or:
+
+listenUrl
+
+or:
+
+releaseUrl
+
+use the existing field.
+
+Do NOT create a new field if an appropriate existing field already exists.
+
+The canonical value must be:
+
+https://bit.ly/m/Romanticlove
+
+Do not modify the URL.
+
+Do not replace it with individual Spotify, Apple Music, YouTube Music, or other platform URLs.
+
+The Bitly landing page is intended to route users to the appropriate streaming platforms.
+
+⸻
+
+2. HOMEPAGE HERO — ROMANTIC LOVE
+
+The homepage Hero currently has Romantic Love — Recent Release as the first slide.
+
+Ensure the primary CTA on this slide points to:
+
+https://bit.ly/m/Romanticlove
+
+The CTA should use the existing premium reusable CTA component.
+
+For example:
+
+LISTEN NOW
+
+→ https://bit.ly/m/Romanticlove
+
+Do not create a new CTA design.
+
+Do not modify the existing CTA animation.
+
+⸻
+
+3. MUSIC PAGE — RECENT RELEASE
+
+On the Music page, Romantic Love is already implemented as the recently released single.
+
+Ensure the primary action associated with the release points to:
+
+https://bit.ly/m/Romanticlove
+
+This should apply wherever the Music page presents an action such as:
+
+* Listen Now
+* Stream Now
+* Listen on Streaming Platforms
+* View Release
+* Explore Release
+
+Use the existing CTA/button component and styling.
+
+Do not create duplicate buttons simply to accommodate the URL.
+
+⸻
+
+4. ROMANTIC LOVE AUDIO PLAYER
+
+The website’s internal audio player should remain separate from the streaming landing page.
+
+If the Music page contains an internal player for the uploaded Romantic Love audio file:
+
+* Keep the internal audio player.
+* Keep Play/Pause functionality.
+* Do not replace the audio file with the Bitly URL.
+* Do not attempt to load the Bitly URL as an audio source.
+
+The architecture should be:
+
+ROMANTIC LOVE
+│
+├── Internal Audio Player
+│   └── Uploaded Romantic Love audio file
+│
+└── Listen / Streaming CTA
+    └── https://bit.ly/m/Romanticlove
+
+This allows visitors to preview/listen through the website while also giving them a direct route to the official streaming-platform landing page.
+
+⸻
+
+5. MUSIC PAGE RELEASE CARD / TRACKLIST
+
+If Romantic Love appears in:
+
+* Tracklist
+* Recent Release card
+* Featured Release
+* Music library
+* Release cards
+* Music player interface
+
+ensure that any existing “Listen”, “Stream”, or equivalent action uses the centralized Romantic Love streaming URL where appropriate.
+
+Do not add the URL to purely informational elements.
+
+Only interactive elements intended to take the user to the streaming destination should use it.
+
+⸻
+
+6. HOMEPAGE RECENT RELEASE REFERENCES
+
+Search the homepage for any other Romantic Love references.
+
+This may include:
+
+* Recent Release section
+* Featured music
+* Hero carousel
+* Music promotion cards
+* Release banners
+* Featured track components
+
+Where an existing Romantic Love CTA is intended to direct users to streaming platforms, connect it to:
+
+https://bit.ly/m/Romanticlove
+
+Do not modify unrelated releases.
+
+⸻
+
+7. FUTURE-PROOF THE IMPLEMENTATION
+
+The streaming URL must come from the centralized Romantic Love release data.
+
+Avoid implementations such as:
+
+onClick={() => window.open("https://bit.ly/m/Romanticlove")}
+
+repeated across multiple components.
+
+Instead, use the existing release data:
+
+Romantic Love
+    ↓
+centralized release data
+    ↓
+streamingUrl
+    ↓
+Hero CTA
+Music Page CTA
+Release Card
+Featured Release
+
+This ensures there is one source of truth.
+
+⸻
+
+8. EXTERNAL LINK BEHAVIOR
+
+Because this is an external streaming-platform landing page, follow the website’s existing external-link convention.
+
+If the existing website opens external destinations in a new tab, preserve that behavior.
+
+If the existing architecture uses:
+
+target="_blank"
+rel="noopener noreferrer"
+
+follow the established pattern.
+
+Do not introduce a different external-link behavior specifically for Romantic Love.
+
+⸻
+
+9. DO NOT ALTER THE BITLY URL
+
+Use the URL exactly as provided:
+
+https://bit.ly/m/Romanticlove
+
+Do not:
+
+* Add tracking parameters
+* Replace it with another URL
+* Expand the Bitly link
+* Create another shortened link
+* Modify capitalization
+* Add unnecessary query parameters
+
+unless an existing analytics architecture automatically handles tracking without changing the canonical destination.
+
+⸻
+
+10. SEO / ACCESSIBILITY
+
+Ensure the relevant buttons/links have meaningful accessible labels.
+
+For example:
+
+Listen to Romantic Love
+
+or:
+
+Listen to Romantic Love on Streaming Platforms
+
+Use the existing button typography and design.
+
+Do not use a vague accessibility label such as:
+
+Click Here
+
+Humanity has suffered enough “Click Here” buttons.
+
+⸻
+
+11. TRACKING COMPATIBILITY
+
+If the website already has analytics/event tracking implemented, ensure clicks on the Romantic Love streaming CTA can be identified appropriately.
+
+If the project already uses Google Analytics 4 event tracking, use the existing event architecture.
+
+For example, where appropriate, an event could identify:
+
+event: romantic_love_stream_click
+release: Romantic Love
+destination: streaming_landing_page
+
+Do not introduce a new analytics library solely for this task.
+
+If analytics is not yet configured, simply ensure the link architecture does not prevent future event tracking.
+
+⸻
+
+12. SEARCH THE ENTIRE PROJECT
+
+Before completing the implementation, search the entire codebase for existing Romantic Love references.
+
+Check:
+
+* Homepage
+* Hero carousel
+* Music page
+* Tracklist
+* Recent Release components
+* Featured release components
+* Audio player
+* Release data
+* CTA components
+* Any promotional sections
+
+Identify every location where Romantic Love is presented.
+
+Then determine whether each location should:
+
+Use the streaming landing page
+
+or
+
+Remain an internal website/audio destination.
+
+Do not blindly replace every Romantic Love URL.
+
+⸻
+
+13. PRESERVE EXISTING DESIGN
+
+Do NOT redesign:
+
+* Homepage Hero
+* Music page Hero
+* Music page layout
+* Audio player
+* CTA component
+* Navigation
+* Header
+* Footer
+* Store
+* Tour
+* Creative Portfolio
+* Contact
+* Newsletter
+
+This task is strictly about connecting the existing Romantic Love release experience to its official streaming landing page.
+
+⸻
+
+14. QA CHECKLIST
+
+After implementation, verify:
+
+Homepage Hero
+
+* Romantic Love remains the first Hero slide.
+* “Listen Now” or equivalent CTA points to https://bit.ly/m/Romanticlove.
+* Existing CTA styling is unchanged.
+* Existing CTA animation is unchanged.
+* External link behavior works correctly.
+
+Music Page
+
+* Romantic Love appears as the recently released single.
+* Internal audio player still works.
+* Streaming CTA points to https://bit.ly/m/Romanticlove.
+* Tracklist/release card uses the correct destination where applicable.
+* No audio player functionality has been broken.
+
+Global
+
+* Other releases remain unchanged.
+* No duplicate Romantic Love URLs were unnecessarily hardcoded.
+* Centralized release data contains the canonical streaming URL.
+* No broken links.
+* No console errors.
+* No unrelated UI changes.
+* Desktop and mobile behavior verified.
+
+⸻
+
+15. FINAL ACCEPTANCE CRITERIA
+
+The implementation is complete when:
+
+1. https://bit.ly/m/Romanticlove is stored as the canonical Romantic Love streaming destination.
+2. The Homepage Romantic Love Hero CTA uses the canonical destination.
+3. The Music page Romantic Love streaming CTA uses the canonical destination.
+4. Relevant Romantic Love release cards/actions use the same centralized destination.
+5. The internal Romantic Love audio player remains functional.
+6. The website does not attempt to use the Bitly URL as an audio source.
+7. The existing CTA component and animation remain untouched.
+8. No unrelated releases or pages are modified.
+9. External-link behavior follows the existing website architecture.
+10. The implementation is responsive and production-ready.
+
+FINAL REPORT
+
+After implementation, provide a concise report containing:
+
+* Centralized release data location
+* Romantic Love streaming URL integration points
+* Homepage CTA updated
+* Music page CTA updated
+* Any additional Romantic Love components connected
+* Confirmation that the internal audio player remains functional
+* Confirmation that the existing CTA component was not modified
+* QA performed
+* Any remaining Romantic Love assets or metadata still required

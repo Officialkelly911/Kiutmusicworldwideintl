@@ -1,0 +1,63 @@
+KIUT MUSIC — HOMEPAGE CREATIVE PORTFOLIO VIDEO REPLACEMENT
+
+Task:
+Replace the video currently displayed in the “CREATIVE PORTFOLIO” section of the KIUT Music homepage with a new video.
+
+IMPORTANT SCOPE:
+This is a targeted media replacement only.
+
+Do NOT modify:
+- Homepage layout or section structure
+- Typography
+- Colors
+- Spacing
+- Animations
+- Navigation
+- SEO metadata
+- JSON-LD / structured data
+- Routing
+- Analytics
+- Music page functionality
+- Other homepage videos
+- Other media assets
+- Performance architecture unless required specifically to load the replacement video correctly
+
+Before making changes:
+1. Locate the exact component responsible for the homepage “CREATIVE PORTFOLIO” section.
+2. Identify the currently referenced video asset.
+3. Identify the new replacement video asset I have provided/selected.
+4. Confirm that the replacement video is used ONLY in this Creative Portfolio section.
+5. Preserve the existing section dimensions, aspect ratio, poster behavior, controls, autoplay/muted/loop behavior, responsive behavior, and visual treatment unless the new video technically requires a compatible adjustment.
+
+Implementation:
+- Replace only the existing Creative Portfolio video source with the new video.
+- Preserve the existing component and styling architecture.
+- Ensure the video uses the project's existing optimized media-loading approach.
+- Do not duplicate the video asset unnecessarily.
+- Do not alter unrelated video references.
+- If a poster image is associated with the existing video, determine whether the replacement video has an appropriate poster and update it only if necessary.
+- Ensure desktop, tablet, and mobile rendering remain correct.
+- Ensure the video does not introduce unnecessary preload or loading cost.
+- If the existing implementation uses lazy loading, preserve that behavior.
+
+Validation:
+1. Run the project's existing type/check command.
+2. Run the production build.
+3. Confirm the homepage loads successfully.
+4. Confirm the “CREATIVE PORTFOLIO” section displays the new video.
+5. Confirm the old video is no longer referenced by that section.
+6. Confirm no other homepage sections were unintentionally changed.
+7. Test desktop and mobile layouts.
+8. Confirm there are no new console/runtime errors.
+9. Confirm the replacement video does not cause a noticeable regression in homepage loading performance.
+10. Confirm existing SEO metadata, structured data, analytics, and routing remain unchanged.
+
+Do not publish automatically.
+
+Final response should report:
+- Old video asset/reference
+- New video asset/reference
+- Exact component/file changed
+- Validation results
+- Any performance considerations
+- Confirmation that no unrelated files or functionality were modified

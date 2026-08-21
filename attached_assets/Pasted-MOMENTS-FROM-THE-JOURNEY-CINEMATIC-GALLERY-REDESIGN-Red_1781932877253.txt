@@ -1,0 +1,283 @@
+MOMENTS FROM THE JOURNEY – CINEMATIC GALLERY REDESIGN
+
+Redesign the “Moments From The Journey” section on the About page to match the visual style shown in the reference video.
+
+Do NOT create a Pinterest-style masonry gallery.
+
+The final experience should feel like:
+
+* a luxury editorial photo archive
+* a visual diary
+* cinematic
+* immersive
+* elegant
+* modern
+* premium
+* emotionally warm
+* aligned with the dark Kiut Music aesthetic
+
+⸻
+
+SECTION HEADING
+
+Keep:
+
+“MOMENTS FROM THE JOURNEY”
+
+Add a subtle subtitle underneath:
+
+“A visual archive of milestones, studio sessions, performances, and memories behind the music.”
+
+Increase spacing above and below the heading.
+
+Center everything.
+
+⸻
+
+LAYOUT STYLE
+
+Build an editorial collage layout similar to the reference video.
+
+Requirements:
+
+Featured Hero Card
+
+The first image should be much larger than the others and act as the visual anchor.
+
+It should span more space and immediately draw attention.
+
+⸻
+
+Mixed Card Rhythm
+
+Create a varied composition using:
+
+* portrait cards
+* landscape cards
+* square cards
+* occasional larger feature cards
+
+Avoid perfectly identical boxes.
+
+The layout should feel intentionally curated.
+
+⸻
+
+Responsive Behavior
+
+Desktop:
+
+* staggered editorial grid
+* asymmetrical but balanced
+* strong visual rhythm
+* generous spacing
+
+Tablet:
+
+* simplified version of the desktop composition
+
+Mobile:
+
+* stacked layout
+* featured image first
+* maintain visual hierarchy
+* no overflow issues
+
+⸻
+
+CARD STYLING
+
+Images should dominate.
+
+No heavy overlays.
+
+Use:
+
+* border-radius consistent with the site
+* subtle shadows
+* slight depth
+* clean spacing
+* overflow hidden
+
+Cards should feel premium.
+
+⸻
+
+IMAGE QUALITY
+
+Preserve image colors.
+
+Do NOT apply gold filters.
+
+Keep photos vibrant and cinematic.
+
+Use only a very subtle bottom gradient when needed.
+
+⸻
+
+HOVER INTERACTIONS
+
+Desktop hover:
+
+* image scale to 1.05
+* shadow slightly increases
+* very soft gold edge glow
+* smooth transitions
+
+Animation duration:
+
+300–500ms
+
+Use easing for natural movement.
+
+Avoid flashy effects.
+
+⸻
+
+SCROLL REVEALS
+
+Animate cards into view.
+
+Use:
+
+* fade in
+* translate upward slightly
+* stagger timing between cards
+
+Animations should feel cinematic and elegant.
+
+Do not over-animate.
+
+⸻
+
+STORY LABELS
+
+Show labels on selected images only.
+
+Examples:
+
+* Studio Session
+* On Stage
+* Behind The Scenes
+* Release Era
+* Family & Roots
+* Journey Moment
+* Performance Night
+
+Style:
+
+* small pill badges
+* subtle gold accent
+* semi-transparent background
+* elegant typography
+
+Do not place labels on every image.
+
+⸻
+
+PREMIUM LIGHTBOX
+
+Clicking an image should open a fullscreen gallery viewer.
+
+Requirements:
+
+* dark cinematic background
+* centered image
+* smooth animation
+* next and previous controls
+* keyboard support
+* swipe support on mobile
+* close button
+* optional caption
+
+The experience should feel immersive.
+
+⸻
+
+DEPTH EFFECT
+
+Create subtle depth by using:
+
+* occasional image offsets
+* varied card sizes
+* layered spacing
+
+The section should resemble an exhibition wall or visual scrapbook.
+
+⸻
+
+MICRO INTERACTIONS
+
+Add:
+
+* smooth hover transitions
+* lazy loading
+* image fade-in when loaded
+* subtle shadow changes
+
+Everything should feel refined.
+
+⸻
+
+PERFORMANCE
+
+Optimize images.
+
+Use lazy loading.
+
+Prevent layout shift.
+
+Ensure smooth scrolling.
+
+Maintain responsiveness.
+
+⸻
+
+CLOSING CTA
+
+Below the gallery add a premium transition block.
+
+Heading:
+
+“Experience The Sound”
+
+Buttons:
+
+* Listen Now
+* Watch Videos
+
+Keep the same dark luxury aesthetic.
+
+⸻
+
+DESIGN RESTRICTIONS
+
+Do NOT:
+
+* create a Pinterest layout
+* make all cards identical
+* use heavy gold overlays
+* add loud animations
+* overcrowd the gallery
+* reduce image quality
+* create sharp corners
+* break mobile responsiveness
+
+Prioritize:
+
+* emotion
+* storytelling
+* rhythm
+* elegance
+* cinematic presentation
+* premium interactions
+
+⸻
+
+After implementation, summarize:
+
+1. files modified
+2. components changed
+3. animation libraries used
+4. mobile behavior
+5. areas requiring manual review

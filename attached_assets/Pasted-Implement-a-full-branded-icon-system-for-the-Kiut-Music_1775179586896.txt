@@ -1,0 +1,68 @@
+Implement a full branded icon system for the Kiut Music website and replace the default Replit favicon everywhere.
+
+Goal:
+Replace the default Replit browser icon with the Kiut branded icon system and ensure the website uses the correct favicon, mobile icons, and social preview image.
+
+Brand direction:
+- dark premium aesthetic
+- gold monogram “K”
+- clean, minimal, cinematic
+- premium artist-brand feel
+- keep everything aligned with the current Kiut Music design language
+
+Implementation tasks:
+
+1. Add the full icon system to the project
+Use these assets in the public/static assets area of the site:
+- favicon.ico
+- favicon-32x32.png
+- favicon-16x16.png
+- apple-touch-icon.png
+- android-chrome-192x192.png
+- android-chrome-512x512.png
+- og-image.png
+
+2. Replace the current favicon setup
+Remove any default Replit favicon references and replace them with proper icon tags.
+
+Inside the main HTML/head configuration, add the correct links for:
+- favicon.ico
+- 32x32 favicon
+- 16x16 favicon
+- apple touch icon
+- android icons
+
+3. Add theme color
+Set the browser/mobile theme color to match the Kiut dark brand background:
+#0a0a0c
+
+4. Add Open Graph / sharing metadata
+Configure the site to use:
+- og:image -> /og-image.png
+- og:title -> Kiut Music
+- og:description -> Afro-Caribbean Sound. Global Energy.
+- og:type -> website
+
+5. Keep implementation framework-appropriate
+If this is a React/Vite project, update the correct head/index file.
+If this is a Next.js project, update the correct Head/metadata configuration.
+Use the correct project structure instead of hardcoding assumptions.
+
+6. Preserve existing site behavior
+Do not redesign any page layout.
+Do not change existing content.
+Only implement the icon and metadata system cleanly.
+
+7. Verify final result
+After implementation:
+- the default Replit favicon should no longer appear
+- the Kiut favicon should show in the browser tab
+- mobile/app icons should be set correctly
+- shared links should use the custom OG image
+
+8. If any existing favicon or head metadata conflicts with the new setup, clean it up so there is only one correct branded icon system in use.
+
+After finishing, summarize:
+- which files were changed
+- where the icon assets should live
+- whether any manual hard refresh/incognito check is recommended to see the new favicon

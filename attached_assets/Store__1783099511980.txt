@@ -1,0 +1,181 @@
+Homepage store CTA Section Improvement Audit
+KIUT MUSIC WEBSITE
+Store CTA Section – Premium Upgrade Audit
+Project Goal
+Transform the current Store CTA section on the Home page into a premium artist merchandise showcase that feels luxurious, cinematic, and exclusive while remaining responsive and performance-friendly.
+ 
+⸻
+ 
+1. Make Merchandise the Hero
+Current Issue
+The merchandise images occupy too little space inside their containers, making the products appear secondary.
+Improvements
+	•	Increase image size by approximately 30–50%.
+	•	Allow products to fill 75–85% of the card.
+	•	Reduce unnecessary internal padding.
+	•	Preserve image quality and aspect ratio.
+	•	Use object-fit: contain or adjust layout appropriately so artwork remains fully visible.
+ 
+⸻
+ 
+2. Improve Product Card Design
+Redesign each merchandise card to feel premium.
+Add:
+	•	Rounded corners
+	•	Soft shadows
+	•	Thin gold accent borders
+	•	Premium dark background
+	•	Better internal spacing
+	•	Consistent card heights
+Cards should resemble luxury product displays rather than standard e-commerce cards.
+ 
+⸻
+ 
+3. Create Better Product Hierarchy
+Each card should display:
+	•	Product Badge (optional)
+	•	Large Product Image
+	•	Product Name
+	•	Short Description
+	•	Price
+	•	CTA Button
+This creates a cleaner visual flow.
+ 
+⸻
+ 
+4. Add Product Badges
+Introduce tasteful labels such as:
+	•	NEW
+	•	LIMITED EDITION
+	•	BEST SELLER
+	•	EXCLUSIVE
+	•	PREMIUM
+	•	SIGNED
+Badges should be small, elegant, and styled with subtle gold accents.
+ 
+⸻
+ 
+5. Upgrade Hover Effects
+Desktop hover interactions should include:
+	•	Product image zoom (1.03–1.05)
+	•	Card lift
+	•	Slight gold glow
+	•	Stronger shadow
+	•	Smooth transitions (300–500ms)
+Avoid excessive animations.
+ 
+⸻
+ 
+6. Strengthen CTA Buttons
+Current buttons should become more visually engaging.
+Suggestions:
+	•	Shop Now
+	•	Explore Collection
+	•	View Collection
+	•	View Product
+Enhancements:
+	•	Larger height
+	•	Rounded corners
+	•	Gold gradient or outline
+	•	Soft hover glow
+	•	Slight upward movement
+ 
+⸻
+ 
+7. Premium Background Treatment
+Replace flat backgrounds with:
+	•	Dark radial gradients
+	•	Soft spotlight behind products
+	•	Subtle texture
+	•	Gentle lighting effects
+Maintain a clean luxury appearance.
+ 
+⸻
+ 
+8. Improve Spacing
+Increase:
+	•	Vertical spacing
+	•	Image breathing room
+	•	Text spacing
+	•	Card separation
+Luxury design relies on generous whitespace.
+ 
+⸻
+ 
+9. Introduce a Featured Product
+Highlight one merchandise item.
+Display:
+	•	Larger image
+	•	Featured badge
+	•	Premium styling
+	•	Slightly larger card
+Use this to promote the newest or most important item.
+ 
+⸻
+ 
+10. Editorial Layout
+Avoid identical cards.
+Create visual rhythm by mixing:
+	•	Large cards
+	•	Medium cards
+	•	Standard cards
+This creates a curated fashion editorial feel.
+ 
+⸻
+ 
+11. Scroll Reveal Animations
+Animate products using:
+	•	Fade in
+	•	Slight upward movement
+	•	Staggered timing
+Duration:
+0.6–0.8 seconds
+ 
+⸻
+ 
+12. Merchandise Spotlight
+Introduce an automatic spotlight effect.
+Every few seconds:
+	•	One product receives a soft glow.
+	•	Card enlarges slightly.
+	•	“Featured This Week” appears.
+	•	Spotlight transitions smoothly to another item.
+This creates subtle motion without distracting users.
+ 
+⸻
+ 
+13. Featured Collection Banner
+Place a premium promotional banner above the merchandise grid.
+Include:
+	•	Collection title
+	•	Short description
+	•	One large featured product image
+	•	CTA button
+Purpose:
+Introduce visitors to the collection before they browse.
+ 
+⸻
+ 
+14. Carousel Section
+Add a secondary section near the bottom.
+Examples:
+Fans Also Love
+Recently Added
+More From KiutRaba
+Display products in a smooth horizontal scrolling carousel.
+ 
+⸻
+ 
+15. Performance
+Ensure:
+	•	Lazy-loaded images
+	•	Optimized graphics
+	•	Smooth animations
+	•	No layout shifts
+	•	Fast loading on desktop and mobile
+ 
+⸻
+ 
+Final Objective
+The Store CTA section should feel like a premium artist collection showroom rather than a traditional online store.
+Visitors should immediately perceive exclusivity, quality, and strong brand identity.

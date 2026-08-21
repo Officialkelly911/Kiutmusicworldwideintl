@@ -39,6 +39,40 @@ test.describe("Phase 11F performance and measurement", () => {
     await context.close();
   });
 
+  test("defers the external homepage embed and keeps a fallback when blocked", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      viewport: { width: 1280, height: 720 },
+    });
+    const page = await context.newPage();
+    await skipIntro(page);
+
+    const embedRequests: string[] = [];
+    await page.route("https://bit.ly/**", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 10_000));
+      await route.abort();
+    });
+    page.on("request", (request) => {
+      if (request.url().includes("bit.ly/48uAYlZ")) {
+        embedRequests.push(request.url());
+      }
+    });
+
+    await page.goto("/", { waitUntil: "domcontentloaded", timeout: 60_000 });
+    await expect(page.locator('iframe[title="Kiut Music — All Links"]')).toHaveCount(0);
+    expect(embedRequests).toEqual([]);
+
+    await page.getByRole("heading", { name: "More from Kiut Music" }).scrollIntoViewIfNeeded();
+    await expect(page.getByText("Featured Experience", { exact: true })).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(page.locator('iframe[title="Kiut Music — All Links"]')).toHaveCount(0);
+    expect(embedRequests.length).toBeGreaterThan(0);
+
+    await context.close();
+  });
+
   test("serves the responsive music hero artwork on mobile", async ({ browser }) => {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },

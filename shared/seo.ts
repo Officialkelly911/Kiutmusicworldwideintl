@@ -100,6 +100,9 @@ export const NOT_FOUND_SEO = {
 export const ROUTE_SEO_PLACEHOLDER = "<!-- KIUT_ROUTE_SEO -->";
 export const ROUTE_SEO_START_MARKER = "<!-- KIUT_ROUTE_SEO_START -->";
 export const ROUTE_SEO_END_MARKER = "<!-- KIUT_ROUTE_SEO_END -->";
+export const ROUTE_PRELOAD_PLACEHOLDER = "<!-- KIUT_ROUTE_PRELOAD -->";
+export const ROUTE_PRELOAD_START_MARKER = "<!-- KIUT_ROUTE_PRELOAD_START -->";
+export const ROUTE_PRELOAD_END_MARKER = "<!-- KIUT_ROUTE_PRELOAD_END -->";
 
 function escapeHtml(value: string): string {
   return value.replace(/[&<>"']/g, (character) => {
@@ -141,6 +144,18 @@ export function isPublicRoute(pathname = "/"): boolean {
 export function resolveRouteSEO(pathname = "/"): RouteSEOMeta {
   const publicRoute = getPublicRoute(pathname);
   return publicRoute ? ROUTE_SEO[publicRoute] : NOT_FOUND_SEO;
+}
+
+/**
+ * Route-specific preloads must not sit in the shared document shell: a preload
+ * fetches even when its asset belongs to another route. The homepage poster is
+ * useful for the homepage's video-backed hero but unnecessary on Music and the
+ * rest of the public routes.
+ */
+export function renderRoutePreloadTags(pathname = "/"): string {
+  return normalizePublicRoute(pathname) === "/"
+    ? '    <link rel="preload" as="image" type="image/webp" href="/assets/images/hero-poster.webp" fetchpriority="high" />'
+    : "";
 }
 
 export function renderRouteSEOTags(meta: RouteSEOMeta): string {

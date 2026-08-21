@@ -23,3 +23,4 @@
 - [Carousel CLS audit constraint](carousel-cls-audit-constraint.md) — automatic mobile hero slides shift layout; changes require explicit design approval.
 - [Workspace dependency drift](workspace-dependency-drift.md) — after dependency restores, validate both the main app workflow and separately registered artifact workflows.
 - [Music mobile resilience](music-mobile-resilience.md) — Music is already a modest route chunk; prioritize scoped recovery for lazy, hero, and audio failures.
+- [Dependency lockfile policy](dependency-lockfile-policy.md) — maintain npm lockfiles only; a stale pnpm lock produced false security findings while npm was the active installer.

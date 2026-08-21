@@ -1,0 +1,876 @@
+KIUT MUSIC LOGO & BRAND ASSET INTEGRATION
+
+Objective
+
+Integrate the official KIUT Music branding across the entire website while preserving the existing UI, animations, and functionality.
+
+This phase is brand integration only.
+
+It is NOT a redesign.
+
+It is NOT a logo redesign.
+
+It is NOT a UI redesign.
+
+Do not modify existing layouts unless required to correctly integrate the official branding.
+
+The objective is to make the entire website feel like a premium international music label while maintaining excellent performance, accessibility, responsiveness, and consistency.
+
+⸻
+
+CRITICAL RULES
+
+These instructions are mandatory.
+
+Do NOT:
+
+* redraw the logo
+* recreate the logo
+* vectorize using AI
+* simplify the logo
+* generate a replacement logo
+* redesign typography
+* change proportions
+* stretch
+* rotate
+* skew
+* crop
+* recolor
+* invent new icons
+* replace uploaded assets
+
+Treat every uploaded logo asset as the official master artwork.
+
+The uploaded files are the only approved logo assets.
+
+⸻
+
+OFFICIAL BRAND ASSETS
+
+There are two official logo assets.
+
+⸻
+
+Asset A
+
+KIUT Monogram
+
+This consists only of the gold crown/diamond monogram.
+
+This is the official Brand Mark.
+
+It should become the visual signature of KIUT Music.
+
+Use this anywhere a compact identity is needed.
+
+Never recreate it.
+
+Always preserve original proportions.
+
+Always preserve spacing.
+
+Always preserve appearance.
+
+⸻
+
+Asset B
+
+KIUT Music Primary Lockup
+
+This consists of:
+
+Monogram
+
+KIUT
+
+MUSIC
+
+This is the official company logo.
+
+Use this only in major branding locations.
+
+Never modify typography.
+
+Never alter spacing.
+
+Never separate the artwork.
+
+Never regenerate.
+
+⸻
+
+BRAND HIERARCHY
+
+The website must follow this hierarchy.
+
+⸻
+
+PRIMARY LOGO
+
+Use the Full Lockup for:
+
+Homepage Hero
+
+About Hero
+
+Contact Hero
+
+Newsletter Hero
+
+Footer
+
+Press Kit
+
+Business Documents
+
+Email Signature
+
+Brand Guidelines
+
+Media Kit
+
+Investor Deck
+
+Album Covers
+
+Posters
+
+Marketing Material
+
+Official Advertisements
+
+Presentation Slides
+
+⸻
+
+BRAND MARK
+
+Use only the Monogram for:
+
+Navigation
+
+Mobile Navigation
+
+Hamburger Menu
+
+Loading Screen
+
+Favicon
+
+Browser Tab
+
+Apple Touch Icon
+
+Android Icon
+
+PWA Icon
+
+Audio Player
+
+Music Player
+
+Video Intro
+
+Video Outro
+
+Scroll To Top Button
+
+Floating Decorative Elements
+
+Watermarks
+
+Gallery Overlay
+
+Merchandise Tags
+
+Social Profile Images
+
+Website Section Decoration
+
+⸻
+
+WEBSITE HIERARCHY
+
+The branding should follow this visual structure.
+
+Navigation
+
+↓
+
+Hero
+
+↓
+
+Featured Release
+
+↓
+
+Latest Music
+
+↓
+
+Featured Artists
+
+↓
+
+Streaming Platforms
+
+↓
+
+About KIUT Music
+
+↓
+
+Newsletter
+
+↓
+
+Contact
+
+↓
+
+Footer
+
+Throughout the website, the Monogram should appear subtly as a recurring luxury brand motif.
+
+The Full Logo should appear only in key branding moments.
+
+⸻
+
+NAVIGATION
+
+Desktop Navigation
+
+Display:
+
+Monogram
+
+KIUT wordmark
+
+NOT the full stacked logo.
+
+Keep navigation elegant.
+
+Minimal.
+
+Luxury.
+
+Premium spacing.
+
+⸻
+
+Mobile Navigation
+
+Display only:
+
+Monogram
+
+Position:
+
+Top Left
+
+Maintain generous spacing.
+
+⸻
+
+HERO SECTION
+
+Display the Full Logo.
+
+Large.
+
+Centered.
+
+Elegant.
+
+High visual priority.
+
+Allow sufficient breathing room around the logo.
+
+The hero should immediately establish KIUT Music as a premium international music brand.
+
+⸻
+
+FOOTER
+
+Display the Full Logo.
+
+Below the logo include:
+
+Afro-Caribbean Sound.
+
+Global Energy.
+
+Below this:
+
+Social Icons
+
+Newsletter Link
+
+Copyright
+
+⸻
+
+LOADING EXPERIENCE
+
+Create a cinematic luxury loading sequence.
+
+Sequence:
+
+Black background.
+
+↓
+
+Soft ambient gold glow appears.
+
+↓
+
+Monogram fades in.
+
+↓
+
+Logo strokes animate into place.
+
+↓
+
+Gold highlight sweeps across the logo.
+
+↓
+
+Glow subtly intensifies.
+
+↓
+
+KIUT fades upward.
+
+↓
+
+MUSIC appears.
+
+↓
+
+Thin gold divider line draws.
+
+↓
+
+Audio waveform animates.
+
+↓
+
+Loading progress completes.
+
+↓
+
+Entire Hero fades in.
+
+Duration:
+
+2–3 seconds.
+
+Animation should feel calm.
+
+Elegant.
+
+Premium.
+
+Never flashy.
+
+⸻
+
+LOGO ANIMATION SYSTEM
+
+The Monogram should receive subtle motion throughout the website.
+
+Allowed animations:
+
+Slow floating
+
+Very gentle breathing
+
+Tiny glow pulse
+
+Soft gold shimmer
+
+Micro parallax
+
+Extremely slow rotation (less than 1°)
+
+Never use exaggerated motion.
+
+Luxury brands move slowly.
+
+Animations should enhance the experience without distracting from content.
+
+⸻
+
+DECORATIVE WATERMARK SYSTEM
+
+Use oversized Monograms as luxury background elements.
+
+Suggested locations:
+
+About
+
+Music Library
+
+Artists
+
+Newsletter
+
+Contact
+
+Watermarks should be:
+
+5–10% opacity
+
+Large
+
+Centered
+
+Blurred slightly
+
+Never compete with content.
+
+⸻
+
+AUDIO PLAYER
+
+Brand the audio player using the Monogram.
+
+Place the Monogram beside the waveform.
+
+Waveform should animate while music plays.
+
+Use luxury glass styling.
+
+Gold accents only.
+
+⸻
+
+SCROLL TO TOP BUTTON
+
+Replace the generic arrow with the Monogram.
+
+Use:
+
+Glass background
+
+Soft gold glow
+
+Hover animation
+
+Smooth reveal
+
+⸻
+
+SOCIAL MEDIA ASSETS
+
+Generate profile icons using only the Monogram.
+
+Platforms:
+
+Instagram
+
+Facebook
+
+TikTok
+
+Spotify
+
+Apple Music
+
+YouTube
+
+Threads
+
+X
+
+Never use the Full Logo for profile images.
+
+⸻
+
+FAVICON SYSTEM
+
+Generate:
+
+16×16
+
+32×32
+
+48×48
+
+64×64
+
+128×128
+
+180×180
+
+192×192
+
+512×512
+
+All generated from the Monogram.
+
+⸻
+
+MERCHANDISE
+
+Use:
+
+Monogram
+
+for:
+
+Caps
+
+Hoodies
+
+Shirts
+
+Embroidery
+
+Labels
+
+Packaging
+
+Use Full Logo for:
+
+Posters
+
+Boxes
+
+Certificates
+
+Premium Packaging
+
+⸻
+
+EMAIL SIGNATURE
+
+Use:
+
+Full Logo
+
+Name
+
+Position
+
+Contact Information
+
+Social Icons
+
+Luxury spacing.
+
+⸻
+
+PRESS KIT
+
+Use the Full Logo prominently.
+
+Monogram should appear as decorative watermark throughout the document.
+
+⸻
+
+PREMIUM CTA BUTTON SYSTEM
+
+CRITICAL
+
+A premium reusable CTA button component has already been designed and implemented.
+
+This button system is approved.
+
+It is inspired by the uploaded luxury animation reference.
+
+It is now part of the KIUT Music design system.
+
+This Phase must not modify, replace, or redesign the existing CTA component.
+
+⸻
+
+DO NOT
+
+Do not redesign.
+
+Do not replace.
+
+Do not regenerate.
+
+Do not restyle.
+
+Do not alter animations.
+
+Do not change hover behaviour.
+
+Do not change glow.
+
+Do not change spacing.
+
+Do not change typography.
+
+Do not introduce another primary button style.
+
+⸻
+
+Preserve Existing Component
+
+Maintain:
+
+Luxury gold finish
+
+Glassmorphism styling
+
+Gold shimmer animation
+
+Hover lift
+
+Glow effect
+
+Press animation
+
+Corner radius
+
+Padding
+
+Typography
+
+Icon spacing
+
+Motion curves
+
+Responsive behaviour
+
+Accessibility
+
+Mobile touch feedback
+
+The component must remain visually identical to the currently approved implementation.
+
+⸻
+
+Protected Buttons
+
+Continue using the existing premium reusable CTA component for:
+
+Hero
+
+• Listen Now
+
+Music
+
+• Latest Release
+
+Newsletter
+
+• Join Newsletter
+
+Booking
+
+• Book Kiut
+
+Store
+
+• Shop Merchandise
+
+Video
+
+• Watch Official Video
+
+Membership
+
+• Become a Member
+
+Contact
+
+• Contact
+
+These buttons are protected UI components.
+
+They must remain unchanged.
+
+⸻
+
+Future Buttons
+
+Any future CTA introduced on the website must reuse this exact component.
+
+Never create a second premium button.
+
+Maintain one global CTA component.
+
+⸻
+
+LOGO INTEGRATION RESTRICTIONS
+
+The logo integration work must never affect:
+
+Existing CTA styling
+
+Existing CTA animation
+
+Existing hover behaviour
+
+Existing button functionality
+
+Existing responsiveness
+
+Existing accessibility
+
+Existing interaction timing
+
+Logo integration and CTA implementation must remain completely independent systems.
+
+⸻
+
+BRAND COLORS
+
+Primary Gold
+
+Secondary Gold
+
+Soft Champagne
+
+Pure White
+
+Charcoal Black
+
+Deep Black
+
+No additional accent colours should compete with the luxury gold palette.
+
+⸻
+
+TYPOGRAPHY
+
+Preserve the existing typography system.
+
+Logo typography must never be recreated using live fonts.
+
+Always use the uploaded logo artwork.
+
+⸻
+
+PERFORMANCE
+
+Use SVG whenever possible.
+
+Use optimized PNG fallbacks.
+
+Lazy-load large assets.
+
+Preload navigation logo.
+
+Maintain Retina sharpness.
+
+Prevent layout shifts.
+
+Animations should target 60 FPS.
+
+Respect prefers-reduced-motion.
+
+⸻
+
+RESPONSIVENESS
+
+Branding must scale elegantly across:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile
+
+Ultra-wide displays
+
+Foldable devices
+
+No logo distortion.
+
+No clipping.
+
+No overflow.
+
+⸻
+
+ACCESSIBILITY
+
+Maintain WCAG-compliant contrast.
+
+Decorative logos must not interfere with readability.
+
+Animations should not distract users.
+
+Support reduced-motion preferences.
+
+⸻
+
+DESIGN SYSTEM RULES
+
+The website should maintain only:
+
+One official Brand Mark
+
+One official Primary Logo
+
+One premium CTA component
+
+One gold animation language
+
+One glassmorphism language
+
+One motion system
+
+One spacing system
+
+One consistent luxury visual identity
+
+Every page should feel like it belongs to the same premium music brand.
+
+⸻
+
+FINAL ACCEPTANCE CHECKLIST
+
+This phase is complete only when:
+
+✓ The uploaded Monogram is used exactly as the official Brand Mark.
+
+✓ The uploaded Full Lockup is used exactly as the official Primary Logo.
+
+✓ No AI-generated or recreated logos exist anywhere in the project.
+
+✓ Navigation uses the Monogram + KIUT wordmark.
+
+✓ Mobile navigation uses the Monogram only.
+
+✓ Hero displays the Full Logo.
+
+✓ Footer displays the Full Logo.
+
+✓ Decorative Monograms appear subtly throughout the site.
+
+✓ The cinematic loading sequence is implemented.
+
+✓ Favicons and app icons are generated from the Monogram.
+
+✓ Social profile assets use the Monogram.
+
+✓ Watermark system is implemented.
+
+✓ Audio player incorporates the Monogram.
+
+✓ Scroll-to-top button is branded.
+
+✓ Existing premium CTA buttons remain completely unchanged.
+
+✓ The protected buttons (“Listen Now”, “Latest Release”, “Join Newsletter”, “Book Kiut”, “Shop Merchandise”, “Watch Official Video”, “Become a Member”, and “Contact”) continue using the existing approved reusable CTA component.
+
+✓ Any new CTA buttons reuse the same component without introducing alternative styles.
+
+✓ Performance remains excellent.
+
+✓ The website remains fully responsive.
+
+✓ Accessibility is preserved.
+
+✓ The final experience feels comparable to a luxury fashion house or world-class music label, with restrained motion, premium materials, refined typography, elegant spacing, and consistent branding throughout.

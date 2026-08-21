@@ -1,0 +1,165 @@
+PHASE 22.2 – Upgrade the Newsletter Section Background
+
+Replace the current newsletter section background with the newly uploaded blurred cinematic beach image.
+
+The objective is to create a luxurious, atmospheric section that blends naturally with the rest of the Kiut Music website.
+
+⸻
+
+Objectives
+
+The newsletter section should feel:
+
+* premium
+* cinematic
+* warm
+* elegant
+* immersive
+* emotionally connected to the artist
+
+The background should support the content, never compete with it.
+
+⸻
+
+1. Replace Background
+
+Remove the current newsletter background.
+
+Use the newly uploaded blurred beach image as the full-section background.
+
+The image should cover the entire section using:
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
+Do not tile the image.
+
+Do not stretch it.
+
+Do not distort its proportions.
+
+⸻
+
+2. Add a Luxury Overlay
+
+Place a dark cinematic overlay above the image.
+
+Suggested overlay:
+
+linear-gradient(
+180deg,
+rgba(0,0,0,.45),
+rgba(0,0,0,.65),
+rgba(0,0,0,.80)
+)
+
+This keeps all text perfectly readable while allowing the warm beach tones to remain visible.
+
+⸻
+
+3. Preserve Existing Layout
+
+Do NOT redesign the newsletter.
+
+Keep:
+
+* Heading
+* Subheading
+* Email input
+* Subscribe button
+* Typography
+* Padding
+* Mobile layout
+
+exactly as they currently exist.
+
+Only replace the background.
+
+⸻
+
+4. Improve Visual Hierarchy
+
+Ensure the newsletter card stands out clearly.
+
+Apply subtle enhancements such as:
+
+* soft shadow
+* slight glass effect (optional)
+* gentle background blur behind the form if needed
+* maintain the site’s gold accent color
+
+The form should feel like it is floating above the background.
+
+⸻
+
+5. Responsive Behaviour
+
+Desktop:
+
+* Show a wide portion of the beach and ocean.
+
+Tablet:
+
+* Keep the artist’s environment visible.
+
+Mobile:
+
+* Center the composition.
+* Avoid awkward cropping.
+* Ensure no important visual details are cut off.
+
+⸻
+
+6. Performance
+
+Optimize the background image.
+
+Generate responsive image sizes.
+
+Serve modern formats (WebP or AVIF if supported).
+
+Lazy-load the background if appropriate.
+
+Maintain excellent image quality while minimizing load time.
+
+⸻
+
+7. Entrance Animation
+
+When the newsletter section scrolls into view:
+
+* Fade in smoothly.
+* Slight upward movement (10–20px).
+* Duration: approximately 600–800ms.
+* Ease-out animation.
+
+Keep the motion subtle and premium.
+
+⸻
+
+8. Accessibility
+
+Maintain sufficient color contrast for all text and controls.
+
+The background should never reduce readability.
+
+⸻
+
+9. Final Validation
+
+Verify that:
+
+✓ The blurred beach image is the newsletter background.
+
+✓ The section feels cinematic and premium.
+
+✓ Text remains highly readable.
+
+✓ Mobile responsiveness is excellent.
+
+✓ Performance remains optimized.
+
+✓ No layout shifts occur.
+
+The finished section should feel like the closing scene of a high-end music film, inviting visitors to join Kiut’s journey rather than simply subscribe to a mailing list.

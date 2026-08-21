@@ -8,6 +8,7 @@ Features: animated loading screen, mini audio player, smooth page transitions (F
 
 ## Stack
 - **Frontend:** React 19, Vite, TailwindCSS 4, Radix UI, shadcn/ui, Framer Motion, Wouter (routing)
+- **Fonts:** Cinzel (headings/`font-display`), Inter (body/`font-sans`), Cormorant Garamond (editorial quotes/`font-editorial`)
 - **Backend:** Express.js (TypeScript), `tsx` dev server
 - **Database:** PostgreSQL via Replit's built-in DB + Drizzle ORM
 - **Auth:** Passport.js (local strategy), express-session
@@ -39,5 +40,11 @@ drizzle.config.ts    # Drizzle Kit config
 ## Environment
 - `SESSION_SECRET` — required (set in Replit Secrets ✓)
 - `DATABASE_URL` — runtime-managed by Replit (auto-provisioned ✓)
+- `RESEND_API_KEY` — optional for contact/newsletter email delivery; add through Replit Secrets
+- `MAILCHIMP_API_KEY` — optional for newsletter list sync; add through Replit Secrets
+
+The development workflow is configured as `npm run dev` on port 5000. The separate
+mockup sandbox workflow runs from `artifacts/mockup-sandbox` and is available at
+`/__mockup/`.
 
 ## User preferences

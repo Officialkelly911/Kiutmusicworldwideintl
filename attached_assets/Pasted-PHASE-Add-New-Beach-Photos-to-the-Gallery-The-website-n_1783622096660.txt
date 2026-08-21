@@ -1,0 +1,139 @@
+PHASE: Add New Beach Photos to the Gallery
+
+The website now has two new professionally edited beach photographs that should be added to the Gallery / Moments From the Journey section.
+
+Objectives
+
+Integrate the new images naturally into the gallery while maintaining the premium editorial aesthetic of the Kiut Music website.
+
+1. Add the new edited images
+
+Add both newly edited beach photographs to the gallery.
+
+Do NOT use the original unedited versions.
+
+Use only the enhanced versions because they have:
+
+* Better composition
+* Better lighting
+* Cleaner color grading
+* More cinematic appearance
+* Better visual consistency with the rest of the website
+
+⸻
+
+2. Place them in logical positions
+
+Do not simply append them to the end.
+
+Instead, place them where they naturally fit within the story of the gallery.
+
+Suggested flow:
+
+* Studio
+* Performance
+* Lifestyle
+* Fashion
+* Beach Editorial
+* Behind the scenes
+* Recording
+* Travel
+
+The beach photographs should feel like a premium editorial chapter within the artist’s journey.
+
+⸻
+
+3. Avoid duplicates
+
+Before adding the new photos:
+
+* Check the entire gallery.
+* Remove any duplicate or near-identical beach images.
+* Keep only the strongest version of each photograph.
+
+No image should appear twice.
+
+⸻
+
+4. Maintain consistent crop ratios
+
+Every gallery card should have identical dimensions.
+
+Ensure:
+
+* Same border radius
+* Same aspect ratio
+* Same image height
+* Same spacing
+* Same padding
+
+No image should appear stretched, squashed, zoomed in excessively, or cropped inconsistently.
+
+⸻
+
+5. Keep the existing hover effects
+
+Ensure the new images inherit every existing gallery interaction:
+
+* Hover zoom
+* Hover glow
+* Border animation
+* Caption animation
+* Lightbox opening animation
+* Mobile interactions
+
+The new images should behave exactly like every other gallery image.
+
+⸻
+
+6. Add appropriate captions
+
+Give each new image a premium editorial label consistent with the rest of the gallery.
+
+Examples include:
+
+* BEACH EDITORIAL
+* OCEAN STATE
+* GOLDEN HOUR
+* COASTLINE
+* PARADISE
+* SUNSET MOOD
+* ESCAPE
+* WAVES
+* CALIFORNIA
+* SHORELINE
+
+Choose captions that best match each image.
+
+⸻
+
+7. Preserve loading performance
+
+Optimize the new images before use.
+
+Requirements:
+
+* Convert to modern WebP format if supported.
+* Lazy-load the images.
+* Generate responsive image sizes.
+* Avoid unnecessarily large files.
+* Do not noticeably reduce image quality.
+
+The gallery should remain fast and smooth after the additions.
+
+⸻
+
+8. Final QA
+
+After implementation, verify that:
+
+* No duplicate photos remain.
+* The new beach images blend naturally into the gallery.
+* All images share consistent dimensions.
+* Hover animations work correctly.
+* Lightbox works correctly.
+* Mobile layout remains perfect.
+* Desktop layout remains perfectly aligned.
+* Page performance is not negatively affected.
+
+The final result should feel like these beach images were always part of the Kiut Music visual story, preserving the luxurious, cinematic, and premium identity of the brand rather than appearing as newly inserted content.

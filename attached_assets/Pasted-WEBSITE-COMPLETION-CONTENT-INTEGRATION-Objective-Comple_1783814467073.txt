@@ -1,0 +1,360 @@
+WEBSITE COMPLETION & CONTENT INTEGRATION
+
+Objective
+
+Complete every primary page of the Kiut Music website using the existing design system.
+
+This phase is not about redesigning the website.
+
+It is about implementing complete, production-ready pages that maintain the established Kiut Music brand identity.
+
+Every page should feel like it belongs to the same premium luxury music experience.
+
+⸻
+
+General Rules
+
+Do NOT redesign:
+
+* Navigation
+* Header
+* Footer
+* Logo system
+* Brand colors
+* Typography
+* Glassmorphism
+* Premium CTA buttons
+* Existing animations
+* Existing section spacing
+
+Reuse existing components wherever possible.
+
+⸻
+
+Pages to Complete
+
+1. Tour Page
+
+Use the approved cinematic hero image.
+
+Include:
+
+* Hero
+* Upcoming Tour Dates
+* Featured Event
+* Ticket CTA
+* Past Performances
+* Tour Gallery
+* Booking Section
+* Newsletter CTA
+
+⸻
+
+2. Music Page
+
+Create a premium streaming experience.
+
+Include:
+
+* Featured Release Hero
+* Latest Singles
+* Albums
+* EPs
+* Streaming Platforms
+* Lyrics (optional)
+* Featured Playlist
+* Audio Player
+* Listen Now CTA
+
+⸻
+
+3. Videos Page
+
+Create a cinematic video showcase.
+
+Include:
+
+* Hero
+* Featured Video
+* Official Music Videos
+* Behind the Scenes
+* Live Performances
+* Interviews
+* Video Gallery
+* Watch Official Video CTA
+
+⸻
+
+4. About Page
+
+Tell the Kiut Music story.
+
+Include:
+
+* Hero
+* Artist Biography
+* Mission
+* Musical Journey
+* Awards & Recognition
+* Press Quotes
+* Gallery
+* Timeline
+
+⸻
+
+5. Contact Page
+
+Create a premium contact experience.
+
+Include:
+
+* Hero
+* Contact Form
+* Booking Information
+* Social Links
+* Business Enquiries
+* Location (if applicable)
+
+The form UI should be complete, even if backend integration happens in the next phase.
+
+⸻
+
+6. Newsletter Page
+
+Create a dedicated subscription experience.
+
+Include:
+
+* Hero
+* Benefits of Joining
+* Subscription Form
+* Featured Updates
+* Exclusive Content Preview
+* Join Newsletter CTA
+
+⸻
+
+Content Integration
+
+Replace placeholder content with real or structured content where available.
+
+This includes:
+
+* Artist imagery
+* Music releases
+* Tour information
+* Videos
+* Gallery images
+* Merchandise
+* Social media links
+* Contact details
+
+Use tasteful placeholders only where final assets are not yet available.
+
+⸻
+
+Hero Sections
+
+Every page should use the universal Hero component.
+
+Each hero must include:
+
+* Optimized responsive image variants
+* Consistent overlay treatment
+* Premium spacing
+* Existing CTA components
+* Responsive typography
+
+No hero should introduce a different design language.
+
+⸻
+
+Premium Components
+
+Reuse the existing:
+
+* Premium CTA buttons
+* Cards
+* Glass panels
+* Section headers
+* Icons
+* Animations
+* Hover effects
+* Typography hierarchy
+
+No duplicate components should be created.
+
+⸻
+
+Responsive Design
+
+Every page must be fully responsive across:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile Portrait
+* Mobile Landscape
+
+Ensure layouts adapt gracefully without breaking the visual hierarchy.
+
+⸻
+
+Accessibility
+
+Maintain:
+
+* Proper heading structure
+* Keyboard navigation
+* Alt text for images
+* Sufficient color contrast
+* Focus states
+* Reduced-motion support
+
+⸻
+
+Performance
+
+Continue using:
+
+* Optimized hero images
+* Lazy loading
+* SVG assets where possible
+* Efficient animations
+* Minimal layout shift
+
+⸻
+
+Final Acceptance Criteria
+
+Phase 9 is complete when:
+
+* Every primary navigation link opens a fully designed, production-ready page.
+* All pages follow the established Kiut Music design system.
+* No placeholder layouts remain.
+* Existing branding, CTA components, and animations remain untouched.
+* Content is integrated consistently across the site.
+* The website feels cohesive, polished, and ready for backend integration in the next phase.
+
+This task  would include sections such as:
+
+1. Project Objective
+    * Scope of Phase 9
+    * What is and isn’t allowed
+    * Relationship to previous phases
+2. Global Implementation Rules
+    * Preserve existing design system
+    * Preserve navigation
+    * Preserve premium CTA component
+    * Preserve branding
+    * Preserve animations
+    * Preserve responsive image system
+    * Component reuse requirements
+3. Website Architecture
+    * Page hierarchy
+    * Navigation hierarchy
+    * Content flow
+    * Component hierarchy
+4. Universal Hero System
+    * Reuse of the responsive Hero component
+    * Hero layouts
+    * Image optimization
+    * Overlay standards
+    * Typography placement
+    * CTA placement
+5. Tour Page
+    * Hero implementation
+    * Tour dates
+    * Featured event
+    * Booking section
+    * Gallery
+    * Newsletter CTA
+6. Music Page
+    * Featured release
+    * Albums
+    * Singles
+    * Streaming integrations
+    * Audio player
+    * Lyrics section (optional)
+7. Videos Page
+    * Featured video
+    * Video gallery
+    * Behind-the-scenes section
+    * Live performances
+    * Interviews
+8. About Page
+    * Artist biography
+    * Mission
+    * Musical journey
+    * Timeline
+    * Awards
+    * Press section
+9. Contact Page
+    * Contact layout
+    * Booking inquiry UI
+    * Social links
+    * Business inquiries
+    * Placeholder backend integration (to be connected in Phase 10)
+10. Newsletter Page
+    * Hero
+    * Benefits
+    * Subscription UI
+    * Exclusive content preview
+    * CTA integration
+11. Shared Components
+    * Card system
+    * Section headers
+    * Gallery component
+    * Media grids
+    * Timeline component
+    * Event cards
+    * Artist profile cards
+12. Content Integration
+    * Replace placeholders where possible
+    * Use structured placeholder content where final assets are unavailable
+    * Maintain consistent tone and spacing
+13. Animation Standards
+    * Entrance animations
+    * Hover effects
+    * Scroll reveals
+    * Timing consistency
+    * Reduced-motion support
+14. Responsive Standards
+    * Desktop
+    * Laptop
+    * Tablet
+    * Mobile portrait
+    * Mobile landscape
+    * Large displays
+15. Performance
+    * Lazy loading
+    * SVG usage
+    * Image optimization
+    * Code splitting
+    * Lighthouse targets
+    * Core Web Vitals
+16. Accessibility
+    * Semantic HTML
+    * Keyboard navigation
+    * Alt text
+    * Focus management
+    * ARIA where appropriate
+17. Developer Restrictions
+    * No redesigns
+    * No logo regeneration
+    * No new button systems
+    * No duplicate components
+    * No inconsistent spacing
+    * No alternative color palettes
+18. Final Acceptance Checklist
+    * Completion criteria for every page
+    * Design consistency checks
+    * Responsive validation
+    * Performance goals
+    * Accessibility checks
+
+Content Management Readiness
+
+Every page should be built so that future updates (new songs, tour dates, videos, gallery images, merchandise, news, and announcements) can be made by editing a single data source rather than hardcoding content into components. This will make the site much easier to maintain as Kiut Music grows.
+
+My recommendation is to make this Phase 9 document the largest implementation specification in the project, because once it’s complete, the website should look and behave like a finished premium product. The remaining phases will then focus on backend integration, optimization, SEO, testing, and launch, rather than structural development.

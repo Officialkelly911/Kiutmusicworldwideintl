@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web", "nix", "postgresql-16", "python-base-3.13"]
+modules = ["nodejs-20", "web", "nix", "python-base-3.13"]
 [agent]
 expertMode = true
 stack = "FULLSTACK_JS"
@@ -22,13 +22,13 @@ args = "Start application"
 name = "Start application"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
 
 [[ports]]
 localPort = 5000
@@ -39,8 +39,36 @@ localPort = 5001
 externalPort = 3001
 
 [[ports]]
-localPort = 23636
+localPort = 5051
 externalPort = 3002
+
+[[ports]]
+localPort = 5055
+externalPort = 4200
+
+[[ports]]
+localPort = 5056
+externalPort = 5173
+
+[[ports]]
+localPort = 5101
+externalPort = 3003
+
+[[ports]]
+localPort = 5137
+externalPort = 5000
+
+[[ports]]
+localPort = 5138
+externalPort = 6800
+
+[[ports]]
+localPort = 5139
+externalPort = 8000
+
+[[ports]]
+localPort = 23636
+externalPort = 3000
 
 [deployment]
 deploymentTarget = "autoscale"
@@ -50,5 +78,8 @@ build = ["npm", "run", "build"]
 [userenv]
 
 [userenv.shared]
-CONTACT_EMAIL = "contact@kiutmusic.com"
-CONTACT_FROM_EMAIL = "Kiut Music <onboarding@resend.dev>"
+CONTACT_FROM_EMAIL = "contact@kiutmusic.com"
+MAILCHIMP_AUDIENCE_ID = "de146c236a"
+MAILCHIMP_SERVER_PREFIX = "us2"
+CONTACT_REPLY_TO = "kiutmusicworldwide@gmail.com"
+VITE_GA4_MEASUREMENT_ID = "G-EE9TF1XS08"

@@ -13,9 +13,9 @@ function getResend() {
 const FROM       = process.env.CONTACT_FROM_EMAIL ?? "Kiut Music <onboarding@resend.dev>";
 const REPLY_TO   = process.env.NEWSLETTER_REPLY_TO ?? process.env.CONTACT_EMAIL ?? "contact@kiutmusic.com";
 
-export async function sendWelcomeEmail(params: { email: string; name?: string }) {
+export async function sendWelcomeEmail(params: { email: string; firstName?: string }) {
   const resend    = getResend();
-  const firstName = (params.name ?? "").split(" ")[0] || "there";
+  const firstName = params.firstName?.trim() || "there";
 
   const html = `
 <!DOCTYPE html>

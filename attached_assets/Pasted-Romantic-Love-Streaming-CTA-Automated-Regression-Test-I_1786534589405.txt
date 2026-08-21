@@ -1,0 +1,222 @@
+Romantic Love Streaming CTA — Automated Regression Test
+
+Implement a lightweight automated browser/regression test to ensure that all approved Romantic Love streaming CTAs continue pointing to the correct official streaming-platform landing page.
+
+Canonical Destination
+
+The approved Romantic Love streaming URL is:
+
+https://bit.ly/m/Romanticlove
+
+This URL must remain the single approved destination for Romantic Love streaming CTAs.
+
+⸻
+
+1. Inspect Existing Testing Infrastructure
+
+Before creating anything:
+
+1. Inspect the project for an existing testing framework.
+2. Check whether the project already uses:
+    * Playwright
+    * Cypress
+    * Vitest
+    * Jest
+    * Another browser/E2E testing system
+3. Reuse the existing testing infrastructure if available.
+
+Do not introduce a new testing framework if the project already has an appropriate browser-testing system.
+
+If Playwright is already installed or used by the project, use Playwright.
+
+⸻
+
+2. Test Homepage Romantic Love CTA
+
+Create an automated browser test that:
+
+1. Opens the homepage.
+2. Waits for the Hero carousel to initialize.
+3. Confirms that Romantic Love is the first Hero slide.
+4. Locates the Romantic Love Hero CTA.
+5. Confirms that the CTA’s destination is the approved canonical URL:
+
+https://bit.ly/m/Romanticlove
+
+The test should verify the actual rendered link destination rather than simply checking that the text “Romantic Love” exists somewhere on the page.
+
+⸻
+
+3. Test Music Page Romantic Love CTA
+
+Create a test that:
+
+1. Opens the Music page.
+2. Locates the Romantic Love recently released single.
+3. Confirms that the appropriate streaming/listen CTA exists.
+4. Confirms that the CTA points to:
+
+https://bit.ly/m/Romanticlove
+
+The test should distinguish the streaming CTA from the internal audio-player controls.
+
+Do not expect the audio player’s source to equal the Bitly URL.
+
+The architecture should remain:
+
+Romantic Love
+├── Internal audio player
+│   └── Uploaded audio file
+│
+└── Streaming CTA
+    └── https://bit.ly/m/Romanticlove
+
+⸻
+
+4. Validate the Centralized Release Data
+
+Where the project has a centralized Romantic Love release object/data source, add an appropriate assertion that its streaming destination remains:
+
+https://bit.ly/m/Romanticlove
+
+Prefer testing the centralized source of truth rather than duplicating the URL unnecessarily throughout the test suite.
+
+⸻
+
+5. Prevent False Positives
+
+The test must fail if:
+
+* The CTA is missing.
+* The Romantic Love release is missing.
+* The CTA points to another URL.
+* The CTA points to an incorrect streaming platform.
+* The CTA points to the internal Music page instead of the streaming landing page.
+* The Bitly URL is accidentally replaced.
+* The CTA is present visually but has no valid destination.
+
+Do not make the test pass merely because the text “Listen Now” exists.
+
+Verify the actual href/navigation destination.
+
+⸻
+
+6. External Link Handling
+
+If the CTA uses:
+
+target="_blank"
+
+or another existing external-link mechanism, account for that in the test.
+
+The test should verify the destination without unnecessarily navigating away from the test context if the project’s testing architecture makes that unnecessary.
+
+Do not modify the website’s external-link behavior simply to make the test easier.
+
+⸻
+
+7. Avoid Hardcoded Duplicate Architecture
+
+The production website should continue using the centralized Romantic Love streaming URL.
+
+Do not create multiple independent constants for the same destination.
+
+If an existing shared constant is available, use it.
+
+The test may contain the expected canonical value as an assertion, because the purpose of the test is specifically to detect accidental destination changes.
+
+⸻
+
+8. Keep the Test Stable
+
+Avoid brittle selectors such as:
+
+nth-child()
+
+or selectors based purely on visual position.
+
+Prefer stable selectors based on:
+
+* Accessible labels
+* Existing data-testid attributes
+* Semantic roles
+* Release identifiers
+* Stable component attributes
+
+If a stable selector does not currently exist, add a minimal semantic test identifier where appropriate.
+
+Do not redesign the UI merely to accommodate testing.
+
+⸻
+
+9. Do Not Modify Existing Website Design
+
+This task is strictly for regression protection.
+
+Do NOT modify:
+
+* Homepage Hero design
+* Romantic Love artwork
+* Hero CTA styling
+* CTA animation
+* Music page layout
+* Music page Hero
+* Audio player
+* Navigation
+* Typography
+* Colors
+* Responsive behavior
+* Other releases
+* Store
+* Tour
+* Contact
+* Newsletter
+
+The existing approved implementation must remain visually unchanged.
+
+⸻
+
+10. Run the Test
+
+After implementation:
+
+1. Run the new regression test.
+2. Confirm it passes against the current website.
+3. Run the existing test suite, if one exists.
+4. Confirm no existing tests have regressed.
+5. Check for console errors.
+6. Confirm the production application still builds successfully.
+
+If the test fails because of an existing implementation issue, fix the underlying implementation rather than weakening the assertion.
+
+⸻
+
+11. Acceptance Criteria
+
+The task is complete when:
+
+* An automated browser/regression test exists.
+* Homepage Romantic Love CTA is verified.
+* Music page Romantic Love streaming CTA is verified.
+* The canonical destination is verified as:
+
+https://bit.ly/m/Romanticlove
+
+* The internal Romantic Love audio player is not confused with the external streaming CTA.
+* The test fails if the destination changes unexpectedly.
+* The test uses stable selectors.
+* Existing website design and functionality remain unchanged.
+* The test passes successfully.
+* Existing tests/build remain healthy.
+
+Final Report
+
+Provide:
+
+1. Testing framework used.
+2. Test file(s) created or modified.
+3. What Romantic Love elements are covered.
+4. Assertions implemented.
+5. Test execution result.
+6. Any selectors/test IDs added.
+7. Confirmation that no production UI was changed.

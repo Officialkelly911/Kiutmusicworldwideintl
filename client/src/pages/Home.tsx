@@ -1,17 +1,30 @@
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight, Music2, PlayCircle, Radio, Instagram, Youtube, Globe, ChevronLeft, ChevronRight, ExternalLink, Smartphone, Music, Play } from "lucide-react";
-import { KiutMark } from "../components/KiutMark";
+import { KiutMark, KiutFullLogo } from "../components/KiutMark";
+import { PremiumCTAButton } from "@/components/PremiumCTAButton";
+import { staggerContainer, staggerItem, T, DUR } from "@/lib/motion";
+import { MERCH_HIGHLIGHTS } from "@/data/merch";
 import { Link } from "wouter";
 import SiteFooter from "../components/SiteFooter";
 import { useState, useEffect, useRef } from "react";
+import { useSEO } from "@/lib/useSEO";
+import { track } from "@/lib/analytics";
+import { DREAMPLANET_URL } from "@/data/social";
+import { ALL_TRACKS, getTrackStreamingUrl } from "@/data/tracks";
+import { ROUTE_SEO } from "@shared/seo";
 const heroImage = "/assets/images/Hero1_1767873472478.webp";
 const heroPoster = "/assets/images/hero-poster.webp";
+const heroReelVideo  = "/assets/videos/hero-reel.mp4";
+const heroReelPoster = "/assets/images/hero-reel-poster.jpg";
 const videoGalleryCover = "/assets/images/IMG_1257_1774433050958.webp";
 const videoGalleryCardBg = "/assets/images/IMG_1254_1774433277988.webp";
-const heroVideo = "/assets/videos/hero-optimized.mp4";
 const musicImage = "/assets/images/WhatsApp_Image_2026-01-08_at_1.09.08_PM_1767874948786.webp";
-const goodLifeVideo = "/assets/videos/goodlife-optimized.mp4";
-const goodLifePoster = "/assets/images/IMG_1254_1774433277988.webp";
+const goodLifeVideo = "/assets/videos/portfolio-optimized.mp4";
+const goodLifePoster = "/assets/images/good-life-hero-bg.webp";
+const creativePortfolioVideo = "/assets/videos/creative-portfolio-optimized.mp4";
+const creativePortfolioPoster = "/assets/images/creative-portfolio/video-poster.jpg";
+const romanticLoveBackground = "/assets/images/romantic-love/background.png";
+const romanticLoveOverlay = "/assets/images/romantic-love/overlay.jpg";
 const gradImage1 = "/assets/images/SaveClip.App_499297572_18160731292367177_3212163099031699798_n_1772349317335.webp";
 const gradImage2 = "/assets/images/SaveClip.App_519041773_18160731283367177_9053675119922879626_n_1772349317336.webp";
 const gradImage3 = "/assets/images/SaveClip.App_517764761_18160731259367177_4327995200687536280_n_1772349317336.webp";
@@ -19,7 +32,29 @@ const momentImg4 = "/assets/images/IMG_0682_1774440591738.webp";
 const momentImg5 = "/assets/images/studio_session_1774440627098.webp";
 const momentImg6 = "/assets/images/studio_kiut_1774440627098.webp";
 const momentImg7 = "/assets/images/times_square_1774440627098.webp";
-const portfolioVideo = "/assets/videos/portfolio-optimized.mp4";
+const romanticLoveTrack = ALL_TRACKS.find((track) => track.title === "Romantic Love");
+const milestoneImages = [
+  {
+    src: gradImage1,
+    alt: "Kiut with fellow graduates at the Los Angeles Film School graduation ceremony",
+  },
+  {
+    src: gradImage2,
+    alt: "Kiut and a fellow graduate holding diplomas at the Los Angeles Film School ceremony",
+  },
+  {
+    src: gradImage3,
+    alt: "Kiut in graduation regalia holding his diploma at the Los Angeles Film School",
+  },
+];
+const journeyGalleryImages = [
+  ...milestoneImages,
+  { src: heroImage, alt: "Kiut in a dark studio portrait" },
+  { src: momentImg4, alt: "Kiut in a white suit relaxing in a sunlit lounge" },
+  { src: momentImg5, alt: "Two producers working at a recording studio mixing console" },
+  { src: momentImg6, alt: "Kiut seated in a recording studio beneath production screens" },
+  { src: momentImg7, alt: "Kiut standing in front of illuminated screens in Times Square" },
+];
 
 // Videos shown in the Latest Visuals horizontal scroll row
 const homeVideos = [
@@ -44,54 +79,54 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
   return (
     <Link href="/videos">
       <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-2xl overflow-hidden bg-[#0c0c0c] border border-white/[0.06] hover:border-gold/25 hover:shadow-[0_14px_38px_rgba(212,175,55,0.09)] transition-all duration-300 snap-start"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="group cursor-pointer flex flex-col w-64 md:w-auto flex-shrink-0 md:flex-shrink rounded-xl overflow-hidden bg-charcoal border border-white/[0.07] hover:border-gold/25 hover:shadow-glow-gold transition-all duration-300 snap-start"
       >
         {/* Thumbnail */}
-        <div className="relative w-full aspect-video overflow-hidden bg-[#090909] flex-shrink-0">
+        <div className="relative w-full aspect-video overflow-hidden bg-midnight flex-shrink-0">
           {!failed ? (
             <img
               src={video.thumbnail}
               alt={video.title}
               loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.07]"
+              className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.07]"
               onError={() => setFailed(true)}
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
-              style={{ background: "linear-gradient(145deg,#0a0a0a 0%,#110d1a 100%)" }}>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(212,175,55,0.10)", border: "1px solid rgba(212,175,55,0.18)" }}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="#D4AF37" opacity="0.65" /></svg>
+              style={{ background: "linear-gradient(145deg, var(--color-midnight) 0%, color-mix(in srgb, var(--midnight-black) 90%, var(--dark-gold) 10%) 100%)" }}>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "rgba(var(--gold-primary-rgb),0.10)", border: "1px solid rgba(var(--gold-primary-rgb),0.18)" }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="var(--color-gold)" opacity="0.65" /></svg>
               </div>
-              <span style={{ color: "rgba(212,175,55,0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>Kiut Music</span>
+              <span style={{ color: "rgba(var(--gold-primary-rgb),0.45)", fontSize: 8, fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase" }}>Kiut Music</span>
             </div>
           )}
           {/* Scrim */}
           <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-black/55 to-transparent pointer-events-none" />
           {/* Badge */}
-          <div className={`absolute top-2 left-2 px-2 py-[3px] rounded-full backdrop-blur-md text-[8px] font-bold uppercase tracking-widest leading-none border ${badge.text} ${badge.border} ${badge.bg}`}>
+          <div className={`absolute top-2 left-2 px-2 py-[3px] rounded-full backdrop-blur-md text-xs font-bold uppercase tracking-widest leading-none border ${badge.text} ${badge.border} ${badge.bg}`}>
             {video.type}
           </div>
           {/* Duration */}
           {video.duration !== "—" && (
-            <div className="absolute bottom-2 right-2 px-1.5 py-[3px] rounded-md bg-black/90 backdrop-blur-md text-white/75 text-[9px] font-semibold leading-none">
+            <div className="absolute bottom-2 right-2 px-1.5 py-[3px] rounded-md bg-black/90 backdrop-blur-md text-white/75 text-xs font-semibold leading-none">
               {video.duration}
             </div>
           )}
           {/* Play icon */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-9 h-9 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center pl-0.5 opacity-30 group-hover:opacity-100 group-hover:bg-gold group-hover:border-gold group-hover:shadow-[0_0_22px_rgba(212,175,55,0.55)] transition-all duration-300 scale-90 group-hover:scale-100">
-              <Play className="w-3.5 h-3.5 text-white group-hover:text-midnight transition-colors duration-200" />
+            <div className="w-9 h-9 rounded-full border border-white/20 bg-black/30 backdrop-blur-sm flex items-center justify-center pl-0.5 opacity-30 group-hover:opacity-100 group-hover:bg-gold group-hover:border-gold group-hover:shadow-glow-gold-hover transition-all duration-normal scale-90 group-hover:scale-100">
+              <Play className="w-3.5 h-3.5 text-white group-hover:text-midnight transition-colors duration-fast" />
             </div>
           </div>
         </div>
         {/* Text */}
         <div className="p-3.5 flex flex-col gap-1">
-          <h4 className="font-bold text-[12px] leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-200">
+          <h4 className="font-bold text-xs leading-snug line-clamp-2 text-white group-hover:text-gold transition-colors duration-fast">
             {video.title}
           </h4>
-          <div className="flex items-center gap-1.5 text-[10px] text-white/25 mt-0.5">
+          <div className="flex items-center gap-1.5 text-xs text-white/25 mt-0.5">
             <span>Kiut</span>
             <span className="text-white/15">·</span>
             <span>{video.date}</span>
@@ -104,8 +139,6 @@ function HomeVideoCard({ video }: { video: typeof homeVideos[0] }) {
 
 function CinematicIntro({ onComplete }: { onComplete: () => void }) {
   const waveHeights = [0.55, 0.9, 1.4, 1.0, 1.6, 0.75, 1.2, 0.5, 1.35, 0.8, 1.5, 0.65];
-  const [introVideoReady, setIntroVideoReady] = useState(false);
-  const [introVideoError, setIntroVideoError] = useState(false);
   return (
     <motion.div
       initial={{ opacity: 1 }}
@@ -113,31 +146,19 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
       transition={{ duration: 0.9, ease: "easeInOut" }}
       className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Blurred background video */}
+      {/* Blurred background image */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.35 }}
         transition={{ duration: 2, delay: 0.2 }}
         className="absolute inset-0 z-0"
       >
-        {/* Poster — always present as fallback beneath the video */}
         <img
           src={heroPoster}
           alt=""
           aria-hidden
           className="absolute inset-0 w-full h-full object-cover blur-lg scale-105"
         />
-        {!introVideoError && (
-          <video
-            autoPlay loop muted playsInline preload="auto" poster={heroPoster}
-            onCanPlay={() => setIntroVideoReady(true)}
-            onError={() => setIntroVideoError(true)}
-            className="absolute inset-0 w-full h-full object-cover blur-lg scale-105 transition-opacity duration-700"
-            style={{ opacity: introVideoReady ? 1 : 0 }}
-          >
-            <source src={heroVideo} type="video/mp4" />
-          </video>
-        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80" />
       </motion.div>
 
@@ -149,42 +170,31 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
         className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
       >
         <div className="w-[600px] h-[600px] rounded-full blur-[160px]"
-          style={{ background: "radial-gradient(ellipse, rgba(212,175,55,0.12), transparent 70%)" }} />
+          style={{ background: "radial-gradient(ellipse, rgba(var(--gold-primary-rgb),0.12), transparent 70%)" }} />
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full gap-0">
-        {/* K Brand Mark */}
+        {/* Crown mark — Phase 8: 94px (+7% vs old 88px), full logo with MUSIC */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: DUR.cinematic, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 relative"
         >
-          <KiutMark
-            size={88}
-            color="#D4AF37"
-            className="drop-shadow-[0_0_28px_rgba(212,175,55,0.35)]"
-            label="KIUT."
+          <KiutFullLogo
+            markSize={94}
+            variant="gold"
+            className="drop-glow-gold"
           />
         </motion.div>
-
-        {/* Logo wordmark */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-5xl md:text-7xl font-bold text-white tracking-[0.22em] uppercase mb-2"
-        >
-          Kiut<span style={{ color: "#D4AF37" }}>.</span>
-        </motion.h1>
 
         {/* Accent line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: "easeInOut" }}
+          transition={{ duration: DUR.slow, delay: 0.9, ease: "easeInOut" }}
           className="w-24 md:w-48 h-[2px] mb-7 origin-center"
-          style={{ background: "#D4AF37", boxShadow: "0 0 14px rgba(212,175,55,0.5)" }}
+          style={{ background: "var(--color-gold)", boxShadow: "var(--glow-gold)" }}
         />
 
         {/* Animated gold waveform */}
@@ -199,7 +209,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
             <motion.div
               key={i}
               className="rounded-full"
-              style={{ width: 3, background: "#D4AF37", opacity: 0.7 }}
+              style={{ width: 3, background: "var(--color-gold)", opacity: 0.7 }}
               animate={{ height: [`${h * 8}px`, `${h * 22}px`, `${h * 8}px`] }}
               transition={{ repeat: Infinity, duration: 0.55 + i * 0.09, ease: "easeInOut", delay: i * 0.06 }}
             />
@@ -211,7 +221,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 1.3 }}
-          className="text-white/45 tracking-[0.4em] uppercase text-[10px] font-light"
+          className="text-white/45 tracking-[0.4em] uppercase text-xs font-light"
         >
           Loading Experience
         </motion.p>
@@ -233,7 +243,7 @@ function CinematicIntro({ onComplete }: { onComplete: () => void }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.6 }}
         onClick={onComplete}
-        className="absolute bottom-10 right-10 text-white/35 hover:text-white/70 uppercase tracking-[0.22em] text-[10px] transition-colors z-20"
+        className="absolute bottom-10 right-10 text-white/35 hover:text-white/70 uppercase tracking-[0.22em] text-xs transition-colors z-20"
       >
         Skip ↓
       </motion.button>
@@ -250,7 +260,7 @@ function HomeStatsStrip() {
     { value: 20, suffix: "+", label: "Music Videos" },
     { value: 15, suffix: "+", label: "Singles & EPs" },
     { value: 5,  suffix: "",  label: "Platforms Worldwide" },
-    { value: 4,  suffix: "+", label: "Years Creating" },
+    { value: 20, suffix: "+", label: "Years Creating" },
   ];
 
   useEffect(() => {
@@ -276,10 +286,10 @@ function HomeStatsStrip() {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(90deg, #080808 0%, #0c0a00 50%, #080808 100%)", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+      style={{ background: "linear-gradient(90deg, var(--color-midnight) 0%, color-mix(in srgb, var(--midnight-black) 93%, var(--dark-gold) 7%) 50%, var(--color-midnight) 100%)", borderTop: "1px solid rgba(var(--white-rgb),0.04)", borderBottom: "1px solid rgba(var(--white-rgb),0.04)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.04), transparent 70%)" }} />
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--gold-primary-rgb),0.04), transparent 70%)" }} />
       <div className="max-w-5xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
         {stats.map((stat, i) => (
           <motion.div
@@ -289,10 +299,10 @@ function HomeStatsStrip() {
             transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col items-center text-center"
           >
-            <div className="font-display text-4xl md:text-5xl font-bold mb-1" style={{ color: "#D4AF37" }}>
+            <div className="font-display text-4xl md:text-5xl font-bold mb-1" style={{ color: "var(--color-gold)" }}>
               {counts[i]}{stat.suffix}
             </div>
-            <div className="text-white/35 text-[10px] font-bold uppercase tracking-[0.32em]">{stat.label}</div>
+            <div className="text-white/35 text-xs font-bold uppercase tracking-[0.32em]">{stat.label}</div>
           </motion.div>
         ))}
       </div>
@@ -308,10 +318,10 @@ function FeaturedQuote() {
       viewport={{ once: true, amount: 0.4 }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className="py-28 relative overflow-hidden"
-      style={{ background: "#050505" }}
+      style={{ background: "var(--color-midnight)" }}
     >
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.035), transparent 65%)" }} />
+        style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--gold-primary-rgb),0.035), transparent 65%)" }} />
       <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
         <motion.div
           initial={{ scaleX: 0 }}
@@ -319,26 +329,26 @@ function FeaturedQuote() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeInOut", delay: 0.2 }}
           className="w-8 h-[2px] mx-auto mb-10 origin-center"
-          style={{ background: "rgba(212,175,55,0.5)" }}
+          style={{ background: "rgba(var(--gold-primary-rgb),0.5)" }}
         />
         <motion.blockquote
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-3xl md:text-4xl lg:text-5xl font-light tracking-wide text-white leading-snug italic mb-8"
-          style={{ textShadow: "0 0 80px rgba(212,175,55,0.12)" }}
+          className="font-editorial text-3xl md:text-4xl lg:text-5xl font-light tracking-wide text-white leading-snug italic mb-8"
+          style={{ textShadow: "0 0 80px rgba(var(--gold-primary-rgb),0.12)" }}
         >
           "Music is more than sound.
           <br />
-          <span style={{ color: "#D4AF37" }}>It's memory.</span>"
+          <span style={{ color: "var(--color-gold)" }}>It's memory.</span>"
         </motion.blockquote>
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.55 }}
-          className="text-white/25 text-[10px] font-bold uppercase tracking-[0.45em]"
+          className="text-white/25 text-xs font-bold uppercase tracking-[0.45em]"
         >
           — Kiut
         </motion.p>
@@ -348,7 +358,7 @@ function FeaturedQuote() {
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeInOut", delay: 0.6 }}
           className="w-8 h-[2px] mx-auto mt-10 origin-center"
-          style={{ background: "rgba(212,175,55,0.5)" }}
+          style={{ background: "rgba(var(--gold-primary-rgb),0.5)" }}
         />
       </div>
     </motion.section>
@@ -357,23 +367,22 @@ function FeaturedQuote() {
 
 function MilestoneGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const images = [gradImage1, gradImage2, gradImage3];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
+      setActiveIndex((prev) => (prev + 1) % milestoneImages.length);
     }, 4500);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="relative h-[500px] md:h-[700px] w-full flex items-center justify-center perspective-[1500px]">
-      {images.map((img, index) => {
+      {milestoneImages.map((image, index) => {
         const isActive = index === activeIndex;
         // Calculate offset to determine relative position (-1, 0, 1)
         let offset = index - activeIndex;
-        if (offset < -1) offset += images.length;
-        if (offset > 1) offset -= images.length;
+        if (offset < -1) offset += milestoneImages.length;
+        if (offset > 1) offset -= milestoneImages.length;
         
         let x = "0%";
         let y = "0%";
@@ -433,10 +442,10 @@ function MilestoneGallery() {
               duration: 1.8,
               ease: [0.22, 1, 0.36, 1], // Premium cinematic easing
             }}
-            className="absolute w-[65%] md:w-[55%] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 bg-[#0a0a0a] transform-gpu"
+            className="absolute w-[65%] md:w-[55%] aspect-[4/5] rounded-xl overflow-hidden shadow-xl border border-white/10 bg-midnight transform-gpu"
             style={{ transformStyle: 'preserve-3d' }}
           >
-            <img src={img} alt="Milestone Gallery" className="w-full h-full object-cover" />
+            <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
             
             <AnimatePresence>
@@ -446,7 +455,7 @@ function MilestoneGallery() {
                   animate={{ opacity: 1 }} 
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1.5 }}
-                  className="absolute inset-0 border border-gold/60 rounded-3xl pointer-events-none shadow-[inset_0_0_50px_rgba(212,175,55,0.25)]"
+                  className="absolute inset-0 border border-gold/60 rounded-xl pointer-events-none shadow-glow-gold"
                 />
               )}
             </AnimatePresence>
@@ -457,59 +466,147 @@ function MilestoneGallery() {
   );
 }
 
-function HeroSlideMedia({ src, poster, isFirst }: { src: string; poster: string; isFirst: boolean }) {
+function HeroSlideMedia({
+  video,
+  poster,
+  isFirst,
+}: {
+  video?: string;
+  poster: string;
+  isFirst: boolean;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const [videoReady, setVideoReady] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
+    if (!video || !shouldLoadVideo) {
+      setVideoReady(false);
+      return;
+    }
     setVideoReady(false);
     setVideoError(false);
     const v = videoRef.current;
     if (!v) return;
-    v.load();
-  }, [src]);
+    const playPromise = v.play();
+    if (playPromise !== undefined) playPromise.catch(() => {});
+  }, [video, shouldLoadVideo]);
 
-  const handleCanPlay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.play().catch(() => {});
-    setVideoReady(true);
-  };
+  useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+    const saveData = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection?.saveData;
+    const updateVideoPolicy = () => {
+      setShouldLoadVideo(
+        desktopMedia.matches && !prefersReducedMotion && !saveData,
+      );
+    };
 
-  const handleError = () => {
-    setVideoError(true);
-    setVideoReady(false);
-  };
+    updateVideoPolicy();
+    desktopMedia.addEventListener("change", updateVideoPolicy);
+    return () => desktopMedia.removeEventListener("change", updateVideoPolicy);
+  }, [prefersReducedMotion]);
 
   return (
     <div className="absolute inset-0 w-full h-full">
-      {/* Poster — shown immediately, fades out once video is ready; stays visible on error */}
+      {/* Poster — instant paint, fades out once video is buffered */}
       <img
         src={poster}
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
-        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+        className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-cinematic"
+        style={{ opacity: shouldLoadVideo && videoReady && !videoError ? 0 : 1 }}
         fetchPriority={isFirst ? "high" : "low"}
       />
-      {/* Video — fades in once buffered; hidden on error so poster shows through */}
-      {!videoError && (
+      {/* Video layer — only rendered for slides that supply one */}
+      {video && shouldLoadVideo && !videoError && (
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          preload={isFirst ? "auto" : "metadata"}
+          preload="metadata"
           poster={poster}
-          onCanPlay={handleCanPlay}
-          onError={handleError}
-          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
+          aria-hidden="true"
+          tabIndex={-1}
+          onCanPlay={() => {
+            videoRef.current?.play().catch(() => {});
+            setVideoReady(true);
+          }}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-cinematic"
           style={{ opacity: videoReady ? 1 : 0 }}
         >
-          <source src={src} type="video/mp4" />
+          <source src={video} type="video/mp4" />
         </video>
+      )}
+    </div>
+  );
+}
+
+function CreativePortfolioVideo() {
+  const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion || !videoRef.current) return;
+    videoRef.current.play().catch(() => {});
+  }, [isInView, prefersReducedMotion]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative mx-auto max-w-5xl aspect-[16/9] overflow-hidden rounded-2xl border border-white/[0.08] bg-black shadow-2xl shadow-black/40"
+      role="img"
+      aria-label="Kiut creative portfolio video"
+      data-testid="creative-portfolio-video"
+    >
+      <img
+        src={creativePortfolioPoster}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
+        style={{ opacity: videoReady && !videoError ? 0 : 1 }}
+        loading="lazy"
+        decoding="async"
+      />
+      {!videoError && (
+        <video
+          ref={videoRef}
+          src={isInView && !prefersReducedMotion ? creativePortfolioVideo : undefined}
+          autoPlay={isInView && !prefersReducedMotion}
+          loop
+          muted
+          playsInline
+          preload={isInView && !prefersReducedMotion ? "metadata" : "none"}
+          poster={creativePortfolioPoster}
+          aria-hidden="true"
+          tabIndex={-1}
+          onCanPlay={() => {
+            videoRef.current?.play().catch(() => {});
+            setVideoReady(true);
+          }}
+          onError={() => setVideoError(true)}
+          className="absolute inset-0 h-full w-full object-contain object-center transition-opacity duration-cinematic"
+          style={{ opacity: videoReady ? 1 : 0 }}
+        />
+      )}
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"
+        aria-hidden="true"
+      />
+      {prefersReducedMotion && (
+        <p className="sr-only">
+          Motion is reduced, so the Creative Portfolio video is shown as a still image.
+        </p>
       )}
     </div>
   );
@@ -566,7 +663,7 @@ function KiutEmbedSection() {
   };
 
   return (
-    <section className="py-24 bg-[#0a0a0a] border-t border-white/5">
+    <section className="py-24 bg-midnight border-t border-white/5">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -593,7 +690,7 @@ function KiutEmbedSection() {
           </div>
 
           {/* Embed container */}
-          <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)] bg-[#111]">
+          <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-xl bg-charcoal">
             {/* Glow accents */}
             <div className="absolute top-0 right-0 w-72 h-72 bg-gold/8 blur-[120px] pointer-events-none z-0" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-pink-500/8 blur-[120px] pointer-events-none z-0" />
@@ -614,7 +711,7 @@ function KiutEmbedSection() {
               onLoad={handleLoad}
               onError={handleError}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              className={`relative z-10 w-full transition-opacity duration-500 ${
+              className={`relative z-10 w-full transition-opacity duration-slow ${
                 status === "loaded" ? "opacity-100" : "opacity-0 absolute inset-0"
               }`}
               style={{ height: status === "loaded" ? "640px" : "0px", border: "none" }}
@@ -623,7 +720,7 @@ function KiutEmbedSection() {
             {/* Fallback card */}
             {status === "fallback" && (
               <div className="relative z-10 flex flex-col items-center justify-center px-8 py-16 md:py-24 text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-8">
+                <div className="w-16 h-16 rounded-md bg-gold/10 border border-gold/20 flex items-center justify-center mb-8">
                   <Music className="w-8 h-8 text-gold" />
                 </div>
 
@@ -652,14 +749,16 @@ function KiutEmbedSection() {
                 </div>
 
                 {/* Primary CTA */}
-                <a
+                <PremiumCTAButton
+                  as="a"
                   href={EMBED_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest hover:scale-105 transition-transform duration-300 shadow-[0_0_40px_rgba(212,175,55,0.35)]"
+                  icon={<ExternalLink size={16} />}
+                  iconPosition="right"
                 >
-                  Explore All Links <ExternalLink size={16} />
-                </a>
+                  Explore All Links
+                </PremiumCTAButton>
 
                 {/* Mobile open link */}
                 <a
@@ -701,6 +800,8 @@ function KiutEmbedSection() {
 }
 
 export default function Home() {
+  useSEO(ROUTE_SEO["/"]);
+
   const [showIntro, setShowIntro] = useState(() => {
     return !sessionStorage.getItem("kiut_intro_seen");
   });
@@ -729,15 +830,28 @@ export default function Home() {
 
   const slides = [
     {
+      id: 2,
+      title: "Romantic Love",
+      description: "Kiut's recently released single — a warm, cinematic love story made for slow days and golden nights.",
+      ctaText: "Listen Now",
+      ctaLink: romanticLoveTrack ? getTrackStreamingUrl(romanticLoveTrack) ?? "/music" : "/music",
+      poster: romanticLoveBackground,
+      badge: "Recent Release",
+      isExternal: true,
+      overlay: romanticLoveOverlay,
+      duration: 6000,
+    },
+    {
       id: 0,
       title: "Good Life EP",
       description: "The new sound from Kiut Music is here. Experience the unique fusion of Afrobeat and Caribbean vibes. Stream now on all platforms.",
       ctaText: "Listen Now",
       ctaLink: "https://linktr.ee/kiut_goodlife",
-      media: heroVideo,
-      poster: heroPoster,
+      video: heroReelVideo,
+      poster: heroReelPoster,
       badge: "New EP Out Now",
-      isExternal: true
+      isExternal: true,
+      duration: 4500,
     },
     {
       id: 1,
@@ -745,30 +859,21 @@ export default function Home() {
       description: "Watch the cinematic visual experience for the lead single. Directed with precision and artistic vision.",
       ctaText: "Watch Video",
       ctaLink: "/videos",
-      media: goodLifeVideo,
       poster: goodLifePoster,
       badge: "Featured Music Video",
-      isExternal: false
-    },
-    {
-      id: 2,
-      title: "Creative Portfolio",
-      description: "A visual journey through performances, behind-the-scenes, and cinematic projects that define Kiut Music.",
-      ctaText: "Explore Portfolio",
-      ctaLink: "https://dreamplanet.org/user/61",
-      media: portfolioVideo,
-      poster: gradImage1,
-      badge: "Creative Highlight",
-      isExternal: true
+      isExternal: false,
+      duration: 6000,
     }
   ];
 
+  // Per-slide timing: first slide lingers 7 s, others cycle at 6 s
   useEffect(() => {
-    const timer = setInterval(() => {
+    const delay = slides[currentSlide].duration;
+    const timer = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
@@ -791,90 +896,110 @@ export default function Home() {
             className="absolute inset-0 w-full h-full z-0"
           >
             <HeroSlideMedia
-              src={slides[currentSlide].media}
+              video={(slides[currentSlide] as any).video}
               poster={slides[currentSlide].poster}
               isFirst={currentSlide === 0}
             />
-            {/* Lightened cinematic gradient — keeps text readable without burying the visual */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+            {/* Cinematic dark overlay ~35% for text readability */}
+            <div className="absolute inset-0 bg-black/35" />
+            {/* Directional gradient — text side darker */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+            {/* Cinematic vignette */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ boxShadow: "inset 0 0 120px 40px rgba(var(--black-rgb),0.65)" }} />
           </motion.div>
         </AnimatePresence>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content (Left) */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left pt-12 lg:pt-0 order-2 lg:order-1 min-h-[400px] justify-center">
+            {/* Phase 7: staggered hero entrance — badge → headline → subtitle → CTA */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={`text-${currentSlide}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.6 }}
+                variants={staggerContainer(0.12, 0.1)}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, y: -16, transition: T.fast }}
                 className="flex flex-col items-center lg:items-start"
+                data-testid={
+                  slides[currentSlide].title === "Romantic Love"
+                    ? "hero-slide-romantic-love"
+                    : "hero-slide-content"
+                }
               >
-                <div className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
+                {/* 1 — Badge label */}
+                <motion.div variants={staggerItem} className="inline-block px-3 py-1 mb-6 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm">
                   <span className="text-gold text-xs font-bold tracking-[0.2em] uppercase">
                     {slides[currentSlide].badge}
                   </span>
-                </div>
-                
-                <h1 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase">
+                </motion.div>
+
+                {/* 2 — Headline fades upward */}
+                <motion.h1
+                  variants={staggerItem}
+                  className="font-display text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight text-white mb-4 leading-none uppercase"
+                >
                   {slides[currentSlide].title.split(' ')[0]}<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold">
                     {slides[currentSlide].title.split(' ').slice(1).join(' ')}
                   </span>
-                </h1>
-                
-                <p className="text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed">
+                </motion.h1>
+
+                {/* 3 — Subtitle fades upward */}
+                <motion.p
+                  variants={staggerItem}
+                  className="font-editorial italic text-lg md:text-xl text-white/70 mt-4 mb-10 max-w-lg font-light leading-relaxed"
+                >
                   {slides[currentSlide].description}
-                </p>
-                
-                {slides[currentSlide].isExternal ? (
-                  <a 
-                    href={slides[currentSlide].ctaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-block"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-gold to-yellow-600 text-midnight font-bold uppercase tracking-widest shadow-[0_0_40px_-10px_rgba(212,175,55,0.5)] group-hover:shadow-[0_0_60px_-10px_rgba(212,175,55,0.7)] transition-all duration-300"
+                </motion.p>
+
+                {/* 4 — CTA button appears last */}
+                <motion.div variants={staggerItem}>
+                  {slides[currentSlide].isExternal ? (
+                    <PremiumCTAButton
+                      as="a"
+                      href={slides[currentSlide].ctaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Listen to ${slides[currentSlide].title} on streaming platforms`}
+                      data-testid={
+                        slides[currentSlide].title === "Romantic Love"
+                          ? "hero-romantic-love-streaming-cta"
+                          : undefined
+                      }
+                      icon={<ArrowRight size={18} />}
+                      iconPosition="right"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </a>
-                ) : (
-                  <Link href={slides[currentSlide].ctaLink}>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative overflow-hidden rounded-full px-10 py-4 bg-gradient-to-r from-white to-gray-300 text-black font-bold uppercase tracking-widest shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] group-hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] transition-all duration-300"
+                      {slides[currentSlide].ctaText}
+                    </PremiumCTAButton>
+                  ) : (
+                    <PremiumCTAButton
+                      as="link"
+                      href={slides[currentSlide].ctaLink}
+                      icon={<ArrowRight size={18} />}
+                      iconPosition="right"
                     >
-                      <span className="relative z-10 flex items-center gap-2">
-                        {slides[currentSlide].ctaText} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </Link>
-                )}
+                      {slides[currentSlide].ctaText}
+                    </PremiumCTAButton>
+                  )}
+                </motion.div>
               </motion.div>
             </AnimatePresence>
 
             {/* Platform Icons (Only show for EP) */}
             <AnimatePresence>
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   className="flex items-center gap-6 mt-10 text-white/50"
                 >
-                  <div className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><Music2 size={18} /><span className="text-sm font-medium">Spotify</span></div>
-                  <div className="flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><PlayCircle size={18} /><span className="text-sm font-medium">Apple Music</span></div>
-                  <div className="hidden md:flex items-center gap-2 hover:text-gold transition-colors cursor-pointer"><Radio size={18} /><span className="text-sm font-medium">Audiomack</span></div>
+                  <span className="flex items-center gap-2"><Music2 size={18} aria-hidden="true" /><span className="text-sm font-medium">Spotify</span></span>
+                  <span className="flex items-center gap-2"><PlayCircle size={18} aria-hidden="true" /><span className="text-sm font-medium">Apple Music</span></span>
+                  <span className="hidden md:flex items-center gap-2"><Radio size={18} aria-hidden="true" /><span className="text-sm font-medium">Audiomack</span></span>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -883,7 +1008,7 @@ export default function Home() {
           {/* Floating EP Card / Controls (Right) */}
           <div className="flex flex-col justify-center lg:justify-end items-center order-1 lg:order-2 h-full">
             <AnimatePresence mode="wait">
-              {currentSlide === 0 && (
+              {currentSlide === 1 && (
                 <motion.div
                   key="ep-card"
                   initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
@@ -901,13 +1026,40 @@ export default function Home() {
                   }}
                   className="perspective-[1000px] mb-8"
                 >
-                  <div className="relative w-64 md:w-80 lg:w-96 aspect-square rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gold/30 transform-gpu rotate-y-[-5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
+                  <div className="relative w-64 md:w-80 lg:w-96 aspect-square rounded-md overflow-hidden shadow-lg border border-gold/30 transform-gpu rotate-y-[-5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-cinematic">
                     <img 
                       src={musicImage} 
                       alt="Good Life EP Cover" 
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-20" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
+                  </div>
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <AnimatePresence mode="wait">
+              {currentSlide === 0 && (
+                <motion.div
+                  key="romantic-love-card"
+                  initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0, y: [0, -12, 0] }}
+                  exit={{ opacity: 0, scale: 0.9, rotate: -5 }}
+                  transition={{
+                    opacity: { duration: 0.8 },
+                    scale: { duration: 0.8 },
+                    y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                  className="perspective-[1000px] mb-8"
+                >
+                  <div className="relative w-56 sm:w-64 md:w-80 lg:w-96 aspect-square rounded-md overflow-hidden shadow-lg border border-gold/30 transform-gpu rotate-y-[5deg] rotate-x-[5deg] group hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-cinematic">
+                    <img
+                      src={romanticLoveOverlay}
+                      alt="Romantic Love single artwork by Kiut"
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-cinematic z-20" />
                   </div>
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gold/20 blur-[100px] -z-10 rounded-full mix-blend-screen" />
                 </motion.div>
@@ -916,9 +1068,10 @@ export default function Home() {
 
             {/* Slider Controls */}
             <div className="flex items-center gap-6 mt-8">
-              <button 
+              <button
                 onClick={prevSlide}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                aria-label="Previous slide"
+                className="btn-icon"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -928,16 +1081,19 @@ export default function Home() {
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
-                    className={`w-12 h-1 rounded-full transition-all duration-300 ${
+                    aria-label={`Show ${slides[idx].title}`}
+                    aria-current={idx === currentSlide ? "true" : undefined}
+                    className={`w-12 h-1 rounded-full transition-all duration-normal ${
                       idx === currentSlide ? "bg-gold" : "bg-white/20 hover:bg-white/40"
                     }`}
                   />
                 ))}
               </div>
 
-              <button 
+              <button
                 onClick={nextSlide}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+                aria-label="Next slide"
+                className="btn-icon"
               >
                 <ChevronRight size={24} />
               </button>
@@ -950,8 +1106,8 @@ export default function Home() {
       <HomeStatsStrip />
 
       {/* MILESTONE SECTION */}
-      <section className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.03),transparent_70%)]" />
+      <section className="py-24 md:py-32 relative overflow-hidden bg-midnight">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(var(--gold-primary-rgb),0.03),transparent_70%)]" />
         
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -996,26 +1152,12 @@ export default function Home() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              <p className="text-xl text-white/90 font-light leading-relaxed">
-                We are proud to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>.
+              <p className="text-sm text-gold uppercase tracking-[0.2em]">
+                JOSEPH UZOCHUKWU
               </p>
 
-              <blockquote className="border-l-2 border-gold pl-6 my-8">
-                <p className="text-2xl font-serif italic text-white/80 leading-snug">
-                  "His journey is a powerful reminder that with faith, belief, and relentless hard work, dreams truly become reality."
-                </p>
-              </blockquote>
-
-              <p className="text-lg text-white/60 leading-relaxed font-light">
-                From humble beginnings in Nigeria to pursuing his passion in Hollywood, California, his story reflects courage, perseverance, and unwavering determination. What once seemed like a distant dream is now his lived reality.
-              </p>
-              
-              <p className="text-lg text-white/60 leading-relaxed font-light mb-8">
-                This achievement stands as an inspiration to dream boldly, trust God’s timing, and never give up.
-              </p>
-
-              <p className="text-xl font-serif italic text-gold">
-                Congratulations on this well-deserved accomplishment and the bright future ahead!
+              <p className="max-w-2xl text-xl text-white/90 font-light leading-relaxed">
+                “It is a proud and deeply meaningful moment to celebrate an incredible milestone as my brother officially graduates from the <span className="text-white font-medium">Los Angeles Film School</span>. Watching his journey unfold, from the dedication behind the scenes to the creativity he continues to bring to his craft, has been truly inspiring. This achievement represents more than graduation. It is a reflection of his <span className="text-white font-medium">passion, persistence, and commitment</span> to turning his vision into reality.”
               </p>
 
               <div className="pt-8 border-t border-white/10 flex flex-col items-center md:items-start">
@@ -1030,9 +1172,9 @@ export default function Home() {
                     <motion.button
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center justify-center gap-3 px-10 py-4 w-full bg-[#111] hover:bg-[#1a1a1a] text-white hover:text-gold border border-white/10 hover:border-gold rounded-full transition-all duration-300 font-bold tracking-wider text-sm shadow-none hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                      className="btn-base btn-secondary group w-full"
                     >
-                      <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-300" />
+                      <Instagram size={18} className="text-white group-hover:text-gold transition-colors duration-normal" />
                       SEE MORE
                     </motion.button>
                   </a>
@@ -1058,7 +1200,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Latest Drop</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Latest Drop</p>
               <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">
                 Featured <span className="text-gold">Release</span>
               </h2>
@@ -1077,14 +1219,14 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-12">
+          <div className="bg-midnight border border-white/10 rounded-xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-12">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               whileHover={{ y: -10, scale: 1.02 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="w-full md:w-1/2 max-w-sm rounded-2xl overflow-hidden shadow-2xl shadow-pink-900/20"
+              className="w-full md:w-1/2 max-w-sm rounded-md overflow-hidden shadow-2xl shadow-pink-900/20"
             >
               <img src={musicImage} alt="Good Life EP" className="w-full h-auto object-cover" />
             </motion.div>
@@ -1104,25 +1246,15 @@ export default function Home() {
                 A defining moment in Kiut's discography. Good Life EP brings together infectious rhythms, soulful melodies, and a vibrant celebration of culture.
               </p>
 
-              <a 
-                href="https://linktr.ee/kiut_goodlife"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(212,175,55,0.4)" }}
-                  whileTap={{ scale: 0.97 }}
-                  className="px-10 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.25)]"
-                >
-                  Listen Now
-                </motion.button>
-              </a>
+              <PremiumCTAButton as="a" href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+                Listen Now
+              </PremiumCTAButton>
 
               <div className="flex items-center gap-6 mt-8 text-white/40">
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Music2 size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">Spotify</span></div>
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><PlayCircle size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">Apple</span></div>
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Youtube size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">YouTube</span></div>
-                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Radio size={24} /><span className="text-[10px] font-medium uppercase tracking-wider">AudioMack</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Music2 size={24} /><span className="text-xs font-medium uppercase tracking-wider">Spotify</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><PlayCircle size={24} /><span className="text-xs font-medium uppercase tracking-wider">Apple</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Youtube size={24} /><span className="text-xs font-medium uppercase tracking-wider">YouTube</span></div>
+                <div className="flex flex-col items-center gap-2 hover:text-white transition-colors"><Radio size={24} /><span className="text-xs font-medium uppercase tracking-wider">AudioMack</span></div>
               </div>
             </motion.div>
           </div>
@@ -1130,7 +1262,7 @@ export default function Home() {
       </section>
 
       {/* PORTFOLIO SECTION */}
-      <section className="py-24 md:py-32 bg-[#050505] relative border-t border-white/5">
+      <section className="py-24 md:py-32 bg-midnight relative border-t border-white/5">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1146,37 +1278,14 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <a
-            href="https://dreamplanet.org/user/61"
-            target="_blank"
-            rel="noopener noreferrer"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative aspect-video rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] border border-white/10 group cursor-pointer"
-            >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-              >
-                <source src={portfolioVideo} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 gap-3">
-                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white">
-                  <ExternalLink size={32} />
-                </div>
-                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">View on DreamPlanet</span>
-              </div>
-            </motion.div>
-          </a>
+            <CreativePortfolioVideo />
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -1185,14 +1294,14 @@ export default function Home() {
             className="mt-12"
           >
             <a
-              href="https://dreamplanet.org/user/61"
+              href={DREAMPLANET_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
               <motion.button
-                whileHover={{ scale: 1.04, borderColor: "#D4AF37", color: "#D4AF37" }}
+                whileHover={{ scale: 1.04, borderColor: "var(--color-gold)", color: "var(--color-gold)" }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-3 rounded-full border border-white/30 text-white font-medium uppercase tracking-widest hover:border-gold hover:text-gold transition-all duration-300 flex items-center gap-2 mx-auto"
+                className="btn-base btn-secondary mx-auto"
               >
                 Explore Portfolio <ExternalLink size={14} />
               </motion.button>
@@ -1202,7 +1311,7 @@ export default function Home() {
       </section>
 
       {/* ─── KIUTRABA'S STORE FEATURE ─────────────────────────────────── */}
-      <section className="py-24 md:py-36 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg,#030303 0%,#050507 50%,#060608 100%)" }}>
+      <section className="py-24 md:py-36 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(var(--midnight-black-rgb),1) 0%, rgba(var(--midnight-black-rgb),0.97) 50%, rgba(var(--midnight-black-rgb),0.94) 100%)" }}>
         <style>{`
           @keyframes store-tape {
             from { transform: translateX(0); }
@@ -1213,8 +1322,8 @@ export default function Home() {
         `}</style>
 
         {/* Atmospheric lighting — left gold bloom, right deep shadow */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_40%,rgba(212,175,55,0.08),transparent_55%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(212,175,55,0.04),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_25%_40%,rgba(var(--gold-primary-rgb),0.08),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(var(--gold-primary-rgb),0.04),transparent_50%)]" />
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/60 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -1227,27 +1336,18 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-12"
           >
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">Kiut × Raba Bag</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-4">
               KiutRaba<span className="text-gold">'s</span> Store
             </h2>
-            <p className="text-white/38 text-[14px] font-light max-w-lg mx-auto leading-relaxed">
+            <p className="text-white/38 text-sm font-light max-w-lg mx-auto leading-relaxed">
               Exclusive apparel and collectibles inspired by the music, culture, and journey.
             </p>
           </motion.div>
 
           {/* ── 1. Featured Collection Banner (6-item cycling hero) ── */}
           {(() => {
-            const bannerItems = [
-              { img: "/assets/images/merch-hoodie.webp",      imgCls: "object-cover object-top", badge: "Limited Edition", category: "Featured Drop",    name: "KiutRaba Signature Hoodie", desc: "The statement piece of the collection. Premium heavyweight fleece, embroidered KR crown logo — wear the sound." },
-              { img: "/assets/images/merch-outfit-red.webp",  imgCls: "object-contain p-6",     badge: "Exclusive",       category: "Signature Series", name: "Hoodking",                  desc: "Bold color, editorial cut. The full Good Life look — head to toe KiutRaba energy." },
-              { img: "/assets/images/merch-shirt.webp",       imgCls: "object-contain p-4",     badge: "Best Seller",     category: "Apparel",          name: "Classic Man",               desc: "Clean drop-shoulder silhouette. The essential studio wardrobe staple." },
-              { img: "/assets/images/merch-collection.webp",  imgCls: "object-contain p-4",      badge: "Collection",      category: "Full Drop",        name: "Good Life Full Drop",       desc: "Every piece. One drop. The complete Good Life wardrobe — curated for the culture." },
-              { img: "/assets/images/merch-cap-vintage.webp", imgCls: "object-contain p-8",      badge: "Apparel",         category: "New Arrival",      name: "EP Trucker Cap",            desc: "Structured trucker silhouette with EP embroidery. The everyday KiutRaba flex." },
-              { img: "/assets/images/merch-cd.webp",          imgCls: "object-contain p-8",      badge: "Digital",         category: "Music",            name: "Good Life EP",              desc: "The debut EP. Stream or own it — Afrobeat fused with Caribbean energy, for the culture." },
-              { img: "/assets/images/merch-baggy-jeans.webp", imgCls: "object-contain p-4",     badge: "Apparel",         category: "Bottoms",          name: "KR Baggy Jeans",            desc: "Wide-leg, culture-first. The KiutRaba street silhouette — from studio to the block." },
-              { img: "/assets/images/merch-goodlife-ep.webp", imgCls: "object-cover",            badge: "Digital",         category: "Music",            name: "Goodlife Digital EP",       desc: "Own the Goodlife Digital EP — Afrobeat-forward sounds from the vault of KiutRaba." },
-            ];
+            const bannerItems = MERCH_HIGHLIGHTS;
             const active = bannerItems[activeStoreIdx];
             const total = bannerItems.length;
             return (
@@ -1256,13 +1356,13 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_32px_100px_rgba(0,0,0,0.7)]"
-                style={{ background: "#0a0a0c" }}
+                className="rounded-xl overflow-hidden border border-white/[0.08] shadow-xl"
+                style={{ background: "var(--midnight-black)" }}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr]">
 
                   {/* Left — full-bleed cycling image */}
-                  <div className="relative overflow-hidden bg-[#0d0d0f] min-h-[400px] lg:min-h-[520px]">
+                  <div className="relative overflow-hidden bg-charcoal min-h-[400px] lg:min-h-[520px]">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeStoreIdx}
@@ -1274,37 +1374,37 @@ export default function Home() {
                       >
                         <img src={active.img} alt={active.name} className={`w-full h-full ${active.imgCls}`} />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0c]/50 hidden lg:block" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-midnight-black/50 hidden lg:block" />
                       </motion.div>
                     </AnimatePresence>
 
                     {/* Badge */}
                     <div className="absolute top-5 left-5 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-[0.28em] text-midnight bg-gold shadow-[0_0_20px_rgba(212,175,55,0.5)]">
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.28em] text-midnight bg-gold shadow-glow-gold-hover">
                         <span>✦</span> {active.badge}
                       </span>
                     </div>
 
                     {/* Film counter */}
                     <div className="absolute top-5 right-5 z-10">
-                      <span className="text-[10px] font-mono text-white/28 tabular-nums tracking-widest">
+                      <span className="text-xs font-mono text-white/28 tabular-nums tracking-widest">
                         {String(activeStoreIdx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                       </span>
                     </div>
 
                     {/* Prev / Next */}
-                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Previous product" onClick={() => setActiveStoreIdx(p => (p - 1 + total) % total)} className="btn-icon btn-icon-sm absolute left-4 top-1/2 -translate-y-1/2 z-10 !bg-black/45">
                       <ChevronLeft className="w-4 h-4 text-white/55" />
                     </button>
-                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-black/45 border border-white/10 flex items-center justify-center hover:bg-black/70 hover:border-gold/35 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">
+                    <button aria-label="Next product" onClick={() => setActiveStoreIdx(p => (p + 1) % total)} className="btn-icon btn-icon-sm absolute right-4 top-1/2 -translate-y-1/2 z-10 !bg-black/45">
                       <ChevronRight className="w-4 h-4 text-white/55" />
                     </button>
 
                     {/* Animated bottom label */}
                     <AnimatePresence mode="wait">
                       <motion.div key={activeStoreIdx + "-bl"} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4 }} className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                        <p className="text-[9px] font-bold uppercase tracking-[0.38em] text-gold/80 mb-1">{active.category}</p>
-                        <p className="font-display text-[22px] font-bold text-white uppercase tracking-tight">{active.name}</p>
+                        <p className="text-xs font-bold uppercase tracking-[0.38em] text-gold/80 mb-1">{active.category}</p>
+                        <p className="font-display text-xl font-bold text-white uppercase tracking-tight">{active.name}</p>
                       </motion.div>
                     </AnimatePresence>
                   </div>
@@ -1313,11 +1413,11 @@ export default function Home() {
                   <div className="flex flex-col justify-between p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/[0.06]">
                     <AnimatePresence mode="wait">
                       <motion.div key={activeStoreIdx + "-copy"} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }} className="mb-8">
-                        <p className="text-gold text-[9px] font-bold uppercase tracking-[0.45em] mb-5">Dream Planet Store</p>
+                        <p className="text-gold text-xs font-bold uppercase tracking-[0.45em] mb-5">Dream Planet Store</p>
                         <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-5">
                           Discover KiutRaba's<br />Exclusive Collection
                         </h3>
-                        <p className="text-white/42 text-[13px] font-light leading-relaxed">{active.desc}</p>
+                        <p className="text-white/42 text-xs font-light leading-relaxed">{active.desc}</p>
                       </motion.div>
                     </AnimatePresence>
 
@@ -1325,17 +1425,25 @@ export default function Home() {
                       {/* Progress dots — 6 items */}
                       <div className="flex items-center gap-2 mb-7 flex-wrap">
                         {bannerItems.map((_, i) => (
-                          <button key={i} aria-label={`Go to product ${i + 1}`} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${i === activeStoreIdx ? "w-8 h-[6px] bg-gold shadow-[0_0_12px_rgba(212,175,55,0.65)]" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
+                          <button key={i} aria-label={`Go to product ${i + 1}`} onClick={() => setActiveStoreIdx(i)} className={`rounded-full transition-all duration-slow focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${i === activeStoreIdx ? "w-8 h-[6px] bg-gold shadow-glow-gold" : "w-[6px] h-[6px] bg-white/18 hover:bg-white/38"}`} />
                         ))}
                       </div>
 
                       {/* CTA */}
-                      <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="Explore KiutRaba's collection on Dream Planet Store">
-                        <motion.button whileHover={{ y: -3, scale: 1.02 }} whileTap={{ scale: 0.97 }} className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[0_0_28px_rgba(212,175,55,0.28)] hover:shadow-[0_0_52px_rgba(212,175,55,0.58)] transition-shadow duration-300 mb-2">
-                          <span className="text-[9px]">✦</span> Explore Collection <ExternalLink className="w-3.5 h-3.5" />
-                        </motion.button>
-                      </a>
-                      <p className="text-center text-white/18 text-[10px] font-light tracking-[0.25em]">Secure checkout via Dream Planet</p>
+                      <PremiumCTAButton
+                        as="a"
+                        href={STORE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Explore KiutRaba's collection on Dream Planet Store"
+                        icon={<ExternalLink className="w-3.5 h-3.5" />}
+                        iconPosition="right"
+                        className="w-full mb-2"
+                        analyticsEvent="store_click"
+                      >
+                        Explore Collection
+                      </PremiumCTAButton>
+                      <p className="text-center text-white/18 text-xs font-light tracking-[0.25em]">Secure checkout via Dream Planet</p>
                     </div>
                   </div>
                 </div>
@@ -1368,23 +1476,24 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Shop ${product.name} on Dream Planet Store`}
+                      onClick={() => track("store_click", { label: product.name })}
                       initial={{ opacity: 0, y: 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
                       whileHover={{ y: -7, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }}
-                      className={`group relative flex flex-col rounded-2xl overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-500 ${
+                      className={`group relative flex flex-col rounded-md overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-slow ${
                         isSpotlit || isFeatured
-                          ? "border border-gold/42 shadow-[0_18px_60px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.12)]"
-                          : "border border-white/[0.07] shadow-[0_6px_24px_rgba(0,0,0,0.45)] hover:border-gold/32 hover:shadow-[0_22px_64px_rgba(212,175,55,0.18),0_0_0_1px_rgba(212,175,55,0.08)]"
+                          ? "border border-gold/42 shadow-glow-gold-hover"
+                          : "border border-white/[0.07] shadow-sm hover:border-gold/32 hover:shadow-glow-gold-hover"
                       }`}
-                      style={{ background: "#0b0b0d" }}
+                      style={{ background: "var(--midnight-black)" }}
                     >
                       {/* "Featured This Week" badge — cycling spotlight */}
                       <AnimatePresence>
                         {isSpotlit && !isFeatured && (
                           <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3 }} className="absolute top-2.5 right-2.5 z-20">
-                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.22em] text-midnight bg-gold shadow-[0_0_14px_rgba(212,175,55,0.55)]">
+                            <span className="inline-flex items-center gap-1 px-2 py-[4px] rounded-full text-xs font-bold uppercase tracking-[0.22em] text-midnight bg-gold shadow-glow-gold">
                               ✦ This Week
                             </span>
                           </motion.div>
@@ -1393,9 +1502,9 @@ export default function Home() {
 
                       {/* Product badge */}
                       <div className="absolute top-2.5 left-2.5 z-20">
-                        <span className={`inline-flex items-center px-2.5 py-[5px] rounded-full text-[7.5px] font-bold uppercase tracking-[0.2em] ${
+                        <span className={`inline-flex items-center px-2.5 py-[5px] rounded-full text-xs font-bold uppercase tracking-[0.2em] ${
                           product.badgeKind === "gold-fill"
-                            ? "text-midnight bg-gold/90 shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+                            ? "text-midnight bg-gold/90 shadow-glow-gold"
                             : product.badgeKind === "gold-outline"
                             ? "text-gold border border-gold/40 bg-black/55 backdrop-blur-sm"
                             : "text-white/50 border border-white/15 bg-black/45 backdrop-blur-sm"
@@ -1405,7 +1514,7 @@ export default function Home() {
                       </div>
 
                       {/* Image — 80% of card, featured item slightly taller */}
-                      <div className={`relative overflow-hidden bg-[#0e0e10] flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
+                      <div className={`relative overflow-hidden bg-charcoal flex-shrink-0 ${isFeatured ? "h-[200px] sm:h-[255px] md:h-[280px]" : "h-[175px] sm:h-[215px] md:h-[240px]"}`}>
                         <img
                           src={product.img}
                           alt={`${product.name} — KiutRaba`}
@@ -1414,24 +1523,24 @@ export default function Home() {
                           className={`w-full h-full ${product.isCover ? "object-cover object-top" : "object-contain p-3"} [transition:transform_600ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]`}
                         />
                         {(isSpotlit || isFeatured) && (
-                          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.07),transparent_68%)] pointer-events-none" />
+                          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(var(--gold-primary-rgb),0.07),transparent_68%)] pointer-events-none" />
                         )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0d]/60 via-transparent to-transparent pointer-events-none" />
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.12)] [transition:opacity_400ms_ease] pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-midnight-black/60 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.12)] transition-opacity duration-medium pointer-events-none" />
                       </div>
 
                       {/* Card footer */}
-                      <div className="flex flex-col flex-1 justify-between p-3.5 bg-[#0a0a0c] border-t border-white/[0.05]">
+                      <div className="flex flex-col flex-1 justify-between p-3.5 bg-midnight border-t border-white/[0.05]">
                         <div className="mb-2.5">
-                          <h3 className="font-display text-[12px] md:text-[13px] font-bold text-white uppercase tracking-tight leading-tight mb-1">{product.name}</h3>
-                          <p className="text-white/35 text-[10px] font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
+                          <h3 className="font-display text-xs md:text-xs font-bold text-white uppercase tracking-tight leading-tight mb-1">{product.name}</h3>
+                          <p className="text-white/35 text-xs font-light leading-relaxed line-clamp-2 hidden sm:block">{product.desc}</p>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="inline-flex items-center gap-1 text-white/18 text-[9px] font-light tracking-wide">
-                            <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
+                          <span className="inline-flex items-center gap-1 text-white/18 text-xs font-light tracking-wide">
+                            <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" className="w-3 h-3 opacity-40" />
                             Dream Planet
                           </span>
-                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-[8.5px] font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-[0_0_14px_rgba(212,175,55,0.2)] transition-all duration-300 whitespace-nowrap">
+                          <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-gold/32 text-gold text-xs font-bold uppercase tracking-[0.18em] group-hover:bg-gold/10 group-hover:border-gold/58 group-hover:shadow-glow-gold transition-all duration-normal whitespace-nowrap">
                             Shop Now <ExternalLink className="w-2 h-2" />
                           </span>
                         </div>
@@ -1447,17 +1556,17 @@ export default function Home() {
           <div className="mt-10">
             <div className="flex items-baseline justify-between mb-5">
               <div>
-                <p className="text-gold text-[10px] font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
-                <p className="text-white/25 text-[11px] font-light tracking-wide">More From KiutRaba</p>
+                <p className="text-gold text-xs font-bold uppercase tracking-[0.42em] mb-0.5">Fans Also Love</p>
+                <p className="text-white/25 text-xs font-light tracking-wide">More From KiutRaba</p>
               </div>
-              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store">
-                <span className="text-white/28 text-[10px] font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-200 cursor-pointer">
+              <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View all KiutRaba merchandise on Dream Planet Store" onClick={() => track("store_click", { label: "View All" })}>
+                <span className="text-white/28 text-xs font-light uppercase tracking-[0.28em] hover:text-gold transition-colors duration-fast cursor-pointer">
                   View All ↗
                 </span>
               </a>
             </div>
 
-            <div className="overflow-hidden rounded-2xl" style={{ WebkitMaskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)", maskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)" }}>
+            <div className="overflow-hidden rounded-md" style={{ WebkitMaskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)", maskImage: "linear-gradient(to right,transparent,black 7%,black 93%,transparent)" }}>
               <div className="store-tape-track flex gap-3 w-max py-1">
                 {[
                   { name: "Signature Hoodie",   img: "/assets/images/merch-hoodie.webp",      cover: true  },
@@ -1483,9 +1592,9 @@ export default function Home() {
                   { name: "Good Life EP",          img: "/assets/images/merch-cd.webp",           cover: false },
                   { name: "KR Baggy Jeans",        img: "/assets/images/merch-baggy-jeans.webp", cover: false },
                 ].map((p, i) => (
-                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`}>
-                    <div className="group relative flex-shrink-0 w-[168px] rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0c0c0e] hover:border-gold/35 hover:shadow-[0_12px_40px_rgba(212,175,55,0.12)] transition-all duration-300 cursor-pointer">
-                      <div className="h-[142px] w-full bg-[#0e0e10]">
+                  <a key={i} href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label={`Shop ${p.name} on Dream Planet Store`} onClick={() => track("store_click", { label: p.name })}>
+                    <div className="group relative flex-shrink-0 w-[168px] rounded-md overflow-hidden border border-white/[0.07] bg-charcoal hover:border-gold/35 hover:shadow-glow-gold transition-all duration-normal cursor-pointer">
+                      <div className="h-[142px] w-full bg-charcoal">
                         <img
                           src={p.img}
                           alt={p.name}
@@ -1494,11 +1603,11 @@ export default function Home() {
                           className={`w-full h-full ${p.cover ? "object-cover object-top" : "object-contain p-2.5"} [transition:transform_500ms_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.09]`}
                         />
                       </div>
-                      <div className="px-3 py-2.5 bg-[#0a0a0c] border-t border-white/[0.05]">
-                        <p className="text-[9.5px] font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
-                        <p className="text-white/22 text-[8.5px] font-light tracking-widest">$ –</p>
+                      <div className="px-3 py-2.5 bg-midnight border-t border-white/[0.05]">
+                        <p className="text-xs font-bold text-white uppercase tracking-tight truncate leading-tight mb-0.5">{p.name}</p>
+                        <p className="text-white/22 text-xs font-light tracking-widest">$ –</p>
                       </div>
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.18)] rounded-2xl [transition:opacity_350ms_ease] pointer-events-none" />
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 shadow-[inset_0_0_0_1px_rgba(var(--gold-primary-rgb),0.18)] rounded-md transition-opacity duration-medium pointer-events-none" />
                     </div>
                   </a>
                 ))}
@@ -1515,17 +1624,17 @@ export default function Home() {
             className="mt-14 text-center"
           >
             <div className="h-px bg-gradient-to-r from-transparent via-gold/12 to-transparent mb-10" />
-            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store">
+            <a href={STORE_URL} target="_blank" rel="noopener noreferrer" aria-label="View KiutRaba's full collection on Dream Planet Store" onClick={() => track("store_click", { label: "Full Collection" })}>
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-gold/32 text-gold font-bold uppercase tracking-widest text-[11px] hover:bg-gold/[0.07] hover:border-gold/60 hover:shadow-[0_0_36px_rgba(212,175,55,0.18)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+                className="btn-base btn-secondary"
               >
                 <span>✦</span> View Full Collection <ExternalLink className="w-4 h-4" />
               </motion.button>
             </a>
-            <p className="text-white/14 text-[10px] font-light uppercase tracking-[0.38em] mt-3">Browse All Pieces on Dream Planet</p>
-            <p className="text-white/10 text-[9px] font-light tracking-[0.22em] mt-1.5">Secure checkout powered by Dream Planet</p>
+            <p className="text-white/14 text-xs font-light uppercase tracking-[0.38em] mt-3">Browse All Pieces on Dream Planet</p>
+            <p className="text-white/10 text-xs font-light tracking-[0.22em] mt-1.5">Secure checkout powered by Dream Planet</p>
           </motion.div>
 
         </div>
@@ -1539,7 +1648,7 @@ export default function Home() {
           {/* Heading row */}
           <div className="flex flex-row items-end justify-between mb-10 md:mb-14 gap-4">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-2">Official Visuals</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-2">Official Visuals</p>
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white uppercase">
                 Latest <span className="text-gold">Visuals</span>
               </h2>
@@ -1562,11 +1671,13 @@ export default function Home() {
             className="mb-6 md:mb-8"
           >
             <Link href="/videos">
-              <div className="group relative w-full rounded-2xl overflow-hidden cursor-pointer border border-white/8 hover:border-gold/30 transition-all duration-500 hover:shadow-[0_24px_60px_rgba(212,175,55,0.16)] aspect-video md:aspect-[21/9]">
+              <div className="group relative w-full rounded-md overflow-hidden cursor-pointer border border-white/8 hover:border-gold/30 transition-all duration-slow hover:shadow-glow-gold-hover aspect-video md:aspect-[21/9]">
                 <video
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-[1.04]"
                   poster={videoGalleryCover}
                   muted loop playsInline
+                  aria-hidden="true"
+                  tabIndex={-1}
                   onMouseOver={e => (e.target as HTMLVideoElement).play()}
                   onMouseOut={e => { const v = e.target as HTMLVideoElement; v.pause(); v.currentTime = 0; }}
                 >
@@ -1579,17 +1690,17 @@ export default function Home() {
                 <div className="absolute inset-0 flex items-end p-6 md:p-10">
                   <div className="flex items-end justify-between w-full gap-6">
                     <div>
-                      <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-[9px] font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
+                      <span className="inline-block px-3 py-1.5 rounded-full bg-gold/15 border border-gold/35 text-gold text-xs font-black uppercase tracking-[0.22em] mb-4 backdrop-blur-md leading-none">
                         Official Video
                       </span>
                       <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-2 leading-tight">Good Life</h3>
                       <p className="text-white/50 text-sm font-light">Kiut · 2025</p>
                     </div>
                     <div className="flex flex-col items-center gap-2 shrink-0">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-[0_0_30px_rgba(212,175,55,0.45)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(212,175,55,0.7)] transition-all duration-300">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gold flex items-center justify-center pl-1 shadow-glow-gold group-hover:scale-110 group-hover:shadow-glow-gold-hover transition-all duration-normal">
                         <Play size={20} className="text-midnight" />
                       </div>
-                      <span className="text-white/45 text-[9px] font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
+                      <span className="text-white/45 text-xs font-bold uppercase tracking-widest hidden md:block">Watch Now</span>
                     </div>
                   </div>
                 </div>
@@ -1616,10 +1727,10 @@ export default function Home() {
       </section>
 
       {/* ─── CONCERT CTA SECTION ──────────────────────────────────────── */}
-      <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, #060606 0%, #090806 60%, #060606 100%)" }}>
+      <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden" style={{ background: "linear-gradient(180deg, rgba(var(--midnight-black-rgb),1) 0%, color-mix(in srgb, var(--midnight-black) 94%, var(--dark-gold) 6%) 60%, rgba(var(--midnight-black-rgb),1) 100%)" }}>
         {/* Atmospheric glows */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(212,175,55,0.07),transparent_55%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(212,175,55,0.04),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,rgba(var(--gold-primary-rgb),0.07),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,rgba(var(--gold-primary-rgb),0.04),transparent_50%)]" />
 
         <div className="max-w-5xl mx-auto px-6 relative z-10">
           <motion.div
@@ -1629,7 +1740,7 @@ export default function Home() {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-14"
           >
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Live Experiences</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">Live Experiences</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-5">
               See Kiut <span className="text-gold">Live</span>
             </h2>
@@ -1644,8 +1755,8 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-3xl overflow-hidden border border-white/[0.07] relative"
-            style={{ background: "#0a0a0a" }}
+            className="rounded-xl overflow-hidden border border-white/[0.07] relative"
+            style={{ background: "var(--midnight-black)" }}
           >
             {/* Decorative top bar */}
             <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
@@ -1653,19 +1764,19 @@ export default function Home() {
             <div className="px-8 md:px-16 py-14 md:py-20 flex flex-col md:flex-row items-center gap-12">
               {/* Left — icon + copy */}
               <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 border border-gold/20"
-                  style={{ background: "rgba(212,175,55,0.06)" }}>
+                <div className="w-16 h-16 rounded-md flex items-center justify-center mb-6 border border-gold/20"
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}>
                   <Music className="w-7 h-7 text-gold" />
                 </div>
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/25 text-gold text-[9px] font-bold uppercase tracking-[0.35em] mb-5"
-                  style={{ background: "rgba(212,175,55,0.05)" }}>
+                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/25 text-gold text-xs font-bold uppercase tracking-[0.35em] mb-5"
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.05)" }}>
                   <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                   Dates Coming Soon
                 </span>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight leading-tight mb-4">
                   Tour Dates<br />Dropping Soon
                 </h3>
-                <p className="text-white/38 text-[14px] font-light leading-relaxed max-w-sm">
+                <p className="text-white/38 text-sm font-light leading-relaxed max-w-sm">
                   Be the first to know when Kiut announces shows in your city. Sign up to the newsletter and never miss a date.
                 </p>
               </div>
@@ -1676,17 +1787,17 @@ export default function Home() {
               {/* Right — CTA */}
               <div className="flex flex-col items-center md:items-end gap-6">
                 <div className="flex flex-col gap-3 w-full md:w-auto">
-                  <Link href="/tour">
-                    <motion.button
-                      data-testid="button-concert-notify"
-                      whileHover={{ y: -3, scale: 1.02 }}
-                      whileTap={{ scale: 0.97 }}
-                      className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
-                    >
-                      View Tour Dates <ArrowRight size={14} />
-                    </motion.button>
-                  </Link>
-                  <p className="text-center text-white/18 text-[10px] font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
+                  <PremiumCTAButton
+                    as="link"
+                    href="/tour"
+                    data-testid="button-concert-notify"
+                    icon={<ArrowRight size={14} />}
+                    iconPosition="right"
+                    className="w-full md:w-auto"
+                  >
+                    View Tour Dates
+                  </PremiumCTAButton>
+                  <p className="text-center text-white/18 text-xs font-light tracking-[0.22em]">Free · Unsubscribe anytime</p>
                 </div>
               </div>
             </div>
@@ -1722,7 +1833,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3">Behind the Scenes</p>
+              <p className="text-gold text-xs font-bold tracking-[0.4em] uppercase mb-3">Behind the Scenes</p>
               <h2 className="font-display text-4xl font-bold tracking-tight text-white uppercase">
                 Moments From <span className="text-gold">the Journey</span>
               </h2>
@@ -1744,20 +1855,19 @@ export default function Home() {
         {/* Row 1 — scrolls left */}
         <div className="marquee-track overflow-hidden mb-3">
           <div className="marquee-left inline-flex gap-3 will-change-transform">
-            {[gradImage1, heroImage, gradImage2, gradImage3, momentImg4, momentImg5, momentImg6, momentImg7,
-              gradImage1, heroImage, gradImage2, gradImage3, momentImg4, momentImg5, momentImg6, momentImg7].map((img, i) => (
+            {[...journeyGalleryImages, ...journeyGalleryImages].map((image, i) => (
               <div
                 key={i}
-                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-300 cursor-pointer"
+                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-md overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-normal cursor-pointer"
               >
                 <img
-                  src={img}
-                  alt="Moments from the Journey"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal" />
+                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-normal" />
               </div>
             ))}
           </div>
@@ -1766,20 +1876,36 @@ export default function Home() {
         {/* Row 2 — scrolls right */}
         <div className="marquee-track overflow-hidden">
           <div className="marquee-right inline-flex gap-3 will-change-transform">
-            {[momentImg7, momentImg6, gradImage3, momentImg5, gradImage1, momentImg4, heroImage, gradImage2,
-              momentImg7, momentImg6, gradImage3, momentImg5, gradImage1, momentImg4, heroImage, gradImage2].map((img, i) => (
+            {[
+              journeyGalleryImages[7],
+              journeyGalleryImages[6],
+              journeyGalleryImages[2],
+              journeyGalleryImages[5],
+              journeyGalleryImages[0],
+              journeyGalleryImages[4],
+              journeyGalleryImages[3],
+              journeyGalleryImages[1],
+              journeyGalleryImages[7],
+              journeyGalleryImages[6],
+              journeyGalleryImages[2],
+              journeyGalleryImages[5],
+              journeyGalleryImages[0],
+              journeyGalleryImages[4],
+              journeyGalleryImages[3],
+              journeyGalleryImages[1],
+            ].map((image, i) => (
               <div
                 key={i}
-                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-300 cursor-pointer"
+                className="group relative flex-shrink-0 w-52 h-52 md:w-64 md:h-64 rounded-md overflow-hidden border border-white/8 hover:border-gold/40 transition-all duration-normal cursor-pointer"
               >
                 <img
-                  src={img}
-                  alt="Moments from the Journey"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-transform duration-cinematic group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-normal" />
+                <div className="absolute inset-0 bg-gold/0 group-hover:bg-gold/5 transition-colors duration-normal" />
               </div>
             ))}
           </div>
@@ -1788,8 +1914,8 @@ export default function Home() {
 
       {/* ─── FAN COMMUNITY SECTION ───────────────────────────────────── */}
       <section className="py-24 md:py-32 relative border-t border-white/5 overflow-hidden bg-midnight">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(109,62,255,0.07),transparent_60%)]" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(212,175,55,0.04),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(var(--purple-rgb),0.07),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(var(--gold-primary-rgb),0.04),transparent_55%)]" />
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           {/* Section header */}
@@ -1800,7 +1926,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-14"
           >
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">The Inner Circle</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">The Inner Circle</p>
             <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-none uppercase mb-5">
               Fan <span className="text-gold">Community</span>
             </h2>
@@ -1817,12 +1943,12 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
-              style={{ background: "#0c0c0c" }}
+              className="relative rounded-xl p-8 md:p-10 border border-white/[0.07] overflow-hidden"
+              style={{ background: "var(--midnight-black)" }}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(255,255,255,0.03),transparent_60%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(var(--white-rgb),0.03),transparent_60%)]" />
               <div className="relative z-10">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/15 text-white/50 text-[9px] font-bold uppercase tracking-[0.35em] mb-6">
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-white/15 text-white/50 text-xs font-bold uppercase tracking-[0.35em] mb-6">
                   Fan Member
                 </span>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">Standard</h3>
@@ -1842,7 +1968,7 @@ export default function Home() {
                     data-testid="button-fan-standard"
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full border border-white/15 text-white/70 hover:text-white hover:border-white/30 font-bold uppercase tracking-widest text-[11px] transition-all duration-300"
+                    className="btn-base btn-secondary w-full !border-white/15 !text-white/70 hover:!border-gold hover:!text-midnight"
                   >
                     Join Free
                   </motion.button>
@@ -1856,19 +1982,19 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-[0_0_60px_rgba(212,175,55,0.07)]"
-              style={{ background: "linear-gradient(145deg,#0d0b07 0%,#0c0a06 100%)" }}
+              className="relative rounded-xl p-8 md:p-10 border border-gold/25 overflow-hidden shadow-glow-gold"
+              style={{ background: "linear-gradient(145deg, color-mix(in srgb, var(--midnight-black) 94%, var(--dark-gold) 6%) 0%, color-mix(in srgb, var(--midnight-black) 96%, var(--dark-gold) 4%) 100%)" }}
             >
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(212,175,55,0.08),transparent_60%)]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(var(--gold-primary-rgb),0.08),transparent_60%)]" />
               {/* Featured badge */}
               <div className="absolute top-5 right-5 z-10">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[8px] font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-[var(--glow-gold)]">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.3em] text-midnight bg-gold shadow-glow-gold">
                   <span>✦</span> Premium
                 </span>
               </div>
               <div className="relative z-10">
-                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-gold/30 text-gold text-[9px] font-bold uppercase tracking-[0.35em] mb-6"
-                  style={{ background: "rgba(212,175,55,0.06)" }}>
+                <span className="inline-flex items-center px-3 py-1.5 rounded-full border border-gold/30 text-gold text-xs font-bold uppercase tracking-[0.35em] mb-6"
+                  style={{ background: "rgba(var(--gold-primary-rgb),0.06)" }}>
                   Fan Card Member
                 </span>
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-tight mb-3">
@@ -1885,16 +2011,9 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/newsletter">
-                  <motion.button
-                    data-testid="button-fan-premium"
-                    whileHover={{ y: -2, scale: 1.02 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full py-3.5 rounded-full bg-gold text-midnight font-bold uppercase tracking-widest text-[11px] shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] transition-shadow duration-300"
-                  >
-                    Apply for Fan Card
-                  </motion.button>
-                </Link>
+                <PremiumCTAButton as="link" href="/newsletter" data-testid="button-fan-premium" className="w-full">
+                  Apply for Fan Card
+                </PremiumCTAButton>
               </div>
             </motion.div>
           </div>
@@ -1909,22 +2028,22 @@ export default function Home() {
           >
             <div className="flex items-center gap-2">
               <Instagram className="w-4 h-4 text-gold/60" />
-              <a href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-[11px] font-medium tracking-wider uppercase">@kiut_rababag</a>
+              <a href="https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-xs font-medium tracking-wider uppercase">@kiut_rababag</a>
             </div>
             <div className="hidden sm:block w-px h-4 bg-white/10" />
             <div className="flex items-center gap-2">
               <Youtube className="w-4 h-4 text-gold/60" />
-              <a href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-[11px] font-medium tracking-wider uppercase">@kiutrabatv</a>
+              <a href="https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo" target="_blank" rel="noopener noreferrer" className="text-white/35 hover:text-gold transition-colors text-xs font-medium tracking-wider uppercase">@kiutrabatv</a>
             </div>
             <div className="hidden sm:block w-px h-4 bg-white/10" />
-            <span className="text-white/18 text-[10px] uppercase tracking-[0.3em]">Global Community</span>
+            <span className="text-white/18 text-xs uppercase tracking-[0.3em]">Global Community</span>
           </motion.div>
         </div>
       </section>
 
       {/* ─── NEWSLETTER CTA SECTION ──────────────────────────────────── */}
-      <section className="py-20 md:py-28 relative border-t border-white/5 overflow-hidden" style={{ background: "#050505" }}>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(212,175,55,0.05),transparent_65%)]" />
+      <section className="py-20 md:py-28 relative border-t border-white/5 overflow-hidden" style={{ background: "var(--color-midnight)" }}>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(var(--gold-primary-rgb),0.05),transparent_65%)]" />
 
         <div className="max-w-2xl mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -1940,7 +2059,7 @@ export default function Home() {
               transition={{ duration: 0.7, ease: "easeInOut", delay: 0.1 }}
               className="w-8 h-[2px] mx-auto mb-8 origin-center bg-gold/50"
             />
-            <p className="text-gold text-[10px] font-bold tracking-[0.48em] uppercase mb-4">Stay Connected</p>
+            <p className="text-gold text-xs font-bold tracking-[0.48em] uppercase mb-4">Stay Connected</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight leading-snug uppercase mb-5 text-white">
               Join the<br /><span className="text-gold">Inner Circle</span>
             </h2>
@@ -1964,12 +2083,12 @@ export default function Home() {
                 type="submit"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors duration-200"
+                className="btn-base btn-primary btn-sm absolute right-1.5 top-1.5 bottom-1.5"
               >
                 Subscribe
               </motion.button>
             </form>
-            <p className="text-white/18 text-[10px] uppercase tracking-[0.28em]">No spam. Unsubscribe anytime.</p>
+            <p className="text-white/18 text-xs uppercase tracking-[0.28em]">No spam. Unsubscribe anytime.</p>
 
             <motion.div
               initial={{ scaleX: 0 }}

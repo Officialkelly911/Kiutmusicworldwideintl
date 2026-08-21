@@ -1,0 +1,778 @@
+PHASE 11A — KIUT MUSIC FULL SEO AUDIT
+AUDIT-FIRST / NO UNAUTHORIZED CHANGES
+
+Perform a comprehensive production SEO audit of the entire KIUT Music website.
+
+IMPORTANT:
+This phase is AUDIT ONLY.
+
+Do NOT modify, delete, redesign, refactor, or rewrite any project files.
+Do NOT change DNS records.
+Do NOT change Replit deployment configuration.
+Do NOT change environment variables or API keys.
+Do NOT change the visual design, layout, typography, animations, branding, navigation, content, or existing functionality.
+
+The purpose of this phase is to inspect the current production implementation, identify SEO strengths, weaknesses, missing elements, inconsistencies, and technical issues, and produce a detailed implementation report.
+
+==================================================
+1. PROJECT & PRODUCTION CONTEXT
+==================================================
+
+Website:
+https://kiutmusic.com
+
+Production deployment:
+Currently deployed through Replit.
+
+Primary domain:
+https://kiutmusic.com
+
+Sitemap:
+https://kiutmusic.com/sitemap.xml
+
+Robots:
+https://kiutmusic.com/robots.txt
+
+The website has already completed:
+- Replit production deployment
+- Custom domain configuration
+- HTTPS/SSL
+- Google Search Console ownership verification
+- Google Analytics 4 implementation
+- Sitemap creation and submission
+- robots.txt configuration
+- Initial Google indexing request
+
+Google Search Console currently reports that the homepage has been crawled successfully but is currently not indexed.
+
+The sitemap is currently reported as:
+SUCCESS
+
+Do not assume any of the above is still correct.
+Verify the current state directly.
+
+==================================================
+2. AUDIT THE ENTIRE CODEBASE
+==================================================
+
+Inspect the complete project structure and identify:
+
+- Framework and routing architecture
+- Page components
+- Shared layout components
+- SEO/head management
+- Metadata implementation
+- Public assets
+- Sitemap generation
+- robots.txt implementation
+- Structured data
+- Analytics
+- Open Graph implementation
+- Canonical URL handling
+- Image handling
+- Video handling
+- Internal linking
+- Navigation
+- Mobile implementation
+- Performance-related implementation
+
+Do not make changes.
+
+Determine whether SEO functionality is:
+- globally implemented
+- page-specific
+- duplicated
+- incomplete
+- inconsistent
+- hard-coded
+- dynamically generated
+- missing
+
+==================================================
+3. PAGE-BY-PAGE SEO AUDIT
+==================================================
+
+Audit every public route currently included in the sitemap.
+
+At minimum inspect:
+
+/
+ /music
+ /videos
+ /about
+ /tour
+ /newsletter
+ /contact
+ /legal
+
+For each page determine:
+
+A. URL
+B. HTTP status
+C. Page title
+D. Meta description
+E. Canonical URL
+F. Robots meta directive
+G. H1
+H. H2 hierarchy
+I. Heading structure
+J. Open Graph title
+K. Open Graph description
+L. Open Graph image
+M. Twitter/X card metadata
+N. Image alt text
+O. Internal links
+P. External links
+Q. Structured data
+R. Indexability
+S. Crawlability
+T. Mobile responsiveness
+U. Duplicate content risks
+V. Thin-content risks
+W. Missing metadata
+X. SEO inconsistencies
+
+Identify pages that have:
+- missing titles
+- duplicate titles
+- missing descriptions
+- duplicate descriptions
+- missing canonical URLs
+- incorrect canonical URLs
+- incorrect domain references
+- Replit URLs
+- www URLs where they should not exist
+- development URLs
+- accidental noindex directives
+- accidental robots blocking
+- missing H1s
+- multiple inappropriate H1s
+- poorly structured headings
+- missing image alt text
+- inappropriate alt text
+- missing social metadata
+- missing structured data
+
+==================================================
+4. TECHNICAL SEO
+==================================================
+
+Audit:
+
+- robots.txt
+- sitemap.xml
+- canonical URLs
+- HTTP/HTTPS behavior
+- redirects
+- trailing slash behavior
+- duplicate URL variants
+- www vs non-www consistency
+- Replit deployment URLs appearing anywhere
+- query-string indexing risks
+- hash URL issues
+- 404 handling
+- 500 error handling
+- status codes
+- crawlability
+- indexability
+- internal URL consistency
+
+Verify that all canonical public URLs use:
+
+https://kiutmusic.com/
+
+No canonical should point to:
+- replit.app
+- localhost
+- development URLs
+- www.kiutmusic.com unless intentionally configured
+
+==================================================
+5. SITEMAP AUDIT
+==================================================
+
+Inspect the current sitemap implementation.
+
+Verify:
+
+- Valid XML
+- Correct XML namespace
+- HTTP 200 response
+- Correct Content-Type
+- Canonical URLs only
+- No Replit URLs
+- No localhost URLs
+- No duplicate URLs
+- No private/admin routes
+- No development routes
+- No broken routes
+- All important public pages included
+- No obsolete pages included
+- Correct lastmod values
+- No fake or unnecessarily hard-coded dates
+
+Compare every sitemap URL against the actual application routes.
+
+Report:
+- URLs in sitemap but not in application
+- Public routes missing from sitemap
+- Duplicate URLs
+- Incorrect canonical URLs
+- Stale dates
+
+==================================================
+6. ROBOTS.TXT AUDIT
+==================================================
+
+Inspect the live production robots.txt.
+
+Verify:
+
+- HTTP 200
+- text/plain content type
+- User-agent directives
+- Allow/Disallow rules
+- Sitemap declaration
+- Correct sitemap URL
+- No accidental blocking of public pages
+- No development restrictions affecting production
+- No Replit-hostname sitemap reference
+
+The production policy should be evaluated against:
+
+User-agent: *
+Allow: /
+
+Sitemap: https://kiutmusic.com/sitemap.xml
+
+Do not change it during this audit.
+
+==================================================
+7. CANONICAL & INDEXABILITY AUDIT
+==================================================
+
+For every public page determine:
+
+- Does it have a canonical?
+- Is it self-canonical?
+- Is the canonical absolute?
+- Does it use HTTPS?
+- Does it use kiutmusic.com?
+- Does it point to a valid 200 URL?
+- Does the canonical match the sitemap URL?
+- Is the page accidentally marked noindex?
+- Is the page accidentally blocked by robots?
+- Are there conflicting canonical signals?
+
+Pay special attention to:
+
+Homepage
+Music
+Videos
+About
+Tour
+
+==================================================
+8. STRUCTURED DATA AUDIT
+==================================================
+
+Inspect all existing Schema.org / JSON-LD implementation.
+
+Determine whether appropriate structured data exists for:
+
+- Website
+- Organization
+- Music artist/entity
+- Music recordings
+- Music releases/albums/EPs
+- Events/tour dates
+- Breadcrumbs where appropriate
+
+Do NOT implement structured data during this phase.
+
+Instead report:
+
+1. Existing schemas
+2. Missing schemas
+3. Incorrect schemas
+4. Invalid properties
+5. Duplicate schemas
+6. Opportunities for improvement
+
+Do not invent facts about KIUT.
+
+Only recommend structured data that can be supported by information already present on the website.
+
+==================================================
+9. MUSIC SEO AUDIT
+==================================================
+
+Because KIUT is a music-focused website, perform a dedicated music SEO audit.
+
+Inspect:
+
+- Artist identity
+- Music page
+- Recent releases
+- Romantic Love release
+- Music recordings
+- Streaming links
+- Release artwork
+- Audio content
+- Music video content
+- Track metadata
+- Album/EP metadata
+- Artist descriptions
+- Internal links between releases and artist pages
+
+Determine whether search engines can clearly understand:
+
+- Who KIUT is
+- What KIUT creates
+- What music has been released
+- Which release is the most recent
+- Where users can stream the music
+- Which pages represent music releases
+- Which pages represent videos
+
+Do not rewrite content during this audit.
+
+==================================================
+10. IMAGE SEO
+==================================================
+
+Audit all major public-facing images.
+
+Check:
+
+- alt attributes
+- descriptive alt text
+- missing alt text
+- decorative images
+- filename quality where relevant
+- image dimensions
+- responsive images
+- lazy loading
+- oversized images
+- WebP/modern formats where appropriate
+- hero image loading
+- image accessibility
+
+Pay particular attention to:
+
+- Homepage hero
+- Romantic Love artwork
+- Music page hero
+- Creative portfolio imagery
+- Release artwork
+- Tour imagery
+- Logos
+
+Do not replace or optimize assets during this audit.
+
+==================================================
+11. VIDEO SEO & PERFORMANCE
+==================================================
+
+Audit all major video content.
+
+Check:
+
+- video loading strategy
+- autoplay behavior
+- poster images
+- preload behavior
+- mobile behavior
+- accessibility
+- captions where applicable
+- performance impact
+- whether video is unnecessarily blocking page rendering
+- whether important textual content is available outside the video
+
+Pay particular attention to:
+
+- Homepage hero video
+- Music page video sections
+- Creative portfolio/recent release media
+
+Do not modify the videos.
+
+==================================================
+12. INTERNAL LINKING
+==================================================
+
+Map the site's internal linking structure.
+
+Determine:
+
+- Which pages link to the homepage
+- Which pages link to Music
+- Which pages link to Videos
+- Which pages link to About
+- Which pages link to Tour
+- Which pages link to Contact
+- Which pages link to Newsletter
+- Which pages link to Legal
+- Whether important pages are orphaned
+- Whether important pages require excessive clicks to reach
+- Whether CTA links use appropriate anchor text
+
+Identify opportunities to improve crawlability and topical relationships.
+
+Do not modify links.
+
+==================================================
+13. PAGE PERFORMANCE
+==================================================
+
+Perform a technical performance audit where possible.
+
+Inspect:
+
+- Largest Contentful Paint risks
+- Cumulative Layout Shift risks
+- Interaction to Next Paint risks
+- render-blocking resources
+- JavaScript bundle size
+- CSS size
+- font loading
+- image loading
+- video loading
+- third-party scripts
+- analytics loading
+- unnecessary client-side rendering
+- duplicate requests
+- caching opportunities
+
+Do not optimize anything yet.
+
+Report likely performance bottlenecks and their severity.
+
+==================================================
+14. MOBILE SEO
+==================================================
+
+Audit the production site from a mobile perspective.
+
+Check:
+
+- responsive layout
+- viewport configuration
+- mobile navigation
+- touch targets
+- text readability
+- horizontal overflow
+- image/video behavior
+- hero sections
+- CTA accessibility
+- mobile page performance
+
+Do not redesign anything.
+
+Only identify SEO/accessibility/performance issues.
+
+==================================================
+15. ANALYTICS & SEARCH CONSOLE
+==================================================
+
+Inspect implementation of:
+
+Google Analytics 4
+
+Measurement ID:
+G-EE9TF1XS08
+
+Verify whether:
+
+- GA4 loads on production
+- GA4 loads only once
+- the correct measurement ID is used
+- no development/test property is used
+- page views are being tracked
+- important CTA interactions could be tracked
+- streaming CTA interactions could be tracked
+- newsletter interactions could be tracked
+- contact interactions could be tracked
+
+Do not modify analytics during this audit.
+
+==================================================
+16. SOCIAL / OPEN GRAPH
+==================================================
+
+Audit social sharing metadata for every major page.
+
+Check:
+
+- og:title
+- og:description
+- og:image
+- og:url
+- og:type
+- twitter:card
+- twitter:title
+- twitter:description
+- twitter:image
+
+Verify that images:
+
+- exist
+- are accessible
+- use appropriate dimensions
+- represent the page accurately
+- do not reference Replit URLs
+- do not reference development assets
+
+==================================================
+17. ACCESSIBILITY AS SEO SUPPORT
+==================================================
+
+Perform an accessibility-focused SEO audit.
+
+Check:
+
+- semantic HTML
+- heading hierarchy
+- image alt text
+- link names
+- button labels
+- form labels
+- keyboard navigation
+- focus states
+- contrast issues
+- video accessibility
+- ARIA misuse
+
+Do not redesign the site.
+
+Report issues only.
+
+==================================================
+18. EXTERNAL URL AUDIT
+==================================================
+
+Inspect external links throughout the site.
+
+Pay special attention to:
+
+Romantic Love streaming destination:
+
+https://bit.ly/m/Romanticlove
+
+Verify:
+
+- correct destination
+- correct CTA usage
+- no broken links
+- no accidental Replit URLs
+- appropriate rel attributes where necessary
+- consistent use across the website
+
+Also identify broken or suspicious external links.
+
+Do not modify them during this audit.
+
+==================================================
+19. SECURITY / INDEXING LEAK AUDIT
+==================================================
+
+Check whether any of the following could accidentally become publicly indexed:
+
+- admin routes
+- internal tools
+- debug routes
+- test pages
+- API endpoints
+- environment information
+- source maps exposing sensitive information
+- development pages
+- test content
+
+Do not expose or print secrets, API keys, tokens, or credentials.
+
+If a potential issue is discovered, describe it without revealing sensitive values.
+
+==================================================
+20. GOOGLE SEARCH CONSOLE ALIGNMENT
+==================================================
+
+Compare the implementation against the current Search Console situation.
+
+Known observations:
+
+Homepage:
+Crawled successfully
+Crawl allowed: Yes
+Page fetch: Successful
+Currently not indexed
+
+Legal page:
+URL currently unknown to Google
+No crawl yet
+
+Sitemap:
+Submitted successfully
+
+Determine whether the current implementation contains any technical reason that could prevent indexing.
+
+Do not assume that "Crawled - currently not indexed" means there is a technical error.
+
+==================================================
+21. SEVERITY CLASSIFICATION
+==================================================
+
+Classify every finding as:
+
+CRITICAL
+HIGH
+MEDIUM
+LOW
+INFO
+
+Use:
+
+CRITICAL:
+Could prevent crawling/indexing or cause serious production SEO failure.
+
+HIGH:
+Significant SEO issue affecting important pages or search visibility.
+
+MEDIUM:
+Meaningful optimization opportunity.
+
+LOW:
+Minor improvement.
+
+INFO:
+Observation with no immediate action required.
+
+==================================================
+22. FINAL AUDIT REPORT
+==================================================
+
+Do not make any code changes.
+
+Produce a detailed final report structured as follows:
+
+# KIUT MUSIC — PHASE 11A SEO AUDIT
+
+## 1. Executive Summary
+
+Overall SEO health:
+CRITICAL / NEEDS WORK / GOOD / EXCELLENT
+
+Summarize the most important findings.
+
+## 2. Critical Issues
+
+List every critical issue.
+
+## 3. High-Priority Issues
+
+List every high-priority issue.
+
+## 4. Medium-Priority Improvements
+
+List every medium-priority improvement.
+
+## 5. Low-Priority Improvements
+
+List every low-priority improvement.
+
+## 6. Page-by-Page SEO Matrix
+
+Create a table:
+
+Page | Title | Meta Description | H1 | Canonical | Robots | OG | Schema | Indexability | Issues
+
+Include all public pages.
+
+## 7. Technical SEO
+
+Report:
+
+- robots.txt
+- sitemap.xml
+- canonicalization
+- redirects
+- status codes
+- crawlability
+- indexability
+
+## 8. Structured Data
+
+Existing:
+Missing:
+Incorrect:
+Recommended:
+
+## 9. Music SEO
+
+Assess the Music page, releases, recordings, Romantic Love, videos, and streaming CTAs.
+
+## 10. Performance
+
+List major performance risks.
+
+## 11. Accessibility
+
+List SEO-relevant accessibility issues.
+
+## 12. Analytics
+
+Report GA4 implementation status without exposing credentials.
+
+## 13. Search Console
+
+Explain the relationship between the current Search Console reports and the actual implementation.
+
+## 14. Recommended Implementation Roadmap
+
+Create a prioritized sequence:
+
+PHASE 11B
+PHASE 11C
+PHASE 11D
+PHASE 11E
+etc.
+
+For each recommendation specify:
+
+- What needs to change
+- Why it matters
+- Pages affected
+- Severity
+- Expected SEO benefit
+- Dependencies
+
+## 15. Do Not Change
+
+Explicitly list areas that are already working correctly and should not be modified unnecessarily.
+
+## 16. Final Verdict
+
+State whether the site is:
+
+- Technically crawlable
+- Technically indexable
+- Search-ready
+- Production-ready from an SEO perspective
+
+==================================================
+FINAL INSTRUCTION
+==================================================
+
+THIS IS AN AUDIT-ONLY TASK.
+
+Do not modify project files.
+Do not publish.
+Do not change DNS.
+Do not alter environment variables.
+Do not change design.
+Do not change functionality.
+
+Inspect first.
+Document everything.
+Provide evidence wherever possible.
+
+The next implementation phase will be based entirely on this audit report.

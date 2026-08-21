@@ -1,0 +1,363 @@
+PHASE 10A — CONTACT FORMS & VALIDATION
+
+KIUT MUSIC WORLDWIDE INTERNATIONAL
+
+Master Replit Implementation Prompt
+
+⸻
+
+OBJECTIVE
+
+This phase focuses exclusively on implementing the complete Contact Form system and client-side validation for the Kiut Music website.
+
+This is a functionality phase.
+
+It is NOT a redesign.
+
+The existing luxury visual identity has already been approved and must remain unchanged.
+
+Do not modify:
+
+* Navigation
+* Header
+* Footer
+* Logo system
+* Typography
+* Colors
+* Spacing
+* Glassmorphism
+* Existing animations
+* Hero sections
+* Premium reusable CTA button component
+* Responsive layouts
+
+Implement functionality only.
+
+⸻
+
+PRE-IMPLEMENTATION AUDIT
+
+Before writing code:
+
+* Audit the current codebase.
+* Identify existing contact form components.
+* Determine which validation logic already exists.
+* Reuse existing components wherever possible.
+* Do not duplicate functionality.
+
+If reusable components already exist, extend them instead of replacing them.
+
+⸻
+
+CONTACT FORM SYSTEM
+
+Implement a production-ready reusable contact form.
+
+The form should support multiple inquiry types while using one shared architecture.
+
+Required fields:
+
+* First Name
+* Last Name
+* Email Address
+* Phone Number (optional)
+* Country
+* Inquiry Type
+* Subject
+* Message
+* Privacy/Consent Checkbox
+
+⸻
+
+INQUIRY TYPES
+
+Dropdown options:
+
+* General Inquiry
+* Booking Request
+* Business Partnership
+* Press / Media
+* Licensing
+* Collaboration
+* Technical Support
+* Other
+
+Prepare the architecture so additional inquiry types can be added later without modifying the form component.
+
+⸻
+
+FIELD VALIDATION
+
+Implement real-time validation.
+
+Requirements:
+
+First Name
+
+* Required
+* Minimum length
+* Maximum length
+* No invalid characters
+
+Last Name
+
+* Required
+* Same validation
+
+Email
+
+* Required
+* RFC-compliant email validation
+* Trim whitespace
+* Convert to lowercase where appropriate
+
+Phone
+
+* Optional
+* Validate only when provided
+* Support international formatting
+
+Country
+
+* Required
+* Dropdown selector
+
+Subject
+
+* Required
+* Character limit
+
+Message
+
+* Required
+* Minimum characters
+* Maximum characters
+* Trim whitespace
+* Prevent empty submissions
+
+Consent Checkbox
+
+* Required before submission
+
+⸻
+
+VALIDATION EXPERIENCE
+
+Validation should occur:
+
+* While typing
+* On field blur
+* Before submission
+
+Display inline validation messages beneath each field.
+
+Do not rely solely on browser validation.
+
+Validation should feel smooth and unobtrusive.
+
+⸻
+
+ERROR MESSAGES
+
+Examples:
+
+“Please enter your first name.”
+
+“Please enter a valid email address.”
+
+“Message is too short.”
+
+“Please accept the privacy policy.”
+
+Messages should match the website’s premium design language.
+
+⸻
+
+FORM STATES
+
+Support the following states:
+
+Default
+
+Focused
+
+Valid
+
+Invalid
+
+Submitting
+
+Success
+
+Error
+
+Maintain existing styling throughout.
+
+⸻
+
+SUBMIT BUTTON
+
+Continue using the existing premium reusable CTA component.
+
+Do NOT redesign.
+
+While submitting:
+
+* Disable button
+* Show loading spinner
+* Prevent duplicate clicks
+
+After completion:
+
+* Restore normal state
+
+⸻
+
+SUCCESS EXPERIENCE
+
+After successful submission:
+
+Display an elegant success panel.
+
+Example message:
+
+“Thank you for reaching out.
+
+Your message has been received successfully.
+
+Our team will respond as soon as possible.”
+
+Include:
+
+* Animated checkmark
+* Fade-in transition
+* Automatic focus management
+
+Do not redirect the user.
+
+⸻
+
+ERROR EXPERIENCE
+
+Display user-friendly errors.
+
+Examples:
+
+“Unable to submit your message.”
+
+“Please check your connection.”
+
+“Something went wrong.”
+
+Never expose internal server errors.
+
+⸻
+
+ACCESSIBILITY
+
+Every field must include:
+
+* Associated labels
+* ARIA attributes
+* Keyboard navigation
+* Screen-reader compatibility
+* Visible focus indicators
+* Proper tab order
+
+Maintain WCAG AA compliance where practical.
+
+⸻
+
+RESPONSIVE DESIGN
+
+Ensure the form works perfectly on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile Portrait
+* Mobile Landscape
+
+No horizontal scrolling.
+
+No overlapping elements.
+
+Comfortable touch targets.
+
+⸻
+
+REUSABLE COMPONENTS
+
+If not already present, create reusable components for:
+
+* Text Input
+* Textarea
+* Select Dropdown
+* Checkbox
+* Validation Message
+* Loading Spinner
+* Success Alert
+* Error Alert
+
+These components should be reusable throughout the website.
+
+⸻
+
+CODE QUALITY
+
+Use:
+
+* TypeScript best practices
+* Modular architecture
+* Reusable hooks where appropriate
+* Clean component structure
+
+Avoid duplicated validation logic.
+
+⸻
+
+DO NOT IMPLEMENT YET
+
+Do NOT connect:
+
+* Email providers
+* Mailchimp
+* Resend
+* SendGrid
+* Database storage
+* API endpoints
+
+Those integrations belong to later Phase 10 parts.
+
+This phase is focused on frontend validation and user experience only.
+
+⸻
+
+ACCEPTANCE CHECKLIST
+
+This phase is complete only when:
+
+* Contact form is fully implemented.
+* All required fields validate correctly.
+* Inline validation works smoothly.
+* Success and error states are complete.
+* Loading state prevents duplicate submissions.
+* Existing premium CTA button remains unchanged.
+* Existing design system remains unchanged.
+* Form is fully responsive.
+* Accessibility requirements are met.
+* Components are reusable.
+* No console errors or warnings remain.
+
+⸻
+
+COMPLETION REPORT
+
+After implementation, provide a report including:
+
+1. Features that were already present.
+2. Features added or completed.
+3. Files created or modified.
+4. Reusable components introduced.
+5. Validation rules implemented.
+6. Any remaining work to be completed in Phase 10B.

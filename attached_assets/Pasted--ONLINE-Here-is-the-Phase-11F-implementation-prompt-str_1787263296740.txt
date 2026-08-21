@@ -1,0 +1,663 @@
+Ω ONLINE
+
+Here is the Phase 11F implementation prompt, structured to keep it separate from Phase 12 and protect everything already completed. This one is intentionally strict about measurement before optimization, because otherwise “optimize performance” becomes developer code for “randomly delete things until Lighthouse stops complaining.”
+
+⸻
+
+PHASE 11F — SEARCH, PERFORMANCE & MEASUREMENT
+
+Objective
+
+Complete the remaining technical SEO, production performance, and analytics validation work identified during the Phase 11A SEO audit.
+
+This phase must measure first, optimize second, and verify third.
+
+Preserve all approved KIUT Music design, content, functionality, routing, branding, and previously completed SEO work.
+
+Completed phases that must remain intact
+
+* Phase 11B — Initial HTML SEO metadata
+* Phase 11C — Server-level 404 handling
+* Phase 11D — Structured data / entity SEO
+* Phase 11E — Accessibility, mobile UX, and runtime reliability
+
+Do not regress any of these implementations.
+
+⸻
+
+1. PHASE 11F SAFETY CHECK
+
+Before making changes:
+
+1. Inspect the current production implementation.
+2. Confirm the current state of:
+    * SEO metadata
+    * canonical URLs
+    * robots.txt
+    * sitemap.xml
+    * structured data
+    * 404 behavior
+    * GA4
+    * media loading
+    * image optimization
+    * YouTube embeds
+    * route loading
+    * caching/compression
+3. Review the current Phase 11B–11E implementation before modifying anything.
+4. Establish a baseline before performance optimization.
+5. Identify which findings are confirmed production issues versus theoretical opportunities.
+
+Do not modify anything during the initial audit.
+
+⸻
+
+2. PRODUCTION ROUTES TO TEST
+
+Run the audit against all eight public routes:
+
+https://kiutmusic.com/
+https://kiutmusic.com/music
+https://kiutmusic.com/videos
+https://kiutmusic.com/about
+https://kiutmusic.com/tour
+https://kiutmusic.com/newsletter
+https://kiutmusic.com/contact
+https://kiutmusic.com/legal
+
+Also test:
+
+https://kiutmusic.com/this-page-does-not-exist
+
+The invalid URL must continue returning the Phase 11C server-level HTTP 404.
+
+⸻
+
+3. CORE WEB VITALS & PERFORMANCE BASELINE
+
+Before changing media or loading behavior, establish a production baseline.
+
+Measure, where available:
+
+* LCP
+* INP
+* CLS
+* TTFB
+* FCP
+* total page weight
+* JavaScript transfer size
+* image transfer size
+* video transfer size
+* number of network requests
+* third-party resource cost
+
+Test both:
+
+Desktop
+
+* normal broadband conditions
+
+Mobile
+
+* throttled/representative mobile network
+* mobile viewport
+
+Prioritize the homepage and media-heavy routes:
+
+/
+ /music
+ /videos
+ /tour
+
+Record the baseline before implementing optimizations.
+
+⸻
+
+4. HERO VIDEO & LARGE MEDIA OPTIMIZATION
+
+Audit all large video assets, especially:
+
+* homepage hero video
+* Creative Portfolio video
+* Music page hero video
+* Videos page media
+* Tour page media
+* other autoplay/background videos
+
+For each video determine:
+
+* file size
+* dimensions
+* codec
+* duration
+* preload behavior
+* autoplay behavior
+* whether it is above the fold
+* whether it has a poster
+* whether mobile users actually need to download it immediately
+
+Optimize only where evidence supports it.
+
+Required principles
+
+Do not remove approved creative media.
+
+Do not noticeably degrade visual quality.
+
+Use appropriate:
+
+* poster images
+* preload
+* lazy loading
+* responsive loading strategies
+* mobile-specific behavior where justified
+* deferred loading for below-the-fold media
+
+For decorative/background videos, ensure the browser does not unnecessarily download large assets before they are needed.
+
+For meaningful video content, preserve accessibility improvements from Phase 11E.
+
+⸻
+
+5. IMAGE PERFORMANCE
+
+Audit the image system for:
+
+* WebP
+* AVIF
+* responsive dimensions
+* srcset
+* sizes
+* intrinsic width/height
+* lazy loading
+* decoding strategy
+* unnecessary oversized images
+
+Prioritize:
+
+* hero images
+* release artwork
+* gallery images
+* above-the-fold images
+
+Do not replace approved artwork or alter the visual appearance simply to achieve a smaller file size.
+
+⸻
+
+6. YOUTUBE & THIRD-PARTY MEDIA
+
+Audit all embedded third-party media.
+
+Review:
+
+* iframe loading
+* lazy loading
+* thumbnail strategy
+* autoplay
+* unnecessary third-party requests
+* preconnect
+* privacy-enhanced YouTube options where compatible
+* iframe accessibility/title attributes
+
+Avoid loading expensive third-party resources before the user needs them.
+
+Do not change the approved media experience unnecessarily.
+
+⸻
+
+7. JAVASCRIPT & ROUTE PERFORMANCE
+
+Review:
+
+* route-level lazy loading
+* vendor chunking
+* bundle sizes
+* unnecessary dependencies
+* duplicated libraries
+* render-blocking resources
+* unused production assets
+* client-side initialization
+
+Preserve the existing route architecture.
+
+Do not replace the application’s framework or routing architecture.
+
+Do not introduce a new framework simply to improve one performance metric.
+
+⸻
+
+8. FONT & RENDERING PERFORMANCE
+
+Review the current font implementation.
+
+Preserve the approved KIUT typography.
+
+Verify:
+
+* appropriate font loading
+* font-display
+* preload only when justified
+* no unnecessary font variants
+* no avoidable layout shifts
+
+Do not substitute fonts.
+
+Do not change typography for performance reasons unless explicitly required and approved.
+
+⸻
+
+9. CACHING, COMPRESSION & STATIC ASSETS
+
+Verify that production assets use appropriate:
+
+* compression
+* caching
+* immutable cache headers for hashed assets
+* content types
+* efficient transfer encoding
+
+Preserve the existing successful production compression and caching strategy unless the audit identifies a concrete defect.
+
+⸻
+
+10. GOOGLE ANALYTICS 4 VALIDATION
+
+The existing GA4 measurement ID is:
+
+G-EE9TF1XS08
+
+Verify that GA4 is initialized exactly once.
+
+Confirm:
+
+* gtag availability
+* dataLayer
+* GA4 configuration
+* page-view behavior
+* SPA route navigation
+* no duplicate page views
+
+Verify important conversion interactions where the existing application already supports them.
+
+At minimum inspect:
+
+* Romantic Love streaming CTA
+* other streaming CTAs
+* newsletter interaction
+* contact interaction
+* important outbound links
+
+Use GA4 DebugView/Realtime where access is available.
+
+Do not redesign the analytics architecture.
+
+Do not create duplicate GA4 initialization.
+
+Do not invent events that have no meaningful business purpose.
+
+⸻
+
+11. GOOGLE SEARCH CONSOLE VALIDATION
+
+Verify production Search Console health.
+
+Check:
+
+* sitemap status
+* sitemap URL
+* indexed URLs
+* discovered URLs
+* crawl status
+* canonical selection
+* mobile usability
+* Core Web Vitals
+* structured-data reports
+* indexing errors
+
+Pay particular attention to previously observed statuses:
+
+Crawled — currently not indexed
+
+and
+
+URL is unknown to Google
+
+Do not automatically classify either as a technical failure.
+
+Determine whether the issue is:
+
+* discovery
+* rendering
+* canonicalization
+* content quality
+* insufficient signals
+* normal indexing delay
+* actual technical failure
+
+Do not make unnecessary changes simply to force indexing.
+
+⸻
+
+12. PRODUCTION SEO REGRESSION
+
+Verify that Phase 11B remains intact.
+
+For every public route, raw HTML must contain the correct:
+
+* <title>
+* description
+* canonical
+* robots
+* Open Graph title
+* Open Graph description
+* Open Graph URL
+* Open Graph image
+* Twitter title
+* Twitter description
+* Twitter image
+
+These must be present before JavaScript executes.
+
+⸻
+
+13. STRUCTURED DATA REGRESSION
+
+Verify Phase 11D on the actual production domain.
+
+Confirm:
+
+* valid JSON-LD
+* exactly one structured-data graph
+* stable entity IDs
+* no duplicate IDs
+* no unresolved inAlbum references
+* correct MusicGroup
+* correct WebSite
+* correct WebPage
+* valid MusicAlbum
+* valid MusicRecording
+* valid VideoObject
+* valid Event where applicable
+
+Do not invent structured-data facts.
+
+All structured data must continue to reflect information already supported by the KIUT website.
+
+⸻
+
+14. 404 REGRESSION
+
+Verify Phase 11C remains intact.
+
+Test:
+
+https://kiutmusic.com/this-page-does-not-exist
+
+Expected:
+
+HTTP 404
+
+Also confirm:
+
+* branded 404 page still renders
+* appropriate 404 metadata remains
+* no invalid URL is accidentally indexed
+* valid routes remain HTTP 200
+
+Do not modify 404 behavior during Phase 11F unless a regression is discovered.
+
+⸻
+
+15. SEO ENDPOINT REGRESSION
+
+Verify:
+
+https://kiutmusic.com/robots.txt
+https://kiutmusic.com/sitemap.xml
+
+Confirm:
+
+robots.txt
+
+* HTTP 200
+* correct content type
+* allows intended public crawling
+* points to:
+
+https://kiutmusic.com/sitemap.xml
+
+sitemap.xml
+
+* HTTP 200
+* valid XML
+* only canonical KIUT URLs
+* no Replit URLs
+* no localhost URLs
+* no www URLs
+* no private routes
+* no obsolete routes
+* current appropriate lastmod values
+
+⸻
+
+16. AUTOMATED REGRESSION COVERAGE
+
+Add or strengthen automated checks protecting:
+
+SEO
+
+* initial HTML metadata
+* canonical URLs
+* robots
+* sitemap
+* JSON-LD
+
+Routing
+
+* valid routes → HTTP 200
+* invalid routes → HTTP 404
+
+Domain integrity
+
+Reject:
+
+*.replit.app
+localhost
+www.kiutmusic.com
+
+from canonical URLs and sitemap entries.
+
+Analytics
+
+Confirm:
+
+* one GA4 bootstrap
+* correct measurement ID
+* no duplicate initialization
+
+Performance
+
+Where practical, add automated assertions for:
+
+* oversized critical assets
+* duplicate scripts
+* missing image dimensions
+* accidental eager loading of below-the-fold media
+
+Do not create brittle tests that fail merely because legitimate content changes.
+
+⸻
+
+17. BROWSER REGRESSION
+
+Run desktop and mobile browser verification across all eight routes.
+
+Verify:
+
+* no horizontal overflow
+* no broken layout
+* hero media behaves correctly
+* images render correctly
+* videos render correctly
+* navigation works
+* keyboard navigation remains functional
+* accessibility improvements from Phase 11E remain intact
+* reduced-motion behavior remains intact
+* no new console errors
+* no failed critical network requests
+
+⸻
+
+18. DO NOT INCLUDE PHASE 12
+
+This is extremely important.
+
+Do not perform Phase 12 work during Phase 11F.
+
+Do not:
+
+* create keyword strategies
+* rewrite page copy for search
+* create new SEO landing pages
+* restructure the content architecture
+* create new release pages
+* perform broad keyword targeting
+* add search-focused copy
+* redesign internal linking for search
+* create external link campaigns
+
+Those belong to Phase 12.
+
+Phase 11F is strictly:
+
+technical SEO + performance + measurement + production verification.
+
+⸻
+
+19. DESIGN PROTECTION
+
+The approved KIUT Music visual system must remain unchanged.
+
+Do not alter:
+
+* colors
+* typography
+* logos
+* layout
+* hero compositions
+* release artwork
+* animations
+* navigation design
+* CTA design
+* spacing
+* brand imagery
+
+Performance improvements must be technically implemented without compromising the approved creative direction.
+
+⸻
+
+20. REQUIRED VALIDATION SEQUENCE
+
+Follow this exact order:
+
+Step 1
+
+Read-only production/code audit.
+
+Step 2
+
+Establish performance baseline.
+
+Step 3
+
+Identify confirmed performance/measurement issues.
+
+Step 4
+
+Implement only justified Phase 11F fixes.
+
+Step 5
+
+Run:
+
+npm run check
+npm run build
+
+Step 6
+
+Run existing automated tests.
+
+Step 7
+
+Run SEO regression tests.
+
+Step 8
+
+Run structured-data regression.
+
+Step 9
+
+Run 404 regression.
+
+Step 10
+
+Run desktop/mobile browser verification.
+
+Step 11
+
+Inspect final repository diff for unrelated changes.
+
+Step 12
+
+Confirm no DNS or production configuration was unintentionally modified.
+
+Step 13
+
+Do not publish yet.
+
+⸻
+
+Completion Criteria
+
+Phase 11F should only be considered ready for publication when:
+
+* ✅ Type checking passes
+* ✅ Production build passes
+* ✅ Existing tests pass
+* ✅ SEO regression passes
+* ✅ Structured-data regression passes
+* ✅ 404 regression passes
+* ✅ All eight routes verified
+* ✅ Invalid URL remains HTTP 404
+* ✅ robots.txt verified
+* ✅ sitemap.xml verified
+* ✅ GA4 initialization verified
+* ✅ GA4 route/event behavior verified where accessible
+* ✅ Production performance baseline established
+* ✅ High-impact media issues addressed where justified
+* ✅ Mobile and desktop regression passes
+* ✅ No new runtime errors
+* ✅ No unrelated changes
+* ✅ Phase 11B remains intact
+* ✅ Phase 11C remains intact
+* ✅ Phase 11D remains intact
+* ✅ Phase 11E remains intact
+* ✅ No Phase 12 work has been introduced
+
+Do not publish until all validation is complete.
+
+At completion, provide a structured report containing:
+
+1. Baseline performance findings
+2. Changes implemented
+3. GA4 verification results
+4. Search Console findings
+5. SEO regression results
+6. Structured-data results
+7. 404 results
+8. Browser/mobile results
+9. Performance improvements achieved
+10. Any remaining issues
+11. Confirmation that Phase 12 work was not introduced
+12. Confirmation that the build is ready for publication
+
+No deployment/publishing should occur as part of this implementation unless explicitly requested after the verification report.

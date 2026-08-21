@@ -1,13 +1,6 @@
 import { Link, useLocation } from "wouter";
-
-// ── Designer credit ────────────────────────────────────────────────────────────
-// Change name or url here to update the credit across the entire site.
-const DESIGNER = {
-  name: "Kelly",
-  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
-} as const;
 import { motion } from "framer-motion";
-import { KiutMark } from "./KiutMark";
+import { KiutFullLogo } from "./KiutMark";
 import {
   SiSpotify,
   SiApplemusic,
@@ -16,31 +9,37 @@ import {
   SiInstagram,
   SiYoutube,
   SiLinktree,
+  SiSoundcloud,
+  SiX,
+  SiThreads,
 } from "react-icons/si";
+import {
+  SPOTIFY_ARTIST_URL, APPLE_MUSIC_ARTIST_URL, AUDIOMACK_URL, YOUTUBE_MUSIC_URL,
+  INSTAGRAM_URL, YOUTUBE_URL, LINKTREE_URL, DREAMPLANET_URL,
+  SOUNDCLOUD_URL, X_URL, THREADS_URL,
+} from "@/data/social";
+
+// ── Designer credit ────────────────────────────────────────────────────────────
+// Change name or url here to update the credit across the entire site.
+const DESIGNER = {
+  name: "Kelly",
+  url:  "#", // Replace with portfolio, LinkedIn, GitHub, or personal site URL
+} as const;
 
 const streamingLinks = [
-  { label: "Spotify",       Icon: SiSpotify,      href: "https://open.spotify.com/artist/6mfADEalHPkjvjNPHOdFXJ" },
-  { label: "Apple Music",   Icon: SiApplemusic,   href: "https://music.apple.com/artist/kiut" },
-  { label: "Audiomack",     Icon: SiAudiomack,    href: "https://audiomack.com/kiutrabatv" },
-  { label: "YouTube Music", Icon: SiYoutubemusic, href: "https://music.youtube.com/channel/UCKiutRababag" },
+  { label: "Spotify",       Icon: SiSpotify,      href: SPOTIFY_ARTIST_URL },
+  { label: "Apple Music",   Icon: SiApplemusic,   href: APPLE_MUSIC_ARTIST_URL },
+  { label: "Audiomack",     Icon: SiAudiomack,    href: AUDIOMACK_URL },
+  { label: "YouTube Music", Icon: SiYoutubemusic, href: YOUTUBE_MUSIC_URL },
 ];
 
 const connectLinks = [
-  {
-    label:     "Instagram",
-    Icon:      SiInstagram,
-    href:      "https://www.instagram.com/kiut_rababag?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-  },
-  {
-    label:     "YouTube",
-    Icon:      SiYoutube,
-    href:      "https://youtube.com/@kiutrabatv?si=A7jsabTzz7Bq85Bo",
-  },
-  {
-    label:     "Linktree",
-    Icon:      SiLinktree,
-    href:      "https://linktr.ee/kiutmusic?utm_source=linktree_profile_share&ltsid=9eac7cdb-2dc3-4852-bf26-0d2e60b983eb",
-  },
+  { label: "Instagram",  Icon: SiInstagram,  href: INSTAGRAM_URL  },
+  { label: "YouTube",    Icon: SiYoutube,    href: YOUTUBE_URL    },
+  { label: "Linktree",   Icon: SiLinktree,   href: LINKTREE_URL   },
+  { label: "SoundCloud", Icon: SiSoundcloud, href: SOUNDCLOUD_URL  },
+  { label: "X",          Icon: SiX,          href: X_URL           },
+  { label: "Threads",    Icon: SiThreads,    href: THREADS_URL     },
 ];
 
 const navLinks = [
@@ -56,7 +55,13 @@ const navLinks = [
 export default function SiteFooter() {
   const [, navigate] = useLocation();
   return (
-    <footer className="bg-midnight border-t border-white/[0.07] relative overflow-hidden">
+    <motion.footer
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-midnight border-t border-white/[0.07] relative overflow-hidden"
+    >
       {/* Ambient glows */}
       <div className="absolute top-0 right-0 w-[520px] h-[400px] bg-gold/4 blur-[140px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-amber-500/4 blur-[120px] rounded-full pointer-events-none" />
@@ -67,22 +72,24 @@ export default function SiteFooter() {
           <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em]">Available on all platforms</p>
           <div className="flex items-center gap-6">
             {streamingLinks.map(({ label, Icon, href }) => (
-              <a
+              <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 title={label}
                 aria-label={label}
-                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-all duration-250 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-center gap-1.5 text-white/30 hover:text-gold transition-colors duration-normal group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
               >
                 <Icon
                   size={14}
                   aria-hidden="true"
-                  className="group-hover:scale-110 transition-transform duration-250"
+                  className="group-hover:scale-110 transition-transform duration-normal"
                 />
                 <span className="text-[10px] font-medium hidden sm:block">{label}</span>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -94,11 +101,11 @@ export default function SiteFooter() {
 
           {/* Brand + Newsletter */}
           <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <div className="flex flex-col items-center lg:items-start gap-3 mb-3">
-              <KiutMark size={48} color="#D4AF37" className="drop-shadow-[0_0_16px_rgba(212,175,55,0.25)]" />
-              <h3 className="font-display text-5xl md:text-7xl font-bold tracking-widest text-white uppercase">
-                KIUT<span className="text-gold">.</span>
-              </h3>
+            <div className="flex flex-col items-center lg:items-start gap-4 mb-4">
+              <KiutFullLogo markSize={110} variant="gold" className="drop-glow-gold" />
+              <p className="text-white/50 text-xs font-light tracking-[0.25em] uppercase">
+                Afro-Caribbean Sound. <span className="text-white/70">Global Energy.</span>
+              </p>
             </div>
             <p className="text-white/45 text-base mb-8 font-light max-w-sm leading-relaxed">
               Join the inner circle for exclusive updates, early releases, and behind-the-scenes access.
@@ -116,7 +123,7 @@ export default function SiteFooter() {
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-gold hover:bg-gold-hover text-midnight px-6 rounded-full font-bold uppercase tracking-widest text-[11px] transition-colors"
+                className="btn-base btn-primary btn-sm absolute right-1.5 top-1.5 bottom-1.5"
               >
                 Join
               </button>
@@ -125,7 +132,7 @@ export default function SiteFooter() {
 
           {/* Navigation */}
           <div className="lg:col-span-3 text-center lg:text-left">
-            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-[11px]">Navigate</h4>
+            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-xs">Navigate</h4>
             <ul className="space-y-3.5">
               {navLinks.map(({ label, href }) => (
                 <motion.li
@@ -135,7 +142,7 @@ export default function SiteFooter() {
                 >
                   <Link
                     href={href}
-                    className="text-white/40 hover:text-gold transition-colors duration-200 uppercase text-[11px] tracking-widest font-medium"
+                    className="text-white/40 hover:text-gold transition-colors duration-fast uppercase text-xs tracking-widest font-medium"
                   >
                     {label}
                   </Link>
@@ -146,35 +153,41 @@ export default function SiteFooter() {
 
           {/* Connect */}
           <div className="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-[11px]">Connect</h4>
+            <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] mb-6 text-xs">Connect</h4>
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
 
               {/* Official brand icon buttons */}
               {connectLinks.map(({ label, Icon, href }) => (
-                <a
+                <motion.a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   title={label}
                   aria-label={label}
-                  className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center text-white/50 hover:text-midnight hover:bg-gold hover:border-gold hover:shadow-[var(--glow-gold-hover)] hover:scale-[1.1] transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  className="btn-icon"
                 >
                   <Icon size={18} aria-hidden="true" />
-                </a>
+                </motion.a>
               ))}
 
-              {/* DreamPlanet — custom platform, PNG icon */}
-              <a
-                href="https://dreamplanet.org/user/61"
+                {/* DreamPlanet — custom platform, vector icon */}
+              <motion.a
+                href={DREAMPLANET_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="DreamPlanet"
                 aria-label="DreamPlanet"
-                className="w-11 h-11 rounded-full bg-white/[0.04] border border-white/[0.09] flex items-center justify-center overflow-hidden hover:border-gold hover:shadow-[var(--glow-gold-hover)] hover:scale-[1.1] transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="btn-icon overflow-hidden"
               >
-                <img src="/assets/images/dreamplanet-icon.png" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
-              </a>
+                <img src="/assets/images/dreamplanet-icon.svg" alt="" aria-hidden="true" className="w-7 h-7 object-contain rounded-md" />
+              </motion.a>
 
             </div>
             <p className="mt-4 text-white/20 text-[9px] uppercase tracking-[0.25em]">@kiut_rababag</p>
@@ -183,29 +196,38 @@ export default function SiteFooter() {
 
         {/* ── Bottom bar ───────────────────────────────────────── */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-[11px] tracking-[0.2em] uppercase">
+          <p className="text-white/30 text-xs tracking-[0.2em] uppercase">
             © {new Date().getFullYear()} Kiut Music Worldwide. All rights reserved.
           </p>
-          <div className="flex gap-8 text-[11px] tracking-widest uppercase font-medium text-white/30">
-            <a href="#" className="hover:text-white/70 transition-colors duration-200">Privacy</a>
-            <a href="#" className="hover:text-white/70 transition-colors duration-200">Terms</a>
+          <div className="flex gap-8 text-xs tracking-widest uppercase font-medium">
+            <a
+              href="/legal"
+              className="btn-base btn-secondary btn-sm !border-gold/40 text-gold/80"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="w-3 h-3 shrink-0"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8 1a.75.75 0 0 1 .75.75v6.19l1.22-1.22a.75.75 0 1 1 1.06 1.06l-2.5 2.5a.75.75 0 0 1-1.06 0l-2.5-2.5a.75.75 0 0 1 1.06-1.06l1.22 1.22V1.75A.75.75 0 0 1 8 1ZM3 9.75A2.25 2.25 0 0 1 5.25 7.5h.75a.75.75 0 0 1 0 1.5h-.75a.75.75 0 0 0-.75.75v2.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2.5a.75.75 0 0 0-.75-.75h-.75a.75.75 0 0 1 0-1.5h.75A2.25 2.25 0 0 1 13 9.75v2.5A2.25 2.25 0 0 1 10.75 14.5h-5.5A2.25 2.25 0 0 1 3 12.25v-2.5Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Legal
+            </a>
           </div>
         </div>
 
         {/* ── Designer credit ──────────────────────────────────── */}
         <p className="mt-4 text-center text-[9px] font-light tracking-[0.2em] text-white/20">
           Designed &amp; Developed by{" "}
-          <a
-            href={DESIGNER.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${DESIGNER.name}'s portfolio`}
-            className="text-white/30 hover:text-gold transition-colors duration-250 hover:-translate-y-px inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/40 rounded-sm"
-          >
-            {DESIGNER.name}
-          </a>
+          <span className="text-white/30">{DESIGNER.name}</span>
         </p>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

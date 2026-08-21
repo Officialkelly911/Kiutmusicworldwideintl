@@ -3,11 +3,44 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { fileURLToPath } from "url";
+import {
+  ROUTE_SEO_PLACEHOLDER,
+  renderRouteSEOTags,
+  resolveRouteSEO,
+} from "./shared/seo";
+import { STRUCTURED_DATA_PLACEHOLDER } from "./shared/structured-data";
+import { renderRouteStructuredData } from "./server/structured-data";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
+    {
+      name: "kiut-route-seo-shell",
+      transformIndexHtml(html: string, context) {
+        if (!html.includes(ROUTE_SEO_PLACEHOLDER)) {
+          throw new Error("Missing route SEO placeholder in client/index.html");
+        }
+        if (!html.includes(STRUCTURED_DATA_PLACEHOLDER)) {
+          throw new Error("Missing structured data placeholder in client/index.html");
+        }
+        // During a static build Vite may provide `/index.html` as the
+        // transform path without a request URL. That is the build artifact's
+        // homepage, not an invalid browser route.
+        const requestPath = context.originalUrl || (
+          context.path && !/^\/?index\.html(?:[?#].*)?$/.test(context.path)
+            ? context.path
+            : "/"
+        );
+        return html.replace(
+          ROUTE_SEO_PLACEHOLDER,
+          renderRouteSEOTags(resolveRouteSEO(requestPath)),
+        ).replace(
+          STRUCTURED_DATA_PLACEHOLDER,
+          renderRouteStructuredData(requestPath),
+        );
+      },
+    },
     react(),
     tailwindcss(),
   ],

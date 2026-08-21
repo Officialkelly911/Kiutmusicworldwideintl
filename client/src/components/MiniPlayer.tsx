@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, SkipBack, SkipForward, X } from "lucide-react";
 import { usePlayer } from "@/context/PlayerContext";
+import { KiutMark } from "@/components/KiutMark";
 
 function fmt(s: number) {
   const m = Math.floor(s / 60);
@@ -14,12 +15,9 @@ export default function MiniPlayer() {
     showPlayer, hasPrev, hasNext,
   } = usePlayer();
 
-  const pct = duration > 0 ? (currentTime / duration) * 100 : 0;
-
-  const handleBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    seek((e.clientX - rect.left) / rect.width);
-  };
+  const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
+  const safeCurrentTime = Math.min(Math.max(currentTime, 0), safeDuration);
+  const pct = safeDuration > 0 ? (safeCurrentTime / safeDuration) * 100 : 0;
 
   return (
     <AnimatePresence>
@@ -30,25 +28,41 @@ export default function MiniPlayer() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-0 inset-x-0 z-[60] bg-charcoal/97 backdrop-blur-2xl border-t border-white/[0.08] shadow-[0_-20px_70px_rgba(0,0,0,0.75)]"
+          className="fixed bottom-0 inset-x-0 z-[60] bg-charcoal/97 backdrop-blur-2xl border-t border-white/[0.08] shadow-xl"
         >
           {/* Seek bar at top edge */}
-          <div
-            className="h-[3px] bg-white/[0.07] cursor-pointer group/bar relative"
-            onClick={handleBarClick}
-          >
+          <div className="h-[3px] bg-white/[0.07] group/bar relative">
             <div
-              className="h-full bg-gradient-to-r from-gold to-gold-hover transition-all duration-150 relative"
+              className="h-full bg-gradient-to-r from-gold to-gold-hover transition-all duration-fast relative"
               style={{ width: `${pct}%` }}
             >
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gold scale-0 group-hover/bar:scale-100 transition-transform shadow-[var(--glow-gold)]" />
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-gold scale-0 group-hover/bar:scale-100 transition-transform shadow-glow-gold" />
             </div>
+            <input
+              type="range"
+              min="0"
+              max={safeDuration}
+              step="1"
+              value={safeCurrentTime}
+              disabled={safeDuration === 0}
+              onChange={(event) => seek(Number(event.currentTarget.value) / safeDuration)}
+              aria-label={`Seek ${currentTrack.title}`}
+              aria-valuetext={`${fmt(safeCurrentTime)} of ${fmt(safeDuration)}`}
+              className="absolute inset-x-0 -top-2 h-7 w-full cursor-pointer appearance-none bg-transparent opacity-0 focus-visible:opacity-100 focus-visible:outline-none disabled:cursor-not-allowed"
+            />
           </div>
 
           <div className="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center gap-4">
+            {/* Brand mark */}
+            <KiutMark size={16} variant="gold" className="hidden sm:block flex-shrink-0 opacity-80" />
+
             {/* Album art */}
-            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-              <img src={currentTrack.albumArt} alt={currentTrack.title} className="w-full h-full object-cover" />
+            <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 shadow-sm">
+              <img
+                src={currentTrack.albumArt}
+                alt={`Album artwork for ${currentTrack.title} by ${currentTrack.artist}`}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Track info — aria-live announces track changes to screen readers */}
@@ -86,7 +100,7 @@ export default function MiniPlayer() {
                 onClick={playPrev}
                 disabled={!hasPrev}
                 aria-label="Previous track"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-150 hover:bg-white/8"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-fast hover:bg-white/8"
               >
                 <SkipBack size={15} />
               </button>
@@ -94,7 +108,7 @@ export default function MiniPlayer() {
               <button
                 onClick={togglePlayPause}
                 aria-label={isPlaying ? "Pause" : "Play"}
-                className="w-10 h-10 rounded-full bg-gold text-midnight flex items-center justify-center shadow-[var(--glow-gold)] hover:shadow-[var(--glow-gold-hover)] hover:scale-105 active:scale-95 transition-all duration-200"
+                className="w-10 h-10 rounded-full bg-gold text-midnight flex items-center justify-center shadow-glow-gold hover:shadow-glow-gold-hover hover:scale-105 active:scale-95 transition-all duration-fast"
               >
                 {isPlaying
                   ? <Pause size={15} fill="currentColor" />
@@ -106,7 +120,7 @@ export default function MiniPlayer() {
                 onClick={playNext}
                 disabled={!hasNext}
                 aria-label="Next track"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-150 hover:bg-white/8"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-fast hover:bg-white/8"
               >
                 <SkipForward size={15} />
               </button>
@@ -116,7 +130,7 @@ export default function MiniPlayer() {
             <button
               onClick={dismiss}
               aria-label="Close player"
-              className="w-7 h-7 rounded-full flex items-center justify-center text-white/25 hover:text-white/70 hover:bg-white/8 transition-all duration-150 flex-shrink-0"
+              className="w-7 h-7 rounded-full flex items-center justify-center text-white/25 hover:text-white/70 hover:bg-white/8 transition-all duration-fast flex-shrink-0"
             >
               <X size={13} />
             </button>

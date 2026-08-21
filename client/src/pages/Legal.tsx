@@ -1,0 +1,420 @@
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Shield, FileText, Mail } from "lucide-react";
+import SiteFooter from "../components/SiteFooter";
+import { useSEO } from "@/lib/useSEO";
+import { ROUTE_SEO } from "@shared/seo";
+
+// ── Last updated ──────────────────────────────────────────────────────────────
+const LAST_UPDATED = "July 9, 2025";
+
+// ── ToC sections ─────────────────────────────────────────────────────────────
+const TOC = [
+  { id: "privacy",  label: "Privacy Policy",     icon: Shield   },
+  { id: "terms",    label: "Terms & Conditions",  icon: FileText },
+  { id: "contact",  label: "Contact",             icon: Mail     },
+] as const;
+
+// ── Smooth-scroll helper ──────────────────────────────────────────────────────
+function scrollTo(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = 80;
+  const tocH = 56;
+  const top = el.getBoundingClientRect().top + window.scrollY - navH - tocH - 16;
+  window.scrollTo({ top, behavior: "smooth" });
+}
+
+// ── Sticky Table of Contents ──────────────────────────────────────────────────
+function TableOfContents({ active }: { active: string }) {
+  const [open, setOpen] = useState(false);
+  const activeItem = TOC.find(t => t.id === active) ?? TOC[0];
+
+  return (
+    <div className="sticky top-[72px] z-40 bg-midnight/95 backdrop-blur-md border-b border-white/[0.07]">
+      <div className="max-w-4xl mx-auto px-6">
+
+        {/* ── Desktop: horizontal pill row ── */}
+        <nav aria-label="Page sections" className="hidden md:flex items-center gap-1 py-3">
+          {TOC.map(({ id, label, icon: Icon }) => (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              className={`btn-base btn-sm ${
+                active === id
+                  ? "bg-gold text-midnight shadow-glow-gold"
+                  : "text-white/40 hover:text-white/80 hover:bg-white/[0.06]"
+              }`}
+            >
+              <Icon size={11} />
+              {label}
+            </button>
+          ))}
+        </nav>
+
+        {/* ── Mobile: collapsible dropdown ── */}
+        <div className="md:hidden py-2">
+          <button
+            onClick={() => setOpen(o => !o)}
+            aria-expanded={open}
+            aria-controls="toc-mobile-menu"
+            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.08] text-white/80 text-xs font-bold uppercase tracking-widest"
+          >
+            <span className="flex items-center gap-2">
+              <activeItem.icon size={11} className="text-gold" />
+              {activeItem.label}
+            </span>
+            <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <ChevronDown size={14} className="text-white/40" />
+            </motion.span>
+          </button>
+
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                id="toc-mobile-menu"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.22, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="pt-1 pb-2 flex flex-col gap-0.5">
+                  {TOC.map(({ id, label, icon: Icon }) => (
+                    <button
+                      key={id}
+                      onClick={() => { scrollTo(id); setOpen(false); }}
+                      className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest text-left transition-all duration-fast ${
+                        active === id
+                          ? "text-gold bg-gold/10"
+                          : "text-white/50 hover:text-white/80 hover:bg-white/[0.04]"
+                      }`}
+                    >
+                      <Icon size={11} />
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Section heading ───────────────────────────────────────────────────────────
+function SectionHeading({ icon: Icon, title, subtitle }: {
+  icon: typeof Shield;
+  title: string;
+  subtitle?: string;
+}) {
+  return (
+    <div className="mb-10">
+      <div className="inline-flex items-center gap-3 mb-4">
+        <div className="w-9 h-9 rounded-full bg-gold/10 border border-gold/25 flex items-center justify-center">
+          <Icon size={16} className="text-gold" />
+        </div>
+        <div className="h-px flex-1 bg-gradient-to-r from-gold/30 to-transparent w-20" />
+      </div>
+      <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
+        {title}
+      </h2>
+      {subtitle && <p className="text-white/45 text-base leading-relaxed">{subtitle}</p>}
+      <div className="mt-6 h-px bg-gradient-to-r from-gold/25 via-gold/10 to-transparent" />
+    </div>
+  );
+}
+
+// ── Sub-heading ───────────────────────────────────────────────────────────────
+function Sub({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-white font-semibold text-xs uppercase tracking-[0.18em] mt-8 mb-3">
+      {children}
+    </h3>
+  );
+}
+
+// ── Body paragraph ────────────────────────────────────────────────────────────
+function P({ children }: { children: React.ReactNode }) {
+  return <p className="text-white/55 text-sm leading-relaxed mb-4">{children}</p>;
+}
+
+// ── Section divider ───────────────────────────────────────────────────────────
+function Divider() {
+  return (
+    <div className="my-20 flex items-center gap-6">
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="flex gap-1.5">
+        <span className="w-1 h-1 rounded-full bg-gold/40" />
+        <span className="w-1 h-1 rounded-full bg-gold/20" />
+        <span className="w-1 h-1 rounded-full bg-gold/40" />
+      </div>
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    </div>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
+export default function Legal() {
+  useSEO(ROUTE_SEO["/legal"]);
+
+  const [activeSection, setActiveSection] = useState("privacy");
+  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+
+  // Track which section is in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
+    );
+    TOC.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-midnight text-white">
+
+      {/* ── Hero ───────────────────────────────────────────────────── */}
+      <div className="relative pt-32 pb-16 overflow-hidden">
+        {/* Background atmosphere */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20"
+            style={{ background: "radial-gradient(ellipse, rgba(var(--gold-primary-rgb),0.15) 0%, transparent 70%)", filter: "blur(60px)" }} />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="text-gold text-xs font-black uppercase tracking-[0.35em] mb-5">
+              Kiut Music · Official
+            </p>
+            <h1 className="font-display text-5xl md:text-7xl font-black text-white leading-none tracking-tight mb-6">
+              Legal
+            </h1>
+            <p className="text-white/40 text-base md:text-lg leading-relaxed max-w-xl">
+              Privacy, transparency, and the terms that govern your use of the Kiut Music website.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ── Sticky ToC ─────────────────────────────────────────────── */}
+      <TableOfContents active={activeSection} />
+
+      {/* ── Content ────────────────────────────────────────────────── */}
+      <main className="max-w-4xl mx-auto px-6 py-16">
+
+        {/* ═══════════════ PRIVACY POLICY ═══════════════════════════ */}
+        <section
+          id="privacy"
+          ref={el => { sectionRefs.current.privacy = el; }}
+          className="scroll-mt-36"
+        >
+          <SectionHeading
+            icon={Shield}
+            title="Privacy Policy"
+            subtitle="How we collect, use, and protect your information."
+          />
+
+          <Sub>1. Information We Collect</Sub>
+          <P>
+            When you use the Kiut Music website, we may collect personal information you voluntarily provide, including your name, email address, and any message content submitted through our contact form or newsletter signup. We do not collect any information automatically beyond standard server logs and analytics data described below.
+          </P>
+
+          <Sub>2. Contact Form Submissions</Sub>
+          <P>
+            Information submitted through our contact form — including your name, email address, enquiry type, and message — is stored securely in our database and used solely to respond to your enquiry. We do not share this information with third parties for marketing purposes.
+          </P>
+
+          <Sub>3. Newsletter Subscriptions</Sub>
+          <P>
+            If you subscribe to the Kiut Music newsletter, your email address and name (if provided) are stored in our database and synced with our email marketing platform (Mailchimp). Your data is used only to send you news, releases, and updates from Kiut Music. You may unsubscribe at any time using the link included in every email.
+          </P>
+
+          <Sub>4. Cookies</Sub>
+          <P>
+            This website uses essential functional cookies necessary for the site to operate correctly. We do not use advertising or tracking cookies. You may disable cookies through your browser settings, though this may affect certain site functionality.
+          </P>
+
+          <Sub>5. Analytics</Sub>
+          <P>
+            We may use anonymised analytics tools to understand how visitors interact with this website — such as pages visited, time on site, and general geographic location. This data contains no personally identifiable information and is used only to improve the website experience.
+          </P>
+
+          <Sub>6. Third-Party Services</Sub>
+          <P>
+            This website integrates with the following third-party services, each governed by their own privacy policies: Mailchimp (email marketing), Resend (transactional email), Spotify, Apple Music, Audiomack, YouTube, and Instagram (embedded content and links). We recommend reviewing each platform's privacy policy for details on how they handle your data.
+          </P>
+
+          <Sub>7. Email Communications</Sub>
+          <P>
+            Emails sent by Kiut Music (welcome emails, contact confirmations, newsletters) are processed through Resend and Mailchimp. We retain the right to send transactional emails in response to actions you take on this website. Promotional emails will only be sent to subscribers who have opted in.
+          </P>
+
+          <Sub>8. Data Security</Sub>
+          <P>
+            We take reasonable technical and organisational measures to protect your personal data against unauthorised access, loss, or disclosure. Data is stored on secure servers and accessed only by authorised personnel. No method of transmission over the internet is 100% secure; we cannot guarantee absolute security.
+          </P>
+
+          <Sub>9. Data Retention</Sub>
+          <P>
+            Contact form submissions are retained for up to 24 months for reference and response purposes. Newsletter subscriber data is retained until you unsubscribe. You may request deletion of your data at any time by contacting us.
+          </P>
+
+          <Sub>10. Your Rights</Sub>
+          <P>
+            Depending on your jurisdiction, you may have the right to access, correct, or delete personal data we hold about you; to object to processing; and to data portability. To exercise any of these rights, please contact us using the details in the Contact section below.
+          </P>
+
+          <Sub>11. Children's Privacy</Sub>
+          <P>
+            This website is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us and we will delete it promptly.
+          </P>
+
+          <Sub>12. Changes to This Policy</Sub>
+          <P>
+            We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated date. Your continued use of the website after any changes constitutes your acceptance of the revised policy.
+          </P>
+        </section>
+
+        <Divider />
+
+        {/* ═══════════════ TERMS & CONDITIONS ═══════════════════════ */}
+        <section
+          id="terms"
+          ref={el => { sectionRefs.current.terms = el; }}
+          className="scroll-mt-36"
+        >
+          <SectionHeading
+            icon={FileText}
+            title="Terms & Conditions"
+            subtitle="The rules and guidelines governing your use of this website."
+          />
+
+          <Sub>1. Acceptance of Terms</Sub>
+          <P>
+            By accessing and using the Kiut Music website (kiutmusic.com), you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, please discontinue use of the website immediately.
+          </P>
+
+          <Sub>2. Website Usage</Sub>
+          <P>
+            This website is provided for informational and promotional purposes relating to the recording artist Kiut and Kiut Music Worldwide. You may browse, link to, and share content from this website for personal, non-commercial purposes only. Any commercial use requires express written permission.
+          </P>
+
+          <Sub>3. Intellectual Property</Sub>
+          <P>
+            All content on this website — including but not limited to design, layout, graphics, text, branding elements, and code — is the intellectual property of Kiut Music Worldwide or its licensors and is protected by applicable intellectual property laws. Unauthorised reproduction, distribution, or modification of any content is strictly prohibited.
+          </P>
+
+          <Sub>4. Music Ownership</Sub>
+          <P>
+            All music, compositions, lyrics, sound recordings, and related materials featured on or linked from this website are the exclusive property of Kiut and/or Kiut Music Worldwide, subject to applicable licensing agreements. Reproduction, distribution, sampling, or public performance of any musical work without express written authorisation is prohibited.
+          </P>
+
+          <Sub>5. Video Ownership</Sub>
+          <P>
+            All music videos, visual content, behind-the-scenes footage, and any audiovisual material associated with Kiut Music are protected by copyright. Downloading, re-uploading, or redistributing video content without permission is prohibited.
+          </P>
+
+          <Sub>6. Image Ownership</Sub>
+          <P>
+            Photography, press images, album artwork, and promotional images featured on this website are owned by Kiut Music Worldwide and/or the respective photographers. Media enquiries regarding image usage rights should be directed to our contact form.
+          </P>
+
+          <Sub>7. Merchandise</Sub>
+          <P>
+            Any merchandise sold through affiliated stores (including DreamPlanet) is subject to the terms and conditions of those platforms. Kiut Music Worldwide makes no warranty regarding the availability, quality, or fulfilment of third-party merchandise sales beyond what is expressly stated.
+          </P>
+
+          <Sub>8. External Links</Sub>
+          <P>
+            This website contains links to third-party platforms including Spotify, Apple Music, Audiomack, YouTube, Instagram, and DreamPlanet. These links are provided for convenience only. Kiut Music Worldwide accepts no responsibility for the content, accuracy, or privacy practices of any third-party website. Visiting external links is at your own risk.
+          </P>
+
+          <Sub>9. Limitation of Liability</Sub>
+          <P>
+            To the fullest extent permitted by law, Kiut Music Worldwide shall not be liable for any direct, indirect, incidental, special, or consequential damages arising from your use or inability to use this website, including any reliance on information contained herein. The website is provided on an "as is" and "as available" basis without warranties of any kind.
+          </P>
+
+          <Sub>10. User Conduct</Sub>
+          <P>
+            You agree not to use this website for any unlawful purpose, to harass or harm others, to distribute spam or malicious code, to attempt to gain unauthorised access to any part of the website or its systems, or to engage in any conduct that disrupts the normal operation of the website.
+          </P>
+
+          <Sub>11. Availability of Services</Sub>
+          <P>
+            We reserve the right to modify, suspend, or discontinue any aspect of this website at any time without notice. Kiut Music Worldwide shall not be liable to you or any third party for any modification, suspension, or discontinuation of the website or its services.
+          </P>
+
+          <Sub>12. Changes to Terms</Sub>
+          <P>
+            We reserve the right to revise these Terms & Conditions at any time. Changes will be effective immediately upon posting to this page with an updated date. Your continued use of the website following any changes constitutes your acceptance of the new terms.
+          </P>
+
+          <Sub>13. Governing Law</Sub>
+          <P>
+            These Terms & Conditions shall be governed by and construed in accordance with applicable laws. Any disputes arising in connection with these terms shall be subject to the exclusive jurisdiction of the competent courts.
+          </P>
+        </section>
+
+        <Divider />
+
+        {/* ═══════════════ CONTACT ══════════════════════════════════ */}
+        <section
+          id="contact"
+          ref={el => { sectionRefs.current.contact = el; }}
+          className="scroll-mt-36"
+        >
+          <SectionHeading
+            icon={Mail}
+            title="Contact"
+            subtitle="Questions about privacy or legal matters? We're here to help."
+          />
+
+          <P>
+            For any questions, concerns, or requests relating to this Privacy Policy or Terms & Conditions — including data access, correction, or deletion requests — please reach out through our official contact form.
+          </P>
+
+          <div className="mt-8 p-8 rounded-md border border-white/[0.08] bg-white/[0.02]">
+            <p className="text-white/40 text-xs uppercase tracking-[0.2em] font-semibold mb-2">Official Contact</p>
+            <a
+              href="mailto:contact@kiutmusic.com"
+              className="text-gold text-lg font-semibold hover:text-white transition-colors duration-fast focus-visible:outline-none focus-visible:underline"
+            >
+              contact@kiutmusic.com
+            </a>
+            <p className="text-white/30 text-sm mt-3 leading-relaxed">
+              We aim to respond to all legal enquiries within 5–7 business days.
+            </p>
+          </div>
+        </section>
+
+        {/* ── Last updated ───────────────────────────────────────── */}
+        <div className="mt-20 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-white/20 text-xs uppercase tracking-[0.22em]">
+            Last updated: {LAST_UPDATED}
+          </p>
+          <p className="text-white/20 text-xs uppercase tracking-[0.22em]">
+            © {new Date().getFullYear()} Kiut Music Worldwide
+          </p>
+        </div>
+      </main>
+
+      <SiteFooter />
+    </div>
+  );
+}

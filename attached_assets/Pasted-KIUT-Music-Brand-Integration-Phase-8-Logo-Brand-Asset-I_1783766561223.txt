@@ -1,0 +1,349 @@
+KIUT Music Brand Integration — Phase 8
+
+Logo & Brand Asset Integration
+
+Objective
+
+Integrate the official Kiut Music brand identity across the entire website.
+
+Do not redesign the logo.
+
+Do not recreate the logo.
+
+Do not change proportions.
+
+The uploaded master logo is now the official brand identity and must replace every previous logo or placeholder throughout the project.
+
+⸻
+
+1. Brand Asset Structure
+
+Create a dedicated brand assets directory.
+
+Example:
+
+assets/
+
+brand/
+
+logo/
+
+icons/
+
+favicons/
+
+social/
+
+watermarks/
+
+app-icons/
+
+brand-guidelines/
+
+Store every official asset inside this structure.
+
+Remove obsolete logo files after confirming they are no longer referenced.
+
+⸻
+
+2. Master Logo Registration
+
+Register the approved logo as the global brand asset.
+
+Name:
+
+kiut-master-logo
+
+Every page must reference this master asset.
+
+No duplicate logo files should exist.
+
+⸻
+
+3. Header Integration
+
+Replace the existing navigation logo.
+
+Requirements:
+
+• Transparent background
+
+• Sharp rendering
+
+• Responsive sizing
+
+Desktop
+
+Height:
+
+60px
+
+Tablet
+
+52px
+
+Mobile
+
+44px
+
+Maintain aspect ratio.
+
+Never crop.
+
+Never stretch.
+
+⸻
+
+4. Footer Integration
+
+Replace every footer logo.
+
+Ensure:
+
+• Consistent sizing
+
+• Equal spacing
+
+• Proper alignment
+
+The footer should visually balance the social icons and copyright section.
+
+⸻
+
+5. Loading Screen
+
+If a loader exists:
+
+Replace the existing logo.
+
+Animation sequence:
+
+• Fade in
+
+• Gentle scale
+
+• Slight glow
+
+• Fade out
+
+Duration:
+
+Approximately 1.2 seconds.
+
+No spinning logos.
+
+No aggressive animation.
+
+⸻
+
+6. Browser Icons
+
+Generate and install:
+
+favicon.ico
+
+favicon.svg
+
+favicon-16.png
+
+favicon-32.png
+
+favicon-48.png
+
+apple-touch-icon.png
+
+android-chrome-192.png
+
+android-chrome-512.png
+
+site.webmanifest
+
+Update all references in the HTML head.
+
+⸻
+
+7. Social Media Assets
+
+Prepare profile images for:
+
+Instagram
+
+Facebook
+
+YouTube
+
+Spotify
+
+Apple Music
+
+TikTok
+
+Threads
+
+X
+
+Use the approved emblem or primary logo according to platform best practices.
+
+Maintain transparent backgrounds where appropriate.
+
+⸻
+
+8. SEO Branding
+
+Update all metadata.
+
+Ensure the following reference the official brand identity:
+
+Open Graph Image
+
+Twitter Card
+
+JSON-LD Organization Logo
+
+Schema.org metadata
+
+Manifest icons
+
+Canonical social preview image
+
+⸻
+
+9. Email Branding
+
+Update:
+
+Newsletter templates
+
+Contact confirmation emails
+
+Subscription success screens
+
+Use:
+
+Official logo
+
+Official colors
+
+Official typography
+
+Consistent spacing
+
+⸻
+
+10. Watermarks
+
+Create watermark assets for:
+
+Images
+
+Videos
+
+Promotional artwork
+
+Provide:
+
+Gold
+
+White
+
+Black
+
+Low-opacity versions
+
+Maintain subtle placement.
+
+⸻
+
+11. Merchandise Assets
+
+Prepare print-ready logo versions for:
+
+T-shirts
+
+Hoodies
+
+Caps
+
+Stickers
+
+Vinyl
+
+CDs
+
+Posters
+
+Backdrops
+
+Ensure clean scaling without distortion.
+
+⸻
+
+12. Brand Consistency Audit
+
+Search the project for every occurrence of:
+
+logo
+
+favicon
+
+brand
+
+icon
+
+image
+
+Replace any outdated assets.
+
+Remove unused logo files.
+
+Confirm there are no conflicting brand elements remaining.
+
+⸻
+
+13. Accessibility
+
+Every logo image must include descriptive alt text.
+
+Example:
+
+“Kiut Music official logo”
+
+Ensure logos remain visible in both light and dark contexts where used.
+
+⸻
+
+14. Performance
+
+Optimize logo assets.
+
+Use modern image formats where appropriate.
+
+Enable browser caching.
+
+Avoid oversized files.
+
+Use SVG where supported for crisp rendering.
+
+⸻
+
+15. Final Validation
+
+Before completing this phase, verify:
+
+• Every page uses the approved Kiut Music logo.
+
+• No legacy logos remain.
+
+• Favicons display correctly in browsers.
+
+• Social preview images are updated.
+
+• SEO metadata references the new brand.
+
+• Watermarks are consistent.
+
+• All brand assets are organized in the new directory structure.
+
+• The logo remains sharp and undistorted across desktop, tablet, and mobile.
+
+The Kiut Music identity should now be visually unified across the entire website and ready for future expansion.

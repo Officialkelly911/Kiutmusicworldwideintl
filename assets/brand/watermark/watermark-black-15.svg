@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" opacity="0.15" viewBox="0 0 1000 1200">
+  <defs></defs>
+<g id="crown" fill="#0A0A0A" stroke="#3a3a3a" stroke-width="3" stroke-linejoin="round">
+    <path d="M 330 225 L 330 195
+             C 330 178 338 168 345 160
+             C 340 150 338 140 345 133
+             C 352 140 358 150 353 162
+             C 360 170 366 180 366 195
+             L 366 210 L 400 210 L 400 195
+             C 400 195 390 175 392 155
+             C 394 140 404 122 418 108
+             C 422 122 420 138 428 148
+             C 436 138 436 122 442 108
+             C 452 90 462 70 470 55
+             C 478 70 485 90 494 108
+             L 500 118 L 506 108
+             C 515 90 522 70 530 55
+             C 538 70 548 90 558 108
+             C 564 122 564 138 572 148
+             C 578 138 578 122 582 108
+             C 596 122 606 140 608 155
+             C 610 175 600 195 600 195
+             L 600 210 L 634 210 L 634 195
+             C 634 180 640 170 647 162
+             C 642 150 648 140 655 133
+             C 662 140 660 150 655 160
+             C 662 168 670 178 670 195
+             L 670 225 Z" />
+    <circle cx="345" cy="133" r="10"/>
+    <circle cx="655" cy="133" r="10"/>
+    <rect x="330" y="212" width="340" height="30" rx="4"/>
+    <line x1="336" y1="230" x2="664" y2="230" stroke="#3a3a3a" stroke-width="2" opacity="0.55" fill="none"/>
+  </g>
+<g id="monogram" fill="#0A0A0A" stroke="#3a3a3a" stroke-width="2.5" stroke-linejoin="round">
+    <!-- Letter I : serif column, left of center -->
+    <path d="M 388 268
+             L 470 268
+             L 470 288
+             C 452 288 448 292 448 306
+             L 448 640
+             C 448 654 452 658 470 658
+             L 470 678
+             L 388 678
+             L 388 658
+             C 406 658 410 654 410 640
+             L 410 306
+             C 410 292 406 288 388 288
+             Z" />
+
+    <!-- Letter K : upright stem + arms, serif top, long swept diagonal tail -->
+    <path d="M 470 268
+             L 552 268
+             L 552 288
+             C 536 288 530 291 530 300
+             L 530 440
+             L 616 300
+             C 622 290 618 288 604 288
+             L 604 268
+             L 700 268
+             L 700 288
+             C 686 288 676 294 664 312
+             L 578 442
+             L 620 512
+             C 660 578 706 654 758 730
+             C 786 770 812 806 828 826
+             C 836 836 830 844 818 840
+             C 794 830 776 806 758 782
+             C 706 712 656 636 610 566
+             L 552 484
+             L 530 512
+             L 530 640
+             C 530 654 536 658 552 658
+             L 552 678
+             L 470 678
+             L 470 658
+             C 486 658 492 654 492 640
+             L 492 306
+             C 492 292 486 288 470 288
+             Z" />
+
+    <!-- Connecting swoop beneath I + K, forming the interlocking flourish -->
+    <path d="M 400 660
+             C 400 710 436 734 484 730
+             C 522 726 544 702 542 668
+             L 562 668
+             C 568 698 594 700 608 668"
+             fill="none" stroke="#0A0A0A" stroke-width="15" stroke-linecap="round"/>
+    <path d="M 400 660
+             C 400 710 436 734 484 730
+             C 522 726 544 702 542 668
+             L 562 668
+             C 568 698 594 700 608 668"
+             fill="none" stroke="#3a3a3a" stroke-width="17" stroke-linecap="round" opacity="0.9" stroke-dasharray="0" />
+  </g>
+<g id="wordmark" fill="#0A0A0A" stroke="#3a3a3a" stroke-width="1.5" font-family="Cinzel, 'Times New Roman', serif" font-weight="700">
+    <text x="500" y="880" font-size="150" text-anchor="middle" letter-spacing="26">KIUT</text>
+  </g>
+<g id="divider" stroke="#0A0A0A" stroke-width="3">
+    <line x1="330" y1="950" x2="420" y2="950"/>
+    <line x1="580" y1="950" x2="670" y2="950"/>
+  </g>
+<g id="subtitle" fill="#0A0A0A" stroke="#3a3a3a" stroke-width="0.75" font-family="Cinzel, 'Times New Roman', serif" font-weight="500">
+    <text x="500" y="965" font-size="44" text-anchor="middle" letter-spacing="18">MUSIC</text>
+  </g>
+</svg>

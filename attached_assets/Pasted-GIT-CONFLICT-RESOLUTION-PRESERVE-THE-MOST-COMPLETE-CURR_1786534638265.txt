@@ -1,0 +1,356 @@
+GIT CONFLICT RESOLUTION — PRESERVE THE MOST COMPLETE & CURRENT IMPLEMENTATION
+
+Resolve all active Git merge conflicts in the project and bring the repository back to a clean, consistent, buildable state.
+
+Primary Objective
+
+Review every conflicted file and determine which implementation represents the most recent, complete, improved, and production-ready version.
+
+Do not blindly choose:
+
+* HEAD
+* ours
+* theirs
+* The longest version
+* The version with the newest-looking code
+* One side of the conflict globally
+
+Instead, evaluate each conflict based on the actual project architecture, recent implementation history, functionality, and approved website requirements.
+
+⸻
+
+1. Identify ALL Conflicts
+
+First inspect the entire repository for unresolved Git conflicts.
+
+Check for:
+
+<<<<<<<
+=======
+>>>>>>>
+
+Also use Git to identify unmerged files.
+
+Do not assume the visible conflict list contains every conflict.
+
+Create a complete inventory of all conflicted files before modifying them.
+
+⸻
+
+2. Review Git History
+
+For each conflicted file, inspect the relevant Git history and recent commits.
+
+Use:
+
+* Commit history
+* File-specific history
+* Recent changes
+* Commit timestamps
+* Commit messages
+* Related files/components
+* Dependency relationships
+
+Pay particular attention to the most recent approved implementations and changes made after earlier versions.
+
+The goal is to determine which version contains the latest intended functionality, not merely which version was committed most recently.
+
+⸻
+
+3. Evaluate BOTH SIDES of Every Conflict
+
+For each conflict, compare the competing implementations.
+
+Evaluate:
+
+Functionality
+
+Which version contains the latest working functionality?
+
+Completeness
+
+Which version contains more of the required implementation?
+
+Architecture
+
+Which version better matches the current project architecture?
+
+UI/UX
+
+Which version preserves the latest approved website design?
+
+Performance
+
+Which implementation is more efficient and production-ready?
+
+Responsiveness
+
+Which version preserves the latest desktop, tablet, and mobile behavior?
+
+Accessibility
+
+Which version has the stronger accessibility implementation?
+
+Maintainability
+
+Which implementation better uses existing shared components and avoids duplication?
+
+Integration
+
+Which version correctly integrates with the latest features, APIs, assets, routes, and data structures?
+
+⸻
+
+4. Preserve Recent Approved Website Work
+
+When resolving conflicts, prioritize the latest approved implementations and preserve previously completed work, including where applicable:
+
+* KIUT Music branding
+* Logo integrations
+* Homepage Hero carousel
+* Romantic Love Recent Release Hero slide
+* Romantic Love streaming CTA
+* Music page Hero
+* Music page tracklist
+* Romantic Love audio integration
+* Music Video section updates
+* Premium reusable CTA component
+* CTA animations
+* Responsive Hero image/video system
+* Tour page
+* Store
+* Contact
+* Newsletter
+* Resend integration
+* Mailchimp integration
+* Analytics configuration
+* Existing accessibility improvements
+* Existing performance optimizations
+
+Do not accidentally restore older versions of these features simply because they appear on one side of a merge conflict.
+
+⸻
+
+5. Merge Rather Than Replace When Appropriate
+
+If both sides contain valid improvements, merge the functionality intelligently instead of choosing one side and deleting the other.
+
+For example:
+
+If:
+
+HEAD
+
+contains an improved UI implementation and:
+
+incoming
+
+contains newer API functionality, preserve both where they are compatible.
+
+The desired result is:
+
+latest UI + latest functionality + existing architecture
+
+not:
+
+one entire side copied over the other.
+
+⸻
+
+6. Resolve Conflicts at the Component/Data Level
+
+Pay special attention to conflicts involving:
+
+* React components
+* Shared components
+* Routes
+* Release/music data
+* Configuration
+* Environment-variable references
+* API services
+* Authentication
+* Forms
+* Hero data
+* CTA components
+* Asset paths
+* CSS/Tailwind styling
+* Database/schema files
+* Package configuration
+
+Do not introduce duplicate components, duplicate constants, duplicate routes, or conflicting data structures while resolving the merge.
+
+⸻
+
+7. Preserve the Centralized Romantic Love Configuration
+
+Where the Romantic Love release is involved, ensure the final merged implementation preserves the approved architecture.
+
+The canonical streaming destination is:
+
+https://bit.ly/m/Romanticlove
+
+Do not replace it with an outdated URL.
+
+The uploaded Romantic Love audio file must remain the internal audio source.
+
+The streaming URL must remain the external streaming destination.
+
+Do not confuse the two.
+
+⸻
+
+8. Protect the Existing CTA System
+
+Do not replace or duplicate the existing premium reusable CTA component during conflict resolution.
+
+Preserve the approved CTA implementation and animation system.
+
+Do not create conflicting button components merely because one branch contains an older version.
+
+⸻
+
+9. Do Not Delete Assets Blindly
+
+If a conflict involves asset references, determine whether the asset is still being used elsewhere before removing it.
+
+Check references across the project.
+
+Do not delete:
+
+* Images
+* Videos
+* Audio
+* Logos
+* SVGs
+* Fonts
+
+simply because one branch no longer references them.
+
+Only remove genuinely obsolete assets when there is clear evidence they are no longer required.
+
+⸻
+
+10. Environment Variables and Secrets
+
+Do not commit actual API keys, passwords, tokens, or secrets while resolving conflicts.
+
+Preserve references such as:
+
+RESEND_API_KEY
+MAILCHIMP_API_KEY
+MAILCHIMP_SERVER_PREFIX
+MAILCHIMP_AUDIENCE_ID
+CONTACT_FROM_EMAIL
+
+using the project’s existing environment-variable architecture.
+
+Never hardcode secret credentials into source files.
+
+⸻
+
+11. Verify the Result
+
+After resolving all conflicts:
+
+Git verification
+
+Run the appropriate Git checks and confirm:
+
+* No unmerged files remain.
+* No conflict markers remain.
+* Working tree is consistent.
+* Git status is clean with respect to merge conflicts.
+
+Code verification
+
+Run:
+
+* Type checking
+* Linting, if configured
+* Existing test suite
+* Production build
+
+Fix any errors caused by the merge.
+
+Application verification
+
+Run the website and verify critical functionality, particularly:
+
+* Homepage
+* Hero carousel
+* Romantic Love Hero slide
+* Music page
+* Romantic Love audio player
+* Romantic Love streaming CTA
+* Navigation
+* Store
+* Tour
+* Contact
+* Newsletter
+
+⸻
+
+12. Do Not Create a New Design
+
+This task is strictly about conflict resolution and preservation of the best existing implementation.
+
+Do not redesign the website.
+
+Do not introduce new visual styles.
+
+Do not modify approved UI simply because a conflict exists.
+
+Only make additional changes when required to:
+
+* Resolve the conflict
+* Restore compatibility
+* Fix a merge-related regression
+* Restore build/test functionality
+
+⸻
+
+13. Final Review
+
+Before declaring the task complete, perform a second project-wide search for:
+
+<<<<<<<
+=======
+>>>>>>>
+
+There must be zero unresolved conflict markers.
+
+Also verify that no files remain in an unmerged Git state.
+
+⸻
+
+ACCEPTANCE CRITERIA
+
+The task is complete only when:
+
+1. Every Git conflict has been resolved.
+2. Each conflict was evaluated individually.
+3. The most recent and most complete implementation has been preserved.
+4. Valid improvements from both branches have been merged where appropriate.
+5. No approved functionality has been accidentally reverted.
+6. No duplicate components or conflicting data structures were introduced.
+7. No secrets were exposed or hardcoded.
+8. No conflict markers remain.
+9. The application builds successfully.
+10. Existing tests pass, or any unrelated pre-existing failures are clearly documented.
+11. Critical KIUT Music functionality remains operational.
+12. The final codebase is consistent, maintainable, and production-ready.
+
+FINAL REPORT
+
+After completion, provide a concise but detailed report containing:
+
+1. Conflicted files identified
+2. How each major conflict was resolved
+3. Which newer/improved implementation was preserved
+4. Where functionality from both branches was merged
+5. Any merge-related bugs fixed
+6. Build/test results
+7. Any remaining issues that existed before the merge
+8. Confirmation that no unresolved Git conflicts remain
+
+Do not stop after identifying the conflicts. Resolve, verify, and validate the entire project before reporting completion.

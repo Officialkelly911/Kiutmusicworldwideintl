@@ -1,0 +1,130 @@
+Gallery Content Refresh
+
+We are performing a final curation of the Gallery / Moments From the Journey section of the Kiut Music website.
+
+Objective
+
+Refresh the gallery by removing outdated artwork, adding the new professionally edited beach photos, and preserving the premium luxury editorial aesthetic of the website.
+
+1. Remove these gallery items
+
+Completely remove the following gallery cards and their associated images:
+
+* Promo Art
+* Artwork
+
+Delete the cards, image references, imports, and any unused assets associated with them.
+
+Do not leave empty spaces or broken layout gaps.
+
+⸻
+
+2. Add the two new edited beach photographs
+
+I will upload two newly edited images.
+
+Add both images into the gallery.
+
+Use them as premium editorial lifestyle photographs.
+
+Suggested labels:
+
+Image 1
+Label:
+BEACH EDITORIAL
+
+Image 2
+Label:
+COASTAL VIBES
+
+These labels should follow the exact same gallery badge styling used throughout the site.
+
+⸻
+
+3. Positioning
+
+Insert the new images naturally into the gallery sequence.
+
+Do not place them at the very end.
+
+Blend them into the existing story so the gallery flows like a visual timeline.
+
+Example flow:
+
+Studio →
+Portrait →
+Beach Editorial →
+Recording →
+Coastal Vibes →
+Performance →
+Lifestyle
+
+The sequence should feel intentional rather than grouped together.
+
+⸻
+
+4. Crop and presentation
+
+Ensure every gallery image has:
+
+* identical aspect ratio
+* identical border radius
+* identical spacing
+* identical image height
+* identical card dimensions
+
+Crop each image manually so:
+
+* the artist is centered
+* faces are never cut off
+* important objects remain visible
+* composition feels balanced on desktop, tablet and mobile
+
+Do not stretch or distort images.
+
+⸻
+
+5. Gallery interactions
+
+Preserve existing:
+
+* hover animation
+* zoom effect
+* lightbox
+* keyboard navigation
+* touch swipe support
+
+The newly added images must behave exactly like every other gallery image.
+
+⸻
+
+6. Performance
+
+Optimize the uploaded images.
+
+Generate responsive versions.
+
+Lazy-load them.
+
+Compress them without noticeable quality loss.
+
+Keep visual quality high while minimizing page weight.
+
+⸻
+
+7. Final QA
+
+Before finishing, verify that:
+
+* Promo Art is completely removed.
+* Artwork is completely removed.
+* The two new edited beach images appear in the gallery.
+* No duplicate images exist.
+* All gallery cards are perfectly aligned.
+* Cropping is consistent.
+* Hover animations still work.
+* Lightbox still works.
+* Mobile layout remains flawless.
+* Lighthouse performance is not negatively impacted.
+
+The final gallery should feel like a curated luxury editorial portfolio, with every image contributing to Kiut’s premium brand story rather than simply filling space. Humans have an almost supernatural ability to keep every photo they’ve ever taken. This gallery should do the opposite: every remaining image should earn its place.

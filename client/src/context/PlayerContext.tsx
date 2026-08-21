@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useRef, useEffect, useCallback, type ReactNode } from "react";
-import { ALL_TRACKS, type Track } from "@/data/tracks";
+import { ALL_TRACKS, type Track, getTrackStreamingUrl } from "@/data/tracks";
+import { track } from "@/lib/analytics";
 
 interface PlayerContextValue {
   currentTrack: Track | null;
@@ -58,9 +59,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     if (!audio) return;
     const onEnded = () => {
       const idx = ALL_TRACKS.findIndex(t => t.id === playingId);
-      if (idx >= 0 && idx < ALL_TRACKS.length - 1) {
-        const next = ALL_TRACKS[idx + 1];
-        audio.src = next.url;
+      // Skip ahead to the next track that actually has a local audio file
+      const nextIdx = ALL_TRACKS.findIndex((t, i) => i > idx && t.url !== null);
+      if (nextIdx >= 0) {
+        const next = ALL_TRACKS[nextIdx];
+        audio.src = next.url!;
         audio.play().catch(() => {});
         setPlayingId(next.id);
         setIsPlaying(true);
@@ -73,10 +76,19 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     return () => audio.removeEventListener("ended", onEnded);
   }, [playingId]);
 
-  const playTrack = useCallback((track: Track) => {
+  const playTrack = useCallback((trackToPlay: Track) => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (playingId === track.id) {
+    // No local file — open the best available streaming link in a new tab
+    if (!trackToPlay.url) {
+      const streamUrl = getTrackStreamingUrl(trackToPlay);
+      if (streamUrl) {
+        track("streaming_click", { title: trackToPlay.title, album: trackToPlay.album });
+        window.open(streamUrl, "_blank", "noopener,noreferrer");
+      }
+      return;
+    }
+    if (playingId === trackToPlay.id) {
       if (isPlaying) {
         audio.pause();
         setIsPlaying(false);
@@ -85,13 +97,14 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         setIsPlaying(true);
       }
     } else {
-      audio.src = track.url;
+      audio.src = trackToPlay.url;
       audio.play().catch(() => {});
-      setPlayingId(track.id);
+      setPlayingId(trackToPlay.id);
       setIsPlaying(true);
       setShowPlayer(true);
       setCurrentTime(0);
       setDuration(0);
+      track("music_play", { title: trackToPlay.title, album: trackToPlay.album });
     }
   }, [playingId, isPlaying]);
 
@@ -121,7 +134,11 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   const seek = useCallback((pct: number) => {
     const audio = audioRef.current;
-    if (audio && duration) audio.currentTime = pct * duration;
+    if (audio && duration) {
+      const nextTime = Math.min(Math.max(pct, 0), 1) * duration;
+      audio.currentTime = nextTime;
+      setCurrentTime(nextTime);
+    }
   }, [duration]);
 
   const dismiss = useCallback(() => {

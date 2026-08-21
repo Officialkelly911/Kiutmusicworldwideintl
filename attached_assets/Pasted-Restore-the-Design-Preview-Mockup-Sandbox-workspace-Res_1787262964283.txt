@@ -1,0 +1,60 @@
+Restore the Design Preview / Mockup Sandbox workspace
+
+Resolve the Mockup Sandbox development-environment issue preventing the standalone design preview workspace from starting because the fast-glob package cannot be resolved.
+
+Scope restriction: This is a development/workspace reliability fix only. Do not modify the live KIUT Music website, production UI, SEO implementation, routing, DNS, deployment configuration, content, branding, or any completed Phase 11B–11E functionality unless absolutely required to restore the sandbox dependency.
+
+Required approach
+
+1. Inspect the Mockup Sandbox workflow and determine exactly where fast-glob is being imported or required.
+2. Determine whether fast-glob is:
+    * missing from the appropriate dependency manifest,
+    * installed in the wrong dependency scope,
+    * referenced through an incorrect import,
+    * or unavailable because of the sandbox’s dependency-resolution configuration.
+3. Restore the dependency using the project’s existing package-management conventions.
+4. Do not duplicate the package or introduce unnecessary dependency versions.
+5. Do not modify production dependencies unless the sandbox genuinely shares the same dependency manifest and the package is legitimately required there.
+6. Restart the Mockup Sandbox workflow.
+7. Confirm that the design-preview workspace loads successfully and that mockups/components can actually be rendered on the workspace canvas.
+8. Verify that the main KIUT Music development workflow remains healthy.
+9. Run the existing build/type checks and relevant tests after the dependency repair.
+10. Check the repository diff carefully and remove any temporary files, test artifacts, port mappings, or unrelated configuration changes created during troubleshooting.
+
+Regression protection
+
+Confirm that this fix does not alter:
+
+* KIUT Music visual design
+* Homepage
+* Music page
+* Videos page
+* About page
+* Tour page
+* Newsletter page
+* Contact page
+* Legal page
+* Phase 11B initial HTML SEO metadata
+* Phase 11C HTTP 404 behavior
+* Phase 11D JSON-LD structured data
+* Phase 11E accessibility/mobile UX work
+* robots.txt
+* sitemap.xml
+* GA4
+* production deployment configuration
+
+Final verification
+
+The task is complete only when:
+
+Mockup Sandbox: starts successfully
+Design preview canvas: renders successfully
+Main KIUT workflow: remains healthy
+Type check: passes
+Production build: passes
+Existing tests: pass
+No unrelated production changes: confirmed
+
+Do not publish the KIUT Music application as part of this task.
+
+At completion, provide a concise report identifying the root cause, the dependency/environment change made, verification results, and confirmation that no production KIUT functionality was changed.

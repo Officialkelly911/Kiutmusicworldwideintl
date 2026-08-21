@@ -1,0 +1,559 @@
+PHASE 9 — PART 4
+
+CONTACT & NEWSLETTER PAGES
+
+Replit Master Implementation Prompt
+
+This phase is a refinement and functionality pass.
+
+Do NOT redesign the website.
+
+Maintain the existing luxury visual identity, typography, gold palette, animations, spacing, CTA system, navigation, hero treatment, and branding.
+
+The objective is to complete all missing functionality while elevating the user experience to production quality.
+
+⸻
+
+CONTACT PAGE
+
+The Contact page should feel like an artist management portal rather than a generic contact form.
+
+Visitors should immediately understand that Kiut Music is available for bookings, collaborations, media opportunities, and business inquiries.
+
+⸻
+
+Hero
+
+Continue using the universal Hero component established in Phase 1.
+
+Use:
+
+• Hero Image
+• Dark luxury overlay
+• Gold accent lighting
+• Responsive variants
+• Subtle parallax
+• Premium fade animations
+
+Headline:
+
+Contact Kiut Music
+
+Subheading:
+
+Book performances, request collaborations, connect with management, or simply get in touch.
+
+⸻
+
+CONTACT LAYOUT
+
+Organize the page into the following sections:
+
+⸻
+
+1. Artist Contact Information
+
+Luxury information cards displaying:
+
+Management
+
+Booking
+
+Business Email
+
+Press
+
+Social Media
+
+Location
+
+Operating Hours
+
+Each card should feature:
+
+• Premium gold outline
+
+• Hover glow
+
+• Smooth elevation animation
+
+• Click-to-copy email
+
+• Click-to-call (if phone exists)
+
+• Click-to-open maps
+
+⸻
+
+2. Contact Form
+
+Build a premium reusable form component.
+
+Fields:
+
+First Name
+
+Last Name
+
+Email
+
+Phone (optional)
+
+Country
+
+Inquiry Type
+
+Dropdown:
+
+• Booking
+
+• Press
+
+• Collaboration
+
+• Licensing
+
+• Business
+
+• General Inquiry
+
+Subject
+
+Message
+
+Consent checkbox
+
+Submit button
+
+The existing premium CTA button component must be used.
+
+Do NOT redesign the button.
+
+⸻
+
+Form Validation
+
+Real-time validation.
+
+Inline errors.
+
+Accessible labels.
+
+Loading state.
+
+Success animation.
+
+Error animation.
+
+Disable duplicate submissions.
+
+⸻
+
+Submission
+
+Integrate with the site’s centralized backend/API.
+
+Prepare support for:
+
+Email delivery
+
+CRM
+
+Database storage
+
+Future automation
+
+The implementation must allow future integration with:
+
+Mailchimp
+
+ConvertKit
+
+HubSpot
+
+Brevo
+
+Zapier
+
+Make.com
+
+without requiring structural changes.
+
+⸻
+
+BOOKING SECTION
+
+Create a dedicated booking panel.
+
+Include:
+
+Corporate Events
+
+Festivals
+
+Private Shows
+
+Club Performances
+
+International Tours
+
+Brand Partnerships
+
+Appearances
+
+Music Licensing
+
+Film & TV
+
+Commercial Campaigns
+
+Each category should animate on hover.
+
+⸻
+
+LOCATION SECTION
+
+Embed an interactive map.
+
+Display:
+
+Artist Region
+
+Management Office
+
+Primary Booking Territory
+
+International Availability
+
+Lazy load the map for performance.
+
+⸻
+
+SOCIAL CONNECTIONS
+
+Display premium icon buttons.
+
+Instagram
+
+TikTok
+
+Facebook
+
+YouTube
+
+Spotify
+
+Apple Music
+
+Audiomack
+
+Boomplay
+
+SoundCloud
+
+X
+
+Threads
+
+Icons should:
+
+Glow softly
+
+Scale on hover
+
+Maintain existing luxury style
+
+⸻
+
+FAQ
+
+Create a collapsible FAQ.
+
+Examples:
+
+How long before booking?
+
+International performances?
+
+Media interviews?
+
+Response times?
+
+Licensing requests?
+
+Brand collaborations?
+
+Smooth accordion animation.
+
+⸻
+
+NEWSLETTER PAGE
+
+Do NOT redesign.
+
+Maintain the existing premium layout.
+
+The current video hero remains.
+
+Do NOT replace it with the universal static Hero component.
+
+The video hero is intentional and should remain unchanged.
+
+⸻
+
+NEWSLETTER OBJECTIVES
+
+Transform the page into an exclusive fan membership experience.
+
+The page should encourage visitors to join Kiut Music’s private community.
+
+⸻
+
+Hero CTA
+
+Existing CTA remains.
+
+Do NOT redesign.
+
+Reuse the premium CTA component.
+
+⸻
+
+Membership Benefits
+
+Create animated premium cards.
+
+Examples:
+
+Exclusive Music
+
+Early Releases
+
+Behind-the-scenes Content
+
+Tour Announcements
+
+VIP Ticket Access
+
+Private Events
+
+Exclusive Merchandise
+
+Member-only Discounts
+
+Special Giveaways
+
+Studio Sessions
+
+⸻
+
+Newsletter Signup
+
+Fields:
+
+First Name
+
+Last Name
+
+Email
+
+Country
+
+Favorite Platform
+
+Checkbox:
+
+Receive updates
+
+Concert alerts
+
+Exclusive content
+
+Merchandise announcements
+
+VIP opportunities
+
+Consent checkbox
+
+Premium CTA
+
+⸻
+
+Email Integration
+
+Prepare seamless integration with:
+
+Mailchimp
+
+Brevo
+
+ConvertKit
+
+HubSpot
+
+Future custom API
+
+Store subscriber information centrally.
+
+Prevent duplicate subscriptions.
+
+Display elegant success states.
+
+⸻
+
+Featured Updates Section
+
+Dynamic content cards driven by centralized data.
+
+Latest Release
+
+Upcoming Tour
+
+Newest Video
+
+Exclusive Member Update
+
+Featured Merchandise
+
+Upcoming Event
+
+No hardcoded content.
+
+⸻
+
+Exclusive Preview Section
+
+Create a premium content preview.
+
+Examples:
+
+Song snippets
+
+Studio photos
+
+Upcoming releases
+
+Tour preparations
+
+Behind-the-scenes videos
+
+Use reusable content cards.
+
+⸻
+
+Community Statistics
+
+Animated counters.
+
+Examples:
+
+Subscribers
+
+Countries
+
+Streams
+
+Shows
+
+Videos
+
+Community Members
+
+Animate only once when entering viewport.
+
+⸻
+
+Social Community
+
+Encourage users to follow every platform.
+
+Use existing premium icon system.
+
+⸻
+
+RESPONSIVE DESIGN
+
+Support:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile Landscape
+
+Mobile Portrait
+
+No horizontal scrolling.
+
+Maintain generous spacing.
+
+⸻
+
+ACCESSIBILITY
+
+Keyboard navigation
+
+Visible focus states
+
+ARIA labels
+
+Semantic HTML
+
+Screen reader support
+
+Proper color contrast
+
+⸻
+
+PERFORMANCE
+
+Lazy-load:
+
+Maps
+
+Videos
+
+Large images
+
+Social embeds
+
+Optimize all animations.
+
+Maintain excellent Lighthouse scores.
+
+⸻
+
+REUSABILITY
+
+Every new component must be reusable.
+
+Examples:
+
+Contact cards
+
+Forms
+
+Benefit cards
+
+Statistic cards
+
+FAQ accordion
+
+Social icon groups
+
+Newsletter cards
+
+No duplicated code.
+
+⸻
+
+FINAL REQUIREMENTS
+
+* Do not modify the existing premium CTA button design or animation.
+* Do not redesign the navigation, footer, branding, or existing page layouts.
+* Preserve the established Kiut Music luxury aesthetic.
+* Use centralized data/configuration files wherever possible.
+* Ensure all new functionality is production-ready, scalable, and prepared for future integrations.
+* Maintain smooth, premium animations consistent with the rest of the website.

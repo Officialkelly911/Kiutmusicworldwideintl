@@ -1,0 +1,257 @@
+Replit Agent Prompt — Create the Kiut Music Master Vector Logo & Complete Export Package
+
+Objective
+
+Create a 100% true vector master logo for Kiut Music by recreating the approved logo exactly.
+
+Do not trace a bitmap or embed a PNG inside an SVG.
+
+The final file must consist entirely of editable vector paths.
+
+⸻
+
+Source
+
+Use the approved Kiut Music logo as the visual reference.
+
+Recreate:
+
+* Royal five-point crown
+* Interlocking IK monogram
+* KIUT wordmark
+* MUSIC subtitle
+* Divider lines
+* Luxury proportions
+* Perfect symmetry
+
+Do not redesign the logo.
+
+Only recreate it as clean vector artwork.
+
+⸻
+
+Vector Requirements
+
+The SVG must:
+
+* consist entirely of vector paths
+* use editable Bézier curves
+* contain no raster images
+* contain no embedded PNG
+* contain no clipping masks unless required
+* use grouped layers
+* be perfectly centered
+* be pixel-perfect
+
+⸻
+
+Layer Structure
+
+Create:
+
+Crown
+Monogram
+Wordmark
+Divider
+Subtitle
+
+Every component should remain editable.
+
+⸻
+
+Master File
+
+Create:
+
+assets/brand/master/
+kiut-master-logo.svg
+
+This becomes the only editable master artwork.
+
+⸻
+
+Export Package
+
+Export the following from the master SVG.
+
+SVG
+
+kiut-master-logo.svg
+logo-horizontal.svg
+logo-vertical.svg
+symbol.svg
+logo-gold.svg
+logo-white.svg
+logo-black.svg
+
+⸻
+
+PNG
+
+Transparent background.
+
+Generate:
+
+512px
+1024px
+2048px
+4096px
+
+⸻
+
+PDF
+
+Create
+
+kiut-master-logo.pdf
+
+Vector only.
+
+Print ready.
+
+⸻
+
+EPS
+
+Create
+
+kiut-master-logo.eps
+
+CMYK compatible.
+
+⸻
+
+Illustrator Source
+
+If supported, generate
+
+kiut-master-logo.ai
+
+If not supported, ensure the SVG imports cleanly into Adobe Illustrator without any loss of editability.
+
+⸻
+
+Favicon Package
+
+Generate
+
+favicon.ico
+favicon.svg
+favicon-16x16.png
+favicon-32x32.png
+favicon-48x48.png
+apple-touch-icon.png
+android-chrome-192.png
+android-chrome-512.png
+site.webmanifest
+
+⸻
+
+App Icons
+
+Generate:
+
+* iOS
+* Android
+* macOS
+* Windows
+* PWA
+
+Include all recommended sizes.
+
+⸻
+
+Social Icons
+
+Create profile icons for:
+
+* Instagram
+* Facebook
+* X
+* YouTube
+* Spotify
+* Apple Music
+* TikTok
+
+Use the crowned IK monogram centered on a transparent background.
+
+Export:
+
+* Gold
+* White
+* Black
+
+⸻
+
+Watermarks
+
+Create:
+
+* Gold watermark
+* White watermark
+* Black watermark
+
+Export as:
+
+SVG
+
+PNG
+
+Opacity variants:
+
+15%
+
+30%
+
+60%
+
+⸻
+
+Merchandise Graphics
+
+Export clean vector artwork for:
+
+* T-shirt front
+* Hoodie chest
+* Cap embroidery
+* Sticker
+* Poster
+* Vinyl sleeve
+* Guitar pick
+* Stage backdrop
+
+Use only vector artwork.
+
+⸻
+
+Asset Structure
+
+assets/
+└── brand/
+    ├── master/
+    ├── svg/
+    ├── png/
+    ├── pdf/
+    ├── eps/
+    ├── favicon/
+    ├── app-icons/
+    ├── social/
+    ├── watermark/
+    ├── merchandise/
+    └── README.md
+
+⸻
+
+Validation
+
+Before completion, verify:
+
+* SVG contains only vector paths.
+* No raster images are embedded.
+* All exports are generated from the master SVG.
+* All assets have transparent backgrounds where appropriate.
+* File names are consistent.
+* The logo scales cleanly from 16 px to large-format print without quality loss.
+* All exports preserve the exact proportions, spacing, and appearance of the approved Kiut Music logo.
+
+This master SVG will serve as the single source of truth for every current and future Kiut Music brand asset.

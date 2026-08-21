@@ -1,0 +1,614 @@
+PHASE 9 — PART 3
+
+TOUR & MUSIC PAGES
+
+Master Replit Implementation Prompt
+
+Objective
+
+Complete and refine the Tour and Music pages into production-ready premium experiences while preserving the approved Kiut Music visual identity.
+
+This is a refinement and completion task, not a redesign.
+
+Do not alter:
+
+* Navigation
+* Brand identity
+* Color palette
+* Typography
+* CTA button component
+* Logo system
+* Hero layout
+* Existing animations
+* Existing spacing system
+
+Only complete missing functionality and elevate the experience.
+
+⸻
+
+GLOBAL REQUIREMENTS
+
+Maintain the existing luxury design language:
+
+* Black backgrounds
+* Gold accents
+* Soft cinematic lighting
+* Glassmorphism where already used
+* Smooth motion
+* Minimal UI
+* Premium spacing
+* Mobile-first responsiveness
+
+Maintain performance.
+
+Avoid unnecessary libraries.
+
+⸻
+
+TOUR PAGE
+
+The Tour page should communicate prestige rather than simply listing events.
+
+It should feel like entering a luxury concert experience.
+
+⸻
+
+1. Hero Section
+
+Use the previously approved Tour Hero.
+
+Requirements:
+
+* Responsive Hero component
+* Desktop
+* Large Desktop
+* Tablet
+* Mobile Portrait
+* Mobile Landscape
+
+Maintain:
+
+* cinematic overlay
+* gold gradient
+* subtle vignette
+* smooth fade-in
+
+Do NOT alter typography styling.
+
+⸻
+
+2. Hero CTA
+
+Keep existing reusable CTA component.
+
+Do NOT redesign.
+
+Buttons:
+
+* View Upcoming Shows
+* Book Kiut
+* VIP Experience
+
+Must use the same premium animation already implemented site-wide.
+
+⸻
+
+3. Upcoming Tour Section
+
+Build a reusable Tour Card component.
+
+Each card includes:
+
+* City
+* Country
+* Venue
+* Date
+* Time
+* Event Poster
+* Status
+
+Statuses:
+
+* Available
+* Limited
+* Sold Out
+* Coming Soon
+
+Buttons:
+
+* Buy Tickets
+* Event Details
+
+Cards animate upward while scrolling.
+
+⸻
+
+4. Featured Event
+
+Create one premium highlighted event.
+
+Include:
+
+Large background image
+
+Countdown timer
+
+VIP badge
+
+Featured venue
+
+Ticket availability
+
+CTA
+
+This should visually stand apart from the normal tour cards.
+
+⸻
+
+5. Interactive Tour Timeline
+
+Below Upcoming Events.
+
+Create a vertical timeline.
+
+Each stop contains:
+
+City
+
+Country
+
+Venue
+
+Date
+
+Status
+
+Connecting animated gold line.
+
+Desktop:
+
+Left-right alternating timeline.
+
+Mobile:
+
+Single vertical stack.
+
+⸻
+
+6. Tour Statistics
+
+Luxury statistic cards.
+
+Examples:
+
+Countries Visited
+
+Cities
+
+Live Performances
+
+Fans Reached
+
+Years Performing
+
+Animate numbers on scroll.
+
+⸻
+
+7. Booking CTA
+
+Luxury booking section.
+
+Headline:
+
+“Bring Kiut Music to Your City”
+
+Include:
+
+Booking description
+
+Book Kiut button
+
+Management contact
+
+Luxury background.
+
+⸻
+
+8. Gallery Preview
+
+Horizontal gallery slider.
+
+Include:
+
+Concert photography
+
+Stage lighting
+
+Audience moments
+
+Behind-the-scenes
+
+Hover:
+
+Slight zoom
+
+Soft gold glow
+
+Light parallax.
+
+⸻
+
+9. Testimonials
+
+Premium quote cards.
+
+Include:
+
+Promoters
+
+Venue owners
+
+Festival organizers
+
+Luxury typography.
+
+⸻
+
+10. Tour FAQ
+
+Accordion component.
+
+Questions:
+
+Booking
+
+Travel
+
+Performance duration
+
+Technical rider
+
+Media access
+
+VIP packages
+
+Animated opening.
+
+⸻
+
+MUSIC PAGE
+
+The Music page should resemble a premium streaming platform.
+
+⸻
+
+1. Hero
+
+Use approved Hero component.
+
+Maintain:
+
+Gold overlay
+
+Premium spacing
+
+Luxury typography
+
+Responsive variants.
+
+⸻
+
+2. Featured Release
+
+Large album feature.
+
+Include:
+
+Artwork
+
+Title
+
+Release date
+
+Genre
+
+Track count
+
+Streaming buttons.
+
+Buttons:
+
+Spotify
+
+Apple Music
+
+YouTube Music
+
+Audiomack
+
+Boomplay
+
+Amazon Music
+
+Deezer
+
+SoundCloud
+
+CTA uses existing reusable button component.
+
+⸻
+
+3. Discography
+
+Grid layout.
+
+Each release card:
+
+Artwork
+
+Title
+
+Year
+
+Genre
+
+Hover:
+
+Lift animation
+
+Glow
+
+Play icon
+
+Smooth transition.
+
+⸻
+
+4. Featured Playlist
+
+Large playlist banner.
+
+Include:
+
+Playlist artwork
+
+Duration
+
+Number of tracks
+
+Play CTA
+
+Save Playlist CTA
+
+Animated equalizer.
+
+⸻
+
+5. Music Player Preview
+
+Premium mini player.
+
+Display:
+
+Artwork
+
+Song
+
+Artist
+
+Progress bar
+
+Play
+
+Pause
+
+Next
+
+Previous
+
+Volume
+
+Shuffle
+
+Repeat
+
+Visual only unless backend later added.
+
+⸻
+
+6. Lyrics Highlight
+
+Luxury typography section.
+
+Highlight featured lyrics.
+
+Elegant animated quotation marks.
+
+Fade transitions.
+
+⸻
+
+7. Streaming Platforms
+
+Premium platform grid.
+
+Include:
+
+Spotify
+
+Apple Music
+
+Audiomack
+
+Boomplay
+
+YouTube Music
+
+Amazon Music
+
+SoundCloud
+
+Deezer
+
+Hover:
+
+Gold glow
+
+Scale
+
+Smooth animation.
+
+⸻
+
+8. Music Videos Preview
+
+Horizontal carousel.
+
+Each card:
+
+Thumbnail
+
+Title
+
+Duration
+
+Play button
+
+Hover animation.
+
+⸻
+
+9. Behind The Music
+
+Editorial section.
+
+Include:
+
+Story behind recent releases
+
+Creative inspiration
+
+Studio process
+
+Luxury magazine layout.
+
+⸻
+
+10. Music Statistics
+
+Animated counters.
+
+Examples:
+
+Monthly listeners
+
+Streams
+
+Countries
+
+Playlist placements
+
+Albums
+
+Singles
+
+⸻
+
+11. Newsletter CTA
+
+Luxury section encouraging visitors to receive:
+
+New releases
+
+Exclusive previews
+
+Behind-the-scenes
+
+Early access
+
+Use existing Newsletter CTA component.
+
+Do NOT redesign.
+
+⸻
+
+RESPONSIVENESS
+
+Every section must work perfectly on:
+
+Desktop
+
+Laptop
+
+Tablet
+
+Mobile Portrait
+
+Mobile Landscape
+
+No broken grids.
+
+No overlapping text.
+
+No cropped artwork.
+
+⸻
+
+PERFORMANCE
+
+Lazy-load:
+
+Images
+
+Gallery
+
+Album artwork
+
+Event posters
+
+Optimize:
+
+LCP
+
+CLS
+
+Bundle size
+
+Animations
+
+Use modern image formats where appropriate.
+
+⸻
+
+ACCESSIBILITY
+
+Provide:
+
+Alt text
+
+Keyboard navigation
+
+Focus indicators
+
+ARIA labels
+
+Proper heading hierarchy
+
+High contrast
+
+⸻
+
+DELIVERABLE
+
+When complete, verify that:
+
+* Tour page is production-ready.
+* Music page is production-ready.
+* Existing navigation is unchanged.
+* Existing reusable CTA buttons remain untouched.
+* Luxury branding remains consistent.
+* All animations are smooth and performant.
+* Mobile responsiveness is flawless.
+* Shared components are reused wherever possible.
+* No existing approved sections have been redesigned.

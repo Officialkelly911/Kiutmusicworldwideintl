@@ -1,12 +1,10 @@
 import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import rateLimit from "express-rate-limit";
-import { storage } from "./storage";
 import { insertNewsletterSubscriberSchema, insertContactSubmissionSchema } from "@shared/schema";
 import { fromError } from "zod-validation-error";
-import { sendContactNotification, sendContactConfirmation } from "./email";
-import { addMailchimpSubscriber, tagMailchimpSubscriber } from "./mailchimp";
-import { sendWelcomeEmail } from "./newsletter-email";
+import { newsletterService } from "./newsletterService";
+import { contactService } from "./contactService";
 
 // ─── Rate limiters ────────────────────────────────────────────────────────────
 const contactLimiter = rateLimit({
@@ -27,39 +25,28 @@ const newsletterLimiter = rateLimit({
 
 export async function registerRoutes(
   httpServer: Server,
-  app: Express
+  app: Express,
 ): Promise<Server> {
 
   // ── Newsletter ──────────────────────────────────────────────────────────────
   app.post("/api/newsletter", newsletterLimiter, async (req, res) => {
     try {
-      // source lets the frontend tell us where the signup came from
-      // e.g. "Newsletter Page", "Homepage Footer" — used for Mailchimp tagging
-      const { source = "Newsletter Page", ...rawBody } = req.body ?? {};
-      const data = insertNewsletterSubscriberSchema.parse(rawBody);
-
-      // Duplicate check — still succeed gracefully for the UX
-      const existing = await storage.getNewsletterSubscriberByEmail(data.email);
-      if (existing) {
-        return res.status(200).json({ message: "You're already subscribed." });
+      // Honeypot — bots fill this invisible field, humans never see it
+      const { source = "Newsletter Page", website: honeypot, ...rawBody } = req.body ?? {};
+      if (honeypot) {
+        // Silently fake success so bots don't learn the field is checked
+        return res.status(201).json({ message: "Subscribed successfully." });
       }
 
-      // Persist to DB
-      await storage.createNewsletterSubscriber(data);
+      const data = insertNewsletterSubscriberSchema.parse(rawBody);
+      const result = await newsletterService.subscribe({ ...data, source });
 
-      // Mailchimp + welcome email — fire concurrently, never block the response
-      Promise.allSettled([
-        addMailchimpSubscriber({ email: data.email, name: data.name ?? undefined, source })
-          .then(() => tagMailchimpSubscriber(data.email, source)),
-        sendWelcomeEmail({ email: data.email, name: data.name ?? undefined }),
-      ]).then((results) => {
-        results.forEach((r, i) => {
-          if (r.status === "rejected") {
-            const label = i === 0 ? "mailchimp" : "welcome-email";
-            console.error(`[newsletter] ${label} failed:`, r.reason);
-          }
+      if (result.duplicate) {
+        return res.status(200).json({
+          message: "You're already subscribed.",
+          duplicate: true,
         });
-      });
+      }
 
       return res.status(201).json({ message: "Subscribed successfully." });
     } catch (err: any) {
@@ -74,36 +61,21 @@ export async function registerRoutes(
   // ── Contact form ────────────────────────────────────────────────────────────
   app.post("/api/contact", contactLimiter, async (req: Request, res) => {
     try {
-      const data = insertContactSubmissionSchema.parse(req.body);
+      // Honeypot — bots fill this invisible field, humans never see it
+      const { website: honeypot, ...body } = req.body ?? {};
+      if (honeypot) {
+        return res.status(200).json({ message: "Message sent successfully." });
+      }
+
+      const data = insertContactSubmissionSchema.parse(body);
 
       const ipAddress =
         (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
         req.socket.remoteAddress ||
         undefined;
       const userAgent = (req.headers["user-agent"] as string) || undefined;
-      const timestamp = new Date().toUTCString();
 
-      await storage.createContactSubmission({ ...data, ipAddress, userAgent });
-
-      const emailResults = await Promise.allSettled([
-        sendContactNotification({
-          name:        data.name ?? "",
-          email:       data.email,
-          subject:     data.subject,
-          enquiryType: data.enquiryType ?? "general",
-          message:     data.message,
-          ipAddress,
-          userAgent,
-          timestamp,
-        }),
-        sendContactConfirmation({ name: data.name ?? "", email: data.email }),
-      ]);
-
-      emailResults.forEach((r, i) => {
-        if (r.status === "rejected") {
-          console.error(`[contact] email ${i === 0 ? "notification" : "confirmation"} failed:`, r.reason);
-        }
-      });
+      await contactService.submit(data, { ipAddress, userAgent });
 
       return res.status(200).json({ message: "Message sent successfully." });
     } catch (err: any) {
@@ -112,6 +84,21 @@ export async function registerRoutes(
       }
       console.error("[contact]", err);
       return res.status(500).json({ message: "Failed to send message. Please try again." });
+    }
+  });
+
+  // ── Newsletter unsubscribe ──────────────────────────────────────────────────
+  app.post("/api/newsletter/unsubscribe", async (req, res) => {
+    try {
+      const { email } = req.body ?? {};
+      if (!email || typeof email !== "string") {
+        return res.status(400).json({ message: "Email is required." });
+      }
+      await newsletterService.unsubscribe(email);
+      return res.status(200).json({ message: "Unsubscribed successfully." });
+    } catch (err) {
+      console.error("[newsletter/unsubscribe]", err);
+      return res.status(500).json({ message: "Failed to unsubscribe. Please try again." });
     }
   });
 

@@ -206,6 +206,7 @@ async function main() {
   for (const route of PUBLIC_ROUTES) {
     const { response, html } = await fetchDocument(route);
     assert.equal(response.status, 200, `${route} should return HTTP 200`);
+    assertInitialMetadata(html, ROUTE_SEO[route]);
     assertBaseEntities(parseGraph(html), `https://kiutmusic.com${route === "/" ? "/" : route}`);
   }
 

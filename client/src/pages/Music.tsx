@@ -14,6 +14,7 @@ import {
   getAlbumPreviewAudio, getTrackStreamingUrl,
   GOOD_LIFE_EP_ART, SOFA_EP_ART, ANNOUNCE_ART, ELIGIBLE_EP_ART,
 } from "@/data/tracks";
+import { GOOD_LIFE_EP_LINK } from "@/data/social";
 import { staggerContainer, staggerItem, viewport } from "@/lib/motion";
 
 // Image paths are imported from tracks.ts (GOOD_LIFE_EP_ART, etc.)
@@ -524,14 +525,14 @@ export default function Music() {
           <div className="flex flex-wrap items-center gap-4">
             <PremiumCTAButton
               as="a"
-              href="https://linktr.ee/kiut_goodlife"
+              href={GOOD_LIFE_EP_LINK}
               target="_blank"
               rel="noopener noreferrer"
               icon={<Play size={13} fill="currentColor" className="ml-0.5" />}
             >
               Listen Now
             </PremiumCTAButton>
-            <a href="https://linktr.ee/kiut_goodlife" target="_blank" rel="noopener noreferrer">
+            <a href={GOOD_LIFE_EP_LINK} target="_blank" rel="noopener noreferrer">
               <motion.button
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
@@ -592,6 +593,12 @@ export default function Music() {
                     {featuredTrack.status === "recently-released"
                       ? "Romantic Love · Original Single"
                       : "Available everywhere"}
+                  </p>
+                )}
+                {!currentTrack && featuredTrack.title === "Romantic Love" && (
+                  <p className="text-white/40 text-sm leading-relaxed max-w-xl mb-8">
+                    Romantic Love is a recently released original single by Kiut, pairing his
+                    Afro-Caribbean sound with a warm, cinematic love story.
                   </p>
                 )}
 
@@ -724,7 +731,7 @@ export default function Music() {
               transition={{ duration: 1.2, delay: 0.2 }}
               className="font-editorial italic text-white/70 text-xl md:text-3xl leading-relaxed font-light"
             >
-              "Living the good life, every night feels right — the world is mine when the beat drops right."
+              "Black is beautiful, you be bad man obsession, You’re my number one temptation, bringing me less sensation, Staking all my love attention.Keeping you my confession."
             </motion.blockquote>
             <div className="mt-8 flex items-center justify-center gap-3">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold/40" />

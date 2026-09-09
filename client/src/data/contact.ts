@@ -13,6 +13,7 @@
 import { LINKTREE_URL } from "./social";
 
 export const CONTACT_EMAIL = "contact@kiutmusic.com";
+export const CONTACT_LOCATION_ADDRESS = "5101 Santa Monica Blvd, Los Angeles, CA 90029, United States";
 
 export interface ContactChannel {
   id: string;
@@ -75,10 +76,10 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
   {
     id: "location",
     label: "Location",
-    description: "Based in Lagos, Nigeria — available worldwide.",
-    value: "Lagos, Nigeria",
+    description: "Based in Los Angeles, California — available worldwide.",
+    value: CONTACT_LOCATION_ADDRESS,
     kind: "link",
-    href: "https://www.google.com/maps/search/?api=1&query=Lagos%2C+Nigeria",
+    href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT_LOCATION_ADDRESS)}`,
     icon: "location",
   },
   {
@@ -118,13 +119,13 @@ export interface LocationInfo {
 }
 
 export const LOCATION_INFO: LocationInfo[] = [
-  { label: "Artist Region",              value: "Lagos, Nigeria — West Africa" },
-  { label: "Management Office",          value: "Lagos, Nigeria" },
+  { label: "Artist Region",              value: "Los Angeles, California, United States 🇺🇸" },
+  { label: "Management Office",          value: "Los Angeles, California, United States 🇺🇸" },
   { label: "Primary Booking Territory",  value: "West Africa, Europe & North America" },
   { label: "International Availability", value: "Worldwide, by arrangement" },
 ];
 
-export const LOCATION_MAP_QUERY = "Lagos, Nigeria";
+export const LOCATION_MAP_QUERY = CONTACT_LOCATION_ADDRESS;
 
 // ─── Contact FAQ ────────────────────────────────────────────────────────────────
 export const CONTACT_FAQ = [

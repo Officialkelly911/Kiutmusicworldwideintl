@@ -217,7 +217,7 @@ const socialLinks = [
 const communityStats = [
   { label: "Countries Listening", value: "20+" },
   { label: "Newsletter Subscribers", value: "50K+" },
-  { label: "Years Creating Music", value: "10+" },
+  { label: "Years Creating Music", value: "20+" },
 ];
 
 // ─── Floating-label input ──────────────────────────────────────────────────────
@@ -787,7 +787,9 @@ function ContactInfoCard({ channel }: { channel: (typeof CONTACT_CHANNELS)[0] })
           {channel.label}
         </h3>
         <p className="text-white/35 text-xs leading-relaxed mb-1">{channel.description}</p>
-        <p className="text-white/25 text-[11px] truncate">{channel.value}</p>
+        <p className={`text-white/25 text-[11px] ${channel.id === "location" ? "break-words" : "truncate"}`}>
+          {channel.value}
+        </p>
       </div>
       {channel.kind === "email" && (
         <span className="flex-shrink-0 text-white/20 group-hover:text-gold/60 transition-colors duration-fast" aria-hidden="true">
@@ -1039,7 +1041,7 @@ export default function Contact() {
                 {LOCATION_INFO.map((item) => (
                   <div key={item.label} className="flex items-start justify-between gap-4 py-3 border-b border-white/[0.06]">
                     <span className="text-white/35 text-xs uppercase tracking-widest font-medium flex-shrink-0">{item.label}</span>
-                    <span className="text-white/70 text-sm text-right">{item.value}</span>
+                    <span className="min-w-0 text-white/70 text-sm text-right break-words">{item.value}</span>
                   </div>
                 ))}
               </div>

@@ -1,0 +1,257 @@
+PHASE 12 — CONTACT & COMMUNITY INFORMATION UPDATE
+
+Make the following targeted content updates to the existing KIUT Music website.
+
+IMPORTANT:
+This is a CONTENT-ONLY update.
+Do not redesign the page.
+Do not modify layout, typography, colors, spacing, animations, navigation, components, routing, SEO architecture, structured data, analytics, or unrelated functionality.
+
+==================================================
+1. CONTACT & COMMUNITY STATISTICS
+==================================================
+
+In the Contact & Community section, locate the statistic currently displayed as:
+
+10+
+YEARS CREATING MUSIC
+
+Change ONLY the number:
+
+10+ → 20+
+
+The resulting display should be:
+
+20+
+YEARS CREATING MUSIC
+
+Do not change the label.
+
+==================================================
+2. ARTIST REGION
+==================================================
+
+Locate the "ARTIST REGION" information in the "WHERE TO FIND KIUT" section.
+
+Current value:
+
+Lagos, Nigeria — West Africa
+
+Replace it with:
+
+Los Angeles, California, United States 🇺🇸
+
+Preserve the existing label:
+
+ARTIST REGION
+
+Do not change the surrounding layout or styling.
+
+==================================================
+3. MANAGEMENT OFFICE
+==================================================
+
+Locate the "MANAGEMENT OFFICE" information in the "WHERE TO FIND KIUT" section.
+
+Current value:
+
+Lagos, Nigeria
+
+Replace it with:
+
+Los Angeles, California, United States 🇺🇸
+
+Preserve the existing label:
+
+MANAGEMENT OFFICE
+
+Do not change the surrounding layout or styling.
+
+==================================================
+4. LOCATION ADDRESS
+==================================================
+
+Locate the contact information card labeled:
+
+LOCATION
+
+Update the address/value currently associated with that card to:
+
+5101 Santa Monica Blvd,
+Los Angeles, CA 90029,
+United States
+
+Preserve the existing LOCATION label, icon, card design, and supporting copy unless the address formatting requires a minimal responsive adjustment.
+
+If the existing location card contains a map link or map destination tied specifically to the old Lagos location, update the destination to the new Los Angeles address so the visible address and map behavior remain consistent.
+
+Do not alter unrelated map functionality.
+
+==================================================
+5. DATA CONSISTENCY
+==================================================
+
+Before editing, search the project for the existing values:
+
+"Lagos, Nigeria — West Africa"
+"Lagos, Nigeria"
+"10+"
+"YEARS CREATING MUSIC"
+"LOCATION"
+
+Determine whether these values are stored in a shared data/configuration module.
+
+If the Contact page and other components consume a shared source of truth, update the appropriate source rather than creating duplicate overrides.
+
+Do NOT globally replace every occurrence of "Lagos, Nigeria" across the entire application.
+
+Only update the fields that correspond to:
+
+- Artist Region
+- Management Office
+- Contact Location Address
+
+Preserve any unrelated Lagos references elsewhere in the website unless they are explicitly part of these three requested fields.
+
+==================================================
+6. SEO / STRUCTURED DATA PROTECTION
+==================================================
+
+Because the location and organizational information may appear in structured data or metadata, inspect whether these fields are referenced by:
+
+- JSON-LD
+- Organization/MusicGroup schema
+- WebPage schema
+- Contact metadata
+- Open Graph
+- SEO configuration
+
+Do not automatically modify SEO/schema values unless they are directly derived from the same contact/location data source.
+
+If structured data explicitly describes the management/contact location and is now factually inconsistent with the updated visible information, update only the corresponding supported field.
+
+Do not introduce new schema.
+
+Do not alter canonical URLs.
+
+Do not alter robots.txt.
+
+Do not alter sitemap.xml unless the implementation genuinely requires it.
+
+==================================================
+7. MAP CONSISTENCY
+==================================================
+
+If the existing location map is configured for Lagos, update its destination/query to:
+
+5101 Santa Monica Blvd, Los Angeles, CA 90029, United States
+
+Ensure the "Open in Maps" behavior points to the updated location.
+
+Do not replace the map provider or redesign the map.
+
+==================================================
+8. RESPONSIVE VALIDATION
+==================================================
+
+Verify the updated values on:
+
+- Desktop
+- Tablet
+- Mobile
+
+Pay particular attention to:
+
+Los Angeles, California, United States 🇺🇸
+
+and
+
+5101 Santa Monica Blvd, Los Angeles, CA 90029, United States
+
+Ensure neither value:
+
+- overflows
+- gets clipped
+- overlaps another element
+- causes horizontal scrolling
+- breaks the existing card layout
+
+Use the existing responsive behavior rather than introducing unnecessary CSS changes.
+
+==================================================
+9. REGRESSION PROTECTION
+==================================================
+
+Do not modify:
+
+- Homepage design
+- Music page
+- Videos page
+- Tour page
+- Newsletter page
+- Legal page
+- Navigation
+- Footer
+- Existing SEO architecture
+- JSON-LD architecture
+- Analytics
+- 404 handling
+- Performance optimizations
+- Third-party integrations
+
+Run the existing validation suite after the update.
+
+At minimum run:
+
+npm run check
+npm run build
+
+Also run the existing:
+
+- SEO regression tests
+- Structured-data regression tests
+- 404 regression tests
+- Browser tests
+
+if available.
+
+==================================================
+10. FINAL VERIFICATION
+==================================================
+
+Confirm the Contact page visibly contains:
+
+20+
+YEARS CREATING MUSIC
+
+ARTIST REGION
+Los Angeles, California, United States 🇺🇸
+
+MANAGEMENT OFFICE
+Los Angeles, California, United States 🇺🇸
+
+LOCATION
+5101 Santa Monica Blvd,
+Los Angeles, CA 90029,
+United States
+
+Confirm the map destination, if applicable, corresponds to the new Los Angeles address.
+
+Confirm no unrelated content was changed.
+
+Do not publish automatically.
+
+FINAL REPORT:
+
+Provide:
+
+1. Files changed
+2. Exact content values changed
+3. Whether the map destination was updated
+4. Whether any structured-data/contact data was updated
+5. npm run check result
+6. npm run build result
+7. Browser/mobile validation result
+8. Any unrelated values intentionally left unchanged
+
+Keep this implementation strictly scoped to the requested Contact & Community information update.

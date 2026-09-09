@@ -1,0 +1,240 @@
+PHASE 12 — SOCIAL PROFILE DISPLAY NAME UPDATE
+
+Make a strictly content-only update to the social media profile cards shown on the KIUT Music website.
+
+IMPORTANT:
+I am changing ONLY the visible/displayed artist names shown beneath each social platform.
+
+DO NOT change:
+- Embedded URLs
+- Link destinations
+- Social media handles contained inside URLs
+- Platform icons
+- Platform names
+- Card styling
+- Colors
+- Typography
+- Layout
+- Animations
+- Navigation
+- SEO
+- JSON-LD
+- Analytics
+- Routing
+- Any unrelated content
+
+==================================================
+1. X
+==================================================
+
+Locate the X social profile card.
+
+Keep the existing embedded X URL exactly unchanged.
+
+Change ONLY the displayed profile name/handle to:
+
+@Kiutraba
+
+The visible card should show:
+
+X
+@Kiutraba
+
+==================================================
+2. FACEBOOK
+==================================================
+
+Locate the Facebook social profile card.
+
+Keep the existing embedded Facebook URL exactly unchanged.
+
+Change ONLY the displayed profile name to:
+
+Kiut Rababag
+
+The visible card should show:
+
+Facebook
+Kiut Rababag
+
+==================================================
+3. TIKTOK
+==================================================
+
+Locate the TikTok social profile card.
+
+Keep the existing embedded TikTok URL exactly unchanged.
+
+Change ONLY the displayed profile name to:
+
+Kiut Rababag
+
+The visible card should show:
+
+TikTok
+Kiut Rababag
+
+==================================================
+4. THREADS
+==================================================
+
+Locate the Threads social profile card.
+
+Keep the existing embedded Threads URL exactly unchanged.
+
+Change ONLY the displayed profile name to:
+
+Kiut Rababag
+
+The visible card should show:
+
+Threads
+Kiut Rababag
+
+==================================================
+5. DREAM PLANET
+==================================================
+
+Locate the Dream Planet social/store card.
+
+Keep the existing embedded Dream Planet URL exactly unchanged.
+
+Change ONLY the displayed account/profile name to:
+
+Kiut_Rababag
+
+The visible card should show:
+
+DreamPlanet
+Kiut_Rababag
+
+Do not change the existing "Store" descriptor if it is part of the current card.
+
+==================================================
+6. IMPORTANT URL PROTECTION
+==================================================
+
+Before editing, inspect the social-links data source and identify the existing URLs.
+
+Create a before/after verification for each link.
+
+The following must remain byte-for-byte/functionally unchanged:
+
+- X URL
+- Facebook URL
+- TikTok URL
+- Threads URL
+- Dream Planet URL
+
+Only the display-name values may change.
+
+Do NOT perform a global search-and-replace on handles because the same handles may legitimately appear in URLs, SEO metadata, analytics, or other content.
+
+Update the appropriate display-label/profile-name fields only.
+
+==================================================
+7. DATA SOURCE
+==================================================
+
+If these social cards are generated from a shared social-links configuration/data module:
+
+Update the display-name fields in that source of truth.
+
+Do not create duplicate overrides in the component.
+
+If the URL and display name are stored together, modify only the display-name property.
+
+Example concept:
+
+{
+  platform: "X",
+  url: EXISTING_URL,
+  displayName: "@Kiutraba"
+}
+
+The existing URL must remain untouched.
+
+==================================================
+8. VISUAL VALIDATION
+==================================================
+
+Verify the updated cards on:
+
+- Mobile
+- Tablet
+- Desktop
+
+Confirm:
+
+X → @Kiutraba
+Facebook → Kiut Rababag
+TikTok → Kiut Rababag
+Threads → Kiut Rababag
+DreamPlanet → Kiut_Rababag
+
+Ensure the new names:
+
+- Are fully visible
+- Are not truncated unexpectedly
+- Do not overlap icons
+- Do not cause horizontal overflow
+- Preserve the existing card height and spacing
+
+Do not redesign the cards.
+
+==================================================
+9. LINK VALIDATION
+==================================================
+
+Click/test every affected card and verify that each still navigates to the EXACT same destination as before the change.
+
+The displayed name and destination must be treated as two separate pieces of data.
+
+==================================================
+10. REGRESSION PROTECTION
+==================================================
+
+Do not modify:
+
+- SEO metadata
+- Canonicals
+- Robots
+- Sitemap
+- JSON-LD
+- 404 handling
+- Analytics
+- Contact information
+- Music catalogue
+- Video catalogue
+- Tour information
+- Homepage content
+- Navigation
+- Dream Planet integration behavior
+
+Run:
+
+npm run check
+npm run build
+
+Run the existing browser/regression tests if available.
+
+==================================================
+11. FINAL REPORT
+==================================================
+
+Report:
+
+1. Files changed
+2. Display names changed
+3. Confirmation that all five embedded URLs remained unchanged
+4. Mobile validation result
+5. Desktop validation result
+6. Link-click validation result
+7. npm run check result
+8. npm run build result
+9. Any unexpected issue discovered
+
+This is a narrowly scoped display-name update.
+
+Do not make any additional visual, SEO, performance, content, or functional changes.
+Do not publish automatically.

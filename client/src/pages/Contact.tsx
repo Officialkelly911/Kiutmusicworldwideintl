@@ -159,7 +159,7 @@ const socialLinks = [
   },
   {
     label: "DreamPlanet",
-    sub: "Store",
+    sub: "Kiut_Rababag",
     icon: SiDreamPlanet,
     href: DREAMPLANET_URL,
     color: "from-gold/10 to-amber-500/10",
@@ -168,7 +168,7 @@ const socialLinks = [
   },
   {
     label: "TikTok",
-    sub: "@kiutmusic",
+    sub: "Kiut Rababag",
     icon: SiTiktok,
     href: TIKTOK_URL,
     color: "from-white/5 to-slate-700/10",
@@ -177,7 +177,7 @@ const socialLinks = [
   },
   {
     label: "Facebook",
-    sub: "Kiut Music",
+    sub: "Kiut Rababag",
     icon: SiFacebook,
     href: FACEBOOK_URL,
     color: "from-blue-600/10 to-blue-800/10",
@@ -195,7 +195,7 @@ const socialLinks = [
   },
   {
     label: "X",
-    sub: "@kiutmusic",
+    sub: "@Kiutraba",
     icon: SiX,
     href: X_URL,
     color: "from-white/5 to-slate-700/10",
@@ -204,7 +204,7 @@ const socialLinks = [
   },
   {
     label: "Threads",
-    sub: "@kiutmusic",
+    sub: "Kiut Rababag",
     icon: SiThreads,
     href: THREADS_URL,
     color: "from-white/5 to-slate-700/10",
